@@ -1,0 +1,129 @@
+#+title: Projectile. Integración de Projectos para Emacs
+#+date: <2020-12-05 19:53>
+#+filetags: emacs
+
+* Docs.Projectile.mx
+
+Projectile es una biblioteca de interacción de proyectos para Emacs. Su objetivo es proporcionar un buen conjunto de características que operan a nivel de proyecto sin introducir dependencias externas.
+Esta biblioteca proporciona una fácil gestión y navegación de proyectos. El concepto de proyecto es bastante básico: solo una carpeta que contiene algún archivo especial (por ejemplo, un marcador VCS o un archivo descriptor de proyecto). Actualmente git, mercurial, darcsy bazaarrepos se consideran proyectos por defecto.
+Si desea marcar un directorio  manualmente como proyecto, simplemente cree un archivo vacío en ella llamado ".projectile".
+
+* Caracteristicas:
+
+***** Saltar a un archivo en el proyecto.
+
+***** Saltar a un directorio en el proyecto.
+
+***** Saltar a un archivo en un directorio.
+
+***** Saltar a un buffer del proyecto.
+
+***** Saltar a archivos visitados recientemente en el proyecto.
+
+***** Cambiar  entre proyectos en los que ha trabajado.
+
+***** Matar todos los buffer del proyecto.
+
+***** Reemplazar un proyecto. 
+
+***** Grep en el proyecto.
+
+***** Ejecutar make en un proyecto con un solo acorde.
+
+***** Soporte para multiples bibliotecas de finalización/selección (ido, ivy, helm y el sistema de terminación por defecto).
+
+* Inicio rápido 
+
+Projectile esta disponible en los repositorios principales, entonces:
+
+#+BEGIN_SRC
+M-x package-install RET projectile RET
+#+END_SRC
+
+Despues en el init.el:
+
+#+BEGIN_SRC 
+(modo proyectil +1 )
+( define-clave proyectil-modo-mapa ( kbd  " sp " ) 'proyectil-comando-mapa )
+( define-clave proyectil-modo-mapa ( kbd  " Cc p " ) 'proyectil-comando-mapa )
+#+END_SRC
+
+Estos Keybindings son solo una sugerencia, pueden modificarse a gusto.
+
+
+** Instalación mediante *use-package*
+   
+   Para instalar la versión de projectile que esta en la rama master, se declara los siguiente en el init.el:
+
+#+BEGIN_SRC
+(use-package projectile
+  :ensure t
+  :init
+  (projectile-mode +1)
+  :bind (:map projectile-mode-map
+              ("s-p" . projectile-command-map)
+              ("C-c p" . projectile-command-map)))
+#+END_SRC
+
+* Uso básico
+
+Para habilitar projectile ~projectile mode~, luego en uno de los archivos del proyecto lanzar el comando *C-c p f* o *s-p f* que son los atajos para buscar en el proyecto.
+
+| Keybinding | Descripción                                                          |
+|------------+----------------------------------------------------------------------|
+| s-p f      | Lista todos los archivos del proyecto                                |
+| s-p F      | Lista todos los archivos de todos los proyectos                      |
+| s-p g      | Lista todos los archivos en un punto del proyectos                   |
+| s-p 4 f    | Salta a un archivo de un proyecto y lo muestra en otra ventana       |
+| s-p d      | Lista todos los directorios del proyecto                             |
+| s-p 4 d    | Cambia a un directorio de proyecto y lo muestra en otra ventana      |
+| s-p 5 d    | Cambia a un directorio de proyecto y lo muestra en otro marco        |
+| s-p T      | Lista todos los archivos de prueba del proyecto                      |
+| s-p 1      | Lista todos los archivos de un directorio                            |
+| s-p s g    | Ejecuta grep en los archivos del proyecto                            |
+| s-p b      | Lista todos los buffers del proyecto abiertos                        |
+| s-p k      | Mata todos los búfers del proyecto                                   |
+| s-p D      | Abre la raíz del proyecto en dired                                   |
+| s-p 4 D    | Abre la raíz del proyecto en dired en otra ventana                   |
+| s-p 5 D    | Abre la raíz del proyecto en dired en otra marco                     |
+| s-p e      | Lista de archivos de proyectos visitados recientemente               |
+| s-p left   | Cambiar al buffer del proyecto anterior                              |
+| s-p right  | Cambiar al buffer del proyecto siguiente                             |
+| s-p m      | Projectile-comander (interfaz ejecutar comandos con una sola teclas) |
+|            |                                                                      |
+
+
+** Atajos
+   
+   Unos cuantos atajos para los comandos más comunes: 
+
+   #+BEGIN_SRC
+   (define-key projectile-mode-map [?\s-d] 'projectile-find-dir)
+   (define-key projectile-mode-map [?\s-p] 'projectile-switch-project)
+   (define-key projectile-mode-map [?\s-f] 'projectile-find-file)
+   (define-key projectile-mode-map [?\s-g] 'projectile-grep)
+   #+END_SRC
+
+* Projectile-comander 
+  
+  Es una ingeniosa utilidad para recordar combinaciónes de teclas. Se invoca con ~s-p m~
+
+| Keybindings | Descripción                                 |
+|-------------+---------------------------------------------|
+| ?           | Agyda de comander                           |
+| D           | Abre la raiz del proyecto en dired          |
+| a           | Ejecutar un proyecto                        |
+| b           | Cambiar al buffer del proyecto              |
+| d           | Encuentra un directorio en el proyecto      |
+| e           | Encuentra un archivo visitado recientemente |
+| f           | Buscar archivo en el proyecto               |
+| k           | Mata todos los buffers del proyecto         |
+| r           | Reemplazar una cadena en el proyecto        |
+| s           | Cambiar de proyecto                         |
+| v           | Abre la raiz del proyecto en magit          |
+|-------------+---------------------------------------------|                                                   
+
+
+El [[https://docs.projectile.mx/projectile/index.html][manual del usuario]] tiene la posta.
+
+

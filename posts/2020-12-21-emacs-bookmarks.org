@@ -1,0 +1,44 @@
+#+title: Emacs Bookmarks
+#+date: <2020-12-21 11:06>
+#+filetags: emacs
+
+* [[https://www.emacswiki.org/emacs/BookMarks][Emacs Wiki]]
+  
+Los marcadores registran ubicaciones para que puedas volver a ellas más tarde.
+Los marcadores de Emacs utilizan tres cosas que están relacionadas pero son diferentes: una lista de marcadores , un archivo de marcadores y una pantalla de lista de marcadores . Comprenderlos es importante para usar los marcadores de Emacs. 
+
+Algunos comandos de marcadores para comenzar:
+
++ *C-x r m* establece un marcador en la ubicacion actual.
+
++ *C-x r b* salta a un marcador.
+
++ *C-x r l* lista marcadores.
+
++ *M-x bookmark-delete* elimina un marcador.
+
+La opción ‘bookmark-default-file’ define un archivo bookmarks , que por defecto es ` ~/.emacs.d/bookmarks` en las versiones más recientes. Emacs mantiene el archivo automáticamente a medida que crea, cambia y elimina marcadores.
+
+* Lista de marcadores
+
+El comando *bookmark-bmenu-list*, vinculado a *C-x r l*, proporciona un menú conveniente para acceder a los marcadores. La lista es como un dired para marcadores
+
+* Claves en *bookmark list*:
+
+      + *a* mostrar anotación para el marcador actual.
+      
+      + *A* mostrar todas las anotaciónes para sus marcadores.
+
+      + *d* marcar varias entradas para borrarlas(*x* para borrarlas)
+      
+      + *e* editar anotación del marcador actual.
+
+      + *m* marcar varias entradas para visualización y otras operaciones, ( *v* para visitar)
+     
+      + *o* visitar el marcador actual en otra ventana, mateniendo abierta la lista de marcadores.
+
+      + *C-o* cambiar al marcador actual en otro ventana.
+
+      + *r* cambiar el nombre del marcador actual.
+
+Esto es solo un ~miniresumen~ de [[https://www.emacswiki.org/emacs/BookMarks][Emacs Wiki]]

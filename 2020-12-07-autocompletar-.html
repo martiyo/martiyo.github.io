@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Auto-complete</title>
+    <meta name="author" content="martin" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">04 dic 2020</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2020-12-07-autocompletar-.html"
+          >Auto-complete</a
+        >
+      </h1>
+      <p>
+        Auto-complete es una extensión inteligente de autocompletado para el
+        Emacs. Amplía la interfaz estándar de finalización de Emacs y
+        proporciona un entorno que permite a los usuarios concentrarse más en su
+        propio trabajo.
+      </p>
+
+      <div id="outline-container-org6c2867b" class="outline-2">
+        <h2 id="org6c2867b">Instalación</h2>
+        <div class="outline-text-2" id="text-org6c2867b">
+          <p>
+            <code>M-x package-install RET auto-complete</code>
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orge443a7e" class="outline-2">
+        <h2 id="orge443a7e">Configuración</h2>
+        <div class="outline-text-2" id="text-orge443a7e">
+          <p>En el archivo init.el&#x2026;</p>
+
+          <pre class="example">
+(add-to-list 'load-path "/.emacs.d/auto-complete-20201011.1341/")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete-20201041/dict")
+(ac-config-default)
+;; habilitar en web-mode
+(add-to-list 'ac-modes 'web-mode)
+</pre
+          >
+
+          <p>
+            <b>Fuente</b>
+            <a
+              href="https://github.com/auto-complete/auto-complete/blob/master/doc/manual.md"
+              >Auto-complete github</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="http://misnotas.com/rss.xml"
+      title="RSS feed for http://misnotas.com/"
+    />
+    <title>Servidor webDAV</title>
+    <meta name="author" content="martin" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">23 dic 2020</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2020-12-23-servidor-webdav.html"
+          >Servidor webDAV</a
+        >
+      </h1>
+
+      <div id="outline-container-orgfb8f13d" class="outline-2">
+        <h2 id="orgfb8f13d">Webdav wiki</h2>
+        <div class="outline-text-2" id="text-orgfb8f13d">
+          <p>
+            WebDAV es un grupo de trabajo del Internet Engineering Task Force.
+            El término significa "Autoría y versionado distribuidos por Web"
+            (Web Distributed Authoring and Versioning), y se refiere al
+            protocolo (más precisamente, a la extensión del protocolo http) que
+            el grupo definió.
+          </p>
+
+          <p>
+            El objetivo de WebDAV es hacer de la World Wide Web un medio legible
+            y editable, en línea con la visión original de Tim Berners-Lee. Este
+            protocolo proporciona funcionalidades para crear, cambiar y mover
+            documentos en un servidor remoto (típicamente un servidor web). Esto
+            se utiliza sobre todo para permitir la edición de los documentos que
+            sirve un servidor web, pero puede también aplicarse a sistemas de
+            almacenamiento generales basados en web, que pueden ser accedidos
+            desde cualquier lugar. La mayoría de los sistemas operativos
+            modernos proporcionan soporte para WebDAV, haciendo que los ficheros
+            de un servidor WebDAV aparezcan como almacenados en un directorio.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org79a79f4" class="outline-2">
+        <h2 id="org79a79f4">
+          Instalación y configuración de un servidor webdav
+        </h2>
+        <div class="outline-text-2" id="text-org79a79f4"></div>
+        <ul class="org-ul">
+          <li>
+            <a id="orga4924f7"></a>Instalar Apache2<br />
+            <div class="outline-text-5" id="text-orga4924f7">
+              <pre class="example">
+sudo apt install apache2 apache2-utils
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="orgfc444e5"></a>Directorio de almacenamiento:<br />
+            <div class="outline-text-5" id="text-orgfc444e5">
+              <pre class="example">
+sudo mkdir ~/webDAV
+</pre
+              >
+
+              <p>Agregar éste directorio al usuario y grupo <b>www-data</b>:</p>
+
+              <pre class="example">
+sudo chown -R www-data:www-data ~/webDav
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="orga84bc23"></a>Habilitar los módulos dav y dav-fs en
+            apache<br />
+            <div class="outline-text-5" id="text-orga84bc23">
+              <pre class="example">
+sudo a2enmod dav
+
+sudo a2enmod dav_fs
+</pre
+              >
+
+              <p>Reiniciar el servidor:</p>
+
+              <pre class="example">
+sudo service apache2 restart
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org2f48528"></a>Configuración del virtual host de apache<br />
+            <div class="outline-text-5" id="text-org2f48528">
+              <p>
+                para configurar un servidor basico en apache hay que editar el
+                archivo
+                <b>/etc/apache2/sites-available/000-default.conf</b> y dejarlo
+                así:
+              </p>
+
+              <pre class="example">
+DavLockDB /var/www/DavLock
+&lt;VirtualHost *:80&gt;
+
+ServerAdmin webmaster@localhost
+DocumentRoot /var/www/html
+
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+Alias /webdav /var/www/webdav
+
+&lt;Directory /var/www/webdav&gt;
+    DAV On
+&lt;/Directory&gt;
+
+&lt;/VirtualHost&gt;
+</pre
+              >
+
+              <p>
+                después de editar éste archivo hay que reiniciar el
+                servidor&#x2026;
+              </p>
+
+              <p>
+                Para comprobar su funcionamiento en un navegador ir a la
+                dirección:
+              </p>
+
+              <pre class="example">
+ip_servidor/webdav
+</pre
+              >
+
+              <blockquote>
+                <p>
+                  Para cambiar el directorio a compartir (/var/www/webdav) por
+                  otro ubicado en una partición diferente de la raiz, se agrega
+                  lo siguiente al archivo <b>000-default.conf</b>:
+                </p>
+              </blockquote>
+
+              <pre class="example">
+Options Indexes FollowSymLinks
+AllowOverride All
+Require all granted
+DAV On
+</pre
+              >
+
+              <p>que al final se ve así:</p>
+
+              <pre class="example">
+DavLockDB /var/www/DavLock
+&lt;VirtualHost *:80&gt;
+
+ServerAdmin webmaster@localhost
+DocumentRoot /var/www/html
+
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+Alias /webdav /home/martin/webDAV
+
+&lt;Directory /home/martin/webDAV&gt;
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+        DAV On
+&lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+</pre
+              >
+
+              <blockquote>
+                <p>
+                  Para poder editar los archivos desde diferentes dispositivos
+                  hay que configurar los permisos:
+                </p>
+              </blockquote>
+
+              <pre class="example">
+sudo chgrp -R www-data ~/webDAV
+sudo chmod -R g+w ~/webDAV
+sudo find ~/webDAV -type d -exec chmod 2775 {} \;
+sudo find ~/webDAV -type f -exec chmod ug+rw {} \;
+</pre
+              >
+
+              <p>
+                <a
+                  href="https://geekland.eu/instalar-y-configurar-un-servidor-webdav-apache/"
+                  >resumen de geekland</a
+                >
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+    </div>
+  </body>
+</html>

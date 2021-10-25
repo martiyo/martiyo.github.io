@@ -1,0 +1,140 @@
+#+title: Pass el gestor de contraseñas estandar de unix
+#+date: <2021-10-24 16:48>
+#+description: contraseñas para todos
+#+filetags: consola, linux
+
+La gestión de contraseñas debe ser simple y seguir Filosofía Unix. 
+
+** Introducción 
+
+   Con pass, cada contraseña vive dentro de un archivo gpg cifrado cuyo nombre de archivo es el título del sitio web, correo o recurso que requiere la contraseña. Estos archivos cifrados pueden organizarse en jerarquías de carpetas significativas, copiadas de ordenador a ordenador, y, en general, manipuladas utilizando los servicios de gestión de archivos de línea de comando estándar.
+
+pass hace que la gestión de estos archivos de contraseña individuales sea extremadamente fácil. Todas las contraseñas viven en *~/.password-store*, y pass proporciona algunos comandos agradables para agregar, editar, generar y recuperar contraseñas. Es un script de shell muy corto y sencillo. Es capaz de poner temporalmente contraseñas en su portapapeles y rastrear cambios de contraseña utilizando git.
+
+**  Usando el Password-store
+
+*** Enumerar las contraseñas existentes en el store 
+
+    #+BEGIN_SRC
+    dev1@devuan ~ $ pass 
+    Password Store
+    └── correo
+       ├── casaresrm@gmail.com
+       └── probando@gmail.com
+    #+END_SRC
+
+*** Mostrar contraseñas
+
+       #+BEGIN_SRC
+       dev1@devuan ~ $ pass casaresrm@gmail.com 
+       contraseñasegura
+      #+END_SRC
+
+***  Copiar al portapapeles
+    
+    
+       #+BEGIN_SRC
+        dev1@devuan ~ $ pass -c casaresrm@gmail.com 
+        Copied correo/casaresrm@gmail.com to clipboard. Will clear in 45 seconds.
+       #+END_SRC
+
+
+       Cualquira de estos comandos habrirá un diálogo de entrada de contraseña agradable usando el estándar gpg-agent (que se puede configurar para mantenerse autenticado durante varios minutos), ya que todas las contraseñas están encriptadas.
+*** Añadir o modificar contraseñas  
+
+    Añadir 
+    #+BEGIN
+      [dev1@devuan ~]$  pass insert martiyo@protonmail.com
+        Enter password for martiyo@protonmail.com: 
+        Retype password for martiyo@protonmail.com: 
+    #+END_SRC	
+    
+    Modificar
+
+    #+BEGIN_SRC 
+      [dev1@devuan ~]$  pass insert correo/probando@gmail.com
+      An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
+    #+END_SRC
+    
+    Esto también maneja contraseñas multilíneas u otros datos con --multiline or -m, y las contraseñas se pueden editar en su editor de texto predeterminado utilizando pass edit pass-name.
+*** Contraseñas automaticas
+    
+    La utilidad *generate* crea nuevas contraseñas utilzando */dev/urandom*
+
+    #+BEGIN_SRC
+       [dev1@devuan ~]$  pass generate web/midudev.com 15
+         mkdir: se ha creado el directorio '/home/dev1/.password-store/web'
+         The generated password for web/midudev.com is:
+         r?>T.C/NE)>kT9W
+    #+END_SRC
+
+Es posible generar contraseñas sin símbolos usando --no-symbols or -n, y podemos copiarlo al portapapeles en lugar de mostrarlo en la consola usando --clip or -c.
+***  Eliminar
+
+    #+BEGIN_SRC 
+      [dev1@devuan ~]$  pass rm correo/probando@gmail.com 
+        Are you sure you would like to delete correo/probando@gmail.com? [y/N] y
+        '/home/dev1/.password-store/correo/probando@gmail.com.gpg' borrado
+    #+END_SRC
+*** Git 
+    Si la tienda de contraseñas es un repositorio de git, ya que cada manipulación crea un git commit, puede sincronizar la tienda de contraseñas utilizando *pass git push* y *pass git pull*, que llamada git-push or git-pull en la tienda.
+** Configuración
+   
+   Para comenzar hay inicializar el dposito de contraseñas
+
+   #+BEGIN_SRC
+     pass init "id de mi clave GPG"
+   #+END_SRC
+
+*** Generando las claves con GnuPG 
+    
+    Para crear una pareja de claves (publica y privada) se usa
+
+    #+BEGIN_SRC 
+      gpg --gen-key
+    #+END_SRC
+       
+    se completan los datos solicitados y listo.
+
+    el comando 
+
+    #+BEGIN_SRC
+      gpg -k
+    #+END_SRC
+    
+    mostrará la identificación de cada clave
+    [[https://lignux.com/wp-content/uploads/2014/01/instrucciones-gpg.pdf][más info sobre gpg]]
+    
+    *Nota* para que pass pueda descifrar las contraseñas hay que exportar un variable de entorno:
+
+    #+BEGIN_SRC 
+     export GPG_TTY=$(tty)
+    #+END_SRC
+
+*** Inicializar el store como un repositorio git
+
+    #+BEGIN_SRC 
+      $ pass git init
+      Initialized empty Git repository in /home/dev1/.password-store/.git/
+    #+END_SRC
+
+    Si un repositirio git es inicializado, pass crea un git commit cada vez que se manipula el store de contraseñas.
+** Organización 
+
+   nombres de usuario, contraseñas, pins, sitios web, metadatos, etc.
+
+   Password-store no impone ningún esquema o tipo de organización particular de los datos, ya que es simplemente un archivo de texto plano, que puede contener datos arbitrarios. aunque el caso más común es almacenar una contraseña única por entrada, algunos usuarios prefieren almacenar más que su contraseña dentro de la tienda de contraseñas, y además almacenar respuestas a preguntas secretas, urls del sitio web y otra información o metadatos sensibles. como la pass no impone un esquema propio, puede elegir su propia organización. hay muchas posibilidades. Un enfoque es utilizar la funcionalidad multilínea de pase (--multiline or -m in insert), y almacenar la contraseña en sí misma en la primera línea del archivo, y la información adicional en líneas posteriores. por ejemplo, Amazon/bookreader podría parecer así:
+
+   #+BEGIN_SRC 
+     Yw|ZSNH!}z"6{ym9pI
+     URL: *.amazon.com/*
+     Username: AmazonianChicken@example.com
+     Secret Question 1: What is your childhood best friend's most bizarre superhero fantasy? Oh god, Amazon, it's too awful to say...
+     Phone Support PIN #: 84719
+   #+END_SRC
+
+
+   Las opciones *--clip / -c* solo copiarán la primer línea de tal archivo en el portapapeles.
+** Emacs Pass-mode  
+   
+   Y no podia faltar el pass-modo para emacs, se instala con *package-install* y listo, la interfaz es muy intuitiva. 

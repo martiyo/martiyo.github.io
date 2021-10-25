@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Todo el poder a la shell!</title>
+    <meta name="author" content="martin" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">20 ene 2021</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2021-01-20-Aweshell.html"
+          >Todo el poder a la shell!</a
+        >
+      </h1>
+      <p>
+        Aweshell en un paquete de emacs que sirve para darle más poder a eshell.
+      </p>
+
+      <div id="outline-container-orgc6ea1bb" class="outline-2">
+        <h2 id="características"><a id="orgc6ea1bb"></a>Características:</h2>
+        <div class="outline-text-2" id="text-características">
+          <ul class="org-ul">
+            <li>Crear y gestionar múltiples buffers eshell.</li>
+            <li>
+              Añade algunos comandos útiles, como: limpiar el buffer, cambiar a
+              sudo, etc.
+            </li>
+            <li>
+              Mostrar información extra y color como zsh, impulsado por
+              "eshell-prompt-extras
+            </li>
+            <li>Validar y resaltar el comando antes de enviar a eshell.</li>
+            <li>Cambiar el nombre del buffer por el nombre de directorio.</li>
+            <li>Agregar las terminaciones para el comando git.</li>
+            <li>Integrar "eshell".</li>
+            <li>Descomprimir archivos.</li>
+            <li>Abrir el archivo con el alias e.</li>
+            <li>Salida "¿Quiso decir&#x2026;?" ayudante al escribir.</li>
+            <li>Hacer archivo cat con resaltado de sintaxis.</li>
+            <li>
+              Avisar al usuario cuando el proceso de fondo termine o sea
+              abortado.
+            </li>
+            <li>
+              Completar los argumentos de los comandos del shell como el
+              sentimiento IDE.
+            </li>
+            <li>
+              Ventana de shell dedicada como la ventana del terminal inferior de
+              un IDE
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org723438c" class="outline-2">
+        <h2 id="instalación"><a id="org723438c"></a>Instalación:</h2>
+        <div class="outline-text-2" id="text-instalación">
+          <p>El proyecto está en github entonces:</p>
+
+          <pre class="example">
+cd .emacs.d
+git clone https://github.com/manateelazycat/aweshell.git
+</pre
+          >
+
+          <p>
+            después hay que agregar el load-path en el archivo <b>.emacs</b>.
+          </p>
+
+          <pre class="example">
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/aweshell"))
+(require 'aweshell)
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orge232584" class="outline-2">
+        <h2 id="comandos-de-aweshell-y-mis-atajos-en-emacs">
+          <a id="orge232584"></a>Comandos de aweshell y mis atajos en emacs:
+        </h2>
+        <div
+          class="outline-text-2"
+          id="text-comandos-de-aweshell-y-mis-atajos-en-emacs"
+        >
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Comando</th>
+                <th scope="col" class="org-left">Abreviación</th>
+                <th scope="col" class="org-left">Atajo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">aweshell-new</td>
+                <td class="org-left">M-x aw-new RET</td>
+                <td class="org-left">C-xn</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-next</td>
+                <td class="org-left">M-x aw-nex RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-prev</td>
+                <td class="org-left">M-x aw-p RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-clear-buffer</td>
+                <td class="org-left">&#xa0;</td>
+                <td class="org-left">C-l</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-sudo-toggle</td>
+                <td class="org-left">&#xa0;</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-switch-buffer</td>
+                <td class="org-left">M-x a-sw RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-dedicated-toggle</td>
+                <td class="org-left">M-x a-d-t RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-dedicated-open</td>
+                <td class="org-left">M-x aw-o RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-dedicated-close</td>
+                <td class="org-left">M-x aw&#x2013;c RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

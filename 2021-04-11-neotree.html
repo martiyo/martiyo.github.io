@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Neotree</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">11 abr 2021</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2021-04-11-neotree.html"
+          >Neotree</a
+        >
+      </h1>
+      <p>Arbol de directorio integrado en <b>emacs</b>.</p>
+
+      <div id="outline-container-orgb9e3226" class="outline-2">
+        <h2 id="orgb9e3226">Instalación</h2>
+        <div class="outline-text-2" id="text-orgb9e3226">
+          <pre class="example">
+M-x package-install RET 
+</pre
+          >
+        </div>
+
+        <div id="outline-container-org21a61f6" class="outline-3">
+          <h3 id="org21a61f6">En el archivo init.el hay que agregar esto:</h3>
+          <div class="outline-text-3" id="text-org21a61f6">
+            <pre class="example">
+(add-to-list 'load-path "~/.emacs.d/elpa/neotree-2020324.1946")
+(require 'neotree)
+(global-set-key [f11] 'neotree-toggle)
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org23801e1" class="outline-3">
+          <h3 id="org23801e1">Abrir/cerrar</h3>
+          <div class="outline-text-3" id="text-org23801e1">
+            <pre class="example">
+f11
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org4087918" class="outline-2">
+        <h2 id="org4087918">Keybinding</h2>
+        <div class="outline-text-2" id="text-org4087918">
+          <p>En el buffer de Neotree:</p>
+
+          <ul class="org-ul">
+            <li><b>n</b> linea siguiente, <b>p</b></li>
+            <li>
+              <b>SPC</b> o <b>RET</b> o <b>TAB</b> abrir el elemento actual si
+              es un archivo. Plegar/desplegar si es un elemento.
+            </li>
+            <li><b>U</b> subir un directorio.</li>
+            <li><b>g</b> actualizar.</li>
+            <li><b>A</b> maximizar/minimizar.</li>
+            <li><b>H</b> mostrar/ocultar archivos ocultos.</li>
+            <li><b>O</b> abre un directorio recursivamente.</li>
+            <li>
+              <b>C-c C-n</b> crea un nuevo archivo o un nuevo directorio si el
+              nombre termina con <b>/</b> .
+            </li>
+            <li><b>C-c C-d</b> elimina un archivo o directorio.</li>
+            <li><b>C-c C-r</b> renombrar archivo o directorio.</li>
+            <li><b>C-c C-c</b> cambiar directorio.</li>
+            <li><b>C-c C-p</b> copiar un archivo o directorio.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org18598f1" class="outline-2">
+        <h2 id="org18598f1">Configuración</h2>
+        <div class="outline-text-2" id="text-org18598f1">
+          <p>Mi configuración con use-package:</p>
+
+          <pre class="example">
+(use-package neotree
+:ensure t
+:load-path "~/.emacs.d/elpa/neotree-20200324.1946"
+:config
+(setq neo-theme 'icons)
+(setq neo-smart-open t)
+(setq projectile-switch-project-action 'neotree-projectile-action)
+(global-set-key [f11] 'neotree-toggle))
+</pre
+          >
+        </div>
+
+        <div id="outline-container-org9890b37" class="outline-3">
+          <h3 id="org9890b37">Connsejos útiles</h3>
+          <div class="outline-text-3" id="text-org9890b37">
+            <p>
+              Para que cada vez que se abra <b>neotree</b> encuentre al archivo
+              y salte a ese directorio:
+            </p>
+
+            <pre class="example">
+(setq neo-smart-open t)
+</pre
+            >
+
+            <p>
+              Al ejecutar <b>projectile-switch-project</b>
+              <b>(C-c p p), *neotree</b> cambiará a ese directorio
+              automaticamente:
+            </p>
+
+            <pre class="example">
+(setq projectile-switch-project-action 'neotree-projectile-action)
+</pre
+            >
+
+            <p>
+              Esto se integra perfectamente con <b>Dashboard</b> (que a la vez
+              se integra con <b>Projectile)</b> y muestran una lista de los
+              últimos proyectos abiertos y al cliquear en uno se abre el
+              proyecto en <b>Neotree</b>.
+            </p>
+
+            <p>
+              Para habilitar los iconos basta con instalar el paquete
+              all-the-icons y agregar esto:
+            </p>
+
+            <pre class="example">
+(setq neo-theme 'icons)
+</pre
+            >
+
+            <p>
+              <b>Fuente</b>
+            </p>
+
+            <p>
+              Esto es una traducción casi literal de la
+              <a href="https://github.com/jaypei/emacs-neotree"
+                >pagina de github</a
+              >. La
+              <a href="https://www.emacswiki.org/emacs/NeoTree">emacswiki</a>
+              tiene unos tips muy útiles.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>ffmpeg video converter</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">08 dic 2018</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/faq/2018-12-08-ffmpeg-video-converter.html"
+          >ffmpeg video converter</a
+        >
+      </h1>
+
+      <div id="outline-container-orgc019ace" class="outline-2">
+        <h2 id="wikipedia"><a id="orgc019ace"></a>Wikipedia</h2>
+        <div class="outline-text-2" id="text-wikipedia">
+          <p>
+            FFmpeg es una colección de software libre que puede grabar,
+            convertir (transcodificar) y hacer streaming de audio y vídeo.
+            Incluye libavcodec, una biblioteca de códecs. FFmpeg está
+            desarrollado en GNU/Linux, pero puede ser compilado en la mayoría de
+            los sistemas operativos. FFmpeg es un programa bastante sencillo y
+            muy fácil de usar, orientado tanto a personas con conocimientos
+            avanzados como usuarios novatos. Es capaz de elegir el códec con
+            sólo escribir la extensión. Por ejemplo, FFmpeg usará x264 si
+            elegimos .mp4, mpeg4 si usamos .avi, VP8 si usamos .webm,
+            etc&#x2026; Esta es una recopilación de ejemplos de cosas útiles que
+            se pueden hacer con ffmpeg, como puede ser convertir vídeos para
+            PSP, iPod o iPhone, extraer el audio de un vídeo o extraer imágenes
+            de un vídeo.
+          </p>
+        </div>
+
+        <div id="outline-container-org52fed73" class="outline-4">
+          <h4 id="obtener-información-de-un-video">
+            <a id="org52fed73"></a>Obtener información de un video
+          </h4>
+          <div class="outline-text-4" id="text-obtener-información-de-un-video">
+            <pre class="example">
+ffmpeg -i video.avi
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgcca574c" class="outline-4">
+          <h4 id="combinar-una-serie-de-imágenes-en-un-video">
+            <a id="orgcca574c"></a>Combinar una serie de imágenes en un video
+          </h4>
+          <div
+            class="outline-text-4"
+            id="text-combinar-una-serie-de-imágenes-en-un-video"
+          >
+            <pre class="example">
+ffmpeg -f imagen1.jpg -i imagen%d.jpg video.mpg
+</pre
+            >
+
+            <p>
+              Este comando convierte todas las imagenes del directorio
+              actual(con nombres imagen1.jpg, imagen2.jpg, etc&#x2026;)en un
+              video llamado video.mpg.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org7a242ff" class="outline-4">
+          <h4 id="añadir-de-un-archivo-de-audio-en-un-video">
+            <a id="org7a242ff"></a>Añadir de un archivo de audio en un video
+          </h4>
+          <div
+            class="outline-text-4"
+            id="text-añadir-de-un-archivo-de-audio-en-un-video"
+          >
+            <pre class="example">
+ffmpeg -i audio.wav -i video_entrada.avi video_salida.mpg
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgeea1f1f" class="outline-4">
+          <h4 id="convertir-un-vídeo-en-imágenes">
+            <a id="orgeea1f1f"></a>Convertir un vídeo en imágenes
+          </h4>
+          <div class="outline-text-4" id="text-convertir-un-vídeo-en-imágenes">
+            <pre class="example">
+ffmpeg -i video.mpg imagen%d.jpg
+</pre
+            >
+
+            <p>
+              Con este comando se crearan varias imágenes imagen1.jpg,
+              imagen2.jpg, &#x2026; Para las imágenes resultantes se pueden usar
+              los formatos PGM, PPM, PAM, PGMYUV, JPEG, GIF, PNG, TIFF o SGI.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org9695f69" class="outline-4">
+          <h4 id="convertir-video-para-smartv-server-minidlna">
+            <a id="org9695f69"></a>Convertir video para SmarTV (Server MiniDLNA)
+          </h4>
+          <div
+            class="outline-text-4"
+            id="text-convertir-video-para-smartv-server-minidlna"
+          >
+            <pre class="example">
+ffmpeg -i LaBellaylaBestia.mkv -c:a libmp3lame -b:v 2500k -b:a 150k LaBellaylaBestia.avi
+</pre
+            >
+
+            <p>
+              Cambiando los valores de -b:v se puede aumentar o disminuir la
+              calidad del archivo de salida y tambien su tamaño.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org29756b7" class="outline-4">
+          <h4 id="extraer-el-sonido-de-un-vídeo-y-guardarlo-como-mp3">
+            <a id="org29756b7"></a>Extraer el sonido de un vídeo, y guardarlo
+            como MP3
+          </h4>
+          <div
+            class="outline-text-4"
+            id="text-extraer-el-sonido-de-un-vídeo-y-guardarlo-como-mp3"
+          >
+            <pre class="example">
+ffmpeg -i video.avi -vn -ar 44100 -ac 2 -ab 192 -f mp3 audio.mp3
+</pre
+            >
+
+            <ul class="org-ul">
+              <li>Video original: video.avi</li>
+              <li>Codec de audio: mp3</li>
+              <li>Bitrate del audio: 192kb/s</li>
+              <li>Archivo generado: audio.mp3</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org8f6bc59" class="outline-4">
+          <h4 id="convertir-un-wav-en-mp3">
+            <a id="org8f6bc59"></a>Convertir un wav en MP3
+          </h4>
+          <div class="outline-text-4" id="text-convertir-un-wav-en-mp3">
+            <pre class="example">
+ffmpeg -i audio.wav -ar 44100 audio.mp3
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgc8f6de8" class="outline-4">
+          <h4 id="convertir-un-avi-a-mpg">
+            <a id="orgc8f6de8"></a>Convertir un avi a mpg
+          </h4>
+          <div class="outline-text-4" id="text-convertir-un-avi-a-mpg">
+            <pre class="example">
+ffmpeg -i entrada.avi salida.mpg
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orge55c6ef" class="outline-4">
+          <h4 id="convertir-un-mpg-a-avi">
+            <a id="orge55c6ef"></a>Convertir un mpg a avi
+          </h4>
+          <div class="outline-text-4" id="text-convertir-un-mpg-a-avi">
+            <pre class="example">
+ffmpeg -i entrada.mpg salida.avi
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org02601af" class="outline-4">
+          <h4 id="convertir-un-avi-a-gif">
+            <a id="org02601af"></a>Convertir un avi a gif
+          </h4>
+          <div class="outline-text-4" id="text-convertir-un-avi-a-gif">
+            <pre class="example">
+ffmpeg -i entrada.avi salida.gif
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org340718e" class="outline-4">
+          <h4 id="convertir-avi-a-flv">
+            <a id="org340718e"></a>Convertir avi a flv
+          </h4>
+          <div class="outline-text-4" id="text-convertir-avi-a-flv">
+            <pre class="example">
+ffmpeg -i entrada.avi -ab 56 -ar 44100 -b 200 -r 15 -s 320×240 -f flv salida.flv
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org3867a09" class="outline-4">
+          <h4 id="convertir-avi-a-dv">
+            <a id="org3867a09"></a>Convertir avi a dv
+          </h4>
+          <div class="outline-text-4" id="text-convertir-avi-a-dv">
+            <pre class="example">
+ffmpeg -i entrada.avi -s pal -r pal -aspect 4:3 -ar 48000 -ac 2 salida.dv
+</pre
+            >
+
+            <p>o bien</p>
+
+            <pre class="example">
+ffmpeg -i entrada.avi -target pal-dv salida.dv
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgc5516ea" class="outline-4">
+          <h4 id="convertir-avi-a-mpeg-para-reproductores-de-dvd">
+            <a id="orgc5516ea"></a>Convertir avi a mpeg para reproductores de
+            dvd
+          </h4>
+          <div
+            class="outline-text-4"
+            id="text-convertir-avi-a-mpeg-para-reproductores-de-dvd"
+          >
+            <pre class="example">
+ffmpeg -i entrada.avi -target pal-dvd -ps 2000000000 -aspect 16:9 salida.mpeg
+</pre
+            >
+
+            <ul class="org-ul">
+              <li>target pal-dvd: Formato de salida</li>
+              <li>
+                ps 2000000000: Tamaño máximo del archivo resultante en bits (en
+                el ejemplo, 2Gb)
+              </li>
+              <li>aspect 16:9: Panorámico</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org64519e4" class="outline-4">
+          <h4 id="comprimir-avi-a-divx">
+            <a id="org64519e4"></a>Comprimir avi a divx
+          </h4>
+          <div class="outline-text-4" id="text-comprimir-avi-a-divx">
+            <pre class="example">
+ffmpeg -i entrada.avi -s 320×240 -vcodec msmpeg4v2 salida.avi
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org1df477f" class="outline-4">
+          <h4 id="comprimir-ogg-theora-a-mpeg-dvd">
+            <a id="org1df477f"></a>Comprimir Ogg Theora a Mpeg dvd
+          </h4>
+          <div class="outline-text-4" id="text-comprimir-ogg-theora-a-mpeg-dvd">
+            <pre class="example">
+ffmpeg -i entrada.ogm -s 720×576 -vcodec mpeg2video -acodec mp3 salida.mpg
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgd6e49f0" class="outline-4">
+          <h4 id="comprimir-avi-a-svcd-mpeg2">
+            <a id="orgd6e49f0"></a>Comprimir avi a SVCD mpeg2
+          </h4>
+          <div class="outline-text-4" id="text-comprimir-avi-a-svcd-mpeg2">
+            <p>Para PAL:</p>
+
+            <pre class="example">
+ffmpeg -i entrada.avi -target pal-svcd salida.mpg
+</pre
+            >
+
+            <p>Para NTSC:</p>
+
+            <pre class="example">
+ffmpeg -i entrada.avi -target ntsc-svcd salida.mpg
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org3810ccf" class="outline-4">
+          <h4 id="comprimir-avi-a-vcd-mpeg2">
+            <a id="org3810ccf"></a>Comprimir avi a VCD mpeg2
+          </h4>
+          <div class="outline-text-4" id="text-comprimir-avi-a-vcd-mpeg2">
+            <p>Para PAL:</p>
+
+            <pre class="example">
+ffmpeg -i entrada.avi -target pal-vcd salida.mpg
+</pre
+            >
+
+            <p>Para NTSC:</p>
+
+            <pre class="example">
+ffmpeg -i entrada.avi -target ntsc-vcd salida.mpg
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org4332034" class="outline-4">
+          <h4 id="codificación-con-varias-pasadas">
+            <a id="org4332034"></a>Codificación con varias pasadas
+          </h4>
+          <div class="outline-text-4" id="text-codificación-con-varias-pasadas">
+            <pre class="example">
+ffmpeg -i entrada -pass 2 -passlogfile ffmpeg2pass salida
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

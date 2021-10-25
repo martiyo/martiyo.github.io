@@ -1,0 +1,26 @@
+#+title: Auto-complete
+#+date: <2020-12-04 16:59>
+#+filetags: emacs
+
+Auto-complete es una extensión inteligente de autocompletado para el Emacs. Amplía la interfaz estándar de finalización de Emacs y proporciona un entorno que permite a los usuarios concentrarse más en su propio trabajo.
+
+** Instalación
+   
+   ~M-x package-install RET auto-complete~
+    
+** Configuración   
+   
+   En el archivo init.el...
+   
+   #+BEGIN_SRC 
+     (add-to-list 'load-path "/.emacs.d/auto-complete-20201011.1341/")
+     (require 'auto-complete-config)
+     (add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete-20201041/dict")
+     (ac-config-default)
+     ;; habilitar en web-mode
+     (add-to-list 'ac-modes 'web-mode)
+   #+END_SRC
+   
+   
+  *Fuente*
+  [[https://github.com/auto-complete/auto-complete/blob/master/doc/manual.md][Auto-complete github]]

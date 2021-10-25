@@ -1,0 +1,199 @@
+#+title: Introduccion a GNU/Emacs
+#+date: <2018-07-04 14:41>
+#+filetags: emacs
+
+** El universo perdido de GNU/Emacs
+  :PROPERTIES:
+  :CUSTOM_ID: gnuemacs
+  :END:
+
+#+BEGIN_QUOTE
+ Emacs es un editor extensible, personalizable, auto-documentado y de tiempo real.
+#+END_QUOTE
+
+*** Modos de edición
+   :PROPERTIES:
+   :CUSTOM_ID: modos-de-edición
+   :END:
+
+Emacs adapta su comportamiento al tipo de texto que está editando
+mediante modos de edición llamados "modos mayores" ("major modes"). Los
+modos mayores se definen para ficheros de texto ordinario, código fuente
+para diversos lenguajes de programación, documentos HTML, TeX y LaTeX y
+muchos otros tipos de texto. Cada modo mayor modifica ciertas variables
+en Lisp para que Emacs se comporte de forma más conveniente para ese
+tipo concreto de texto. Habitualmente, definen las tablas para resaltado
+de sintaxis, usando distintos tipos de letra o colores para mostrar las
+palabras clave, comentarios, etc. Los modos mayores también ofrecen
+comandos especiales de edición. Por ejemplo, los modos mayores para
+lenguajes de programación definen habitualmente comandos para saltar al
+principio o al final de una función.
+
+El comportamiento de Emacs puede ser más personalizado aún utilizando
+los "modos menores" ("minor modes"). Mientras que sólo se puede asociar
+un modo mayor con un buffer a la vez, se puede tener activos varios
+modos menores. Por ejemplo, el modo mayor para el lenguaje de
+programación C define un modo menor diferente para cada uno de los
+estilos de indentación más populares.
+
+*** Significado de algunas teclas en la terminología de emacs:
+    :PROPERTIES:
+    :CUSTOM_ID: significado-de-algunas-teclas-en-la-terminología-de-emacs
+    :END:
+
++ Alt = M (meta) 
++ Crtl= C (control) 
++ SPC (Barra espacio) 
++ RET (intro) 
++ RETRO(retroceso)
+
+$ emacs -nw (Lanzar emacs en consola. Para crear un alias: alias
+emacs='emacs -nw') $ emacs -nw --debug-ini (Modo debuger para comprobar
+errores de sintaxis en ~/.emacs)
+
+*** Teclas de socorro:
+    :PROPERTIES:
+    :CUSTOM_ID: teclas-de-socorro
+    :END:
+
++ C-g (Cancelar algo: un comando, una combinación de teclas...)
++ C-x u (Deshacer la última pífia)
+
+*** Teclas para moverse por el texto con más o menos soltura:
+    :PROPERTIES:
+    :CUSTOM_ID: teclas-para-moverse-por-el-texto-con-más-o-menos-soltura
+    :END:
+
++ C-a (ir al comienzo de una línea) 
++ C-e (ir al final de una línea) 
++ C-f (un caracter hacia adelante) 
++ C-b (un caracter hacia atrás) 
++ M-f (una palabra hacia adelante)
++ M-b (una palabra hacia atrás) 
++ C-n (ir a la siguiente línea) 
++ C-p (ir a la línea anterior) 
++ M-a (Ir al inicio de la frase) 
++ M-e (Ir al final de la frase) 
++ C-v (Pagina siguiente) 
++ M-8 C-v (baja 8 lineas la pantalla, NO 8 PÁGINAS) 
++ M-v (Pagina anterior) 
++ M-8 M-v (Sube 8 lineas la pantalla, NO 8 PÁGINAS) 
++ M-< (Ir al principio del texto) 
++ M-> (Ir al final del texto) 
++ C-l (Redibuja la pantalla. La primera vez que se pulsa,
+coloca la linea del cursor en el centro, la segunda arriba y la tercera
+abajo)
+
+*** Salir:
+    :PROPERTIES:
+    :CUSTOM_ID: salir
+    :END:
+
++ C-x C-c (Salir de Emacs)
++ C-x C-s (Guardar sin salir)
++ C-x C-w (Guardarcomo)
++ C-x s (Guardar todos los ficheros abiertos. Preguntará.)
+
+*** Copiar, cortar, pegar
+    :PROPERTIES:
+    :CUSTOM_ID: copiar-cortar-pegar
+    :END:
+
++ C-Epc (Inicio del marcado de texto) 
++ C-h (Marcar todo el buffer, "Seleccionar todo") 
++ M-w (Copiar) 
++ C-w (Cortar) 
++ C-y (Pegar)
+
+*** Buscar alguna palabra:
+    :PROPERTIES:
+    :CUSTOM_ID: buscar-alguna-palabra
+    :END:
+
++ C-s (busca hacia adelante) 
++ C-r (busca hacia atras) 
++ C-s C-s (repite la busqueda)
+
+*** Borrar:
+    :PROPERTIES:
+    :CUSTOM_ID: borrar
+    :END:
+
++ M-d (Palabra despues del cursor) 
++ M-3 M-d (Borra 3 palabras) 
++ C-k (del cursor a fin de linea)
++ M-3 C-k (Borra 3 lineas) 
++ M-k (todo el párrafo)
++ M-3 M-k (Borra 3 párrafos)
+
+*** Ventanas
+    :PROPERTIES:
+    :CUSTOM_ID: ventanas
+    :END:
+
++ C-x 2 (división horizontal de la ventana en dos) 
++ C-x 3 (división vertical de la ventana en dos) 
++ C-x 1 (Deja solo la ventana activa abierta) 
++ C-x o (cambiar de ventana) 
++ C-x 0 (Eliminar ventana actual) 
++ C-x { (La acorta en dirección horizontal) 
++ C-x \^ (La alarga en dirección vertical) 
++ C-x } (alarga la ventana activa en dirección horizontal)
+
+*** Bufers
+    :PROPERTIES:
+    :CUSTOM_ID: bufers
+    :END:
+
++ C-x b (Cambiar de buffer) 
++ C-x k (cierra la buffer actual. Pide confirmación) 
++ C-x C-b (Listar buffers. Cada archivo se abre en un buffer)
+
+*** Marcas para volver a una linea más adelante o de aquí a varios dias:
+    :PROPERTIES:
+    :CUSTOM_ID: marcas-para-volver-a-una-linea-más-adelante-o-de-aquí-a-varios-dias
+    :END:
+
++ C-x r m (Solicita nombre para la linea marcada) 
++ C-x r b (Ir a la linea marcada con el nombre que entremos, en este caso la "b") 
++ C-x r l (Lista todas las marcas)
+
+*** Varios:
+    :PROPERTIES:
+    :CUSTOM_ID: varios
+    :END:
+
++ C-x C-f (brir un archivo) 
++ C-o (Inserta linea en blanco a continuación del cursor) 
++ M-x tetris (Otros juegos: dunnet, snake, doctor, zone...)
++ M-x help-with-tutorial-spec-language (abre buffer con los idiomas disponibles para el manual) 
++ F10 (Abre menú) 
++ C-x d (Abre un directorio que se especifique) 
++ C-x RET f (Entrar codificación de caracteres: latin-1-unix [latin1], utf-8-unix [utf8]..)
+
+*** Entrar comandos de shell durante la sesión de emacs:
+    :PROPERTIES:
+    :CUSTOM_ID: entrar-comandos-de-shell-durante-la-sesión-de-emacs
+    :END:
+
++ C-z (Suspende la sesion emacs y entra en la shell. Volver a emacs con fg o con %emacs) 
++ M-! (Muestra en el mini buffer un mensaje para entrar un comando y lo abre un una ventana) 
++ C-u M-! (Inserta la salida del comando en la posición del cursor)
+
+*** Algunas posibilidades:
+    :PROPERTIES:
+    :CUSTOM_ID: algunas-posibilidades
+    :END:
+
++ M-x recover file (levantar respaldo del archivo) 
++ M-x describe-key INTRO (y presionando una combinación de teclas devuelve el comando asignado)
++ M-x apropos INTRO print (Muestra información de "print") 
++ M-x list-faces-display (Ver lista y muestra de los estilos disponibles) 
++ M-x set-foreground-color (Pedirá color en inglés para las fuentes. 
++ M-x set-background-color (Pedirá color para el fondo) 
++ M-x w3m-browser-url(Pedirá url para conectar. Precisa w3m-el) 
++ M-x global-linum-mode (Mostras/esconder números de linea) 
++ M-x global-visual-line-mode (Cortar/no cortar palabras al final de la pantalla) 
++ M-x global-hl-line-mode (Resaltar la linea donde está el cursor) 
++ M-x goto-line (Ir a una linea que se especifique) 
++ M-x insert file (Para insertar en el cursor un archivo)

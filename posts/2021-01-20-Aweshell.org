@@ -1,0 +1,66 @@
+#+title: Todo el poder a la shell!
+#+date: <2021-01-20 07:54>
+#+filetags: emacs
+
+
+Aweshell en un paquete de emacs que sirve para darle más poder a eshell.
+
+** Características:
+   :PROPERTIES:
+   :CUSTOM_ID: características
+   :END:
+
+- Crear y gestionar múltiples buffers eshell.
+- Añade algunos comandos útiles, como: limpiar el buffer, cambiar a
+  sudo, etc.
+- Mostrar información extra y color como zsh, impulsado por
+  "eshell-prompt-extras
+- Validar y resaltar el comando antes de enviar a eshell.
+- Cambiar el nombre del buffer por el nombre de directorio.
+- Agregar las terminaciones para el comando git.
+- Integrar "eshell".
+- Descomprimir archivos.
+- Abrir el archivo con el alias e.
+- Salida "¿Quiso decir...?" ayudante al escribir.
+- Hacer archivo cat con resaltado de sintaxis.
+- Avisar al usuario cuando el proceso de fondo termine o sea abortado.
+- Completar los argumentos de los comandos del shell como el sentimiento
+  IDE.
+- Ventana de shell dedicada como la ventana del terminal inferior de un
+  IDE
+
+** Instalación:
+   :PROPERTIES:
+   :CUSTOM_ID: instalación
+   :END:
+
+El proyecto está en github entonces:
+
+#+BEGIN_SRC 
+    cd .emacs.d
+    git clone https://github.com/manateelazycat/aweshell.git
+#+END_SRC
+
+después hay que agregar el load-path en el archivo *.emacs*.
+
+#+BEGIN_SRC 
+    (add-to-list 'load-path (expand-file-name "~/.emacs.d/aweshell"))
+    (require 'aweshell)
+#+END_SRC
+
+** Comandos de aweshell y mis atajos en emacs:
+    :PROPERTIES:
+    :CUSTOM_ID: comandos-de-aweshell-y-mis-atajos-en-emacs
+    :END:
+
+| Comando                     | Abreviación      | Atajo   |
+|-----------------------------+------------------+---------|
+| aweshell-new                | M-x aw-new RET   | C-xn    |
+| aweshell-next               | M-x aw-nex RET   |         |
+| aweshell-prev               | M-x aw-p RET     |         |
+| aweshell-clear-buffer       |                  | C-l     |
+| aweshell-sudo-toggle        |                  |         |
+| aweshell-switch-buffer      | M-x a-sw RET     |         |
+| aweshell-dedicated-toggle   | M-x a-d-t RET    |         |
+| aweshell-dedicated-open     | M-x aw-o RET     |         |
+| aweshell-dedicated-close    | M-x aw--c RET    |         |

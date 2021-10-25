@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="multiplexor de terminal" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>tmux</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/stylesheet.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">21 oct 2021</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2021-10-21-tmux.html">tmux</a>
+      </h1>
+
+      <div id="outline-container-org3f866b1" class="outline-2">
+        <h2 id="org3f866b1">Wikipedia</h2>
+        <div class="outline-text-2" id="text-org3f866b1">
+          <p>
+            tmux es un multiplexor de terminal para sistemas tipo unix, similar
+            a GNU Screen que permite dividir una consola en múltiples secciones
+            o generar sesiones independientes en la misma terminal. Permite
+            crear varias terminales dentro de una misma pantalla, las que
+            incluso pueden desacoplarse y volver a acoplar en una sesión
+            distinta​. tmux utiliza un modelo cliente-servidor. El servidor
+            tiene varias sesiones y cada ventana es una entidad independiente
+            que puede ser libremente vinculado a otras sesiones. En cada sesión
+            se podrán visualizar y aceptar la entrada de teclado de varios
+            clientes.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org358f749" class="outline-2">
+        <h2 id="org358f749">Configuración</h2>
+        <div class="outline-text-2" id="text-org358f749">
+          <p>
+            El archivo de configuración es ~/.tmux.conf. Por defecto la
+            combinación de teclas básica es <b>C-b</b> que yo por comodidad la
+            he cambiado por <b>C-a</b>
+            editando dicho archivo
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgdae4b62" class="outline-2">
+        <h2 id="orgdae4b62">Comandos básicos</h2>
+        <div class="outline-text-2" id="text-orgdae4b62">
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">bind-key</th>
+                <th scope="col" class="org-left">salida</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">C-a %</td>
+                <td class="org-left">Abre un panel vertical</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a "</td>
+                <td class="org-left">Abre un panel horizontal</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a derecha-izquierda-arriba-abajo</td>
+                <td class="org-left">
+                  Cambiar al panel derecho, izquierdo, arriba, abajo
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a c</td>
+                <td class="org-left">Crea una nueva pestaña</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a ,</td>
+                <td class="org-left">Darle nombre a la nueva pestaña</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a n</td>
+                <td class="org-left">Cambiar a la pestaña siguiente</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a p</td>
+                <td class="org-left">Cambiar a la pestaña previa</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a ?</td>
+                <td class="org-left">Lista de comandos</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a d</td>
+                <td class="org-left">Salir de la sesión</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tmux a</td>
+                <td class="org-left">Retomar la sesión</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="outline-container-orgea00dc9" class="outline-3">
+          <h3 id="la-wiki-de-arch-tiene-un-muy-buen-ejemplo-de-este-archivo">
+            La wiki de arch tiene un muy buen ejemplo de este archivo
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-la-wiki-de-arch-tiene-un-muy-buen-ejemplo-de-este-archivo"
+          >
+            <pre class="example">
+# Mover las ventanas izquierda o derecha en la sesión
+bind-key -n C-right next
+bind-key -n C-left prev
+# Nueva combinacion Ctrl + z + (Las teclas a continuación abajo)
+set -g prefix C-z
+# Desatamos la tecla predeterminada Ctrl + b y utilizamos la nueva combinación Ctrl + z + [tecla] 
+unbind-key C-b
+bind-key C-z send-prefix
+# Nueva ventana
+bind-key C-n new-window
+# Dividir la ventana en forma horizontal
+bind-key C-h split-window -h
+# Dividir la ventana en forma vertical
+bind-key C-v split-window -v
+# Movernos al panel arriba
+bind-key C-up select-pane -U
+# Movernos al panel abajo
+bind-key C-down select-pane -D
+# Movernos al panel a la izquierda
+bind-key C-left select-pane -L
+# Movernos al panel a la derecha
+bind-key C-right select-pane -R
+# Ocultar la session para volver a entrar solo tipeamos en consola: tmux attach-session ó tmux attach
+bind-key C-d detach
+# Habilitar que el mouse selecciones los paneles
+set-option -g mouse-select-pane on
+set-option -g set-titles on
+# Sin actividad visual
+set -g visual-activity on
+set -g visual-bell on
+# Barra de estado
+set-option -g status-utf8 on
+set-option -g status-justify right
+set-option -g status-bg black
+set-option -g status-fg green
+set-option -g status-interval 5
+set-option -g status-left-length 30
+set-option -g status-left '#[fg=magenta]» #[fg=blue,bold]#T#[default]'
+set-option -g status-right '#[fg=cyan]»» #[fg=blue,bold] #[fg=magenta]%D %k:%M#[default]'
+set-option -g visual-activity on
+set-window-option -g monitor-activity on
+set-window-option -g window-status-current-fg green
+set-window-option -g clock-mode-colour white 
+set-window-option -g clock-mode-style 24
+</pre
+            >
+
+            <p>TODO Habilitar history y mouse</p>
+
+            <p>
+              Fuentes:
+              <a href="https://wiki.archlinux.org/index.php/Tmux_(Espa%C3%B1ol)"
+                >archwiki</a
+              >
+              <a href="https://hipertextual.com/archivo/2014/09/tmux/"
+                >hipertextual.com</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

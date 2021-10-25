@@ -1,0 +1,142 @@
+@charset "utf-8";
+@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700");
+
+html {
+  background-color: #000 !important;
+}
+#preamble,
+#postamble,
+#content {
+  width: 100%;
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+body {
+  background-color: #000;
+  margin: 0 auto;
+  padding: 0;
+  font-family: "Source Code Pro", monospace;
+  font-size: 12.5px;
+  color: #00ff00;
+  text-align: left;
+  line-height: 1.5 !important;
+}
+
+.post-title a {
+  text-decoration: none;
+  font-size: 15px;
+
+  color: #00ff00;
+}
+.taglist a {
+  color: #00ff00;
+}
+#tagsoup {
+  margin-left: 10em;
+}
+
+/* #postamble {
+   position: relative;
+   max-width: 600px;
+   margin: auto;
+   } */
+
+#postamble #archive {
+  font-size: 12px;
+  border-bottom: none;
+  border-top: dashed #00ff00 1px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: right;
+}
+
+a {
+  color: #00ff00;
+}
+
+.header ul {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  line-height: 40px;
+  font-weight: 200;
+  border: dashed #00ff00 1px;
+  border-left: none;
+  border-right: none;
+  text-align: right;
+}
+/* .header ul {
+   list-style-type: none;
+   margin-top: 20px;
+   margin-bottom: 2px;
+   } */
+.header ul li {
+  display: inline;
+  margin-left: 5px;
+}
+.header a {
+  color: #00ff00;
+  text-decoration: none;
+}
+.header a:hover {
+  color: #000;
+  background: #00ff00;
+}
+form {
+  margin-top: 2em;
+}
+input {
+  // margin-top: 20px;
+  // margin-bottom: 30px;
+  background: #010;
+  color: #00ff00;
+  border: none;
+  //border-style: solid;
+  //border-width: 1px;
+  //outline-color: initial;
+  height: 25px;
+  width: 250px;
+}
+
+::placeholder {
+  color: #00ff00;
+  font-size: 15px;
+  // font-weight: bold;
+  //opacity: 1;
+}
+
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+  font-size: 10px;
+  background-color: #010;
+  padding: 3px;
+  margin-top: 15px;
+}
+
+table {
+  width: 100%;
+  // border: 1px solid #00ff00;
+}
+th,
+td {
+  width: 25%;
+  text-align: left;
+  vertical-align: top;
+  //border: 1px dashed #00ff00;
+  //border-collapse: collapse;
+}
+thead {
+  background: #010;
+}
+
+/* .footer {
+   border-top: dashed #00ff00 1px;
+   border-left: none;
+   border-right: none;
+   text-align: center;
+   margintop: 70px;
+   //margin-left: 93px;
+   margin-bottom: 70px;
+   } */

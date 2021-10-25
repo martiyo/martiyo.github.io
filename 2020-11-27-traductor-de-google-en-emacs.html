@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>El traductor de google en emacs</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">27 nov 2020</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/faq/2020-11-27-traductor-de-google-en-emacs.html"
+          >El traductor de google en emacs</a
+        >
+      </h1>
+
+      <div id="outline-container-orgc4bfb80" class="outline-2">
+        <h2 id="orgc4bfb80">Instalación</h2>
+        <div class="outline-text-2" id="text-orgc4bfb80">
+          <pre class="example">
+M-x package-install RET google-translate
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org3f21788" class="outline-2">
+        <h2 id="org3f21788">Uso</h2>
+        <div class="outline-text-2" id="text-org3f21788">
+          <p>Selecionar el texto a traducir y lanzar:</p>
+
+          <pre class="example">
+M-x google-translate-at-point
+</pre
+          >
+
+          <p>
+            Luego indicar el idioma en el que esta el texto y al que hay que
+            traducir. Para traducir siempre de inglés a español se agrega al
+            init.el:
+          </p>
+
+          <pre class="example">
+(custom-set-variables
+'(google-translate-default-source-language "en")
+'(google-translate-default-target-language "es"))
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orge765103" class="outline-2">
+        <h2 id="orge765103">
+          configuración con use-package y solución del error "failed to search
+          tkk"
+        </h2>
+        <div class="outline-text-2" id="text-orge765103">
+          <p>
+            #+BEGIN<sub>EXAMPLE</sub> (use-package google-translate :ensure t
+            :config (when (and (string-match "0.12.0"
+            (google-translate-version)) (&gt;= (time-to-seconds)
+            (time-to-seconds (encode-time 0 0 0 23 9 2018)))) (defun
+            google-translate&#x2013;get-b-d1 () ;; TKK='427110.1469889687' (list
+            427110 1469889687))) (custom-set-variables
+            '(google-translate-default-source-language "en")
+            '(google-translate-default-target-language "es")) ) #+END<sub
+              >SRC</sub
+            >
+          </p>
+
+          <p>
+            <b>Fuente</b>
+          </p>
+
+          <p>
+            Esto es solo una pequeñisima parte del
+            <a href="http://lapipaplena.duckdns.org/emacs/">curso de emacs</a>
+            de <a href="https://lapipaplena.wordpress.com/">la pipa plena</a>
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

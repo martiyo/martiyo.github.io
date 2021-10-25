@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>It's Magit!</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">04 abr 2021</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2021-04-04-magit.html"
+          >It's Magit!</a
+        >
+      </h1>
+
+      <div id="outline-container-org88e5d94" class="outline-2">
+        <h2 id="org88e5d94">¿Que es magit?</h2>
+        <div class="outline-text-2" id="text-org88e5d94">
+          <p>
+            Magit es una interfaz de usuario completa basada en texto para Git .
+            Llena la brecha evidente entre la interfaz de línea de comandos de
+            Git y varias GUI, lo que le permite realizar tareas de control de
+            versiones triviales y elaboradas con solo un par de pulsaciones de
+            teclas mnemotécnicas.
+          </p>
+
+          <p>
+            Magit parece una versión mejorada de lo que obtiene después de
+            ejecutar algunos comandos de Git, pero en Magit cada bit de
+            información visible también es procesable hasta un punto que va
+            mucho más allá de lo que proporciona cualquier GUI de Git y se
+            encarga de actualizar automáticamente esta salida cuando se vuelve
+            obsoleto. En segundo plano, Magit solo ejecuta comandos de Git y, si
+            lo desea, puede ver qué se está ejecutando exactamente, lo que le
+            permite aprender la gitlínea de comandos usando Magit.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orga96febb" class="outline-2">
+        <h2 id="orga96febb">Comenzando</h2>
+        <div class="outline-text-2" id="text-orga96febb">
+          <pre class="example">
+C-x g
+</pre
+          >
+
+          <p>
+            Para mostrar información sobre el repositorio git actual en un
+            buffer dedicado, llamado buffer de estado.
+          </p>
+
+          <p>
+            La mayoría de los comandos de Magit se invocan habitualmente desde
+            el buffer de estado. Se puede considerar la interfaz principal para
+            interactuar con Git usando Magit. Pueden existir muchos otros
+            buffers de Magit en un momento dado, pero a menudo se crean desde
+            este buffer.
+          </p>
+
+          <p>
+            Dependiendo del estado en el que se encuentre tu repositorio, este
+            buffer puede contener secciones tituladas "Staged changes",
+            "Unstaged changes", "Unmerged into origin/master", "Unpushed to
+            origin/master", y muchas otras.
+          </p>
+
+          <p>
+            Como estamos empezando desde un estado seguro, al que puedes volver
+            fácilmente (haciendo un git reset &#x2013;hard PRE-MAGIT-STATE),
+            actualmente no hay cambios escalonados o no escalonados. Edita
+            algunos archivos y guarda los cambios. Luego vuelve al buffer de
+            estado, mientras que al mismo tiempo lo refrescas, escribiendo C-x
+            g. (En el buffer de estado, o cualquier buffer Magit para el caso,
+            es el buffer actual, entonces también puedes usar sólo g para
+            refrescarlo).
+          </p>
+
+          <p>
+            Desplácese entre las secciones utilizando p y n. Tenga en cuenta que
+            los cuerpos de algunas secciones están ocultos. Escriba TAB para
+            expandir o contraer la sección en cuestión. También puede utilizar
+            C-tab para alternar la visibilidad de la sección actual y sus hijos.
+            Desplácese a la sección de un archivo dentro de la sección
+            denominada "Cambios no escenificados" y escriba s para escenificar
+            los cambios que ha realizado en ese archivo. Ese archivo aparece
+            ahora en "Cambios escenificados".
+          </p>
+
+          <p>
+            Magit puede organizar y desorganizar bloques individuales, no sólo
+            archivos completos. Muévete al archivo que acabas de escenificar,
+            expándelo usando TAB, muévete a uno de los hunks usando n, y
+            desescenifica sólo eso escribiendo u. Observa cómo los comandos de
+            escenificación (s) y desescenificación (u) operan en el cambio en el
+            punto. Muchos otros comandos se comportan de la misma manera.
+          </p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td class="org-left">entrada</td>
+                <td class="org-left">salida</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">--------</td>
+                <td class="org-left">-------</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-x g</td>
+                <td class="org-left">
+                  Muestra info en buffer dedicado (buffer de estado)
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">g</td>
+                <td class="org-left">Actualiza el buffer de estado</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">p n</td>
+                <td class="org-left">Desplazarse entre secciones</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">TAB</td>
+                <td class="org-left">Expandir o contraer secciones</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-TAB</td>
+                <td class="org-left">
+                  Alternar visibilidad entre secciones e hijos
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s</td>
+                <td class="org-left">Agregar cambios al stage (git add .)</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">&#xa0;</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-git.html">git</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

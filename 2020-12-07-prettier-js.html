@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Formatear codigo con prettier-js</title>
+    <meta name="author" content="martin" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">07 dic 2020</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2020-12-07-prettier-js.html"
+          >Formatear codigo con prettier-js</a
+        >
+      </h1>
+
+      <div id="outline-container-org4245149" class="outline-2">
+        <h2 id="org4245149">Prettier-js</h2>
+        <div class="outline-text-2" id="text-org4245149">
+          <p>
+            Prettier-js es una función que formatea el buffer actual usando
+            Prettier.
+          </p>
+        </div>
+
+        <div id="outline-container-orgbdb51ba" class="outline-3">
+          <h3 id="orgbdb51ba">Requerimientos</h3>
+          <div class="outline-text-3" id="text-orgbdb51ba">
+            <p>
+              Prettier debe estar instalado en el sistema, esto se puede hacer
+              con npm.
+            </p>
+
+            <pre class="example">
+sudo npm i -g prettier
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgebebc6f" class="outline-3">
+          <h3 id="orgebebc6f">Configuración Basica</h3>
+          <div class="outline-text-3" id="text-orgebebc6f">
+            <p>El el archivo de configuración de emacs <b>init.el</b></p>
+
+            <pre class="example">
+(require 'prettier-js)
+</pre
+            >
+
+            <p>Despues para lanzar Prettier-js con <b>web-mode</b></p>
+
+            <pre class="example">
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'web-mode-hook 'prettier-js-mode)
+</pre
+            >
+
+            <p>
+              <b>Fuente</b>
+            </p>
+
+            <p>
+              <a href="https://github.com/prettier/prettier-emacs"
+                >gihub-prettier</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,5347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+<title><![CDATA[EmacsFAQ]]></title>
+<description><![CDATA[EmacsFAQ]]></description>
+<link>https://martiyo.github.io/faq/</link>
+<lastBuildDate>dom, 24 oct 2021 20:52:29 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[Pass el gestor de contraseñas estandar de unix]]></title>
+  <description><![CDATA[
+      <p>La gestión de contraseñas debe ser simple y seguir Filosofía Unix.</p>
+
+      <div id="outline-container-orgb262528" class="outline-2">
+        <h2 id="orgb262528">Introducción</h2>
+        <div class="outline-text-2" id="text-orgb262528">
+          <p>
+            Con pass, cada contraseña vive dentro de un archivo gpg cifrado cuyo
+            nombre de archivo es el título del sitio web, correo o recurso que
+            requiere la contraseña. Estos archivos cifrados pueden organizarse
+            en jerarquías de carpetas significativas, copiadas de ordenador a
+            ordenador, y, en general, manipuladas utilizando los servicios de
+            gestión de archivos de línea de comando estándar.
+          </p>
+
+          <p>
+            pass hace que la gestión de estos archivos de contraseña
+            individuales sea extremadamente fácil. Todas las contraseñas viven
+            en <b>~/.password-store</b>, y pass proporciona algunos comandos
+            agradables para agregar, editar, generar y recuperar contraseñas. Es
+            un script de shell muy corto y sencillo. Es capaz de poner
+            temporalmente contraseñas en su portapapeles y rastrear cambios de
+            contraseña utilizando git.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org9fa72ca" class="outline-2">
+        <h2 id="org9fa72ca">Usando el Password-store</h2>
+        <div class="outline-text-2" id="text-org9fa72ca"></div>
+        <div id="outline-container-orgb4e339e" class="outline-3">
+          <h3 id="orgb4e339e">
+            Enumerar las contraseñas existentes en el store
+          </h3>
+          <div class="outline-text-3" id="text-orgb4e339e">
+            <pre class="example">
+dev1@devuan ~ $ pass 
+Password Store
+└── correo
+   ├── casaresrm@gmail.com
+   └── probando@gmail.com
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org1d7ac5f" class="outline-3">
+          <h3 id="org1d7ac5f">Mostrar contraseñas</h3>
+          <div class="outline-text-3" id="text-org1d7ac5f">
+            <pre class="example">
+dev1@devuan ~ $ pass casaresrm@gmail.com 
+contraseñasegura
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgac522c0" class="outline-3">
+          <h3 id="orgac522c0">Copiar al portapapeles</h3>
+          <div class="outline-text-3" id="text-orgac522c0">
+            <pre class="example">
+dev1@devuan ~ $ pass -c casaresrm@gmail.com 
+Copied correo/casaresrm@gmail.com to clipboard. Will clear in 45 seconds.
+</pre
+            >
+
+            <p>
+              Cualquira de estos comandos habrirá un diálogo de entrada de
+              contraseña agradable usando el estándar gpg-agent (que se puede
+              configurar para mantenerse autenticado durante varios minutos), ya
+              que todas las contraseñas están encriptadas.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org721c822" class="outline-3">
+          <h3 id="org721c822">Añadir o modificar contraseñas</h3>
+          <div class="outline-text-3" id="text-org721c822">
+            <p>
+              Añadir #+BEGIN [dev1@devuan ~]$ pass insert martiyo@protonmail.com
+              Enter password for martiyo@protonmail.com: Retype password for
+              martiyo@protonmail.com: #+END<sub>SRC</sub>
+            </p>
+
+            <p>Modificar</p>
+
+            <pre class="example">
+[dev1@devuan ~]$  pass insert correo/probando@gmail.com
+An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
+</pre
+            >
+
+            <p>
+              Esto también maneja contraseñas multilíneas u otros datos con
+              &#x2013;multiline or -m, y las contraseñas se pueden editar en su
+              editor de texto predeterminado utilizando pass edit pass-name.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org7d873e1" class="outline-3">
+          <h3 id="org7d873e1">Contraseñas automaticas</h3>
+          <div class="outline-text-3" id="text-org7d873e1">
+            <p>
+              La utilidad <b>generate</b> crea nuevas contraseñas utilzando
+              <b>/dev/urandom</b>
+            </p>
+
+            <pre class="example">
+[dev1@devuan ~]$  pass generate web/midudev.com 15
+  mkdir: se ha creado el directorio '/home/dev1/.password-store/web'
+  The generated password for web/midudev.com is:
+  r?&gt;T.C/NE)&gt;kT9W
+</pre
+            >
+
+            <p>
+              Es posible generar contraseñas sin símbolos usando
+              &#x2013;no-symbols or -n, y podemos copiarlo al portapapeles en
+              lugar de mostrarlo en la consola usando &#x2013;clip or -c.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org7e75895" class="outline-3">
+          <h3 id="org7e75895">Eliminar</h3>
+          <div class="outline-text-3" id="text-org7e75895">
+            <pre class="example">
+[dev1@devuan ~]$  pass rm correo/probando@gmail.com 
+  Are you sure you would like to delete correo/probando@gmail.com? [y/N] y
+  '/home/dev1/.password-store/correo/probando@gmail.com.gpg' borrado
+</pre
+            >
+          </div>
+        </div>
+        <div id="outline-container-orgb1d4ee6" class="outline-3">
+          <h3 id="orgb1d4ee6">Git</h3>
+          <div class="outline-text-3" id="text-orgb1d4ee6">
+            <p>
+              Si la tienda de contraseñas es un repositorio de git, ya que cada
+              manipulación crea un git commit, puede sincronizar la tienda de
+              contraseñas utilizando <b>pass git push</b> y
+              <b>pass git pull</b>, que llamada git-push or git-pull en la
+              tienda.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org6742e84" class="outline-2">
+        <h2 id="org6742e84">Configuración</h2>
+        <div class="outline-text-2" id="text-org6742e84">
+          <p>Para comenzar hay inicializar el dposito de contraseñas</p>
+
+          <pre class="example">
+pass init "id de mi clave GPG"
+</pre
+          >
+        </div>
+
+        <div id="outline-container-org0424a0b" class="outline-3">
+          <h3 id="org0424a0b">Generando las claves con GnuPG</h3>
+          <div class="outline-text-3" id="text-org0424a0b">
+            <p>Para crear una pareja de claves (publica y privada) se usa</p>
+
+            <pre class="example">
+gpg --gen-key
+</pre
+            >
+
+            <p>se completan los datos solicitados y listo.</p>
+
+            <p>el comando</p>
+
+            <pre class="example">
+gpg -k
+</pre
+            >
+
+            <p>
+              mostrará la identificación de cada clave
+              <a
+                href="https://lignux.com/wp-content/uploads/2014/01/instrucciones-gpg.pdf"
+                >más info sobre gpg</a
+              >
+            </p>
+
+            <p>
+              <b>Nota</b> para que pass pueda descifrar las contraseñas hay que
+              exportar un variable de entorno:
+            </p>
+
+            <pre class="example">
+export GPG_TTY=$(tty)
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgf172b77" class="outline-3">
+          <h3 id="orgf172b77">Inicializar el store como un repositorio git</h3>
+          <div class="outline-text-3" id="text-orgf172b77">
+            <pre class="example">
+$ pass git init
+Initialized empty Git repository in /home/dev1/.password-store/.git/
+</pre
+            >
+
+            <p>
+              Si un repositirio git es inicializado, pass crea un git commit
+              cada vez que se manipula el store de contraseñas.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgfe1f83a" class="outline-2">
+        <h2 id="orgfe1f83a">Organización</h2>
+        <div class="outline-text-2" id="text-orgfe1f83a">
+          <p>
+            nombres de usuario, contraseñas, pins, sitios web, metadatos, etc.
+          </p>
+
+          <p>
+            Password-store no impone ningún esquema o tipo de organización
+            particular de los datos, ya que es simplemente un archivo de texto
+            plano, que puede contener datos arbitrarios. aunque el caso más
+            común es almacenar una contraseña única por entrada, algunos
+            usuarios prefieren almacenar más que su contraseña dentro de la
+            tienda de contraseñas, y además almacenar respuestas a preguntas
+            secretas, urls del sitio web y otra información o metadatos
+            sensibles. como la pass no impone un esquema propio, puede elegir su
+            propia organización. hay muchas posibilidades. Un enfoque es
+            utilizar la funcionalidad multilínea de pase (&#x2013;multiline or
+            -m in insert), y almacenar la contraseña en sí misma en la primera
+            línea del archivo, y la información adicional en líneas posteriores.
+            por ejemplo, Amazon/bookreader podría parecer así:
+          </p>
+
+          <pre class="example">
+Yw|ZSNH!}z"6{ym9pI
+URL: *.amazon.com/*
+Username: AmazonianChicken@example.com
+Secret Question 1: What is your childhood best friend's most bizarre superhero fantasy? Oh god, Amazon, it's too awful to say...
+Phone Support PIN #: 84719
+</pre
+          >
+
+          <p>
+            Las opciones <b>&#x2013;clip / -c</b> solo copiarán la primer línea
+            de tal archivo en el portapapeles.
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-orgf60e253" class="outline-2">
+        <h2 id="orgf60e253">Emacs Pass-mode</h2>
+        <div class="outline-text-2" id="text-orgf60e253">
+          <p>
+            Y no podia faltar el pass-modo para emacs, se instala con
+            <b>package-install</b> y listo, la interfaz es muy intuitiva.
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-consola,.html">consola,</a>
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[consola,]]></category>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/faq/2021-10-24-pass.html</link>
+  <pubDate>dom, 24 oct 2021 16:48:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[tmux]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-org3f866b1" class="outline-2">
+        <h2 id="org3f866b1">Wikipedia</h2>
+        <div class="outline-text-2" id="text-org3f866b1">
+          <p>
+            tmux es un multiplexor de terminal para sistemas tipo unix, similar
+            a GNU Screen que permite dividir una consola en múltiples secciones
+            o generar sesiones independientes en la misma terminal. Permite
+            crear varias terminales dentro de una misma pantalla, las que
+            incluso pueden desacoplarse y volver a acoplar en una sesión
+            distinta​. tmux utiliza un modelo cliente-servidor. El servidor
+            tiene varias sesiones y cada ventana es una entidad independiente
+            que puede ser libremente vinculado a otras sesiones. En cada sesión
+            se podrán visualizar y aceptar la entrada de teclado de varios
+            clientes.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org358f749" class="outline-2">
+        <h2 id="org358f749">Configuración</h2>
+        <div class="outline-text-2" id="text-org358f749">
+          <p>
+            El archivo de configuración es ~/.tmux.conf. Por defecto la
+            combinación de teclas básica es <b>C-b</b> que yo por comodidad la
+            he cambiado por <b>C-a</b>
+            editando dicho archivo
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgdae4b62" class="outline-2">
+        <h2 id="orgdae4b62">Comandos básicos</h2>
+        <div class="outline-text-2" id="text-orgdae4b62">
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">bind-key</th>
+                <th scope="col" class="org-left">salida</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">C-a %</td>
+                <td class="org-left">Abre un panel vertical</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a "</td>
+                <td class="org-left">Abre un panel horizontal</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a derecha-izquierda-arriba-abajo</td>
+                <td class="org-left">
+                  Cambiar al panel derecho, izquierdo, arriba, abajo
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a c</td>
+                <td class="org-left">Crea una nueva pestaña</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a ,</td>
+                <td class="org-left">Darle nombre a la nueva pestaña</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a n</td>
+                <td class="org-left">Cambiar a la pestaña siguiente</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a p</td>
+                <td class="org-left">Cambiar a la pestaña previa</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a ?</td>
+                <td class="org-left">Lista de comandos</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a d</td>
+                <td class="org-left">Salir de la sesión</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tmux a</td>
+                <td class="org-left">Retomar la sesión</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="outline-container-orgea00dc9" class="outline-3">
+          <h3 id="la-wiki-de-arch-tiene-un-muy-buen-ejemplo-de-este-archivo">
+            La wiki de arch tiene un muy buen ejemplo de este archivo
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-la-wiki-de-arch-tiene-un-muy-buen-ejemplo-de-este-archivo"
+          >
+            <pre class="example">
+# Mover las ventanas izquierda o derecha en la sesión
+bind-key -n C-right next
+bind-key -n C-left prev
+# Nueva combinacion Ctrl + z + (Las teclas a continuación abajo)
+set -g prefix C-z
+# Desatamos la tecla predeterminada Ctrl + b y utilizamos la nueva combinación Ctrl + z + [tecla] 
+unbind-key C-b
+bind-key C-z send-prefix
+# Nueva ventana
+bind-key C-n new-window
+# Dividir la ventana en forma horizontal
+bind-key C-h split-window -h
+# Dividir la ventana en forma vertical
+bind-key C-v split-window -v
+# Movernos al panel arriba
+bind-key C-up select-pane -U
+# Movernos al panel abajo
+bind-key C-down select-pane -D
+# Movernos al panel a la izquierda
+bind-key C-left select-pane -L
+# Movernos al panel a la derecha
+bind-key C-right select-pane -R
+# Ocultar la session para volver a entrar solo tipeamos en consola: tmux attach-session ó tmux attach
+bind-key C-d detach
+# Habilitar que el mouse selecciones los paneles
+set-option -g mouse-select-pane on
+set-option -g set-titles on
+# Sin actividad visual
+set -g visual-activity on
+set -g visual-bell on
+# Barra de estado
+set-option -g status-utf8 on
+set-option -g status-justify right
+set-option -g status-bg black
+set-option -g status-fg green
+set-option -g status-interval 5
+set-option -g status-left-length 30
+set-option -g status-left '#[fg=magenta]» #[fg=blue,bold]#T#[default]'
+set-option -g status-right '#[fg=cyan]»» #[fg=blue,bold] #[fg=magenta]%D %k:%M#[default]'
+set-option -g visual-activity on
+set-window-option -g monitor-activity on
+set-window-option -g window-status-current-fg green
+set-window-option -g clock-mode-colour white 
+set-window-option -g clock-mode-style 24
+</pre
+            >
+
+            <p>TODO Habilitar history y mouse</p>
+
+            <p>
+              Fuentes:
+              <a href="https://wiki.archlinux.org/index.php/Tmux_(Espa%C3%B1ol)"
+                >archwiki</a
+              >
+              <a href="https://hipertextual.com/archivo/2014/09/tmux/"
+                >hipertextual.com</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/faq/2021-10-21-tmux.html</link>
+  <pubDate>jue, 21 oct 2021 16:44:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[youtube-dl]]></title>
+  <description><![CDATA[
+      <p>
+        Youtube-dl es un programa de línea de comandos para descargar videos de
+        youtube y algunos otros sitios más
+      </p>
+
+      <div id="outline-container-orgc034160" class="outline-2">
+        <h2 id="orgc034160">Instalación</h2>
+        <div class="outline-text-2" id="text-orgc034160">
+          <p>Con curl</p>
+
+          <pre class="example">
+sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl
+</pre
+          >
+
+          <p>Con wget</p>
+
+          <pre class="example">
+sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org81d8fef" class="outline-2">
+        <h2 id="org81d8fef">Usos frecuentes</h2>
+        <div class="outline-text-2" id="text-org81d8fef">
+          <p>
+            Descargar lista de reproducción completa y extraer audio en formato
+            mp3
+          </p>
+
+          <pre class="example">
+youtube-dl --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" &lt;url to playlist&gt;
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/faq/2021-10-03-youtube-dl.html</link>
+  <pubDate>dom, 03 oct 2021 21:19:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Dirección ip estatica]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-org2c50751" class="outline-2">
+        <h2 id="descripción"><a id="org2c50751"></a>Descripción</h2>
+        <div class="outline-text-2" id="text-descripción">
+          <p>
+            El sistema está configurado para obtener de forma automática la
+            configuración de red (ip, máscara de red, servidores DNS, puerta de
+            enlace) a travéz del servicio DHCP. Sin embargo, si se quiere
+            configurar un sistema como servidor en una red es muy recomendable,
+            por no decir necesario, que el sistema tenga una dirección ip
+            estática.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgf3f8f0b" class="outline-2">
+        <h2 id="configuración"><a id="orgf3f8f0b"></a>Configuración</h2>
+        <div class="outline-text-2" id="text-configuración">
+          <p>
+            Antes de cambiar la configuración, hay que detener la interfaz de
+            red:
+          </p>
+
+          <pre class="example">
+root@devuan:~# ifdown eth0
+</pre
+          >
+
+          <p>
+            En devuan el archivo de configuración de las interfaces de red está
+            en
+            <b>/etc/network/interfaces</b>
+          </p>
+
+          <pre class="example">
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+# The loopback network interface
+  auto lo
+  iface lo inet loopback
+# The primary network interface
+# allow-hotplug eth0
+# iface eth0 inet dhcp
+# Static IP address
+  auto eth0
+  iface eth0 inet static
+  address 192.168.1.100
+  netmask 255.255.255.0
+  network 192.168.1.0
+  broadcast 192.168.1.255
+  gateway 192.168.1.1
+</pre
+          >
+
+          <p>
+            Además de la configuración anterior, también hay que indicar cual es
+            la dirección ip del servidor DNS que las aplicaciones utilizarán
+            cuando tengan que traducir un nombre de dominio. En esta
+            configuración casera se puede poner como servidor DNS la ip del
+            router/modem ADSL, porque el router se encargará de reenviar la
+            consulta DNS a otro servidor cuando no la pueda resolver. La
+            configuración del servidor DNS se hace en el archivo
+            <b>/etc/resolv.conf</b>, en el se incluye una linea como la
+            siguiente: nameserver 192.168.1.1
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org6d91c50" class="outline-2">
+        <h2 id="verificación"><a id="org6d91c50"></a>Verificación</h2>
+        <div class="outline-text-2" id="text-verificación">
+          <p>
+            El comando ifconfig muestra información detallada de la
+            configuración de las interfaces de red. Primero hay que activar la
+            interfaz de red recién configurada:
+          </p>
+
+          <pre class="example">
+root@devuan:~# ifup eth0
+</pre
+          >
+
+          <pre class="example">
+root@devuan:~# ifconfig eth0
+eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+inet 192.168.1.100  netmask 255.255.255.0  broadcast 192.168.1.255
+inet6 fe80::224:8cff:feb5:c5cd  prefixlen 64  scopeid 0x20&lt;link&gt;
+ether 00:24:8c:b5:c5:cd  txqueuelen 1000  (Ethernet)
+RX packets 1156081  bytes 815368327 (777.5 MiB)
+RX errors 0  dropped 0  overruns 0  frame 0
+TX packets 1429829  bytes 470645432 (448.8 MiB)
+TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</pre
+          >
+
+          <p>
+            Para comprobar que la configuración del archivo
+            <b>/etc/resolv.conf</b> es correcta y se ha aplicado bien, se
+            utiliza el comando ping a un nombre de dominio de internet
+          </p>
+
+          <pre class="example">
+root@devuan:/home/martin# ping www.devuan.org
+ PING www.devuan.org (46.105.191.76) 56(84) bytes of data.
+ 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=1 ttl=48 time=727 ms
+ 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=2 ttl=48 time=328 ms
+ 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=3 ttl=48 time=317 ms
+ 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=4 ttl=48 time=323 ms
+ 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=5 ttl=48 time=310 ms
+ 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=6 ttl=48 time=320 ms
+ ^C
+ --- www.devuan.org ping statistics ---
+ 6 packets transmitted, 6 received, 0% packet loss, time 7091ms
+ rtt min/avg/max/mdev = 310.061/387.881/727.275/151.891 ms
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/faq/2018-03-06-dirección-ip-estatica.html</link>
+  <pubDate>dom, 25 abr 2021 22:06:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Neotree]]></title>
+  <description><![CDATA[
+      <p>Arbol de directorio integrado en <b>emacs</b>.</p>
+
+      <div id="outline-container-orgb9e3226" class="outline-2">
+        <h2 id="orgb9e3226">Instalación</h2>
+        <div class="outline-text-2" id="text-orgb9e3226">
+          <pre class="example">
+M-x package-install RET 
+</pre
+          >
+        </div>
+
+        <div id="outline-container-org21a61f6" class="outline-3">
+          <h3 id="org21a61f6">En el archivo init.el hay que agregar esto:</h3>
+          <div class="outline-text-3" id="text-org21a61f6">
+            <pre class="example">
+(add-to-list 'load-path "~/.emacs.d/elpa/neotree-2020324.1946")
+(require 'neotree)
+(global-set-key [f11] 'neotree-toggle)
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org23801e1" class="outline-3">
+          <h3 id="org23801e1">Abrir/cerrar</h3>
+          <div class="outline-text-3" id="text-org23801e1">
+            <pre class="example">
+f11
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org4087918" class="outline-2">
+        <h2 id="org4087918">Keybinding</h2>
+        <div class="outline-text-2" id="text-org4087918">
+          <p>En el buffer de Neotree:</p>
+
+          <ul class="org-ul">
+            <li><b>n</b> linea siguiente, <b>p</b></li>
+            <li>
+              <b>SPC</b> o <b>RET</b> o <b>TAB</b> abrir el elemento actual si
+              es un archivo. Plegar/desplegar si es un elemento.
+            </li>
+            <li><b>U</b> subir un directorio.</li>
+            <li><b>g</b> actualizar.</li>
+            <li><b>A</b> maximizar/minimizar.</li>
+            <li><b>H</b> mostrar/ocultar archivos ocultos.</li>
+            <li><b>O</b> abre un directorio recursivamente.</li>
+            <li>
+              <b>C-c C-n</b> crea un nuevo archivo o un nuevo directorio si el
+              nombre termina con <b>/</b> .
+            </li>
+            <li><b>C-c C-d</b> elimina un archivo o directorio.</li>
+            <li><b>C-c C-r</b> renombrar archivo o directorio.</li>
+            <li><b>C-c C-c</b> cambiar directorio.</li>
+            <li><b>C-c C-p</b> copiar un archivo o directorio.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org18598f1" class="outline-2">
+        <h2 id="org18598f1">Configuración</h2>
+        <div class="outline-text-2" id="text-org18598f1">
+          <p>Mi configuración con use-package:</p>
+
+          <pre class="example">
+(use-package neotree
+:ensure t
+:load-path "~/.emacs.d/elpa/neotree-20200324.1946"
+:config
+(setq neo-theme 'icons)
+(setq neo-smart-open t)
+(setq projectile-switch-project-action 'neotree-projectile-action)
+(global-set-key [f11] 'neotree-toggle))
+</pre
+          >
+        </div>
+
+        <div id="outline-container-org9890b37" class="outline-3">
+          <h3 id="org9890b37">Connsejos útiles</h3>
+          <div class="outline-text-3" id="text-org9890b37">
+            <p>
+              Para que cada vez que se abra <b>neotree</b> encuentre al archivo
+              y salte a ese directorio:
+            </p>
+
+            <pre class="example">
+(setq neo-smart-open t)
+</pre
+            >
+
+            <p>
+              Al ejecutar <b>projectile-switch-project</b>
+              <b>(C-c p p), *neotree</b> cambiará a ese directorio
+              automaticamente:
+            </p>
+
+            <pre class="example">
+(setq projectile-switch-project-action 'neotree-projectile-action)
+</pre
+            >
+
+            <p>
+              Esto se integra perfectamente con <b>Dashboard</b> (que a la vez
+              se integra con <b>Projectile)</b> y muestran una lista de los
+              últimos proyectos abiertos y al cliquear en uno se abre el
+              proyecto en <b>Neotree</b>.
+            </p>
+
+            <p>
+              Para habilitar los iconos basta con instalar el paquete
+              all-the-icons y agregar esto:
+            </p>
+
+            <pre class="example">
+(setq neo-theme 'icons)
+</pre
+            >
+
+            <p>
+              <b>Fuente</b>
+            </p>
+
+            <p>
+              Esto es una traducción casi literal de la
+              <a href="https://github.com/jaypei/emacs-neotree"
+                >pagina de github</a
+              >. La
+              <a href="https://www.emacswiki.org/emacs/NeoTree">emacswiki</a>
+              tiene unos tips muy útiles.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2021-04-11-neotree.html</link>
+  <pubDate>dom, 11 abr 2021 12:33:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[It's Magit!]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-org88e5d94" class="outline-2">
+        <h2 id="org88e5d94">¿Que es magit?</h2>
+        <div class="outline-text-2" id="text-org88e5d94">
+          <p>
+            Magit es una interfaz de usuario completa basada en texto para Git .
+            Llena la brecha evidente entre la interfaz de línea de comandos de
+            Git y varias GUI, lo que le permite realizar tareas de control de
+            versiones triviales y elaboradas con solo un par de pulsaciones de
+            teclas mnemotécnicas.
+          </p>
+
+          <p>
+            Magit parece una versión mejorada de lo que obtiene después de
+            ejecutar algunos comandos de Git, pero en Magit cada bit de
+            información visible también es procesable hasta un punto que va
+            mucho más allá de lo que proporciona cualquier GUI de Git y se
+            encarga de actualizar automáticamente esta salida cuando se vuelve
+            obsoleto. En segundo plano, Magit solo ejecuta comandos de Git y, si
+            lo desea, puede ver qué se está ejecutando exactamente, lo que le
+            permite aprender la gitlínea de comandos usando Magit.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orga96febb" class="outline-2">
+        <h2 id="orga96febb">Comenzando</h2>
+        <div class="outline-text-2" id="text-orga96febb">
+          <pre class="example">
+C-x g
+</pre
+          >
+
+          <p>
+            Para mostrar información sobre el repositorio git actual en un
+            buffer dedicado, llamado buffer de estado.
+          </p>
+
+          <p>
+            La mayoría de los comandos de Magit se invocan habitualmente desde
+            el buffer de estado. Se puede considerar la interfaz principal para
+            interactuar con Git usando Magit. Pueden existir muchos otros
+            buffers de Magit en un momento dado, pero a menudo se crean desde
+            este buffer.
+          </p>
+
+          <p>
+            Dependiendo del estado en el que se encuentre tu repositorio, este
+            buffer puede contener secciones tituladas "Staged changes",
+            "Unstaged changes", "Unmerged into origin/master", "Unpushed to
+            origin/master", y muchas otras.
+          </p>
+
+          <p>
+            Como estamos empezando desde un estado seguro, al que puedes volver
+            fácilmente (haciendo un git reset &#x2013;hard PRE-MAGIT-STATE),
+            actualmente no hay cambios escalonados o no escalonados. Edita
+            algunos archivos y guarda los cambios. Luego vuelve al buffer de
+            estado, mientras que al mismo tiempo lo refrescas, escribiendo C-x
+            g. (En el buffer de estado, o cualquier buffer Magit para el caso,
+            es el buffer actual, entonces también puedes usar sólo g para
+            refrescarlo).
+          </p>
+
+          <p>
+            Desplácese entre las secciones utilizando p y n. Tenga en cuenta que
+            los cuerpos de algunas secciones están ocultos. Escriba TAB para
+            expandir o contraer la sección en cuestión. También puede utilizar
+            C-tab para alternar la visibilidad de la sección actual y sus hijos.
+            Desplácese a la sección de un archivo dentro de la sección
+            denominada "Cambios no escenificados" y escriba s para escenificar
+            los cambios que ha realizado en ese archivo. Ese archivo aparece
+            ahora en "Cambios escenificados".
+          </p>
+
+          <p>
+            Magit puede organizar y desorganizar bloques individuales, no sólo
+            archivos completos. Muévete al archivo que acabas de escenificar,
+            expándelo usando TAB, muévete a uno de los hunks usando n, y
+            desescenifica sólo eso escribiendo u. Observa cómo los comandos de
+            escenificación (s) y desescenificación (u) operan en el cambio en el
+            punto. Muchos otros comandos se comportan de la misma manera.
+          </p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td class="org-left">entrada</td>
+                <td class="org-left">salida</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">--------</td>
+                <td class="org-left">-------</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-x g</td>
+                <td class="org-left">
+                  Muestra info en buffer dedicado (buffer de estado)
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">g</td>
+                <td class="org-left">Actualiza el buffer de estado</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">p n</td>
+                <td class="org-left">Desplazarse entre secciones</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">TAB</td>
+                <td class="org-left">Expandir o contraer secciones</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-TAB</td>
+                <td class="org-left">
+                  Alternar visibilidad entre secciones e hijos
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s</td>
+                <td class="org-left">Agregar cambios al stage (git add .)</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">&#xa0;</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-git.html">git</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[git]]></category>
+  <link>https://martiyo.github.io/faq/2021-04-04-magit.html</link>
+  <pubDate>dom, 04 abr 2021 23:45:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Busqueda con grep en emacs]]></title>
+  <description><![CDATA[
+      <p>
+        El comando <code>grep</code> de emacs te permite ejecutar el programa
+        <code>grep</code> de Unix o GNU/Linux, que busca en los archivos las
+        líneas que coinciden con una expresión regular. El comando de emacs
+        colorea la salida y hace que se pueda hacer clic en las líneas
+        encotradas: cuando se hace clic en resultado de la búsqueda, emacs
+        visita el archivo de destino en la ocurrencia.
+      </p>
+
+      <p>Por jemplo:</p>
+
+      <pre class="example">
+M-x grep RET
+</pre
+      >
+
+      <p>al hacer esto, emacs te muestra en el minibuffer</p>
+
+      <pre class="example">
+M-x grep --color -nH --null -e 
+</pre
+      >
+
+      <p>donde&#x2026;</p>
+
+      <ul class="org-ul">
+        <li><b>-color</b> muestra la busqueda en color.</li>
+        <li>
+          <b>-n</b> indica el número de linea en que aparece la expresión
+          buscada dentro de cada archivo.
+        </li>
+        <li><b>-H</b> muestra el nombre completo de cada archivo</li>
+        <li>
+          <b>&#x2013;null</b> introduce el caracter ASCII NULL para evitar
+          complicaciones caundo el nombre del archivo tiene un corte de línea.
+        </li>
+        <li>
+          <b>-e</b> para indicar la expresión a buscar, que se escribe a
+          continuación, se pueden usar expresiones regulares y caracteres
+          comodín.
+        </li>
+      </ul>
+
+      <p>
+        entonces solo hay que agrear la expresión regular a buscar y el archivo
+        o archivos donde buscar.
+      </p>
+
+      <p>Ejemplo:</p>
+
+      <pre class="example">
+M-x grep --color -nH --null -e setq ~/.emacs.d/init.el
+</pre
+      >
+
+      <p>
+        esto lista todas las líneas que coinciden con <b>setq</b> en el archivo
+        <b>init.el</b>, mostrando el nombre del del archivo y el numero de
+        línea, al pulsar RET o hacer click en una de las líneas el archivo se
+        abre en la correspondiente linea.
+      </p>
+
+      <div id="outline-container-org05968e2" class="outline-2">
+        <h2 id="org05968e2">lgrep y rgrep</h2>
+        <div class="outline-text-2" id="text-org05968e2">
+          <p>
+            Ambos te preguntan lo que debe buscar de manera conveniente.
+            <code>lgrep</code> busca en el directorio actual y
+            <code>rgrep</code> busca en el árbol de directorios actual.
+            <code>rgrep</code> conoce los sistemas de control de versiones por
+            lo que es posible evitar buscar en los directorios de control.
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2021-02-17-busquedas-con-grep-en-emacs.html</link>
+  <pubDate>mié, 17 feb 2021 11:10:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Dashboard, una pantalla de inicio extencible para emacs]]></title>
+  <description><![CDATA[
+      <p>Pantalla de inicio practica y útil en <b>exwm</b>.</p>
+
+      <div id="outline-container-org76ec7eb" class="outline-2">
+        <h2 id="org76ec7eb">Caracteristicas</h2>
+        <div class="outline-text-2" id="text-org76ec7eb">
+          <ul class="org-ul">
+            <li>Muestra un banner de Emacs (editable).</li>
+            <li>Lista de archivos recientes.</li>
+            <li>
+              <a href="file:///2020-12-21-emacs-bookmarks.html">Bookmarks</a>
+              list
+            </li>
+            <li>
+              Proyectos recientes (para esto usa
+              <a href="file:///2020-12-07-projectile.html">projectile</a> como
+              dependencia)
+            </li>
+            <li>Agenda org-mode</li>
+            <li>Lista de Registros</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org04f4cda" class="outline-2">
+        <h2 id="org04f4cda">Dependencias</h2>
+        <div class="outline-text-2" id="text-org04f4cda">
+          <p>
+            Para que todo funcióne correctamente son necesarios los siguientes
+            paquetes (disponibles en Melpa):
+          </p>
+
+          <p>
+            page-break-lines -
+            <a href="https://github.com/purcell/page-break-lines"
+              >https://github.com/purcell/page-break-lines</a
+            >
+            (optional) projectile -
+            <a href="https://github.com/bbatsov/projectile"
+              >https://github.com/bbatsov/projectile</a
+            >
+            (optional) all-the-icons -
+            <a href="https://github.com/domtronn/all-the-icons.el"
+              >https://github.com/domtronn/all-the-icons.el</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org97fa788" class="outline-2">
+        <h2 id="org97fa788">Instalación y uso</h2>
+        <div class="outline-text-2" id="text-org97fa788">
+          <pre class="example">
+M-x package-install RET Dashboard
+</pre
+          >
+
+          <pre class="example">
+(require 'dashboard)
+(dashboard-setup-startup-hook)
+;; Or if you use use-package
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
+</pre
+          >
+
+          <p>
+            En mi configuración personalizada todo esto y más se hace con
+            use-package.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgadfc00c" class="outline-2">
+        <h2 id="orgadfc00c">Mi configuración</h2>
+        <div class="outline-text-2" id="text-orgadfc00c">
+          <pre class="example">
+;; Dashboard
+(use-package dashboard
+  :ensure t
+  :custom
+  (dashboard-banner-logo-title (format "Welcome to GNU/Emacs" user-full-name))
+  (dashboard-startup-banner "~/storage/img/otra_estrella_min.png")
+  (dashboard-items '((recents . 6)
+		     (projects . 4)
+		     (bookmarks . 4)
+		     (agenda . 5)
+
+		     ))
+  :config
+
+  (setq dashboard-set-heading-icons t
+	dashboard-set-file-icons t
+	dashboard-set-init-info t
+	dashboard-set-navigator t)
+
+  (setq dashboard-navigator-buttons
+	`((
+	   (,(when (display-graphic-p)
+	       (all-the-icons-octicon "home" :height 1.1 :v-adjust 0.0))
+	    "FAQ" "El universo perdido de GNU/Emacs"
+	    (lambda (&amp;rest _) (browse-url "https://martiyo.github.io/faq")))
+
+	   (,(when (display-graphic-p)
+	       (all-the-icons-material "home" :height 1.35 :v-adjust -0.24))
+	    "Localhost" "Abrir minnotas.com"
+	    (lambda (&amp;rest _) (browse-url "http://misnotas.com/")))
+
+	   (,(when (display-graphic-p)
+	       (all-the-icons-octicon "tools" :height 1.0 :v-adjust 0.0))
+	    "Configuración" "Archivo de configuración de emacs"
+	    (lambda (&amp;rest _) (find-file (expand-file-name  "~/.emacs.d/init.el"))))
+
+	   (,(when (display-graphic-p)
+	       (all-the-icons-octicon "list-ordered" :height 1.0 :v-adjust 0.0))
+	    "TODO" "Abrir myTodo"
+	    (lambda (&amp;rest _) (find-file (expand-file-name  "~/org/myTodo.org"))))
+
+	   (,(when (display-graphic-p)
+	       (all-the-icons-octicon "calendar" :height 1.0 :v-adjust 0.0))
+	    "Agenda" "Agenda personal"
+	    (lambda (&amp;rest _)
+	      (interactive)
+	      (if (get-buffer "*Org Agenda*")
+		  (progn
+		    (switch-to-buffer-other-window "*Org Agenda*")
+		    (kill-buffer "*Org Agenda*")
+		    (org-agenda-list))
+		(split-window-right)
+		(org-agenda-list))))
+
+	   )))
+  :hook
+  (after-init . dashboard-setup-startup-hook))
+</pre
+          >
+
+          <p>
+            <b>Fuentes</b>
+          </p>
+
+          <p>
+            Esto es solo una guia que a la vez sirve como backup de la
+            configuración que yo uso, la pagina de
+            <a href="https://github.com/emacs-dashboard/emacs-dashboard"
+              >github de dashboard</a
+            >
+            tiene la posta.
+          </p>
+
+          <p>
+            Esta configuración y otras muy útilies está
+            <a
+              href="https://gitlab.com/hefistion/emacs-config-with-lp/-/blob/master/emacs-configuracion.org"
+              >aquí</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2021-02-10-dashboard.html</link>
+  <pubDate>mié, 10 feb 2021 09:09:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Planificación y administración de tareas con Cron y Crontab]]></title>
+  <description><![CDATA[
+      <p>
+        En el sistema operativo Unix, cron es un administrador regular de
+        procesos en segundo plano (demonio) que ejecuta procesos o guiones a
+        intervalos regulares (por ejemplo, cada minuto, día, semana o mes). Los
+        procesos que deben ejecutarse y la hora en la que deben hacerlo se
+        especifican en el fichero crontab. Este servicio es muy útil para
+        realizar tareas de mantenimiento como copias de respaldo del sistema,
+        verificación del equipo o estadísticas de uso.
+      </p>
+
+      <div id="outline-container-org5e5b2b2" class="outline-2">
+        <h2 id="crontab-del-usuario">
+          <a id="org5e5b2b2"></a>Crontab del usuario
+        </h2>
+        <div class="outline-text-2" id="text-crontab-del-usuario">
+          <p>
+            Cada usuario puede definir sus propias tareas, éstas se ejecutaran
+            con los privilegios del usuario que las ha definido, el demonio cron
+            primero busca dichas tareas, que se almacenan en
+            <b><i>var/spool/cron/crontabs</i></b>
+            donde cada archivo lleva el nombre del login de cada usuario.
+            Después levanta los crontabs del sistema, los cuales se almacenan en
+            el
+            <b>/etc/crontab</b> y en el directorio <b>/etc/cron.d</b>. Para
+            editar el crontab del usuario se usa el comando
+            <b><i>crontab</i></b>
+          </p>
+        </div>
+
+        <ul class="org-ul">
+          <li>
+            <a id="sintaxis-del-comando"></a><a id="orgb5c6cc3"></a>Sintaxis del
+            comando:<br />
+            <div class="outline-text-5" id="text-sintaxis-del-comando">
+              <pre class="example">
+crontab [opciones][usuario]
+</pre
+              >
+
+              <p>
+                <b>crontab -l</b> lista el contenido de la tabla de tareas.
+                <b>crontab -e</b>
+                edita el contenido de la tabla de tareas.
+              </p>
+
+              <p>
+                Cuando se ejecuta crontab -e por primera vez pregunta que editor
+                de texto que se va usar y guarda ésta información en el archivo
+                <b>~/.selected\<sub>editor</sub></b>
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <a id="formato-de-la-tabla-de-tareas"></a
+            ><a id="org95e5b49"></a>Formato de la tabla de tareas<br />
+            <div class="outline-text-5" id="text-formato-de-la-tabla-de-tareas">
+		<p>
+		    .--------------- minuto (0-59) 
+		    |  .------------ hora (0-23)
+		    |  |  .--------- día del mes (1-31)
+		    |  |  |  .------ mes (1-12) o jan,feb,mar,apr,may,jun,jul... (meses en inglés)
+		    |  |  |  |  .--- día de la semana (0-6) (domingo=0 ó 7) o sun,mon,tue,wed,thu,fri,sat 
+		    |  |  |  |  |
+		    \* \* \* \* \*  comando a ejecutar
+		</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div id="outline-container-orgbd54bf5" class="outline-2">
+        <h2 id="orgbd54bf5">Comando a ejecutar</h2>
+        <div class="outline-text-2" id="text-orgbd54bf5">
+          <p>
+            Se pueden utilizar asteriscos para especificar todos (ejemplo: todos
+            los días de la semana), guiones para especificar rangos (ejemplo: de
+            miércoles a domingo, <b><i>0-3</i></b
+            >) y comas para momentos exactos(ejemplo: a los 0, 10 y 30 minutos,
+            <b><i>0, 10, 30</i></b
+            >).
+          </p>
+        </div>
+
+        <div id="outline-container-org53722b8" class="outline-4">
+          <h4 id="ejemplos"><a id="org53722b8"></a>Ejemplos</h4>
+          <div class="outline-text-4" id="text-ejemplos">
+            <ul class="org-ul">
+              <li>
+                <p>Una vez por semana</p>
+
+                <pre class="example">
+0 * * * * /usr/local/bin/updatedb.sh  
+</pre
+                >
+
+                <p>
+                  en el minuto 0 de cada hora, ejecutar el script
+                  <b>/usr/local/bin/updatedb.sh</b>, todas las horas, todos los
+                  días del mes, todos los meses y todos los días de la semana.
+                </p>
+              </li>
+
+              <li>
+                <p>Una vez por día</p>
+
+                <pre class="example">
+01 04 * * * /usr/local/bin/updatedb.sh  
+</pre
+                >
+
+                <p>en el minuto 01 de la hora 04 ejecutar &#x2026;</p>
+              </li>
+
+              <li>
+                <p>Una vez por mes</p>
+
+                <pre class="example">
+01 04 01 * * /usr/local/bin/updatedb.sh  
+</pre
+                >
+
+                <p>
+                  en el minuto 01 de la hora 04 el día 01 de cada mes ejecutar
+                  &#x2026;
+                </p>
+              </li>
+
+              <li>
+                <p>una vez por año</p>
+
+                <pre class="example">
+01 04 01 01 * /usr/local/bin/updatedb.sh
+</pre
+                >
+
+                <p>
+                  en el minuto 01 de la hora 04 el día 01 del mes 01 de cada año
+                  ejecutar &#x2026;
+                </p>
+              </li>
+
+              <li>
+                <p>dos veces por semana</p>
+
+                <pre class="example">
+0 0 * * 1,3 /usr/local/bin/updatedb.sh 
+</pre
+                >
+
+                <p>
+                  a las 12 de la noche, todos los lunes y miércoles de todos los
+                  meses, de cada año ejecutar&#x2026;
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org65dbb80" class="outline-3">
+          <h3 id="crontab-del-sistema">
+            <a id="org65dbb80"></a>Crontab del sistema
+          </h3>
+          <div class="outline-text-3" id="text-crontab-del-sistema">
+            <p>
+              Se utiliza cuando se requiere que una tarea se ejecute con
+              privilegios de root. La definición es igual a la del crontab del
+              usuario solo que debe agregarse el campo usuario. Es posible
+              editar directamente el archivo*/etc/crontab*, aunque es mejor
+              agregar la definición dentro del directorio <b>/etc/cron.d</b> que
+              sirve para almacenar los cronjobs de los diferentes usuarios. Por
+              ejemplo
+            </p>
+
+            <pre class="example">
+0 0 * * 1,3 root /usr/local/bin/updatedb.sh 
+</pre
+            >
+
+            <p>
+              El usuario root también tiene la posibilidad de usar los archivos
+              <b>/etc/cron.hourly</b>, <b>/etc/cron.daily</b>
+              <b>/etc/cron.weekly</b> y <b>/etc/cron.monthly</b>. En estos
+              archivos se pueden ubicar los scripts que serán ejecutados cada
+              hora, cada día, cada semana o cada mes según corresponda.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/faq/2018-09-15-Cron.html</link>
+  <pubDate>jue, 21 ene 2021 12:18:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Todo el poder a la shell!]]></title>
+  <description><![CDATA[
+      <p>
+        Aweshell en un paquete de emacs que sirve para darle más poder a eshell.
+      </p>
+
+      <div id="outline-container-orgc6ea1bb" class="outline-2">
+        <h2 id="características"><a id="orgc6ea1bb"></a>Características:</h2>
+        <div class="outline-text-2" id="text-características">
+          <ul class="org-ul">
+            <li>Crear y gestionar múltiples buffers eshell.</li>
+            <li>
+              Añade algunos comandos útiles, como: limpiar el buffer, cambiar a
+              sudo, etc.
+            </li>
+            <li>
+              Mostrar información extra y color como zsh, impulsado por
+              "eshell-prompt-extras
+            </li>
+            <li>Validar y resaltar el comando antes de enviar a eshell.</li>
+            <li>Cambiar el nombre del buffer por el nombre de directorio.</li>
+            <li>Agregar las terminaciones para el comando git.</li>
+            <li>Integrar "eshell".</li>
+            <li>Descomprimir archivos.</li>
+            <li>Abrir el archivo con el alias e.</li>
+            <li>Salida "¿Quiso decir&#x2026;?" ayudante al escribir.</li>
+            <li>Hacer archivo cat con resaltado de sintaxis.</li>
+            <li>
+              Avisar al usuario cuando el proceso de fondo termine o sea
+              abortado.
+            </li>
+            <li>
+              Completar los argumentos de los comandos del shell como el
+              sentimiento IDE.
+            </li>
+            <li>
+              Ventana de shell dedicada como la ventana del terminal inferior de
+              un IDE
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org723438c" class="outline-2">
+        <h2 id="instalación"><a id="org723438c"></a>Instalación:</h2>
+        <div class="outline-text-2" id="text-instalación">
+          <p>El proyecto está en github entonces:</p>
+
+          <pre class="example">
+cd .emacs.d
+git clone https://github.com/manateelazycat/aweshell.git
+</pre
+          >
+
+          <p>
+            después hay que agregar el load-path en el archivo <b>.emacs</b>.
+          </p>
+
+          <pre class="example">
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/aweshell"))
+(require 'aweshell)
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orge232584" class="outline-2">
+        <h2 id="comandos-de-aweshell-y-mis-atajos-en-emacs">
+          <a id="orge232584"></a>Comandos de aweshell y mis atajos en emacs:
+        </h2>
+        <div
+          class="outline-text-2"
+          id="text-comandos-de-aweshell-y-mis-atajos-en-emacs"
+        >
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Comando</th>
+                <th scope="col" class="org-left">Abreviación</th>
+                <th scope="col" class="org-left">Atajo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">aweshell-new</td>
+                <td class="org-left">M-x aw-new RET</td>
+                <td class="org-left">C-xn</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-next</td>
+                <td class="org-left">M-x aw-nex RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-prev</td>
+                <td class="org-left">M-x aw-p RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-clear-buffer</td>
+                <td class="org-left">&#xa0;</td>
+                <td class="org-left">C-l</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-sudo-toggle</td>
+                <td class="org-left">&#xa0;</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-switch-buffer</td>
+                <td class="org-left">M-x a-sw RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-dedicated-toggle</td>
+                <td class="org-left">M-x a-d-t RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-dedicated-open</td>
+                <td class="org-left">M-x aw-o RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-dedicated-close</td>
+                <td class="org-left">M-x aw&#x2013;c RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2021-01-20-Aweshell.html</link>
+  <pubDate>mié, 20 ene 2021 07:54:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Servidor webDAV]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-orgfb8f13d" class="outline-2">
+        <h2 id="orgfb8f13d">Webdav wiki</h2>
+        <div class="outline-text-2" id="text-orgfb8f13d">
+          <p>
+            WebDAV es un grupo de trabajo del Internet Engineering Task Force.
+            El término significa "Autoría y versionado distribuidos por Web"
+            (Web Distributed Authoring and Versioning), y se refiere al
+            protocolo (más precisamente, a la extensión del protocolo http) que
+            el grupo definió.
+          </p>
+
+          <p>
+            El objetivo de WebDAV es hacer de la World Wide Web un medio legible
+            y editable, en línea con la visión original de Tim Berners-Lee. Este
+            protocolo proporciona funcionalidades para crear, cambiar y mover
+            documentos en un servidor remoto (típicamente un servidor web). Esto
+            se utiliza sobre todo para permitir la edición de los documentos que
+            sirve un servidor web, pero puede también aplicarse a sistemas de
+            almacenamiento generales basados en web, que pueden ser accedidos
+            desde cualquier lugar. La mayoría de los sistemas operativos
+            modernos proporcionan soporte para WebDAV, haciendo que los ficheros
+            de un servidor WebDAV aparezcan como almacenados en un directorio.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org79a79f4" class="outline-2">
+        <h2 id="org79a79f4">
+          Instalación y configuración de un servidor webdav
+        </h2>
+        <div class="outline-text-2" id="text-org79a79f4"></div>
+        <ul class="org-ul">
+          <li>
+            <a id="orga4924f7"></a>Instalar Apache2<br />
+            <div class="outline-text-5" id="text-orga4924f7">
+              <pre class="example">
+sudo apt install apache2 apache2-utils
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="orgfc444e5"></a>Directorio de almacenamiento:<br />
+            <div class="outline-text-5" id="text-orgfc444e5">
+              <pre class="example">
+sudo mkdir ~/webDAV
+</pre
+              >
+
+              <p>Agregar éste directorio al usuario y grupo <b>www-data</b>:</p>
+
+              <pre class="example">
+sudo chown -R www-data:www-data ~/webDav
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="orga84bc23"></a>Habilitar los módulos dav y dav-fs en
+            apache<br />
+            <div class="outline-text-5" id="text-orga84bc23">
+              <pre class="example">
+sudo a2enmod dav
+
+sudo a2enmod dav_fs
+</pre
+              >
+
+              <p>Reiniciar el servidor:</p>
+
+              <pre class="example">
+sudo service apache2 restart
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org2f48528"></a>Configuración del virtual host de apache<br />
+            <div class="outline-text-5" id="text-org2f48528">
+              <p>
+                para configurar un servidor basico en apache hay que editar el
+                archivo
+                <b>/etc/apache2/sites-available/000-default.conf</b> y dejarlo
+                así:
+              </p>
+
+              <pre class="example">
+DavLockDB /var/www/DavLock
+&lt;VirtualHost *:80&gt;
+
+ServerAdmin webmaster@localhost
+DocumentRoot /var/www/html
+
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+Alias /webdav /var/www/webdav
+
+&lt;Directory /var/www/webdav&gt;
+    DAV On
+&lt;/Directory&gt;
+
+&lt;/VirtualHost&gt;
+</pre
+              >
+
+              <p>
+                después de editar éste archivo hay que reiniciar el
+                servidor&#x2026;
+              </p>
+
+              <p>
+                Para comprobar su funcionamiento en un navegador ir a la
+                dirección:
+              </p>
+
+              <pre class="example">
+ip_servidor/webdav
+</pre
+              >
+
+              <blockquote>
+                <p>
+                  Para cambiar el directorio a compartir (/var/www/webdav) por
+                  otro ubicado en una partición diferente de la raiz, se agrega
+                  lo siguiente al archivo <b>000-default.conf</b>:
+                </p>
+              </blockquote>
+
+              <pre class="example">
+Options Indexes FollowSymLinks
+AllowOverride All
+Require all granted
+DAV On
+</pre
+              >
+
+              <p>que al final se ve así:</p>
+
+              <pre class="example">
+DavLockDB /var/www/DavLock
+&lt;VirtualHost *:80&gt;
+
+ServerAdmin webmaster@localhost
+DocumentRoot /var/www/html
+
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+Alias /webdav /home/martin/webDAV
+
+&lt;Directory /home/martin/webDAV&gt;
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+        DAV On
+&lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+</pre
+              >
+
+              <blockquote>
+                <p>
+                  Para poder editar los archivos desde diferentes dispositivos
+                  hay que configurar los permisos:
+                </p>
+              </blockquote>
+
+              <pre class="example">
+sudo chgrp -R www-data ~/webDAV
+sudo chmod -R g+w ~/webDAV
+sudo find ~/webDAV -type d -exec chmod 2775 {} \;
+sudo find ~/webDAV -type f -exec chmod ug+rw {} \;
+</pre
+              >
+
+              <p>
+                <a
+                  href="https://geekland.eu/instalar-y-configurar-un-servidor-webdav-apache/"
+                  >resumen de geekland</a
+                >
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/faq/2020-12-23-servidor-webdav.html</link>
+  <pubDate>mié, 23 dic 2020 17:24:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Emacs Bookmarks]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-org12ca3af" class="outline-2">
+        <h2 id="org12ca3af">
+          <a href="https://www.emacswiki.org/emacs/BookMarks">Emacs Wiki</a>
+        </h2>
+        <div class="outline-text-2" id="text-org12ca3af">
+          <p>
+            Los marcadores registran ubicaciones para que puedas volver a ellas
+            más tarde. Los marcadores de Emacs utilizan tres cosas que están
+            relacionadas pero son diferentes: una lista de marcadores , un
+            archivo de marcadores y una pantalla de lista de marcadores .
+            Comprenderlos es importante para usar los marcadores de Emacs.
+          </p>
+
+          <p>Algunos comandos de marcadores para comenzar:</p>
+
+          <ul class="org-ul">
+            <li>
+              <b>C-x r m</b> establece un marcador en la ubicacion actual.
+            </li>
+
+            <li><b>C-x r b</b> salta a un marcador.</li>
+
+            <li><b>C-x r l</b> lista marcadores.</li>
+
+            <li><b>M-x bookmark-delete</b> elimina un marcador.</li>
+          </ul>
+
+          <p>
+            La opción ‘bookmark-default-file’ define un archivo bookmarks , que
+            por defecto es ` ~/.emacs.d/bookmarks` en las versiones más
+            recientes. Emacs mantiene el archivo automáticamente a medida que
+            crea, cambia y elimina marcadores.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgd023208" class="outline-2">
+        <h2 id="orgd023208">Lista de marcadores</h2>
+        <div class="outline-text-2" id="text-orgd023208">
+          <p>
+            El comando <b>bookmark-bmenu-list</b>, vinculado a <b>C-x r l</b>,
+            proporciona un menú conveniente para acceder a los marcadores. La
+            lista es como un dired para marcadores
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org8edbc27" class="outline-2">
+        <h2 id="org8edbc27">Claves en <b>bookmark list</b>:</h2>
+        <div class="outline-text-2" id="text-org8edbc27">
+          <ul class="org-ul">
+            <li><b>a</b> mostrar anotación para el marcador actual.</li>
+
+            <li><b>A</b> mostrar todas las anotaciónes para sus marcadores.</li>
+
+            <li>
+              <b>d</b> marcar varias entradas para borrarlas(<b>x</b> para
+              borrarlas)
+            </li>
+
+            <li><b>e</b> editar anotación del marcador actual.</li>
+
+            <li>
+              <b>m</b> marcar varias entradas para visualización y otras
+              operaciones, ( <b>v</b> para visitar)
+            </li>
+
+            <li>
+              <b>o</b> visitar el marcador actual en otra ventana, mateniendo
+              abierta la lista de marcadores.
+            </li>
+
+            <li><b>C-o</b> cambiar al marcador actual en otro ventana.</li>
+
+            <li><b>r</b> cambiar el nombre del marcador actual.</li>
+          </ul>
+
+          <p>
+            Esto es solo un <code>miniresumen</code> de
+            <a href="https://www.emacswiki.org/emacs/BookMarks">Emacs Wiki</a>
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2020-12-21-emacs-bookmarks.html</link>
+  <pubDate>lun, 21 dic 2020 11:06:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Mocp reproducir audio desde la terminal]]></title>
+  <description><![CDATA[
+      <p>
+        MOC es un reproductor de audio fácil de manejar y ligero, ideal para
+        equipos con pocos recursos. La interfaz es similar a MC (Midnight
+        Commander, el administrador de archivos) MOC reproduce todos los
+        archivos en el directorio a partir del archivo seleccionado para lo que
+        no es necesario crear listas de reproducción. Es posible reproducir
+        varios archivos o directorios de archivos y después guardar lalista de
+        reproducción como un archivo con extensión m3u. Funciona como demonio,
+        es decir que se ejecuta en segundo plano por lo que no necesita entorno
+        gráfico. Esto quiere decir también que si necesitas usar la terminal, el
+        emulador de terminal ó cerrar el entorno gráfico no es necesario detener
+        la reproducción ya que ésta sigue activa en segundo plano. Soporta los
+        siguientes formatos: mp3, Ogg Vorbis, FLAC, Musepack, Speex, WAVE, AIFF
+        y AU entre otros. Soporta Internet stream. Soporta temas de
+        configuración.
+      </p>
+
+      <div id="outline-container-orge2cf8a0" class="outline-2">
+        <h2 id="instalación"><a id="orge2cf8a0"></a>Instalación</h2>
+        <div class="outline-text-2" id="text-instalación">
+          <pre class="example">
+sudo apt install moc
+</pre
+          >
+
+          <p>
+            Alternativamente se puede instalar un plugin para reproducir
+            archivos en formatos como WMA, RealAudio, MP4 y ACC.
+          </p>
+
+          <pre class="example">
+sudo apt install moc-ffmpeg-plugin
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org519ef0f" class="outline-2">
+        <h2 id="uso"><a id="org519ef0f"></a>Uso</h2>
+        <div class="outline-text-2" id="text-uso">
+          <p>
+            El binario tiene el nombre <b>mocp</b> para evitar problemas con
+            otras aplicaciones u otros sistemas.
+          </p>
+
+          <p>La sintaxis en la siguiente:</p>
+
+          <pre class="example">
+mocp [opciones] [archivo]
+</pre
+          >
+
+          <p>Las opciones principales son:</p>
+
+          <pre class="example">
+-c --clear
+   Limpia la lista de reproducción.
+
+-p --play
+   Comienza a reproducir desde el primer elemento en la lista de reproducción.
+
+-f --next
+   Cambia al siguiente elemento en la lista de reproducción.
+
+-r --previous
+   Cambia al elemento anterior en la lista de reproducción.
+
+-s --stop
+   Detiene la reproducción.
+
+-P --pause
+   Pausa la reproducción.
+
+-U --unpause
+   Quita la pausa en la reproducción..
+
+-G --toggle-pause
+   Hace el cambio entre reproducir y pausa.
+
+-T --theme
+   Usa un tema específico. De no ser una ruta completa el archivo será buscado en /usr/share/moc/themes, ~/.moc/themes y en el actual directorio.
+</pre
+          >
+
+          <p>
+            Se puede lanzar sin parámetros para entrar a la interfaz de ncurses:
+          </p>
+
+          <pre class="example">
+mocp
+</pre
+          >
+
+          <p>
+            Del lado izquierdo esta el navegador de archivos y del derecho la
+            lista de reproducción, se cambia entre una y otra usando la tecla de
+            tabulación. A continuación en la parte inferior se encuentran el
+            mensaje de información que muestra el estatus del reproductor, el
+            volumen, el tiempo total de reproducción, la información sobre la
+            pista, tiempo transcurrido, restante y total de la pista, los
+            parámetros de sonido, opciones y la barra de reproducción.
+          </p>
+
+          <p>
+            Los accesos rápidos del teclado pueden verse presionando "h" , aquí
+            una lista con los más utilizados:
+          </p>
+
+          <pre class="example">
+q              Oculta la interfaz de ncurses
+ENTER          Comienza la reproducción o entra al directorio
+Q              Cierra la aplicación por completo
+s              Detiene la reproducción
+n              Reproduce el siguiente elemento
+b              Reproduce el elemento anterior
+p SPACE        Pausa
+f              Cambia la opción de leer las etiquetas ó sólo nombrar el archivo
+S              Activa/desactiva la reproducción aleatoria
+R              Activa/desactiva el repetir la lista después de finalizada
+X              Activa/desactiva el reproducir el siguiente elemento automáticamente
+TAB            Cambia entre la lista de reproducción y el explorador de archivos
+l              Muestra sólo el explorador de archivos ó la lista de reproducción
+a              Agrega un archivo/directorio a la lista de reproducción
+d              Elimina un archivo de la lista de reproducción
+C              Limpia la lista de reproducción
+A              Agrega un directorio recursivamente a la lista de reproducción
+&lt;              Decrementa el volumen en 1%
+&gt;              Incrementa el volumen en 1%
+,              Decrementa el volumen en 5%
+.              Incrementa el volumen en 5%
+V              Guarda la lista de reproducción
+x              Alterna los canales del mezclador
+K              Selecciona el anterior preset del ecualizador
+k              Selecciona el siguiente preset del ecualizador
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org9a2e9ec" class="outline-2">
+        <h2 id="directorio-de-configuración-.moc">
+          <a id="org9a2e9ec"></a>Directorio de configuración: ~/.moc
+        </h2>
+        <div class="outline-text-2" id="text-directorio-de-configuración-.moc">
+          <p>
+            El archivo de configuración principal dentro del directorio
+            <b>~/.moc</b> es <b>config</b>, este archivo no es necesario para el
+            usa de la aplicación, pero si lo es para modificar las preferencias,
+            no se crea durante las instalación sino que hay que copiarlo desde
+            <b>/usr/share/doc/moc/examples/config.example.gz</b> y
+            descomprimirlo en
+            <b>~/.moc</b>
+          </p>
+
+          <pre class="example">
+cp /usr/share/doc/moc/examples/config.example.gz ~/.moc
+cd ~/.moc
+gzip -d config.example.gz
+mv config.example config
+</pre
+          >
+
+          <p>
+            Está muy bien documentado y realmente los cambios son a gusto.
+            Normalmente sólo es necesario cambiar unas cuantas líneas para tener
+            todo funcionando a gusto, por ejemplo las siguientes: Repeat = yes
+            Shuffle = yes SoundDriver = ALSA Theme = black\<sub>theme</sub>
+          </p>
+
+          <p>
+            Los directorios por defecto para los temas son
+            <b>/usr/share/moc/themes</b> y
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-org2e14657" class="outline-2">
+        <h2 id="org2e14657">
+          ~/.moc/themes**. Es posible descargar temas de configuración, o
+        </h2>
+        <div class="outline-text-2" id="text-org2e14657">
+          <p>
+            editarlo uno y guardarlo en uno de estos directorios. Básicamente
+            cada elemento tiene la siguiente estructura:
+          </p>
+
+          <pre class="example">
+elemento        = color-de-texto
+color-de-fondo  = atributos
+</pre
+          >
+
+          <p>Los colores permitidos son:</p>
+
+          <pre class="example">
+default (sirve como transparencia)
+black
+red
+green
+yellow
+blue
+magenta
+cyan
+white
+grey
+</pre
+          >
+
+          <p>Los atributos le dan formato al texto y son:</p>
+
+          <p>
+            atributo | función -|- normal | default (sin destacado) standout |
+            mejor salida underline | subrayado reverse | video inverso blink |
+            parpadeo dim | medio brillo bold | negrita protect | modo protegido
+          </p>
+
+          <p>
+            Ejemplo del archivo
+            <b>* ~/.moc/themes/black\<sub>themes</sub>*</b> documentado:
+          </p>
+
+          <pre class="example">
+# Interfaz de ncurses
+background = red default
+frame = red default
+window_title = yellow default underline,dim
+
+# Archivos, directorios y listas de reproducción
+directory = yellow default
+selected_directory = yellow default underline
+playlist = yellow default
+selected_playlist = yellow default
+file = yellow default
+selected_file = yellow default underline
+selected_info           = yellow        default bold
+
+# Elemento que actualmente se está reproduciendo
+marked_file = yellow default bold
+marked_selected_file = red default bold,underline
+marked_info             = blue          default bold
+marked_selected_info    = cyan          default
+
+# Estatus
+info = yellow default
+status = yellow default
+title = yellow default
+state = yellow default
+
+# Tiempo
+current_time = yellow default
+time_left = yellow default
+total_time = yellow default
+time_total_frames = yellow default ~/.mo
+
+# Parámetros de sonido
+sound_parameters = yellow default
+legend = yellow default
+disabled = red default dim
+enabled = yellow default bold
+
+# Barra de Volumen
+empty_mixer_bar = yellow red
+filled_mixer_bar = red yellow
+
+# Barra de reproducción
+empty_time_bar = yellow default
+filled_time_bar = default yellow
+
+# Guardar lista de reproducción
+entry = yellow default
+entry_title = yellow default bold
+
+# Mensajes
+error = cyan default
+message = yellow default
+
+# Tiempo total de la lista de reproducción o directorio
+plist_time = yellow default
+</pre
+          >
+
+          <p>
+            Para asociar un tema por default hay que editar el archivo de
+            configuración ~/.moc/config y editar la opción "Theme" de esta
+            forma: Theme = black\<sub>theme</sub>
+          </p>
+
+          <p>
+            Es posible usar temas sin necesidad de editar el archivo de
+            configuración usando el parámetro <b>-T</b>: mocp -T
+            tema\<sub>a</sub>\<sub>usar</sub>
+          </p>
+
+          <p>
+            También es posible cambiar el tema dentro de la misma interfaz
+            ncurses presionando <b>T</b> con lo que se desplegara un menú con
+            los temas disponibles.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org130afaf" class="outline-2">
+        <h2 id="ecualizador"><a id="org130afaf"></a>Ecualizador</h2>
+        <div class="outline-text-2" id="text-ecualizador">
+          <p>
+            Moc tiene la opción de utilizar un ecualizador pero necesita de
+            algún preset que por default no hay en la carpeta de configuración,
+            estos deben estar ubicados en la carpeta <b>* ~/.moc/eqsets</b>. Se
+            puede crear uno a mono pero lo más sencillo es descargarlos, en
+            internet están disponibles algunos presets convertidos de winamp o
+            xmms en un archivo <b>eqsets.tar.gz*</b>. Para utilizarlos basta
+            con:
+          </p>
+
+          <pre class="example">
+cd  ~/.moc/
+wget http://ftp.daper.net/pub/soft/moc/contrib/eqsets.tar.gz
+tar xvfz eqsets.tar.gz
+rm eqsets.tar.gz
+</pre
+          >
+
+          <p>
+            Y ahora dentro de moc hay refrescar la lista de presets presionando
+            <b>e</b>, se cambia con <b>k</b> (minúscula) hacia adelante o con
+            <b>K</b> (mayúscula) hacia atrás.
+          </p>
+        </div>
+
+        <div id="outline-container-org810d6d7" class="outline-3">
+          <h3 id="problemas-frecuentes">
+            <a id="org810d6d7"></a>Problemas frecuentes
+          </h3>
+          <div class="outline-text-3" id="text-problemas-frecuentes">
+            <p>Mensaje de error al lanzar MOC:</p>
+
+            <p>
+              #+BEGIN<sub>SRCh</sub> FATAL<sub>ERROR</sub>: Can't send() int to
+              the server. / FATAL<sub>ERROR</sub>: Can't receive value from the
+              server. #+END<sub>SRC</sub>
+            </p>
+
+            <p>Basta con borrar el directorio ~/.moc/cache</p>
+
+            <p>
+              #+BEGIN<sub>SRCh</sub> rm -rf ~/.moc/cache #+END<sub>SRC</sub>
+            </p>
+
+            <p>y lanzar de nuevo la aplicación.</p>
+
+            <p>
+              <b>Fuentes</b>
+              archivo recuperado del viejo esdebian man moc
+              <a href="https://moc.daper.net/">Moc pagina oficial</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/faq/2020-12-19-mocp.html</link>
+  <pubDate>sáb, 19 dic 2020 20:21:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Dired, el navegador de archivos de emacs]]></title>
+  <description><![CDATA[
+      <p>
+        <b>*Dired</b> crea un buffer de Emacs que contiene un listado de un
+        directorio y subdirectorios, se pueden usar los comandos normales de
+        Emacs para moverse por este buffer, y los comandos especiales de
+        <b><b>Dired</b></b> para operar en los archivos listados.
+        <b><b>Dired</b></b> funciona tanto con los directorios locales como con
+        los remotos.
+      </p>
+
+      <div id="outline-container-org685febf" class="outline-2">
+        <h2 id="org685febf">Atajos</h2>
+        <div class="outline-text-2" id="text-org685febf"></div>
+        <div id="outline-container-org680cec3" class="outline-4">
+          <h4 id="org680cec3">
+            Para abrir dired se usa <b><b>(M-x dired)</b></b> o el atajo
+            <b><b>(C-x d)</b></b
+            >. Los atajos más comunes son:
+          </h4>
+          <div class="outline-text-4" id="text-org680cec3">
+            <ul class="org-ul">
+              <li>
+                <b><b>+</b></b> (Crear directorio)
+              </li>
+              <li>e [enter] (Editar el archivo)</li>
+              <li>g (Después de una modificación actualiza la pantalla)</li>
+              <li>q (Regresa al listado)</li>
+              <li>
+                d (Marca un archivo para su eliminación, pone una
+                <b><b>D</b></b> en la primera columna)
+              </li>
+              <li>u (Elimina la marca anterior)</li>
+              <li>U (Desmarcar todos los marcados)</li>
+              <li>
+                x (Elimina los archivos marcados con una <b><b>D</b></b
+                >)
+              </li>
+              <li>D (Eliminación inmediata, pide confirmación)</li>
+              <li>m (marca un archivo)</li>
+              <li>%m (marcar por patron)</li>
+              <li>C (copiar)</li>
+              <li>4C (Copiar el archivo del cursor y los 4 siguientes)</li>
+              <li>R (Renombrar o mover)</li>
+              <li>
+                Z (Comprimir/descomprimir [compress (.z .Z) y gzip (.gz)])
+              </li>
+              <li>
+                X (Entrar comandos de shell [chmod, grep, find, sort&#x2026;])
+              </li>
+              <li>S (Crear un enlace simbólico)</li>
+              <li>h (Muestra la ayuda y todos los atajos de teclado)</li>
+              <li>( (Muestra/esconde detalles de archivos y directorios)</li>
+              <li>
+                &amp; (Con el cursor sobre un archivo, permite entrar una
+                aplicación para abrirla)
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgc93eec4" class="outline-2">
+        <h2 id="orgc93eec4">Algunas funciones útiles</h2>
+        <div class="outline-text-2" id="text-orgc93eec4">
+          <p>
+            Es posible asignar claves DedicatedKeys , como S-&lt;f1&gt;(
+            shift+F1), para abrir una lista de directorios. Por ejemplo, agregar
+            lo siguiente al init.el permite visitar su directorio de inicio al
+            presionar S-&lt;f1&gt; en modo Dired.
+          </p>
+
+          <pre class="example">
+(clave de conjunto global (kbd "S- &lt;f1&gt;" )
+  ( lambda ()
+    (interactivo)
+    (dired "~ /" )))
+</pre
+          >
+        </div>
+
+        <div id="outline-container-org2f17200" class="outline-4">
+          <h4 id="org2f17200">
+            Función para ocultar detalles y permisos de archivos:
+          </h4>
+          <div class="outline-text-4" id="text-org2f17200">
+            <pre class="example">
+;; ocultar detalles de archivos
+(defun dired-mode-setup ()
+  "hook para que dired-mode oculte propietario y permisos de archivo"
+  (dired-hide-details-mode 1))
+
+(add-hook 'dired-mode-hook 'dired-mode-setup)
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org118c571" class="outline-4">
+          <h4 id="org118c571">Abrir archivos con aplicaciónes externas:</h4>
+          <div class="outline-text-4" id="text-org118c571">
+            <pre class="example">
+(defun external-app ()
+"Abrir archivo con apps externas."
+(interactive)
+(let* ((file (dired-get-filename nil t)))
+(call-process "xdg-open" nil 0 nil file)))
+;;; Atajo para abrir archivos con apps externas con f9.
+(global-set-key [f9] 'external-app)
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgc3fca7e" class="outline-2">
+        <h2 id="orgc3fca7e">Settings</h2>
+        <div class="outline-text-2" id="text-orgc3fca7e"></div>
+        <div id="outline-container-org9650b07" class="outline-4">
+          <h4 id="org9650b07">
+            Abrir directorio con Enter (subdirectorio) y ^ (directorio padre) en
+            un mismo buffer.
+          </h4>
+          <div class="outline-text-4" id="text-org9650b07">
+            <pre class="example">
+(require 'dired )
+(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) ; 
+(define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org7136469" class="outline-4">
+          <h4 id="org7136469">
+            En un archivo abrir el directorio de dicho archivo con C-c C-j
+          </h4>
+          <div class="outline-text-4" id="text-org7136469">
+            <pre class="example">
+(require 'dired-x)
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgea3c478" class="outline-2">
+        <h2 id="orgea3c478">Wdired</h2>
+        <div class="outline-text-2" id="text-orgea3c478">
+          <p>
+            WDired, que significa "Writable Dired", ha sido parte de Emacs desde
+            hace mucho tiempo. Su modo de funcionamiento es sencillo: si
+            cualquier búfer "dired" o "dired-derived" se cambia a "writable"
+            desde "read-only" con la unión <b>C-x C-q</b>, reconocida
+            mundialmente, puedes editar el búfer "dired" como si fuera un búfer
+            ordinario. Si está en modo de edición de la memoria intermedia, la
+            línea de modelo de la memoria intermedia dirá Editable.
+          </p>
+
+          <p>
+            Cualquier cambio que hagas en el buffer permanecerá sin cambios
+            hasta que los confirmes escribiendo <b>C-c C-c</b>. Para cancelar
+            los cambios y volver al estado original puedes escribir
+            <b>C-c ESC</b>.
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2020-12-15-dired.html</link>
+  <pubDate>mar, 15 dic 2020 10:23:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[mplayer-resumer]]></title>
+  <description><![CDATA[
+      <p>
+        Lo unico que le faltaba al bueno de mplayer era poder retomar la
+        reprocucción en el punto donde había quedado,
+        <b>mplayer-resumer</b> resuelve esta situación.
+      </p>
+
+      <div id="outline-container-org6c7a7fe" class="outline-2">
+        <h2 id="org6c7a7fe">Descarga</h2>
+        <div class="outline-text-2" id="text-org6c7a7fe">
+          <pre class="example">
+git clone https://github.com/graysky2/mplayer-resumer.git
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgacb515f" class="outline-2">
+        <h2 id="orgacb515f">Instalación</h2>
+        <div class="outline-text-2" id="text-orgacb515f">
+          <p>
+            El paquete clonado viene con un archivo <b><b>INSTALL</b></b> con
+            las dependencias e instrucciones necesarias:
+          </p>
+
+          <ul class="org-ul">
+            <li>Dpendencias</li>
+          </ul>
+
+          <pre class="example">
+mplayer or mplayer2
+perl
+perl-shell (http://search.cpan.org/dist/Shell/)
+</pre
+          >
+
+          <ul class="org-ul">
+            <li>Building</li>
+          </ul>
+
+          <pre class="example">
+$ make
+# make install
+</pre
+          >
+
+          <p>
+            Si el script es reiniciado a los 5 segundos (con $tdiff 5 segundos
+            por defecto) entonces borrará el archivo usado para mantener la
+            posición del vídeo.
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/faq/2020-12-11-mplayer-resumer.html</link>
+  <pubDate>vie, 11 dic 2020 19:48:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Eww Emacs Web Wowser]]></title>
+  <description><![CDATA[
+      <p>
+        EWW, el Emacs Web Wowser, es un navegador web para GNU Emacs. Puede
+        cargar, analizar y mostrar varias páginas web usando shr.el. Sin
+        embargo, se requiere un GNU/Emacs con soporte para libxml2.
+      </p>
+
+      <p>Definir eww como navegador por defecto</p>
+      <pre class="example">
+(setq browse-url-browser-function 'eww-browse-url)
+</pre
+      >
+
+      <p>Cambiar directorio de descargas</p>
+      <pre class="example">
+'(eww-download-directory "~/storage/descargas")
+</pre
+      >
+
+      <div id="outline-container-org6a2ec7e" class="outline-2">
+        <h2 id="org6a2ec7e">Atajos</h2>
+        <div class="outline-text-2" id="text-org6a2ec7e">
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">comando</th>
+                <th scope="col" class="org-left">Atajo</th>
+                <th scope="col" class="org-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">eww</td>
+                <td class="org-left">f5</td>
+                <td class="org-left">Abrir URL o buscar en la web</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-open-file</td>
+                <td class="org-left"><a href="file://">file://</a></td>
+                <td class="org-left">Abrir un archivo</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-quit</td>
+                <td class="org-left">q</td>
+                <td class="org-left">Salir</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-reload</td>
+                <td class="org-left">g</td>
+                <td class="org-left">Recargar</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-copy-page-url</td>
+                <td class="org-left">w</td>
+                <td class="org-left">Copia la URL en el kill-ring</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-open-in-new-buffer</td>
+                <td class="org-left">M-RET</td>
+                <td class="org-left">Abre la URL en un nuevo buffer</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-readable</td>
+                <td class="org-left">R</td>
+                <td class="org-left">Muestra solo texto legible</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-toggle-fonts</td>
+                <td class="org-left">F</td>
+                <td class="org-left">Usar fuentes de tono variable o no</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-toggle-colors</td>
+                <td class="org-left">M-C</td>
+                <td class="org-left">
+                  Usar o no colores especificados por HTML
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-dowload</td>
+                <td class="org-left">d</td>
+                <td class="org-left">
+                  Descarga el link bajo el punto o la pagina actual
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-back-url</td>
+                <td class="org-left">"pipe"</td>
+                <td class="org-left">Volver a la URL anterior</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-forward-url</td>
+                <td class="org-left">r</td>
+                <td class="org-left">Ir hacia adelante</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-list-histories</td>
+                <td class="org-left">H</td>
+                <td class="org-left">
+                  Abrir el buffer del historial(se pierde al salir)
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-add-bookmark</td>
+                <td class="org-left">b</td>
+                <td class="org-left">Agregar marcador para la pagina actual</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-list-bookmarks</td>
+                <td class="org-left">B</td>
+                <td class="org-left">Listar marcadores</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-list-buffers</td>
+                <td class="org-left">S</td>
+                <td class="org-left">Listar eww-buffers abiertos</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-switch-to-buffer</td>
+                <td class="org-left">s</td>
+                <td class="org-left">Cambiar entre buffer de eww abiertos</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2020-12-10-eww.html</link>
+  <pubDate>jue, 10 dic 2020 17:29:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[ivy counsel swiper]]></title>
+  <description><![CDATA[
+      <ul class="org-ul">
+        <li>
+          Ivy-mode
+          <span class="timestamp-wrapper"
+            ><span class="timestamp">[2020-11-08 dom]</span></span
+          >
+        </li>
+      </ul>
+      <div id="outline-container-org1e51419" class="outline-2">
+        <h2 id="org1e51419">Que es ivy</h2>
+        <div class="outline-text-2" id="text-org1e51419">
+          <p>
+            Ivy es un marco de terminación, similar a helm, que proporciona una
+            interfaz para listar, buscar, filtrar y realizar acciones sobre una
+            colección de "cosas". Estas "cosas" pueden ir desde cadenas a
+            buffers, a Ivy no le importa. Sólo proporciona una forma para que el
+            usuario interactúe con esta colección.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org329144b" class="outline-2">
+        <h2 id="org329144b">Instalación</h2>
+        <div class="outline-text-2" id="text-org329144b">
+          <pre class="example">
+M-x package-install counsel
+</pre
+          >
+
+          <p>Instalando Counsel intalara Ivy y Swipwer como dependencias.</p>
+        </div>
+      </div>
+
+      <div id="outline-container-org8cc60e6" class="outline-2">
+        <h2 id="org8cc60e6">Uso</h2>
+        <div class="outline-text-2" id="text-org8cc60e6">
+          <p>
+            Habilita ivy usando <code>M-x ivy-mode</code> o agregando al archivo
+            init.el (ivy-mode 1) y listo. Ivy puede trabajar sin configuración
+            pero hay un par de lineas más que recomiendan los mantenedores.
+          </p>
+
+          <pre class="example">
+(use-package ivy :demand
+   :config
+   (setq ivy-use-virtual-buffers t
+	 ivy-count-format "%d/%d "))
+</pre
+          >
+
+          <p>
+            <code>ivy-use-virtual-buffers</code>
+            Agrega archivos recientes y marcadores a
+            <code>ivy-switch-buffer</code>
+            <code>ivy-count-format</code>
+            Muestra el número actual y total de la colección en el aviso.
+          </p>
+
+          <p>
+            Hay muchas más configuraciónes disponibles detalladas en la
+            documentacíon, o con ivy instalado ejecutar
+            <code>M-x customize-group ivy</code>.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgba1cebe" class="outline-2">
+        <h2 id="orgba1cebe">Keybindings</h2>
+        <div class="outline-text-2" id="text-orgba1cebe">
+          <p>
+            Cuando ivy esta activo en el minibuffer las siguientes Keybindings
+            están activas:
+          </p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Key</th>
+                <th scope="col" class="org-left">Command</th>
+                <th scope="col" class="org-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">M-n</td>
+                <td class="org-left">ivy-next-line</td>
+                <td class="org-left">Linea siguiente</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-p</td>
+                <td class="org-left">ivy-previous-line</td>
+                <td class="org-left">Linea anterior</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-&lt;</td>
+                <td class="org-left">ivy-beginning-of-buffer</td>
+                <td class="org-left">Beginning of the ivy minibuffer</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-&gt;</td>
+                <td class="org-left">ivy-end-fo-buffer</td>
+                <td class="org-left">End of the ivy minibuffer</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-v</td>
+                <td class="org-left">ivy-scroll-up-command</td>
+                <td class="org-left">Page up by one Ivy buffer size</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-v</td>
+                <td class="org-left">ivy-scroll-down-command</td>
+                <td class="org-left">Page down by one Ivy buffer size</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-m or RET</td>
+                <td class="org-left">ivy-done</td>
+                <td class="org-left">Llama a la acción por defecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-M-m</td>
+                <td class="org-left">ivy-call</td>
+                <td class="org-left">
+                  LLama a al aación por defecto, mantiene ivy abierto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-o</td>
+                <td class="org-left">ivy-dispacthing-done</td>
+                <td class="org-left">Muestra las acciónes disponibles</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-M-o</td>
+                <td class="org-left">ivy-dispacthing-call</td>
+                <td class="org-left">
+                  Muestra las acciones disponibles, mantiene ivy abierto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-'</td>
+                <td class="org-left">ivy-avy</td>
+                <td class="org-left">Usa avy para seleccionar candidatos</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">TAB</td>
+                <td class="org-left">ivy-partial-or-done</td>
+                <td class="org-left">Autocompletar</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            <code>Fuente</code>
+            <a
+              href="https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html#fnr.1"
+              >writequit.org</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2020-12-07-ivy-counsel-swiper.html</link>
+  <pubDate>lun, 07 dic 2020 14:58:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Formatear codigo con prettier-js]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-org4245149" class="outline-2">
+        <h2 id="org4245149">Prettier-js</h2>
+        <div class="outline-text-2" id="text-org4245149">
+          <p>
+            Prettier-js es una función que formatea el buffer actual usando
+            Prettier.
+          </p>
+        </div>
+
+        <div id="outline-container-orgbdb51ba" class="outline-3">
+          <h3 id="orgbdb51ba">Requerimientos</h3>
+          <div class="outline-text-3" id="text-orgbdb51ba">
+            <p>
+              Prettier debe estar instalado en el sistema, esto se puede hacer
+              con npm.
+            </p>
+
+            <pre class="example">
+sudo npm i -g prettier
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgebebc6f" class="outline-3">
+          <h3 id="orgebebc6f">Configuración Basica</h3>
+          <div class="outline-text-3" id="text-orgebebc6f">
+            <p>El el archivo de configuración de emacs <b>init.el</b></p>
+
+            <pre class="example">
+(require 'prettier-js)
+</pre
+            >
+
+            <p>Despues para lanzar Prettier-js con <b>web-mode</b></p>
+
+            <pre class="example">
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'web-mode-hook 'prettier-js-mode)
+</pre
+            >
+
+            <p>
+              <b>Fuente</b>
+            </p>
+
+            <p>
+              <a href="https://github.com/prettier/prettier-emacs"
+                >gihub-prettier</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2020-12-07-prettier-js.html</link>
+  <pubDate>lun, 07 dic 2020 11:46:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Projectile. Integración de Projectos para Emacs]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-orgc5073a9" class="outline-2">
+        <h2 id="orgc5073a9">Docs.Projectile.mx</h2>
+        <div class="outline-text-2" id="text-orgc5073a9">
+          <p>
+            Projectile es una biblioteca de interacción de proyectos para Emacs.
+            Su objetivo es proporcionar un buen conjunto de características que
+            operan a nivel de proyecto sin introducir dependencias externas.
+            Esta biblioteca proporciona una fácil gestión y navegación de
+            proyectos. El concepto de proyecto es bastante básico: solo una
+            carpeta que contiene algún archivo especial (por ejemplo, un
+            marcador VCS o un archivo descriptor de proyecto). Actualmente git,
+            mercurial, darcsy bazaarrepos se consideran proyectos por defecto.
+            Si desea marcar un directorio manualmente como proyecto, simplemente
+            cree un archivo vacío en ella llamado ".projectile".
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org91bdb44" class="outline-2">
+        <h2 id="org91bdb44">Caracteristicas:</h2>
+        <div class="outline-text-2" id="text-org91bdb44"></div>
+        <ul class="org-ul">
+          <li>
+            <a id="org4569a44"></a>Saltar a un archivo en el proyecto.<br />
+          </li>
+
+          <li>
+            <a id="orge4075b7"></a>Saltar a un directorio en el proyecto.<br />
+          </li>
+
+          <li>
+            <a id="orgb3901b8"></a>Saltar a un archivo en un directorio.<br />
+          </li>
+
+          <li><a id="orgdc4315c"></a>Saltar a un buffer del proyecto.<br /></li>
+
+          <li>
+            <a id="orgb554234"></a>Saltar a archivos visitados recientemente en
+            el proyecto.<br />
+          </li>
+
+          <li>
+            <a id="org9937b1b"></a>Cambiar entre proyectos en los que ha
+            trabajado.<br />
+          </li>
+
+          <li>
+            <a id="org2bc30f8"></a>Matar todos los buffer del proyecto.<br />
+          </li>
+
+          <li><a id="org3b48d37"></a>Reemplazar un proyecto.<br /></li>
+
+          <li><a id="org766d17f"></a>Grep en el proyecto.<br /></li>
+
+          <li>
+            <a id="orgcbd29b7"></a>Ejecutar make en un proyecto con un solo
+            acorde.<br />
+          </li>
+
+          <li>
+            <a id="orgc4585e1"></a>Soporte para multiples bibliotecas de
+            finalización/selección (ido, ivy, helm y el sistema de terminación
+            por defecto).<br />
+          </li>
+        </ul>
+      </div>
+
+      <div id="outline-container-org42af3ac" class="outline-2">
+        <h2 id="org42af3ac">Inicio rápido</h2>
+        <div class="outline-text-2" id="text-org42af3ac">
+          <p>
+            Projectile esta disponible en los repositorios principales,
+            entonces:
+          </p>
+
+          <pre class="example">
+M-x package-install RET projectile RET
+</pre
+          >
+
+          <p>Despues en el init.el:</p>
+
+          <pre class="example">
+(modo proyectil +1 )
+( define-clave proyectil-modo-mapa ( kbd  " sp " ) 'proyectil-comando-mapa )
+( define-clave proyectil-modo-mapa ( kbd  " Cc p " ) 'proyectil-comando-mapa )
+</pre
+          >
+
+          <p>
+            Estos Keybindings son solo una sugerencia, pueden modificarse a
+            gusto.
+          </p>
+        </div>
+
+        <div id="outline-container-orgd834d55" class="outline-3">
+          <h3 id="orgd834d55">Instalación mediante <b>use-package</b></h3>
+          <div class="outline-text-3" id="text-orgd834d55">
+            <p>
+              Para instalar la versión de projectile que esta en la rama master,
+              se declara los siguiente en el init.el:
+            </p>
+
+            <pre class="example">
+(use-package projectile
+  :ensure t
+  :init
+  (projectile-mode +1)
+  :bind (:map projectile-mode-map
+	      ("s-p" . projectile-command-map)
+	      ("C-c p" . projectile-command-map)))
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org3eb0790" class="outline-2">
+        <h2 id="org3eb0790">Uso básico</h2>
+        <div class="outline-text-2" id="text-org3eb0790">
+          <p>
+            Para habilitar projectile <code>projectile mode</code>, luego en uno
+            de los archivos del proyecto lanzar el comando <b>C-c p f</b> o
+            <b>s-p f</b> que son los atajos para buscar en el proyecto.
+          </p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Keybinding</th>
+                <th scope="col" class="org-left">Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">s-p f</td>
+                <td class="org-left">Lista todos los archivos del proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p F</td>
+                <td class="org-left">
+                  Lista todos los archivos de todos los proyectos
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p g</td>
+                <td class="org-left">
+                  Lista todos los archivos en un punto del proyectos
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 4 f</td>
+                <td class="org-left">
+                  Salta a un archivo de un proyecto y lo muestra en otra ventana
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p d</td>
+                <td class="org-left">
+                  Lista todos los directorios del proyecto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 4 d</td>
+                <td class="org-left">
+                  Cambia a un directorio de proyecto y lo muestra en otra
+                  ventana
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 5 d</td>
+                <td class="org-left">
+                  Cambia a un directorio de proyecto y lo muestra en otro marco
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p T</td>
+                <td class="org-left">
+                  Lista todos los archivos de prueba del proyecto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 1</td>
+                <td class="org-left">
+                  Lista todos los archivos de un directorio
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p s g</td>
+                <td class="org-left">
+                  Ejecuta grep en los archivos del proyecto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p b</td>
+                <td class="org-left">
+                  Lista todos los buffers del proyecto abiertos
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p k</td>
+                <td class="org-left">Mata todos los búfers del proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p D</td>
+                <td class="org-left">Abre la raíz del proyecto en dired</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 4 D</td>
+                <td class="org-left">
+                  Abre la raíz del proyecto en dired en otra ventana
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 5 D</td>
+                <td class="org-left">
+                  Abre la raíz del proyecto en dired en otra marco
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p e</td>
+                <td class="org-left">
+                  Lista de archivos de proyectos visitados recientemente
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p left</td>
+                <td class="org-left">
+                  Cambiar al buffer del proyecto anterior
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p right</td>
+                <td class="org-left">
+                  Cambiar al buffer del proyecto siguiente
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p m</td>
+                <td class="org-left">
+                  Projectile-comander (interfaz ejecutar comandos con una sola
+                  teclas)
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">&#xa0;</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="outline-container-org18a5dca" class="outline-3">
+          <h3 id="org18a5dca">Atajos</h3>
+          <div class="outline-text-3" id="text-org18a5dca">
+            <p>Unos cuantos atajos para los comandos más comunes:</p>
+
+            <pre class="example">
+(define-key projectile-mode-map [?\s-d] 'projectile-find-dir)
+(define-key projectile-mode-map [?\s-p] 'projectile-switch-project)
+(define-key projectile-mode-map [?\s-f] 'projectile-find-file)
+(define-key projectile-mode-map [?\s-g] 'projectile-grep)
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org2905725" class="outline-2">
+        <h2 id="org2905725">Projectile-comander</h2>
+        <div class="outline-text-2" id="text-org2905725">
+          <p>
+            Es una ingeniosa utilidad para recordar combinaciónes de teclas. Se
+            invoca con <code>s-p m</code>
+          </p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Keybindings</th>
+                <th scope="col" class="org-left">Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">?</td>
+                <td class="org-left">Agyda de comander</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">D</td>
+                <td class="org-left">Abre la raiz del proyecto en dired</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">a</td>
+                <td class="org-left">Ejecutar un proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">b</td>
+                <td class="org-left">Cambiar al buffer del proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">d</td>
+                <td class="org-left">Encuentra un directorio en el proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">e</td>
+                <td class="org-left">
+                  Encuentra un archivo visitado recientemente
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">f</td>
+                <td class="org-left">Buscar archivo en el proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">k</td>
+                <td class="org-left">Mata todos los buffers del proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">r</td>
+                <td class="org-left">Reemplazar una cadena en el proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s</td>
+                <td class="org-left">Cambiar de proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">v</td>
+                <td class="org-left">Abre la raiz del proyecto en magit</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            El
+            <a href="https://docs.projectile.mx/projectile/index.html"
+              >manual del usuario</a
+            >
+            tiene la posta.
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2020-12-07-projectile.html</link>
+  <pubDate>sáb, 05 dic 2020 19:53:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Auto-complete]]></title>
+  <description><![CDATA[
+      <p>
+        Auto-complete es una extensión inteligente de autocompletado para el
+        Emacs. Amplía la interfaz estándar de finalización de Emacs y
+        proporciona un entorno que permite a los usuarios concentrarse más en su
+        propio trabajo.
+      </p>
+
+      <div id="outline-container-org6c2867b" class="outline-2">
+        <h2 id="org6c2867b">Instalación</h2>
+        <div class="outline-text-2" id="text-org6c2867b">
+          <p>
+            <code>M-x package-install RET auto-complete</code>
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orge443a7e" class="outline-2">
+        <h2 id="orge443a7e">Configuración</h2>
+        <div class="outline-text-2" id="text-orge443a7e">
+          <p>En el archivo init.el&#x2026;</p>
+
+          <pre class="example">
+(add-to-list 'load-path "/.emacs.d/auto-complete-20201011.1341/")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete-20201041/dict")
+(ac-config-default)
+;; habilitar en web-mode
+(add-to-list 'ac-modes 'web-mode)
+</pre
+          >
+
+          <p>
+            <b>Fuente</b>
+            <a
+              href="https://github.com/auto-complete/auto-complete/blob/master/doc/manual.md"
+              >Auto-complete github</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2020-12-07-autocompletar-.html</link>
+  <pubDate>vie, 04 dic 2020 16:59:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[El traductor de google en emacs]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-orgc4bfb80" class="outline-2">
+        <h2 id="orgc4bfb80">Instalación</h2>
+        <div class="outline-text-2" id="text-orgc4bfb80">
+          <pre class="example">
+M-x package-install RET google-translate
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org3f21788" class="outline-2">
+        <h2 id="org3f21788">Uso</h2>
+        <div class="outline-text-2" id="text-org3f21788">
+          <p>Selecionar el texto a traducir y lanzar:</p>
+
+          <pre class="example">
+M-x google-translate-at-point
+</pre
+          >
+
+          <p>
+            Luego indicar el idioma en el que esta el texto y al que hay que
+            traducir. Para traducir siempre de inglés a español se agrega al
+            init.el:
+          </p>
+
+          <pre class="example">
+(custom-set-variables
+'(google-translate-default-source-language "en")
+'(google-translate-default-target-language "es"))
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orge765103" class="outline-2">
+        <h2 id="orge765103">
+          configuración con use-package y solución del error "failed to search
+          tkk"
+        </h2>
+        <div class="outline-text-2" id="text-orge765103">
+          <p>
+            #+BEGIN<sub>EXAMPLE</sub> (use-package google-translate :ensure t
+            :config (when (and (string-match "0.12.0"
+            (google-translate-version)) (&gt;= (time-to-seconds)
+            (time-to-seconds (encode-time 0 0 0 23 9 2018)))) (defun
+            google-translate&#x2013;get-b-d1 () ;; TKK='427110.1469889687' (list
+            427110 1469889687))) (custom-set-variables
+            '(google-translate-default-source-language "en")
+            '(google-translate-default-target-language "es")) ) #+END<sub
+              >SRC</sub
+            >
+          </p>
+
+          <p>
+            <b>Fuente</b>
+          </p>
+
+          <p>
+            Esto es solo una pequeñisima parte del
+            <a href="http://lapipaplena.duckdns.org/emacs/">curso de emacs</a>
+            de <a href="https://lapipaplena.wordpress.com/">la pipa plena</a>
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2020-11-27-traductor-de-google-en-emacs.html</link>
+  <pubDate>vie, 27 nov 2020 17:40:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Instalar mongodb con docker]]></title>
+  <description><![CDATA[
+      <p>Instalación y ejecución de mongodb en docker.</p>
+
+      <pre class="example">
+docker run -d -p 27017:27017 --name mydatabase mongo:4.2
+</pre
+      >
+
+      <div id="outline-container-orgfb34755" class="outline-2">
+        <h2 id="orgfb34755">Este comando hace lo siguiente:</h2>
+        <div class="outline-text-2" id="text-orgfb34755"></div>
+        <ul class="org-ul">
+          <li>
+            <a id="orgd8b6fcf"></a><b>d:</b> permite ejecutar el proceso en
+            background<br />
+          </li>
+          <li>
+            <a id="org94fd546"></a><b>-p</b> 27017:27017 esto le indica a docker
+            que las conexiones del puerto 27017 del contenedor se redireccionen
+            al 27017 de la máquina host.<br />
+          </li>
+          <li>
+            <a id="org8996c33"></a><b>-name mydatabase</b>: nombre que se le
+            asigna al contenedor.<br />
+          </li>
+          <li>
+            <a id="org105a0ec"></a><b>mongo:4.2</b>: nombre de la imagen y
+            version.<br />
+            <div class="outline-text-5" id="text-org105a0ec">
+              <p>Con esto queda listo el contenedor.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div id="outline-container-org03593e7" class="outline-2">
+        <h2 id="org03593e7">
+          Para conectarse al contenedor se usa el comando <code>exec</code> de
+          docker
+        </h2>
+        <div class="outline-text-2" id="text-org03593e7">
+          <pre class="example">
+docker exec -it mydatabase bash
+</pre
+          >
+        </div>
+
+        <ul class="org-ul">
+          <li>
+            <a id="orgcca75f4"></a><b>-it</b>: ejecutar el contenedor de manera
+            intenctiva y que la terminal tome el control de instrucccion que
+            sigue al final.<br />
+          </li>
+          <li>
+            <a id="orga6ea904"></a><b>mydatabase</b>: nombre del contendor a
+            usar.<br />
+          </li>
+          <li>
+            <a id="org7dbd41a"></a><b>bash</b>: comando a ejecutar al final,
+            osea, que acceda a las shell del contenedor.<br />
+            <div class="outline-text-5" id="text-org7dbd41a">
+              <p>
+                Con este comando se ingresa al contenedor recien creado (para
+                ejecutar un contenedor creado anteriormente, pero no ingresar en
+                el contenedor, solo ejecutar la db!, el comando es
+                <code>docker start name</code>). Una vez dentro del contenedor
+                hay que ejecutar: <code>mogno</code>
+              </p>
+
+              <p>
+                <b>Fuentes</b>
+                <a
+                  href="https://platzi.com/tutoriales/1533-mongodb/4930-instalar-mongo-db-usando-docker/"
+                  >platzi.com</a
+                >
+                <a
+                  href="https://www.hostinger.es/tutoriales/como-crear-contenedor-docker/"
+                  >hostinger-tutorials</a
+                >
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/faq/2020-11-20-instalar-mongodb-con-docker.html</link>
+  <pubDate>vie, 20 nov 2020 10:49:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Instalar Docker engine usando el repositorio]]></title>
+  <description><![CDATA[
+      <p>
+        Instalando desde el repositorio despues podés actualizarlo
+        automaticamente.
+      </p>
+
+      <div id="outline-container-orgb06587f" class="outline-2">
+        <h2 id="orgb06587f">Set up del repositorio</h2>
+        <div class="outline-text-2" id="text-orgb06587f">
+          <p>
+            Actualizar el indice de paquetes de apt e instalar los paquetes
+            necesarios para permitir a apt usar un repositorio sobre https:
+          </p>
+
+          <pre class="example">
+$ sudo apt-get update
+
+$ sudo apt-get install \
+apt-transport-https \
+ca-certificates \
+curl \
+gnupg-agent \
+software-properties-common
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgd2f598d" class="outline-2">
+        <h2 id="orgd2f598d">Agregar la clave oficial de GPG de Docker:</h2>
+        <div class="outline-text-2" id="text-orgd2f598d">
+          <pre class="example">
+$ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+</pre
+          >
+
+          <p><b>*</b> Verificar la llave con la huella</p>
+
+          <p>9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88</p>
+
+          <pre class="example">
+$ sudo apt-key fingerprint 0EBFCD88
+
+pub   4096R/0EBFCD88 2017-02-22
+    Key fingerprint = 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
+    uid                  Docker Release (CE deb) &lt;docker@docker.com&gt;
+    sub   4096R/F273FCD8 2017-02-22
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orga447e8c" class="outline-2">
+        <h2 id="orga447e8c">Agregar el repositorio al sources.list</h2>
+        <div class="outline-text-2" id="text-orga447e8c">
+          <pre class="example">
+$ sudo add-apt-repository \
+  "deb [arch=amd64] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) \
+  stable"
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org6365b08" class="outline-2">
+        <h2 id="org6365b08">Inatalar Docker Engine</h2>
+        <div class="outline-text-2" id="text-org6365b08">
+          <pre class="example">
+$ sudo apt-get update
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io
+</pre
+          >
+
+          <p>
+            Para usar Docker como usuario normal hay que agregar el usuario al
+            grupo "docker":
+          </p>
+
+          <pre class="example">
+sudo usermod -aG docker your-user
+</pre
+          >
+
+          <p>Cerrar sesion y volver a entrar para que esto tenga efecto.</p>
+
+          <p>
+            <b>Fuente</b>
+          </p>
+
+          <p>
+            Resumen de
+            <a href="https://docs.docker.com/engine/install/debian/"
+              >doc.docker.com</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/faq/2020-11-06-instalar-docker.html</link>
+  <pubDate>vie, 06 nov 2020 10:32:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Git gestion de ramas]]></title>
+  <description><![CDATA[
+      <p>
+        El comando git branch tiene más funciones que las de crear y borrar
+        ramas. Si se lanza sin parámetros, se obtiene una lista de las ramas
+        presentes en el proyecto:
+      </p>
+
+      <pre class="example">
+$ git branch
+  iss53
+* master
+  testing
+</pre
+      >
+
+      <p>
+        El carácter * delante de la rama master: indica la rama activa en este
+        momento (la rama a la que apunta HEAD). Si se confirman los cambios
+        (commit), esa será la rama que avance. Para ver la última confirmación
+        de cambios en cada rama, se usa el comando git branch -v:
+      </p>
+
+      <pre class="example">
+$ git branch -v
+  iss53   93b412c fix javascript issue
+* master  7a98805 Merge branch 'iss53'
+  testing 782fd34 add scott to the author list in the readmes
+</pre
+      >
+
+      <p>
+        Otra opción útil para averiguar el estado de las ramas, es filtrarlas y
+        mostrar solo aquellas que han sido fusionadas (o que no lo han sido) con
+        la rama actualmente activa. Para ello, Git dispone de las opciones
+        &#x2013;merged y &#x2013;no-merged. Para ver las ramas que han sido
+        fusionadas en la rama activa, se usa el comando git branch
+        &#x2013;merged:
+      </p>
+
+      <pre class="example">
+$ git branch --merged
+  iss53
+* master
+</pre
+      >
+
+      <p>
+        Aparece la rama iss53 porque ya ha sido fusionada. Las ramas que no
+        llevan por delante el carácter * pueden ser eliminadas sin problemas,
+        porque todo su contenido ya ha sido incorporado a otras ramas.
+      </p>
+
+      <p>
+        Para mostrar todas las ramas que contienen trabajos sin fusionar, se
+        puede utilizar el comando git branch &#x2013;no-merged:
+      </p>
+
+      <pre class="example">
+$ git branch --no-merged
+  testing
+</pre
+      >
+
+      <p>
+        Esto nos muestra la otra rama del proyecto. Debido a que contiene
+        trabajos sin fusionar, al intentarla borrarla con git branch -d, el
+        comando nos dará un error:
+      </p>
+
+      <pre class="example">
+$ git branch -d testing
+error: The branch 'testing' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D testing'.
+</pre
+      >
+
+      <p>
+        Para borrar la rama, y perder el trabajo contenido en ella, se puede
+        forzar el borrado con la opción -D; tal y como indica el mensaje de
+        ayuda.
+      </p>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-git.html">git</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[git]]></category>
+  <link>https://martiyo.github.io/faq/2019-07-04-git-gestion-de-ramas.html</link>
+  <pubDate>jue, 04 jul 2019 17:37:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Git ramificar y fusionar]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-orgb465ae1" class="outline-2">
+        <h2 id="orgb465ae1">Ramificación</h2>
+        <div class="outline-text-2" id="text-orgb465ae1">
+          <p>
+            Para crear una rama y saltar a ella, en un solo paso, se utiliza el
+            comando git checkout -b:
+          </p>
+
+          <pre class="example">
+git checkout -b iss53
+</pre
+          >
+
+          <p>esto es un atajo a:</p>
+
+          <pre class="example">
+git branch iss53
+git checkout iss53
+</pre
+          >
+
+          <p>
+            una vez realizados los cambios en la nueva rama, se confirman los
+            cambios con:
+          </p>
+
+          <pre class="example">
+git commit -a -m 'added a new footer [issue 53]'    
+</pre
+          >
+
+          <p>Para volver a la rama anterior se usa:</p>
+
+          <pre class="example">
+git checkout master
+</pre
+          >
+
+          <blockquote>
+            <p>
+              es importante aclarar que teniendo cambios sin confirmar en la
+              carpeta de trabajo o en el area de preparacion, git no permitira
+              saltar a la otra rama con la que podria tener conflicto
+            </p>
+          </blockquote>
+
+          <p>
+            Luego de realizar las pruebas oportunas, asegurarse de que la
+            solución es correcta, e incorporar los cambios a la nueva rama, es
+            necesario ponerlos en producción. Esto se hace con el comando git
+            merge:
+          </p>
+
+          <pre class="example">
+git merge iss53
+</pre
+          >
+
+          <p>
+            Una vez terminado el trabajo ya no se necesita la nueva rama se la
+            puede eliminar con:
+          </p>
+
+          <pre class="example">
+git branch -d iss53
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-git.html">git</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[git]]></category>
+  <link>https://martiyo.github.io/faq/2019-06-30-git-ramificar-y-fusionar.html</link>
+  <pubDate>dom, 30 jun 2019 18:10:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Reproducir audio en emacs]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-org154293e" class="outline-2">
+        <h2 id="emms"><a id="org154293e"></a>Emms</h2>
+        <div class="outline-text-2" id="text-emms">
+          <p>
+            Emms es el sistema multimedia de Emacs. Intenta ser una aplicación
+            limpia y pequeña para reproducir archivos multimedia de Emacs
+            utilizando reproductores externos.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orge860944" class="outline-2">
+        <h2 id="instalación"><a id="orge860944"></a>Instalación</h2>
+        <div class="outline-text-2" id="text-instalación">
+          <p>
+            Para poder escuchar musica en emacs primero hay que instalar el
+            paquete
+            <b>emms</b> con apt, luego descargar tar.gz de emms y moverlo al
+            directorio emacs.d:
+          </p>
+
+          <pre class="example">
+wget http://ftp.gnu.org/gnu/emms/emms-4.0.tar.gz
+tar -zxf emms-4.0.tar.gz
+mv emms-4.0 .emacs.d/lisp
+</pre
+          >
+
+          <p>Editar el archivo .emacs y añadir las siguientes lineas:</p>
+
+          <pre class="example">
+(add-to-list 'load-path "~/.emacs.d/lisp/emms-4.0/")
+(require 'emms-setup)
+(emms-standard)
+(emms-default-players)
+</pre
+          >
+
+          <p>
+            <b>C-x s</b> guarda los cambios <b>M-x ev-b</b> recarga la
+            configuración sin necesidad de reiniciar emacs, luego
+            <b>M-x emms</b> TAB TAB muestra una ventana con las opciones
+            disponibles.
+          </p>
+        </div>
+
+        <div id="outline-container-org6ee8b3b" class="outline-3">
+          <h3 id="navegar-por-el-sistema-de-archivos">
+            <a id="org6ee8b3b"></a>Navegar por el sistema de archivos
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-navegar-por-el-sistema-de-archivos"
+          >
+            <p>
+              El comando <b>M-x emms-play-file</b> permite navegar por el
+              sistema de archivos y elegir un archivo de audio para reproducir,
+              <b>M-x emms</b> muestra la playlist y <b>M-x emm-stop</b> detiene
+              la reproducción. Es posible establecer un directorio
+              predeterminado para la carpeta <b>musica</b>
+              editando el archivo .emacs como siempre y agregando esto:
+            </p>
+
+            <pre class="example">
+(setq emms-source-file-default-directory "~/Musica/")
+</pre
+            >
+
+            <p>
+              esta linea permite acceder directamente a ese directorio tipeando
+              <b>M-x emms</b>
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgb57979b" class="outline-3">
+          <h3 id="escuchar-radios"><a id="orgb57979b"></a>Escuchar radios</h3>
+          <div class="outline-text-3" id="text-escuchar-radios">
+            <p>
+              Para escuchar radios, hay que crear un archivo con las URL de las
+              radios de y ejecutar <b>M-x emms-play-m3u-playlist</b> y navegar
+              hasta dicho archivo, pero para hacerla mas fácil se puede crear un
+              atajo en .emmacs con:
+            </p>
+
+            <pre class="example">
+(global-set-key (kbd "C-c r") 'emms-play-m3u-playlist)
+</pre
+            >
+
+            <p>
+              ahora para cargar el archivo radios que está en la carpeta Musica
+              basta con <b>C-c r</b>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2019-02-09-emms.html</link>
+  <pubDate>sáb, 09 feb 2019 13:03:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Ramificaciones en git]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-orge3a0cd8" class="outline-2">
+        <h2 id="orge3a0cd8">¿Que es una rama?</h2>
+        <div class="outline-text-2" id="text-orge3a0cd8">
+          <p>
+            Una rama Git es simplemente un apuntador móvil apuntando a una de
+            esas confirmaciones. La rama por defecto de Git es la rama master.
+            Con la primera confirmación de cambios que realicemos, se creará
+            esta rama principal master apuntando a dicha confirmación. En cada
+            confirmación de cambios que realicemos, la rama irá avanzando
+            automáticamente. Y la rama master apuntará siempre a la última
+            confirmación realizada. Cuando se crea una nueva rama simplemente se
+            crea un nuevo apuntador para que lo puedas mover libremente. Por
+            ejemplo, si quieres crear una nueva rama denominada "testing".
+            Usarás el comando git branch:
+          </p>
+
+          <pre class="example">
+git branch testing
+</pre
+          >
+
+          <p>
+            Esto creará un nuevo apuntador apuntando a la misma confirmación
+            donde estés actualmente.
+          </p>
+
+          <figure>
+            <img src="./images/git-ramas.png" alt="git-ramas.png" />
+
+            <figcaption>
+              <span class="figure-number">Figure 1: </span>git-branch
+            </figcaption>
+          </figure>
+
+          <p>
+            Y, ¿cómo sabe Git en qué rama estás en este momento? Pues&#x2026;,
+            mediante un apuntador especial denominado HEAD. Aunque es preciso
+            comentar que este HEAD es totalmente distinto al concepto de HEAD en
+            otros sistemas de control de cambios como Subversion o CVS. En Git,
+            es simplemente el apuntador a la rama local en la que tú estés en
+            ese momento. En este caso, en la rama master. Puesto que el comando
+            git branch solamente crea una nueva rama, y no salta a dicha rama.
+          </p>
+
+          <figure>
+            <img src="./images/git-head.png" alt="git-head.png" />
+
+            <figcaption>
+              <span class="figure-number">Figure 2: </span>git-head
+            </figcaption>
+          </figure>
+
+          <p>
+            Para saltar de una rama a otra, tienes que utilizar el comando git
+            checkout.
+          </p>
+
+          <pre class="example">
+git checkout testing
+</pre
+          >
+
+          <p>Esto mueve el apuntador HEAD a la rama testing.</p>
+
+          <figure>
+            <img src="./images/git-checkout.png" alt="git-checkout.png" />
+
+            <figcaption>
+              <span class="figure-number">Figure 3: </span>git-checkout
+            </figcaption>
+          </figure>
+
+          <p>
+            ¿Cuál es el significado de todo esto?. Bueno&#x2026; lo veremos tras
+            realizar otra confirmación de cambios:
+          </p>
+
+          <pre class="example">
+vim test.rb
+git commit -a -m 'made a change'
+</pre
+          >
+
+          <figure>
+            <img src="./images/git-head-avanza.png" alt="git-head-avanza.png" />
+
+            <figcaption>
+              <span class="figure-number">Figure 4: </span>git-head-avanza
+            </figcaption>
+          </figure>
+
+          <p>
+            Observamos algo interesante: la rama testing avanza, mientras que la
+            rama master permanece en la confirmación donde estaba cuando
+            lanzaste el comando git checkout para saltar. Volvamos ahora a la
+            rama master:
+          </p>
+
+          <pre class="example">
+git checkout master
+</pre
+          >
+
+          <figure>
+            <img
+              src="./images/git-head-a-master.png"
+              alt="git-head-a-master.png"
+            />
+
+            <figcaption>
+              <span class="figure-number">Figure 5: </span>git-head-a-master
+            </figcaption>
+          </figure>
+
+          <p>
+            Este comando realiza dos acciones: Mueve el apuntador HEAD de nuevo
+            a la rama master, y revierte los archivos de tu directorio de
+            trabajo; dejándolos tal y como estaban en la última instantánea
+            confirmada en dicha rama master. Esto supone que los cambios que
+            hagas desde este momento en adelante divergirán de la antigua
+            versión del proyecto. Básicamente, lo que se está haciendo es
+            rebobinar el trabajo que habías hecho temporalmente en la rama
+            testing; de tal forma que puedas avanzar en otra dirección
+            diferente.
+          </p>
+
+          <p>
+            Debido a que una rama Git es realmente un simple archivo que
+            contiene los 40 caracteres de una suma de control SHA-1,
+            (representando la confirmación de cambios a la que apunta), no
+            cuesta nada el crear y destruir ramas en Git. Crear una nueva rama
+            es tan rápido y simple como escribir 41 bytes en un archivo, (40
+            caracteres y un retorno de carro).
+          </p>
+
+          <p>
+            Fuente
+            <a
+              href="https://git-scm.com/book/es/v1/Ramificaciones-en-Git-%C2%BFQu%C3%A9-es-una-rama?"
+              >resumen de git-book</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-git.html">git</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[git]]></category>
+  <link>https://martiyo.github.io/faq/2019-01-22-ramificaciones-en-git.html</link>
+  <pubDate>mar, 22 ene 2019 17:41:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Git init!]]></title>
+  <description><![CDATA[
+      <p>
+        Git es un sistema de control de versiones distribuido, gratuito y de
+        código abierto, diseñado para manejar todo tipo de proyectos, desde
+        pequeños hasta muy grandes, con rapidez y eficiencia.
+      </p>
+
+      <div id="outline-container-org78c76d0" class="outline-3">
+        <h3 id="configuración-del-entorno-local">
+          <a id="org78c76d0"></a>Configuración del entorno local
+        </h3>
+        <div class="outline-text-3" id="text-configuración-del-entorno-local">
+          <p>
+            Lo primero que hay que hacer para empezar con git, después de
+            instalarlo (<b>apt install git</b> y listo!) es configurar nombre y
+            correo para que git pueda firmar los commits que se hacen. Esto se
+            hace así:
+          </p>
+
+          <pre class="example">
+git config --global user.name
+git config --global user.email
+</pre
+          >
+
+          <p>
+            dicha información se guarda en ~/.gitconfig Para cambiar estos
+            valores para un proyecto concreto, se pueden ejecutar esos mismos
+            comandos pero sin la opción <b>&#x2013;global</b>, de ésta forma la
+            configuración se guarda en <b>.git/config</b> del proyecto. Otra
+            configuración puede ser
+          </p>
+
+          <pre class="example">
+git config --global color.status auto
+git config --global color.branch auto
+git config --global color.diff auto
+git config --global color.interactive auto
+</pre
+          >
+
+          <p>
+            un poco de color para que sea más fácil leer la información que
+            proporciona git.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgf476a37" class="outline-3">
+        <h3 id="git-init"><a id="orgf476a37"></a>Git init</h3>
+        <div class="outline-text-3" id="text-git-init">
+          <p>
+            <b>git init</b> es el comando para crear un repositorio git, se
+            ejecuta en la carpeta del proyecto y lo que hace es crear el
+            directorio <b>.git</b> en la misma carpeta. #### .gitignore Antes de
+            continuar es mejor crear el archivo <b>.gitignore</b> el cual
+            contiene una lista de los archivos y directorios que git debe
+            ignorar:
+          </p>
+
+          <pre class="example">
+$cat .gitignore
+build/
+*.[oa]
+*~
+doc/*.txt
+</pre
+          >
+
+          <ul class="org-ul">
+            <li>
+              La primera línea indica que se ignore el directorio <b>build</b> y
+              todo su contenido.
+            </li>
+            <li>
+              La segunda línea que se ignore cualquier archivo cuyo nombre
+              termine en <b>.o</b> o <b>.a</b> archivos objeto que suelen ser
+              producto de la compilación de código.
+            </li>
+            <li>
+              La tercera línea que se ignore todos los archivos que terminan en
+              tilde <b>~</b>, usada por muchos editores de texto, como Emacs,
+              para marcar archivos temporales.
+            </li>
+            <li>
+              La cuarta línea dice que se ignore los archivos con la extensión
+              <b>.txt</b> dentro del directorio <b>doc/</b>, pero no el resto de
+              archivos y directorios que <b>doc/</b> contiene.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org8f726ec" class="outline-3">
+        <h3 id="git-add"><a id="org8f726ec"></a>Git add</h3>
+        <div class="outline-text-3" id="text-git-add">
+          <p>
+            Para empezar el seguimiento de un archivo se usa el comando
+            <b>git add</b>
+            que recibe como parámetro la ruta de un archivo o directorio, si es
+            un directorio añade todos los archivos que contenga de manera
+            recursiva.
+          </p>
+
+          <pre class="example">
+git add .
+</pre
+          >
+
+          <p>Este comando añade todos los archivos del directorio local.</p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgbeda481" class="outline-3">
+        <h3 id="git-status"><a id="orgbeda481"></a>Git status</h3>
+        <div class="outline-text-3" id="text-git-status">
+          <p>
+            Una vez creados o modificados los archivos que están bajo
+            seguimiento, se puede ejecutar <b>git status</b> para ver un listado
+            de los archivos modificados.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orga0cf12b" class="outline-3">
+        <h3 id="git-diff"><a id="orga0cf12b"></a>Git diff</h3>
+        <div class="outline-text-3" id="text-git-diff">
+          <p>
+            Este comando compara lo que hay en el directorio de trabajo con lo
+            que hay en el área de preparación. El resultado indica los cambios
+            que se han hecho y que todavía no se han preparado.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgae748a2" class="outline-3">
+        <h3 id="git-diff-cached">
+          <a id="orgae748a2"></a>Git diff &#x2013;cached
+        </h3>
+        <div class="outline-text-3" id="text-git-diff-cached">
+          <p>
+            Se usa para ver los cambios que se han preparado y que irán en la
+            próxima confirmación, lo que hace concretamente es comparar los
+            cambios preparados con la última confirmación.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgb05eaa9" class="outline-3">
+        <h3 id="git-commit"><a id="orgb05eaa9"></a>Git commit</h3>
+        <div class="outline-text-3" id="text-git-commit">
+          <p>
+            Una vez que se realizan los cambios necesarios y luego de ejecutar
+            <b>git add .</b> es hora de confirmar los cambios, para esto se usa
+            el comando <b>git commit -m</b> el flag <b>-m</b> es para añadir un
+            comentario directamente desde la consola(sin abrir un editor).
+          </p>
+
+          <pre class="example">
+git commit -m "mi comentario"
+</pre
+          >
+
+          <p>
+            Un atajo para saltarse toda el área de preparación es pasar al
+            comando
+            <b>git commit</b> la opción <b>-a</b>, esto hace que git prepare
+            todo archivo que estuviese en seguimiento antes de la confirmación,
+            permitiendo obviar toda la parte del <b>add</b>.
+          </p>
+
+          <pre class="example">
+git commit -a -m "mi nuevo comentario"
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org36c0d92" class="outline-3">
+        <h3 id="git-rm"><a id="org36c0d92"></a>Git rm</h3>
+        <div class="outline-text-3" id="text-git-rm">
+          <p>
+            Para eliminar un archivo de Git, hay eliminarlo de los archivos bajo
+            seguimiento (más concretamente, eliminarlo del área de preparación),
+            y después confirmar. El comando git rm se encarga de eso, y también
+            elimina el archivo del directorio de trabajo, para que no se vea
+            entre los archivos sin seguimiento.
+          </p>
+
+          <pre class="example">
+git rm archivo.a
+</pre
+          >
+
+          <p>
+            Aveces es necesario conservar un archivo pero interrumpir su
+            seguimiento, esto es útil cuando dicho archivo no ha sido incluido
+            en
+            <b>.gitignore</b>, para hacer esto su usa la opción
+            <b>&#x2013;cached</b>:
+          </p>
+
+          <pre class="example">
+git rm --cached archivo.a
+</pre
+          >
+
+          <p>
+            El comando <b>git rm</b> acepta archivos, directorio y patrones
+            glog(expresiones regulares) por ejemplo:
+          </p>
+
+          <pre class="example">
+git rm log/\*.log
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgf29dab8" class="outline-2">
+        <h2 id="gitlab"><a id="orgf29dab8"></a>Gitlab</h2>
+        <div class="outline-text-2" id="text-gitlab">
+          <p>
+            Gitlab es un servicio web de control de versiones y desarrollo de
+            software colaborativo basado en Git. Además de gestor de
+            repositorios, el servicio ofrece también alojamiento de wikis y un
+            sistema de seguimiento de errores, todo ello publicado bajo una
+            Licencia de código abierto. Gitlab usa una clave ssh para establecer
+            una conexión segura entre una maquina cliente y el servidor. Para
+            generar una clave ssh en
+            <b>devuan GNU/Linux</b> se usa el comando <b>ssh-keygen</b>:
+          </p>
+
+          <pre class="example">
+$ ssh-keygen -t rsa -b 8192
+</pre
+          >
+
+          <p>
+            Cuando se utiliza RSA, ssh-keygen guarda la clave privada en el
+            archivo ~/.ssh/id\<sub>dsa</sub> y la clave pública en
+            ~/.ssh/id\<sub>dsa.pub</sub>.
+          </p>
+
+          <p>
+            Luego en gitlab ir a <b>llaves ssh</b>, pegar el contenido del
+            archivo <b>id\<sub>rsa.pub</sub></b> y poner un titilo que
+            identifique la maquina o el sistema. Para probar la conexión se usa
+            el comando:
+          </p>
+
+          <pre class="example">
+$ssh git@gitlab.com
+Welcome to GitLab, @martiyo!
+Connection to gitlab.com closed.
+</pre
+          >
+        </div>
+
+        <div id="outline-container-orgf0a1756" class="outline-3">
+          <h3 id="git-push"><a id="orgf0a1756"></a>Git push</h3>
+          <div class="outline-text-3" id="text-git-push">
+            <p>
+              Cuando el proyecto esta listo para subirlo, lo que sigue es crear
+              un nuevo proyecto en gitlab que devuelve la ruta que se agrega
+              con:
+            </p>
+
+            <pre class="example">
+git remote add origin git@gitlab.com:martiyo/mi_proyecto.git
+</pre
+            >
+
+            <p>y por fin&#x2026;!!!</p>
+
+            <pre class="example">
+git push -u origin master
+</pre
+            >
+
+            <p>
+              <b>Fuente</b>
+              Resumen y traducción de
+              <a
+                href="https://git-scm.com/book/es/v1/Fundamentos-de-Git-Obteniendo-un-repositorio-Git"
+                >git-scm.com</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-git.html">git</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[git]]></category>
+  <link>https://martiyo.github.io/faq/2019-01-08-git.html</link>
+  <pubDate>mar, 08 ene 2019 12:30:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[ffmpeg video converter]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-orgc019ace" class="outline-2">
+        <h2 id="wikipedia"><a id="orgc019ace"></a>Wikipedia</h2>
+        <div class="outline-text-2" id="text-wikipedia">
+          <p>
+            FFmpeg es una colección de software libre que puede grabar,
+            convertir (transcodificar) y hacer streaming de audio y vídeo.
+            Incluye libavcodec, una biblioteca de códecs. FFmpeg está
+            desarrollado en GNU/Linux, pero puede ser compilado en la mayoría de
+            los sistemas operativos. FFmpeg es un programa bastante sencillo y
+            muy fácil de usar, orientado tanto a personas con conocimientos
+            avanzados como usuarios novatos. Es capaz de elegir el códec con
+            sólo escribir la extensión. Por ejemplo, FFmpeg usará x264 si
+            elegimos .mp4, mpeg4 si usamos .avi, VP8 si usamos .webm,
+            etc&#x2026; Esta es una recopilación de ejemplos de cosas útiles que
+            se pueden hacer con ffmpeg, como puede ser convertir vídeos para
+            PSP, iPod o iPhone, extraer el audio de un vídeo o extraer imágenes
+            de un vídeo.
+          </p>
+        </div>
+
+        <div id="outline-container-org52fed73" class="outline-4">
+          <h4 id="obtener-información-de-un-video">
+            <a id="org52fed73"></a>Obtener información de un video
+          </h4>
+          <div class="outline-text-4" id="text-obtener-información-de-un-video">
+            <pre class="example">
+ffmpeg -i video.avi
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgcca574c" class="outline-4">
+          <h4 id="combinar-una-serie-de-imágenes-en-un-video">
+            <a id="orgcca574c"></a>Combinar una serie de imágenes en un video
+          </h4>
+          <div
+            class="outline-text-4"
+            id="text-combinar-una-serie-de-imágenes-en-un-video"
+          >
+            <pre class="example">
+ffmpeg -f imagen1.jpg -i imagen%d.jpg video.mpg
+</pre
+            >
+
+            <p>
+              Este comando convierte todas las imagenes del directorio
+              actual(con nombres imagen1.jpg, imagen2.jpg, etc&#x2026;)en un
+              video llamado video.mpg.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org7a242ff" class="outline-4">
+          <h4 id="añadir-de-un-archivo-de-audio-en-un-video">
+            <a id="org7a242ff"></a>Añadir de un archivo de audio en un video
+          </h4>
+          <div
+            class="outline-text-4"
+            id="text-añadir-de-un-archivo-de-audio-en-un-video"
+          >
+            <pre class="example">
+ffmpeg -i audio.wav -i video_entrada.avi video_salida.mpg
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgeea1f1f" class="outline-4">
+          <h4 id="convertir-un-vídeo-en-imágenes">
+            <a id="orgeea1f1f"></a>Convertir un vídeo en imágenes
+          </h4>
+          <div class="outline-text-4" id="text-convertir-un-vídeo-en-imágenes">
+            <pre class="example">
+ffmpeg -i video.mpg imagen%d.jpg
+</pre
+            >
+
+            <p>
+              Con este comando se crearan varias imágenes imagen1.jpg,
+              imagen2.jpg, &#x2026; Para las imágenes resultantes se pueden usar
+              los formatos PGM, PPM, PAM, PGMYUV, JPEG, GIF, PNG, TIFF o SGI.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org9695f69" class="outline-4">
+          <h4 id="convertir-video-para-smartv-server-minidlna">
+            <a id="org9695f69"></a>Convertir video para SmarTV (Server MiniDLNA)
+          </h4>
+          <div
+            class="outline-text-4"
+            id="text-convertir-video-para-smartv-server-minidlna"
+          >
+            <pre class="example">
+ffmpeg -i LaBellaylaBestia.mkv -c:a libmp3lame -b:v 2500k -b:a 150k LaBellaylaBestia.avi
+</pre
+            >
+
+            <p>
+              Cambiando los valores de -b:v se puede aumentar o disminuir la
+              calidad del archivo de salida y tambien su tamaño.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org29756b7" class="outline-4">
+          <h4 id="extraer-el-sonido-de-un-vídeo-y-guardarlo-como-mp3">
+            <a id="org29756b7"></a>Extraer el sonido de un vídeo, y guardarlo
+            como MP3
+          </h4>
+          <div
+            class="outline-text-4"
+            id="text-extraer-el-sonido-de-un-vídeo-y-guardarlo-como-mp3"
+          >
+            <pre class="example">
+ffmpeg -i video.avi -vn -ar 44100 -ac 2 -ab 192 -f mp3 audio.mp3
+</pre
+            >
+
+            <ul class="org-ul">
+              <li>Video original: video.avi</li>
+              <li>Codec de audio: mp3</li>
+              <li>Bitrate del audio: 192kb/s</li>
+              <li>Archivo generado: audio.mp3</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org8f6bc59" class="outline-4">
+          <h4 id="convertir-un-wav-en-mp3">
+            <a id="org8f6bc59"></a>Convertir un wav en MP3
+          </h4>
+          <div class="outline-text-4" id="text-convertir-un-wav-en-mp3">
+            <pre class="example">
+ffmpeg -i audio.wav -ar 44100 audio.mp3
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgc8f6de8" class="outline-4">
+          <h4 id="convertir-un-avi-a-mpg">
+            <a id="orgc8f6de8"></a>Convertir un avi a mpg
+          </h4>
+          <div class="outline-text-4" id="text-convertir-un-avi-a-mpg">
+            <pre class="example">
+ffmpeg -i entrada.avi salida.mpg
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orge55c6ef" class="outline-4">
+          <h4 id="convertir-un-mpg-a-avi">
+            <a id="orge55c6ef"></a>Convertir un mpg a avi
+          </h4>
+          <div class="outline-text-4" id="text-convertir-un-mpg-a-avi">
+            <pre class="example">
+ffmpeg -i entrada.mpg salida.avi
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org02601af" class="outline-4">
+          <h4 id="convertir-un-avi-a-gif">
+            <a id="org02601af"></a>Convertir un avi a gif
+          </h4>
+          <div class="outline-text-4" id="text-convertir-un-avi-a-gif">
+            <pre class="example">
+ffmpeg -i entrada.avi salida.gif
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org340718e" class="outline-4">
+          <h4 id="convertir-avi-a-flv">
+            <a id="org340718e"></a>Convertir avi a flv
+          </h4>
+          <div class="outline-text-4" id="text-convertir-avi-a-flv">
+            <pre class="example">
+ffmpeg -i entrada.avi -ab 56 -ar 44100 -b 200 -r 15 -s 320×240 -f flv salida.flv
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org3867a09" class="outline-4">
+          <h4 id="convertir-avi-a-dv">
+            <a id="org3867a09"></a>Convertir avi a dv
+          </h4>
+          <div class="outline-text-4" id="text-convertir-avi-a-dv">
+            <pre class="example">
+ffmpeg -i entrada.avi -s pal -r pal -aspect 4:3 -ar 48000 -ac 2 salida.dv
+</pre
+            >
+
+            <p>o bien</p>
+
+            <pre class="example">
+ffmpeg -i entrada.avi -target pal-dv salida.dv
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgc5516ea" class="outline-4">
+          <h4 id="convertir-avi-a-mpeg-para-reproductores-de-dvd">
+            <a id="orgc5516ea"></a>Convertir avi a mpeg para reproductores de
+            dvd
+          </h4>
+          <div
+            class="outline-text-4"
+            id="text-convertir-avi-a-mpeg-para-reproductores-de-dvd"
+          >
+            <pre class="example">
+ffmpeg -i entrada.avi -target pal-dvd -ps 2000000000 -aspect 16:9 salida.mpeg
+</pre
+            >
+
+            <ul class="org-ul">
+              <li>target pal-dvd: Formato de salida</li>
+              <li>
+                ps 2000000000: Tamaño máximo del archivo resultante en bits (en
+                el ejemplo, 2Gb)
+              </li>
+              <li>aspect 16:9: Panorámico</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org64519e4" class="outline-4">
+          <h4 id="comprimir-avi-a-divx">
+            <a id="org64519e4"></a>Comprimir avi a divx
+          </h4>
+          <div class="outline-text-4" id="text-comprimir-avi-a-divx">
+            <pre class="example">
+ffmpeg -i entrada.avi -s 320×240 -vcodec msmpeg4v2 salida.avi
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org1df477f" class="outline-4">
+          <h4 id="comprimir-ogg-theora-a-mpeg-dvd">
+            <a id="org1df477f"></a>Comprimir Ogg Theora a Mpeg dvd
+          </h4>
+          <div class="outline-text-4" id="text-comprimir-ogg-theora-a-mpeg-dvd">
+            <pre class="example">
+ffmpeg -i entrada.ogm -s 720×576 -vcodec mpeg2video -acodec mp3 salida.mpg
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgd6e49f0" class="outline-4">
+          <h4 id="comprimir-avi-a-svcd-mpeg2">
+            <a id="orgd6e49f0"></a>Comprimir avi a SVCD mpeg2
+          </h4>
+          <div class="outline-text-4" id="text-comprimir-avi-a-svcd-mpeg2">
+            <p>Para PAL:</p>
+
+            <pre class="example">
+ffmpeg -i entrada.avi -target pal-svcd salida.mpg
+</pre
+            >
+
+            <p>Para NTSC:</p>
+
+            <pre class="example">
+ffmpeg -i entrada.avi -target ntsc-svcd salida.mpg
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org3810ccf" class="outline-4">
+          <h4 id="comprimir-avi-a-vcd-mpeg2">
+            <a id="org3810ccf"></a>Comprimir avi a VCD mpeg2
+          </h4>
+          <div class="outline-text-4" id="text-comprimir-avi-a-vcd-mpeg2">
+            <p>Para PAL:</p>
+
+            <pre class="example">
+ffmpeg -i entrada.avi -target pal-vcd salida.mpg
+</pre
+            >
+
+            <p>Para NTSC:</p>
+
+            <pre class="example">
+ffmpeg -i entrada.avi -target ntsc-vcd salida.mpg
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org4332034" class="outline-4">
+          <h4 id="codificación-con-varias-pasadas">
+            <a id="org4332034"></a>Codificación con varias pasadas
+          </h4>
+          <div class="outline-text-4" id="text-codificación-con-varias-pasadas">
+            <pre class="example">
+ffmpeg -i entrada -pass 2 -passlogfile ffmpeg2pass salida
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/faq/2018-12-08-ffmpeg-video-converter.html</link>
+  <pubDate>sáb, 08 dic 2018 13:52:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Elfeed]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-org77863f7" class="outline-2">
+        <h2 id="org77863f7">Descripción</h2>
+        <div class="outline-text-2" id="text-org77863f7">
+          <p>
+            Elfeed en un lector de noticias para Emacs, compatible con Atom y
+            Rss.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgb23f3fa" class="outline-2">
+        <h2 id="orgb23f3fa">Instalación</h2>
+        <div class="outline-text-2" id="text-orgb23f3fa">
+          <p>
+            <b>Elfeed</b> se puede instalar con el gestor de paquetes de emacs,
+            está en los repositorios melpa, entoces:
+          </p>
+
+          <pre class="example">
+M-x list-packages RET elfeed RET y listo.
+</pre
+          >
+
+          <p>
+            Después en el archivo de configuración hay que darle a emacs el
+            directorio de elfeed, requerirlo y agregar los feeds a la
+            elfeed-feeds:
+          </p>
+
+          <pre class="example">
+(add-to-list 'load-path "~/.emacs.d/plugins/elfeed/")
+(require 'elfeed)
+
+(setq elfeed-feeds
+  '(
+    "https://ondahostil.wordpress.com/feed/"
+    "http://www.lapipaplena.org/feed/" 
+    "https://lamiradadelreplicante.com/feed/" 
+    "https://colaboratorio.net/feed/" 
+    "http://www.maxxcan.com/feed/"
+    "https://www.linuxito.com/?format=feed&amp;type=rss"
+    ))
+</pre
+          >
+
+          <p>guardar los cambios con <b>C-c C-s</b> y evaluar el buffer con:</p>
+
+          <pre class="example">
+M-x eval-buffer RET
+</pre
+          >
+
+          <p>y listo!</p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgc7da5ba" class="outline-2">
+        <h2 id="orgc7da5ba">Elfeed-search</h2>
+        <div class="outline-text-2" id="text-orgc7da5ba">
+          <p>Al ejecutar la función interactiva elfeed</p>
+
+          <pre class="example">
+M-x elfeed RET
+</pre
+          >
+
+          <p>
+            aparecerá el <b><b>elfeed-search</b></b> que muestra la lista de
+            feeds.
+          </p>
+
+          <figure>
+            <img src="./images/elfeed.png" alt="elfeed.png" />
+
+            <figcaption>
+              <span class="figure-number">Figure 1: </span>elfeed
+            </figcaption>
+          </figure>
+        </div>
+
+        <div id="outline-container-org32af23a" class="outline-3">
+          <h3 id="org32af23a">Teclas rapidas</h3>
+          <div class="outline-text-3" id="text-org32af23a">
+            <ul class="org-ul">
+              <li>g: actualiza la lista de feeds.</li>
+
+              <li>G: actualiza la lista de feeds desde los servidores.</li>
+
+              <li>s: actualiza el filtro de búsqueda (ver etiquetas)</li>
+
+              <li>c: borra el filtro de búsqueda.</li>
+
+              <li>RET: ver la entrada seleccionada en un búfer.</li>
+
+              <li>b: abre las entradas seleccionadas en el navegador.</li>
+
+              <li>
+                y: copia la URL de la entrada seleccionada en el portapapeles.
+              </li>
+
+              <li>r: marca las entradas seleccionadas como leídas.</li>
+
+              <li>u: marca las entradas seleccionadas como no leídas.</li>
+
+              <li>
+                +: agrega una etiqueta especifica a las entradas seleccionadas.
+              </li>
+
+              <li>
+                -: elimina una etiqueta específica de las entradas seleccionadas
+              </li>
+            </ul>
+
+            <blockquote>
+              <p>
+                Esta lista se puede ver dentro de Emacs con el estándar Ch m .
+              </p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org92bd363" class="outline-2">
+        <h2 id="org92bd363">Etiquetas</h2>
+        <div class="outline-text-2" id="text-org92bd363">
+          <p>
+            Elfeed mantiene una lista de etiquetas arbitrarias, símbolos
+            adjuntos a una entrada. La etiqueta unread se trata especialmente de
+            forma predeterminada, con entradas no leídas que aparecen en
+            negrita.
+          </p>
+        </div>
+
+        <div id="outline-container-orgd167f91" class="outline-3">
+          <h3 id="orgd167f91">Etiquetado automático</h3>
+          <div class="outline-text-3" id="text-orgd167f91">
+            <p>
+              Las etiquetas se pueden aplicar automáticamente a las entradas
+              listadas en <b>elfeed-feeds</b> específicos mediante una sintaxis
+              adicional en elfeed-feeds . Normalmente, esta es una lista strings
+              que proporciona un conjunto de "etiquetas automáticas" para las
+              entradas de un feed.
+            </p>
+
+            <pre class="example">
+(setq elfeed-feeds
+  '(
+    "https://ondahostil.wordpress.com/feed/" blog emacs
+    "http://www.lapipaplena.org/feed/"  blog emacs
+    "https://lamiradadelreplicante.com/feed/" software libre
+    "https://colaboratorio.net/feed/" software libre
+    "http://www.maxxcan.com/feed/" emacs
+    "https://www.linuxito.com/?format=feed&amp;type=rss" linux
+    ))
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org6be1159" class="outline-2">
+        <h2 id="org6be1159">Elfeed + eww</h2>
+        <div class="outline-text-2" id="text-org6be1159">
+          <p>
+            <b>eww</b> es un navegador en texto plano que viene con emacs, para
+            abrir los enlaces desde el visor de entradas de elfeed hay que
+            colocar el cursor en el enlace y presionar M-x eww + enter, para
+            salir de eww y volver a elfeed presionar q.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgd3572fe" class="outline-2">
+        <h2 id="orgd3572fe">Accesos directos</h2>
+        <div class="outline-text-2" id="text-orgd3572fe">
+          <p>Para tener accesos directos se agrega esto en .emacs:</p>
+
+          <pre class="example">
+(global-set-key [f7] 'elfeed)
+(global-set-key [f8] 'elfeed-update)
+
+(global-set-key [f5] 'eww)
+(global-set-key (kbd "C-x w b") 'eww-add-bookmark)
+(global-set-key (kbd "C-x w l") 'eww-list-bookmarks)
+(global-set-key (kbd "C-x w f") 'eww-open-file)
+</pre
+          >
+
+          <blockquote>
+            <p>
+              Ahora f7 abre el lector, f8 lo actualiza, y al ubicar el cursor y
+              presionar f5 se abre con eww.
+            </p>
+          </blockquote>
+        </div>
+
+        <div id="outline-container-org38cb437" class="outline-3">
+          <h3 id="org38cb437">Fuente</h3>
+          <div class="outline-text-3" id="text-org38cb437">
+            <p>
+              <a href="https://github.com/skeeto/elfeed">elfeed-github</a>
+              nasciiboy
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2018-09-29-elfeed.html</link>
+  <pubDate>sáb, 29 sep 2018 23:57:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Introduccion a GNU/Emacs]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-orgd8ec753" class="outline-2">
+        <h2 id="gnuemacs">
+          <a id="orgd8ec753"></a>El universo perdido de GNU/Emacs
+        </h2>
+        <div class="outline-text-2" id="text-gnuemacs">
+          <blockquote>
+            <p>
+              Emacs es un editor extensible, personalizable, auto-documentado y
+              de tiempo real.
+            </p>
+          </blockquote>
+        </div>
+
+        <div id="outline-container-org8b7b8e7" class="outline-3">
+          <h3 id="modos-de-edición"><a id="org8b7b8e7"></a>Modos de edición</h3>
+          <div class="outline-text-3" id="text-modos-de-edición">
+            <p>
+              Emacs adapta su comportamiento al tipo de texto que está editando
+              mediante modos de edición llamados "modos mayores" ("major
+              modes"). Los modos mayores se definen para ficheros de texto
+              ordinario, código fuente para diversos lenguajes de programación,
+              documentos HTML, TeX y LaTeX y muchos otros tipos de texto. Cada
+              modo mayor modifica ciertas variables en Lisp para que Emacs se
+              comporte de forma más conveniente para ese tipo concreto de texto.
+              Habitualmente, definen las tablas para resaltado de sintaxis,
+              usando distintos tipos de letra o colores para mostrar las
+              palabras clave, comentarios, etc. Los modos mayores también
+              ofrecen comandos especiales de edición. Por ejemplo, los modos
+              mayores para lenguajes de programación definen habitualmente
+              comandos para saltar al principio o al final de una función.
+            </p>
+
+            <p>
+              El comportamiento de Emacs puede ser más personalizado aún
+              utilizando los "modos menores" ("minor modes"). Mientras que sólo
+              se puede asociar un modo mayor con un buffer a la vez, se puede
+              tener activos varios modos menores. Por ejemplo, el modo mayor
+              para el lenguaje de programación C define un modo menor diferente
+              para cada uno de los estilos de indentación más populares.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org9c907dd" class="outline-3">
+          <h3 id="significado-de-algunas-teclas-en-la-terminología-de-emacs">
+            <a id="org9c907dd"></a>Significado de algunas teclas en la
+            terminología de emacs:
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-significado-de-algunas-teclas-en-la-terminología-de-emacs"
+          >
+            <ul class="org-ul">
+              <li>Alt = M (meta)</li>
+              <li>Crtl= C (control)</li>
+              <li>SPC (Barra espacio)</li>
+              <li>RET (intro)</li>
+              <li>RETRO(retroceso)</li>
+            </ul>
+
+            <p>
+              $ emacs -nw (Lanzar emacs en consola. Para crear un alias: alias
+              emacs='emacs -nw') $ emacs -nw &#x2013;debug-ini (Modo debuger
+              para comprobar errores de sintaxis en ~/.emacs)
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orge379551" class="outline-3">
+          <h3 id="teclas-de-socorro">
+            <a id="orge379551"></a>Teclas de socorro:
+          </h3>
+          <div class="outline-text-3" id="text-teclas-de-socorro">
+            <ul class="org-ul">
+              <li>
+                C-g (Cancelar algo: un comando, una combinación de
+                teclas&#x2026;)
+              </li>
+              <li>C-x u (Deshacer la última pífia)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org819d386" class="outline-3">
+          <h3 id="teclas-para-moverse-por-el-texto-con-más-o-menos-soltura">
+            <a id="org819d386"></a>Teclas para moverse por el texto con más o
+            menos soltura:
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-teclas-para-moverse-por-el-texto-con-más-o-menos-soltura"
+          >
+            <ul class="org-ul">
+              <li>C-a (ir al comienzo de una línea)</li>
+              <li>C-e (ir al final de una línea)</li>
+              <li>C-f (un caracter hacia adelante)</li>
+              <li>C-b (un caracter hacia atrás)</li>
+              <li>M-f (una palabra hacia adelante)</li>
+              <li>M-b (una palabra hacia atrás)</li>
+              <li>C-n (ir a la siguiente línea)</li>
+              <li>C-p (ir a la línea anterior)</li>
+              <li>M-a (Ir al inicio de la frase)</li>
+              <li>M-e (Ir al final de la frase)</li>
+              <li>C-v (Pagina siguiente)</li>
+              <li>M-8 C-v (baja 8 lineas la pantalla, NO 8 PÁGINAS)</li>
+              <li>M-v (Pagina anterior)</li>
+              <li>M-8 M-v (Sube 8 lineas la pantalla, NO 8 PÁGINAS)</li>
+              <li>M-&lt; (Ir al principio del texto)</li>
+              <li>M-&gt; (Ir al final del texto)</li>
+              <li>C-l (Redibuja la pantalla. La primera vez que se pulsa,</li>
+            </ul>
+            <p>
+              coloca la linea del cursor en el centro, la segunda arriba y la
+              tercera abajo)
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgd78227b" class="outline-3">
+          <h3 id="salir"><a id="orgd78227b"></a>Salir:</h3>
+          <div class="outline-text-3" id="text-salir">
+            <ul class="org-ul">
+              <li>C-x C-c (Salir de Emacs)</li>
+              <li>C-x C-s (Guardar sin salir)</li>
+              <li>C-x C-w (Guardarcomo)</li>
+              <li>C-x s (Guardar todos los ficheros abiertos. Preguntará.)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org35b7a7d" class="outline-3">
+          <h3 id="copiar-cortar-pegar">
+            <a id="org35b7a7d"></a>Copiar, cortar, pegar
+          </h3>
+          <div class="outline-text-3" id="text-copiar-cortar-pegar">
+            <ul class="org-ul">
+              <li>C-Epc (Inicio del marcado de texto)</li>
+              <li>C-h (Marcar todo el buffer, "Seleccionar todo")</li>
+              <li>M-w (Copiar)</li>
+              <li>C-w (Cortar)</li>
+              <li>C-y (Pegar)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org6ae974f" class="outline-3">
+          <h3 id="buscar-alguna-palabra">
+            <a id="org6ae974f"></a>Buscar alguna palabra:
+          </h3>
+          <div class="outline-text-3" id="text-buscar-alguna-palabra">
+            <ul class="org-ul">
+              <li>C-s (busca hacia adelante)</li>
+              <li>C-r (busca hacia atras)</li>
+              <li>C-s C-s (repite la busqueda)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-orgc0d21d8" class="outline-3">
+          <h3 id="borrar"><a id="orgc0d21d8"></a>Borrar:</h3>
+          <div class="outline-text-3" id="text-borrar">
+            <ul class="org-ul">
+              <li>M-d (Palabra despues del cursor)</li>
+              <li>M-3 M-d (Borra 3 palabras)</li>
+              <li>C-k (del cursor a fin de linea)</li>
+              <li>M-3 C-k (Borra 3 lineas)</li>
+              <li>M-k (todo el párrafo)</li>
+              <li>M-3 M-k (Borra 3 párrafos)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org7fd7dfd" class="outline-3">
+          <h3 id="ventanas"><a id="org7fd7dfd"></a>Ventanas</h3>
+          <div class="outline-text-3" id="text-ventanas">
+            <ul class="org-ul">
+              <li>C-x 2 (división horizontal de la ventana en dos)</li>
+              <li>C-x 3 (división vertical de la ventana en dos)</li>
+              <li>C-x 1 (Deja solo la ventana activa abierta)</li>
+              <li>C-x o (cambiar de ventana)</li>
+              <li>C-x 0 (Eliminar ventana actual)</li>
+              <li>C-x { (La acorta en dirección horizontal)</li>
+              <li>C-x \^ (La alarga en dirección vertical)</li>
+              <li>C-x } (alarga la ventana activa en dirección horizontal)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-orgb9e3ecd" class="outline-3">
+          <h3 id="bufers"><a id="orgb9e3ecd"></a>Bufers</h3>
+          <div class="outline-text-3" id="text-bufers">
+            <ul class="org-ul">
+              <li>C-x b (Cambiar de buffer)</li>
+              <li>C-x k (cierra la buffer actual. Pide confirmación)</li>
+              <li>
+                C-x C-b (Listar buffers. Cada archivo se abre en un buffer)
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org425a1de" class="outline-3">
+          <h3
+            id="marcas-para-volver-a-una-linea-más-adelante-o-de-aquí-a-varios-dias"
+          >
+            <a id="org425a1de"></a>Marcas para volver a una linea más adelante o
+            de aquí a varios dias:
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-marcas-para-volver-a-una-linea-más-adelante-o-de-aquí-a-varios-dias"
+          >
+            <ul class="org-ul">
+              <li>C-x r m (Solicita nombre para la linea marcada)</li>
+              <li>
+                C-x r b (Ir a la linea marcada con el nombre que entremos, en
+                este caso la "b")
+              </li>
+              <li>C-x r l (Lista todas las marcas)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org6876b37" class="outline-3">
+          <h3 id="varios"><a id="org6876b37"></a>Varios:</h3>
+          <div class="outline-text-3" id="text-varios">
+            <ul class="org-ul">
+              <li>C-x C-f (brir un archivo)</li>
+              <li>C-o (Inserta linea en blanco a continuación del cursor)</li>
+              <li>
+                M-x tetris (Otros juegos: dunnet, snake, doctor, zone&#x2026;)
+              </li>
+              <li>
+                M-x help-with-tutorial-spec-language (abre buffer con los
+                idiomas disponibles para el manual)
+              </li>
+              <li>F10 (Abre menú)</li>
+              <li>C-x d (Abre un directorio que se especifique)</li>
+              <li>
+                C-x RET f (Entrar codificación de caracteres: latin-1-unix
+                [latin1], utf-8-unix [utf8]..)
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org01e5e0c" class="outline-3">
+          <h3 id="entrar-comandos-de-shell-durante-la-sesión-de-emacs">
+            <a id="org01e5e0c"></a>Entrar comandos de shell durante la sesión de
+            emacs:
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-entrar-comandos-de-shell-durante-la-sesión-de-emacs"
+          >
+            <ul class="org-ul">
+              <li>
+                C-z (Suspende la sesion emacs y entra en la shell. Volver a
+                emacs con fg o con %emacs)
+              </li>
+              <li>
+                M-! (Muestra en el mini buffer un mensaje para entrar un comando
+                y lo abre un una ventana)
+              </li>
+              <li>
+                C-u M-! (Inserta la salida del comando en la posición del
+                cursor)
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org20f4078" class="outline-3">
+          <h3 id="algunas-posibilidades">
+            <a id="org20f4078"></a>Algunas posibilidades:
+          </h3>
+          <div class="outline-text-3" id="text-algunas-posibilidades">
+            <ul class="org-ul">
+              <li>M-x recover file (levantar respaldo del archivo)</li>
+              <li>
+                M-x describe-key INTRO (y presionando una combinación de teclas
+                devuelve el comando asignado)
+              </li>
+              <li>M-x apropos INTRO print (Muestra información de "print")</li>
+              <li>
+                M-x list-faces-display (Ver lista y muestra de los estilos
+                disponibles)
+              </li>
+              <li>
+                M-x set-foreground-color (Pedirá color en inglés para las
+                fuentes.
+              </li>
+              <li>M-x set-background-color (Pedirá color para el fondo)</li>
+              <li>
+                M-x w3m-browser-url(Pedirá url para conectar. Precisa w3m-el)
+              </li>
+              <li>M-x global-linum-mode (Mostras/esconder números de linea)</li>
+              <li>
+                M-x global-visual-line-mode (Cortar/no cortar palabras al final
+                de la pantalla)
+              </li>
+              <li>
+                M-x global-hl-line-mode (Resaltar la linea donde está el cursor)
+              </li>
+              <li>M-x goto-line (Ir a una linea que se especifique)</li>
+              <li>M-x insert file (Para insertar en el cursor un archivo)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/faq/2018-07-04-introduccion-a-emacs.html</link>
+  <pubDate>mié, 04 jul 2018 14:41:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[El demonio miniDLNA]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-org6bfcae8" class="outline-2">
+        <h2 id="minidlnad---servidor-ligero-dlnaupnp-av">
+          <a id="org6bfcae8"></a>minidlnad - Servidor ligero DLNA/UPnP-AV
+        </h2>
+        <div
+          class="outline-text-2"
+          id="text-minidlnad---servidor-ligero-dlnaupnp-av"
+        >
+          <p>
+            El demonio minidlnad es un servidor DLNA/UPnP-AV que comparte
+            archivos multimedia(vídeo, música e imágenes) a los clientes de una
+            red. Estos son típicamente reproductores multimedia como vlc, totem
+            y mplayer, y dispositivos como reproductores multimedia portátiles,
+            teléfonos inteligentes y televisores, sistemas de entretenimiento de
+            videojuegos y reproductores de Blu-ray. De forma predeterminada,
+            minidlnad escucha en todas las interfaces de red (excepto loopback).
+            Este comportamiento se puede cambiar usando la opción -i, o en el
+            archivo de configuración a través de la opción
+            network\<sub>interface</sub>.
+          </p>
+        </div>
+
+        <div id="outline-container-org4fbf9b7" class="outline-3">
+          <h3 id="configuracion-minima">
+            <a id="org4fbf9b7"></a>Configuracion minima
+          </h3>
+          <div class="outline-text-3" id="text-configuracion-minima">
+            <p>
+              El archivo de configuración por defecto es
+              <b>/etc/minidlna.conf</b>, o el especificado con el flag
+              <b>-f</b>. Para que el servidor funcione basta con editar un par
+              de lineas:
+            </p>
+
+            <p>
+              <b>'media\<sub>dir</sub>=/path/peliculas'</b>
+            </p>
+
+            <p>
+              <b>'port=8200'</b>
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orga03cb7d" class="outline-3">
+          <h3 id="otras-opciónes-de-configuración">
+            <a id="orga03cb7d"></a>Otras opciónes de configuración
+          </h3>
+          <div class="outline-text-3" id="text-otras-opciónes-de-configuración">
+            <p>
+              <b>'inotify'</b> Detecta automáticamente nuevos archivos en
+              media\<sub>dir</sub>.
+            </p>
+
+            <p>
+              <b>'log\<sub>dir</sub>'</b> Ruta al directorio donde se almacenan
+              los archivos de registro. Por defecto es /var/log.
+            </p>
+
+            <p>
+              <b>'max\<sub>connections</sub>'</b> Especifica el numero maximo de
+              conecciones simultaneas
+            </p>
+
+            <p>
+              <b>'friendly\<sub>name</sub>'</b> Configura el nombre del servidor
+              que se mostrara a los clientes.
+            </p>
+
+            <p>
+              <b>'media\<sub>dir</sub>'</b> Ruta al directorio que contiene los
+              archivos multimedia que se quiren compartir. Esta opción se puede
+              usar varias veces si se tiene mas de un directorio. Para
+              restringir una ruta a un tipo de archivo especifico (audio,
+              videos, fotos), se usa la siguiente sintaxis
+              <b>media\<sub>dir</sub>=[A,V,P], /path/multimedia</b>
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org7e9f321" class="outline-3">
+          <h3 id="ejemplos"><a id="org7e9f321"></a>Ejemplos</h3>
+          <div class="outline-text-3" id="text-ejemplos">
+            <pre class="example">
+media_dir=V,/path/multimedia/videos
+media_dir=P,/path/multimedia/fotos
+media_dir=A,/path/multimedia/musica\n
+</pre
+            >
+
+            <p>
+              <b>'merge\<sub>media</sub>\<sub>dirs</sub>'</b> Fusiona todos los
+              contenidos base de media\<sub>dir</sub>
+              en el contenedor raíz. El valor por defecto es no.
+            </p>
+
+            <p>
+              <b>'network\<sub>interface</sub>'</b> Interfaz(es) de red a las
+              que se debe enlazar (por ejemplo, eth0), delimitadas por comas.
+              Esta opción se puede especificar más de una vez. Si no se
+              especifica, minidlnad se une a todas las interfaces de red
+              válidas.
+            </p>
+
+            <p>Fuente man minidlna, man minidlna.conf</p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/faq/2018-02-27-el-demonio-minidlna.html</link>
+  <pubDate>jue, 22 feb 2018 03:04:00 -0300</pubDate>
+</item>
+</channel>
+</rss>

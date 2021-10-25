@@ -1,0 +1,139 @@
+#+title: Servidor webDAV
+#+date: <2020-12-23 17:24>
+#+filetags: linux
+
+
+** Webdav wiki
+   
+WebDAV es un grupo de trabajo del Internet Engineering Task Force. El
+término significa "Autoría y versionado distribuidos por Web" (Web
+Distributed Authoring and Versioning), y se refiere al protocolo (más
+precisamente, a la extensión del protocolo http) que el grupo definió.
+
+El objetivo de WebDAV es hacer de la World Wide Web un medio legible y
+editable, en línea con la visión original de Tim Berners-Lee. Este
+protocolo proporciona funcionalidades para crear, cambiar y mover
+documentos en un servidor remoto (típicamente un servidor web). Esto se
+utiliza sobre todo para permitir la edición de los documentos que sirve
+un servidor web, pero puede también aplicarse a sistemas de
+almacenamiento generales basados en web, que pueden ser accedidos desde
+cualquier lugar. La mayoría de los sistemas operativos modernos
+proporcionan soporte para WebDAV, haciendo que los ficheros de un
+servidor WebDAV aparezcan como almacenados en un directorio.
+
+** Instalación y configuración de un servidor webdav
+   
+
+***** Instalar Apache2
+   
+#+BEGIN_SRC
+    sudo apt install apache2 apache2-utils
+#+END_SRC
+
+***** Directorio de almacenamiento:
+     
+#+BEGIN_SRC
+    sudo mkdir ~/webDAV
+#+END_SRC
+
+ Agregar éste directorio al usuario y grupo *www-data*:
+
+#+BEGIN_SRC
+    sudo chown -R www-data:www-data ~/webDav
+#+END_SRC
+
+*****  Habilitar los módulos dav y dav-fs en apache
+     
+#+BEGIN_SRC
+    sudo a2enmod dav
+
+    sudo a2enmod dav_fs
+#+END_SRC
+
+Reiniciar el servidor:
+
+#+BEGIN_SRC
+    sudo service apache2 restart
+#+END_SRC
+
+***** Configuración del virtual host de apache
+
+para configurar un servidor basico en apache hay que editar el archivo
+*/etc/apache2/sites-available/000-default.conf* y dejarlo así:
+
+#+BEGIN_EXAMPLE
+    DavLockDB /var/www/DavLock
+    <VirtualHost *:80>
+
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    Alias /webdav /var/www/webdav
+
+    <Directory /var/www/webdav>
+        DAV On
+    </Directory>
+
+    </VirtualHost>
+#+END_EXAMPLE
+
+después de editar éste archivo hay que reiniciar el servidor...
+
+Para comprobar su funcionamiento en un navegador ir a la dirección:
+
+#+BEGIN_EXAMPLE
+    ip_servidor/webdav
+#+END_EXAMPLE
+
+#+BEGIN_QUOTE
+  Para cambiar el directorio a compartir (/var/www/webdav) por otro
+  ubicado en una partición diferente de la raiz, se agrega lo siguiente
+  al archivo *000-default.conf*:
+#+END_QUOTE
+
+#+BEGIN_EXAMPLE
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+    DAV On
+#+END_EXAMPLE
+
+que al final se ve así:
+
+#+BEGIN_EXAMPLE
+    DavLockDB /var/www/DavLock
+    <VirtualHost *:80>
+
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    Alias /webdav /home/martin/webDAV
+
+    <Directory /home/martin/webDAV>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+            DAV On
+    </Directory>
+    </VirtualHost>
+#+END_EXAMPLE
+
+#+BEGIN_QUOTE
+  Para poder editar los archivos desde diferentes dispositivos hay que
+  configurar los permisos:
+#+END_QUOTE
+
+#+BEGIN_SRC
+    sudo chgrp -R www-data ~/webDAV
+    sudo chmod -R g+w ~/webDAV
+    sudo find ~/webDAV -type d -exec chmod 2775 {} \;
+    sudo find ~/webDAV -type f -exec chmod ug+rw {} \;
+#+END_SRC
+
+[[https://geekland.eu/instalar-y-configurar-un-servidor-webdav-apache/][resumen de geekland]]

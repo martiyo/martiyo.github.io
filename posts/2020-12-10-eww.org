@@ -1,0 +1,38 @@
+#+title: Eww Emacs Web Wowser
+#+date: <2020-12-10 17:29>
+#+filetags: emacs 
+
+EWW, el Emacs Web Wowser, es un navegador web para GNU Emacs. Puede cargar, analizar y mostrar varias páginas web usando shr.el. Sin embargo, se requiere un GNU/Emacs con soporte para libxml2.
+
+ Definir eww como navegador por defecto
+ #+BEGIN_SRC
+ (setq browse-url-browser-function 'eww-browse-url)
+ #+END_SRC
+
+ Cambiar directorio de descargas
+ #+BEGIN_SRC
+ '(eww-download-directory "~/storage/descargas")
+ #+END_SRC
+
+** Atajos 
+
+| comando                | Atajo   | Description                                       |
+|------------------------+---------+---------------------------------------------------|
+| eww                    | f5      | Abrir URL o buscar en la web                      |
+| eww-open-file          | file:// | Abrir un archivo                                  |
+| eww-quit               | q       | Salir                                             |
+| eww-reload             | g       | Recargar                                          |
+| eww-copy-page-url      | w       | Copia la URL en el kill-ring                      |
+| eww-open-in-new-buffer | M-RET   | Abre la URL en un nuevo buffer                    |
+| eww-readable           | R       | Muestra solo texto legible                        |
+| eww-toggle-fonts       | F       | Usar fuentes de tono variable o no                |
+| eww-toggle-colors      | M-C     | Usar o no colores especificados por HTML          |
+| eww-dowload            | d       | Descarga el link bajo el punto o la pagina actual |
+| eww-back-url           | "pipe"  | Volver a la URL anterior                          |
+| eww-forward-url        | r       | Ir hacia adelante                                 |
+| eww-list-histories     | H       | Abrir el buffer del historial(se pierde al salir) |
+| eww-add-bookmark       | b       | Agregar marcador para la pagina actual            |
+| eww-list-bookmarks     | B       | Listar marcadores                                 |
+| eww-list-buffers       | S       | Listar eww-buffers abiertos                       |
+| eww-switch-to-buffer   | s       | Cambiar entre buffer de eww abiertos              |
+|------------------------+---------+---------------------------------------------------|

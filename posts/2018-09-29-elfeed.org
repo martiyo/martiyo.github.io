@@ -1,0 +1,147 @@
+#+title: Elfeed
+#+date: <2018-09-29 23:57>
+#+filetags: emacs
+
+** Descripción
+
+
+Elfeed en un lector de noticias para Emacs, compatible con Atom y Rss.
+
+** Instalación
+
+
+*Elfeed* se puede instalar con el gestor de paquetes de emacs, está en
+los repositorios melpa, entoces:
+
+#+BEGIN_SRC 
+    M-x list-packages RET elfeed RET y listo.
+#+END_SRC
+
+Después en el archivo de configuración hay que darle a emacs el
+directorio de elfeed, requerirlo y agregar los feeds a la elfeed-feeds:
+
+#+BEGIN_SRC 
+    (add-to-list 'load-path "~/.emacs.d/plugins/elfeed/")
+    (require 'elfeed)
+
+    (setq elfeed-feeds
+      '(
+        "https://ondahostil.wordpress.com/feed/"
+        "http://www.lapipaplena.org/feed/" 
+        "https://lamiradadelreplicante.com/feed/" 
+        "https://colaboratorio.net/feed/" 
+        "http://www.maxxcan.com/feed/"
+        "https://www.linuxito.com/?format=feed&type=rss"
+        ))
+#+END_SRC
+
+guardar los cambios con *C-c C-s* y evaluar el buffer con:
+
+#+BEGIN_SRC 
+    M-x eval-buffer RET
+#+END_SRC
+
+y listo!
+
+** Elfeed-search
+ 
+
+Al ejecutar la función interactiva elfeed
+
+#+BEGIN_SRC
+    M-x elfeed RET
+#+END_SRC
+
+aparecerá el **elfeed-search** que muestra la lista de feeds.
+
+#+CAPTION: elfeed
+[[./images/elfeed.png]]
+
+*** Teclas rapidas
+   
+
+- g: actualiza la lista de feeds.
+
+- G: actualiza la lista de feeds desde los servidores.
+
+- s: actualiza el filtro de búsqueda (ver etiquetas)
+
+- c: borra el filtro de búsqueda.
+
+- RET: ver la entrada seleccionada en un búfer.
+
+- b: abre las entradas seleccionadas en el navegador.
+
+- y: copia la URL de la entrada seleccionada en el portapapeles.
+
+- r: marca las entradas seleccionadas como leídas.
+
+- u: marca las entradas seleccionadas como no leídas.
+
+- +: agrega una etiqueta especifica a las entradas seleccionadas.
+
+- -: elimina una etiqueta específica de las entradas seleccionadas
+
+#+BEGIN_QUOTE
+  Esta lista se puede ver dentro de Emacs con el estándar Ch m .
+#+END_QUOTE
+
+** Etiquetas
+   
+
+Elfeed mantiene una lista de etiquetas arbitrarias, símbolos adjuntos a
+una entrada. La etiqueta unread se trata especialmente de forma
+predeterminada, con entradas no leídas que aparecen en negrita.
+
+*** Etiquetado automático
+   
+
+Las etiquetas se pueden aplicar automáticamente a las entradas listadas
+en *elfeed-feeds* específicos mediante una sintaxis adicional en
+elfeed-feeds . Normalmente, esta es una lista strings que proporciona un
+conjunto de "etiquetas automáticas" para las entradas de un feed.
+
+#+BEGIN_SRC 
+    (setq elfeed-feeds
+      '(
+        "https://ondahostil.wordpress.com/feed/" blog emacs
+        "http://www.lapipaplena.org/feed/"  blog emacs
+        "https://lamiradadelreplicante.com/feed/" software libre
+        "https://colaboratorio.net/feed/" software libre
+        "http://www.maxxcan.com/feed/" emacs
+        "https://www.linuxito.com/?format=feed&type=rss" linux
+        ))
+#+END_SRC
+
+** Elfeed + eww
+  
+
+*eww* es un navegador en texto plano que viene con emacs, para abrir los
+enlaces desde el visor de entradas de elfeed hay que colocar el cursor
+en el enlace y presionar M-x eww + enter, para salir de eww y volver a
+elfeed presionar q.
+
+** Accesos directos
+
+Para tener accesos directos se agrega esto en .emacs:
+
+#+BEGIN_SRC 
+         (global-set-key [f7] 'elfeed)
+         (global-set-key [f8] 'elfeed-update)
+         
+         (global-set-key [f5] 'eww)
+         (global-set-key (kbd "C-x w b") 'eww-add-bookmark)
+         (global-set-key (kbd "C-x w l") 'eww-list-bookmarks)
+         (global-set-key (kbd "C-x w f") 'eww-open-file)
+#+END_SRC
+
+#+BEGIN_QUOTE
+  Ahora f7 abre el lector, f8 lo actualiza, y al ubicar el cursor y
+  presionar f5 se abre con eww.
+#+END_QUOTE
+
+*** Fuente
+
+[[https://github.com/skeeto/elfeed][elfeed-github]]
+nasciiboy
+

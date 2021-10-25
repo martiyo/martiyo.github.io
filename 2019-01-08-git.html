@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Git init!</title>
+    <meta name="author" content="martin" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">08 ene 2019</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2019-01-08-git.html"
+          >Git init!</a
+        >
+      </h1>
+      <p>
+        Git es un sistema de control de versiones distribuido, gratuito y de
+        código abierto, diseñado para manejar todo tipo de proyectos, desde
+        pequeños hasta muy grandes, con rapidez y eficiencia.
+      </p>
+
+      <div id="outline-container-org78c76d0" class="outline-3">
+        <h3 id="configuración-del-entorno-local">
+          <a id="org78c76d0"></a>Configuración del entorno local
+        </h3>
+        <div class="outline-text-3" id="text-configuración-del-entorno-local">
+          <p>
+            Lo primero que hay que hacer para empezar con git, después de
+            instalarlo (<b>apt install git</b> y listo!) es configurar nombre y
+            correo para que git pueda firmar los commits que se hacen. Esto se
+            hace así:
+          </p>
+
+          <pre class="example">
+git config --global user.name
+git config --global user.email
+</pre
+          >
+
+          <p>
+            dicha información se guarda en ~/.gitconfig Para cambiar estos
+            valores para un proyecto concreto, se pueden ejecutar esos mismos
+            comandos pero sin la opción <b>&#x2013;global</b>, de ésta forma la
+            configuración se guarda en <b>.git/config</b> del proyecto. Otra
+            configuración puede ser
+          </p>
+
+          <pre class="example">
+git config --global color.status auto
+git config --global color.branch auto
+git config --global color.diff auto
+git config --global color.interactive auto
+</pre
+          >
+
+          <p>
+            un poco de color para que sea más fácil leer la información que
+            proporciona git.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgf476a37" class="outline-3">
+        <h3 id="git-init"><a id="orgf476a37"></a>Git init</h3>
+        <div class="outline-text-3" id="text-git-init">
+          <p>
+            <b>git init</b> es el comando para crear un repositorio git, se
+            ejecuta en la carpeta del proyecto y lo que hace es crear el
+            directorio <b>.git</b> en la misma carpeta. #### .gitignore Antes de
+            continuar es mejor crear el archivo <b>.gitignore</b> el cual
+            contiene una lista de los archivos y directorios que git debe
+            ignorar:
+          </p>
+
+          <pre class="example">
+$cat .gitignore
+build/
+*.[oa]
+*~
+doc/*.txt
+</pre
+          >
+
+          <ul class="org-ul">
+            <li>
+              La primera línea indica que se ignore el directorio <b>build</b> y
+              todo su contenido.
+            </li>
+            <li>
+              La segunda línea que se ignore cualquier archivo cuyo nombre
+              termine en <b>.o</b> o <b>.a</b> archivos objeto que suelen ser
+              producto de la compilación de código.
+            </li>
+            <li>
+              La tercera línea que se ignore todos los archivos que terminan en
+              tilde <b>~</b>, usada por muchos editores de texto, como Emacs,
+              para marcar archivos temporales.
+            </li>
+            <li>
+              La cuarta línea dice que se ignore los archivos con la extensión
+              <b>.txt</b> dentro del directorio <b>doc/</b>, pero no el resto de
+              archivos y directorios que <b>doc/</b> contiene.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org8f726ec" class="outline-3">
+        <h3 id="git-add"><a id="org8f726ec"></a>Git add</h3>
+        <div class="outline-text-3" id="text-git-add">
+          <p>
+            Para empezar el seguimiento de un archivo se usa el comando
+            <b>git add</b>
+            que recibe como parámetro la ruta de un archivo o directorio, si es
+            un directorio añade todos los archivos que contenga de manera
+            recursiva.
+          </p>
+
+          <pre class="example">
+git add .
+</pre
+          >
+
+          <p>Este comando añade todos los archivos del directorio local.</p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgbeda481" class="outline-3">
+        <h3 id="git-status"><a id="orgbeda481"></a>Git status</h3>
+        <div class="outline-text-3" id="text-git-status">
+          <p>
+            Una vez creados o modificados los archivos que están bajo
+            seguimiento, se puede ejecutar <b>git status</b> para ver un listado
+            de los archivos modificados.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orga0cf12b" class="outline-3">
+        <h3 id="git-diff"><a id="orga0cf12b"></a>Git diff</h3>
+        <div class="outline-text-3" id="text-git-diff">
+          <p>
+            Este comando compara lo que hay en el directorio de trabajo con lo
+            que hay en el área de preparación. El resultado indica los cambios
+            que se han hecho y que todavía no se han preparado.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgae748a2" class="outline-3">
+        <h3 id="git-diff-cached">
+          <a id="orgae748a2"></a>Git diff &#x2013;cached
+        </h3>
+        <div class="outline-text-3" id="text-git-diff-cached">
+          <p>
+            Se usa para ver los cambios que se han preparado y que irán en la
+            próxima confirmación, lo que hace concretamente es comparar los
+            cambios preparados con la última confirmación.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgb05eaa9" class="outline-3">
+        <h3 id="git-commit"><a id="orgb05eaa9"></a>Git commit</h3>
+        <div class="outline-text-3" id="text-git-commit">
+          <p>
+            Una vez que se realizan los cambios necesarios y luego de ejecutar
+            <b>git add .</b> es hora de confirmar los cambios, para esto se usa
+            el comando <b>git commit -m</b> el flag <b>-m</b> es para añadir un
+            comentario directamente desde la consola(sin abrir un editor).
+          </p>
+
+          <pre class="example">
+git commit -m "mi comentario"
+</pre
+          >
+
+          <p>
+            Un atajo para saltarse toda el área de preparación es pasar al
+            comando
+            <b>git commit</b> la opción <b>-a</b>, esto hace que git prepare
+            todo archivo que estuviese en seguimiento antes de la confirmación,
+            permitiendo obviar toda la parte del <b>add</b>.
+          </p>
+
+          <pre class="example">
+git commit -a -m "mi nuevo comentario"
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org36c0d92" class="outline-3">
+        <h3 id="git-rm"><a id="org36c0d92"></a>Git rm</h3>
+        <div class="outline-text-3" id="text-git-rm">
+          <p>
+            Para eliminar un archivo de Git, hay eliminarlo de los archivos bajo
+            seguimiento (más concretamente, eliminarlo del área de preparación),
+            y después confirmar. El comando git rm se encarga de eso, y también
+            elimina el archivo del directorio de trabajo, para que no se vea
+            entre los archivos sin seguimiento.
+          </p>
+
+          <pre class="example">
+git rm archivo.a
+</pre
+          >
+
+          <p>
+            Aveces es necesario conservar un archivo pero interrumpir su
+            seguimiento, esto es útil cuando dicho archivo no ha sido incluido
+            en
+            <b>.gitignore</b>, para hacer esto su usa la opción
+            <b>&#x2013;cached</b>:
+          </p>
+
+          <pre class="example">
+git rm --cached archivo.a
+</pre
+          >
+
+          <p>
+            El comando <b>git rm</b> acepta archivos, directorio y patrones
+            glog(expresiones regulares) por ejemplo:
+          </p>
+
+          <pre class="example">
+git rm log/\*.log
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgf29dab8" class="outline-2">
+        <h2 id="gitlab"><a id="orgf29dab8"></a>Gitlab</h2>
+        <div class="outline-text-2" id="text-gitlab">
+          <p>
+            Gitlab es un servicio web de control de versiones y desarrollo de
+            software colaborativo basado en Git. Además de gestor de
+            repositorios, el servicio ofrece también alojamiento de wikis y un
+            sistema de seguimiento de errores, todo ello publicado bajo una
+            Licencia de código abierto. Gitlab usa una clave ssh para establecer
+            una conexión segura entre una maquina cliente y el servidor. Para
+            generar una clave ssh en
+            <b>devuan GNU/Linux</b> se usa el comando <b>ssh-keygen</b>:
+          </p>
+
+          <pre class="example">
+$ ssh-keygen -t rsa -b 8192
+</pre
+          >
+
+          <p>
+            Cuando se utiliza RSA, ssh-keygen guarda la clave privada en el
+            archivo ~/.ssh/id\<sub>dsa</sub> y la clave pública en
+            ~/.ssh/id\<sub>dsa.pub</sub>.
+          </p>
+
+          <p>
+            Luego en gitlab ir a <b>llaves ssh</b>, pegar el contenido del
+            archivo <b>id\<sub>rsa.pub</sub></b> y poner un titilo que
+            identifique la maquina o el sistema. Para probar la conexión se usa
+            el comando:
+          </p>
+
+          <pre class="example">
+$ssh git@gitlab.com
+Welcome to GitLab, @martiyo!
+Connection to gitlab.com closed.
+</pre
+          >
+        </div>
+
+        <div id="outline-container-orgf0a1756" class="outline-3">
+          <h3 id="git-push"><a id="orgf0a1756"></a>Git push</h3>
+          <div class="outline-text-3" id="text-git-push">
+            <p>
+              Cuando el proyecto esta listo para subirlo, lo que sigue es crear
+              un nuevo proyecto en gitlab que devuelve la ruta que se agrega
+              con:
+            </p>
+
+            <pre class="example">
+git remote add origin git@gitlab.com:martiyo/mi_proyecto.git
+</pre
+            >
+
+            <p>y por fin&#x2026;!!!</p>
+
+            <pre class="example">
+git push -u origin master
+</pre
+            >
+
+            <p>
+              <b>Fuente</b>
+              Resumen y traducción de
+              <a
+                href="https://git-scm.com/book/es/v1/Fundamentos-de-Git-Obteniendo-un-repositorio-Git"
+                >git-scm.com</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-git.html">git</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

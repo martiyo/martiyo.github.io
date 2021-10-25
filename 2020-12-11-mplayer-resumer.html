@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>mplayer-resumer</title>
+    <meta name="author" content="martin" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">11 dic 2020</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2020-12-11-mplayer-resumer.html"
+          >mplayer-resumer</a
+        >
+      </h1>
+      <p>
+        Lo unico que le faltaba al bueno de mplayer era poder retomar la
+        reprocucción en el punto donde había quedado,
+        <b>mplayer-resumer</b> resuelve esta situación.
+      </p>
+
+      <div id="outline-container-org6c7a7fe" class="outline-2">
+        <h2 id="org6c7a7fe">Descarga</h2>
+        <div class="outline-text-2" id="text-org6c7a7fe">
+          <pre class="example">
+git clone https://github.com/graysky2/mplayer-resumer.git
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgacb515f" class="outline-2">
+        <h2 id="orgacb515f">Instalación</h2>
+        <div class="outline-text-2" id="text-orgacb515f">
+          <p>
+            El paquete clonado viene con un archivo <b><b>INSTALL</b></b> con
+            las dependencias e instrucciones necesarias:
+          </p>
+
+          <ul class="org-ul">
+            <li>Dpendencias</li>
+          </ul>
+
+          <pre class="example">
+mplayer or mplayer2
+perl
+perl-shell (http://search.cpan.org/dist/Shell/)
+</pre
+          >
+
+          <ul class="org-ul">
+            <li>Building</li>
+          </ul>
+
+          <pre class="example">
+$ make
+# make install
+</pre
+          >
+
+          <p>
+            Si el script es reiniciado a los 5 segundos (con $tdiff 5 segundos
+            por defecto) entonces borrará el archivo usado para mantener la
+            posición del vídeo.
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,224 @@
+#+title: ffmpeg video converter
+#+date: <2018-12-08 13:52>
+#+filetags: linux
+
+* Wikipedia
+  :PROPERTIES:
+  :CUSTOM_ID: wikipedia
+  :END:
+
+FFmpeg es una colección de software libre que puede grabar, convertir
+(transcodificar) y hacer streaming de audio y vídeo. Incluye libavcodec,
+una biblioteca de códecs. FFmpeg está desarrollado en GNU/Linux, pero
+puede ser compilado en la mayoría de los sistemas operativos. FFmpeg es
+un programa bastante sencillo y muy fácil de usar, orientado tanto a
+personas con conocimientos avanzados como usuarios novatos. Es capaz de
+elegir el códec con sólo escribir la extensión. Por ejemplo, FFmpeg
+usará x264 si elegimos .mp4, mpeg4 si usamos .avi, VP8 si usamos .webm,
+etc... Esta es una recopilación de ejemplos de cosas útiles que se
+pueden hacer con ffmpeg, como puede ser convertir vídeos para PSP, iPod
+o iPhone, extraer el audio de un vídeo o extraer imágenes de un vídeo.
+
+*** Obtener información de un video
+    :PROPERTIES:
+    :CUSTOM_ID: obtener-información-de-un-video
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i video.avi
+#+END_SRC
+
+*** Combinar una serie de imágenes en un video
+    :PROPERTIES:
+    :CUSTOM_ID: combinar-una-serie-de-imágenes-en-un-video
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -f imagen1.jpg -i imagen%d.jpg video.mpg
+#+END_SRC
+
+Este comando convierte todas las imagenes del directorio actual(con
+nombres imagen1.jpg, imagen2.jpg, etc...)en un video llamado video.mpg.
+
+*** Añadir de un archivo de audio en un video
+    :PROPERTIES:
+    :CUSTOM_ID: añadir-de-un-archivo-de-audio-en-un-video
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i audio.wav -i video_entrada.avi video_salida.mpg
+#+END_SRC
+
+*** Convertir un vídeo en imágenes
+    :PROPERTIES:
+    :CUSTOM_ID: convertir-un-vídeo-en-imágenes
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i video.mpg imagen%d.jpg
+#+END_SRC
+
+Con este comando se crearan varias imágenes imagen1.jpg, imagen2.jpg,
+... Para las imágenes resultantes se pueden usar los formatos PGM, PPM,
+PAM, PGMYUV, JPEG, GIF, PNG, TIFF o SGI.
+
+*** Convertir video para SmarTV (Server MiniDLNA)
+    :PROPERTIES:
+    :CUSTOM_ID: convertir-video-para-smartv-server-minidlna
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i LaBellaylaBestia.mkv -c:a libmp3lame -b:v 2500k -b:a 150k LaBellaylaBestia.avi
+#+END_SRC
+
+Cambiando los valores de -b:v se puede aumentar o disminuir la calidad
+del archivo de salida y tambien su tamaño.
+
+*** Extraer el sonido de un vídeo, y guardarlo como MP3
+    :PROPERTIES:
+    :CUSTOM_ID: extraer-el-sonido-de-un-vídeo-y-guardarlo-como-mp3
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i video.avi -vn -ar 44100 -ac 2 -ab 192 -f mp3 audio.mp3
+#+END_SRC
+
+- Video original: video.avi
+- Codec de audio: mp3
+- Bitrate del audio: 192kb/s
+- Archivo generado: audio.mp3
+
+*** Convertir un wav en MP3
+    :PROPERTIES:
+    :CUSTOM_ID: convertir-un-wav-en-mp3
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i audio.wav -ar 44100 audio.mp3
+#+END_SRC
+
+*** Convertir un avi a mpg
+    :PROPERTIES:
+    :CUSTOM_ID: convertir-un-avi-a-mpg
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i entrada.avi salida.mpg
+#+END_SRC
+
+*** Convertir un mpg a avi
+    :PROPERTIES:
+    :CUSTOM_ID: convertir-un-mpg-a-avi
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i entrada.mpg salida.avi
+#+END_SRC
+
+*** Convertir un avi a gif
+    :PROPERTIES:
+    :CUSTOM_ID: convertir-un-avi-a-gif
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i entrada.avi salida.gif
+#+END_SRC
+
+*** Convertir avi a flv
+    :PROPERTIES:
+    :CUSTOM_ID: convertir-avi-a-flv
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i entrada.avi -ab 56 -ar 44100 -b 200 -r 15 -s 320×240 -f flv salida.flv
+#+END_SRC
+
+*** Convertir avi a dv
+    :PROPERTIES:
+    :CUSTOM_ID: convertir-avi-a-dv
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i entrada.avi -s pal -r pal -aspect 4:3 -ar 48000 -ac 2 salida.dv
+#+END_SRC
+
+o bien
+
+#+BEGIN_SRC 
+    ffmpeg -i entrada.avi -target pal-dv salida.dv
+#+END_SRC
+
+*** Convertir avi a mpeg para reproductores de dvd
+    :PROPERTIES:
+    :CUSTOM_ID: convertir-avi-a-mpeg-para-reproductores-de-dvd
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i entrada.avi -target pal-dvd -ps 2000000000 -aspect 16:9 salida.mpeg
+#+END_SRC
+
+- target pal-dvd: Formato de salida
+- ps 2000000000: Tamaño máximo del archivo resultante en bits (en el
+  ejemplo, 2Gb)
+- aspect 16:9: Panorámico
+
+*** Comprimir avi a divx
+    :PROPERTIES:
+    :CUSTOM_ID: comprimir-avi-a-divx
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i entrada.avi -s 320×240 -vcodec msmpeg4v2 salida.avi
+#+END_SRC
+
+*** Comprimir Ogg Theora a Mpeg dvd
+    :PROPERTIES:
+    :CUSTOM_ID: comprimir-ogg-theora-a-mpeg-dvd
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i entrada.ogm -s 720×576 -vcodec mpeg2video -acodec mp3 salida.mpg
+#+END_SRC
+
+*** Comprimir avi a SVCD mpeg2
+    :PROPERTIES:
+    :CUSTOM_ID: comprimir-avi-a-svcd-mpeg2
+    :END:
+
+Para PAL:
+
+#+BEGIN_SRC 
+    ffmpeg -i entrada.avi -target pal-svcd salida.mpg
+#+END_SRC
+
+Para NTSC:
+
+#+BEGIN_SRC 
+    ffmpeg -i entrada.avi -target ntsc-svcd salida.mpg
+#+END_SRC
+
+*** Comprimir avi a VCD mpeg2
+    :PROPERTIES:
+    :CUSTOM_ID: comprimir-avi-a-vcd-mpeg2
+    :END:
+
+Para PAL:
+
+#+BEGIN_SRC 
+    ffmpeg -i entrada.avi -target pal-vcd salida.mpg
+#+END_SRC
+
+Para NTSC:
+
+#+BEGIN_SRC 
+    ffmpeg -i entrada.avi -target ntsc-vcd salida.mpg
+#+END_SRC
+
+*** Codificación con varias pasadas
+    :PROPERTIES:
+    :CUSTOM_ID: codificación-con-varias-pasadas
+    :END:
+
+#+BEGIN_SRC 
+    ffmpeg -i entrada -pass 2 -passlogfile ffmpeg2pass salida
+#+END_SRC

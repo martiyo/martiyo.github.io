@@ -1,0 +1,33 @@
+#+title: mplayer-resumer
+#+date: <2020-12-11 19:48>
+#+filetags: linux
+
+Lo unico que le faltaba al bueno de mplayer era poder retomar la reprocucción en el punto donde había quedado, *mplayer-resumer* resuelve esta situación.
+
+** Descarga
+   
+   #+BEGIN_SRC
+   git clone https://github.com/graysky2/mplayer-resumer.git
+   #+END_SRC
+
+** Instalación
+
+   El paquete clonado viene con un archivo **INSTALL** con las dependencias e instrucciones necesarias:
+
+   * Dpendencias
+
+   #+BEGIN_SRC 
+   mplayer or mplayer2
+   perl
+   perl-shell (http://search.cpan.org/dist/Shell/)
+   #+END_SRC
+        
+  * Building
+
+#+BEGIN_SRC 
+$ make
+# make install
+#+END_SRC
+
+
+ Si el script es reiniciado a los 5 segundos (con $tdiff 5 segundos por defecto) entonces borrará el archivo usado para mantener la posición del vídeo.

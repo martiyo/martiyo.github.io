@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Descargar videos de youtube" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>youtube-dl</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">03 oct 2021</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2021-10-03-youtube-dl.html"
+          >youtube-dl</a
+        >
+      </h1>
+      <p>
+        Youtube-dl es un programa de línea de comandos para descargar videos de
+        youtube y algunos otros sitios más
+      </p>
+
+      <div id="outline-container-orgc034160" class="outline-2">
+        <h2 id="orgc034160">Instalación</h2>
+        <div class="outline-text-2" id="text-orgc034160">
+          <p>Con curl</p>
+
+          <pre class="example">
+sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl
+</pre
+          >
+
+          <p>Con wget</p>
+
+          <pre class="example">
+sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org81d8fef" class="outline-2">
+        <h2 id="org81d8fef">Usos frecuentes</h2>
+        <div class="outline-text-2" id="text-org81d8fef">
+          <p>
+            Descargar lista de reproducción completa y extraer audio en formato
+            mp3
+          </p>
+
+          <pre class="example">
+youtube-dl --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" &lt;url to playlist&gt;
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

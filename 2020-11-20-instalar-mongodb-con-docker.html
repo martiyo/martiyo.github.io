@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Instalar mongodb con docker</title>
+    <meta name="author" content="martin" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">20 nov 2020</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/faq/2020-11-20-instalar-mongodb-con-docker.html"
+          >Instalar mongodb con docker</a
+        >
+      </h1>
+      <p>Instalación y ejecución de mongodb en docker.</p>
+
+      <pre class="example">
+docker run -d -p 27017:27017 --name mydatabase mongo:4.2
+</pre
+      >
+
+      <div id="outline-container-orgfb34755" class="outline-2">
+        <h2 id="orgfb34755">Este comando hace lo siguiente:</h2>
+        <div class="outline-text-2" id="text-orgfb34755"></div>
+        <ul class="org-ul">
+          <li>
+            <a id="orgd8b6fcf"></a><b>d:</b> permite ejecutar el proceso en
+            background<br />
+          </li>
+          <li>
+            <a id="org94fd546"></a><b>-p</b> 27017:27017 esto le indica a docker
+            que las conexiones del puerto 27017 del contenedor se redireccionen
+            al 27017 de la máquina host.<br />
+          </li>
+          <li>
+            <a id="org8996c33"></a><b>-name mydatabase</b>: nombre que se le
+            asigna al contenedor.<br />
+          </li>
+          <li>
+            <a id="org105a0ec"></a><b>mongo:4.2</b>: nombre de la imagen y
+            version.<br />
+            <div class="outline-text-5" id="text-org105a0ec">
+              <p>Con esto queda listo el contenedor.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div id="outline-container-org03593e7" class="outline-2">
+        <h2 id="org03593e7">
+          Para conectarse al contenedor se usa el comando <code>exec</code> de
+          docker
+        </h2>
+        <div class="outline-text-2" id="text-org03593e7">
+          <pre class="example">
+docker exec -it mydatabase bash
+</pre
+          >
+        </div>
+
+        <ul class="org-ul">
+          <li>
+            <a id="orgcca75f4"></a><b>-it</b>: ejecutar el contenedor de manera
+            intenctiva y que la terminal tome el control de instrucccion que
+            sigue al final.<br />
+          </li>
+          <li>
+            <a id="orga6ea904"></a><b>mydatabase</b>: nombre del contendor a
+            usar.<br />
+          </li>
+          <li>
+            <a id="org7dbd41a"></a><b>bash</b>: comando a ejecutar al final,
+            osea, que acceda a las shell del contenedor.<br />
+            <div class="outline-text-5" id="text-org7dbd41a">
+              <p>
+                Con este comando se ingresa al contenedor recien creado (para
+                ejecutar un contenedor creado anteriormente, pero no ingresar en
+                el contenedor, solo ejecutar la db!, el comando es
+                <code>docker start name</code>). Una vez dentro del contenedor
+                hay que ejecutar: <code>mogno</code>
+              </p>
+
+              <p>
+                <b>Fuentes</b>
+                <a
+                  href="https://platzi.com/tutoriales/1533-mongodb/4930-instalar-mongo-db-usando-docker/"
+                  >platzi.com</a
+                >
+                <a
+                  href="https://www.hostinger.es/tutoriales/como-crear-contenedor-docker/"
+                  >hostinger-tutorials</a
+                >
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+    </div>
+  </body>
+</html>

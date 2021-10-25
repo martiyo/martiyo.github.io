@@ -1,0 +1,74 @@
+#+title: Reproducir audio en emacs
+#+date: <2019-02-09 13:03>
+#+filetags: emacs
+
+** Emms
+   :PROPERTIES:
+   :CUSTOM_ID: emms
+   :END:
+
+Emms es el sistema multimedia de Emacs. Intenta ser una aplicación
+limpia y pequeña para reproducir archivos multimedia de Emacs utilizando
+reproductores externos.
+
+** Instalación
+   :PROPERTIES:
+   :CUSTOM_ID: instalación
+   :END:
+
+Para poder escuchar musica en emacs primero hay que instalar el paquete
+*emms* con apt, luego descargar tar.gz de emms y moverlo al directorio emacs.d:
+
+#+BEGIN_SRC
+     wget http://ftp.gnu.org/gnu/emms/emms-4.0.tar.gz
+     tar -zxf emms-4.0.tar.gz
+     mv emms-4.0 .emacs.d/lisp
+#+END_SRC
+
+Editar el archivo .emacs y añadir las siguientes lineas:
+
+#+BEGIN_SRC
+     (add-to-list 'load-path "~/.emacs.d/lisp/emms-4.0/")
+     (require 'emms-setup)
+     (emms-standard)
+     (emms-default-players)
+#+END_SRC
+
+*C-x s* guarda los cambios *M-x ev-b* recarga la configuración sin
+necesidad de reiniciar emacs, luego *M-x emms* TAB TAB muestra una
+ventana con las opciones disponibles.
+
+*** Navegar por el sistema de archivos
+    :PROPERTIES:
+    :CUSTOM_ID: navegar-por-el-sistema-de-archivos
+    :END:
+
+El comando *M-x emms-play-file* permite navegar por el sistema de
+archivos y elegir un archivo de audio para reproducir, *M-x emms*
+muestra la playlist y *M-x emm-stop* detiene la reproducción. Es posible
+establecer un directorio predeterminado para la carpeta *musica*
+editando el archivo .emacs como siempre y agregando esto:
+
+#+BEGIN_SRC
+    (setq emms-source-file-default-directory "~/Musica/")
+#+END_SRC
+
+esta linea permite acceder directamente a ese directorio tipeando *M-x
+emms*
+
+*** Escuchar radios
+    :PROPERTIES:
+    :CUSTOM_ID: escuchar-radios
+    :END:
+
+Para escuchar radios, hay que crear un archivo con las URL de las radios
+de y ejecutar *M-x emms-play-m3u-playlist* y navegar hasta dicho
+archivo, pero para hacerla mas fácil se puede crear un atajo en .emmacs
+con:
+
+#+BEGIN_SRC
+   (global-set-key (kbd "C-c r") 'emms-play-m3u-playlist)
+#+END_SRC
+
+ahora para cargar el archivo radios que está en la carpeta Musica basta
+con *C-c r*

@@ -1,0 +1,128 @@
+#+title: Planificación y administración de tareas con Cron y Crontab
+#+date: <2021-01-21 12:18>
+#+filetags: linux
+
+En el sistema operativo Unix, cron es un administrador regular de
+procesos en segundo plano (demonio) que ejecuta procesos o guiones a
+intervalos regulares (por ejemplo, cada minuto, día, semana o mes). Los
+procesos que deben ejecutarse y la hora en la que deben hacerlo se
+especifican en el fichero crontab. Este servicio es muy útil para
+realizar tareas de mantenimiento como copias de respaldo del sistema,
+verificación del equipo o estadísticas de uso.
+
+** Crontab del usuario
+    :PROPERTIES:
+    :CUSTOM_ID: crontab-del-usuario
+    :END:
+
+Cada usuario puede definir sus propias tareas, éstas se ejecutaran con
+los privilegios del usuario que las ha definido, el demonio cron primero
+busca dichas tareas, que se almacenan en */var/spool/cron/crontabs/*
+donde cada archivo lleva el nombre del login de cada usuario. Después
+levanta los crontabs del sistema, los cuales se almacenan en el
+*/etc/crontab* y en el directorio */etc/cron.d*. Para editar el crontab
+del usuario se usa el comando */crontab/*
+
+***** Sintaxis del comando:
+      :PROPERTIES:
+      :CUSTOM_ID: sintaxis-del-comando
+      :END:
+
+#+BEGIN_SRC 
+    crontab [opciones][usuario]
+#+END_SRC
+
+*crontab -l* lista el contenido de la tabla de tareas. *crontab -e*
+edita el contenido de la tabla de tareas.
+
+Cuando se ejecuta crontab -e por primera vez pregunta que editor de
+texto que se va usar y guarda ésta información en el archivo
+*~/.selected\_editor*
+
+***** Formato de la tabla de tareas
+     :PROPERTIES:
+     :CUSTOM_ID: formato-de-la-tabla-de-tareas
+     :END:
+
+.--------------- minuto (0-59) | .------------ hora (0-23) | |
+.--------- día del mes (1-31) | | | .------ mes (1-12) o
+jan,feb,mar,apr,may,jun,jul... (meses en inglés) | | | | .--- día de la
+semana (0-6) (domingo=0 ó 7) o sun,mon,tue,wed,thu,fri,sat | | | | | * *
+
+** Comando a ejecutar
+  
+Se pueden utilizar asteriscos para especificar todos (ejemplo: todos los
+días de la semana), guiones para especificar rangos (ejemplo: de
+miércoles a domingo, */0-3/*) y comas para momentos exactos(ejemplo: a
+los 0, 10 y 30 minutos, */0, 10, 30/*).
+
+**** Ejemplos
+     :PROPERTIES:
+     :CUSTOM_ID: ejemplos
+     :END:
+
+- Una vez por semana
+
+  #+BEGIN_SRC 
+      0 * * * * /usr/local/bin/updatedb.sh  
+  #+END_SRC
+
+  en el minuto 0 de cada hora, ejecutar el script
+  */usr/local/bin/updatedb.sh*, todas las horas, todos los días del mes,
+  todos los meses y todos los días de la semana.
+
+- Una vez por día
+
+  #+BEGIN_SRC 
+      01 04 * * * /usr/local/bin/updatedb.sh  
+  #+END_SRC
+
+  en el minuto 01 de la hora 04 ejecutar ...
+
+- Una vez por mes
+
+  #+BEGIN_SRC 
+      01 04 01 * * /usr/local/bin/updatedb.sh  
+  #+END_SRC
+
+  en el minuto 01 de la hora 04 el día 01 de cada mes ejecutar ...
+
+- una vez por año
+
+  #+BEGIN_SRC 
+      01 04 01 01 * /usr/local/bin/updatedb.sh
+  #+END_SRC
+
+  en el minuto 01 de la hora 04 el día 01 del mes 01 de cada año
+  ejecutar ...
+
+- dos veces por semana
+
+  #+BEGIN_SRC 
+      0 0 * * 1,3 /usr/local/bin/updatedb.sh 
+  #+END_SRC
+
+  a las 12 de la noche, todos los lunes y miércoles de todos los meses,
+  de cada año ejecutar...
+
+*** Crontab del sistema
+    :PROPERTIES:
+    :CUSTOM_ID: crontab-del-sistema
+    :END:
+
+Se utiliza cuando se requiere que una tarea se ejecute con privilegios
+de root. La definición es igual a la del crontab del usuario solo que
+debe agregarse el campo usuario. Es posible editar directamente el
+archivo*/etc/crontab*, aunque es mejor agregar la definición dentro del
+directorio */etc/cron.d* que sirve para almacenar los cronjobs de los
+diferentes usuarios. Por ejemplo
+
+#+BEGIN_SRC 
+      0 0 * * 1,3 root /usr/local/bin/updatedb.sh 
+#+END_SRC
+
+El usuario root también tiene la posibilidad de usar los archivos
+*/etc/cron.hourly*, */etc/cron.daily* */etc/cron.weekly* y
+*/etc/cron.monthly*. En estos archivos se pueden ubicar los scripts que
+serán ejecutados cada hora, cada día, cada semana o cada mes según
+corresponda.

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="contraseñas para todos" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Pass el gestor de contraseñas estandar de unix</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/stylesheet.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">24 oct 2021</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2021-10-24-pass.html"
+          >Pass el gestor de contraseñas estandar de unix</a
+        >
+      </h1>
+      <p>La gestión de contraseñas debe ser simple y seguir Filosofía Unix.</p>
+
+      <div id="outline-container-orgb262528" class="outline-2">
+        <h2 id="orgb262528">Introducción</h2>
+        <div class="outline-text-2" id="text-orgb262528">
+          <p>
+            Con pass, cada contraseña vive dentro de un archivo gpg cifrado cuyo
+            nombre de archivo es el título del sitio web, correo o recurso que
+            requiere la contraseña. Estos archivos cifrados pueden organizarse
+            en jerarquías de carpetas significativas, copiadas de ordenador a
+            ordenador, y, en general, manipuladas utilizando los servicios de
+            gestión de archivos de línea de comando estándar.
+          </p>
+
+          <p>
+            pass hace que la gestión de estos archivos de contraseña
+            individuales sea extremadamente fácil. Todas las contraseñas viven
+            en <b>~/.password-store</b>, y pass proporciona algunos comandos
+            agradables para agregar, editar, generar y recuperar contraseñas. Es
+            un script de shell muy corto y sencillo. Es capaz de poner
+            temporalmente contraseñas en su portapapeles y rastrear cambios de
+            contraseña utilizando git.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org9fa72ca" class="outline-2">
+        <h2 id="org9fa72ca">Usando el Password-store</h2>
+        <div class="outline-text-2" id="text-org9fa72ca"></div>
+        <div id="outline-container-orgb4e339e" class="outline-3">
+          <h3 id="orgb4e339e">
+            Enumerar las contraseñas existentes en el store
+          </h3>
+          <div class="outline-text-3" id="text-orgb4e339e">
+            <pre class="example">
+dev1@devuan ~ $ pass 
+Password Store
+└── correo
+   ├── casaresrm@gmail.com
+   └── probando@gmail.com
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org1d7ac5f" class="outline-3">
+          <h3 id="org1d7ac5f">Mostrar contraseñas</h3>
+          <div class="outline-text-3" id="text-org1d7ac5f">
+            <pre class="example">
+dev1@devuan ~ $ pass casaresrm@gmail.com 
+contraseñasegura
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgac522c0" class="outline-3">
+          <h3 id="orgac522c0">Copiar al portapapeles</h3>
+          <div class="outline-text-3" id="text-orgac522c0">
+            <pre class="example">
+dev1@devuan ~ $ pass -c casaresrm@gmail.com 
+Copied correo/casaresrm@gmail.com to clipboard. Will clear in 45 seconds.
+</pre
+            >
+
+            <p>
+              Cualquira de estos comandos habrirá un diálogo de entrada de
+              contraseña agradable usando el estándar gpg-agent (que se puede
+              configurar para mantenerse autenticado durante varios minutos), ya
+              que todas las contraseñas están encriptadas.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org721c822" class="outline-3">
+          <h3 id="org721c822">Añadir o modificar contraseñas</h3>
+          <div class="outline-text-3" id="text-org721c822">
+            <p>
+              Añadir #+BEGIN [dev1@devuan ~]$ pass insert martiyo@protonmail.com
+              Enter password for martiyo@protonmail.com: Retype password for
+              martiyo@protonmail.com: #+END<sub>SRC</sub>
+            </p>
+
+            <p>Modificar</p>
+
+            <pre class="example">
+[dev1@devuan ~]$  pass insert correo/probando@gmail.com
+An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
+</pre
+            >
+
+            <p>
+              Esto también maneja contraseñas multilíneas u otros datos con
+              &#x2013;multiline or -m, y las contraseñas se pueden editar en su
+              editor de texto predeterminado utilizando pass edit pass-name.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org7d873e1" class="outline-3">
+          <h3 id="org7d873e1">Contraseñas automaticas</h3>
+          <div class="outline-text-3" id="text-org7d873e1">
+            <p>
+              La utilidad <b>generate</b> crea nuevas contraseñas utilzando
+              <b>/dev/urandom</b>
+            </p>
+
+            <pre class="example">
+[dev1@devuan ~]$  pass generate web/midudev.com 15
+  mkdir: se ha creado el directorio '/home/dev1/.password-store/web'
+  The generated password for web/midudev.com is:
+  r?&gt;T.C/NE)&gt;kT9W
+</pre
+            >
+
+            <p>
+              Es posible generar contraseñas sin símbolos usando
+              &#x2013;no-symbols or -n, y podemos copiarlo al portapapeles en
+              lugar de mostrarlo en la consola usando &#x2013;clip or -c.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org7e75895" class="outline-3">
+          <h3 id="org7e75895">Eliminar</h3>
+          <div class="outline-text-3" id="text-org7e75895">
+            <pre class="example">
+[dev1@devuan ~]$  pass rm correo/probando@gmail.com 
+  Are you sure you would like to delete correo/probando@gmail.com? [y/N] y
+  '/home/dev1/.password-store/correo/probando@gmail.com.gpg' borrado
+</pre
+            >
+          </div>
+        </div>
+        <div id="outline-container-orgb1d4ee6" class="outline-3">
+          <h3 id="orgb1d4ee6">Git</h3>
+          <div class="outline-text-3" id="text-orgb1d4ee6">
+            <p>
+              Si la tienda de contraseñas es un repositorio de git, ya que cada
+              manipulación crea un git commit, puede sincronizar la tienda de
+              contraseñas utilizando <b>pass git push</b> y
+              <b>pass git pull</b>, que llamada git-push or git-pull en la
+              tienda.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org6742e84" class="outline-2">
+        <h2 id="org6742e84">Configuración</h2>
+        <div class="outline-text-2" id="text-org6742e84">
+          <p>Para comenzar hay inicializar el dposito de contraseñas</p>
+
+          <pre class="example">
+pass init "id de mi clave GPG"
+</pre
+          >
+        </div>
+
+        <div id="outline-container-org0424a0b" class="outline-3">
+          <h3 id="org0424a0b">Generando las claves con GnuPG</h3>
+          <div class="outline-text-3" id="text-org0424a0b">
+            <p>Para crear una pareja de claves (publica y privada) se usa</p>
+
+            <pre class="example">
+gpg --gen-key
+</pre
+            >
+
+            <p>se completan los datos solicitados y listo.</p>
+
+            <p>el comando</p>
+
+            <pre class="example">
+gpg -k
+</pre
+            >
+
+            <p>
+              mostrará la identificación de cada clave
+              <a
+                href="https://lignux.com/wp-content/uploads/2014/01/instrucciones-gpg.pdf"
+                >más info sobre gpg</a
+              >
+            </p>
+
+            <p>
+              <b>Nota</b> para que pass pueda descifrar las contraseñas hay que
+              exportar un variable de entorno:
+            </p>
+
+            <pre class="example">
+export GPG_TTY=$(tty)
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgf172b77" class="outline-3">
+          <h3 id="orgf172b77">Inicializar el store como un repositorio git</h3>
+          <div class="outline-text-3" id="text-orgf172b77">
+            <pre class="example">
+$ pass git init
+Initialized empty Git repository in /home/dev1/.password-store/.git/
+</pre
+            >
+
+            <p>
+              Si un repositirio git es inicializado, pass crea un git commit
+              cada vez que se manipula el store de contraseñas.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgfe1f83a" class="outline-2">
+        <h2 id="orgfe1f83a">Organización</h2>
+        <div class="outline-text-2" id="text-orgfe1f83a">
+          <p>
+            nombres de usuario, contraseñas, pins, sitios web, metadatos, etc.
+          </p>
+
+          <p>
+            Password-store no impone ningún esquema o tipo de organización
+            particular de los datos, ya que es simplemente un archivo de texto
+            plano, que puede contener datos arbitrarios. aunque el caso más
+            común es almacenar una contraseña única por entrada, algunos
+            usuarios prefieren almacenar más que su contraseña dentro de la
+            tienda de contraseñas, y además almacenar respuestas a preguntas
+            secretas, urls del sitio web y otra información o metadatos
+            sensibles. como la pass no impone un esquema propio, puede elegir su
+            propia organización. hay muchas posibilidades. Un enfoque es
+            utilizar la funcionalidad multilínea de pase (&#x2013;multiline or
+            -m in insert), y almacenar la contraseña en sí misma en la primera
+            línea del archivo, y la información adicional en líneas posteriores.
+            por ejemplo, Amazon/bookreader podría parecer así:
+          </p>
+
+          <pre class="example">
+Yw|ZSNH!}z"6{ym9pI
+URL: *.amazon.com/*
+Username: AmazonianChicken@example.com
+Secret Question 1: What is your childhood best friend's most bizarre superhero fantasy? Oh god, Amazon, it's too awful to say...
+Phone Support PIN #: 84719
+</pre
+          >
+
+          <p>
+            Las opciones <b>&#x2013;clip / -c</b> solo copiarán la primer línea
+            de tal archivo en el portapapeles.
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-orgf60e253" class="outline-2">
+        <h2 id="orgf60e253">Emacs Pass-mode</h2>
+        <div class="outline-text-2" id="text-orgf60e253">
+          <p>
+            Y no podia faltar el pass-modo para emacs, se instala con
+            <b>package-install</b> y listo, la interfaz es muy intuitiva.
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-consola,.html">consola,</a>
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+#+title: Instalar mongodb con docker
+#+date: <2020-11-20 10:49>
+#+filetags: linux
+
+Instalación y ejecución de mongodb en docker.
+
+  #+BEGIN_SRC
+   docker run -d -p 27017:27017 --name mydatabase mongo:4.2
+  #+END_SRC
+
+** Este comando hace lo siguiente:
+    
+***** *d:* permite ejecutar el proceso en background 
+***** *-p* 27017:27017 esto le indica a docker que las conexiones del puerto 27017 del contenedor se redireccionen al 27017 de la máquina host.
+***** *-name mydatabase*: nombre que se le asigna al contenedor. 
+***** *mongo:4.2*: nombre de la imagen y version. 
+      
+   Con esto queda listo el contenedor.
+
+
+** Para conectarse al contenedor se usa el comando ~exec~ de docker
+
+   #+BEGIN_SRC 
+   docker exec -it mydatabase bash
+   #+END_SRC
+
+***** *-it*: ejecutar el contenedor de manera intenctiva y que la terminal tome el control de instrucccion que sigue al final.
+***** *mydatabase*: nombre del contendor a usar.
+***** *bash*: comando a ejecutar al final, osea, que acceda a las shell del contenedor.
+
+   Con este comando se ingresa al contenedor recien creado (para ejecutar un contenedor creado anteriormente, pero no ingresar en el contenedor, solo ejecutar la db!, el comando es ~docker start name~). Una vez dentro del contenedor hay que ejecutar: ~mogno~
+
+*Fuentes*
+[[https://platzi.com/tutoriales/1533-mongodb/4930-instalar-mongo-db-usando-docker/][platzi.com]]
+[[https://www.hostinger.es/tutoriales/como-crear-contenedor-docker/][hostinger-tutorials]]

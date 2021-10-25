@@ -1,0 +1,85 @@
+#+title: Neotree
+#+date: <2021-04-11 12:33>
+#+filetags: emacs
+
+Arbol de directorio integrado en *emacs*.
+
+** Instalación
+
+#+BEGIN_SRC 
+M-x package-install RET 
+#+END_SRC
+
+*** En el archivo init.el hay que agregar esto:
+    
+#+BEGIN_SRC
+  (add-to-list 'load-path "~/.emacs.d/elpa/neotree-2020324.1946")
+  (require 'neotree)
+  (global-set-key [f11] 'neotree-toggle)
+#+END_SRC
+
+*** Abrir/cerrar
+
+#+BEGIN_SRC 
+ f11
+#+END_SRC
+
+** Keybinding
+
+En el buffer de Neotree:
+
++ *n* linea siguiente, *p*
++ *SPC* o *RET* o *TAB* abrir el elemento actual si es un archivo. Plegar/desplegar si es un elemento.  
++ *U* subir un directorio.
++ *g* actualizar.
++ *A* maximizar/minimizar. 
++ *H* mostrar/ocultar archivos ocultos.
++ *O* abre un directorio recursivamente.
++ *C-c C-n* crea un nuevo archivo o un nuevo directorio si el nombre termina con */* .
++ *C-c C-d* elimina un archivo o directorio.
++ *C-c C-r* renombrar archivo o directorio.
++ *C-c C-c* cambiar directorio.
++ *C-c C-p* copiar un archivo o directorio.
+      
+** Configuración
+  
+Mi configuración con use-package:
+   
+#+BEGIN_SRC
+(use-package neotree
+:ensure t
+:load-path "~/.emacs.d/elpa/neotree-20200324.1946"
+:config
+(setq neo-theme 'icons)
+(setq neo-smart-open t)
+(setq projectile-switch-project-action 'neotree-projectile-action)
+(global-set-key [f11] 'neotree-toggle))
+#+END_SRC
+
+*** Connsejos útiles
+   
+Para que cada vez que se abra *neotree* encuentre al archivo y salte a ese directorio:
+
+#+BEGIN_SRC 
+(setq neo-smart-open t)
+#+END_SRC
+   
+Al ejecutar *projectile-switch-project* *(C-c p p), *neotree* cambiará a ese directorio automaticamente:
+
+#+BEGIN_SRC 
+(setq projectile-switch-project-action 'neotree-projectile-action)
+#+END_SRC
+
+Esto se integra perfectamente con *Dashboard* (que a la vez se integra con *Projectile)* y muestran una lista de los últimos proyectos abiertos y al cliquear en uno se abre el proyecto en *Neotree*.
+
+Para habilitar los iconos basta con instalar el paquete all-the-icons y agregar esto:
+
+#+BEGIN_SRC 
+(setq neo-theme 'icons)
+#+END_SRC
+
+*Fuente* 
+   
+Esto es una traducción casi literal de la [[https://github.com/jaypei/emacs-neotree][pagina de github]].
+La [[https://www.emacswiki.org/emacs/NeoTree][emacswiki]] tiene unos tips muy útiles. 
+ 

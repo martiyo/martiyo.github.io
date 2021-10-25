@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Elfeed</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">29 sep 2018</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2018-09-29-elfeed.html"
+          >Elfeed</a
+        >
+      </h1>
+
+      <div id="outline-container-org77863f7" class="outline-2">
+        <h2 id="org77863f7">Descripción</h2>
+        <div class="outline-text-2" id="text-org77863f7">
+          <p>
+            Elfeed en un lector de noticias para Emacs, compatible con Atom y
+            Rss.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgb23f3fa" class="outline-2">
+        <h2 id="orgb23f3fa">Instalación</h2>
+        <div class="outline-text-2" id="text-orgb23f3fa">
+          <p>
+            <b>Elfeed</b> se puede instalar con el gestor de paquetes de emacs,
+            está en los repositorios melpa, entoces:
+          </p>
+
+          <pre class="example">
+M-x list-packages RET elfeed RET y listo.
+</pre
+          >
+
+          <p>
+            Después en el archivo de configuración hay que darle a emacs el
+            directorio de elfeed, requerirlo y agregar los feeds a la
+            elfeed-feeds:
+          </p>
+
+          <pre class="example">
+(add-to-list 'load-path "~/.emacs.d/plugins/elfeed/")
+(require 'elfeed)
+
+(setq elfeed-feeds
+  '(
+    "https://ondahostil.wordpress.com/feed/"
+    "http://www.lapipaplena.org/feed/" 
+    "https://lamiradadelreplicante.com/feed/" 
+    "https://colaboratorio.net/feed/" 
+    "http://www.maxxcan.com/feed/"
+    "https://www.linuxito.com/?format=feed&amp;type=rss"
+    ))
+</pre
+          >
+
+          <p>guardar los cambios con <b>C-c C-s</b> y evaluar el buffer con:</p>
+
+          <pre class="example">
+M-x eval-buffer RET
+</pre
+          >
+
+          <p>y listo!</p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgc7da5ba" class="outline-2">
+        <h2 id="orgc7da5ba">Elfeed-search</h2>
+        <div class="outline-text-2" id="text-orgc7da5ba">
+          <p>Al ejecutar la función interactiva elfeed</p>
+
+          <pre class="example">
+M-x elfeed RET
+</pre
+          >
+
+          <p>
+            aparecerá el <b><b>elfeed-search</b></b> que muestra la lista de
+            feeds.
+          </p>
+
+          <figure>
+            <img src="./images/elfeed.png" alt="elfeed.png" />
+
+            <figcaption>
+              <span class="figure-number">Figure 1: </span>elfeed
+            </figcaption>
+          </figure>
+        </div>
+
+        <div id="outline-container-org32af23a" class="outline-3">
+          <h3 id="org32af23a">Teclas rapidas</h3>
+          <div class="outline-text-3" id="text-org32af23a">
+            <ul class="org-ul">
+              <li>g: actualiza la lista de feeds.</li>
+
+              <li>G: actualiza la lista de feeds desde los servidores.</li>
+
+              <li>s: actualiza el filtro de búsqueda (ver etiquetas)</li>
+
+              <li>c: borra el filtro de búsqueda.</li>
+
+              <li>RET: ver la entrada seleccionada en un búfer.</li>
+
+              <li>b: abre las entradas seleccionadas en el navegador.</li>
+
+              <li>
+                y: copia la URL de la entrada seleccionada en el portapapeles.
+              </li>
+
+              <li>r: marca las entradas seleccionadas como leídas.</li>
+
+              <li>u: marca las entradas seleccionadas como no leídas.</li>
+
+              <li>
+                +: agrega una etiqueta especifica a las entradas seleccionadas.
+              </li>
+
+              <li>
+                -: elimina una etiqueta específica de las entradas seleccionadas
+              </li>
+            </ul>
+
+            <blockquote>
+              <p>
+                Esta lista se puede ver dentro de Emacs con el estándar Ch m .
+              </p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org92bd363" class="outline-2">
+        <h2 id="org92bd363">Etiquetas</h2>
+        <div class="outline-text-2" id="text-org92bd363">
+          <p>
+            Elfeed mantiene una lista de etiquetas arbitrarias, símbolos
+            adjuntos a una entrada. La etiqueta unread se trata especialmente de
+            forma predeterminada, con entradas no leídas que aparecen en
+            negrita.
+          </p>
+        </div>
+
+        <div id="outline-container-orgd167f91" class="outline-3">
+          <h3 id="orgd167f91">Etiquetado automático</h3>
+          <div class="outline-text-3" id="text-orgd167f91">
+            <p>
+              Las etiquetas se pueden aplicar automáticamente a las entradas
+              listadas en <b>elfeed-feeds</b> específicos mediante una sintaxis
+              adicional en elfeed-feeds . Normalmente, esta es una lista strings
+              que proporciona un conjunto de "etiquetas automáticas" para las
+              entradas de un feed.
+            </p>
+
+            <pre class="example">
+(setq elfeed-feeds
+  '(
+    "https://ondahostil.wordpress.com/feed/" blog emacs
+    "http://www.lapipaplena.org/feed/"  blog emacs
+    "https://lamiradadelreplicante.com/feed/" software libre
+    "https://colaboratorio.net/feed/" software libre
+    "http://www.maxxcan.com/feed/" emacs
+    "https://www.linuxito.com/?format=feed&amp;type=rss" linux
+    ))
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org6be1159" class="outline-2">
+        <h2 id="org6be1159">Elfeed + eww</h2>
+        <div class="outline-text-2" id="text-org6be1159">
+          <p>
+            <b>eww</b> es un navegador en texto plano que viene con emacs, para
+            abrir los enlaces desde el visor de entradas de elfeed hay que
+            colocar el cursor en el enlace y presionar M-x eww + enter, para
+            salir de eww y volver a elfeed presionar q.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgd3572fe" class="outline-2">
+        <h2 id="orgd3572fe">Accesos directos</h2>
+        <div class="outline-text-2" id="text-orgd3572fe">
+          <p>Para tener accesos directos se agrega esto en .emacs:</p>
+
+          <pre class="example">
+(global-set-key [f7] 'elfeed)
+(global-set-key [f8] 'elfeed-update)
+
+(global-set-key [f5] 'eww)
+(global-set-key (kbd "C-x w b") 'eww-add-bookmark)
+(global-set-key (kbd "C-x w l") 'eww-list-bookmarks)
+(global-set-key (kbd "C-x w f") 'eww-open-file)
+</pre
+          >
+
+          <blockquote>
+            <p>
+              Ahora f7 abre el lector, f8 lo actualiza, y al ubicar el cursor y
+              presionar f5 se abre con eww.
+            </p>
+          </blockquote>
+        </div>
+
+        <div id="outline-container-org38cb437" class="outline-3">
+          <h3 id="org38cb437">Fuente</h3>
+          <div class="outline-text-3" id="text-org38cb437">
+            <p>
+              <a href="https://github.com/skeeto/elfeed">elfeed-github</a>
+              nasciiboy
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

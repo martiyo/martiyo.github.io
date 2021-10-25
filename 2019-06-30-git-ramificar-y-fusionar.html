@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Git ramificar y fusionar</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">30 jun 2019</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/faq/2019-06-30-git-ramificar-y-fusionar.html"
+          >Git ramificar y fusionar</a
+        >
+      </h1>
+
+      <div id="outline-container-orgb465ae1" class="outline-2">
+        <h2 id="orgb465ae1">Ramificación</h2>
+        <div class="outline-text-2" id="text-orgb465ae1">
+          <p>
+            Para crear una rama y saltar a ella, en un solo paso, se utiliza el
+            comando git checkout -b:
+          </p>
+
+          <pre class="example">
+git checkout -b iss53
+</pre
+          >
+
+          <p>esto es un atajo a:</p>
+
+          <pre class="example">
+git branch iss53
+git checkout iss53
+</pre
+          >
+
+          <p>
+            una vez realizados los cambios en la nueva rama, se confirman los
+            cambios con:
+          </p>
+
+          <pre class="example">
+git commit -a -m 'added a new footer [issue 53]'    
+</pre
+          >
+
+          <p>Para volver a la rama anterior se usa:</p>
+
+          <pre class="example">
+git checkout master
+</pre
+          >
+
+          <blockquote>
+            <p>
+              es importante aclarar que teniendo cambios sin confirmar en la
+              carpeta de trabajo o en el area de preparacion, git no permitira
+              saltar a la otra rama con la que podria tener conflicto
+            </p>
+          </blockquote>
+
+          <p>
+            Luego de realizar las pruebas oportunas, asegurarse de que la
+            solución es correcta, e incorporar los cambios a la nueva rama, es
+            necesario ponerlos en producción. Esto se hace con el comando git
+            merge:
+          </p>
+
+          <pre class="example">
+git merge iss53
+</pre
+          >
+
+          <p>
+            Una vez terminado el trabajo ya no se necesita la nueva rama se la
+            puede eliminar con:
+          </p>
+
+          <pre class="example">
+git branch -d iss53
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-git.html">git</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+#+title: Ramificaciones en git
+#+date: <2019-01-22 17:41>
+#+filetags: git
+
+** ¿Que es una rama?
+
+Una rama Git es simplemente un apuntador móvil apuntando a una de esas
+confirmaciones. La rama por defecto de Git es la rama master. Con la
+primera confirmación de cambios que realicemos, se creará esta rama
+principal master apuntando a dicha confirmación. En cada confirmación de
+cambios que realicemos, la rama irá avanzando automáticamente. Y la rama
+master apuntará siempre a la última confirmación realizada. Cuando se
+crea una nueva rama simplemente se crea un nuevo apuntador para que lo
+puedas mover libremente. Por ejemplo, si quieres crear una nueva rama
+denominada "testing". Usarás el comando git branch:
+
+#+BEGIN_SRC
+    git branch testing
+#+END_SRC
+
+Esto creará un nuevo apuntador apuntando a la misma confirmación donde
+estés actualmente.
+
+#+CAPTION: git-branch
+[[./images/git-ramas.png]]
+
+Y, ¿cómo sabe Git en qué rama estás en este momento? Pues..., mediante
+un apuntador especial denominado HEAD. Aunque es preciso comentar que
+este HEAD es totalmente distinto al concepto de HEAD en otros sistemas
+de control de cambios como Subversion o CVS. En Git, es simplemente el
+apuntador a la rama local en la que tú estés en ese momento. En este
+caso, en la rama master. Puesto que el comando git branch solamente crea
+una nueva rama, y no salta a dicha rama.
+
+#+CAPTION: git-head
+[[./images/git-head.png]]
+
+Para saltar de una rama a otra, tienes que utilizar el comando git
+checkout.
+
+#+BEGIN_SRC
+    git checkout testing
+#+END_SRC
+
+Esto mueve el apuntador HEAD a la rama testing.
+
+#+CAPTION: git-checkout
+[[./images/git-checkout.png]]
+
+¿Cuál es el significado de todo esto?. Bueno... lo veremos tras realizar
+otra confirmación de cambios:
+
+#+BEGIN_SRC 
+     vim test.rb
+     git commit -a -m 'made a change'
+#+END_SRC
+
+#+CAPTION: git-head-avanza
+[[./images/git-head-avanza.png]]
+
+Observamos algo interesante: la rama testing avanza, mientras que la
+rama master permanece en la confirmación donde estaba cuando lanzaste el
+comando git checkout para saltar. Volvamos ahora a la rama master:
+
+#+BEGIN_SRC 
+    git checkout master
+#+END_SRC
+
+#+CAPTION: git-head-a-master
+[[./images/git-head-a-master.png]]
+
+Este comando realiza dos acciones: Mueve el apuntador HEAD de nuevo a la
+rama master, y revierte los archivos de tu directorio de trabajo;
+dejándolos tal y como estaban en la última instantánea confirmada en
+dicha rama master. Esto supone que los cambios que hagas desde este
+momento en adelante divergirán de la antigua versión del proyecto.
+Básicamente, lo que se está haciendo es rebobinar el trabajo que habías
+hecho temporalmente en la rama testing; de tal forma que puedas avanzar
+en otra dirección diferente.
+
+Debido a que una rama Git es realmente un simple archivo que contiene
+los 40 caracteres de una suma de control SHA-1, (representando la
+confirmación de cambios a la que apunta), no cuesta nada el crear y
+destruir ramas en Git. Crear una nueva rama es tan rápido y simple como
+escribir 41 bytes en un archivo, (40 caracteres y un retorno de carro).
+
+Fuente
+[[https://git-scm.com/book/es/v1/Ramificaciones-en-Git-%C2%BFQu%C3%A9-es-una-rama%3F][resumen
+de git-book]]

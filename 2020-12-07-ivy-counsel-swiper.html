@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>ivy counsel swiper</title>
+    <meta name="author" content="martin" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">07 dic 2020</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/faq/2020-12-07-ivy-counsel-swiper.html"
+          >ivy counsel swiper</a
+        >
+      </h1>
+      <ul class="org-ul">
+        <li>
+          Ivy-mode
+          <span class="timestamp-wrapper"
+            ><span class="timestamp">[2020-11-08 dom]</span></span
+          >
+        </li>
+      </ul>
+      <div id="outline-container-org1e51419" class="outline-2">
+        <h2 id="org1e51419">Que es ivy</h2>
+        <div class="outline-text-2" id="text-org1e51419">
+          <p>
+            Ivy es un marco de terminación, similar a helm, que proporciona una
+            interfaz para listar, buscar, filtrar y realizar acciones sobre una
+            colección de "cosas". Estas "cosas" pueden ir desde cadenas a
+            buffers, a Ivy no le importa. Sólo proporciona una forma para que el
+            usuario interactúe con esta colección.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org329144b" class="outline-2">
+        <h2 id="org329144b">Instalación</h2>
+        <div class="outline-text-2" id="text-org329144b">
+          <pre class="example">
+M-x package-install counsel
+</pre
+          >
+
+          <p>Instalando Counsel intalara Ivy y Swipwer como dependencias.</p>
+        </div>
+      </div>
+
+      <div id="outline-container-org8cc60e6" class="outline-2">
+        <h2 id="org8cc60e6">Uso</h2>
+        <div class="outline-text-2" id="text-org8cc60e6">
+          <p>
+            Habilita ivy usando <code>M-x ivy-mode</code> o agregando al archivo
+            init.el (ivy-mode 1) y listo. Ivy puede trabajar sin configuración
+            pero hay un par de lineas más que recomiendan los mantenedores.
+          </p>
+
+          <pre class="example">
+(use-package ivy :demand
+   :config
+   (setq ivy-use-virtual-buffers t
+	 ivy-count-format "%d/%d "))
+</pre
+          >
+
+          <p>
+            <code>ivy-use-virtual-buffers</code>
+            Agrega archivos recientes y marcadores a
+            <code>ivy-switch-buffer</code>
+            <code>ivy-count-format</code>
+            Muestra el número actual y total de la colección en el aviso.
+          </p>
+
+          <p>
+            Hay muchas más configuraciónes disponibles detalladas en la
+            documentacíon, o con ivy instalado ejecutar
+            <code>M-x customize-group ivy</code>.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgba1cebe" class="outline-2">
+        <h2 id="orgba1cebe">Keybindings</h2>
+        <div class="outline-text-2" id="text-orgba1cebe">
+          <p>
+            Cuando ivy esta activo en el minibuffer las siguientes Keybindings
+            están activas:
+          </p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Key</th>
+                <th scope="col" class="org-left">Command</th>
+                <th scope="col" class="org-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">M-n</td>
+                <td class="org-left">ivy-next-line</td>
+                <td class="org-left">Linea siguiente</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-p</td>
+                <td class="org-left">ivy-previous-line</td>
+                <td class="org-left">Linea anterior</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-&lt;</td>
+                <td class="org-left">ivy-beginning-of-buffer</td>
+                <td class="org-left">Beginning of the ivy minibuffer</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-&gt;</td>
+                <td class="org-left">ivy-end-fo-buffer</td>
+                <td class="org-left">End of the ivy minibuffer</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-v</td>
+                <td class="org-left">ivy-scroll-up-command</td>
+                <td class="org-left">Page up by one Ivy buffer size</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-v</td>
+                <td class="org-left">ivy-scroll-down-command</td>
+                <td class="org-left">Page down by one Ivy buffer size</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-m or RET</td>
+                <td class="org-left">ivy-done</td>
+                <td class="org-left">Llama a la acción por defecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-M-m</td>
+                <td class="org-left">ivy-call</td>
+                <td class="org-left">
+                  LLama a al aación por defecto, mantiene ivy abierto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-o</td>
+                <td class="org-left">ivy-dispacthing-done</td>
+                <td class="org-left">Muestra las acciónes disponibles</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-M-o</td>
+                <td class="org-left">ivy-dispacthing-call</td>
+                <td class="org-left">
+                  Muestra las acciones disponibles, mantiene ivy abierto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-'</td>
+                <td class="org-left">ivy-avy</td>
+                <td class="org-left">Usa avy para seleccionar candidatos</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">TAB</td>
+                <td class="org-left">ivy-partial-or-done</td>
+                <td class="org-left">Autocompletar</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            <code>Fuente</code>
+            <a
+              href="https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html#fnr.1"
+              >writequit.org</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Planificación y administración de tareas con Cron y Crontab</title>
+    <meta name="author" content="martin" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">21 ene 2021</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2018-09-15-Cron.html"
+          >Planificación y administración de tareas con Cron y Crontab</a
+        >
+      </h1>
+      <p>
+        En el sistema operativo Unix, cron es un administrador regular de
+        procesos en segundo plano (demonio) que ejecuta procesos o guiones a
+        intervalos regulares (por ejemplo, cada minuto, día, semana o mes). Los
+        procesos que deben ejecutarse y la hora en la que deben hacerlo se
+        especifican en el fichero crontab. Este servicio es muy útil para
+        realizar tareas de mantenimiento como copias de respaldo del sistema,
+        verificación del equipo o estadísticas de uso.
+      </p>
+
+      <div id="outline-container-org5e5b2b2" class="outline-2">
+        <h2 id="crontab-del-usuario">
+          <a id="org5e5b2b2"></a>Crontab del usuario
+        </h2>
+        <div class="outline-text-2" id="text-crontab-del-usuario">
+          <p>
+            Cada usuario puede definir sus propias tareas, éstas se ejecutaran
+            con los privilegios del usuario que las ha definido, el demonio cron
+            primero busca dichas tareas, que se almacenan en
+            <b><i>var/spool/cron/crontabs</i></b>
+            donde cada archivo lleva el nombre del login de cada usuario.
+            Después levanta los crontabs del sistema, los cuales se almacenan en
+            el
+            <b>/etc/crontab</b> y en el directorio <b>/etc/cron.d</b>. Para
+            editar el crontab del usuario se usa el comando
+            <b><i>crontab</i></b>
+          </p>
+        </div>
+
+        <ul class="org-ul">
+          <li>
+            <a id="sintaxis-del-comando"></a><a id="orgb5c6cc3"></a>Sintaxis del
+            comando:<br />
+            <div class="outline-text-5" id="text-sintaxis-del-comando">
+              <pre class="example">
+crontab [opciones][usuario]
+</pre
+              >
+
+              <p>
+                <b>crontab -l</b> lista el contenido de la tabla de tareas.
+                <b>crontab -e</b>
+                edita el contenido de la tabla de tareas.
+              </p>
+
+              <p>
+                Cuando se ejecuta crontab -e por primera vez pregunta que editor
+                de texto que se va usar y guarda ésta información en el archivo
+                <b>~/.selected\<sub>editor</sub></b>
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <a id="formato-de-la-tabla-de-tareas"></a
+            ><a id="org95e5b49"></a>Formato de la tabla de tareas<br />
+            <div class="outline-text-5" id="text-formato-de-la-tabla-de-tareas">
+		<p>
+		    .--------------- minuto (0-59) 
+		    |  .------------ hora (0-23)
+		    |  |  .--------- día del mes (1-31)
+		    |  |  |  .------ mes (1-12) o jan,feb,mar,apr,may,jun,jul... (meses en inglés)
+		    |  |  |  |  .--- día de la semana (0-6) (domingo=0 ó 7) o sun,mon,tue,wed,thu,fri,sat 
+		    |  |  |  |  |
+		    \* \* \* \* \*  comando a ejecutar
+		</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div id="outline-container-orgbd54bf5" class="outline-2">
+        <h2 id="orgbd54bf5">Comando a ejecutar</h2>
+        <div class="outline-text-2" id="text-orgbd54bf5">
+          <p>
+            Se pueden utilizar asteriscos para especificar todos (ejemplo: todos
+            los días de la semana), guiones para especificar rangos (ejemplo: de
+            miércoles a domingo, <b><i>0-3</i></b
+            >) y comas para momentos exactos(ejemplo: a los 0, 10 y 30 minutos,
+            <b><i>0, 10, 30</i></b
+            >).
+          </p>
+        </div>
+
+        <div id="outline-container-org53722b8" class="outline-4">
+          <h4 id="ejemplos"><a id="org53722b8"></a>Ejemplos</h4>
+          <div class="outline-text-4" id="text-ejemplos">
+            <ul class="org-ul">
+              <li>
+                <p>Una vez por semana</p>
+
+                <pre class="example">
+0 * * * * /usr/local/bin/updatedb.sh  
+</pre
+                >
+
+                <p>
+                  en el minuto 0 de cada hora, ejecutar el script
+                  <b>/usr/local/bin/updatedb.sh</b>, todas las horas, todos los
+                  días del mes, todos los meses y todos los días de la semana.
+                </p>
+              </li>
+
+              <li>
+                <p>Una vez por día</p>
+
+                <pre class="example">
+01 04 * * * /usr/local/bin/updatedb.sh  
+</pre
+                >
+
+                <p>en el minuto 01 de la hora 04 ejecutar &#x2026;</p>
+              </li>
+
+              <li>
+                <p>Una vez por mes</p>
+
+                <pre class="example">
+01 04 01 * * /usr/local/bin/updatedb.sh  
+</pre
+                >
+
+                <p>
+                  en el minuto 01 de la hora 04 el día 01 de cada mes ejecutar
+                  &#x2026;
+                </p>
+              </li>
+
+              <li>
+                <p>una vez por año</p>
+
+                <pre class="example">
+01 04 01 01 * /usr/local/bin/updatedb.sh
+</pre
+                >
+
+                <p>
+                  en el minuto 01 de la hora 04 el día 01 del mes 01 de cada año
+                  ejecutar &#x2026;
+                </p>
+              </li>
+
+              <li>
+                <p>dos veces por semana</p>
+
+                <pre class="example">
+0 0 * * 1,3 /usr/local/bin/updatedb.sh 
+</pre
+                >
+
+                <p>
+                  a las 12 de la noche, todos los lunes y miércoles de todos los
+                  meses, de cada año ejecutar&#x2026;
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org65dbb80" class="outline-3">
+          <h3 id="crontab-del-sistema">
+            <a id="org65dbb80"></a>Crontab del sistema
+          </h3>
+          <div class="outline-text-3" id="text-crontab-del-sistema">
+            <p>
+              Se utiliza cuando se requiere que una tarea se ejecute con
+              privilegios de root. La definición es igual a la del crontab del
+              usuario solo que debe agregarse el campo usuario. Es posible
+              editar directamente el archivo*/etc/crontab*, aunque es mejor
+              agregar la definición dentro del directorio <b>/etc/cron.d</b> que
+              sirve para almacenar los cronjobs de los diferentes usuarios. Por
+              ejemplo
+            </p>
+
+            <pre class="example">
+0 0 * * 1,3 root /usr/local/bin/updatedb.sh 
+</pre
+            >
+
+            <p>
+              El usuario root también tiene la posibilidad de usar los archivos
+              <b>/etc/cron.hourly</b>, <b>/etc/cron.daily</b>
+              <b>/etc/cron.weekly</b> y <b>/etc/cron.monthly</b>. En estos
+              archivos se pueden ubicar los scripts que serán ejecutados cada
+              hora, cada día, cada semana o cada mes según corresponda.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

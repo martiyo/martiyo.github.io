@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Projectile. Integración de Projectos para Emacs</title>
+    <meta name="author" content="martin" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">05 dic 2020</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2020-12-07-projectile.html"
+          >Projectile. Integración de Projectos para Emacs</a
+        >
+      </h1>
+
+      <div id="outline-container-orgc5073a9" class="outline-2">
+        <h2 id="orgc5073a9">Docs.Projectile.mx</h2>
+        <div class="outline-text-2" id="text-orgc5073a9">
+          <p>
+            Projectile es una biblioteca de interacción de proyectos para Emacs.
+            Su objetivo es proporcionar un buen conjunto de características que
+            operan a nivel de proyecto sin introducir dependencias externas.
+            Esta biblioteca proporciona una fácil gestión y navegación de
+            proyectos. El concepto de proyecto es bastante básico: solo una
+            carpeta que contiene algún archivo especial (por ejemplo, un
+            marcador VCS o un archivo descriptor de proyecto). Actualmente git,
+            mercurial, darcsy bazaarrepos se consideran proyectos por defecto.
+            Si desea marcar un directorio manualmente como proyecto, simplemente
+            cree un archivo vacío en ella llamado ".projectile".
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org91bdb44" class="outline-2">
+        <h2 id="org91bdb44">Caracteristicas:</h2>
+        <div class="outline-text-2" id="text-org91bdb44"></div>
+        <ul class="org-ul">
+          <li>
+            <a id="org4569a44"></a>Saltar a un archivo en el proyecto.<br />
+          </li>
+
+          <li>
+            <a id="orge4075b7"></a>Saltar a un directorio en el proyecto.<br />
+          </li>
+
+          <li>
+            <a id="orgb3901b8"></a>Saltar a un archivo en un directorio.<br />
+          </li>
+
+          <li><a id="orgdc4315c"></a>Saltar a un buffer del proyecto.<br /></li>
+
+          <li>
+            <a id="orgb554234"></a>Saltar a archivos visitados recientemente en
+            el proyecto.<br />
+          </li>
+
+          <li>
+            <a id="org9937b1b"></a>Cambiar entre proyectos en los que ha
+            trabajado.<br />
+          </li>
+
+          <li>
+            <a id="org2bc30f8"></a>Matar todos los buffer del proyecto.<br />
+          </li>
+
+          <li><a id="org3b48d37"></a>Reemplazar un proyecto.<br /></li>
+
+          <li><a id="org766d17f"></a>Grep en el proyecto.<br /></li>
+
+          <li>
+            <a id="orgcbd29b7"></a>Ejecutar make en un proyecto con un solo
+            acorde.<br />
+          </li>
+
+          <li>
+            <a id="orgc4585e1"></a>Soporte para multiples bibliotecas de
+            finalización/selección (ido, ivy, helm y el sistema de terminación
+            por defecto).<br />
+          </li>
+        </ul>
+      </div>
+
+      <div id="outline-container-org42af3ac" class="outline-2">
+        <h2 id="org42af3ac">Inicio rápido</h2>
+        <div class="outline-text-2" id="text-org42af3ac">
+          <p>
+            Projectile esta disponible en los repositorios principales,
+            entonces:
+          </p>
+
+          <pre class="example">
+M-x package-install RET projectile RET
+</pre
+          >
+
+          <p>Despues en el init.el:</p>
+
+          <pre class="example">
+(modo proyectil +1 )
+( define-clave proyectil-modo-mapa ( kbd  " sp " ) 'proyectil-comando-mapa )
+( define-clave proyectil-modo-mapa ( kbd  " Cc p " ) 'proyectil-comando-mapa )
+</pre
+          >
+
+          <p>
+            Estos Keybindings son solo una sugerencia, pueden modificarse a
+            gusto.
+          </p>
+        </div>
+
+        <div id="outline-container-orgd834d55" class="outline-3">
+          <h3 id="orgd834d55">Instalación mediante <b>use-package</b></h3>
+          <div class="outline-text-3" id="text-orgd834d55">
+            <p>
+              Para instalar la versión de projectile que esta en la rama master,
+              se declara los siguiente en el init.el:
+            </p>
+
+            <pre class="example">
+(use-package projectile
+  :ensure t
+  :init
+  (projectile-mode +1)
+  :bind (:map projectile-mode-map
+	      ("s-p" . projectile-command-map)
+	      ("C-c p" . projectile-command-map)))
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org3eb0790" class="outline-2">
+        <h2 id="org3eb0790">Uso básico</h2>
+        <div class="outline-text-2" id="text-org3eb0790">
+          <p>
+            Para habilitar projectile <code>projectile mode</code>, luego en uno
+            de los archivos del proyecto lanzar el comando <b>C-c p f</b> o
+            <b>s-p f</b> que son los atajos para buscar en el proyecto.
+          </p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Keybinding</th>
+                <th scope="col" class="org-left">Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">s-p f</td>
+                <td class="org-left">Lista todos los archivos del proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p F</td>
+                <td class="org-left">
+                  Lista todos los archivos de todos los proyectos
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p g</td>
+                <td class="org-left">
+                  Lista todos los archivos en un punto del proyectos
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 4 f</td>
+                <td class="org-left">
+                  Salta a un archivo de un proyecto y lo muestra en otra ventana
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p d</td>
+                <td class="org-left">
+                  Lista todos los directorios del proyecto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 4 d</td>
+                <td class="org-left">
+                  Cambia a un directorio de proyecto y lo muestra en otra
+                  ventana
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 5 d</td>
+                <td class="org-left">
+                  Cambia a un directorio de proyecto y lo muestra en otro marco
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p T</td>
+                <td class="org-left">
+                  Lista todos los archivos de prueba del proyecto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 1</td>
+                <td class="org-left">
+                  Lista todos los archivos de un directorio
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p s g</td>
+                <td class="org-left">
+                  Ejecuta grep en los archivos del proyecto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p b</td>
+                <td class="org-left">
+                  Lista todos los buffers del proyecto abiertos
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p k</td>
+                <td class="org-left">Mata todos los búfers del proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p D</td>
+                <td class="org-left">Abre la raíz del proyecto en dired</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 4 D</td>
+                <td class="org-left">
+                  Abre la raíz del proyecto en dired en otra ventana
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 5 D</td>
+                <td class="org-left">
+                  Abre la raíz del proyecto en dired en otra marco
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p e</td>
+                <td class="org-left">
+                  Lista de archivos de proyectos visitados recientemente
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p left</td>
+                <td class="org-left">
+                  Cambiar al buffer del proyecto anterior
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p right</td>
+                <td class="org-left">
+                  Cambiar al buffer del proyecto siguiente
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p m</td>
+                <td class="org-left">
+                  Projectile-comander (interfaz ejecutar comandos con una sola
+                  teclas)
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">&#xa0;</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="outline-container-org18a5dca" class="outline-3">
+          <h3 id="org18a5dca">Atajos</h3>
+          <div class="outline-text-3" id="text-org18a5dca">
+            <p>Unos cuantos atajos para los comandos más comunes:</p>
+
+            <pre class="example">
+(define-key projectile-mode-map [?\s-d] 'projectile-find-dir)
+(define-key projectile-mode-map [?\s-p] 'projectile-switch-project)
+(define-key projectile-mode-map [?\s-f] 'projectile-find-file)
+(define-key projectile-mode-map [?\s-g] 'projectile-grep)
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org2905725" class="outline-2">
+        <h2 id="org2905725">Projectile-comander</h2>
+        <div class="outline-text-2" id="text-org2905725">
+          <p>
+            Es una ingeniosa utilidad para recordar combinaciónes de teclas. Se
+            invoca con <code>s-p m</code>
+          </p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Keybindings</th>
+                <th scope="col" class="org-left">Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">?</td>
+                <td class="org-left">Agyda de comander</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">D</td>
+                <td class="org-left">Abre la raiz del proyecto en dired</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">a</td>
+                <td class="org-left">Ejecutar un proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">b</td>
+                <td class="org-left">Cambiar al buffer del proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">d</td>
+                <td class="org-left">Encuentra un directorio en el proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">e</td>
+                <td class="org-left">
+                  Encuentra un archivo visitado recientemente
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">f</td>
+                <td class="org-left">Buscar archivo en el proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">k</td>
+                <td class="org-left">Mata todos los buffers del proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">r</td>
+                <td class="org-left">Reemplazar una cadena en el proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s</td>
+                <td class="org-left">Cambiar de proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">v</td>
+                <td class="org-left">Abre la raiz del proyecto en magit</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            El
+            <a href="https://docs.projectile.mx/projectile/index.html"
+              >manual del usuario</a
+            >
+            tiene la posta.
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+    </div>
+  </body>
+</html>

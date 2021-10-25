@@ -1,0 +1,57 @@
+#+title: ivy counsel swiper
+#+date: <2020-12-07 14:58>
+#+filetags: emacs
+
+ * Ivy-mode
+  [2020-11-08 dom]
+** Que es ivy 
+    Ivy es un marco de terminación, similar a helm, que proporciona una interfaz para listar, buscar, filtrar y realizar acciones sobre una colección de "cosas". Estas "cosas" pueden ir desde cadenas a buffers, a Ivy no le importa. Sólo proporciona una forma para que el usuario interactúe con esta colección.
+
+** Instalación
+   
+   #+BEGIN_SRC
+     M-x package-install counsel
+   #+END_SRC
+   
+   Instalando Counsel intalara Ivy y Swipwer como dependencias.
+
+** Uso
+   Habilita ivy usando ~M-x ivy-mode~ o agregando al archivo init.el
+   (ivy-mode 1) y listo. Ivy puede trabajar sin configuración pero hay un par de lineas más que recomiendan los mantenedores.
+
+   #+BEGIN_SRC
+   (use-package ivy :demand
+      :config
+      (setq ivy-use-virtual-buffers t
+            ivy-count-format "%d/%d "))
+   #+END_SRC
+   
+   ~ivy-use-virtual-buffers~ 
+     Agrega archivos recientes y marcadores a ~ivy-switch-buffer~
+   ~ivy-count-format~
+     Muestra el número actual y total de la colección en el aviso.
+   
+     Hay muchas más configuraciónes disponibles detalladas en la documentacíon, o con ivy instalado ejecutar ~M-x customize-group ivy~.
+
+** Keybindings
+     Cuando ivy esta activo en el minibuffer las siguientes Keybindings están activas:
+ 
+ | Key        | Command                 | Description                                            |
+ |------------+-------------------------+--------------------------------------------------------|
+ | M-n        | ivy-next-line           | Linea siguiente                                        |
+ | M-p        | ivy-previous-line       | Linea anterior                                         |
+ | M-<        | ivy-beginning-of-buffer | Beginning of the ivy minibuffer                        |
+ | M->        | ivy-end-fo-buffer       | End of the ivy minibuffer                              |
+ | C-v        | ivy-scroll-up-command   | Page up by one Ivy buffer size                         |
+ | M-v        | ivy-scroll-down-command | Page down by one Ivy buffer size                       |
+ | C-m or RET | ivy-done                | Llama a la acción por defecto                          |
+ | C-M-m      | ivy-call                | LLama a al aación por defecto, mantiene ivy abierto    |
+ | M-o        | ivy-dispacthing-done    | Muestra las acciónes disponibles                       |
+ | C-M-o      | ivy-dispacthing-call    | Muestra las acciones disponibles, mantiene ivy abierto |
+ | C-'        | ivy-avy                 | Usa avy para seleccionar candidatos                    |
+ | TAB        | ivy-partial-or-done     | Autocompletar                                          |
+ |------------+-------------------------+--------------------------------------------------------|
+ 
+
+~Fuente~
+[[https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html#fnr.1][writequit.org]]

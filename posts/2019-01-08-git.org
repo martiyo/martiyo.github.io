@@ -1,0 +1,215 @@
+#+title: Git init!
+#+date: <2019-01-08 12:30>
+#+filetags: git
+
+
+Git es un sistema de control de versiones distribuido, gratuito y de
+código abierto, diseñado para manejar todo tipo de proyectos, desde
+pequeños hasta muy grandes, con rapidez y eficiencia.
+
+*** Configuración del entorno local
+    :PROPERTIES:
+    :CUSTOM_ID: configuración-del-entorno-local
+    :END:
+
+Lo primero que hay que hacer para empezar con git, después de instalarlo
+(*apt install git* y listo!) es configurar nombre y correo para que git
+pueda firmar los commits que se hacen. Esto se hace así:
+
+#+BEGIN_SRC
+    git config --global user.name
+    git config --global user.email
+#+END_SRC
+
+dicha información se guarda en ~/.gitconfig Para cambiar estos valores
+para un proyecto concreto, se pueden ejecutar esos mismos comandos pero
+sin la opción *--global*, de ésta forma la configuración se guarda en
+*.git/config* del proyecto. Otra configuración puede ser
+
+#+BEGIN_SRC
+    git config --global color.status auto
+    git config --global color.branch auto
+    git config --global color.diff auto
+    git config --global color.interactive auto
+#+END_SRC
+
+un poco de color para que sea más fácil leer la información que
+proporciona git.
+
+*** Git init
+    :PROPERTIES:
+    :CUSTOM_ID: git-init
+    :END:
+
+*git init* es el comando para crear un repositorio git, se ejecuta en la
+carpeta del proyecto y lo que hace es crear el directorio *.git* en la
+misma carpeta. #### .gitignore Antes de continuar es mejor crear el
+archivo *.gitignore* el cual contiene una lista de los archivos y
+directorios que git debe ignorar:
+
+#+BEGIN_SRC 
+    $cat .gitignore
+    build/
+    *.[oa]
+    *~
+    doc/*.txt
+#+END_SRC
+
+- La primera línea indica que se ignore el directorio *build* y todo su
+  contenido.
+- La segunda línea que se ignore cualquier archivo cuyo nombre termine
+  en *.o* o *.a* archivos objeto que suelen ser producto de la
+  compilación de código.
+- La tercera línea que se ignore todos los archivos que terminan en
+  tilde *~*, usada por muchos editores de texto, como Emacs, para marcar
+  archivos temporales.
+- La cuarta línea dice que se ignore los archivos con la extensión
+  *.txt* dentro del directorio *doc/*, pero no el resto de archivos y
+  directorios que *doc/* contiene.
+
+*** Git add
+    :PROPERTIES:
+    :CUSTOM_ID: git-add
+    :END:
+
+Para empezar el seguimiento de un archivo se usa el comando *git add*
+que recibe como parámetro la ruta de un archivo o directorio, si es un
+directorio añade todos los archivos que contenga de manera recursiva.
+
+#+BEGIN_SRC
+    git add .
+#+END_SRC
+
+Este comando añade todos los archivos del directorio local.
+
+*** Git status
+     :PROPERTIES:
+     :CUSTOM_ID: git-status
+     :END:
+
+Una vez creados o modificados los archivos que están bajo seguimiento,
+se puede ejecutar *git status* para ver un listado de los archivos
+modificados.
+
+*** Git diff
+     :PROPERTIES:
+     :CUSTOM_ID: git-diff
+     :END:
+
+Este comando compara lo que hay en el directorio de trabajo con lo que
+hay en el área de preparación. El resultado indica los cambios que se
+han hecho y que todavía no se han preparado.
+
+*** Git diff --cached
+     :PROPERTIES:
+     :CUSTOM_ID: git-diff-cached
+     :END:
+
+Se usa para ver los cambios que se han preparado y que irán en la
+próxima confirmación, lo que hace concretamente es comparar los cambios
+preparados con la última confirmación.
+
+*** Git commit
+    :PROPERTIES:
+    :CUSTOM_ID: git-commit
+    :END:
+
+Una vez que se realizan los cambios necesarios y luego de ejecutar *git
+add .* es hora de confirmar los cambios, para esto se usa el comando
+*git commit -m* el flag *-m* es para añadir un comentario directamente
+desde la consola(sin abrir un editor).
+
+#+BEGIN_SRC
+    git commit -m "mi comentario"
+#+END_SRC
+
+Un atajo para saltarse toda el área de preparación es pasar al comando
+*git commit* la opción *-a*, esto hace que git prepare todo archivo que
+estuviese en seguimiento antes de la confirmación, permitiendo obviar
+toda la parte del *add*.
+
+#+BEGIN_SRC
+    git commit -a -m "mi nuevo comentario"
+#+END_SRC
+
+*** Git rm
+    :PROPERTIES:
+    :CUSTOM_ID: git-rm
+    :END:
+
+Para eliminar un archivo de Git, hay eliminarlo de los archivos bajo
+seguimiento (más concretamente, eliminarlo del área de preparación), y
+después confirmar. El comando git rm se encarga de eso, y también
+elimina el archivo del directorio de trabajo, para que no se vea entre
+los archivos sin seguimiento.
+
+#+BEGIN_SRC
+    git rm archivo.a
+#+END_SRC
+
+Aveces es necesario conservar un archivo pero interrumpir su
+seguimiento, esto es útil cuando dicho archivo no ha sido incluido en
+*.gitignore*, para hacer esto su usa la opción *--cached*:
+
+#+BEGIN_SRC
+    git rm --cached archivo.a
+#+END_SRC
+
+El comando *git rm* acepta archivos, directorio y patrones
+glog(expresiones regulares) por ejemplo:
+
+#+BEGIN_SRC
+    git rm log/\*.log
+#+END_SRC
+
+
+** Gitlab
+   :PROPERTIES:
+   :CUSTOM_ID: gitlab
+   :END:
+
+Gitlab es un servicio web de control de versiones y desarrollo de
+software colaborativo basado en Git. Además de gestor de repositorios,
+el servicio ofrece también alojamiento de wikis y un sistema de
+seguimiento de errores, todo ello publicado bajo una Licencia de código
+abierto. Gitlab usa una clave ssh para establecer una conexión segura
+entre una maquina cliente y el servidor. Para generar una clave ssh en
+*devuan GNU/Linux* se usa el comando *ssh-keygen*:
+
+#+BEGIN_SRC
+    $ ssh-keygen -t rsa -b 8192
+#+END_SRC
+
+Cuando se utiliza RSA, ssh-keygen guarda la clave privada en el archivo
+~/.ssh/id\_dsa y la clave pública en ~/.ssh/id\_dsa.pub.
+
+Luego en gitlab ir a *llaves ssh*, pegar el contenido del archivo
+*id\_rsa.pub* y poner un titilo que identifique la maquina o el sistema.
+Para probar la conexión se usa el comando:
+
+#+BEGIN_SRC
+    $ssh git@gitlab.com
+    Welcome to GitLab, @martiyo!
+    Connection to gitlab.com closed.
+#+END_SRC
+
+*** Git push
+    :PROPERTIES:
+    :CUSTOM_ID: git-push
+    :END:
+
+Cuando el proyecto esta listo para subirlo, lo que sigue es crear un
+nuevo proyecto en gitlab que devuelve la ruta que se agrega con:
+
+#+BEGIN_SRC
+    git remote add origin git@gitlab.com:martiyo/mi_proyecto.git
+#+END_SRC
+
+y por fin...!!!
+
+#+BEGIN_SRC
+    git push -u origin master
+#+END_SRC
+
+*Fuente*
+Resumen y traducción de [[https://git-scm.com/book/es/v1/Fundamentos-de-Git-Obteniendo-un-repositorio-Git][git-scm.com]]

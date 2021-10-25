@@ -1,0 +1,53 @@
+#+title: Git ramificar y fusionar
+#+date: <2019-06-30 18:10>
+#+filetags: git
+
+** Ramificación
+   
+Para crear una rama y saltar a ella, en un solo paso, se utiliza el
+comando git checkout -b:
+
+#+BEGIN_SRC 
+    git checkout -b iss53
+#+END_SRC
+
+esto es un atajo a:
+
+#+BEGIN_SRC 
+    git branch iss53
+    git checkout iss53
+#+END_SRC
+
+una vez realizados los cambios en la nueva rama, se confirman los
+cambios con:
+
+#+BEGIN_SRC 
+    git commit -a -m 'added a new footer [issue 53]'    
+#+END_SRC
+
+Para volver a la rama anterior se usa:
+
+#+BEGIN_SRC 
+    git checkout master
+#+END_SRC
+
+#+BEGIN_QUOTE
+  es importante aclarar que teniendo cambios sin confirmar en la carpeta
+  de trabajo o en el area de preparacion, git no permitira saltar a la
+  otra rama con la que podria tener conflicto
+#+END_QUOTE
+
+Luego de realizar las pruebas oportunas, asegurarse de que la solución
+es correcta, e incorporar los cambios a la nueva rama, es necesario
+ponerlos en producción. Esto se hace con el comando git merge:
+
+#+BEGIN_SRC 
+        git merge iss53
+#+END_SRC
+
+Una vez terminado el trabajo ya no se necesita la nueva rama se la puede
+eliminar con:
+
+#+BEGIN_SRC 
+        git branch -d iss53
+#+END_SRC

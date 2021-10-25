@@ -1,0 +1,69 @@
+#+title: Instalar Docker engine usando el repositorio
+#+date: <2020-11-06 10:32>
+#+filetags: linux
+
+Instalando desde el repositorio despues podés actualizarlo automaticamente.
+
+** Set up del repositorio
+
+  Actualizar el indice de paquetes de apt e instalar los paquetes necesarios para permitir a apt usar un repositorio sobre https:
+
+  #+BEGIN_SRC 
+  $ sudo apt-get update
+
+  $ sudo apt-get install \
+  apt-transport-https \
+  ca-certificates \
+  curl \
+  gnupg-agent \
+  software-properties-common
+#+END_SRC
+
+** Agregar la clave oficial de GPG de Docker:
+
+  #+BEGIN_SRC 
+  $ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+  #+END_SRC
+
+  *** Verificar la llave con la huella
+  
+  9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88
+
+  #+BEGIN_SRC 
+  $ sudo apt-key fingerprint 0EBFCD88
+
+  pub   4096R/0EBFCD88 2017-02-22
+      Key fingerprint = 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
+      uid                  Docker Release (CE deb) <docker@docker.com>
+      sub   4096R/F273FCD8 2017-02-22
+  #+END_SRC
+
+** Agregar el repositorio al sources.list
+
+ #+BEGIN_SRC 
+ $ sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+ #+END_SRC
+
+** Inatalar Docker Engine
+
+
+ #+BEGIN_SRC  
+  $ sudo apt-get update
+  $ sudo apt-get install docker-ce docker-ce-cli containerd.io
+ #+END_SRC
+
+Para usar Docker como usuario normal hay que agregar el usuario al grupo "docker":
+
+#+BEGIN_SRC 
+sudo usermod -aG docker your-user
+#+END_SRC
+
+Cerrar sesion y volver a entrar para que esto tenga efecto.
+ 
+
+*Fuente*
+
+Resumen de [[https://docs.docker.com/engine/install/debian/][doc.docker.com]]

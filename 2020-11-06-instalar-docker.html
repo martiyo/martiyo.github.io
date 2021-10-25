@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Instalar Docker engine usando el repositorio</title>
+    <meta name="author" content="martin" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">06 nov 2020</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2020-11-06-instalar-docker.html"
+          >Instalar Docker engine usando el repositorio</a
+        >
+      </h1>
+      <p>
+        Instalando desde el repositorio despues podés actualizarlo
+        automaticamente.
+      </p>
+
+      <div id="outline-container-orgb06587f" class="outline-2">
+        <h2 id="orgb06587f">Set up del repositorio</h2>
+        <div class="outline-text-2" id="text-orgb06587f">
+          <p>
+            Actualizar el indice de paquetes de apt e instalar los paquetes
+            necesarios para permitir a apt usar un repositorio sobre https:
+          </p>
+
+          <pre class="example">
+$ sudo apt-get update
+
+$ sudo apt-get install \
+apt-transport-https \
+ca-certificates \
+curl \
+gnupg-agent \
+software-properties-common
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgd2f598d" class="outline-2">
+        <h2 id="orgd2f598d">Agregar la clave oficial de GPG de Docker:</h2>
+        <div class="outline-text-2" id="text-orgd2f598d">
+          <pre class="example">
+$ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+</pre
+          >
+
+          <p><b>*</b> Verificar la llave con la huella</p>
+
+          <p>9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88</p>
+
+          <pre class="example">
+$ sudo apt-key fingerprint 0EBFCD88
+
+pub   4096R/0EBFCD88 2017-02-22
+    Key fingerprint = 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
+    uid                  Docker Release (CE deb) &lt;docker@docker.com&gt;
+    sub   4096R/F273FCD8 2017-02-22
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orga447e8c" class="outline-2">
+        <h2 id="orga447e8c">Agregar el repositorio al sources.list</h2>
+        <div class="outline-text-2" id="text-orga447e8c">
+          <pre class="example">
+$ sudo add-apt-repository \
+  "deb [arch=amd64] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) \
+  stable"
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org6365b08" class="outline-2">
+        <h2 id="org6365b08">Inatalar Docker Engine</h2>
+        <div class="outline-text-2" id="text-org6365b08">
+          <pre class="example">
+$ sudo apt-get update
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io
+</pre
+          >
+
+          <p>
+            Para usar Docker como usuario normal hay que agregar el usuario al
+            grupo "docker":
+          </p>
+
+          <pre class="example">
+sudo usermod -aG docker your-user
+</pre
+          >
+
+          <p>Cerrar sesion y volver a entrar para que esto tenga efecto.</p>
+
+          <p>
+            <b>Fuente</b>
+          </p>
+
+          <p>
+            Resumen de
+            <a href="https://docs.docker.com/engine/install/debian/"
+              >doc.docker.com</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+#+title: El demonio miniDLNA
+#+date: <2018-02-21 27:04>
+#+filetags: linux
+
+** minidlnad - Servidor ligero DLNA/UPnP-AV
+   :PROPERTIES:
+   :CUSTOM_ID: minidlnad---servidor-ligero-dlnaupnp-av
+   :END:
+
+El demonio minidlnad es un servidor DLNA/UPnP-AV que comparte archivos
+multimedia(vídeo, música e imágenes) a los clientes de una red. Estos
+son típicamente reproductores multimedia como vlc, totem y mplayer, y
+dispositivos como reproductores multimedia portátiles, teléfonos
+inteligentes y televisores, sistemas de entretenimiento de videojuegos y
+reproductores de Blu-ray. De forma predeterminada, minidlnad escucha en
+todas las interfaces de red (excepto loopback). Este comportamiento se
+puede cambiar usando la opción -i, o en el archivo de configuración a
+través de la opción network\_interface.
+
+*** Configuracion minima
+    :PROPERTIES:
+    :CUSTOM_ID: configuracion-minima
+    :END:
+
+El archivo de configuración por defecto es */etc/minidlna.conf*, o el
+especificado con el flag *-f*. Para que el servidor funcione basta con
+editar un par de lineas:
+
+*'media\_dir=/path/peliculas'*
+
+*'port=8200'*
+
+*** Otras opciónes de configuración
+    :PROPERTIES:
+    :CUSTOM_ID: otras-opciónes-de-configuración
+    :END:
+
+*'inotify'* Detecta automáticamente nuevos archivos en media\_dir.
+
+*'log\_dir'* Ruta al directorio donde se almacenan los archivos de
+registro. Por defecto es /var/log.
+
+*'max\_connections'* Especifica el numero maximo de conecciones
+simultaneas
+
+*'friendly\_name'* Configura el nombre del servidor que se mostrara a
+los clientes.
+
+*'media\_dir'* Ruta al directorio que contiene los archivos multimedia
+que se quiren compartir. Esta opción se puede usar varias veces si se
+tiene mas de un directorio. Para restringir una ruta a un tipo de
+archivo especifico (audio, videos, fotos), se usa la siguiente sintaxis
+*media\_dir=[A,V,P], /path/multimedia*
+
+*** Ejemplos
+     :PROPERTIES:
+     :CUSTOM_ID: ejemplos
+     :END:
+
+#+BEGIN_EXAMPLE
+      media_dir=V,/path/multimedia/videos
+      media_dir=P,/path/multimedia/fotos
+      media_dir=A,/path/multimedia/musica\n
+#+END_EXAMPLE
+
+*'merge\_media\_dirs'* Fusiona todos los contenidos base de media\_dir
+en el contenedor raíz. El valor por defecto es no.
+
+*'network\_interface'* Interfaz(es) de red a las que se debe enlazar
+(por ejemplo, eth0), delimitadas por comas. Esta opción se puede
+especificar más de una vez. Si no se especifica, minidlnad se une a
+todas las interfaces de red válidas.
+
+Fuente man minidlna, man minidlna.conf

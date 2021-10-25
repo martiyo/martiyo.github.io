@@ -1,0 +1,64 @@
+#+title: Git gestion de ramas
+#+date: <2019-07-04 17:37>
+#+filetags: git
+
+El comando git branch tiene más funciones que las de crear y borrar
+ramas. Si se lanza sin parámetros, se obtiene una lista de las ramas
+presentes en el proyecto:
+
+#+BEGIN_SRC 
+    $ git branch
+      iss53
+    * master
+      testing
+#+END_SRC
+
+El carácter * delante de la rama master: indica la rama activa en este
+momento (la rama a la que apunta HEAD). Si se confirman los cambios
+(commit), esa será la rama que avance. Para ver la última confirmación
+de cambios en cada rama, se usa el comando git branch -v:
+
+#+BEGIN_SRC 
+    $ git branch -v
+      iss53   93b412c fix javascript issue
+    * master  7a98805 Merge branch 'iss53'
+      testing 782fd34 add scott to the author list in the readmes
+#+END_SRC
+
+Otra opción útil para averiguar el estado de las ramas, es filtrarlas y
+mostrar solo aquellas que han sido fusionadas (o que no lo han sido) con
+la rama actualmente activa. Para ello, Git dispone de las opciones
+--merged y --no-merged. Para ver las ramas que han sido fusionadas en la
+rama activa, se usa el comando git branch --merged:
+
+#+BEGIN_SRC 
+    $ git branch --merged
+      iss53
+    * master
+#+END_SRC
+
+Aparece la rama iss53 porque ya ha sido fusionada. Las ramas que no
+llevan por delante el carácter * pueden ser eliminadas sin problemas,
+porque todo su contenido ya ha sido incorporado a otras ramas.
+
+Para mostrar todas las ramas que contienen trabajos sin fusionar, se
+puede utilizar el comando git branch --no-merged:
+
+#+BEGIN_SRC 
+    $ git branch --no-merged
+      testing
+#+END_SRC
+
+Esto nos muestra la otra rama del proyecto. Debido a que contiene
+trabajos sin fusionar, al intentarla borrarla con git branch -d, el
+comando nos dará un error:
+
+#+BEGIN_SRC 
+    $ git branch -d testing
+    error: The branch 'testing' is not fully merged.
+    If you are sure you want to delete it, run 'git branch -D testing'.
+#+END_SRC
+
+Para borrar la rama, y perder el trabajo contenido en ella, se puede
+forzar el borrado con la opción -D; tal y como indica el mensaje de
+ayuda.

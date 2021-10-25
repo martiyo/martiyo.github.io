@@ -1,0 +1,36 @@
+#+title: Formatear codigo con prettier-js
+#+date: <2020-12-07 11:46>
+#+filetags: emacs
+
+* Prettier-js
+ 
+  Prettier-js es una función que formatea el buffer actual usando Prettier.
+    
+** Requerimientos   
+      
+   Prettier debe estar instalado en el sistema, esto se puede hacer con npm.
+   
+   #+BEGIN_SRC
+   sudo npm i -g prettier
+   #+END_SRC
+   
+** Configuración Basica
+
+   El el archivo de configuración de emacs *init.el*
+
+   #+BEGIN_SRC 
+   (require 'prettier-js)
+   #+END_SRC
+
+   Despues para lanzar Prettier-js con *web-mode*
+
+   #+BEGIN_SRC
+   (add-hook 'js2-mode-hook 'prettier-js-mode)
+   (add-hook 'web-mode-hook 'prettier-js-mode)
+   #+END_SRC
+  
+
+  *Fuente*
+ 
+  [[https://github.com/prettier/prettier-emacs][gihub-prettier]] 
+  

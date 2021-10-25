@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Introduccion a GNU/Emacs</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">04 jul 2018</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/faq/2018-07-04-introduccion-a-emacs.html"
+          >Introduccion a GNU/Emacs</a
+        >
+      </h1>
+
+      <div id="outline-container-orgd8ec753" class="outline-2">
+        <h2 id="gnuemacs">
+          <a id="orgd8ec753"></a>El universo perdido de GNU/Emacs
+        </h2>
+        <div class="outline-text-2" id="text-gnuemacs">
+          <blockquote>
+            <p>
+              Emacs es un editor extensible, personalizable, auto-documentado y
+              de tiempo real.
+            </p>
+          </blockquote>
+        </div>
+
+        <div id="outline-container-org8b7b8e7" class="outline-3">
+          <h3 id="modos-de-edición"><a id="org8b7b8e7"></a>Modos de edición</h3>
+          <div class="outline-text-3" id="text-modos-de-edición">
+            <p>
+              Emacs adapta su comportamiento al tipo de texto que está editando
+              mediante modos de edición llamados "modos mayores" ("major
+              modes"). Los modos mayores se definen para ficheros de texto
+              ordinario, código fuente para diversos lenguajes de programación,
+              documentos HTML, TeX y LaTeX y muchos otros tipos de texto. Cada
+              modo mayor modifica ciertas variables en Lisp para que Emacs se
+              comporte de forma más conveniente para ese tipo concreto de texto.
+              Habitualmente, definen las tablas para resaltado de sintaxis,
+              usando distintos tipos de letra o colores para mostrar las
+              palabras clave, comentarios, etc. Los modos mayores también
+              ofrecen comandos especiales de edición. Por ejemplo, los modos
+              mayores para lenguajes de programación definen habitualmente
+              comandos para saltar al principio o al final de una función.
+            </p>
+
+            <p>
+              El comportamiento de Emacs puede ser más personalizado aún
+              utilizando los "modos menores" ("minor modes"). Mientras que sólo
+              se puede asociar un modo mayor con un buffer a la vez, se puede
+              tener activos varios modos menores. Por ejemplo, el modo mayor
+              para el lenguaje de programación C define un modo menor diferente
+              para cada uno de los estilos de indentación más populares.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org9c907dd" class="outline-3">
+          <h3 id="significado-de-algunas-teclas-en-la-terminología-de-emacs">
+            <a id="org9c907dd"></a>Significado de algunas teclas en la
+            terminología de emacs:
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-significado-de-algunas-teclas-en-la-terminología-de-emacs"
+          >
+            <ul class="org-ul">
+              <li>Alt = M (meta)</li>
+              <li>Crtl= C (control)</li>
+              <li>SPC (Barra espacio)</li>
+              <li>RET (intro)</li>
+              <li>RETRO(retroceso)</li>
+            </ul>
+
+            <p>
+              $ emacs -nw (Lanzar emacs en consola. Para crear un alias: alias
+              emacs='emacs -nw') $ emacs -nw &#x2013;debug-ini (Modo debuger
+              para comprobar errores de sintaxis en ~/.emacs)
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orge379551" class="outline-3">
+          <h3 id="teclas-de-socorro">
+            <a id="orge379551"></a>Teclas de socorro:
+          </h3>
+          <div class="outline-text-3" id="text-teclas-de-socorro">
+            <ul class="org-ul">
+              <li>
+                C-g (Cancelar algo: un comando, una combinación de
+                teclas&#x2026;)
+              </li>
+              <li>C-x u (Deshacer la última pífia)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org819d386" class="outline-3">
+          <h3 id="teclas-para-moverse-por-el-texto-con-más-o-menos-soltura">
+            <a id="org819d386"></a>Teclas para moverse por el texto con más o
+            menos soltura:
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-teclas-para-moverse-por-el-texto-con-más-o-menos-soltura"
+          >
+            <ul class="org-ul">
+              <li>C-a (ir al comienzo de una línea)</li>
+              <li>C-e (ir al final de una línea)</li>
+              <li>C-f (un caracter hacia adelante)</li>
+              <li>C-b (un caracter hacia atrás)</li>
+              <li>M-f (una palabra hacia adelante)</li>
+              <li>M-b (una palabra hacia atrás)</li>
+              <li>C-n (ir a la siguiente línea)</li>
+              <li>C-p (ir a la línea anterior)</li>
+              <li>M-a (Ir al inicio de la frase)</li>
+              <li>M-e (Ir al final de la frase)</li>
+              <li>C-v (Pagina siguiente)</li>
+              <li>M-8 C-v (baja 8 lineas la pantalla, NO 8 PÁGINAS)</li>
+              <li>M-v (Pagina anterior)</li>
+              <li>M-8 M-v (Sube 8 lineas la pantalla, NO 8 PÁGINAS)</li>
+              <li>M-&lt; (Ir al principio del texto)</li>
+              <li>M-&gt; (Ir al final del texto)</li>
+              <li>C-l (Redibuja la pantalla. La primera vez que se pulsa,</li>
+            </ul>
+            <p>
+              coloca la linea del cursor en el centro, la segunda arriba y la
+              tercera abajo)
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgd78227b" class="outline-3">
+          <h3 id="salir"><a id="orgd78227b"></a>Salir:</h3>
+          <div class="outline-text-3" id="text-salir">
+            <ul class="org-ul">
+              <li>C-x C-c (Salir de Emacs)</li>
+              <li>C-x C-s (Guardar sin salir)</li>
+              <li>C-x C-w (Guardarcomo)</li>
+              <li>C-x s (Guardar todos los ficheros abiertos. Preguntará.)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org35b7a7d" class="outline-3">
+          <h3 id="copiar-cortar-pegar">
+            <a id="org35b7a7d"></a>Copiar, cortar, pegar
+          </h3>
+          <div class="outline-text-3" id="text-copiar-cortar-pegar">
+            <ul class="org-ul">
+              <li>C-Epc (Inicio del marcado de texto)</li>
+              <li>C-h (Marcar todo el buffer, "Seleccionar todo")</li>
+              <li>M-w (Copiar)</li>
+              <li>C-w (Cortar)</li>
+              <li>C-y (Pegar)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org6ae974f" class="outline-3">
+          <h3 id="buscar-alguna-palabra">
+            <a id="org6ae974f"></a>Buscar alguna palabra:
+          </h3>
+          <div class="outline-text-3" id="text-buscar-alguna-palabra">
+            <ul class="org-ul">
+              <li>C-s (busca hacia adelante)</li>
+              <li>C-r (busca hacia atras)</li>
+              <li>C-s C-s (repite la busqueda)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-orgc0d21d8" class="outline-3">
+          <h3 id="borrar"><a id="orgc0d21d8"></a>Borrar:</h3>
+          <div class="outline-text-3" id="text-borrar">
+            <ul class="org-ul">
+              <li>M-d (Palabra despues del cursor)</li>
+              <li>M-3 M-d (Borra 3 palabras)</li>
+              <li>C-k (del cursor a fin de linea)</li>
+              <li>M-3 C-k (Borra 3 lineas)</li>
+              <li>M-k (todo el párrafo)</li>
+              <li>M-3 M-k (Borra 3 párrafos)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org7fd7dfd" class="outline-3">
+          <h3 id="ventanas"><a id="org7fd7dfd"></a>Ventanas</h3>
+          <div class="outline-text-3" id="text-ventanas">
+            <ul class="org-ul">
+              <li>C-x 2 (división horizontal de la ventana en dos)</li>
+              <li>C-x 3 (división vertical de la ventana en dos)</li>
+              <li>C-x 1 (Deja solo la ventana activa abierta)</li>
+              <li>C-x o (cambiar de ventana)</li>
+              <li>C-x 0 (Eliminar ventana actual)</li>
+              <li>C-x { (La acorta en dirección horizontal)</li>
+              <li>C-x \^ (La alarga en dirección vertical)</li>
+              <li>C-x } (alarga la ventana activa en dirección horizontal)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-orgb9e3ecd" class="outline-3">
+          <h3 id="bufers"><a id="orgb9e3ecd"></a>Bufers</h3>
+          <div class="outline-text-3" id="text-bufers">
+            <ul class="org-ul">
+              <li>C-x b (Cambiar de buffer)</li>
+              <li>C-x k (cierra la buffer actual. Pide confirmación)</li>
+              <li>
+                C-x C-b (Listar buffers. Cada archivo se abre en un buffer)
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org425a1de" class="outline-3">
+          <h3
+            id="marcas-para-volver-a-una-linea-más-adelante-o-de-aquí-a-varios-dias"
+          >
+            <a id="org425a1de"></a>Marcas para volver a una linea más adelante o
+            de aquí a varios dias:
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-marcas-para-volver-a-una-linea-más-adelante-o-de-aquí-a-varios-dias"
+          >
+            <ul class="org-ul">
+              <li>C-x r m (Solicita nombre para la linea marcada)</li>
+              <li>
+                C-x r b (Ir a la linea marcada con el nombre que entremos, en
+                este caso la "b")
+              </li>
+              <li>C-x r l (Lista todas las marcas)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org6876b37" class="outline-3">
+          <h3 id="varios"><a id="org6876b37"></a>Varios:</h3>
+          <div class="outline-text-3" id="text-varios">
+            <ul class="org-ul">
+              <li>C-x C-f (brir un archivo)</li>
+              <li>C-o (Inserta linea en blanco a continuación del cursor)</li>
+              <li>
+                M-x tetris (Otros juegos: dunnet, snake, doctor, zone&#x2026;)
+              </li>
+              <li>
+                M-x help-with-tutorial-spec-language (abre buffer con los
+                idiomas disponibles para el manual)
+              </li>
+              <li>F10 (Abre menú)</li>
+              <li>C-x d (Abre un directorio que se especifique)</li>
+              <li>
+                C-x RET f (Entrar codificación de caracteres: latin-1-unix
+                [latin1], utf-8-unix [utf8]..)
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org01e5e0c" class="outline-3">
+          <h3 id="entrar-comandos-de-shell-durante-la-sesión-de-emacs">
+            <a id="org01e5e0c"></a>Entrar comandos de shell durante la sesión de
+            emacs:
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-entrar-comandos-de-shell-durante-la-sesión-de-emacs"
+          >
+            <ul class="org-ul">
+              <li>
+                C-z (Suspende la sesion emacs y entra en la shell. Volver a
+                emacs con fg o con %emacs)
+              </li>
+              <li>
+                M-! (Muestra en el mini buffer un mensaje para entrar un comando
+                y lo abre un una ventana)
+              </li>
+              <li>
+                C-u M-! (Inserta la salida del comando en la posición del
+                cursor)
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org20f4078" class="outline-3">
+          <h3 id="algunas-posibilidades">
+            <a id="org20f4078"></a>Algunas posibilidades:
+          </h3>
+          <div class="outline-text-3" id="text-algunas-posibilidades">
+            <ul class="org-ul">
+              <li>M-x recover file (levantar respaldo del archivo)</li>
+              <li>
+                M-x describe-key INTRO (y presionando una combinación de teclas
+                devuelve el comando asignado)
+              </li>
+              <li>M-x apropos INTRO print (Muestra información de "print")</li>
+              <li>
+                M-x list-faces-display (Ver lista y muestra de los estilos
+                disponibles)
+              </li>
+              <li>
+                M-x set-foreground-color (Pedirá color en inglés para las
+                fuentes.
+              </li>
+              <li>M-x set-background-color (Pedirá color para el fondo)</li>
+              <li>
+                M-x w3m-browser-url(Pedirá url para conectar. Precisa w3m-el)
+              </li>
+              <li>M-x global-linum-mode (Mostras/esconder números de linea)</li>
+              <li>
+                M-x global-visual-line-mode (Cortar/no cortar palabras al final
+                de la pantalla)
+              </li>
+              <li>
+                M-x global-hl-line-mode (Resaltar la linea donde está el cursor)
+              </li>
+              <li>M-x goto-line (Ir a una linea que se especifique)</li>
+              <li>M-x insert file (Para insertar en el cursor un archivo)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

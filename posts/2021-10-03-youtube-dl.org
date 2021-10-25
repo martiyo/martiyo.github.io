@@ -1,0 +1,32 @@
+#+title: youtube-dl
+#+date: <2021-10-03 21:19>
+#+description: Descargar videos de youtube
+#+filetags: linux
+
+Youtube-dl es un programa de línea de comandos para descargar videos de youtube y algunos otros sitios más
+
+** Instalación
+
+Con curl
+
+#+BEGIN_SRC
+sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl
+#+END_SRC   
+  
+Con wget
+
+#+BEGIN_SRC
+sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl
+#+END_SRC
+
+ 
+** Usos frecuentes
+   
+Descargar lista de reproducción completa y extraer audio en formato mp3
+
+#+BEGIN_SRC
+youtube-dl --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" <url to playlist>
+#+END_SRC
+

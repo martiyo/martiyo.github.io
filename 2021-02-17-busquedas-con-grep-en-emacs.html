@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Busqueda con grep en emacs</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">17 feb 2021</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/faq/2021-02-17-busquedas-con-grep-en-emacs.html"
+          >Busqueda con grep en emacs</a
+        >
+      </h1>
+      <p>
+        El comando <code>grep</code> de emacs te permite ejecutar el programa
+        <code>grep</code> de Unix o GNU/Linux, que busca en los archivos las
+        líneas que coinciden con una expresión regular. El comando de emacs
+        colorea la salida y hace que se pueda hacer clic en las líneas
+        encotradas: cuando se hace clic en resultado de la búsqueda, emacs
+        visita el archivo de destino en la ocurrencia.
+      </p>
+
+      <p>Por jemplo:</p>
+
+      <pre class="example">
+M-x grep RET
+</pre
+      >
+
+      <p>al hacer esto, emacs te muestra en el minibuffer</p>
+
+      <pre class="example">
+M-x grep --color -nH --null -e 
+</pre
+      >
+
+      <p>donde&#x2026;</p>
+
+      <ul class="org-ul">
+        <li><b>-color</b> muestra la busqueda en color.</li>
+        <li>
+          <b>-n</b> indica el número de linea en que aparece la expresión
+          buscada dentro de cada archivo.
+        </li>
+        <li><b>-H</b> muestra el nombre completo de cada archivo</li>
+        <li>
+          <b>&#x2013;null</b> introduce el caracter ASCII NULL para evitar
+          complicaciones caundo el nombre del archivo tiene un corte de línea.
+        </li>
+        <li>
+          <b>-e</b> para indicar la expresión a buscar, que se escribe a
+          continuación, se pueden usar expresiones regulares y caracteres
+          comodín.
+        </li>
+      </ul>
+
+      <p>
+        entonces solo hay que agrear la expresión regular a buscar y el archivo
+        o archivos donde buscar.
+      </p>
+
+      <p>Ejemplo:</p>
+
+      <pre class="example">
+M-x grep --color -nH --null -e setq ~/.emacs.d/init.el
+</pre
+      >
+
+      <p>
+        esto lista todas las líneas que coinciden con <b>setq</b> en el archivo
+        <b>init.el</b>, mostrando el nombre del del archivo y el numero de
+        línea, al pulsar RET o hacer click en una de las líneas el archivo se
+        abre en la correspondiente linea.
+      </p>
+
+      <div id="outline-container-org05968e2" class="outline-2">
+        <h2 id="org05968e2">lgrep y rgrep</h2>
+        <div class="outline-text-2" id="text-org05968e2">
+          <p>
+            Ambos te preguntan lo que debe buscar de manera conveniente.
+            <code>lgrep</code> busca en el directorio actual y
+            <code>rgrep</code> busca en el árbol de directorios actual.
+            <code>rgrep</code> conoce los sistemas de control de versiones por
+            lo que es posible evitar buscar en los directorios de control.
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

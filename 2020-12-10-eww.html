@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/faq/rss.xml"
+      title="RSS feed for https://martiyo.github.io/faq/"
+    />
+    <title>Eww Emacs Web Wowser</title>
+    <meta name="author" content="martin" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/faq">/home</a></li>
+          <li><a href="https://martiyo.github.io/faq/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/faq/contact">/contact</a></li>
+        </ul>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">10 dic 2020</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/faq/2020-12-10-eww.html"
+          >Eww Emacs Web Wowser</a
+        >
+      </h1>
+      <p>
+        EWW, el Emacs Web Wowser, es un navegador web para GNU Emacs. Puede
+        cargar, analizar y mostrar varias páginas web usando shr.el. Sin
+        embargo, se requiere un GNU/Emacs con soporte para libxml2.
+      </p>
+
+      <p>Definir eww como navegador por defecto</p>
+      <pre class="example">
+(setq browse-url-browser-function 'eww-browse-url)
+</pre
+      >
+
+      <p>Cambiar directorio de descargas</p>
+      <pre class="example">
+'(eww-download-directory "~/storage/descargas")
+</pre
+      >
+
+      <div id="outline-container-org6a2ec7e" class="outline-2">
+        <h2 id="org6a2ec7e">Atajos</h2>
+        <div class="outline-text-2" id="text-org6a2ec7e">
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">comando</th>
+                <th scope="col" class="org-left">Atajo</th>
+                <th scope="col" class="org-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">eww</td>
+                <td class="org-left">f5</td>
+                <td class="org-left">Abrir URL o buscar en la web</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-open-file</td>
+                <td class="org-left"><a href="file://">file://</a></td>
+                <td class="org-left">Abrir un archivo</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-quit</td>
+                <td class="org-left">q</td>
+                <td class="org-left">Salir</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-reload</td>
+                <td class="org-left">g</td>
+                <td class="org-left">Recargar</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-copy-page-url</td>
+                <td class="org-left">w</td>
+                <td class="org-left">Copia la URL en el kill-ring</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-open-in-new-buffer</td>
+                <td class="org-left">M-RET</td>
+                <td class="org-left">Abre la URL en un nuevo buffer</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-readable</td>
+                <td class="org-left">R</td>
+                <td class="org-left">Muestra solo texto legible</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-toggle-fonts</td>
+                <td class="org-left">F</td>
+                <td class="org-left">Usar fuentes de tono variable o no</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-toggle-colors</td>
+                <td class="org-left">M-C</td>
+                <td class="org-left">
+                  Usar o no colores especificados por HTML
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-dowload</td>
+                <td class="org-left">d</td>
+                <td class="org-left">
+                  Descarga el link bajo el punto o la pagina actual
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-back-url</td>
+                <td class="org-left">"pipe"</td>
+                <td class="org-left">Volver a la URL anterior</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-forward-url</td>
+                <td class="org-left">r</td>
+                <td class="org-left">Ir hacia adelante</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-list-histories</td>
+                <td class="org-left">H</td>
+                <td class="org-left">
+                  Abrir el buffer del historial(se pierde al salir)
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-add-bookmark</td>
+                <td class="org-left">b</td>
+                <td class="org-left">Agregar marcador para la pagina actual</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-list-bookmarks</td>
+                <td class="org-left">B</td>
+                <td class="org-left">Listar marcadores</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-list-buffers</td>
+                <td class="org-left">S</td>
+                <td class="org-left">Listar eww-buffers abiertos</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-switch-to-buffer</td>
+                <td class="org-left">s</td>
+                <td class="org-left">Cambiar entre buffer de eww abiertos</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/faq/archive.html">Other posts</a>
+      </div>
+    </div>
+  </body>
+</html>

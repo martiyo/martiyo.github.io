@@ -1,0 +1,52 @@
+#+title: El traductor de google en emacs
+#+date: <2020-11-27 17:40>
+#+filetags: emacs
+
+* Instalación  
+
+  #+BEGIN_EXAMPLE
+  M-x package-install RET google-translate
+  #+END_EXAMPLE
+
+* Uso 
+
+   Selecionar el texto a traducir y lanzar:
+
+   #+BEGIN_EXAMPLE
+   M-x google-translate-at-point
+   #+END_EXAMPLE
+
+   Luego indicar el idioma en el que esta el texto y al que hay que traducir.
+   Para traducir siempre de inglés a español se agrega al init.el:
+
+   #+BEGIN_EXAMPLE
+   (custom-set-variables
+   '(google-translate-default-source-language "en")
+   '(google-translate-default-target-language "es"))
+   #+END_EXAMPLE
+
+* configuración con use-package y solución del error "failed to search tkk"
+
+  #+BEGIN_EXAMPLE  
+  (use-package google-translate
+  :ensure t
+  :config
+  (when (and (string-match "0.12.0"
+  (google-translate-version))
+  (>= (time-to-seconds)
+	     (time-to-seconds
+                  (encode-time 0 0 0 23 9 2018))))
+		  (defun google-translate--get-b-d1 ()
+		  ;; TKK='427110.1469889687'
+		  (list 427110 1469889687)))
+		  (custom-set-variables
+		  '(google-translate-default-source-language "en")
+		  '(google-translate-default-target-language "es"))
+      )
+      #+END_SRC
+
+*Fuente*
+
+Esto es solo una pequeñisima parte del [[http://lapipaplena.duckdns.org/emacs/][curso de emacs]] de [[https://lapipaplena.wordpress.com/][la pipa plena]]
+
+

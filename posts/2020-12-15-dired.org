@@ -1,0 +1,88 @@
+#+title: Dired, el navegador de archivos de emacs
+#+date: <2020-12-15 10:23>
+#+filetags: emacs
+
+ **Dired* crea un buffer de Emacs que contiene un listado de un directorio y subdirectorios, se pueden usar los comandos normales de Emacs para moverse por este buffer, y los comandos especiales de **Dired** para operar en los archivos listados. **Dired** funciona tanto con los directorios locales como con los remotos.
+
+** Atajos
+
+**** Para abrir dired se usa **(M-x dired)** o el atajo **(C-x d)**. Los atajos más comunes son:
+
++ **+** (Crear directorio)
++ e [enter] (Editar el archivo)
++ g (Después de una modificación actualiza la pantalla)
++ q (Regresa al listado)
++ d (Marca un archivo para su eliminación, pone una **D** en la primera columna)
++ u (Elimina la marca anterior)
++ U (Desmarcar todos los marcados)
++ x (Elimina los archivos marcados con una **D**)
++ D (Eliminación inmediata, pide confirmación)
++ m (marca un archivo)
++ %m (marcar por patron)
++ C (copiar)
++ 4C (Copiar el archivo del cursor y los 4 siguientes)
++ R (Renombrar o mover)
++ Z (Comprimir/descomprimir [compress (.z .Z) y gzip (.gz)])
++ X (Entrar comandos de shell [chmod, grep, find, sort...])
++ S (Crear un enlace simbólico)
++ h (Muestra la ayuda y todos los atajos de teclado)
++ ( (Muestra/esconde detalles de archivos y directorios)
++ & (Con el cursor sobre un archivo, permite entrar una aplicación para abrirla)
+
+** Algunas funciones útiles
+
+Es posible asignar claves DedicatedKeys , como S-<f1>( shift+F1), para abrir una lista de directorios. Por ejemplo, agregar lo siguiente al init.el permite visitar su directorio de inicio al presionar S-<f1> en modo Dired.
+
+#+BEGIN_SRC 
+(clave de conjunto global (kbd "S- <f1>" )
+  ( lambda ()
+    (interactivo)
+    (dired "~ /" )))
+#+END_SRC
+
+**** Función para ocultar detalles y permisos de archivos:
+
+#+BEGIN_SRC 
+;; ocultar detalles de archivos
+(defun dired-mode-setup ()
+  "hook para que dired-mode oculte propietario y permisos de archivo"
+  (dired-hide-details-mode 1))
+  
+(add-hook 'dired-mode-hook 'dired-mode-setup)
+#+END_SRC
+
+**** Abrir archivos con aplicaciónes externas:
+
+#+BEGIN_SRC 
+(defun external-app ()
+"Abrir archivo con apps externas."
+(interactive)
+(let* ((file (dired-get-filename nil t)))
+(call-process "xdg-open" nil 0 nil file)))
+;;; Atajo para abrir archivos con apps externas con f9.
+(global-set-key [f9] 'external-app)
+#+END_SRC
+
+** Settings
+
+**** Abrir directorio con Enter (subdirectorio) y ^ (directorio padre) en un mismo buffer.
+
+#+BEGIN_SRC
+(require 'dired )
+(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) ; 
+(define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))
+#+END_SRC
+
+**** En un archivo abrir el directorio de dicho archivo con C-c C-j
+
+#+BEGIN_SRC
+(require 'dired-x)
+#+END_SRC
+
+** Wdired
+
+WDired, que significa "Writable Dired", ha sido parte de Emacs desde hace mucho tiempo. 
+Su modo de funcionamiento es sencillo: si cualquier búfer "dired" o "dired-derived" se cambia a "writable" desde "read-only" con la unión *C-x C-q*, reconocida mundialmente, puedes editar el búfer "dired" como si fuera un búfer ordinario. Si está en modo de edición de la memoria intermedia, la línea de modelo de la memoria intermedia dirá Editable.
+
+Cualquier cambio que hagas en el buffer permanecerá sin cambios hasta que los confirmes escribiendo *C-c C-c*. Para cancelar los cambios y volver al estado original puedes escribir *C-c ESC*.
+
