@@ -1,0 +1,92 @@
+#+title: ssh-server
+#+date: <2021-11-02 13:17>
+#+description: 
+#+filetags: consola
+
+Consola segura.
+
+*** Descripción
+
+   El protocolo SSH (consola segura: "Secure SHell"), fue diseñado pensando
+   en la seguridad y la confiabilidad. Las coneciones que utilizan SSH son
+   seguras: la otra parte es autenticada y se cifran todos los datos
+   intercambiados.
+
+*** Instalación
+       
+#+BEGIN_SRC
+$ sudo aptitude install openssh-server openssh-client
+#+END_SRC
+
+*** Configuración
+  
+    Todas las posibilidades de configuración del servidor SSH están en el
+    archivo /etc/ssh/sshd_config. Para configurarlo hay que indicar las
+    direcciones ip donde el servicio va a "escuchar" y "responder". En mi
+    caso son conexiones ligadas a la dirección 192.168.1.xxx, a través del
+    puerto 22222 (es recomendable cambiar el puerto por defecto por
+    cuestiones de seguridad) y utilizando la versión 2 del protocolo ssh:
+
+#+BEGIN_SRC
+Protocol 2
+#+END_SRC    
+
+
+    También hay que impedir las sesiones o logins de cuentas sin contraseña
+    (Empty Passwords):
+
+#+BEGIN_SRC
+    # To enable empty passwords, change to yes (NOT RECOMMENDED)
+    PermitEmptyPasswords no
+    #[...]  
+#+END_SRC
+
+*** Autenticaión basada en llaves
+
+     Cada vez que alguien inicia sesión a travéz de SSH, el servidor remoto
+     pide una contraseña para autenticar al usuario. Esto puede ser
+     problemático si desea automatizar la conexíon o si se utiliza una
+     herramineta que necesita conexiones frecuentes sobre SSH. Es por esto
+     que SSH ofrece un sistema de autenticación basada en llaves.
+
+     Ejemplo
+     
+     Para conectarse a un servidor remoto lo primero que debe hacerse es
+     generar una llave en la máquina local, sin ser root ejecutar:
+
+#+BEGIN_SRC
+     $ ssh-keygen -t rsa -b 8192
+#+END_SRC
+
+     Esto genera una llave más que segura ya que normalmente se usan llaves
+     de 1024 a 2048. Cuando se utiliza RSA, ssh-keygen guarda la clave
+     privada en el archivo ~/.ssh/id\_dsa y la clave pública en
+     ~/.ssh/id\_dsa.pub. Luego subir la llave al servidor con:
+
+#+BEGIN_SRC
+    $ ssh-copy-id usuario@ip_del_servidor
+#+END_SRC
+
+    Una vez hecho esto y conectados al servidor remoto con permisos de root
+    modificar el archivo /etc/ssh/sshd\_config para deshabilitar la
+    autenticación con contrseña
+
+#+BEGIN_SRC
+    PasswordAutentication no
+#+END_SRC
+
+***  Tranferemcia de archivos
+
+    SSH también ofrece dos servicios de tranferemcia de archivos,
+    [[file:...][scp]] y [[file:...][sftp]]. scp es una herramienta para la
+    terminal que puede se utilizar como cp excepto que cualquier ruta a otro
+    equipo utilizará un prefijo con el nombre de la máquina seguido de dos
+    puntos(":"). sftp es un programa interactivo similar a ftp. En una sola
+    sesión sftp puede transferir varios archivos y es posible manipular
+    archivos remotos con él (eliminar, renombrar, cambiar permisos, etc).
+
+
+*Referencias*
+[[https://debian-handbook.info/download/es-ES/stable/debian-handbook.pdf][
+Ellibro del administrador debian]]
+[[https://www.linuxito.com/gnu-linux/nivel-alto/459-como-autenticar-con-clave-publica-en-ssh][www.linuxito.com]]

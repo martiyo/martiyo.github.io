@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>ssh-server</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">02 nov 2021</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2021-11-02-ssh-server.html"
+          >ssh-server</a
+        >
+      </h1>
+      <p>Consola segura.</p>
+
+      <div id="outline-container-org4fd383e" class="outline-2">
+        <h2 id="org4fd383e">Descripción</h2>
+        <div class="outline-text-2" id="text-org4fd383e">
+          <p>
+            El protocolo SSH (consola segura: "Secure SHell"), fue diseñado
+            pensando en la seguridad y la confiabilidad. Las coneciones que
+            utilizan SSH son seguras: la otra parte es autenticada y se cifran
+            todos los datos intercambiados.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgbeaa5a4" class="outline-2">
+        <h2 id="orgbeaa5a4">Instalación</h2>
+        <div class="outline-text-2" id="text-orgbeaa5a4">
+          <pre class="example">
+$ sudo aptitude install openssh-server openssh-client
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org9e972a9" class="outline-2">
+        <h2 id="org9e972a9">Configuración</h2>
+        <div class="outline-text-2" id="text-org9e972a9">
+          <p>
+            Todas las posibilidades de configuración del servidor SSH están en
+            el archivo /etc/ssh/sshd<sub>config</sub>. Para configurarlo hay que
+            indicar las direcciones ip donde el servicio va a "escuchar" y
+            "responder". En mi caso son conexiones ligadas a la dirección
+            192.168.1.xxx, a través del puerto 22222 (es recomendable cambiar el
+            puerto por defecto por cuestiones de seguridad) y utilizando la
+            versión 2 del protocolo ssh:
+          </p>
+
+          <pre class="example">
+Protocol 2
+</pre
+          >
+
+          <p>
+            También hay que impedir las sesiones o logins de cuentas sin
+            contraseña (Empty Passwords):
+          </p>
+
+          <pre class="example">
+# To enable empty passwords, change to yes (NOT RECOMMENDED)
+PermitEmptyPasswords no
+#[...]  
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgf5b8a33" class="outline-2">
+        <h2 id="orgf5b8a33">Autenticaión basada en llaves</h2>
+        <div class="outline-text-2" id="text-orgf5b8a33">
+          <p>
+            Cada vez que alguien inicia sesión a travéz de SSH, el servidor
+            remoto pide una contraseña para autenticar al usuario. Esto puede
+            ser problemático si desea automatizar la conexíon o si se utiliza
+            una herramineta que necesita conexiones frecuentes sobre SSH. Es por
+            esto que SSH ofrece un sistema de autenticación basada en llaves.
+          </p>
+
+          <p>Ejemplo</p>
+
+          <p>
+            Para conectarse a un servidor remoto lo primero que debe hacerse es
+            generar una llave en la máquina local, sin ser root ejecutar:
+          </p>
+
+          <pre class="example">
+$ ssh-keygen -t rsa -b 8192
+</pre
+          >
+
+          <p>
+            Esto genera una llave más que segura ya que normalmente se usan
+            llaves de 1024 a 2048. Cuando se utiliza RSA, ssh-keygen guarda la
+            clave privada en el archivo ~/.ssh/id\<sub>dsa</sub> y la clave
+            pública en ~/.ssh/id\<sub>dsa.pub</sub>. Luego subir la llave al
+            servidor con:
+          </p>
+
+          <pre class="example">
+$ ssh-copy-id usuario@ip_del_servidor
+</pre
+          >
+
+          <p>
+            Una vez hecho esto y conectados al servidor remoto con permisos de
+            root modificar el archivo /etc/ssh/sshd\<sub>config</sub> para
+            deshabilitar la autenticación con contrseña
+          </p>
+
+          <pre class="example">
+PasswordAutentication no
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org7388144" class="outline-2">
+        <h2 id="org7388144">Tranferemcia de archivos</h2>
+        <div class="outline-text-2" id="text-org7388144">
+          <p>
+            SSH también ofrece dos servicios de tranferemcia de archivos,
+            <a href="...">scp</a> y <a href="...">sftp</a>. scp es una
+            herramienta para la terminal que puede se utilizar como cp excepto
+            que cualquier ruta a otro equipo utilizará un prefijo con el nombre
+            de la máquina seguido de dos puntos(":"). sftp es un programa
+            interactivo similar a ftp. En una sola sesión sftp puede transferir
+            varios archivos y es posible manipular archivos remotos con él
+            (eliminar, renombrar, cambiar permisos, etc).
+          </p>
+
+          <p>
+            <b>Referencias</b>
+            <a
+              href="https://debian-handbook.info/download/es-ES/stable/debian-handbook.pdf"
+            >
+              Ellibro del administrador debian</a
+            >
+            <a
+              href="https://www.linuxito.com/gnu-linux/nivel-alto/459-como-autenticar-con-clave-publica-en-ssh"
+              >www.linuxito.com</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-consola.html">consola</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>
