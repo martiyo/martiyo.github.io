@@ -4,7 +4,357 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>dom, 24 oct 2021 20:52:29 -0300</lastBuildDate>
+<lastBuildDate>mié, 05 ene 2022 10:04:04 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[El empaquetador tar]]></title>
+  <description><![CDATA[
+      <p>Almacenar archivos y directorios en un solo directorio.</p>
+
+      <div id="outline-container-org06a9c37" class="outline-2">
+        <h2 id="org06a9c37">Descripción</h2>
+        <div class="outline-text-2" id="text-org06a9c37">
+          <p>
+            El programa tar, es usado para almacenar archivos y directorios en
+            un solo archivo, no para comprimirlos. Dentro de los entornos Unix
+            tar aparece como una orden que puede ser ejecutada desde la línea de
+            órdenes de una consola de texto o desde un simple terminal. Donde
+            &lt;archivoSalida&gt; es el archivo resultado y &lt;archivo1&gt;,
+            &lt;archivo2&gt;, etcétera son los diferentes archivos que serán
+            "empaquetados" en &lt;archivoSalida&gt;. Este proceso permite
+            respaldar archivos, compartirlos, transmitirlos por Internet o por
+            redes locales de una forma fácil.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org8d33530" class="outline-2">
+        <h2 id="org8d33530">Opciones más usadas</h2>
+        <div class="outline-text-2" id="text-org8d33530">
+          <ul class="org-ul">
+            <li>
+              <b>-c</b> Crea un archivo tar que contiene los elementos
+              especificados.
+            </li>
+            <li><b>-x</b> Extrae el archivo de almacenamiento al disco.</li>
+            <li><b>-t</b> Listar el contenido del archivo tar.</li>
+            <li>
+              <b>-f</b> Especifica el nombre del archivo de almacenamiento.
+            </li>
+            <li><b>-v</b> Visualizar lo que se realiza.</li>
+            <li>
+              <b>-j</b> Se utiliza para comprimir el archivo a con de bzip2.
+            </li>
+            <li>
+              <b>-z</b> Se utiliza para comprimir el archivo a con de gzip.
+            </li>
+          </ul>
+          <p>
+            <b>+ -r</b> Se utiliza para agregar o actualizar un archivo
+            existente con archivos o directorios
+          </p>
+          <ul class="org-ul">
+            <li>
+              <b>-u</b> Como -r, pero las nuevas entradas se agregan solo si
+              tienen una fecha de modificación más reciente que la entrada
+              correspondiente en el archivo.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org6e1675a" class="outline-2">
+        <h2 id="org6e1675a">Ejemplos</h2>
+        <div class="outline-text-2" id="text-org6e1675a"></div>
+        <ul class="org-ul">
+          <li>
+            <a id="org4f4c1b1"></a>Crear archivo tar sin comprimir<br />
+            <div class="outline-text-5" id="text-org4f4c1b1">
+              <pre class="example">
+$ tar -cvf /path/to/foo.tar /path/to/foo/
+</pre
+              >
+
+              <p>
+                Dónde ‘/path/to/foo.tar‘ es la ubicación del archivo tar
+                resultante (con extención tar) y ‘/path/to/foo’ es la ubicación
+                del archivo o directorio que se utilizará como entrada, las
+                rutas pueden ser ralativas o absolutas.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <a id="org35bee68"></a>Todos los archivos que comienzan con una
+            letra<br />
+            <div class="outline-text-5" id="text-org35bee68">
+              <pre class="example">
+# tar -cvf fullbackup.tar i*
+install.log
+install.log.syslog
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org798b416"></a>Agregar un archivo al tar existente<br />
+            <div class="outline-text-5" id="text-org798b416">
+              <pre class="example">
+# tar --append --file=backup.tar anaconda-ks.cfg
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org247b6d8"></a>Extraer archivos de un tar<br />
+            <div class="outline-text-5" id="text-org247b6d8">
+              <pre class="example">
+$ tar -xvf /path/to/foo.tar
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="orgcd33696"></a>Extraer archivos de un tar en un directorio
+            especifico<br />
+            <div class="outline-text-5" id="text-orgcd33696">
+              <pre class="example">
+$ tar -xvf /path/to/foo.tar -C /path/to/destination/
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="orgfaf847b"></a>Extraer un archivo del archivo tar<br />
+            <div class="outline-text-5" id="text-orgfaf847b">
+              <pre class="example">
+$ tar --extract -vv --occurrence --file=./backup.tar anaconda-ks.cfg
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org2ee4a4a"></a>Listar el contenido de tar<br />
+            <div class="outline-text-5" id="text-org2ee4a4a">
+              <pre class="example">
+$ tar -ztvf /path/to/foo.tgz
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org848ee7d"></a>Crear, extraer y listar un archivo .gz con
+            tar<br />
+            <div class="outline-text-5" id="text-org848ee7d">
+              <p>Crear</p>
+
+              <pre class="example">
+$ tar -czvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+
+              <p>Extraer</p>
+
+              <pre class="example">
+$ tar -xzvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+
+              <p>Listar</p>
+
+              <pre class="example">
+$ tar -ztvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="orgb01b6da"></a>Crear, extraer y listar un archivo .bz2<br />
+            <div class="outline-text-5" id="text-orgb01b6da">
+              <p>Crear</p>
+
+              <pre class="example">
+$ tar -czvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+
+              <p>Extraer</p>
+
+              <pre class="example">
+$ tar -xjvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+
+              <p>Listar</p>
+
+              <pre class="example">
+$ tar -jtvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2022-01-05-el-empaquetador-tar.html</link>
+  <pubDate>mié, 05 ene 2022 08:50:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[ssh-server]]></title>
+  <description><![CDATA[
+      <p>Consola segura.</p>
+
+      <div id="outline-container-org4fd383e" class="outline-2">
+        <h2 id="org4fd383e">Descripción</h2>
+        <div class="outline-text-2" id="text-org4fd383e">
+          <p>
+            El protocolo SSH (consola segura: "Secure SHell"), fue diseñado
+            pensando en la seguridad y la confiabilidad. Las coneciones que
+            utilizan SSH son seguras: la otra parte es autenticada y se cifran
+            todos los datos intercambiados.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgbeaa5a4" class="outline-2">
+        <h2 id="orgbeaa5a4">Instalación</h2>
+        <div class="outline-text-2" id="text-orgbeaa5a4">
+          <pre class="example">
+$ sudo aptitude install openssh-server openssh-client
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org9e972a9" class="outline-2">
+        <h2 id="org9e972a9">Configuración</h2>
+        <div class="outline-text-2" id="text-org9e972a9">
+          <p>
+            Todas las posibilidades de configuración del servidor SSH están en
+            el archivo /etc/ssh/sshd<sub>config</sub>. Para configurarlo hay que
+            indicar las direcciones ip donde el servicio va a "escuchar" y
+            "responder". En mi caso son conexiones ligadas a la dirección
+            192.168.1.xxx, a través del puerto 22222 (es recomendable cambiar el
+            puerto por defecto por cuestiones de seguridad) y utilizando la
+            versión 2 del protocolo ssh:
+          </p>
+
+          <pre class="example">
+Protocol 2
+</pre
+          >
+
+          <p>
+            También hay que impedir las sesiones o logins de cuentas sin
+            contraseña (Empty Passwords):
+          </p>
+
+          <pre class="example">
+# To enable empty passwords, change to yes (NOT RECOMMENDED)
+PermitEmptyPasswords no
+#[...]  
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgf5b8a33" class="outline-2">
+        <h2 id="orgf5b8a33">Autenticaión basada en llaves</h2>
+        <div class="outline-text-2" id="text-orgf5b8a33">
+          <p>
+            Cada vez que alguien inicia sesión a travéz de SSH, el servidor
+            remoto pide una contraseña para autenticar al usuario. Esto puede
+            ser problemático si desea automatizar la conexíon o si se utiliza
+            una herramineta que necesita conexiones frecuentes sobre SSH. Es por
+            esto que SSH ofrece un sistema de autenticación basada en llaves.
+          </p>
+
+          <p>Ejemplo</p>
+
+          <p>
+            Para conectarse a un servidor remoto lo primero que debe hacerse es
+            generar una llave en la máquina local, sin ser root ejecutar:
+          </p>
+
+          <pre class="example">
+$ ssh-keygen -t rsa -b 8192
+</pre
+          >
+
+          <p>
+            Esto genera una llave más que segura ya que normalmente se usan
+            llaves de 1024 a 2048. Cuando se utiliza RSA, ssh-keygen guarda la
+            clave privada en el archivo ~/.ssh/id\<sub>dsa</sub> y la clave
+            pública en ~/.ssh/id\<sub>dsa.pub</sub>. Luego subir la llave al
+            servidor con:
+          </p>
+
+          <pre class="example">
+$ ssh-copy-id usuario@ip_del_servidor
+</pre
+          >
+
+          <p>
+            Una vez hecho esto y conectados al servidor remoto con permisos de
+            root modificar el archivo /etc/ssh/sshd\<sub>config</sub> para
+            deshabilitar la autenticación con contrseña
+          </p>
+
+          <pre class="example">
+PasswordAutentication no
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org7388144" class="outline-2">
+        <h2 id="org7388144">Tranferemcia de archivos</h2>
+        <div class="outline-text-2" id="text-org7388144">
+          <p>
+            SSH también ofrece dos servicios de tranferemcia de archivos,
+            <a href="...">scp</a> y <a href="...">sftp</a>. scp es una
+            herramienta para la terminal que puede se utilizar como cp excepto
+            que cualquier ruta a otro equipo utilizará un prefijo con el nombre
+            de la máquina seguido de dos puntos(":"). sftp es un programa
+            interactivo similar a ftp. En una sola sesión sftp puede transferir
+            varios archivos y es posible manipular archivos remotos con él
+            (eliminar, renombrar, cambiar permisos, etc).
+          </p>
+
+          <p>
+            <b>Referencias</b>
+            <a
+              href="https://debian-handbook.info/download/es-ES/stable/debian-handbook.pdf"
+            >
+              Ellibro del administrador debian</a
+            >
+            <a
+              href="https://www.linuxito.com/gnu-linux/nivel-alto/459-como-autenticar-con-clave-publica-en-ssh"
+              >www.linuxito.com</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-consola.html">consola</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[consola]]></category>
+  <link>https://martiyo.github.io/2021-11-02-ssh-server.html</link>
+  <pubDate>mar, 02 nov 2021 13:17:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[Pass el gestor de contraseñas estandar de unix]]></title>
   <description><![CDATA[
@@ -266,14 +616,14 @@ Phone Support PIN #: 84719
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-consola,.html">consola,</a>
-        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-consola,.html">consola,</a>
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     ]]></description>
   <category><![CDATA[consola,]]></category>
   <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/faq/2021-10-24-pass.html</link>
+  <link>https://martiyo.github.io/2021-10-24-pass.html</link>
   <pubDate>dom, 24 oct 2021 16:48:00 -0300</pubDate>
 </item>
 <item>
@@ -452,12 +802,12 @@ set-window-option -g clock-mode-style 24
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     ]]></description>
   <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/faq/2021-10-21-tmux.html</link>
+  <link>https://martiyo.github.io/2021-10-21-tmux.html</link>
   <pubDate>jue, 21 oct 2021 16:44:00 -0300</pubDate>
 </item>
 <item>
@@ -504,12 +854,12 @@ youtube-dl --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" &lt;url to 
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     ]]></description>
   <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/faq/2021-10-03-youtube-dl.html</link>
+  <link>https://martiyo.github.io/2021-10-03-youtube-dl.html</link>
   <pubDate>dom, 03 oct 2021 21:19:00 -0300</pubDate>
 </item>
 <item>
@@ -634,12 +984,12 @@ root@devuan:/home/martin# ping www.devuan.org
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     ]]></description>
   <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/faq/2018-03-06-dirección-ip-estatica.html</link>
+  <link>https://martiyo.github.io/2018-03-06-dirección-ip-estatica.html</link>
   <pubDate>dom, 25 abr 2021 22:06:00 -0300</pubDate>
 </item>
 <item>
@@ -782,12 +1132,12 @@ f11
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2021-04-11-neotree.html</link>
+  <link>https://martiyo.github.io/2021-04-11-neotree.html</link>
   <pubDate>dom, 11 abr 2021 12:33:00 -0300</pubDate>
 </item>
 <item>
@@ -937,12 +1287,12 @@ C-x g
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-git.html">git</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-git.html">git</a>
       </div>
     ]]></description>
   <category><![CDATA[git]]></category>
-  <link>https://martiyo.github.io/faq/2021-04-04-magit.html</link>
+  <link>https://martiyo.github.io/2021-04-04-magit.html</link>
   <pubDate>dom, 04 abr 2021 23:45:00 -0300</pubDate>
 </item>
 <item>
@@ -1023,12 +1373,12 @@ M-x grep --color -nH --null -e setq ~/.emacs.d/init.el
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2021-02-17-busquedas-con-grep-en-emacs.html</link>
+  <link>https://martiyo.github.io/2021-02-17-busquedas-con-grep-en-emacs.html</link>
   <pubDate>mié, 17 feb 2021 11:10:00 -0300</pubDate>
 </item>
 <item>
@@ -1195,12 +1545,12 @@ M-x package-install RET Dashboard
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2021-02-10-dashboard.html</link>
+  <link>https://martiyo.github.io/2021-02-10-dashboard.html</link>
   <pubDate>mié, 10 feb 2021 09:09:00 -0300</pubDate>
 </item>
 <item>
@@ -1263,15 +1613,14 @@ crontab [opciones][usuario]
             <a id="formato-de-la-tabla-de-tareas"></a
             ><a id="org95e5b49"></a>Formato de la tabla de tareas<br />
             <div class="outline-text-5" id="text-formato-de-la-tabla-de-tareas">
-		<p>
-		    .--------------- minuto (0-59) 
-		    |  .------------ hora (0-23)
-		    |  |  .--------- día del mes (1-31)
-		    |  |  |  .------ mes (1-12) o jan,feb,mar,apr,may,jun,jul... (meses en inglés)
-		    |  |  |  |  .--- día de la semana (0-6) (domingo=0 ó 7) o sun,mon,tue,wed,thu,fri,sat 
-		    |  |  |  |  |
-		    \* \* \* \* \*  comando a ejecutar
-		</p>
+              <p>
+                .--------------- minuto (0-59) | .------------ hora (0-23) | |
+                .--------- día del mes (1-31) | | | .------ mes (1-12) o
+                jan,feb,mar,apr,may,jun,jul... (meses en inglés) | | | | .---
+                día de la semana (0-6) (domingo=0 ó 7) o
+                sun,mon,tue,wed,thu,fri,sat | | | | | \* \* \* \* \* comando a
+                ejecutar
+              </p>
             </div>
           </li>
         </ul>
@@ -1396,12 +1745,12 @@ crontab [opciones][usuario]
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     ]]></description>
   <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/faq/2018-09-15-Cron.html</link>
+  <link>https://martiyo.github.io/2018-09-15-Cron.html</link>
   <pubDate>jue, 21 ene 2021 12:18:00 -0300</pubDate>
 </item>
 <item>
@@ -1553,12 +1902,12 @@ git clone https://github.com/manateelazycat/aweshell.git
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2021-01-20-Aweshell.html</link>
+  <link>https://martiyo.github.io/2021-01-20-Aweshell.html</link>
   <pubDate>mié, 20 ene 2021 07:54:00 -0300</pubDate>
 </item>
 <item>
@@ -1755,12 +2104,12 @@ sudo find ~/webDAV -type f -exec chmod ug+rw {} \;
         </ul>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     ]]></description>
   <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/faq/2020-12-23-servidor-webdav.html</link>
+  <link>https://martiyo.github.io/2020-12-23-servidor-webdav.html</link>
   <pubDate>mié, 23 dic 2020 17:24:00 -0300</pubDate>
 </item>
 <item>
@@ -1851,12 +2200,12 @@ sudo find ~/webDAV -type f -exec chmod ug+rw {} \;
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2020-12-21-emacs-bookmarks.html</link>
+  <link>https://martiyo.github.io/2020-12-21-emacs-bookmarks.html</link>
   <pubDate>lun, 21 dic 2020 11:06:00 -0300</pubDate>
 </item>
 <item>
@@ -2220,12 +2569,12 @@ rm eqsets.tar.gz
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     ]]></description>
   <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/faq/2020-12-19-mocp.html</link>
+  <link>https://martiyo.github.io/2020-12-19-mocp.html</link>
   <pubDate>sáb, 19 dic 2020 20:21:00 -0300</pubDate>
 </item>
 <item>
@@ -2397,12 +2746,12 @@ rm eqsets.tar.gz
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2020-12-15-dired.html</link>
+  <link>https://martiyo.github.io/2020-12-15-dired.html</link>
   <pubDate>mar, 15 dic 2020 10:23:00 -0300</pubDate>
 </item>
 <item>
@@ -2461,12 +2810,12 @@ $ make
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     ]]></description>
   <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/faq/2020-12-11-mplayer-resumer.html</link>
+  <link>https://martiyo.github.io/2020-12-11-mplayer-resumer.html</link>
   <pubDate>vie, 11 dic 2020 19:48:00 -0300</pubDate>
 </item>
 <item>
@@ -2621,12 +2970,12 @@ $ make
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2020-12-10-eww.html</link>
+  <link>https://martiyo.github.io/2020-12-10-eww.html</link>
   <pubDate>jue, 10 dic 2020 17:29:00 -0300</pubDate>
 </item>
 <item>
@@ -2810,12 +3159,12 @@ M-x package-install counsel
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2020-12-07-ivy-counsel-swiper.html</link>
+  <link>https://martiyo.github.io/2020-12-07-ivy-counsel-swiper.html</link>
   <pubDate>lun, 07 dic 2020 14:58:00 -0300</pubDate>
 </item>
 <item>
@@ -2877,12 +3226,12 @@ sudo npm i -g prettier
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2020-12-07-prettier-js.html</link>
+  <link>https://martiyo.github.io/2020-12-07-prettier-js.html</link>
   <pubDate>lun, 07 dic 2020 11:46:00 -0300</pubDate>
 </item>
 <item>
@@ -3271,12 +3620,12 @@ M-x package-install RET projectile RET
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2020-12-07-projectile.html</link>
+  <link>https://martiyo.github.io/2020-12-07-projectile.html</link>
   <pubDate>sáb, 05 dic 2020 19:53:00 -0300</pubDate>
 </item>
 <item>
@@ -3323,12 +3672,12 @@ M-x package-install RET projectile RET
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2020-12-07-autocompletar-.html</link>
+  <link>https://martiyo.github.io/2020-12-07-autocompletar-.html</link>
   <pubDate>vie, 04 dic 2020 16:59:00 -0300</pubDate>
 </item>
 <item>
@@ -3401,12 +3750,12 @@ M-x google-translate-at-point
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2020-11-27-traductor-de-google-en-emacs.html</link>
+  <link>https://martiyo.github.io/2020-11-27-traductor-de-google-en-emacs.html</link>
   <pubDate>vie, 27 nov 2020 17:40:00 -0300</pubDate>
 </item>
 <item>
@@ -3496,12 +3845,12 @@ docker exec -it mydatabase bash
         </ul>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     ]]></description>
   <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/faq/2020-11-20-instalar-mongodb-con-docker.html</link>
+  <link>https://martiyo.github.io/2020-11-20-instalar-mongodb-con-docker.html</link>
   <pubDate>vie, 20 nov 2020 10:49:00 -0300</pubDate>
 </item>
 <item>
@@ -3605,12 +3954,12 @@ sudo usermod -aG docker your-user
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     ]]></description>
   <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/faq/2020-11-06-instalar-docker.html</link>
+  <link>https://martiyo.github.io/2020-11-06-instalar-docker.html</link>
   <pubDate>vie, 06 nov 2020 10:32:00 -0300</pubDate>
 </item>
 <item>
@@ -3697,12 +4046,12 @@ If you are sure you want to delete it, run 'git branch -D testing'.
         ayuda.
       </p>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-git.html">git</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-git.html">git</a>
       </div>
     ]]></description>
   <category><![CDATA[git]]></category>
-  <link>https://martiyo.github.io/faq/2019-07-04-git-gestion-de-ramas.html</link>
+  <link>https://martiyo.github.io/2019-07-04-git-gestion-de-ramas.html</link>
   <pubDate>jue, 04 jul 2019 17:37:00 -0300</pubDate>
 </item>
 <item>
@@ -3779,12 +4128,12 @@ git branch -d iss53
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-git.html">git</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-git.html">git</a>
       </div>
     ]]></description>
   <category><![CDATA[git]]></category>
-  <link>https://martiyo.github.io/faq/2019-06-30-git-ramificar-y-fusionar.html</link>
+  <link>https://martiyo.github.io/2019-06-30-git-ramificar-y-fusionar.html</link>
   <pubDate>dom, 30 jun 2019 18:10:00 -0300</pubDate>
 </item>
 <item>
@@ -3889,12 +4238,12 @@ mv emms-4.0 .emacs.d/lisp
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2019-02-09-emms.html</link>
+  <link>https://martiyo.github.io/2019-02-09-emms.html</link>
   <pubDate>sáb, 09 feb 2019 13:03:00 -0300</pubDate>
 </item>
 <item>
@@ -4046,12 +4395,12 @@ git checkout master
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-git.html">git</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-git.html">git</a>
       </div>
     ]]></description>
   <category><![CDATA[git]]></category>
-  <link>https://martiyo.github.io/faq/2019-01-22-ramificaciones-en-git.html</link>
+  <link>https://martiyo.github.io/2019-01-22-ramificaciones-en-git.html</link>
   <pubDate>mar, 22 ene 2019 17:41:00 -0300</pubDate>
 </item>
 <item>
@@ -4348,12 +4697,12 @@ git push -u origin master
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-git.html">git</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-git.html">git</a>
       </div>
     ]]></description>
   <category><![CDATA[git]]></category>
-  <link>https://martiyo.github.io/faq/2019-01-08-git.html</link>
+  <link>https://martiyo.github.io/2019-01-08-git.html</link>
   <pubDate>mar, 08 ene 2019 12:30:00 -0300</pubDate>
 </item>
 <item>
@@ -4672,12 +5021,12 @@ ffmpeg -i entrada -pass 2 -passlogfile ffmpeg2pass salida
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     ]]></description>
   <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/faq/2018-12-08-ffmpeg-video-converter.html</link>
+  <link>https://martiyo.github.io/2018-12-08-ffmpeg-video-converter.html</link>
   <pubDate>sáb, 08 dic 2018 13:52:00 -0300</pubDate>
 </item>
 <item>
@@ -4891,12 +5240,12 @@ M-x elfeed RET
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2018-09-29-elfeed.html</link>
+  <link>https://martiyo.github.io/2018-09-29-elfeed.html</link>
   <pubDate>sáb, 29 sep 2018 23:57:00 -0300</pubDate>
 </item>
 <item>
@@ -5214,12 +5563,12 @@ M-x elfeed RET
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/faq/2018-07-04-introduccion-a-emacs.html</link>
+  <link>https://martiyo.github.io/2018-07-04-introduccion-a-emacs.html</link>
   <pubDate>mié, 04 jul 2018 14:41:00 -0300</pubDate>
 </item>
 <item>
@@ -5335,12 +5684,12 @@ media_dir=A,/path/multimedia/musica\n
         </div>
       </div>
       <div class="taglist">
-        <a href="https://martiyo.github.io/faq/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/faq/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     ]]></description>
   <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/faq/2018-02-27-el-demonio-minidlna.html</link>
+  <link>https://martiyo.github.io/2018-02-27-el-demonio-minidlna.html</link>
   <pubDate>jue, 22 feb 2018 03:04:00 -0300</pubDate>
 </item>
 </channel>

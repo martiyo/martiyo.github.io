@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>El empaquetador tar</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">05 ene 2022</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2022-01-05-el-empaquetador-tar.html"
+          >El empaquetador tar</a
+        >
+      </h1>
+      <p>Almacenar archivos y directorios en un solo directorio.</p>
+
+      <div id="outline-container-org06a9c37" class="outline-2">
+        <h2 id="org06a9c37">Descripción</h2>
+        <div class="outline-text-2" id="text-org06a9c37">
+          <p>
+            El programa tar, es usado para almacenar archivos y directorios en
+            un solo archivo, no para comprimirlos. Dentro de los entornos Unix
+            tar aparece como una orden que puede ser ejecutada desde la línea de
+            órdenes de una consola de texto o desde un simple terminal. Donde
+            &lt;archivoSalida&gt; es el archivo resultado y &lt;archivo1&gt;,
+            &lt;archivo2&gt;, etcétera son los diferentes archivos que serán
+            "empaquetados" en &lt;archivoSalida&gt;. Este proceso permite
+            respaldar archivos, compartirlos, transmitirlos por Internet o por
+            redes locales de una forma fácil.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org8d33530" class="outline-2">
+        <h2 id="org8d33530">Opciones más usadas</h2>
+        <div class="outline-text-2" id="text-org8d33530">
+          <ul class="org-ul">
+            <li>
+              <b>-c</b> Crea un archivo tar que contiene los elementos
+              especificados.
+            </li>
+            <li><b>-x</b> Extrae el archivo de almacenamiento al disco.</li>
+            <li><b>-t</b> Listar el contenido del archivo tar.</li>
+            <li>
+              <b>-f</b> Especifica el nombre del archivo de almacenamiento.
+            </li>
+            <li><b>-v</b> Visualizar lo que se realiza.</li>
+            <li>
+              <b>-j</b> Se utiliza para comprimir el archivo a con de bzip2.
+            </li>
+            <li>
+              <b>-z</b> Se utiliza para comprimir el archivo a con de gzip.
+            </li>
+          </ul>
+          <p>
+            <b>+ -r</b> Se utiliza para agregar o actualizar un archivo
+            existente con archivos o directorios
+          </p>
+          <ul class="org-ul">
+            <li>
+              <b>-u</b> Como -r, pero las nuevas entradas se agregan solo si
+              tienen una fecha de modificación más reciente que la entrada
+              correspondiente en el archivo.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org6e1675a" class="outline-2">
+        <h2 id="org6e1675a">Ejemplos</h2>
+        <div class="outline-text-2" id="text-org6e1675a"></div>
+        <ul class="org-ul">
+          <li>
+            <a id="org4f4c1b1"></a>Crear archivo tar sin comprimir<br />
+            <div class="outline-text-5" id="text-org4f4c1b1">
+              <pre class="example">
+$ tar -cvf /path/to/foo.tar /path/to/foo/
+</pre
+              >
+
+              <p>
+                Dónde ‘/path/to/foo.tar‘ es la ubicación del archivo tar
+                resultante (con extención tar) y ‘/path/to/foo’ es la ubicación
+                del archivo o directorio que se utilizará como entrada, las
+                rutas pueden ser ralativas o absolutas.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <a id="org35bee68"></a>Todos los archivos que comienzan con una
+            letra<br />
+            <div class="outline-text-5" id="text-org35bee68">
+              <pre class="example">
+# tar -cvf fullbackup.tar i*
+install.log
+install.log.syslog
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org798b416"></a>Agregar un archivo al tar existente<br />
+            <div class="outline-text-5" id="text-org798b416">
+              <pre class="example">
+# tar --append --file=backup.tar anaconda-ks.cfg
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org247b6d8"></a>Extraer archivos de un tar<br />
+            <div class="outline-text-5" id="text-org247b6d8">
+              <pre class="example">
+$ tar -xvf /path/to/foo.tar
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="orgcd33696"></a>Extraer archivos de un tar en un directorio
+            especifico<br />
+            <div class="outline-text-5" id="text-orgcd33696">
+              <pre class="example">
+$ tar -xvf /path/to/foo.tar -C /path/to/destination/
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="orgfaf847b"></a>Extraer un archivo del archivo tar<br />
+            <div class="outline-text-5" id="text-orgfaf847b">
+              <pre class="example">
+$ tar --extract -vv --occurrence --file=./backup.tar anaconda-ks.cfg
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org2ee4a4a"></a>Listar el contenido de tar<br />
+            <div class="outline-text-5" id="text-org2ee4a4a">
+              <pre class="example">
+$ tar -ztvf /path/to/foo.tgz
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org848ee7d"></a>Crear, extraer y listar un archivo .gz con
+            tar<br />
+            <div class="outline-text-5" id="text-org848ee7d">
+              <p>Crear</p>
+
+              <pre class="example">
+$ tar -czvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+
+              <p>Extraer</p>
+
+              <pre class="example">
+$ tar -xzvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+
+              <p>Listar</p>
+
+              <pre class="example">
+$ tar -ztvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="orgb01b6da"></a>Crear, extraer y listar un archivo .bz2<br />
+            <div class="outline-text-5" id="text-orgb01b6da">
+              <p>Crear</p>
+
+              <pre class="example">
+$ tar -czvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+
+              <p>Extraer</p>
+
+              <pre class="example">
+$ tar -xjvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+
+              <p>Listar</p>
+
+              <pre class="example">
+$ tar -jtvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>
