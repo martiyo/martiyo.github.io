@@ -1,5 +1,5 @@
 #+title: Planificación y administración de tareas con Cron y Crontab
-#+date: <2021-01-21 12:18>
+#+date: <2018-09-15 12:18>
 #+filetags: linux
 
 En el sistema operativo Unix, cron es un administrador regular de

@@ -3,6 +3,8 @@
 #+description: multiplexor de terminal 
 #+filetags: linux
 
+Multiplexor de terminal.
+
 ** Wikipedia
 
 tmux es un multiplexor de terminal para sistemas tipo unix, similar a

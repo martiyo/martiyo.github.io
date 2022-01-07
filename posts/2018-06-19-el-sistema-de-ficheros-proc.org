@@ -1,5 +1,5 @@
 #+title: El sistema de ficheros /proc
-#+date: <2022-01-06 23:28>
+#+date: <2018-06-19 23:28>
 #+description: 
 #+filetags: linux
 

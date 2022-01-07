@@ -1,11 +1,8 @@
 #+title: Dirección ip estatica
-#+date: <2021-04-25 22:06>
+#+date: <2018-03-06 22:06>
 #+filetags: linux
 
 *** Descripción
-   :PROPERTIES:
-   :CUSTOM_ID: descripción
-   :END:
 
 El sistema está configurado para obtener de forma automática la
 configuración de red (ip, máscara de red, servidores DNS, puerta de
@@ -14,9 +11,6 @@ un sistema como servidor en una red es muy recomendable, por no decir
 necesario, que el sistema tenga una dirección ip estática.
 
 *** Configuración
-    :PROPERTIES:
-    :CUSTOM_ID: configuración
-    :END:
 
 Antes de cambiar la configuración, hay que detener la interfaz de red:
 
@@ -56,9 +50,6 @@ archivo */etc/resolv.conf*, en el se incluye una linea como la
 siguiente: nameserver 192.168.1.1
 
 *** Verificación
-   :PROPERTIES:
-   :CUSTOM_ID: verificación
-   :END:
 
 El comando ifconfig muestra información detallada de la configuración de
 las interfaces de red. Primero hay que activar la interfaz de red recién

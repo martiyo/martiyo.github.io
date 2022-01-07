@@ -9,7 +9,7 @@
       title="RSS feed for https://martiyo.github.io/"
     />
     <title>Planificación y administración de tareas con Cron y Crontab</title>
-    <meta name="author" content="martin" />
+    <meta name="author" content="martiyo" />
     <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="static/style.css" rel="stylesheet" type="text/css" />
@@ -19,7 +19,7 @@
     <div id="preamble" class="status">
       <div class="header">
         <ul>
-          <li><a href="https://martiyo.github.io">/home</a></li>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
           <li><a href="https://martiyo.github.io/about">/about</a></li>
           <li><a href="https://martiyo.github.io/contact">/contact</a></li>
         </ul>
@@ -31,10 +31,11 @@
         <form>
           <input type="text" placeholder="Search..." />
         </form>
+        <br />
       </div>
     </div>
     <div id="content">
-      <div class="post-date">21 ene 2021</div>
+      <div class="post-date">15 sep 2018</div>
       <h1 class="post-title">
         <a href="https://martiyo.github.io/2018-09-15-Cron.html"
           >Planificación y administración de tareas con Cron y Crontab</a
@@ -50,10 +51,8 @@
         verificación del equipo o estadísticas de uso.
       </p>
 
-      <div id="outline-container-org5e5b2b2" class="outline-2">
-        <h2 id="crontab-del-usuario">
-          <a id="org5e5b2b2"></a>Crontab del usuario
-        </h2>
+      <div id="outline-container-orgb1743f4" class="outline-2">
+        <h2 id="crontab-del-usuario">Crontab del usuario</h2>
         <div class="outline-text-2" id="text-crontab-del-usuario">
           <p>
             Cada usuario puede definir sus propias tareas, éstas se ejecutaran
@@ -71,8 +70,7 @@
 
         <ul class="org-ul">
           <li>
-            <a id="sintaxis-del-comando"></a><a id="orgb5c6cc3"></a>Sintaxis del
-            comando:<br />
+            <a id="sintaxis-del-comando"></a>Sintaxis del comando:<br />
             <div class="outline-text-5" id="text-sintaxis-del-comando">
               <pre class="example">
 crontab [opciones][usuario]
@@ -94,25 +92,25 @@ crontab [opciones][usuario]
           </li>
 
           <li>
-            <a id="formato-de-la-tabla-de-tareas"></a
-            ><a id="org95e5b49"></a>Formato de la tabla de tareas<br />
+            <a id="formato-de-la-tabla-de-tareas"></a>Formato de la tabla de
+            tareas<br />
             <div class="outline-text-5" id="text-formato-de-la-tabla-de-tareas">
               <p>
-                .--------------- minuto (0-59) | .------------ hora (0-23) | |
-                .--------- día del mes (1-31) | | | .------ mes (1-12) o
-                jan,feb,mar,apr,may,jun,jul... (meses en inglés) | | | | .---
-                día de la semana (0-6) (domingo=0 ó 7) o
-                sun,mon,tue,wed,thu,fri,sat | | | | | \* \* \* \* \* comando a
-                ejecutar
+                .----------&#x2013;&#x2014; minuto (0-59) |
+                .-------&#x2013;&#x2014; hora (0-23) | | .----&#x2013;&#x2014;
+                día del mes (1-31) | | | .-&#x2013;&#x2014; mes (1-12) o
+                jan,feb,mar,apr,may,jun,jul&#x2026; (meses en inglés) | | | |
+                .&#x2014; día de la semana (0-6) (domingo=0 ó 7) o
+                sun,mon,tue,wed,thu,fri,sat | | | | | * *
               </p>
             </div>
           </li>
         </ul>
       </div>
 
-      <div id="outline-container-orgbd54bf5" class="outline-2">
-        <h2 id="orgbd54bf5">Comando a ejecutar</h2>
-        <div class="outline-text-2" id="text-orgbd54bf5">
+      <div id="outline-container-org0ee77ce" class="outline-2">
+        <h2 id="org0ee77ce">Comando a ejecutar</h2>
+        <div class="outline-text-2" id="text-org0ee77ce">
           <p>
             Se pueden utilizar asteriscos para especificar todos (ejemplo: todos
             los días de la semana), guiones para especificar rangos (ejemplo: de
@@ -123,8 +121,8 @@ crontab [opciones][usuario]
           </p>
         </div>
 
-        <div id="outline-container-org53722b8" class="outline-4">
-          <h4 id="ejemplos"><a id="org53722b8"></a>Ejemplos</h4>
+        <div id="outline-container-orge6adb79" class="outline-4">
+          <h4 id="ejemplos">Ejemplos</h4>
           <div class="outline-text-4" id="text-ejemplos">
             <ul class="org-ul">
               <li>
@@ -198,10 +196,8 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-org65dbb80" class="outline-3">
-          <h3 id="crontab-del-sistema">
-            <a id="org65dbb80"></a>Crontab del sistema
-          </h3>
+        <div id="outline-container-org33de090" class="outline-3">
+          <h3 id="crontab-del-sistema">Crontab del sistema</h3>
           <div class="outline-text-3" id="text-crontab-del-sistema">
             <p>
               Se utiliza cuando se requiere que una tarea se ejecute con

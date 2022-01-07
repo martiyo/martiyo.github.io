@@ -4,106 +4,7 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>vie, 07 ene 2022 16:52:56 -0300</lastBuildDate>
-<item>
-  <title><![CDATA[El sistema de ficheros /proc]]></title>
-  <description><![CDATA[
-      <p>Process filesystem.</p>
-
-      <div id="outline-container-orgc6da7a6" class="outline-2">
-        <h2 id="orgc6da7a6">Wiki</h2>
-        <div class="outline-text-2" id="text-orgc6da7a6">
-          <p>
-            En los sistemas operativos tipo Unix, procfs es la abreviatura de
-            sistema de ficheros de procesos (process filesystem). Un pseudo
-            sistema de ficheros que se utiliza para permitir el acceso a la
-            información del núcleo sobre los procesos. Dado que proc no es un
-            sistema de ficheros real, no consume ningún espacio de
-            almacenamiento, y sólo consume una limitada cantidad de memoria.
-          </p>
-
-          <p>
-            El sistema de archivos se monta con frecuencia en /proc. Está
-            soportado bajo Solaris, BSD y GNU/Linux, el último de los cuales lo
-            extiende para incluir datos que no son propios de los procesos.
-          </p>
-        </div>
-      </div>
-
-      <div id="outline-container-orga6c7af7" class="outline-2">
-        <h2 id="orga6c7af7">Ejemplos</h2>
-        <div class="outline-text-2" id="text-orga6c7af7">
-          <pre class="example">
-$cat /proc/cpuinfo
-</pre
-          >
-
-          <p>
-            Muestra información acerca del procesador: su tipo, marca, modelo,
-            rendimiento, etc.
-          </p>
-
-          <pre class="example">
-$cat /proc/devices
-</pre
-          >
-
-          <p>
-            ̣Lista de controladores de dispositivos configurados dentro del
-            núcleo que está en ejecución.
-          </p>
-
-          <pre class="example">
-$cat /proc/filesystem
-</pre
-          >
-
-          <p>
-            Lista los sistemas de archivos que están soportados por el kernel.
-          </p>
-
-          <pre class="example">
-$cat /proc/meminfo
-</pre
-          >
-
-          <p>
-            Información acerca de la utilización de la memoria física y del
-            archivo de intercambio.
-          </p>
-
-          <pre class="example">
-$cat /proc/uptime
-</pre
-          >
-
-          <p>Indica el tiempo en segundos que el sistema lleva funcionando.</p>
-
-          <p>
-            Existen muchos comandos que solamente leen los archivos anteriores y
-            les dan un formato distinto para que la información sea fácil de
-            entender. Por ejemplo, el comando
-            <a href="file:///2018/02/19/lshw-list-hardware/">"lshw"</a>
-          </p>
-
-          <p>
-            fuente
-            <a
-              href="http://www.tldp.org/pub/Linux/docs/ldp-archived/system-admin-guide/translations/es/html/ch04s07.html"
-              >www.tlpd.org</a
-            >
-          </p>
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
-      </div>
-    ]]></description>
-  <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/2018-06-19-el-sistema-de-ficheros-proc.html</link>
-  <pubDate>jue, 06 ene 2022 23:28:00 -0300</pubDate>
-</item>
+<lastBuildDate>vie, 07 ene 2022 17:44:19 -0300</lastBuildDate>
 <item>
   <title><![CDATA[El empaquetador tar]]></title>
   <description><![CDATA[
@@ -726,10 +627,11 @@ Phone Support PIN #: 84719
 <item>
   <title><![CDATA[tmux]]></title>
   <description><![CDATA[
+      <p>Multiplexor de terminal.</p>
 
-      <div id="outline-container-org36c747b" class="outline-2">
-        <h2 id="org36c747b">Wikipedia</h2>
-        <div class="outline-text-2" id="text-org36c747b">
+      <div id="outline-container-orgaca8126" class="outline-2">
+        <h2 id="orgaca8126">Wikipedia</h2>
+        <div class="outline-text-2" id="text-orgaca8126">
           <p>
             tmux es un multiplexor de terminal para sistemas tipo unix, similar
             a GNU Screen que permite dividir una consola en múltiples secciones
@@ -745,9 +647,9 @@ Phone Support PIN #: 84719
         </div>
       </div>
 
-      <div id="outline-container-org78fcf05" class="outline-2">
-        <h2 id="org78fcf05">Configuración</h2>
-        <div class="outline-text-2" id="text-org78fcf05">
+      <div id="outline-container-org046da17" class="outline-2">
+        <h2 id="org046da17">Configuración</h2>
+        <div class="outline-text-2" id="text-org046da17">
           <p>
             El archivo de configuración es ~/.tmux.conf. Por defecto la
             combinación de teclas básica es <b>C-b</b> que yo por comodidad la
@@ -757,9 +659,9 @@ Phone Support PIN #: 84719
         </div>
       </div>
 
-      <div id="outline-container-org477afb5" class="outline-2">
-        <h2 id="org477afb5">Comandos básicos</h2>
-        <div class="outline-text-2" id="text-org477afb5">
+      <div id="outline-container-org9e9687f" class="outline-2">
+        <h2 id="org9e9687f">Comandos básicos</h2>
+        <div class="outline-text-2" id="text-org9e9687f">
           <table>
             <colgroup>
               <col class="org-left" />
@@ -828,12 +730,12 @@ Phone Support PIN #: 84719
           </table>
         </div>
 
-        <div id="outline-container-org70a88e5" class="outline-3">
-          <h3 id="org70a88e5">
+        <div id="outline-container-org4272bf0" class="outline-3">
+          <h3 id="org4272bf0">
             La wiki de arch tiene un muy buen ejemplo del archivo de
             configuración
           </h3>
-          <div class="outline-text-3" id="text-org70a88e5">
+          <div class="outline-text-3" id="text-org4272bf0">
             <pre class="example">
 # Mover las ventanas izquierda o derecha en la sesión
 bind-key -n C-right next
@@ -956,136 +858,6 @@ youtube-dl --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" &lt;url to 
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2021-10-03-youtube-dl.html</link>
   <pubDate>dom, 03 oct 2021 21:19:00 -0300</pubDate>
-</item>
-<item>
-  <title><![CDATA[Dirección ip estatica]]></title>
-  <description><![CDATA[
-
-      <div id="outline-container-org2c50751" class="outline-2">
-        <h2 id="descripción"><a id="org2c50751"></a>Descripción</h2>
-        <div class="outline-text-2" id="text-descripción">
-          <p>
-            El sistema está configurado para obtener de forma automática la
-            configuración de red (ip, máscara de red, servidores DNS, puerta de
-            enlace) a travéz del servicio DHCP. Sin embargo, si se quiere
-            configurar un sistema como servidor en una red es muy recomendable,
-            por no decir necesario, que el sistema tenga una dirección ip
-            estática.
-          </p>
-        </div>
-      </div>
-
-      <div id="outline-container-orgf3f8f0b" class="outline-2">
-        <h2 id="configuración"><a id="orgf3f8f0b"></a>Configuración</h2>
-        <div class="outline-text-2" id="text-configuración">
-          <p>
-            Antes de cambiar la configuración, hay que detener la interfaz de
-            red:
-          </p>
-
-          <pre class="example">
-root@devuan:~# ifdown eth0
-</pre
-          >
-
-          <p>
-            En devuan el archivo de configuración de las interfaces de red está
-            en
-            <b>/etc/network/interfaces</b>
-          </p>
-
-          <pre class="example">
-# This file describes the network interfaces available on your system
-# and how to activate them. For more information, see interfaces(5).
-# The loopback network interface
-  auto lo
-  iface lo inet loopback
-# The primary network interface
-# allow-hotplug eth0
-# iface eth0 inet dhcp
-# Static IP address
-  auto eth0
-  iface eth0 inet static
-  address 192.168.1.100
-  netmask 255.255.255.0
-  network 192.168.1.0
-  broadcast 192.168.1.255
-  gateway 192.168.1.1
-</pre
-          >
-
-          <p>
-            Además de la configuración anterior, también hay que indicar cual es
-            la dirección ip del servidor DNS que las aplicaciones utilizarán
-            cuando tengan que traducir un nombre de dominio. En esta
-            configuración casera se puede poner como servidor DNS la ip del
-            router/modem ADSL, porque el router se encargará de reenviar la
-            consulta DNS a otro servidor cuando no la pueda resolver. La
-            configuración del servidor DNS se hace en el archivo
-            <b>/etc/resolv.conf</b>, en el se incluye una linea como la
-            siguiente: nameserver 192.168.1.1
-          </p>
-        </div>
-      </div>
-
-      <div id="outline-container-org6d91c50" class="outline-2">
-        <h2 id="verificación"><a id="org6d91c50"></a>Verificación</h2>
-        <div class="outline-text-2" id="text-verificación">
-          <p>
-            El comando ifconfig muestra información detallada de la
-            configuración de las interfaces de red. Primero hay que activar la
-            interfaz de red recién configurada:
-          </p>
-
-          <pre class="example">
-root@devuan:~# ifup eth0
-</pre
-          >
-
-          <pre class="example">
-root@devuan:~# ifconfig eth0
-eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
-inet 192.168.1.100  netmask 255.255.255.0  broadcast 192.168.1.255
-inet6 fe80::224:8cff:feb5:c5cd  prefixlen 64  scopeid 0x20&lt;link&gt;
-ether 00:24:8c:b5:c5:cd  txqueuelen 1000  (Ethernet)
-RX packets 1156081  bytes 815368327 (777.5 MiB)
-RX errors 0  dropped 0  overruns 0  frame 0
-TX packets 1429829  bytes 470645432 (448.8 MiB)
-TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-</pre
-          >
-
-          <p>
-            Para comprobar que la configuración del archivo
-            <b>/etc/resolv.conf</b> es correcta y se ha aplicado bien, se
-            utiliza el comando ping a un nombre de dominio de internet
-          </p>
-
-          <pre class="example">
-root@devuan:/home/martin# ping www.devuan.org
- PING www.devuan.org (46.105.191.76) 56(84) bytes of data.
- 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=1 ttl=48 time=727 ms
- 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=2 ttl=48 time=328 ms
- 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=3 ttl=48 time=317 ms
- 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=4 ttl=48 time=323 ms
- 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=5 ttl=48 time=310 ms
- 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=6 ttl=48 time=320 ms
- ^C
- --- www.devuan.org ping statistics ---
- 6 packets transmitted, 6 received, 0% packet loss, time 7091ms
- rtt min/avg/max/mdev = 310.061/387.881/727.275/151.891 ms
-</pre
-          >
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
-      </div>
-    ]]></description>
-  <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/2018-03-06-dirección-ip-estatica.html</link>
-  <pubDate>dom, 25 abr 2021 22:06:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Neotree]]></title>
@@ -1647,206 +1419,6 @@ M-x package-install RET Dashboard
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2021-02-10-dashboard.html</link>
   <pubDate>mié, 10 feb 2021 09:09:00 -0300</pubDate>
-</item>
-<item>
-  <title><![CDATA[Planificación y administración de tareas con Cron y Crontab]]></title>
-  <description><![CDATA[
-      <p>
-        En el sistema operativo Unix, cron es un administrador regular de
-        procesos en segundo plano (demonio) que ejecuta procesos o guiones a
-        intervalos regulares (por ejemplo, cada minuto, día, semana o mes). Los
-        procesos que deben ejecutarse y la hora en la que deben hacerlo se
-        especifican en el fichero crontab. Este servicio es muy útil para
-        realizar tareas de mantenimiento como copias de respaldo del sistema,
-        verificación del equipo o estadísticas de uso.
-      </p>
-
-      <div id="outline-container-org5e5b2b2" class="outline-2">
-        <h2 id="crontab-del-usuario">
-          <a id="org5e5b2b2"></a>Crontab del usuario
-        </h2>
-        <div class="outline-text-2" id="text-crontab-del-usuario">
-          <p>
-            Cada usuario puede definir sus propias tareas, éstas se ejecutaran
-            con los privilegios del usuario que las ha definido, el demonio cron
-            primero busca dichas tareas, que se almacenan en
-            <b><i>var/spool/cron/crontabs</i></b>
-            donde cada archivo lleva el nombre del login de cada usuario.
-            Después levanta los crontabs del sistema, los cuales se almacenan en
-            el
-            <b>/etc/crontab</b> y en el directorio <b>/etc/cron.d</b>. Para
-            editar el crontab del usuario se usa el comando
-            <b><i>crontab</i></b>
-          </p>
-        </div>
-
-        <ul class="org-ul">
-          <li>
-            <a id="sintaxis-del-comando"></a><a id="orgb5c6cc3"></a>Sintaxis del
-            comando:<br />
-            <div class="outline-text-5" id="text-sintaxis-del-comando">
-              <pre class="example">
-crontab [opciones][usuario]
-</pre
-              >
-
-              <p>
-                <b>crontab -l</b> lista el contenido de la tabla de tareas.
-                <b>crontab -e</b>
-                edita el contenido de la tabla de tareas.
-              </p>
-
-              <p>
-                Cuando se ejecuta crontab -e por primera vez pregunta que editor
-                de texto que se va usar y guarda ésta información en el archivo
-                <b>~/.selected\<sub>editor</sub></b>
-              </p>
-            </div>
-          </li>
-
-          <li>
-            <a id="formato-de-la-tabla-de-tareas"></a
-            ><a id="org95e5b49"></a>Formato de la tabla de tareas<br />
-            <div class="outline-text-5" id="text-formato-de-la-tabla-de-tareas">
-              <p>
-                .--------------- minuto (0-59) | .------------ hora (0-23) | |
-                .--------- día del mes (1-31) | | | .------ mes (1-12) o
-                jan,feb,mar,apr,may,jun,jul... (meses en inglés) | | | | .---
-                día de la semana (0-6) (domingo=0 ó 7) o
-                sun,mon,tue,wed,thu,fri,sat | | | | | \* \* \* \* \* comando a
-                ejecutar
-              </p>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div id="outline-container-orgbd54bf5" class="outline-2">
-        <h2 id="orgbd54bf5">Comando a ejecutar</h2>
-        <div class="outline-text-2" id="text-orgbd54bf5">
-          <p>
-            Se pueden utilizar asteriscos para especificar todos (ejemplo: todos
-            los días de la semana), guiones para especificar rangos (ejemplo: de
-            miércoles a domingo, <b><i>0-3</i></b
-            >) y comas para momentos exactos(ejemplo: a los 0, 10 y 30 minutos,
-            <b><i>0, 10, 30</i></b
-            >).
-          </p>
-        </div>
-
-        <div id="outline-container-org53722b8" class="outline-4">
-          <h4 id="ejemplos"><a id="org53722b8"></a>Ejemplos</h4>
-          <div class="outline-text-4" id="text-ejemplos">
-            <ul class="org-ul">
-              <li>
-                <p>Una vez por semana</p>
-
-                <pre class="example">
-0 * * * * /usr/local/bin/updatedb.sh  
-</pre
-                >
-
-                <p>
-                  en el minuto 0 de cada hora, ejecutar el script
-                  <b>/usr/local/bin/updatedb.sh</b>, todas las horas, todos los
-                  días del mes, todos los meses y todos los días de la semana.
-                </p>
-              </li>
-
-              <li>
-                <p>Una vez por día</p>
-
-                <pre class="example">
-01 04 * * * /usr/local/bin/updatedb.sh  
-</pre
-                >
-
-                <p>en el minuto 01 de la hora 04 ejecutar &#x2026;</p>
-              </li>
-
-              <li>
-                <p>Una vez por mes</p>
-
-                <pre class="example">
-01 04 01 * * /usr/local/bin/updatedb.sh  
-</pre
-                >
-
-                <p>
-                  en el minuto 01 de la hora 04 el día 01 de cada mes ejecutar
-                  &#x2026;
-                </p>
-              </li>
-
-              <li>
-                <p>una vez por año</p>
-
-                <pre class="example">
-01 04 01 01 * /usr/local/bin/updatedb.sh
-</pre
-                >
-
-                <p>
-                  en el minuto 01 de la hora 04 el día 01 del mes 01 de cada año
-                  ejecutar &#x2026;
-                </p>
-              </li>
-
-              <li>
-                <p>dos veces por semana</p>
-
-                <pre class="example">
-0 0 * * 1,3 /usr/local/bin/updatedb.sh 
-</pre
-                >
-
-                <p>
-                  a las 12 de la noche, todos los lunes y miércoles de todos los
-                  meses, de cada año ejecutar&#x2026;
-                </p>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div id="outline-container-org65dbb80" class="outline-3">
-          <h3 id="crontab-del-sistema">
-            <a id="org65dbb80"></a>Crontab del sistema
-          </h3>
-          <div class="outline-text-3" id="text-crontab-del-sistema">
-            <p>
-              Se utiliza cuando se requiere que una tarea se ejecute con
-              privilegios de root. La definición es igual a la del crontab del
-              usuario solo que debe agregarse el campo usuario. Es posible
-              editar directamente el archivo*/etc/crontab*, aunque es mejor
-              agregar la definición dentro del directorio <b>/etc/cron.d</b> que
-              sirve para almacenar los cronjobs de los diferentes usuarios. Por
-              ejemplo
-            </p>
-
-            <pre class="example">
-0 0 * * 1,3 root /usr/local/bin/updatedb.sh 
-</pre
-            >
-
-            <p>
-              El usuario root también tiene la posibilidad de usar los archivos
-              <b>/etc/cron.hourly</b>, <b>/etc/cron.daily</b>
-              <b>/etc/cron.weekly</b> y <b>/etc/cron.monthly</b>. En estos
-              archivos se pueden ubicar los scripts que serán ejecutados cada
-              hora, cada día, cada semana o cada mes según corresponda.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
-      </div>
-    ]]></description>
-  <category><![CDATA[linux]]></category>
-  <link>https://martiyo.github.io/2018-09-15-Cron.html</link>
-  <pubDate>jue, 21 ene 2021 12:18:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Todo el poder a la shell!]]></title>
@@ -4885,10 +4457,11 @@ exit
 <item>
   <title><![CDATA[Reproducir audio en emacs]]></title>
   <description><![CDATA[
+      <p>Reproducir audio en emacs</p>
 
-      <div id="outline-container-org154293e" class="outline-2">
-        <h2 id="emms"><a id="org154293e"></a>Emms</h2>
-        <div class="outline-text-2" id="text-emms">
+      <div id="outline-container-org923e755" class="outline-2">
+        <h2 id="org923e755">Emms</h2>
+        <div class="outline-text-2" id="text-org923e755">
           <p>
             Emms es el sistema multimedia de Emacs. Intenta ser una aplicación
             limpia y pequeña para reproducir archivos multimedia de Emacs
@@ -4897,9 +4470,9 @@ exit
         </div>
       </div>
 
-      <div id="outline-container-orge860944" class="outline-2">
-        <h2 id="instalación"><a id="orge860944"></a>Instalación</h2>
-        <div class="outline-text-2" id="text-instalación">
+      <div id="outline-container-orgc0eee31" class="outline-2">
+        <h2 id="orgc0eee31">Instalación</h2>
+        <div class="outline-text-2" id="text-orgc0eee31">
           <p>
             Para poder escuchar musica en emacs primero hay que instalar el
             paquete
@@ -4932,14 +4505,9 @@ mv emms-4.0 .emacs.d/lisp
           </p>
         </div>
 
-        <div id="outline-container-org6ee8b3b" class="outline-3">
-          <h3 id="navegar-por-el-sistema-de-archivos">
-            <a id="org6ee8b3b"></a>Navegar por el sistema de archivos
-          </h3>
-          <div
-            class="outline-text-3"
-            id="text-navegar-por-el-sistema-de-archivos"
-          >
+        <div id="outline-container-orgfd6053e" class="outline-3">
+          <h3 id="orgfd6053e">Navegar por el sistema de archivos</h3>
+          <div class="outline-text-3" id="text-orgfd6053e">
             <p>
               El comando <b>M-x emms-play-file</b> permite navegar por el
               sistema de archivos y elegir un archivo de audio para reproducir,
@@ -4961,9 +4529,9 @@ mv emms-4.0 .emacs.d/lisp
           </div>
         </div>
 
-        <div id="outline-container-orgb57979b" class="outline-3">
-          <h3 id="escuchar-radios"><a id="orgb57979b"></a>Escuchar radios</h3>
-          <div class="outline-text-3" id="text-escuchar-radios">
+        <div id="outline-container-orgdad6cd8" class="outline-3">
+          <h3 id="orgdad6cd8">Escuchar radios</h3>
+          <div class="outline-text-3" id="text-orgdad6cd8">
             <p>
               Para escuchar radios, hay que crear un archivo con las URL de las
               radios de y ejecutar <b>M-x emms-play-m3u-playlist</b> y navegar
@@ -6808,6 +6376,201 @@ sudo init 6 (reinicia el equipo)
   <pubDate>mié, 19 sep 2018 12:41:00 -0300</pubDate>
 </item>
 <item>
+  <title><![CDATA[Planificación y administración de tareas con Cron y Crontab]]></title>
+  <description><![CDATA[
+      <p>
+        En el sistema operativo Unix, cron es un administrador regular de
+        procesos en segundo plano (demonio) que ejecuta procesos o guiones a
+        intervalos regulares (por ejemplo, cada minuto, día, semana o mes). Los
+        procesos que deben ejecutarse y la hora en la que deben hacerlo se
+        especifican en el fichero crontab. Este servicio es muy útil para
+        realizar tareas de mantenimiento como copias de respaldo del sistema,
+        verificación del equipo o estadísticas de uso.
+      </p>
+
+      <div id="outline-container-orgb1743f4" class="outline-2">
+        <h2 id="crontab-del-usuario">Crontab del usuario</h2>
+        <div class="outline-text-2" id="text-crontab-del-usuario">
+          <p>
+            Cada usuario puede definir sus propias tareas, éstas se ejecutaran
+            con los privilegios del usuario que las ha definido, el demonio cron
+            primero busca dichas tareas, que se almacenan en
+            <b><i>var/spool/cron/crontabs</i></b>
+            donde cada archivo lleva el nombre del login de cada usuario.
+            Después levanta los crontabs del sistema, los cuales se almacenan en
+            el
+            <b>/etc/crontab</b> y en el directorio <b>/etc/cron.d</b>. Para
+            editar el crontab del usuario se usa el comando
+            <b><i>crontab</i></b>
+          </p>
+        </div>
+
+        <ul class="org-ul">
+          <li>
+            <a id="sintaxis-del-comando"></a>Sintaxis del comando:<br />
+            <div class="outline-text-5" id="text-sintaxis-del-comando">
+              <pre class="example">
+crontab [opciones][usuario]
+</pre
+              >
+
+              <p>
+                <b>crontab -l</b> lista el contenido de la tabla de tareas.
+                <b>crontab -e</b>
+                edita el contenido de la tabla de tareas.
+              </p>
+
+              <p>
+                Cuando se ejecuta crontab -e por primera vez pregunta que editor
+                de texto que se va usar y guarda ésta información en el archivo
+                <b>~/.selected\<sub>editor</sub></b>
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <a id="formato-de-la-tabla-de-tareas"></a>Formato de la tabla de
+            tareas<br />
+            <div class="outline-text-5" id="text-formato-de-la-tabla-de-tareas">
+              <p>
+                .----------&#x2013;&#x2014; minuto (0-59) |
+                .-------&#x2013;&#x2014; hora (0-23) | | .----&#x2013;&#x2014;
+                día del mes (1-31) | | | .-&#x2013;&#x2014; mes (1-12) o
+                jan,feb,mar,apr,may,jun,jul&#x2026; (meses en inglés) | | | |
+                .&#x2014; día de la semana (0-6) (domingo=0 ó 7) o
+                sun,mon,tue,wed,thu,fri,sat | | | | | * *
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div id="outline-container-org0ee77ce" class="outline-2">
+        <h2 id="org0ee77ce">Comando a ejecutar</h2>
+        <div class="outline-text-2" id="text-org0ee77ce">
+          <p>
+            Se pueden utilizar asteriscos para especificar todos (ejemplo: todos
+            los días de la semana), guiones para especificar rangos (ejemplo: de
+            miércoles a domingo, <b><i>0-3</i></b
+            >) y comas para momentos exactos(ejemplo: a los 0, 10 y 30 minutos,
+            <b><i>0, 10, 30</i></b
+            >).
+          </p>
+        </div>
+
+        <div id="outline-container-orge6adb79" class="outline-4">
+          <h4 id="ejemplos">Ejemplos</h4>
+          <div class="outline-text-4" id="text-ejemplos">
+            <ul class="org-ul">
+              <li>
+                <p>Una vez por semana</p>
+
+                <pre class="example">
+0 * * * * /usr/local/bin/updatedb.sh  
+</pre
+                >
+
+                <p>
+                  en el minuto 0 de cada hora, ejecutar el script
+                  <b>/usr/local/bin/updatedb.sh</b>, todas las horas, todos los
+                  días del mes, todos los meses y todos los días de la semana.
+                </p>
+              </li>
+
+              <li>
+                <p>Una vez por día</p>
+
+                <pre class="example">
+01 04 * * * /usr/local/bin/updatedb.sh  
+</pre
+                >
+
+                <p>en el minuto 01 de la hora 04 ejecutar &#x2026;</p>
+              </li>
+
+              <li>
+                <p>Una vez por mes</p>
+
+                <pre class="example">
+01 04 01 * * /usr/local/bin/updatedb.sh  
+</pre
+                >
+
+                <p>
+                  en el minuto 01 de la hora 04 el día 01 de cada mes ejecutar
+                  &#x2026;
+                </p>
+              </li>
+
+              <li>
+                <p>una vez por año</p>
+
+                <pre class="example">
+01 04 01 01 * /usr/local/bin/updatedb.sh
+</pre
+                >
+
+                <p>
+                  en el minuto 01 de la hora 04 el día 01 del mes 01 de cada año
+                  ejecutar &#x2026;
+                </p>
+              </li>
+
+              <li>
+                <p>dos veces por semana</p>
+
+                <pre class="example">
+0 0 * * 1,3 /usr/local/bin/updatedb.sh 
+</pre
+                >
+
+                <p>
+                  a las 12 de la noche, todos los lunes y miércoles de todos los
+                  meses, de cada año ejecutar&#x2026;
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org33de090" class="outline-3">
+          <h3 id="crontab-del-sistema">Crontab del sistema</h3>
+          <div class="outline-text-3" id="text-crontab-del-sistema">
+            <p>
+              Se utiliza cuando se requiere que una tarea se ejecute con
+              privilegios de root. La definición es igual a la del crontab del
+              usuario solo que debe agregarse el campo usuario. Es posible
+              editar directamente el archivo*/etc/crontab*, aunque es mejor
+              agregar la definición dentro del directorio <b>/etc/cron.d</b> que
+              sirve para almacenar los cronjobs de los diferentes usuarios. Por
+              ejemplo
+            </p>
+
+            <pre class="example">
+0 0 * * 1,3 root /usr/local/bin/updatedb.sh 
+</pre
+            >
+
+            <p>
+              El usuario root también tiene la posibilidad de usar los archivos
+              <b>/etc/cron.hourly</b>, <b>/etc/cron.daily</b>
+              <b>/etc/cron.weekly</b> y <b>/etc/cron.monthly</b>. En estos
+              archivos se pueden ubicar los scripts que serán ejecutados cada
+              hora, cada día, cada semana o cada mes según corresponda.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2018-09-15-Cron.html</link>
+  <pubDate>sáb, 15 sep 2018 12:18:00 -0300</pubDate>
+</item>
+<item>
   <title><![CDATA[Introduccion a GNU/Emacs]]></title>
   <description><![CDATA[
 
@@ -7129,6 +6892,235 @@ sudo init 6 (reinicia el equipo)
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2018-07-04-introduccion-a-emacs.html</link>
   <pubDate>mié, 04 jul 2018 14:41:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[El sistema de ficheros /proc]]></title>
+  <description><![CDATA[
+      <p>Process filesystem.</p>
+
+      <div id="outline-container-orgf9f80f2" class="outline-2">
+        <h2 id="orgf9f80f2">Wiki</h2>
+        <div class="outline-text-2" id="text-orgf9f80f2">
+          <p>
+            En los sistemas operativos tipo Unix, procfs es la abreviatura de
+            sistema de ficheros de procesos (process filesystem). Un pseudo
+            sistema de ficheros que se utiliza para permitir el acceso a la
+            información del núcleo sobre los procesos. Dado que proc no es un
+            sistema de ficheros real, no consume ningún espacio de
+            almacenamiento, y sólo consume una limitada cantidad de memoria.
+          </p>
+
+          <p>
+            El sistema de archivos se monta con frecuencia en /proc. Está
+            soportado bajo Solaris, BSD y GNU/Linux, el último de los cuales lo
+            extiende para incluir datos que no son propios de los procesos.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org1f582f6" class="outline-2">
+        <h2 id="org1f582f6">Ejemplos</h2>
+        <div class="outline-text-2" id="text-org1f582f6">
+          <pre class="example">
+$cat /proc/cpuinfo
+</pre
+          >
+
+          <p>
+            Muestra información acerca del procesador: su tipo, marca, modelo,
+            rendimiento, etc.
+          </p>
+
+          <pre class="example">
+$cat /proc/devices
+</pre
+          >
+
+          <p>
+            ̣Lista de controladores de dispositivos configurados dentro del
+            núcleo que está en ejecución.
+          </p>
+
+          <pre class="example">
+$cat /proc/filesystem
+</pre
+          >
+
+          <p>
+            Lista los sistemas de archivos que están soportados por el kernel.
+          </p>
+
+          <pre class="example">
+$cat /proc/meminfo
+</pre
+          >
+
+          <p>
+            Información acerca de la utilización de la memoria física y del
+            archivo de intercambio.
+          </p>
+
+          <pre class="example">
+$cat /proc/uptime
+</pre
+          >
+
+          <p>Indica el tiempo en segundos que el sistema lleva funcionando.</p>
+
+          <p>
+            Existen muchos comandos que solamente leen los archivos anteriores y
+            les dan un formato distinto para que la información sea fácil de
+            entender. Por ejemplo, el comando
+            <a href="file:///2018/02/19/lshw-list-hardware/">"lshw"</a>
+          </p>
+
+          <p>
+            fuente
+            <a
+              href="http://www.tldp.org/pub/Linux/docs/ldp-archived/system-admin-guide/translations/es/html/ch04s07.html"
+              >www.tlpd.org</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2018-06-19-el-sistema-de-ficheros-proc.html</link>
+  <pubDate>mar, 19 jun 2018 23:28:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Dirección ip estatica]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-orga352ebd" class="outline-2">
+        <h2 id="orga352ebd">Descripción</h2>
+        <div class="outline-text-2" id="text-orga352ebd">
+          <p>
+            El sistema está configurado para obtener de forma automática la
+            configuración de red (ip, máscara de red, servidores DNS, puerta de
+            enlace) a travéz del servicio DHCP. Sin embargo, si se quiere
+            configurar un sistema como servidor en una red es muy recomendable,
+            por no decir necesario, que el sistema tenga una dirección ip
+            estática.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org80296a3" class="outline-2">
+        <h2 id="org80296a3">Configuración</h2>
+        <div class="outline-text-2" id="text-org80296a3">
+          <p>
+            Antes de cambiar la configuración, hay que detener la interfaz de
+            red:
+          </p>
+
+          <pre class="example">
+root@devuan:~# ifdown eth0
+</pre
+          >
+
+          <p>
+            En devuan el archivo de configuración de las interfaces de red está
+            en
+            <b>/etc/network/interfaces</b>
+          </p>
+
+          <pre class="example">
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+# The loopback network interface
+  auto lo
+  iface lo inet loopback
+# The primary network interface
+# allow-hotplug eth0
+# iface eth0 inet dhcp
+# Static IP address
+  auto eth0
+  iface eth0 inet static
+  address 192.168.1.100
+  netmask 255.255.255.0
+  network 192.168.1.0
+  broadcast 192.168.1.255
+  gateway 192.168.1.1
+</pre
+          >
+
+          <p>
+            Además de la configuración anterior, también hay que indicar cual es
+            la dirección ip del servidor DNS que las aplicaciones utilizarán
+            cuando tengan que traducir un nombre de dominio. En esta
+            configuración casera se puede poner como servidor DNS la ip del
+            router/modem ADSL, porque el router se encargará de reenviar la
+            consulta DNS a otro servidor cuando no la pueda resolver. La
+            configuración del servidor DNS se hace en el archivo
+            <b>/etc/resolv.conf</b>, en el se incluye una linea como la
+            siguiente: nameserver 192.168.1.1
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org168ac6e" class="outline-2">
+        <h2 id="org168ac6e">Verificación</h2>
+        <div class="outline-text-2" id="text-org168ac6e">
+          <p>
+            El comando ifconfig muestra información detallada de la
+            configuración de las interfaces de red. Primero hay que activar la
+            interfaz de red recién configurada:
+          </p>
+
+          <pre class="example">
+root@devuan:~# ifup eth0
+</pre
+          >
+
+          <pre class="example">
+root@devuan:~# ifconfig eth0
+eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+inet 192.168.1.100  netmask 255.255.255.0  broadcast 192.168.1.255
+inet6 fe80::224:8cff:feb5:c5cd  prefixlen 64  scopeid 0x20&lt;link&gt;
+ether 00:24:8c:b5:c5:cd  txqueuelen 1000  (Ethernet)
+RX packets 1156081  bytes 815368327 (777.5 MiB)
+RX errors 0  dropped 0  overruns 0  frame 0
+TX packets 1429829  bytes 470645432 (448.8 MiB)
+TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</pre
+          >
+
+          <p>
+            Para comprobar que la configuración del archivo
+            <b>/etc/resolv.conf</b> es correcta y se ha aplicado bien, se
+            utiliza el comando ping a un nombre de dominio de internet
+          </p>
+
+          <pre class="example">
+root@devuan:/home/martin# ping www.devuan.org
+ PING www.devuan.org (46.105.191.76) 56(84) bytes of data.
+ 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=1 ttl=48 time=727 ms
+ 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=2 ttl=48 time=328 ms
+ 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=3 ttl=48 time=317 ms
+ 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=4 ttl=48 time=323 ms
+ 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=5 ttl=48 time=310 ms
+ 64 bytes from web.devuan.org (46.105.191.76): icmp_seq=6 ttl=48 time=320 ms
+ ^C
+ --- www.devuan.org ping statistics ---
+ 6 packets transmitted, 6 received, 0% packet loss, time 7091ms
+ rtt min/avg/max/mdev = 310.061/387.881/727.275/151.891 ms
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2018-03-06-direccion-ip-estatica.html</link>
+  <pubDate>mar, 06 mar 2018 22:06:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[El demonio miniDLNA]]></title>
