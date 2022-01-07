@@ -37,10 +37,8 @@ editando dicho archivo
 | C-a d                                | Salir de la sesión                                   |
 | tmux a                               | Retomar la sesión                                    |
 
-*** La wiki de arch tiene un muy buen ejemplo de este archivo
-    :PROPERTIES:
-    :CUSTOM_ID: la-wiki-de-arch-tiene-un-muy-buen-ejemplo-de-este-archivo
-    :END:
+*** La wiki de arch tiene un muy buen ejemplo del archivo de configuración
+   
 
 #+BEGIN_SRC 
     # Mover las ventanas izquierda o derecha en la sesión

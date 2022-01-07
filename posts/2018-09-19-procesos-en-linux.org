@@ -1,0 +1,106 @@
+#+title: Procesos en linux
+#+date: <2018-09-19 14:51>
+#+description: administración de procesos en linux
+#+filetags: linux
+
+Administración de procesos en linux
+
+** Procesos
+
+Un proceso en resumen es un programa en ejecución, que a su vez puede
+crear otros procesos denominados hijos. Dependiendo de la forma en que
+corren estos programas se los clasifica en las siguientes categorías:
+
++ Procesos normales 
++ Procesos Daemons 
++ Procesos Zombies
+
+*** Procesos normales
+ 
+Generalmente son ejecutados en una terminal y corren en el sistema
+operativo a nombre de un usuario.
+
+*** Procesos daemon
+ 
+Los procesos de tipo daemon o servicios se ejecutan a nombre de un
+usuarios y no tienen salida directa por una terminal, corren en segundo
+plano. La mayoría de ellos en vez de usar la terminal para escuchar un
+requerimiento lo hacen a través de un puerto.
+
+*** Procesos zombies
+ 
+Todos los procesos que están en ejecución dependen del primer proceso
+que se lanza después del arranque: el proceso init, padre de todos los
+procesos. Muchas veces los procesos no son únicos sino que dan lugar
+muchos procesos secundarios. Teóricamente el padre de cada uno de ellos
+debería en todo momento vigilar que es lo que hecen los procesos hijos.
+Si por alguna razón el padre falla en el control se pueden llegar a
+producir procesos de tipo zombie que pueden llenar el árbol de procesos.
+
+*** El árbol de procesos
+ 
+En GNU/Linux el árbol de procesos está representado en el directorio
+[[/2018/02/19/El-sistema-de-archivos-proc/][proc]], que es una
+estructura de árbol virtual que genera y monta el kernel durante el
+arranque.
+
+** Comandos útiles para la administración de procesos
+ 
+*** ps
+ 
+El comando ps proporciona información sobre los procesos que se están
+ejecutando en el sistema. Este comando no es interactivo, solo captura y
+muestra los procesos que se están ejecutando en ese momento. Sin
+parámetros el comando ps muestra los procesos que está corriendo el
+usuario actual en una terminal determinada. La salida del comando se
+muestra en forma de tabla donde:
+
+- La primera columna es el PID o identificador de proceso.
+- La segunda columna muestra la terminal en la que se está ejecutando
+  dicho proceso, si muestra un signo de interrogación (?) el proceso no
+  tiene asociada ninguna terminal.
+- La tercera columna muestra el tiempo que ha estado ejecutándose el
+  proceso.
+- La cuarta columna es el nombre del proceso.
+
+***** Parámetros comunes de ps
+    
+*ps a* Con el parámetro *a* se muestran los procesos de todas las
+terminales activas
+
+*ps u* Muestra los procesos que corren en segundo plano, también incluye
+información sobre la cantidad de memoria, cpu, nombre de usuario, tiempo
+de ejecución y un par de cosas más.
+
+*ps x* Este parámetro muestra información de los demonios y procesos sin
+terminal.
+
+*ps f* Permite ver los procesos en forma de árbol, determinando así
+procesos padre y todos los procesos hijos.
+
+*** pstree
+  
+Este comando muestra, en forma de árbol todos los procesos del sistema,
+de ésta forma se pueden ver las relaciones existentes entre los
+procesos.
+
+*** kill
+  
+Para finalizar un proceso se usa el comando *kill* que tiene la
+siguiente sintaxis: kill [parámetro] PID
+
+es posible enviarle señales a los procesos usando los parámetros del
+comando kill, existen en total 62 señales como se ve en la captura:
+[[./images/kill.png]]
+
+las más usadas son 1, 9, 15 que son las de: *recargar*, *matar* y
+*terminar*. Para enviar una señal a un proceso es necesario conocer su
+*PID* (que se consigue usando el comando *ps*). Con *Killall* se puede
+enviarle señales a los procesos sin conocer su *PID* éste comando usa el
+nombre de la aplicación como parámetro.
+
+*** top
+  
+Otra forma de ver los procesos que corren en el sistema es usar el
+comando top, que permite ver los procesos en forma dinámica. En realidad
+este comando tiene un tiempo de actualización de lectura de procesos.

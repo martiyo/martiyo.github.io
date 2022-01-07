@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Gestión de enlaces simbólicos" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Update-alternatives</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">01 dic 2018</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2018-12-01-update-alternatives.html"
+          >Update-alternatives</a
+        >
+      </h1>
+      <p>Gestión de enlaces simbólicos</p>
+
+      <div id="outline-container-orgf4bc9fa" class="outline-2">
+        <h2 id="orgf4bc9fa">El directorio /etc/alternatives</h2>
+        <div class="outline-text-2" id="text-orgf4bc9fa">
+          <p>
+            El directorio <b>/etc/alternatives</b> contiene un conjunto de
+            enlaces simbólicos a los binarios que por defecto utliza el sistema,
+            es una especie de "Aplicaciónes predeterminadas o por defecto". A
+            veces hay diferentes programas que brindan la misma funcionalidad o
+            diferentes versiones de un mismo programa y se necesita usar un
+            programa en especial o una version especifica,
+            <b>update-alternatives</b> es un script escrito en perl que
+            proporciona una manera de asegurar cual sera la aplicación por
+            defecto entre varias instaladas para el mismo proposito.
+          </p>
+        </div>
+
+        <div id="outline-container-org770f6dd" class="outline-3">
+          <h3 id="org770f6dd">Ejemplos</h3>
+          <div class="outline-text-3" id="text-org770f6dd">
+            <p>
+              En <b>Devuan</b> el editor por defecto es nano, para cambiarlo
+              <b>update-alternatives</b> usa el flag <b>&#x2013;config</b>:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+sudo update-alternatives --config editor
+</pre
+              >
+            </div>
+
+            <figure>
+              <img src="./images/up-alter.png" alt="up-alter.png" />
+            </figure>
+
+            <p>Para ver el estado actual:</p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+sudo update-alternatives --display editor
+</pre
+              >
+            </div>
+
+            <figure>
+              <img
+                src="./images/up-alter-display.png"
+                alt="up-alter-display.png"
+              />
+            </figure>
+
+            <p>
+              Como se ve en la imagen el enlace puede estar configurado en modo
+              auto o manual. En auto, el sistema elegirá el programa por defecto
+              para instalar paquetes o actualizaciones. En manual, es el propio
+              administrador del sistema el que tendra que morificar el enlace.
+            </p>
+
+            <p>
+              Hay varios paquetes que proporcionan un editor de texto compatible
+              con vi, por ejemplo vim. El grupo de enlaces vi selecciona cual se
+              usa, incluyendo enlaces para el programa y la página del manual
+              asociada.
+            </p>
+
+            <p>
+              Utilice la opción &#x2013;display para mostrar los paquetes
+              disponibles que proporcionan vi y su configuración actual:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+update-alternatives --display vi
+</pre
+              >
+            </div>
+
+            <p>
+              Para elegir una implementación de vi en particular use la
+              siguiente orden como el usuario «root» y seleccione un número de
+              la lista:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+update-alternatives --config vi
+</pre
+              >
+            </div>
+
+            <p>
+              Para que la implementación de vi se vuelva a elegir de forma
+              automática, haga como administrador:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+update-alternatives --auto vi
+</pre
+              >
+            </div>
+          </div>
+        </div>
+
+        <div id="outline-container-orgac6bdcf" class="outline-3">
+          <h3 id="orgac6bdcf">Update-alternative &#x2013;query</h3>
+          <div class="outline-text-3" id="text-orgac6bdcf">
+            <p>
+              El formato de consulta de update-alternatives &#x2013;query
+              utiliza un formato simple de tipo RFC822. Se compone de n + 1
+              bloques, donde n es el número de alternativas disponibles en el
+              grupo de enlaces consultado. El primer bloque contiene los
+              siguientes campos:
+            </p>
+
+            <ul class="org-ul">
+              <li>
+                <b>Name</b>: nombre El nombre de la alternativa en el directorio
+                de alternativas.
+              </li>
+
+              <li><b>Link</b>: enlace El nombre genérico de la alternativa.</li>
+
+              <li>
+                <b>Slaves</b>: lista de esclavos Cuando este campo está
+                presente, las líneas siguientes contienen todos los enlaces
+                esclavos asociados al enlace maestro de la alternativa. Hay un
+                esclavo por línea. Cada línea contiene un espacio, el nombre
+                genérico de la alternativa esclava, otro espacio, y la ruta al
+                enlace esclavo.
+              </li>
+
+              <li>
+                <b>Status</b>: estado El estado de la alternativa (auto o
+                manual).
+              </li>
+
+              <li>
+                <b>Best</b>: mejor-opción La ruta de la mejor alternativa para
+                este grupo de enlaces. No aparece si no existen alternativas
+                disponibles.
+              </li>
+
+              <li>
+                <b>Value</b>: alternativa-seleccionada-actualmente La ruta de la
+                alternativa seleccionada en ese momento. También puede tomar el
+                valor mágico none (ninguno). Se usa si el enlace no existe. Los
+                siguientes bloques describen las alternativas disponibles en el
+                grupo de enlaces consultado:
+              </li>
+
+              <li>
+                <b>Alternative</b>: ruta-a-esta-alternativa Ruta a la
+                alternativa de este bloque.
+              </li>
+
+              <li>
+                <b>Priority</b>: valor-de-prioridad Valor de la prioridad de
+                esta alternativa.
+              </li>
+
+              <li>
+                <b>Slaves</b>: lista de esclavos When this field is present, the
+                next lines hold all slave alternatives associated to the master
+                link of the alternative. There is one slave per line. Each line
+                contains one space, the generic name of the slave alternative,
+                another space, and the path to the slave alternative.
+              </li>
+            </ul>
+          </div>
+
+          <div id="outline-container-orge45e790" class="outline-4">
+            <h4 id="orge45e790">Ejemplo</h4>
+            <div class="outline-text-4" id="text-orge45e790">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+$ update-alternatives --query editor
+Name: editor
+Link: /usr/bin/editor
+Slaves:
+editor.1.gz /usr/share/man/man1/editor.1.gz
+editor.fr.1.gz /usr/share/man/fr/man1/editor.1.gz
+editor.it.1.gz /usr/share/man/it/man1/editor.1.gz
+editor.pl.1.gz /usr/share/man/pl/man1/editor.1.gz
+editor.ru.1.gz /usr/share/man/ru/man1/editor.1.gz
+Status: auto
+Best: /usr/bin/vim.basic
+Value: /usr/bin/vim.basic
+
+Alternative: /bin/ed
+Priority: -100
+Slaves:
+editor.1.gz /usr/share/man/man1/ed.1.gz
+
+Alternative: /usr/bin/vim.basic
+Priority: 50
+Slaves:
+editor.1.gz /usr/share/man/man1/vim.1.gz
+editor.fr.1.gz /usr/share/man/fr/man1/vim.1.gz
+editor.it.1.gz /usr/share/man/it/man1/vim.1.gz
+editor.pl.1.gz /usr/share/man/pl/man1/vim.1.gz
+editor.ru.1.gz /usr/share/man/ru/man1/vim.1.gz
+</pre
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="administración de procesos en linux" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Procesos en linux</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">19 sep 2018</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2018-09-19-procesos-en-linux.html"
+          >Procesos en linux</a
+        >
+      </h1>
+      <p>Administración de procesos en linux</p>
+
+      <div id="outline-container-orga3f6b34" class="outline-2">
+        <h2 id="orga3f6b34">Procesos</h2>
+        <div class="outline-text-2" id="text-orga3f6b34">
+          <p>
+            Un proceso en resumen es un programa en ejecución, que a su vez
+            puede crear otros procesos denominados hijos. Dependiendo de la
+            forma en que corren estos programas se los clasifica en las
+            siguientes categorías:
+          </p>
+
+          <ul class="org-ul">
+            <li>Procesos normales</li>
+            <li>Procesos Daemons</li>
+            <li>Procesos Zombies</li>
+          </ul>
+        </div>
+
+        <div id="outline-container-orgbf4b53a" class="outline-3">
+          <h3 id="orgbf4b53a">Procesos normales</h3>
+          <div class="outline-text-3" id="text-orgbf4b53a">
+            <p>
+              Generalmente son ejecutados en una terminal y corren en el sistema
+              operativo a nombre de un usuario.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org1779861" class="outline-3">
+          <h3 id="org1779861">Procesos daemon</h3>
+          <div class="outline-text-3" id="text-org1779861">
+            <p>
+              Los procesos de tipo daemon o servicios se ejecutan a nombre de un
+              usuarios y no tienen salida directa por una terminal, corren en
+              segundo plano. La mayoría de ellos en vez de usar la terminal para
+              escuchar un requerimiento lo hacen a través de un puerto.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orga9f73ad" class="outline-3">
+          <h3 id="orga9f73ad">Procesos zombies</h3>
+          <div class="outline-text-3" id="text-orga9f73ad">
+            <p>
+              Todos los procesos que están en ejecución dependen del primer
+              proceso que se lanza después del arranque: el proceso init, padre
+              de todos los procesos. Muchas veces los procesos no son únicos
+              sino que dan lugar muchos procesos secundarios. Teóricamente el
+              padre de cada uno de ellos debería en todo momento vigilar que es
+              lo que hecen los procesos hijos. Si por alguna razón el padre
+              falla en el control se pueden llegar a producir procesos de tipo
+              zombie que pueden llenar el árbol de procesos.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgb70ac20" class="outline-3">
+          <h3 id="orgb70ac20">El árbol de procesos</h3>
+          <div class="outline-text-3" id="text-orgb70ac20">
+            <p>
+              En GNU/Linux el árbol de procesos está representado en el
+              directorio
+              <a href="file:///2018/02/19/El-sistema-de-archivos-proc/">proc</a
+              >, que es una estructura de árbol virtual que genera y monta el
+              kernel durante el arranque.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org9c01458" class="outline-2">
+        <h2 id="org9c01458">
+          Comandos útiles para la administración de procesos
+        </h2>
+        <div class="outline-text-2" id="text-org9c01458"></div>
+        <div id="outline-container-org9369d7d" class="outline-3">
+          <h3 id="org9369d7d">ps</h3>
+          <div class="outline-text-3" id="text-org9369d7d">
+            <p>
+              El comando ps proporciona información sobre los procesos que se
+              están ejecutando en el sistema. Este comando no es interactivo,
+              solo captura y muestra los procesos que se están ejecutando en ese
+              momento. Sin parámetros el comando ps muestra los procesos que
+              está corriendo el usuario actual en una terminal determinada. La
+              salida del comando se muestra en forma de tabla donde:
+            </p>
+
+            <ul class="org-ul">
+              <li>La primera columna es el PID o identificador de proceso.</li>
+              <li>
+                La segunda columna muestra la terminal en la que se está
+                ejecutando dicho proceso, si muestra un signo de interrogación
+                (?) el proceso no tiene asociada ninguna terminal.
+              </li>
+              <li>
+                La tercera columna muestra el tiempo que ha estado ejecutándose
+                el proceso.
+              </li>
+              <li>La cuarta columna es el nombre del proceso.</li>
+            </ul>
+          </div>
+
+          <ul class="org-ul">
+            <li>
+              <a id="orga654a2f"></a>Parámetros comunes de ps<br />
+              <div class="outline-text-5" id="text-orga654a2f">
+                <p>
+                  <b>ps a</b> Con el parámetro <b>a</b> se muestran los procesos
+                  de todas las terminales activas
+                </p>
+
+                <p>
+                  <b>ps u</b> Muestra los procesos que corren en segundo plano,
+                  también incluye información sobre la cantidad de memoria, cpu,
+                  nombre de usuario, tiempo de ejecución y un par de cosas más.
+                </p>
+
+                <p>
+                  <b>ps x</b> Este parámetro muestra información de los demonios
+                  y procesos sin terminal.
+                </p>
+
+                <p>
+                  <b>ps f</b> Permite ver los procesos en forma de árbol,
+                  determinando así procesos padre y todos los procesos hijos.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div id="outline-container-org9809b84" class="outline-3">
+          <h3 id="org9809b84">pstree</h3>
+          <div class="outline-text-3" id="text-org9809b84">
+            <p>
+              Este comando muestra, en forma de árbol todos los procesos del
+              sistema, de ésta forma se pueden ver las relaciones existentes
+              entre los procesos.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgae8f768" class="outline-3">
+          <h3 id="orgae8f768">kill</h3>
+          <div class="outline-text-3" id="text-orgae8f768">
+            <p>
+              Para finalizar un proceso se usa el comando <b>kill</b> que tiene
+              la siguiente sintaxis: kill [parámetro] PID
+            </p>
+
+            <p>
+              es posible enviarle señales a los procesos usando los parámetros
+              del comando kill, existen en total 62 señales como se ve en la
+              captura:
+              <img src="./images/kill.png" alt="kill.png" />
+            </p>
+
+            <p>
+              las más usadas son 1, 9, 15 que son las de: <b>recargar</b>,
+              <b>matar</b> y <b>terminar</b>. Para enviar una señal a un proceso
+              es necesario conocer su <b>PID</b> (que se consigue usando el
+              comando <b>ps</b>). Con <b>Killall</b> se puede enviarle señales a
+              los procesos sin conocer su <b>PID</b> éste comando usa el nombre
+              de la aplicación como parámetro.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgb005182" class="outline-3">
+          <h3 id="orgb005182">top</h3>
+          <div class="outline-text-3" id="text-orgb005182">
+            <p>
+              Otra forma de ver los procesos que corren en el sistema es usar el
+              comando top, que permite ver los procesos en forma dinámica. En
+              realidad este comando tiene un tiempo de actualización de lectura
+              de procesos.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

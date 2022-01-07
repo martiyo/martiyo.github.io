@@ -1,0 +1,90 @@
+#+title: Gestión de permisos en linux
+#+date: <2020-02-24 16:38>
+#+description: Permisos en linux
+#+filetags: linux
+
+Permisos de acceso a archivos y directorios.
+
+** Permisos de acceso a archivos y directorios
+
+La mayoría de los sistemas de archivos modernos permiten asignar
+permisos (o derechos de acceso) a los archivos para determinados
+usuarios y grupos de usuarios. De esta manera, se puede restringir o
+permitir el acceso de un determinado usuario a un archivo para su
+visualización de contenidos, modificación y/o ejecución (en caso de un
+archivo ejecutable).
+
+** Chmod
+
+chmod ("change mode", cambiar modo en idioma inglés) es una llamada al
+sistema y su comando asociado en el sistema operativo UNIX
+(estandarizados en POSIX y otros estándares) que permite cambiar los
+permisos de acceso de un fichero o directorio.
+
+*** Ejemplos
+
+#+BEGIN_SRC sh
+    sudo chmod {a, u, g, o}{+, -}{r, w, x} archivo
+#+END_SRC
+
+- a: todos los usuarios (all)
+- o: otros usuarios
+- u: propietario
+- g: grupo propietario
+- +: añade permiso
+- -: quita permiso
+- r: permiso de lectura
+- w: permiso de escritura
+- x: permiso de ejecución
+
+#+BEGIN_SRC sh
+    sudo chmod u+rwx 
+#+END_SRC
+
+le da todos los permisos al propietario
+
+#+BEGIN_SRC sh
+    sudo chmod ug+rwx 
+#+END_SRC
+
+le da todos los permisos al propietario y al grupo
+
+**** Clases de usuarios
+
+Los permisos de sistemas UNIX se dividen en cuatro clases, conocidas
+como usuario, grupo, otros y todos (con frecuencia abreviado UGOA por
+sus siglas en inglés).
+
+Por lo tanto, las clases de usuarios a los cuales se les puede asignar
+los permisos básicos anteriormente mencionados son:
+
+u -- usuario: dueño del fichero o directorio g -- grupo: grupo al que
+pertenece el fichero o -- otros: todos los demás usuarios que no son el
+dueño ni del grupo a -- todos: incluye al dueño, al grupo y a otros Los
+permisos efectivos aplicados a un determinado usuario en relación a un
+fichero se determinan en un orden lógico de precedencia. Por ejemplo, el
+usuario propietario del fichero tendrá los permisos efectivos dados a la
+clase de usuario, sin importar los asignados a la clase de grupo o a la
+clase de otros.
+
+**** Modo octal
+
+Las posibles combinaciones se resumen en números octales de tres dígitos
+del 000 al 777, cada uno de los cuales permite establecer un tipo de
+permiso distinto a cada clase de usuario
+
+Osea
+
+- 0 = Ningún permiso (Lectura = 0 + Escritura = 0 + Ejecución = 0)
+- 1 = Permiso de Ejecución (Lectura = 0 + Escritura = 0 + Ejecución = 1)
+- 2 = Permiso de Escritura (Lectura = 0 + Escritura = 2 + Ejecución = 0)
+- 3 = Permiso de Escritura y Ejecución (Lectura = 0, Escritura = 2,  Ejecución = 1)
+- 4 = Permiso de Lectura (Lectura = 4 + Escritura = 0 + Ejecución = 0)
+- 5 = Permiso de Lectura y Ejecución (Lectura = 4 + Escritura = 0 +  Ejecución = 1)
+- 6 = Permiso de Lectura y Escritura (Lectura = 4 + Escritura = 2 +  Ejecución = 0)
+- 7 = Permiso de Lectura, Escritura y Ejecución (Lectura = 4 + Escritura = 2 + Ejecución = 1)
+
+Concretamente
+
+- 644: propietario 6 (lectura-escritura), grupo 4 (solo lectura), otros 4 (solo lectura)
+- 751: propietario 7 (lectura-escritura-ejecución), grupo 5 (lectura y ejecución) y otro 1 (sólo ejecución)

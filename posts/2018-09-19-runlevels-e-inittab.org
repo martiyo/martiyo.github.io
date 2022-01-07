@@ -1,0 +1,305 @@
+#+title: Runlevels e inittab
+#+date: <2018-09-19 12:41>
+#+description: Niveles de ejecución en linux
+#+filetags: linux
+
+Niveles de ejecución en linux
+
+** Runlevels
+
+El sistema operativo funciona en base los denominados *runlevel o
+niveles de ejecución*, estos niveles le dan el nombre al sistema de
+arranque, conocido como SystemV (system 5) por que son 5 niveles; en
+realidad son 7 pero dos no son operativos: el nivel de apagado y el
+nivel de reinicio.
+
+Después de ejecutarse el *grub* y descomprimirse el kernel, el sistema
+le pasa el control al proceso *init*, representado por un archivo que
+está ubicado en */etc/inittab* (tabla de inicio). Este archivo le dice
+al sistema operativo como tiene que arrancar.
+
+*** El archivo /etc/inittab
+
+#+BEGIN_SRC sh
+    # /etc/inittab: init(8) configuration.
+    # $Id: inittab,v 1.91 2002/01/25 13:35:21 miquels Exp $
+
+    # The default runlevel.
+    id:2:initdefault:
+
+    # Boot-time system configuration/initialization script.
+    # This is run first except when booting in emergency (-b) mode.
+    si::sysinit:/etc/init.d/rcS
+
+    # What to do in single-user mode.
+    ~~:S:wait:/sbin/sulogin
+
+    # /etc/init.d executes the S and K scripts upon change
+    # of runlevel.
+    #
+    # Runlevel 0 is halt.
+    # Runlevel 1 is single-user.
+    # Runlevels 2-5 are multi-user.
+    # Runlevel 6 is reboot.
+
+    l0:0:wait:/etc/init.d/rc 0
+    l1:1:wait:/etc/init.d/rc 1
+    l2:2:wait:/etc/init.d/rc 2
+    l3:3:wait:/etc/init.d/rc 3
+    l4:4:wait:/etc/init.d/rc 4
+    l5:5:wait:/etc/init.d/rc 5
+    l6:6:wait:/etc/init.d/rc 6
+    # Normally not reached, but fallthrough in case of emergency.
+    z6:6:respawn:/sbin/sulogin
+
+    # What to do when CTRL-ALT-DEL is pressed.
+    ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+
+    # Action on special keypress (ALT-UpArrow).
+    #kb::kbrequest:/bin/echo "Keyboard Request--edit /etc/inittab to let this work."
+
+    # What to do when the power fails/returns.
+    pf::powerwait:/etc/init.d/powerfail start
+    pn::powerfailnow:/etc/init.d/powerfail now
+    po::powerokwait:/etc/init.d/powerfail stop
+
+    # /sbin/getty invocations for the runlevels.
+    #
+    # The "id" field MUST be the same as the last
+    # characters of the device (after "tty").
+    #
+    # Format:
+    #  <id>:<runlevels>:<action>:<process>
+    #
+    # Note that on most Debian systems tty7 is used by the X Window System,
+    # so if you want to add more getty's go ahead but skip tty7 if you run X.
+    #
+    1:2345:respawn:/sbin/getty 38400 tty1
+    2:23:respawn:/sbin/getty 38400 tty2
+    3:23:respawn:/sbin/getty 38400 tty3
+    4:23:respawn:/sbin/getty 38400 tty4
+    5:23:respawn:/sbin/getty 38400 tty5
+    6:23:respawn:/sbin/getty 38400 tty6
+
+    # Example how to put a getty on a serial line (for a terminal)
+    #
+    #T0:23:respawn:/sbin/getty -L ttyS0 9600 vt100
+    #T1:23:respawn:/sbin/getty -L ttyS1 9600 vt100
+
+    # Example how to put a getty on a modem line.
+    #
+    #T3:23:respawn:/sbin/mgetty -x0 -s 57600 ttyS3
+
+    ~ $ cat /etc/inittab
+    # /etc/inittab: init(8) configuration.
+    # $Id: inittab,v 1.91 2002/01/25 13:35:21 miquels Exp $
+
+    # The default runlevel.
+    id:2:initdefault:
+
+    # Boot-time system configuration/initialization script.
+    # This is run first except when booting in emergency (-b) mode.
+    si::sysinit:/etc/init.d/rcS
+
+    # What to do in single-user mode.
+    ~~:S:wait:/sbin/sulogin
+
+    # /etc/init.d executes the S and K scripts upon change
+    # of runlevel.
+    #
+    # Runlevel 0 is halt.
+    # Runlevel 1 is single-user.
+    # Runlevels 2-5 are multi-user.
+    # Runlevel 6 is reboot.
+
+    l0:0:wait:/etc/init.d/rc 0
+    l1:1:wait:/etc/init.d/rc 1
+    l2:2:wait:/etc/init.d/rc 2
+    l3:3:wait:/etc/init.d/rc 3
+    l4:4:wait:/etc/init.d/rc 4
+    l5:5:wait:/etc/init.d/rc 5
+    l6:6:wait:/etc/init.d/rc 6
+    # Normally not reached, but fallthrough in case of emergency.
+    z6:6:respawn:/sbin/sulogin
+
+    # What to do when CTRL-ALT-DEL is pressed.
+    ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+
+    # Action on special keypress (ALT-UpArrow).
+    #kb::kbrequest:/bin/echo "Keyboard Request--edit /etc/inittab to let this work."
+
+    # What to do when the power fails/returns.
+    pf::powerwait:/etc/init.d/powerfail start
+    pn::powerfailnow:/etc/init.d/powerfail now
+    po::powerokwait:/etc/init.d/powerfail stop
+
+    # /sbin/getty invocations for the runlevels.
+    #
+    # The "id" field MUST be the same as the last
+    # characters of the device (after "tty").
+    #
+    # Format:
+    #  <id>:<runlevels>:<action>:<process>
+    #
+    # Note that on most Debian systems tty7 is used by the X Window System,
+    # so if you want to add more getty's go ahead but skip tty7 if you run X.
+    #
+    1:2345:respawn:/sbin/getty 38400 tty1
+    2:23:respawn:/sbin/getty 38400 tty2
+    3:23:respawn:/sbin/getty 38400 tty3
+    4:23:respawn:/sbin/getty 38400 tty4
+    5:23:respawn:/sbin/getty 38400 tty5
+    6:23:respawn:/sbin/getty 38400 tty6
+
+    # Example how to put a getty on a serial line (for a terminal)
+    #
+    #T0:23:respawn:/sbin/getty -L ttyS0 9600 vt100
+    #T1:23:respawn:/sbin/getty -L ttyS1 9600 vt100
+
+    # Example how to put a getty on a modem line.
+    #
+    #T3:23:respawn:/sbin/mgetty -x0 -s 57600 ttyS3
+#+END_SRC
+
+Las primeras lineas del archivo */etc/inittab* son comentarios, luego
+
+#+BEGIN_SRC sh
+    id:2:initdefault:
+#+END_SRC
+
+inidica el nivel de ejecución por defecto.
+
+La linea:
+
+#+BEGIN_SRC sh
+    si::sysinit:/etc/init.d/rcS
+#+END_SRC
+
+le dice al sistema operativo como debe configurar los dispositivos.
+
+Las lineas siguientes (comentadas con #) describen los runlevels
+existentes:
+
+- Runlevel 0 es apagado.
+- Runlevel 1 es mono-usuario sin servicios de red de ningún tipo. Este
+  nivel es exclusivo para el usuario root, se utiliza para tareas de
+  configuración y mantenimiento.
+- Runlevel 2 al 5 niveles multiusuario (devuan en el nivel 2 lanza
+  también el modo gráfico).
+- Runlevel 6 nivel de reinicio.
+
+Después de seleccionar el runlevel, el *SO* lee el archivo
+*/etc/init.d/rcS* que tiene como función, como ya se ha dicho, arrancar
+y buscar las configuraciones particulares de los dispositivos,
+específicamente:
+
+- Determina la configuración de red basándose en
+  [[/Direccion-ip-estatica/][*/etc/network*]].
+- Monta el sistema de archivos
+  [[/El-sistema-de-archivos-proc/][*/proc*]] que GNU/Devuan usa para
+  llevar a cabo el control de procesos.
+- Configura el reloj basándose en el bios y en la zona horaria
+  seleccionada.
+- Arranca la memoria virtual del sistema y la monta en la partición swap
+  definida en */etc/fstab*.
+- Establece en nombre de host de la maquina y evalúa procesos de
+  autenticación de usuarios globales tales como NIS, kerberos y smb.
+- Comprueba los sistemas de archivos del equipo (particiones definidas
+  durante la instalación) busca posibles errores y los monta en caso de
+  no encontrar ninguno.
+- Identifica cualquier rutina especial requerida en el sistema para usar
+  el hardware del equipo, configura los dispositivos plug-and-play,
+  activa sistemas básicos como el sonido.
+- Comprueba el estado de dispositivos especiales de cualquier tipo.
+- Configura dispositivos (mouse, teclado, etc).
+
+Las lineas que siguen en el archivo */etc/inittab*:
+
+#+BEGIN_SRC sh
+    l0:0:wait:/etc/init.d/rc 0
+    l1:1:wait:/etc/init.d/rc 1
+    l2:2:wait:/etc/init.d/rc 2
+    l3:3:wait:/etc/init.d/rc 3
+    l4:4:wait:/etc/init.d/rc 4
+    l5:5:wait:/etc/init.d/rc 5
+    l6:6:wait:/etc/init.d/rc 6
+#+END_SRC
+
+buscan el script llamado rc ubicado en el directorio */etc/init.d* que
+recibe un número como parámetro y lanza los servicios del nivel
+correspondiente.
+
+Cuando el sistema no puede arrancar, pide la contraseña de root para que
+intente solucionar el problema, esto se indica en la linea:
+=bash  z6:6:respawn:/sbin/sulogin=
+
+Para saber que servicios tiene que iniciar en cada runlavel el *SO*
+tiene subdirectorios en */etc/rc[0-6].d* con cada nivel de ejecución,
+cada uno de esos subdirectorios contienen los scripts de arranque de
+servicios del sistema operativo. Por ejemplo el subdirectorio
+*/etc/rc2.d* contiene los enlaces simbólicos que apuntan al directorio
+*/etc/init.d/* que es donde se guardan los script de inicio de todos los
+servicios.
+
+#+BEGIN_SRC sh
+    $ ls -la /etc/rc2.d
+    total 9
+    drwxr-xr-x   2 root           root     4096 2019-01-16 12:09 .
+    drwxr-xr-x 116 root           root     4096 2019-02-08 14:46 ..
+    lrwxrwxrwx   1 root           root       29 2018-08-01  2018 K01apache-htcacheclean -> ../init.d/apache-htcacheclean
+    -rw-r--r--   1 root           root      677 2017-06-07  2017 README
+    lrwxrwxrwx   1 root           root       26 2018-07-17  2018 S01console-setup.sh -> ../init.d/console-setup.sh
+    lrwxrwxrwx   1 root           root       24 2018-07-18  2018 S02binfmt-support -> ../init.d/binfmt-support
+    lrwxrwxrwx   1 root           root       18 2018-07-17  2018 S02bootlogs -> ../init.d/bootlogs
+    lrwxrwxrwx   1 root           root       18 2018-07-17  2018 S02minidlna -> ../init.d/minidlna
+    lrwxrwxrwx   1 root           root       19 2018-07-18  2018 S02minissdpd -> ../init.d/minissdpd
+    lrwxrwxrwx   1 root           root       17 2018-11-08  2018 S02mongodb -> ../init.d/mongodb
+    lrwxrwxrwx   1 root           root       14 2018-07-17  2018 S02motd -> ../init.d/motd
+    lrwxrwxrwx   1 root           root       17 2018-07-17  2018 S02rsyslog -> ../init.d/rsyslog
+    lrwxrwxrwx   1 root           root       18 2019-01-16 12:09 S02sickrage -> ../init.d/sickrage
+    lrwxrwxrwx   1 root           root       29 2018-07-22  2018 S02transmission-daemon -> ../init.d/transmission-daemon
+    lrwxrwxrwx   1 root           root       17 2018-08-01  2018 S03apache2 -> ../init.d/apache2
+    lrwxrwxrwx   1 root           root       17 2018-08-01  2018 S04anacron -> ../init.d/anacron
+    lrwxrwxrwx   1 root           root       14 2018-08-01  2018 S04cron -> ../init.d/cron
+    lrwxrwxrwx   1 root           root       14 2018-08-01  2018 S04dbus -> ../init.d/dbus
+    lrwxrwxrwx   1 root           root       20 2018-08-01  2018 S04irqbalance -> ../init.d/irqbalance
+    lrwxrwxrwx   1 root           root       15 2018-08-01  2018 S04mysql -> ../init.d/mysql
+    lrwxrwxrwx   1 root           root       22 2018-12-26  2018 S04redis-server -> ../init.d/redis-server
+    lrwxrwxrwx   1 root           root       15 2018-08-01  2018 S04rsync -> ../init.d/rsync
+    lrwxrwxrwx   1 root           root       13 2018-08-01  2018 S04ssh -> ../init.d/ssh
+    lrwxrwxrwx   1 root           root       17 2018-08-12  2018 S04vboxdrv -> ../init.d/vboxdrv
+    lrwxrwxrwx   1 root           root       17 2018-08-01  2018 S05elogind -> ../init.d/elogind
+    lrwxrwxrwx   1 root           root       14 2018-08-01  2018 S05slim -> ../init.d/slim
+    lrwxrwxrwx   1 root           root       31 2018-08-12  2018 S05vboxautostart-service -> ../init.d/vboxautostart-service
+    lrwxrwxrwx   1 root           root       33 2018-08-12  2018 S05vboxballoonctrl-service -> ../init.d/vboxballoonctrl-service
+    lrwxrwxrwx   1 root           root       25 2018-08-12  2018 S05vboxweb-service -> ../init.d/vboxweb-service
+    lrwxrwxrwx   1 root           root       18 2018-08-01  2018 S06rc.local -> ../init.d/rc.local
+    lrwxrwxrwx   1 root           root       19 2018-08-01  2018 S06rmnologin -> ../init.d/rmnologin
+#+END_SRC
+
+los links comienzan con una S (start) son los que inician y los que
+empiezan con una K (kill) no, después tienen un numero de dos cifras que
+indica el orden en el arrancan.
+
+El archivo de configuración continua con:
+
+#+BEGIN_SRC sh
+    ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+#+END_SRC
+
+esto significa que cuando se presionen simultáneamente las teclas ** el
+sistema operativo se va a reiniciar automáticamente. Para deshabilitar
+esta función solo vasta con comentar la linea anteponiendo un *#* al
+comienzo.
+
+*** Cambiando niveles de ejecución
+    
+Para cambiar el nivel de ejecución su usa el comando init seguido del
+número de runlevel al que se va a cambiar:
+
+#+BEGIN_SRC sh
+    sudo init 0 (apaga el equipo)
+    sudo init 1 (cambia al nivel de ejecución mono-usuario)
+    sudo init 2 (cambia al nivel de ejecución multi-usuario)
+    sudo init 6 (reinicia el equipo)
+#+END_SRC

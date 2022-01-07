@@ -1,0 +1,141 @@
+#+title: Update-alternatives
+#+date: <2018-12-01 16:27>
+#+description: Gestión de enlaces simbólicos
+#+filetags: linux
+
+Gestión de enlaces simbólicos
+
+** El directorio /etc/alternatives
+  
+El directorio */etc/alternatives* contiene un conjunto de enlaces
+simbólicos a los binarios que por defecto utliza el sistema, es una
+especie de "Aplicaciónes predeterminadas o por defecto". A veces hay
+diferentes programas que brindan la misma funcionalidad o diferentes
+versiones de un mismo programa y se necesita usar un programa en
+especial o una version especifica, *update-alternatives* es un script
+escrito en perl que proporciona una manera de asegurar cual sera la
+aplicación por defecto entre varias instaladas para el mismo proposito.
+
+*** Ejemplos
+  
+En *Devuan* el editor por defecto es nano, para cambiarlo
+*update-alternatives* usa el flag *--config*:
+
+#+BEGIN_SRC sh
+    sudo update-alternatives --config editor
+#+END_SRC
+
+
+[[./images/up-alter.png]]
+
+Para ver el estado actual:
+
+#+BEGIN_SRC sh
+    sudo update-alternatives --display editor
+#+END_SRC
+
+
+[[./images/up-alter-display.png]]
+
+Como se ve en la imagen el enlace puede estar configurado en modo auto o
+manual. En auto, el sistema elegirá el programa por defecto para
+instalar paquetes o actualizaciones. En manual, es el propio
+administrador del sistema el que tendra que morificar el enlace.
+
+Hay varios paquetes que proporcionan un editor de texto compatible con
+vi, por ejemplo vim. El grupo de enlaces vi selecciona cual se usa,
+incluyendo enlaces para el programa y la página del manual asociada.
+
+Utilice la opción --display para mostrar los paquetes disponibles que
+proporcionan vi y su configuración actual:
+
+#+BEGIN_SRC sh
+        update-alternatives --display vi
+#+END_SRC
+
+Para elegir una implementación de vi en particular use la siguiente
+orden como el usuario «root» y seleccione un número de la lista:
+
+#+BEGIN_SRC sh
+        update-alternatives --config vi
+#+END_SRC
+
+Para que la implementación de vi se vuelva a elegir de forma automática,
+haga como administrador:
+
+#+BEGIN_SRC sh
+        update-alternatives --auto vi
+#+END_SRC
+
+*** Update-alternative --query
+  
+El formato de consulta de update-alternatives --query utiliza un formato
+simple de tipo RFC822. Se compone de n + 1 bloques, donde n es el número
+de alternativas disponibles en el grupo de enlaces consultado. El primer
+bloque contiene los siguientes campos:
+
+- *Name*: nombre El nombre de la alternativa en el directorio de
+  alternativas.
+
+- *Link*: enlace El nombre genérico de la alternativa.
+
+- *Slaves*: lista de esclavos Cuando este campo está presente, las
+  líneas siguientes contienen todos los enlaces esclavos asociados al
+  enlace maestro de la alternativa. Hay un esclavo por línea. Cada línea
+  contiene un espacio, el nombre genérico de la alternativa esclava,
+  otro espacio, y la ruta al enlace esclavo.
+
+- *Status*: estado El estado de la alternativa (auto o manual).
+
+- *Best*: mejor-opción La ruta de la mejor alternativa para este grupo
+  de enlaces. No aparece si no existen alternativas disponibles.
+
+- *Value*: alternativa-seleccionada-actualmente La ruta de la
+  alternativa seleccionada en ese momento. También puede tomar el valor
+  mágico none (ninguno). Se usa si el enlace no existe. Los siguientes
+  bloques describen las alternativas disponibles en el grupo de enlaces
+  consultado:
+
+- *Alternative*: ruta-a-esta-alternativa Ruta a la alternativa de este
+  bloque.
+
+- *Priority*: valor-de-prioridad Valor de la prioridad de esta
+  alternativa.
+
+- *Slaves*: lista de esclavos When this field is present, the next lines
+  hold all slave alternatives associated to the master link of the
+  alternative. There is one slave per line. Each line contains one
+  space, the generic name of the slave alternative, another space, and
+  the path to the slave alternative.
+
+**** Ejemplo
+  
+
+#+BEGIN_SRC sh
+$ update-alternatives --query editor
+Name: editor
+Link: /usr/bin/editor
+Slaves:
+editor.1.gz /usr/share/man/man1/editor.1.gz
+editor.fr.1.gz /usr/share/man/fr/man1/editor.1.gz
+editor.it.1.gz /usr/share/man/it/man1/editor.1.gz
+editor.pl.1.gz /usr/share/man/pl/man1/editor.1.gz
+editor.ru.1.gz /usr/share/man/ru/man1/editor.1.gz
+Status: auto
+Best: /usr/bin/vim.basic
+Value: /usr/bin/vim.basic
+
+Alternative: /bin/ed
+Priority: -100
+Slaves:
+editor.1.gz /usr/share/man/man1/ed.1.gz
+
+Alternative: /usr/bin/vim.basic
+Priority: 50
+Slaves:
+editor.1.gz /usr/share/man/man1/vim.1.gz
+editor.fr.1.gz /usr/share/man/fr/man1/vim.1.gz
+editor.it.1.gz /usr/share/man/it/man1/vim.1.gz
+editor.pl.1.gz /usr/share/man/pl/man1/vim.1.gz
+editor.ru.1.gz /usr/share/man/ru/man1/vim.1.gz
+#+END_SRC

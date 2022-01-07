@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Niveles de ejecución en linux" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Runlevels e inittab</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">19 sep 2018</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2018-09-19-runlevels-e-inittab.html"
+          >Runlevels e inittab</a
+        >
+      </h1>
+      <p>Niveles de ejecución en linux</p>
+
+      <div id="outline-container-org61b7fdd" class="outline-2">
+        <h2 id="org61b7fdd">Runlevels</h2>
+        <div class="outline-text-2" id="text-org61b7fdd">
+          <p>
+            El sistema operativo funciona en base los denominados
+            <b>runlevel o niveles de ejecución</b>, estos niveles le dan el
+            nombre al sistema de arranque, conocido como SystemV (system 5) por
+            que son 5 niveles; en realidad son 7 pero dos no son operativos: el
+            nivel de apagado y el nivel de reinicio.
+          </p>
+
+          <p>
+            Después de ejecutarse el <b>grub</b> y descomprimirse el kernel, el
+            sistema le pasa el control al proceso <b>init</b>, representado por
+            un archivo que está ubicado en <b>/etc/inittab</b> (tabla de
+            inicio). Este archivo le dice al sistema operativo como tiene que
+            arrancar.
+          </p>
+        </div>
+
+        <div id="outline-container-orge872feb" class="outline-3">
+          <h3 id="orge872feb">El archivo /etc/inittab</h3>
+          <div class="outline-text-3" id="text-orge872feb">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+# /etc/inittab: init(8) configuration.
+# $Id: inittab,v 1.91 2002/01/25 13:35:21 miquels Exp $
+
+# The default runlevel.
+id:2:initdefault:
+
+# Boot-time system configuration/initialization script.
+# This is run first except when booting in emergency (-b) mode.
+si::sysinit:/etc/init.d/rcS
+
+# What to do in single-user mode.
+~~:S:wait:/sbin/sulogin
+
+# /etc/init.d executes the S and K scripts upon change
+# of runlevel.
+#
+# Runlevel 0 is halt.
+# Runlevel 1 is single-user.
+# Runlevels 2-5 are multi-user.
+# Runlevel 6 is reboot.
+
+l0:0:wait:/etc/init.d/rc 0
+l1:1:wait:/etc/init.d/rc 1
+l2:2:wait:/etc/init.d/rc 2
+l3:3:wait:/etc/init.d/rc 3
+l4:4:wait:/etc/init.d/rc 4
+l5:5:wait:/etc/init.d/rc 5
+l6:6:wait:/etc/init.d/rc 6
+# Normally not reached, but fallthrough in case of emergency.
+z6:6:respawn:/sbin/sulogin
+
+# What to do when CTRL-ALT-DEL is pressed.
+ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+
+# Action on special keypress (ALT-UpArrow).
+#kb::kbrequest:/bin/echo "Keyboard Request--edit /etc/inittab to let this work."
+
+# What to do when the power fails/returns.
+pf::powerwait:/etc/init.d/powerfail start
+pn::powerfailnow:/etc/init.d/powerfail now
+po::powerokwait:/etc/init.d/powerfail stop
+
+# /sbin/getty invocations for the runlevels.
+#
+# The "id" field MUST be the same as the last
+# characters of the device (after "tty").
+#
+# Format:
+#  &lt;id&gt;:&lt;runlevels&gt;:&lt;action&gt;:&lt;process&gt;
+#
+# Note that on most Debian systems tty7 is used by the X Window System,
+# so if you want to add more getty's go ahead but skip tty7 if you run X.
+#
+1:2345:respawn:/sbin/getty 38400 tty1
+2:23:respawn:/sbin/getty 38400 tty2
+3:23:respawn:/sbin/getty 38400 tty3
+4:23:respawn:/sbin/getty 38400 tty4
+5:23:respawn:/sbin/getty 38400 tty5
+6:23:respawn:/sbin/getty 38400 tty6
+
+# Example how to put a getty on a serial line (for a terminal)
+#
+#T0:23:respawn:/sbin/getty -L ttyS0 9600 vt100
+#T1:23:respawn:/sbin/getty -L ttyS1 9600 vt100
+
+# Example how to put a getty on a modem line.
+#
+#T3:23:respawn:/sbin/mgetty -x0 -s 57600 ttyS3
+
+~ $ cat /etc/inittab
+# /etc/inittab: init(8) configuration.
+# $Id: inittab,v 1.91 2002/01/25 13:35:21 miquels Exp $
+
+# The default runlevel.
+id:2:initdefault:
+
+# Boot-time system configuration/initialization script.
+# This is run first except when booting in emergency (-b) mode.
+si::sysinit:/etc/init.d/rcS
+
+# What to do in single-user mode.
+~~:S:wait:/sbin/sulogin
+
+# /etc/init.d executes the S and K scripts upon change
+# of runlevel.
+#
+# Runlevel 0 is halt.
+# Runlevel 1 is single-user.
+# Runlevels 2-5 are multi-user.
+# Runlevel 6 is reboot.
+
+l0:0:wait:/etc/init.d/rc 0
+l1:1:wait:/etc/init.d/rc 1
+l2:2:wait:/etc/init.d/rc 2
+l3:3:wait:/etc/init.d/rc 3
+l4:4:wait:/etc/init.d/rc 4
+l5:5:wait:/etc/init.d/rc 5
+l6:6:wait:/etc/init.d/rc 6
+# Normally not reached, but fallthrough in case of emergency.
+z6:6:respawn:/sbin/sulogin
+
+# What to do when CTRL-ALT-DEL is pressed.
+ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+
+# Action on special keypress (ALT-UpArrow).
+#kb::kbrequest:/bin/echo "Keyboard Request--edit /etc/inittab to let this work."
+
+# What to do when the power fails/returns.
+pf::powerwait:/etc/init.d/powerfail start
+pn::powerfailnow:/etc/init.d/powerfail now
+po::powerokwait:/etc/init.d/powerfail stop
+
+# /sbin/getty invocations for the runlevels.
+#
+# The "id" field MUST be the same as the last
+# characters of the device (after "tty").
+#
+# Format:
+#  &lt;id&gt;:&lt;runlevels&gt;:&lt;action&gt;:&lt;process&gt;
+#
+# Note that on most Debian systems tty7 is used by the X Window System,
+# so if you want to add more getty's go ahead but skip tty7 if you run X.
+#
+1:2345:respawn:/sbin/getty 38400 tty1
+2:23:respawn:/sbin/getty 38400 tty2
+3:23:respawn:/sbin/getty 38400 tty3
+4:23:respawn:/sbin/getty 38400 tty4
+5:23:respawn:/sbin/getty 38400 tty5
+6:23:respawn:/sbin/getty 38400 tty6
+
+# Example how to put a getty on a serial line (for a terminal)
+#
+#T0:23:respawn:/sbin/getty -L ttyS0 9600 vt100
+#T1:23:respawn:/sbin/getty -L ttyS1 9600 vt100
+
+# Example how to put a getty on a modem line.
+#
+#T3:23:respawn:/sbin/mgetty -x0 -s 57600 ttyS3
+</pre
+              >
+            </div>
+
+            <p>
+              Las primeras lineas del archivo <b>/etc/inittab</b> son
+              comentarios, luego
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+id:2:initdefault:
+</pre
+              >
+            </div>
+
+            <p>inidica el nivel de ejecución por defecto.</p>
+
+            <p>La linea:</p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+si::sysinit:/etc/init.d/rcS
+</pre
+              >
+            </div>
+
+            <p>
+              le dice al sistema operativo como debe configurar los
+              dispositivos.
+            </p>
+
+            <p>
+              Las lineas siguientes (comentadas con #) describen los runlevels
+              existentes:
+            </p>
+
+            <ul class="org-ul">
+              <li>Runlevel 0 es apagado.</li>
+              <li>
+                Runlevel 1 es mono-usuario sin servicios de red de ningún tipo.
+                Este nivel es exclusivo para el usuario root, se utiliza para
+                tareas de configuración y mantenimiento.
+              </li>
+              <li>
+                Runlevel 2 al 5 niveles multiusuario (devuan en el nivel 2 lanza
+                también el modo gráfico).
+              </li>
+              <li>Runlevel 6 nivel de reinicio.</li>
+            </ul>
+
+            <p>
+              Después de seleccionar el runlevel, el <b>SO</b> lee el archivo
+              <b>/etc/init.d/rcS</b> que tiene como función, como ya se ha
+              dicho, arrancar y buscar las configuraciones particulares de los
+              dispositivos, específicamente:
+            </p>
+
+            <ul class="org-ul">
+              <li>
+                Determina la configuración de red basándose en
+                <a href="file:///Direccion-ip-estatica/"><b>/etc/network</b></a
+                >.
+              </li>
+              <li>
+                Monta el sistema de archivos
+                <a href="file:///El-sistema-de-archivos-proc/"><b>/proc</b></a>
+                que GNU/Devuan usa para llevar a cabo el control de procesos.
+              </li>
+              <li>
+                Configura el reloj basándose en el bios y en la zona horaria
+                seleccionada.
+              </li>
+              <li>
+                Arranca la memoria virtual del sistema y la monta en la
+                partición swap definida en <b>/etc/fstab</b>.
+              </li>
+              <li>
+                Establece en nombre de host de la maquina y evalúa procesos de
+                autenticación de usuarios globales tales como NIS, kerberos y
+                smb.
+              </li>
+              <li>
+                Comprueba los sistemas de archivos del equipo (particiones
+                definidas durante la instalación) busca posibles errores y los
+                monta en caso de no encontrar ninguno.
+              </li>
+              <li>
+                Identifica cualquier rutina especial requerida en el sistema
+                para usar el hardware del equipo, configura los dispositivos
+                plug-and-play, activa sistemas básicos como el sonido.
+              </li>
+              <li>
+                Comprueba el estado de dispositivos especiales de cualquier
+                tipo.
+              </li>
+              <li>Configura dispositivos (mouse, teclado, etc).</li>
+            </ul>
+
+            <p>Las lineas que siguen en el archivo <b>/etc/inittab</b>:</p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+l0:0:wait:/etc/init.d/rc 0
+l1:1:wait:/etc/init.d/rc 1
+l2:2:wait:/etc/init.d/rc 2
+l3:3:wait:/etc/init.d/rc 3
+l4:4:wait:/etc/init.d/rc 4
+l5:5:wait:/etc/init.d/rc 5
+l6:6:wait:/etc/init.d/rc 6
+</pre
+              >
+            </div>
+
+            <p>
+              buscan el script llamado rc ubicado en el directorio
+              <b>/etc/init.d</b> que recibe un número como parámetro y lanza los
+              servicios del nivel correspondiente.
+            </p>
+
+            <p>
+              Cuando el sistema no puede arrancar, pide la contraseña de root
+              para que intente solucionar el problema, esto se indica en la
+              linea:
+              <code>bash z6:6:respawn:/sbin/sulogin</code>
+            </p>
+
+            <p>
+              Para saber que servicios tiene que iniciar en cada runlavel el
+              <b>SO</b> tiene subdirectorios en <b>/etc/rc[0-6].d</b> con cada
+              nivel de ejecución, cada uno de esos subdirectorios contienen los
+              scripts de arranque de servicios del sistema operativo. Por
+              ejemplo el subdirectorio <b>/etc/rc2.d</b> contiene los enlaces
+              simbólicos que apuntan al directorio <b><i>etc/init.d</i></b> que
+              es donde se guardan los script de inicio de todos los servicios.
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+$ ls -la /etc/rc2.d
+total 9
+drwxr-xr-x   2 root           root     4096 2019-01-16 12:09 .
+drwxr-xr-x 116 root           root     4096 2019-02-08 14:46 ..
+lrwxrwxrwx   1 root           root       29 2018-08-01  2018 K01apache-htcacheclean -&gt; ../init.d/apache-htcacheclean
+-rw-r--r--   1 root           root      677 2017-06-07  2017 README
+lrwxrwxrwx   1 root           root       26 2018-07-17  2018 S01console-setup.sh -&gt; ../init.d/console-setup.sh
+lrwxrwxrwx   1 root           root       24 2018-07-18  2018 S02binfmt-support -&gt; ../init.d/binfmt-support
+lrwxrwxrwx   1 root           root       18 2018-07-17  2018 S02bootlogs -&gt; ../init.d/bootlogs
+lrwxrwxrwx   1 root           root       18 2018-07-17  2018 S02minidlna -&gt; ../init.d/minidlna
+lrwxrwxrwx   1 root           root       19 2018-07-18  2018 S02minissdpd -&gt; ../init.d/minissdpd
+lrwxrwxrwx   1 root           root       17 2018-11-08  2018 S02mongodb -&gt; ../init.d/mongodb
+lrwxrwxrwx   1 root           root       14 2018-07-17  2018 S02motd -&gt; ../init.d/motd
+lrwxrwxrwx   1 root           root       17 2018-07-17  2018 S02rsyslog -&gt; ../init.d/rsyslog
+lrwxrwxrwx   1 root           root       18 2019-01-16 12:09 S02sickrage -&gt; ../init.d/sickrage
+lrwxrwxrwx   1 root           root       29 2018-07-22  2018 S02transmission-daemon -&gt; ../init.d/transmission-daemon
+lrwxrwxrwx   1 root           root       17 2018-08-01  2018 S03apache2 -&gt; ../init.d/apache2
+lrwxrwxrwx   1 root           root       17 2018-08-01  2018 S04anacron -&gt; ../init.d/anacron
+lrwxrwxrwx   1 root           root       14 2018-08-01  2018 S04cron -&gt; ../init.d/cron
+lrwxrwxrwx   1 root           root       14 2018-08-01  2018 S04dbus -&gt; ../init.d/dbus
+lrwxrwxrwx   1 root           root       20 2018-08-01  2018 S04irqbalance -&gt; ../init.d/irqbalance
+lrwxrwxrwx   1 root           root       15 2018-08-01  2018 S04mysql -&gt; ../init.d/mysql
+lrwxrwxrwx   1 root           root       22 2018-12-26  2018 S04redis-server -&gt; ../init.d/redis-server
+lrwxrwxrwx   1 root           root       15 2018-08-01  2018 S04rsync -&gt; ../init.d/rsync
+lrwxrwxrwx   1 root           root       13 2018-08-01  2018 S04ssh -&gt; ../init.d/ssh
+lrwxrwxrwx   1 root           root       17 2018-08-12  2018 S04vboxdrv -&gt; ../init.d/vboxdrv
+lrwxrwxrwx   1 root           root       17 2018-08-01  2018 S05elogind -&gt; ../init.d/elogind
+lrwxrwxrwx   1 root           root       14 2018-08-01  2018 S05slim -&gt; ../init.d/slim
+lrwxrwxrwx   1 root           root       31 2018-08-12  2018 S05vboxautostart-service -&gt; ../init.d/vboxautostart-service
+lrwxrwxrwx   1 root           root       33 2018-08-12  2018 S05vboxballoonctrl-service -&gt; ../init.d/vboxballoonctrl-service
+lrwxrwxrwx   1 root           root       25 2018-08-12  2018 S05vboxweb-service -&gt; ../init.d/vboxweb-service
+lrwxrwxrwx   1 root           root       18 2018-08-01  2018 S06rc.local -&gt; ../init.d/rc.local
+lrwxrwxrwx   1 root           root       19 2018-08-01  2018 S06rmnologin -&gt; ../init.d/rmnologin
+</pre
+              >
+            </div>
+
+            <p>
+              los links comienzan con una S (start) son los que inician y los
+              que empiezan con una K (kill) no, después tienen un numero de dos
+              cifras que indica el orden en el arrancan.
+            </p>
+
+            <p>El archivo de configuración continua con:</p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+ca:12345:ctrlaltdel:/sbin/shutdown -t1 -a -r now
+</pre
+              >
+            </div>
+
+            <p>
+              esto significa que cuando se presionen simultáneamente las teclas
+              ** el sistema operativo se va a reiniciar automáticamente. Para
+              deshabilitar esta función solo vasta con comentar la linea
+              anteponiendo un <b>#</b> al comienzo.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgcce8a15" class="outline-3">
+          <h3 id="orgcce8a15">Cambiando niveles de ejecución</h3>
+          <div class="outline-text-3" id="text-orgcce8a15">
+            <p>
+              Para cambiar el nivel de ejecución su usa el comando init seguido
+              del número de runlevel al que se va a cambiar:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+sudo init 0 (apaga el equipo)
+sudo init 1 (cambia al nivel de ejecución mono-usuario)
+sudo init 2 (cambia al nivel de ejecución multi-usuario)
+sudo init 6 (reinicia el equipo)
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>
