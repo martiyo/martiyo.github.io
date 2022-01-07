@@ -3,7 +3,7 @@
 #+description: 
 #+filetags: linux
 
-Almacenar archivos y directorios en un solo directorio. 
+Empaquetar archivos y directorios. 
 
 ** Descripción
 

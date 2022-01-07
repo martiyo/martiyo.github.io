@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Linux, comandos, trucos y cosas utiles</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">10 feb 2019</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/2019-02-10-linux,-comandos,-trucos-y-cosas-utiles.html"
+          >Linux, comandos, trucos y cosas utiles</a
+        >
+      </h1>
+      <p>Un rejunte de cosas útiles que voy encontrando por ahí&#x2026;</p>
+
+      <div id="outline-container-org08c9755" class="outline-2">
+        <h2 id="org08c9755">Eliminar kernels viejos</h2>
+        <div class="outline-text-2" id="text-org08c9755">
+          <ul class="org-ul">
+            <li>
+              Verificar que kernel se está usando, con esto se cual es el que
+              debo dejar instalado.
+            </li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$ uname -r
+</pre
+            >
+          </div>
+
+          <p>
+            Este comando devuelve el kernel que estoy utilizando, en mi caso
+            2.6.26-2-686.
+          </p>
+
+          <ul class="org-ul">
+            <li>
+              Buscar los kernels que estan instalados, para indentificar los que
+              ya no sirven:
+            </li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+# dpkg --get-selections | grep linux-image
+</pre
+            >
+          </div>
+
+          <p>
+            Esto devolverá una lista que contiene todos los kernels disponibles
+            en el sistema. Ejemplo:
+          </p>
+
+          <p>
+            linux-image-2.6-686 install linux-image-2.6.26-1-686 install
+            linux-image-2.6.26-2-686 install elections | grep linux-image
+          </p>
+
+          <ul class="org-ul">
+            <li>
+              Borrar los kernels sobrantes, teniendo cuidado de no eliminar el
+              que se esta usando
+            </li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+#apt-get remove -purge linux-image-2.6.26-1-686
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org0fa1a05" class="outline-3">
+          <h3 id="org0fa1a05">Otra forma de hacer todo lo anterior es:</h3>
+          <div class="outline-text-3" id="text-org0fa1a05">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+# aptitude search linux-image | grep ^i
+</pre
+              >
+            </div>
+
+            <p>
+              Que da el mismo resultado, pero un poco mas detallado:
+              linux-image-2.6-686 - imagen de Linux 2.6 para PPro/Celeron/PII/ i
+              A linux-image-2.6.26-1-686 - Linux 2.6.26 image on
+              PPro/Celeron/PII/PII i A linux-image-2.6.26-2-686 - Linux 2.6.26
+              image on PPro/Celeron/PII/PII
+            </p>
+
+            <p>
+              Para eliminar además los headers del kernel viejo, buscar con:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+aptitude search 2.6.26 | grep ^i
+</pre
+              >
+            </div>
+
+            <p>
+              esto da otra lista con los headers instalados, seleccionar el que
+              se va a eliminar:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+aptitude purge linux-headers-2.6.26-1
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org1131ac9" class="outline-2">
+        <h2 id="org1131ac9">Uuid</h2>
+        <div class="outline-text-2" id="text-org1131ac9">
+          <div class="org-src-container">
+            <pre class="src src-sh">
+### uuid
+$ls -l /dev/disk/by-uuid
+#blkid
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org256b420" class="outline-2">
+        <h2 id="org256b420">Liberar memoria ram</h2>
+        <div class="outline-text-2" id="text-org256b420">
+          <p>RAM que se está empleando en tiempo real:</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$watch -n 1 free -m
+</pre
+            >
+          </div>
+
+          <p>eliminar la memoria que no se usa:</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$sysctl -w vm.drop_caches=3
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org16831e8" class="outline-2">
+        <h2 id="org16831e8">Fecha de instalcion del sistema</h2>
+        <div class="outline-text-2" id="text-org16831e8">
+          <p>(Creacion del sistema de archivos raiz)</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$ls -lct /etc | tail -1 | awk '{print $6, $7, $8}'
+jun 3 2016
+</pre
+            >
+          </div>
+
+          <p>otra forma:</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$sudo tune2fs -l /dev/sda1 | grep "created"
+Filesystem created:       Fri Jun  3 23:25:38 2016
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgceb9513" class="outline-2">
+        <h2 id="orgceb9513">Como evitar que algunos paquetes se actualicen</h2>
+        <div class="outline-text-2" id="text-orgceb9513">
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$echo "paquete hold" | sudo dpkg --set-selections
+</pre
+            >
+          </div>
+
+          <p>
+            ver cuales son los paquetes que estan marcados para no actualizarse
+            así:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$ sudo dpkg --get-selections
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgce7af57" class="outline-2">
+        <h2 id="orgce7af57">capturar pantalla</h2>
+        <div class="outline-text-2" id="text-orgce7af57">
+          <p>
+            Una forma fácil de tomar una captura de pantalla del sistema actual
+            es usar el comando de import :
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$ import -window root screenshot.jpg
+</pre
+            >
+          </div>
+
+          <p>import es parte del paquete imagemagick .</p>
+
+          <blockquote>
+            <p>
+              La ejecución de import sin la opción -window permite seleccionar
+              una ventana o una región arbitraria de forma interactiva.
+            </p>
+          </blockquote>
+        </div>
+      </div>
+
+      <div id="outline-container-orgba00dca" class="outline-2">
+        <h2 id="orgba00dca">Configurar xterm</h2>
+        <div class="outline-text-2" id="text-orgba00dca">
+          <p>Editar el archivo .Xresources y recargar</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+xrdb -merge .Xresources
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org0edf90b" class="outline-2">
+        <h2 id="org0edf90b">Youtube-dl</h2>
+        <div class="outline-text-2" id="text-org0edf90b">
+          <p>
+            Actualmente Youtube-dl permite descargar videos y audio de más de
+            800 sitios web.
+          </p>
+
+          <p>Formatos disponibles para descargar:</p>
+
+          <p>youtube-dl -F URL</p>
+
+          <p>Selecionar un formato de la lista de formatos disponibles:</p>
+
+          <p>youtube-dl -f 22 URL</p>
+
+          <p>Extraer el audio de un video en un archivo con formato mp3:</p>
+
+          <p>youtube-dl &#x2013;extract-audio &#x2013;audio-format mp3 URL</p>
+
+          <p>
+            Extraer el audio de un video en un archivo con formato mp3
+            definiendo la calidad del audio:
+          </p>
+
+          <p>
+            youtube-dl &#x2013;extract-audio &#x2013;audio-format mp3
+            &#x2013;audio-quality 128K URL
+          </p>
+
+          <p>Ver ideos en streaming atravez de mplayer:</p>
+
+          <p>mplayer $(youtube-dl -g -f 22 URL)</p>
+
+          <p>
+            Para descargar una gran cantidad de videos se crea un archivo con
+            las URLs de los videos y luego se le pasa como parametro el archivo
+            anteponiendo el flag -a:
+          </p>
+
+          <p>youtube-dl -a archivo.txt</p>
+
+          <p>
+            Fuente
+            <a href="https://geekland.eu/descargar-videos-internet-youtube-dl/"
+              >https://geekland.eu/descargar-videos-internet-youtube-dl/</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org57292a4" class="outline-2">
+        <h2 id="org57292a4">E2fsprogs</h2>
+        <div class="outline-text-2" id="text-org57292a4">
+          <p>
+            El paquete e2fsprogs (también llamado programas e2fs) es un conjunto
+            de utilidades para mantenimiento de los sistemas de ficheros ext2,
+            ext3 y ext4. Debido a que estos son generalmente los sistemas de
+            archivos por defecto en las distribuciones Linux, comúnmente se
+            considera al paquete e2fsprogs software esencial.
+          </p>
+
+          <p>e2fsprogs incluye:</p>
+
+          <ul class="org-ul">
+            <li>
+              e2fsck, un programa fsck que busca y corrige inconsistencias;
+            </li>
+            <li>
+              mke2fs, usado para crear sistemas de archivos ext2, ext3, y ext4;
+            </li>
+            <li>
+              resize2fs, que puede expandir y contraer sistemas de archivos
+              ext2, ext3, y ext4;
+            </li>
+            <li>
+              tune2fs, usado para modificar los parámetros en el sistema de
+              archivos;
+            </li>
+            <li>
+              dumpe2fs, que muestra la información de bloques y superbloques;
+            </li>
+            <li>
+              debugfs, usado para visualizar o modificar estructuras internas
+              del sistema de archivos manualmente.
+            </li>
+          </ul>
+        </div>
+
+        <div id="outline-container-org4f0dd12" class="outline-3">
+          <h3 id="org4f0dd12">Tune2fs</h3>
+          <div class="outline-text-3" id="text-org4f0dd12">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+# tune2fs -c 80 /dev/sda1 (cada 80 reinicios)
+# tune2fs -i 2m /dev/sda1 (cada 2 meses)
+# tune2fs -i 2w /dev/hda3 (cada 2 semanas)
+# tune2fs -i 2d /dev/sda1 (cada 2 días)
+</pre
+              >
+            </div>
+
+            <p>para corregir el error <b>cloud be norrower &#x2026;</b></p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+sudo e2fsck -fy /dev/sda1
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org101ff96" class="outline-2">
+        <h2 id="org101ff96">Nano</h2>
+        <div class="outline-text-2" id="text-org101ff96">
+          <p>
+            <b>Seleccionar:</b>
+          </p>
+
+          <pre class="example">
+Alt + a
+</pre
+          >
+
+          <p>
+            <b>Copiar:</b>
+          </p>
+
+          <pre class="example">
+Alt + 6
+</pre
+          >
+
+          <p>
+            <b>Pegar:</b>
+          </p>
+
+          <pre class="example">
+Ctrl + u
+</pre
+          >
+
+          <p>Archivo de configuración:</p>
+
+          <pre class="example">
+**/etc/nanorc**
+</pre
+          >
+
+          <p>Resaltar sistaxis</p>
+        </div>
+        <div id="outline-container-orgdab2f3c" class="outline-3">
+          <h3 id="orgdab2f3c">HTML</h3>
+          <div class="outline-text-3" id="text-orgdab2f3c">
+            <p>include "/usr/share/nano/html.nanorc"</p>
+          </div>
+        </div>
+
+        <div id="outline-container-org4188044" class="outline-3">
+          <h3 id="org4188044">Manpages</h3>
+          <div class="outline-text-3" id="text-org4188044">
+            <p>include "/usr/share/nano/man.nanorc"</p>
+          </div>
+        </div>
+
+        <div id="outline-container-org9520c40" class="outline-3">
+          <h3 id="org9520c40">Python</h3>
+          <div class="outline-text-3" id="text-org9520c40">
+            <p>include "/usr/share/nano/python.nanorc"</p>
+          </div>
+        </div>
+
+        <div id="outline-container-org9145645" class="outline-3">
+          <h3 id="org9145645">Bourne shell scripts</h3>
+          <div class="outline-text-3" id="text-org9145645">
+            <p>include "/usr/share/nano/sh.nanorc"</p>
+          </div>
+        </div>
+
+        <div id="outline-container-org89fde2a" class="outline-3">
+          <h3 id="org89fde2a">Javascript</h3>
+          <div class="outline-text-3" id="text-org89fde2a">
+            <p>include "/usr/share/nano/javascript.nanorc"</p>
+          </div>
+        </div>
+
+        <div id="outline-container-org96fa427" class="outline-3">
+          <h3 id="org96fa427">Json</h3>
+          <div class="outline-text-3" id="text-org96fa427">
+            <p>include "/usr/share/nano/json.nanorc"</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org91babf0" class="outline-2">
+        <h2 id="org91babf0">Sudo</h2>
+        <div class="outline-text-2" id="text-org91babf0">
+          <p>
+            Para dar permisos de root a un usuario, en el archivo
+            <b>/etc/sudoers</b>
+            agregar:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+nombre_usuario ALL=(ALL) 
+</pre
+            >
+          </div>
+
+          <p>para que no pida contraseña:</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+nombre_usuario ALL=(ALL) NOPASSWD: ALL
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org5ce6758" class="outline-2">
+        <h2 id="org5ce6758">Limpiar cache</h2>
+        <div class="outline-text-2" id="text-org5ce6758">
+          <div class="org-src-container">
+            <pre class="src src-sh">
+sudo su
+sync &amp;&amp; echo 3 &gt; /proc/sys/vm/drop_caches
+exit
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">Linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

@@ -4,7 +4,7 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>jue, 06 ene 2022 23:37:47 -0300</lastBuildDate>
+<lastBuildDate>vie, 07 ene 2022 12:02:47 -0300</lastBuildDate>
 <item>
   <title><![CDATA[El sistema de ficheros /proc]]></title>
   <description><![CDATA[
@@ -107,11 +107,11 @@ $cat /proc/uptime
 <item>
   <title><![CDATA[El empaquetador tar]]></title>
   <description><![CDATA[
-      <p>Almacenar archivos y directorios en un solo directorio.</p>
+      <p>Empaquetar archivos y directorios.</p>
 
-      <div id="outline-container-org06a9c37" class="outline-2">
-        <h2 id="org06a9c37">Descripción</h2>
-        <div class="outline-text-2" id="text-org06a9c37">
+      <div id="outline-container-orgcc60ce0" class="outline-2">
+        <h2 id="orgcc60ce0">Descripción</h2>
+        <div class="outline-text-2" id="text-orgcc60ce0">
           <p>
             El programa tar, es usado para almacenar archivos y directorios en
             un solo archivo, no para comprimirlos. Dentro de los entornos Unix
@@ -126,9 +126,9 @@ $cat /proc/uptime
         </div>
       </div>
 
-      <div id="outline-container-org8d33530" class="outline-2">
-        <h2 id="org8d33530">Opciones más usadas</h2>
-        <div class="outline-text-2" id="text-org8d33530">
+      <div id="outline-container-orgc1c4540" class="outline-2">
+        <h2 id="orgc1c4540">Opciones más usadas</h2>
+        <div class="outline-text-2" id="text-orgc1c4540">
           <ul class="org-ul">
             <li>
               <b>-c</b> Crea un archivo tar que contiene los elementos
@@ -161,13 +161,13 @@ $cat /proc/uptime
         </div>
       </div>
 
-      <div id="outline-container-org6e1675a" class="outline-2">
-        <h2 id="org6e1675a">Ejemplos</h2>
-        <div class="outline-text-2" id="text-org6e1675a"></div>
+      <div id="outline-container-orgbc68acb" class="outline-2">
+        <h2 id="orgbc68acb">Ejemplos</h2>
+        <div class="outline-text-2" id="text-orgbc68acb"></div>
         <ul class="org-ul">
           <li>
-            <a id="org4f4c1b1"></a>Crear archivo tar sin comprimir<br />
-            <div class="outline-text-5" id="text-org4f4c1b1">
+            <a id="org6c88008"></a>Crear archivo tar sin comprimir<br />
+            <div class="outline-text-5" id="text-org6c88008">
               <pre class="example">
 $ tar -cvf /path/to/foo.tar /path/to/foo/
 </pre
@@ -183,9 +183,9 @@ $ tar -cvf /path/to/foo.tar /path/to/foo/
           </li>
 
           <li>
-            <a id="org35bee68"></a>Todos los archivos que comienzan con una
+            <a id="org726c341"></a>Todos los archivos que comienzan con una
             letra<br />
-            <div class="outline-text-5" id="text-org35bee68">
+            <div class="outline-text-5" id="text-org726c341">
               <pre class="example">
 # tar -cvf fullbackup.tar i*
 install.log
@@ -196,8 +196,8 @@ install.log.syslog
           </li>
 
           <li>
-            <a id="org798b416"></a>Agregar un archivo al tar existente<br />
-            <div class="outline-text-5" id="text-org798b416">
+            <a id="org46c8724"></a>Agregar un archivo al tar existente<br />
+            <div class="outline-text-5" id="text-org46c8724">
               <pre class="example">
 # tar --append --file=backup.tar anaconda-ks.cfg
 </pre
@@ -206,8 +206,8 @@ install.log.syslog
           </li>
 
           <li>
-            <a id="org247b6d8"></a>Extraer archivos de un tar<br />
-            <div class="outline-text-5" id="text-org247b6d8">
+            <a id="orgc622b26"></a>Extraer archivos de un tar<br />
+            <div class="outline-text-5" id="text-orgc622b26">
               <pre class="example">
 $ tar -xvf /path/to/foo.tar
 </pre
@@ -216,9 +216,9 @@ $ tar -xvf /path/to/foo.tar
           </li>
 
           <li>
-            <a id="orgcd33696"></a>Extraer archivos de un tar en un directorio
+            <a id="org05468e8"></a>Extraer archivos de un tar en un directorio
             especifico<br />
-            <div class="outline-text-5" id="text-orgcd33696">
+            <div class="outline-text-5" id="text-org05468e8">
               <pre class="example">
 $ tar -xvf /path/to/foo.tar -C /path/to/destination/
 </pre
@@ -227,8 +227,8 @@ $ tar -xvf /path/to/foo.tar -C /path/to/destination/
           </li>
 
           <li>
-            <a id="orgfaf847b"></a>Extraer un archivo del archivo tar<br />
-            <div class="outline-text-5" id="text-orgfaf847b">
+            <a id="org25121eb"></a>Extraer un archivo del archivo tar<br />
+            <div class="outline-text-5" id="text-org25121eb">
               <pre class="example">
 $ tar --extract -vv --occurrence --file=./backup.tar anaconda-ks.cfg
 </pre
@@ -237,8 +237,8 @@ $ tar --extract -vv --occurrence --file=./backup.tar anaconda-ks.cfg
           </li>
 
           <li>
-            <a id="org2ee4a4a"></a>Listar el contenido de tar<br />
-            <div class="outline-text-5" id="text-org2ee4a4a">
+            <a id="org086fb89"></a>Listar el contenido de tar<br />
+            <div class="outline-text-5" id="text-org086fb89">
               <pre class="example">
 $ tar -ztvf /path/to/foo.tgz
 </pre
@@ -247,9 +247,9 @@ $ tar -ztvf /path/to/foo.tgz
           </li>
 
           <li>
-            <a id="org848ee7d"></a>Crear, extraer y listar un archivo .gz con
+            <a id="org3780161"></a>Crear, extraer y listar un archivo .gz con
             tar<br />
-            <div class="outline-text-5" id="text-org848ee7d">
+            <div class="outline-text-5" id="text-org3780161">
               <p>Crear</p>
 
               <pre class="example">
@@ -274,8 +274,8 @@ $ tar -ztvf /path/to/foo.tgz /path/to/foo/
           </li>
 
           <li>
-            <a id="orgb01b6da"></a>Crear, extraer y listar un archivo .bz2<br />
-            <div class="outline-text-5" id="text-orgb01b6da">
+            <a id="org310d385"></a>Crear, extraer y listar un archivo .bz2<br />
+            <div class="outline-text-5" id="text-org310d385">
               <p>Crear</p>
 
               <pre class="example">
@@ -459,9 +459,9 @@ PasswordAutentication no
   <description><![CDATA[
       <p>La gestión de contraseñas debe ser simple y seguir Filosofía Unix.</p>
 
-      <div id="outline-container-orgb262528" class="outline-2">
-        <h2 id="orgb262528">Introducción</h2>
-        <div class="outline-text-2" id="text-orgb262528">
+      <div id="outline-container-org08c100d" class="outline-2">
+        <h2 id="org08c100d">Introducción</h2>
+        <div class="outline-text-2" id="text-org08c100d">
           <p>
             Con pass, cada contraseña vive dentro de un archivo gpg cifrado cuyo
             nombre de archivo es el título del sitio web, correo o recurso que
@@ -483,14 +483,14 @@ PasswordAutentication no
         </div>
       </div>
 
-      <div id="outline-container-org9fa72ca" class="outline-2">
-        <h2 id="org9fa72ca">Usando el Password-store</h2>
-        <div class="outline-text-2" id="text-org9fa72ca"></div>
-        <div id="outline-container-orgb4e339e" class="outline-3">
-          <h3 id="orgb4e339e">
+      <div id="outline-container-orgfc5d9c9" class="outline-2">
+        <h2 id="orgfc5d9c9">Usando el Password-store</h2>
+        <div class="outline-text-2" id="text-orgfc5d9c9"></div>
+        <div id="outline-container-org91e55c8" class="outline-3">
+          <h3 id="org91e55c8">
             Enumerar las contraseñas existentes en el store
           </h3>
-          <div class="outline-text-3" id="text-orgb4e339e">
+          <div class="outline-text-3" id="text-org91e55c8">
             <pre class="example">
 dev1@devuan ~ $ pass 
 Password Store
@@ -502,9 +502,9 @@ Password Store
           </div>
         </div>
 
-        <div id="outline-container-org1d7ac5f" class="outline-3">
-          <h3 id="org1d7ac5f">Mostrar contraseñas</h3>
-          <div class="outline-text-3" id="text-org1d7ac5f">
+        <div id="outline-container-orgb4db78c" class="outline-3">
+          <h3 id="orgb4db78c">Mostrar contraseñas</h3>
+          <div class="outline-text-3" id="text-orgb4db78c">
             <pre class="example">
 dev1@devuan ~ $ pass casaresrm@gmail.com 
 contraseñasegura
@@ -513,9 +513,9 @@ contraseñasegura
           </div>
         </div>
 
-        <div id="outline-container-orgac522c0" class="outline-3">
-          <h3 id="orgac522c0">Copiar al portapapeles</h3>
-          <div class="outline-text-3" id="text-orgac522c0">
+        <div id="outline-container-org9ffb360" class="outline-3">
+          <h3 id="org9ffb360">Copiar al portapapeles</h3>
+          <div class="outline-text-3" id="text-org9ffb360">
             <pre class="example">
 dev1@devuan ~ $ pass -c casaresrm@gmail.com 
 Copied correo/casaresrm@gmail.com to clipboard. Will clear in 45 seconds.
@@ -530,9 +530,9 @@ Copied correo/casaresrm@gmail.com to clipboard. Will clear in 45 seconds.
             </p>
           </div>
         </div>
-        <div id="outline-container-org721c822" class="outline-3">
-          <h3 id="org721c822">Añadir o modificar contraseñas</h3>
-          <div class="outline-text-3" id="text-org721c822">
+        <div id="outline-container-org742e5cb" class="outline-3">
+          <h3 id="org742e5cb">Añadir o modificar contraseñas</h3>
+          <div class="outline-text-3" id="text-org742e5cb">
             <p>
               Añadir #+BEGIN [dev1@devuan ~]$ pass insert martiyo@protonmail.com
               Enter password for martiyo@protonmail.com: Retype password for
@@ -554,9 +554,9 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
             </p>
           </div>
         </div>
-        <div id="outline-container-org7d873e1" class="outline-3">
-          <h3 id="org7d873e1">Contraseñas automaticas</h3>
-          <div class="outline-text-3" id="text-org7d873e1">
+        <div id="outline-container-org17c8d44" class="outline-3">
+          <h3 id="org17c8d44">Contraseñas automaticas</h3>
+          <div class="outline-text-3" id="text-org17c8d44">
             <p>
               La utilidad <b>generate</b> crea nuevas contraseñas utilzando
               <b>/dev/urandom</b>
@@ -577,9 +577,9 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
             </p>
           </div>
         </div>
-        <div id="outline-container-org7e75895" class="outline-3">
-          <h3 id="org7e75895">Eliminar</h3>
-          <div class="outline-text-3" id="text-org7e75895">
+        <div id="outline-container-orgc5aa252" class="outline-3">
+          <h3 id="orgc5aa252">Eliminar</h3>
+          <div class="outline-text-3" id="text-orgc5aa252">
             <pre class="example">
 [dev1@devuan ~]$  pass rm correo/probando@gmail.com 
   Are you sure you would like to delete correo/probando@gmail.com? [y/N] y
@@ -588,9 +588,9 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
             >
           </div>
         </div>
-        <div id="outline-container-orgb1d4ee6" class="outline-3">
-          <h3 id="orgb1d4ee6">Git</h3>
-          <div class="outline-text-3" id="text-orgb1d4ee6">
+        <div id="outline-container-org934e6c0" class="outline-3">
+          <h3 id="org934e6c0">Git</h3>
+          <div class="outline-text-3" id="text-org934e6c0">
             <p>
               Si la tienda de contraseñas es un repositorio de git, ya que cada
               manipulación crea un git commit, puede sincronizar la tienda de
@@ -601,9 +601,9 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
           </div>
         </div>
       </div>
-      <div id="outline-container-org6742e84" class="outline-2">
-        <h2 id="org6742e84">Configuración</h2>
-        <div class="outline-text-2" id="text-org6742e84">
+      <div id="outline-container-org37174ab" class="outline-2">
+        <h2 id="org37174ab">Configuración</h2>
+        <div class="outline-text-2" id="text-org37174ab">
           <p>Para comenzar hay inicializar el dposito de contraseñas</p>
 
           <pre class="example">
@@ -612,9 +612,9 @@ pass init "id de mi clave GPG"
           >
         </div>
 
-        <div id="outline-container-org0424a0b" class="outline-3">
-          <h3 id="org0424a0b">Generando las claves con GnuPG</h3>
-          <div class="outline-text-3" id="text-org0424a0b">
+        <div id="outline-container-orgc38d751" class="outline-3">
+          <h3 id="orgc38d751">Generando las claves con GnuPG</h3>
+          <div class="outline-text-3" id="text-orgc38d751">
             <p>Para crear una pareja de claves (publica y privada) se usa</p>
 
             <pre class="example">
@@ -651,9 +651,9 @@ export GPG_TTY=$(tty)
           </div>
         </div>
 
-        <div id="outline-container-orgf172b77" class="outline-3">
-          <h3 id="orgf172b77">Inicializar el store como un repositorio git</h3>
-          <div class="outline-text-3" id="text-orgf172b77">
+        <div id="outline-container-orge6d332f" class="outline-3">
+          <h3 id="orge6d332f">Inicializar el store como un repositorio git</h3>
+          <div class="outline-text-3" id="text-orge6d332f">
             <pre class="example">
 $ pass git init
 Initialized empty Git repository in /home/dev1/.password-store/.git/
@@ -667,9 +667,9 @@ Initialized empty Git repository in /home/dev1/.password-store/.git/
           </div>
         </div>
       </div>
-      <div id="outline-container-orgfe1f83a" class="outline-2">
-        <h2 id="orgfe1f83a">Organización</h2>
-        <div class="outline-text-2" id="text-orgfe1f83a">
+      <div id="outline-container-org10404d4" class="outline-2">
+        <h2 id="org10404d4">Organización</h2>
+        <div class="outline-text-2" id="text-org10404d4">
           <p>
             nombres de usuario, contraseñas, pins, sitios web, metadatos, etc.
           </p>
@@ -705,9 +705,9 @@ Phone Support PIN #: 84719
           </p>
         </div>
       </div>
-      <div id="outline-container-orgf60e253" class="outline-2">
-        <h2 id="orgf60e253">Emacs Pass-mode</h2>
-        <div class="outline-text-2" id="text-orgf60e253">
+      <div id="outline-container-orgec0e6ab" class="outline-2">
+        <h2 id="orgec0e6ab">Emacs Pass-mode</h2>
+        <div class="outline-text-2" id="text-orgec0e6ab">
           <p>
             Y no podia faltar el pass-modo para emacs, se instala con
             <b>package-install</b> y listo, la interfaz es muy intuitiva.
@@ -716,11 +716,9 @@ Phone Support PIN #: 84719
       </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-consola,.html">consola,</a>
         <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     ]]></description>
-  <category><![CDATA[consola,]]></category>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2021-10-24-pass.html</link>
   <pubDate>dom, 24 oct 2021 16:48:00 -0300</pubDate>
@@ -4234,6 +4232,487 @@ git branch -d iss53
   <category><![CDATA[git]]></category>
   <link>https://martiyo.github.io/2019-06-30-git-ramificar-y-fusionar.html</link>
   <pubDate>dom, 30 jun 2019 18:10:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Linux, comandos, trucos y cosas utiles]]></title>
+  <description><![CDATA[
+      <p>Un rejunte de cosas útiles que voy encontrando por ahí&#x2026;</p>
+
+      <div id="outline-container-org08c9755" class="outline-2">
+        <h2 id="org08c9755">Eliminar kernels viejos</h2>
+        <div class="outline-text-2" id="text-org08c9755">
+          <ul class="org-ul">
+            <li>
+              Verificar que kernel se está usando, con esto se cual es el que
+              debo dejar instalado.
+            </li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$ uname -r
+</pre
+            >
+          </div>
+
+          <p>
+            Este comando devuelve el kernel que estoy utilizando, en mi caso
+            2.6.26-2-686.
+          </p>
+
+          <ul class="org-ul">
+            <li>
+              Buscar los kernels que estan instalados, para indentificar los que
+              ya no sirven:
+            </li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+# dpkg --get-selections | grep linux-image
+</pre
+            >
+          </div>
+
+          <p>
+            Esto devolverá una lista que contiene todos los kernels disponibles
+            en el sistema. Ejemplo:
+          </p>
+
+          <p>
+            linux-image-2.6-686 install linux-image-2.6.26-1-686 install
+            linux-image-2.6.26-2-686 install elections | grep linux-image
+          </p>
+
+          <ul class="org-ul">
+            <li>
+              Borrar los kernels sobrantes, teniendo cuidado de no eliminar el
+              que se esta usando
+            </li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+#apt-get remove -purge linux-image-2.6.26-1-686
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org0fa1a05" class="outline-3">
+          <h3 id="org0fa1a05">Otra forma de hacer todo lo anterior es:</h3>
+          <div class="outline-text-3" id="text-org0fa1a05">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+# aptitude search linux-image | grep ^i
+</pre
+              >
+            </div>
+
+            <p>
+              Que da el mismo resultado, pero un poco mas detallado:
+              linux-image-2.6-686 - imagen de Linux 2.6 para PPro/Celeron/PII/ i
+              A linux-image-2.6.26-1-686 - Linux 2.6.26 image on
+              PPro/Celeron/PII/PII i A linux-image-2.6.26-2-686 - Linux 2.6.26
+              image on PPro/Celeron/PII/PII
+            </p>
+
+            <p>
+              Para eliminar además los headers del kernel viejo, buscar con:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+aptitude search 2.6.26 | grep ^i
+</pre
+              >
+            </div>
+
+            <p>
+              esto da otra lista con los headers instalados, seleccionar el que
+              se va a eliminar:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+aptitude purge linux-headers-2.6.26-1
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org1131ac9" class="outline-2">
+        <h2 id="org1131ac9">Uuid</h2>
+        <div class="outline-text-2" id="text-org1131ac9">
+          <div class="org-src-container">
+            <pre class="src src-sh">
+### uuid
+$ls -l /dev/disk/by-uuid
+#blkid
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org256b420" class="outline-2">
+        <h2 id="org256b420">Liberar memoria ram</h2>
+        <div class="outline-text-2" id="text-org256b420">
+          <p>RAM que se está empleando en tiempo real:</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$watch -n 1 free -m
+</pre
+            >
+          </div>
+
+          <p>eliminar la memoria que no se usa:</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$sysctl -w vm.drop_caches=3
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org16831e8" class="outline-2">
+        <h2 id="org16831e8">Fecha de instalcion del sistema</h2>
+        <div class="outline-text-2" id="text-org16831e8">
+          <p>(Creacion del sistema de archivos raiz)</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$ls -lct /etc | tail -1 | awk '{print $6, $7, $8}'
+jun 3 2016
+</pre
+            >
+          </div>
+
+          <p>otra forma:</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$sudo tune2fs -l /dev/sda1 | grep "created"
+Filesystem created:       Fri Jun  3 23:25:38 2016
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgceb9513" class="outline-2">
+        <h2 id="orgceb9513">Como evitar que algunos paquetes se actualicen</h2>
+        <div class="outline-text-2" id="text-orgceb9513">
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$echo "paquete hold" | sudo dpkg --set-selections
+</pre
+            >
+          </div>
+
+          <p>
+            ver cuales son los paquetes que estan marcados para no actualizarse
+            así:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$ sudo dpkg --get-selections
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgce7af57" class="outline-2">
+        <h2 id="orgce7af57">capturar pantalla</h2>
+        <div class="outline-text-2" id="text-orgce7af57">
+          <p>
+            Una forma fácil de tomar una captura de pantalla del sistema actual
+            es usar el comando de import :
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+$ import -window root screenshot.jpg
+</pre
+            >
+          </div>
+
+          <p>import es parte del paquete imagemagick .</p>
+
+          <blockquote>
+            <p>
+              La ejecución de import sin la opción -window permite seleccionar
+              una ventana o una región arbitraria de forma interactiva.
+            </p>
+          </blockquote>
+        </div>
+      </div>
+
+      <div id="outline-container-orgba00dca" class="outline-2">
+        <h2 id="orgba00dca">Configurar xterm</h2>
+        <div class="outline-text-2" id="text-orgba00dca">
+          <p>Editar el archivo .Xresources y recargar</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+xrdb -merge .Xresources
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org0edf90b" class="outline-2">
+        <h2 id="org0edf90b">Youtube-dl</h2>
+        <div class="outline-text-2" id="text-org0edf90b">
+          <p>
+            Actualmente Youtube-dl permite descargar videos y audio de más de
+            800 sitios web.
+          </p>
+
+          <p>Formatos disponibles para descargar:</p>
+
+          <p>youtube-dl -F URL</p>
+
+          <p>Selecionar un formato de la lista de formatos disponibles:</p>
+
+          <p>youtube-dl -f 22 URL</p>
+
+          <p>Extraer el audio de un video en un archivo con formato mp3:</p>
+
+          <p>youtube-dl &#x2013;extract-audio &#x2013;audio-format mp3 URL</p>
+
+          <p>
+            Extraer el audio de un video en un archivo con formato mp3
+            definiendo la calidad del audio:
+          </p>
+
+          <p>
+            youtube-dl &#x2013;extract-audio &#x2013;audio-format mp3
+            &#x2013;audio-quality 128K URL
+          </p>
+
+          <p>Ver ideos en streaming atravez de mplayer:</p>
+
+          <p>mplayer $(youtube-dl -g -f 22 URL)</p>
+
+          <p>
+            Para descargar una gran cantidad de videos se crea un archivo con
+            las URLs de los videos y luego se le pasa como parametro el archivo
+            anteponiendo el flag -a:
+          </p>
+
+          <p>youtube-dl -a archivo.txt</p>
+
+          <p>
+            Fuente
+            <a href="https://geekland.eu/descargar-videos-internet-youtube-dl/"
+              >https://geekland.eu/descargar-videos-internet-youtube-dl/</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org57292a4" class="outline-2">
+        <h2 id="org57292a4">E2fsprogs</h2>
+        <div class="outline-text-2" id="text-org57292a4">
+          <p>
+            El paquete e2fsprogs (también llamado programas e2fs) es un conjunto
+            de utilidades para mantenimiento de los sistemas de ficheros ext2,
+            ext3 y ext4. Debido a que estos son generalmente los sistemas de
+            archivos por defecto en las distribuciones Linux, comúnmente se
+            considera al paquete e2fsprogs software esencial.
+          </p>
+
+          <p>e2fsprogs incluye:</p>
+
+          <ul class="org-ul">
+            <li>
+              e2fsck, un programa fsck que busca y corrige inconsistencias;
+            </li>
+            <li>
+              mke2fs, usado para crear sistemas de archivos ext2, ext3, y ext4;
+            </li>
+            <li>
+              resize2fs, que puede expandir y contraer sistemas de archivos
+              ext2, ext3, y ext4;
+            </li>
+            <li>
+              tune2fs, usado para modificar los parámetros en el sistema de
+              archivos;
+            </li>
+            <li>
+              dumpe2fs, que muestra la información de bloques y superbloques;
+            </li>
+            <li>
+              debugfs, usado para visualizar o modificar estructuras internas
+              del sistema de archivos manualmente.
+            </li>
+          </ul>
+        </div>
+
+        <div id="outline-container-org4f0dd12" class="outline-3">
+          <h3 id="org4f0dd12">Tune2fs</h3>
+          <div class="outline-text-3" id="text-org4f0dd12">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+# tune2fs -c 80 /dev/sda1 (cada 80 reinicios)
+# tune2fs -i 2m /dev/sda1 (cada 2 meses)
+# tune2fs -i 2w /dev/hda3 (cada 2 semanas)
+# tune2fs -i 2d /dev/sda1 (cada 2 días)
+</pre
+              >
+            </div>
+
+            <p>para corregir el error <b>cloud be norrower &#x2026;</b></p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+sudo e2fsck -fy /dev/sda1
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org101ff96" class="outline-2">
+        <h2 id="org101ff96">Nano</h2>
+        <div class="outline-text-2" id="text-org101ff96">
+          <p>
+            <b>Seleccionar:</b>
+          </p>
+
+          <pre class="example">
+Alt + a
+</pre
+          >
+
+          <p>
+            <b>Copiar:</b>
+          </p>
+
+          <pre class="example">
+Alt + 6
+</pre
+          >
+
+          <p>
+            <b>Pegar:</b>
+          </p>
+
+          <pre class="example">
+Ctrl + u
+</pre
+          >
+
+          <p>Archivo de configuración:</p>
+
+          <pre class="example">
+**/etc/nanorc**
+</pre
+          >
+
+          <p>Resaltar sistaxis</p>
+        </div>
+        <div id="outline-container-orgdab2f3c" class="outline-3">
+          <h3 id="orgdab2f3c">HTML</h3>
+          <div class="outline-text-3" id="text-orgdab2f3c">
+            <p>include "/usr/share/nano/html.nanorc"</p>
+          </div>
+        </div>
+
+        <div id="outline-container-org4188044" class="outline-3">
+          <h3 id="org4188044">Manpages</h3>
+          <div class="outline-text-3" id="text-org4188044">
+            <p>include "/usr/share/nano/man.nanorc"</p>
+          </div>
+        </div>
+
+        <div id="outline-container-org9520c40" class="outline-3">
+          <h3 id="org9520c40">Python</h3>
+          <div class="outline-text-3" id="text-org9520c40">
+            <p>include "/usr/share/nano/python.nanorc"</p>
+          </div>
+        </div>
+
+        <div id="outline-container-org9145645" class="outline-3">
+          <h3 id="org9145645">Bourne shell scripts</h3>
+          <div class="outline-text-3" id="text-org9145645">
+            <p>include "/usr/share/nano/sh.nanorc"</p>
+          </div>
+        </div>
+
+        <div id="outline-container-org89fde2a" class="outline-3">
+          <h3 id="org89fde2a">Javascript</h3>
+          <div class="outline-text-3" id="text-org89fde2a">
+            <p>include "/usr/share/nano/javascript.nanorc"</p>
+          </div>
+        </div>
+
+        <div id="outline-container-org96fa427" class="outline-3">
+          <h3 id="org96fa427">Json</h3>
+          <div class="outline-text-3" id="text-org96fa427">
+            <p>include "/usr/share/nano/json.nanorc"</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org91babf0" class="outline-2">
+        <h2 id="org91babf0">Sudo</h2>
+        <div class="outline-text-2" id="text-org91babf0">
+          <p>
+            Para dar permisos de root a un usuario, en el archivo
+            <b>/etc/sudoers</b>
+            agregar:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+nombre_usuario ALL=(ALL) 
+</pre
+            >
+          </div>
+
+          <p>para que no pida contraseña:</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+nombre_usuario ALL=(ALL) NOPASSWD: ALL
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org5ce6758" class="outline-2">
+        <h2 id="org5ce6758">Limpiar cache</h2>
+        <div class="outline-text-2" id="text-org5ce6758">
+          <div class="org-src-container">
+            <pre class="src src-sh">
+sudo su
+sync &amp;&amp; echo 3 &gt; /proc/sys/vm/drop_caches
+exit
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">Linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[Linux]]></category>
+  <link>https://martiyo.github.io/2019-02-10-linux,-comandos,-trucos-y-cosas-utiles.html</link>
+  <pubDate>dom, 10 feb 2019 11:49:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Reproducir audio en emacs]]></title>

@@ -41,11 +41,11 @@
           >El empaquetador tar</a
         >
       </h1>
-      <p>Almacenar archivos y directorios en un solo directorio.</p>
+      <p>Empaquetar archivos y directorios.</p>
 
-      <div id="outline-container-org06a9c37" class="outline-2">
-        <h2 id="org06a9c37">Descripción</h2>
-        <div class="outline-text-2" id="text-org06a9c37">
+      <div id="outline-container-orgcc60ce0" class="outline-2">
+        <h2 id="orgcc60ce0">Descripción</h2>
+        <div class="outline-text-2" id="text-orgcc60ce0">
           <p>
             El programa tar, es usado para almacenar archivos y directorios en
             un solo archivo, no para comprimirlos. Dentro de los entornos Unix
@@ -60,9 +60,9 @@
         </div>
       </div>
 
-      <div id="outline-container-org8d33530" class="outline-2">
-        <h2 id="org8d33530">Opciones más usadas</h2>
-        <div class="outline-text-2" id="text-org8d33530">
+      <div id="outline-container-orgc1c4540" class="outline-2">
+        <h2 id="orgc1c4540">Opciones más usadas</h2>
+        <div class="outline-text-2" id="text-orgc1c4540">
           <ul class="org-ul">
             <li>
               <b>-c</b> Crea un archivo tar que contiene los elementos
@@ -95,13 +95,13 @@
         </div>
       </div>
 
-      <div id="outline-container-org6e1675a" class="outline-2">
-        <h2 id="org6e1675a">Ejemplos</h2>
-        <div class="outline-text-2" id="text-org6e1675a"></div>
+      <div id="outline-container-orgbc68acb" class="outline-2">
+        <h2 id="orgbc68acb">Ejemplos</h2>
+        <div class="outline-text-2" id="text-orgbc68acb"></div>
         <ul class="org-ul">
           <li>
-            <a id="org4f4c1b1"></a>Crear archivo tar sin comprimir<br />
-            <div class="outline-text-5" id="text-org4f4c1b1">
+            <a id="org6c88008"></a>Crear archivo tar sin comprimir<br />
+            <div class="outline-text-5" id="text-org6c88008">
               <pre class="example">
 $ tar -cvf /path/to/foo.tar /path/to/foo/
 </pre
@@ -117,9 +117,9 @@ $ tar -cvf /path/to/foo.tar /path/to/foo/
           </li>
 
           <li>
-            <a id="org35bee68"></a>Todos los archivos que comienzan con una
+            <a id="org726c341"></a>Todos los archivos que comienzan con una
             letra<br />
-            <div class="outline-text-5" id="text-org35bee68">
+            <div class="outline-text-5" id="text-org726c341">
               <pre class="example">
 # tar -cvf fullbackup.tar i*
 install.log
@@ -130,8 +130,8 @@ install.log.syslog
           </li>
 
           <li>
-            <a id="org798b416"></a>Agregar un archivo al tar existente<br />
-            <div class="outline-text-5" id="text-org798b416">
+            <a id="org46c8724"></a>Agregar un archivo al tar existente<br />
+            <div class="outline-text-5" id="text-org46c8724">
               <pre class="example">
 # tar --append --file=backup.tar anaconda-ks.cfg
 </pre
@@ -140,8 +140,8 @@ install.log.syslog
           </li>
 
           <li>
-            <a id="org247b6d8"></a>Extraer archivos de un tar<br />
-            <div class="outline-text-5" id="text-org247b6d8">
+            <a id="orgc622b26"></a>Extraer archivos de un tar<br />
+            <div class="outline-text-5" id="text-orgc622b26">
               <pre class="example">
 $ tar -xvf /path/to/foo.tar
 </pre
@@ -150,9 +150,9 @@ $ tar -xvf /path/to/foo.tar
           </li>
 
           <li>
-            <a id="orgcd33696"></a>Extraer archivos de un tar en un directorio
+            <a id="org05468e8"></a>Extraer archivos de un tar en un directorio
             especifico<br />
-            <div class="outline-text-5" id="text-orgcd33696">
+            <div class="outline-text-5" id="text-org05468e8">
               <pre class="example">
 $ tar -xvf /path/to/foo.tar -C /path/to/destination/
 </pre
@@ -161,8 +161,8 @@ $ tar -xvf /path/to/foo.tar -C /path/to/destination/
           </li>
 
           <li>
-            <a id="orgfaf847b"></a>Extraer un archivo del archivo tar<br />
-            <div class="outline-text-5" id="text-orgfaf847b">
+            <a id="org25121eb"></a>Extraer un archivo del archivo tar<br />
+            <div class="outline-text-5" id="text-org25121eb">
               <pre class="example">
 $ tar --extract -vv --occurrence --file=./backup.tar anaconda-ks.cfg
 </pre
@@ -171,8 +171,8 @@ $ tar --extract -vv --occurrence --file=./backup.tar anaconda-ks.cfg
           </li>
 
           <li>
-            <a id="org2ee4a4a"></a>Listar el contenido de tar<br />
-            <div class="outline-text-5" id="text-org2ee4a4a">
+            <a id="org086fb89"></a>Listar el contenido de tar<br />
+            <div class="outline-text-5" id="text-org086fb89">
               <pre class="example">
 $ tar -ztvf /path/to/foo.tgz
 </pre
@@ -181,9 +181,9 @@ $ tar -ztvf /path/to/foo.tgz
           </li>
 
           <li>
-            <a id="org848ee7d"></a>Crear, extraer y listar un archivo .gz con
+            <a id="org3780161"></a>Crear, extraer y listar un archivo .gz con
             tar<br />
-            <div class="outline-text-5" id="text-org848ee7d">
+            <div class="outline-text-5" id="text-org3780161">
               <p>Crear</p>
 
               <pre class="example">
@@ -208,8 +208,8 @@ $ tar -ztvf /path/to/foo.tgz /path/to/foo/
           </li>
 
           <li>
-            <a id="orgb01b6da"></a>Crear, extraer y listar un archivo .bz2<br />
-            <div class="outline-text-5" id="text-orgb01b6da">
+            <a id="org310d385"></a>Crear, extraer y listar un archivo .bz2<br />
+            <div class="outline-text-5" id="text-org310d385">
               <p>Crear</p>
 
               <pre class="example">

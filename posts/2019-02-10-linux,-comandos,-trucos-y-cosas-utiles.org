@@ -1,0 +1,287 @@
+#+title: Linux, comandos, trucos y cosas utiles
+#+date: <2019-02-10 11:49>
+#+description: 
+#+filetags: Linux
+
+Un rejunte de cosas útiles que voy encontrando por ahí...
+
+*** Eliminar kernels viejos
+
+- Verificar que kernel se está usando, con esto se cual es el que debo
+  dejar instalado.
+
+#+BEGIN_SRC sh
+    $ uname -r
+#+END_SRC
+
+Este comando devuelve el kernel que estoy utilizando, en mi caso
+2.6.26-2-686.
+
+- Buscar los kernels que estan instalados, para indentificar los que ya
+  no sirven:
+
+#+BEGIN_SRC sh
+    # dpkg --get-selections | grep linux-image
+#+END_SRC
+
+Esto devolverá una lista que contiene todos los kernels disponibles en
+el sistema. Ejemplo:
+
+linux-image-2.6-686 install linux-image-2.6.26-1-686 install
+linux-image-2.6.26-2-686 install elections | grep linux-image
+
+- Borrar los kernels sobrantes, teniendo cuidado de no eliminar el que
+  se esta usando
+
+#+BEGIN_SRC sh
+    #apt-get remove -purge linux-image-2.6.26-1-686
+#+END_SRC
+
+**** Otra forma de hacer todo lo anterior es:
+
+#+BEGIN_SRC sh
+    # aptitude search linux-image | grep ^i
+#+END_SRC
+
+Que da el mismo resultado, pero un poco mas detallado: 
+linux-image-2.6-686 - imagen de Linux 2.6 para PPro/Celeron/PII/ i A
+linux-image-2.6.26-1-686 - Linux 2.6.26 image on PPro/Celeron/PII/PII i
+A linux-image-2.6.26-2-686 - Linux 2.6.26 image on PPro/Celeron/PII/PII
+
+Para eliminar además los headers del kernel viejo, buscar con:
+
+#+BEGIN_SRC sh
+    aptitude search 2.6.26 | grep ^i
+#+END_SRC
+
+esto da otra lista con los headers instalados, seleccionar el que se va
+a eliminar:
+
+#+BEGIN_SRC sh
+    aptitude purge linux-headers-2.6.26-1
+#+END_SRC
+
+
+*** Uuid
+
+#+BEGIN_SRC sh
+    ### uuid
+    $ls -l /dev/disk/by-uuid
+    #blkid
+#+END_SRC
+
+
+*** Liberar memoria ram
+
+RAM que se está empleando en tiempo real:
+
+#+BEGIN_SRC sh
+    $watch -n 1 free -m
+#+END_SRC
+
+eliminar la memoria que no se usa:
+
+#+BEGIN_SRC sh
+    $sysctl -w vm.drop_caches=3
+#+END_SRC
+
+
+*** Fecha de instalcion del sistema
+
+(Creacion del sistema de archivos raiz)
+
+#+BEGIN_SRC sh
+    $ls -lct /etc | tail -1 | awk '{print $6, $7, $8}'
+    jun 3 2016
+#+END_SRC
+
+otra forma:
+
+#+BEGIN_SRC sh
+    $sudo tune2fs -l /dev/sda1 | grep "created"
+    Filesystem created:       Fri Jun  3 23:25:38 2016
+#+END_SRC
+
+
+*** Como evitar que algunos paquetes se actualicen
+
+#+BEGIN_SRC sh
+    $echo "paquete hold" | sudo dpkg --set-selections
+#+END_SRC
+
+ver cuales son los paquetes que estan marcados para no actualizarse así:
+
+#+BEGIN_SRC sh
+    $ sudo dpkg --get-selections
+#+END_SRC
+
+
+*** capturar pantalla
+
+Una forma fácil de tomar una captura de pantalla del  sistema actual es
+usar el comando de import :
+
+#+BEGIN_SRC sh
+      $ import -window root screenshot.jpg
+#+END_SRC
+
+import es parte del paquete imagemagick .
+
+#+BEGIN_QUOTE
+  La ejecución de import sin la opción -window permite seleccionar una
+  ventana o una región arbitraria de forma interactiva.
+#+END_QUOTE
+
+
+*** Configurar xterm
+
+Editar el archivo .Xresources y recargar
+
+#+BEGIN_SRC sh
+    xrdb -merge .Xresources
+#+END_SRC
+
+
+*** Youtube-dl
+ 
+Actualmente Youtube-dl permite descargar videos y audio de más de 800
+sitios web. 
+
+Formatos disponibles para descargar:
+
+youtube-dl -F URL
+
+Selecionar un formato de la lista de formatos disponibles:
+
+youtube-dl -f 22 URL
+
+Extraer el audio de un video en un archivo con formato mp3:
+
+youtube-dl --extract-audio --audio-format mp3 URL
+
+Extraer el audio de un video en un archivo con formato mp3 definiendo la
+calidad del audio:
+
+youtube-dl --extract-audio --audio-format mp3 --audio-quality 128K URL
+
+Ver ideos en streaming atravez de mplayer:
+
+mplayer $(youtube-dl -g -f 22 URL)
+
+Para descargar una gran cantidad de videos se crea un archivo con las
+URLs de los videos y luego se le pasa como parametro el archivo
+anteponiendo el flag -a:
+
+youtube-dl -a archivo.txt
+
+Fuente https://geekland.eu/descargar-videos-internet-youtube-dl/
+
+
+*** E2fsprogs
+
+El paquete e2fsprogs (también llamado programas e2fs) es un conjunto de
+utilidades para mantenimiento de los sistemas de ficheros ext2, ext3 y
+ext4. Debido a que estos son generalmente los sistemas de archivos por
+defecto en las distribuciones Linux, comúnmente se considera al paquete
+e2fsprogs software esencial.
+
+e2fsprogs incluye:
+
+- e2fsck, un programa fsck que busca y corrige inconsistencias;
+- mke2fs, usado para crear sistemas de archivos ext2, ext3, y ext4;
+- resize2fs, que puede expandir y contraer sistemas de archivos ext2,
+  ext3, y ext4;
+- tune2fs, usado para modificar los parámetros en el sistema de
+  archivos;
+- dumpe2fs, que muestra la información de bloques y superbloques;
+- debugfs, usado para visualizar o modificar estructuras internas del
+  sistema de archivos manualmente.
+
+**** Tune2fs
+
+#+BEGIN_SRC sh
+    # tune2fs -c 80 /dev/sda1 (cada 80 reinicios)
+    # tune2fs -i 2m /dev/sda1 (cada 2 meses)
+    # tune2fs -i 2w /dev/hda3 (cada 2 semanas)
+    # tune2fs -i 2d /dev/sda1 (cada 2 días)
+#+END_SRC
+
+para corregir el error *cloud be norrower ...*
+
+#+BEGIN_SRC sh
+    sudo e2fsck -fy /dev/sda1
+#+END_SRC
+
+
+*** Nano
+  
+*Seleccionar:*
+
+#+BEGIN_EXAMPLE
+    Alt + a
+#+END_EXAMPLE
+
+*Copiar:*
+
+#+BEGIN_EXAMPLE
+    Alt + 6
+#+END_EXAMPLE
+
+*Pegar:*
+
+#+BEGIN_EXAMPLE
+    Ctrl + u
+#+END_EXAMPLE
+
+Archivo de configuración:
+  
+#+BEGIN_EXAMPLE
+    **/etc/nanorc**
+#+END_EXAMPLE
+
+Resaltar sistaxis
+**** HTML
+
+
+include "/usr/share/nano/html.nanorc"
+
+**** Manpages
+   
+include "/usr/share/nano/man.nanorc"
+
+**** Python
+     include "/usr/share/nano/python.nanorc"
+
+**** Bourne shell scripts
+     include "/usr/share/nano/sh.nanorc"
+
+**** Javascript
+    include "/usr/share/nano/javascript.nanorc"
+
+**** Json
+   include "/usr/share/nano/json.nanorc"
+
+
+*** Sudo
+
+Para dar permisos de root a un usuario, en el archivo */etc/sudoers*
+agregar:
+
+#+BEGIN_SRC sh
+    nombre_usuario ALL=(ALL) 
+#+END_SRC
+
+para que no pida contraseña:
+
+#+BEGIN_SRC sh
+    nombre_usuario ALL=(ALL) NOPASSWD: ALL
+#+END_SRC
+
+
+*** Limpiar cache 
+
+#+BEGIN_SRC sh
+sudo su
+sync && echo 3 > /proc/sys/vm/drop_caches
+exit
+#+END_SRC

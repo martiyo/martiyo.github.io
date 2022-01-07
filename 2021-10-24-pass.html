@@ -6,8 +6,8 @@
     <link
       rel="alternate"
       type="application/rss+xml"
-      href="https://martiyo.github.io/faq/rss.xml"
-      title="RSS feed for https://martiyo.github.io/faq/"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
     />
     <title>Pass el gestor de contraseñas estandar de unix</title>
     <meta name="author" content="martiyo" />
@@ -44,9 +44,9 @@
       </h1>
       <p>La gestión de contraseñas debe ser simple y seguir Filosofía Unix.</p>
 
-      <div id="outline-container-orgb262528" class="outline-2">
-        <h2 id="orgb262528">Introducción</h2>
-        <div class="outline-text-2" id="text-orgb262528">
+      <div id="outline-container-org08c100d" class="outline-2">
+        <h2 id="org08c100d">Introducción</h2>
+        <div class="outline-text-2" id="text-org08c100d">
           <p>
             Con pass, cada contraseña vive dentro de un archivo gpg cifrado cuyo
             nombre de archivo es el título del sitio web, correo o recurso que
@@ -68,14 +68,14 @@
         </div>
       </div>
 
-      <div id="outline-container-org9fa72ca" class="outline-2">
-        <h2 id="org9fa72ca">Usando el Password-store</h2>
-        <div class="outline-text-2" id="text-org9fa72ca"></div>
-        <div id="outline-container-orgb4e339e" class="outline-3">
-          <h3 id="orgb4e339e">
+      <div id="outline-container-orgfc5d9c9" class="outline-2">
+        <h2 id="orgfc5d9c9">Usando el Password-store</h2>
+        <div class="outline-text-2" id="text-orgfc5d9c9"></div>
+        <div id="outline-container-org91e55c8" class="outline-3">
+          <h3 id="org91e55c8">
             Enumerar las contraseñas existentes en el store
           </h3>
-          <div class="outline-text-3" id="text-orgb4e339e">
+          <div class="outline-text-3" id="text-org91e55c8">
             <pre class="example">
 dev1@devuan ~ $ pass 
 Password Store
@@ -87,9 +87,9 @@ Password Store
           </div>
         </div>
 
-        <div id="outline-container-org1d7ac5f" class="outline-3">
-          <h3 id="org1d7ac5f">Mostrar contraseñas</h3>
-          <div class="outline-text-3" id="text-org1d7ac5f">
+        <div id="outline-container-orgb4db78c" class="outline-3">
+          <h3 id="orgb4db78c">Mostrar contraseñas</h3>
+          <div class="outline-text-3" id="text-orgb4db78c">
             <pre class="example">
 dev1@devuan ~ $ pass casaresrm@gmail.com 
 contraseñasegura
@@ -98,9 +98,9 @@ contraseñasegura
           </div>
         </div>
 
-        <div id="outline-container-orgac522c0" class="outline-3">
-          <h3 id="orgac522c0">Copiar al portapapeles</h3>
-          <div class="outline-text-3" id="text-orgac522c0">
+        <div id="outline-container-org9ffb360" class="outline-3">
+          <h3 id="org9ffb360">Copiar al portapapeles</h3>
+          <div class="outline-text-3" id="text-org9ffb360">
             <pre class="example">
 dev1@devuan ~ $ pass -c casaresrm@gmail.com 
 Copied correo/casaresrm@gmail.com to clipboard. Will clear in 45 seconds.
@@ -115,9 +115,9 @@ Copied correo/casaresrm@gmail.com to clipboard. Will clear in 45 seconds.
             </p>
           </div>
         </div>
-        <div id="outline-container-org721c822" class="outline-3">
-          <h3 id="org721c822">Añadir o modificar contraseñas</h3>
-          <div class="outline-text-3" id="text-org721c822">
+        <div id="outline-container-org742e5cb" class="outline-3">
+          <h3 id="org742e5cb">Añadir o modificar contraseñas</h3>
+          <div class="outline-text-3" id="text-org742e5cb">
             <p>
               Añadir #+BEGIN [dev1@devuan ~]$ pass insert martiyo@protonmail.com
               Enter password for martiyo@protonmail.com: Retype password for
@@ -139,9 +139,9 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
             </p>
           </div>
         </div>
-        <div id="outline-container-org7d873e1" class="outline-3">
-          <h3 id="org7d873e1">Contraseñas automaticas</h3>
-          <div class="outline-text-3" id="text-org7d873e1">
+        <div id="outline-container-org17c8d44" class="outline-3">
+          <h3 id="org17c8d44">Contraseñas automaticas</h3>
+          <div class="outline-text-3" id="text-org17c8d44">
             <p>
               La utilidad <b>generate</b> crea nuevas contraseñas utilzando
               <b>/dev/urandom</b>
@@ -162,9 +162,9 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
             </p>
           </div>
         </div>
-        <div id="outline-container-org7e75895" class="outline-3">
-          <h3 id="org7e75895">Eliminar</h3>
-          <div class="outline-text-3" id="text-org7e75895">
+        <div id="outline-container-orgc5aa252" class="outline-3">
+          <h3 id="orgc5aa252">Eliminar</h3>
+          <div class="outline-text-3" id="text-orgc5aa252">
             <pre class="example">
 [dev1@devuan ~]$  pass rm correo/probando@gmail.com 
   Are you sure you would like to delete correo/probando@gmail.com? [y/N] y
@@ -173,9 +173,9 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
             >
           </div>
         </div>
-        <div id="outline-container-orgb1d4ee6" class="outline-3">
-          <h3 id="orgb1d4ee6">Git</h3>
-          <div class="outline-text-3" id="text-orgb1d4ee6">
+        <div id="outline-container-org934e6c0" class="outline-3">
+          <h3 id="org934e6c0">Git</h3>
+          <div class="outline-text-3" id="text-org934e6c0">
             <p>
               Si la tienda de contraseñas es un repositorio de git, ya que cada
               manipulación crea un git commit, puede sincronizar la tienda de
@@ -186,9 +186,9 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
           </div>
         </div>
       </div>
-      <div id="outline-container-org6742e84" class="outline-2">
-        <h2 id="org6742e84">Configuración</h2>
-        <div class="outline-text-2" id="text-org6742e84">
+      <div id="outline-container-org37174ab" class="outline-2">
+        <h2 id="org37174ab">Configuración</h2>
+        <div class="outline-text-2" id="text-org37174ab">
           <p>Para comenzar hay inicializar el dposito de contraseñas</p>
 
           <pre class="example">
@@ -197,9 +197,9 @@ pass init "id de mi clave GPG"
           >
         </div>
 
-        <div id="outline-container-org0424a0b" class="outline-3">
-          <h3 id="org0424a0b">Generando las claves con GnuPG</h3>
-          <div class="outline-text-3" id="text-org0424a0b">
+        <div id="outline-container-orgc38d751" class="outline-3">
+          <h3 id="orgc38d751">Generando las claves con GnuPG</h3>
+          <div class="outline-text-3" id="text-orgc38d751">
             <p>Para crear una pareja de claves (publica y privada) se usa</p>
 
             <pre class="example">
@@ -236,9 +236,9 @@ export GPG_TTY=$(tty)
           </div>
         </div>
 
-        <div id="outline-container-orgf172b77" class="outline-3">
-          <h3 id="orgf172b77">Inicializar el store como un repositorio git</h3>
-          <div class="outline-text-3" id="text-orgf172b77">
+        <div id="outline-container-orge6d332f" class="outline-3">
+          <h3 id="orge6d332f">Inicializar el store como un repositorio git</h3>
+          <div class="outline-text-3" id="text-orge6d332f">
             <pre class="example">
 $ pass git init
 Initialized empty Git repository in /home/dev1/.password-store/.git/
@@ -252,9 +252,9 @@ Initialized empty Git repository in /home/dev1/.password-store/.git/
           </div>
         </div>
       </div>
-      <div id="outline-container-orgfe1f83a" class="outline-2">
-        <h2 id="orgfe1f83a">Organización</h2>
-        <div class="outline-text-2" id="text-orgfe1f83a">
+      <div id="outline-container-org10404d4" class="outline-2">
+        <h2 id="org10404d4">Organización</h2>
+        <div class="outline-text-2" id="text-org10404d4">
           <p>
             nombres de usuario, contraseñas, pins, sitios web, metadatos, etc.
           </p>
@@ -290,9 +290,9 @@ Phone Support PIN #: 84719
           </p>
         </div>
       </div>
-      <div id="outline-container-orgf60e253" class="outline-2">
-        <h2 id="orgf60e253">Emacs Pass-mode</h2>
-        <div class="outline-text-2" id="text-orgf60e253">
+      <div id="outline-container-orgec0e6ab" class="outline-2">
+        <h2 id="orgec0e6ab">Emacs Pass-mode</h2>
+        <div class="outline-text-2" id="text-orgec0e6ab">
           <p>
             Y no podia faltar el pass-modo para emacs, se instala con
             <b>package-install</b> y listo, la interfaz es muy intuitiva.
@@ -301,7 +301,6 @@ Phone Support PIN #: 84719
       </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-consola,.html">consola,</a>
         <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     </div>
