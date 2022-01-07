@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>El sistema de ficheros /proc</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">06 ene 2022</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/2018-06-19-el-sistema-de-ficheros-proc.html"
+          >El sistema de ficheros /proc</a
+        >
+      </h1>
+      <p>Process filesystem.</p>
+
+      <div id="outline-container-orgc6da7a6" class="outline-2">
+        <h2 id="orgc6da7a6">Wiki</h2>
+        <div class="outline-text-2" id="text-orgc6da7a6">
+          <p>
+            En los sistemas operativos tipo Unix, procfs es la abreviatura de
+            sistema de ficheros de procesos (process filesystem). Un pseudo
+            sistema de ficheros que se utiliza para permitir el acceso a la
+            información del núcleo sobre los procesos. Dado que proc no es un
+            sistema de ficheros real, no consume ningún espacio de
+            almacenamiento, y sólo consume una limitada cantidad de memoria.
+          </p>
+
+          <p>
+            El sistema de archivos se monta con frecuencia en /proc. Está
+            soportado bajo Solaris, BSD y GNU/Linux, el último de los cuales lo
+            extiende para incluir datos que no son propios de los procesos.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orga6c7af7" class="outline-2">
+        <h2 id="orga6c7af7">Ejemplos</h2>
+        <div class="outline-text-2" id="text-orga6c7af7">
+          <pre class="example">
+$cat /proc/cpuinfo
+</pre
+          >
+
+          <p>
+            Muestra información acerca del procesador: su tipo, marca, modelo,
+            rendimiento, etc.
+          </p>
+
+          <pre class="example">
+$cat /proc/devices
+</pre
+          >
+
+          <p>
+            ̣Lista de controladores de dispositivos configurados dentro del
+            núcleo que está en ejecución.
+          </p>
+
+          <pre class="example">
+$cat /proc/filesystem
+</pre
+          >
+
+          <p>
+            Lista los sistemas de archivos que están soportados por el kernel.
+          </p>
+
+          <pre class="example">
+$cat /proc/meminfo
+</pre
+          >
+
+          <p>
+            Información acerca de la utilización de la memoria física y del
+            archivo de intercambio.
+          </p>
+
+          <pre class="example">
+$cat /proc/uptime
+</pre
+          >
+
+          <p>Indica el tiempo en segundos que el sistema lleva funcionando.</p>
+
+          <p>
+            Existen muchos comandos que solamente leen los archivos anteriores y
+            les dan un formato distinto para que la información sea fácil de
+            entender. Por ejemplo, el comando
+            <a href="file:///2018/02/19/lshw-list-hardware/">"lshw"</a>
+          </p>
+
+          <p>
+            fuente
+            <a
+              href="http://www.tldp.org/pub/Linux/docs/ldp-archived/system-admin-guide/translations/es/html/ch04s07.html"
+              >www.tlpd.org</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

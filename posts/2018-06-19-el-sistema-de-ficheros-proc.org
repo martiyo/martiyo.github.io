@@ -1,0 +1,54 @@
+#+title: El sistema de ficheros /proc
+#+date: <2022-01-06 23:28>
+#+description: 
+#+filetags: linux
+
+Process filesystem.
+
+** Wiki
+
+En los sistemas operativos tipo Unix, procfs es la abreviatura de sistema de ficheros de procesos (process filesystem). Un pseudo sistema de ficheros que se utiliza para permitir el acceso a la información del núcleo sobre los procesos. Dado que proc no es un sistema de ficheros real, no consume ningún espacio de almacenamiento, y sólo consume una limitada cantidad de memoria.
+
+El sistema de archivos se monta con frecuencia en /proc. Está soportado bajo Solaris, BSD y GNU/Linux, el último de los cuales lo extiende para incluir datos que no son propios de los procesos.
+
+** Ejemplos
+
+#+BEGIN_SRC
+    $cat /proc/cpuinfo
+#+END_SRC
+
+Muestra información acerca del procesador: su tipo, marca, modelo,
+rendimiento, etc.
+
+#+BEGIN_SRC
+    $cat /proc/devices
+#+END_SRC
+
+̣Lista de controladores de dispositivos configurados dentro del núcleo
+que está en ejecución.
+
+#+BEGIN_SRC
+    $cat /proc/filesystem
+#+END_SRC
+
+Lista los sistemas de archivos que están soportados por el kernel.
+
+#+BEGIN_SRC
+    $cat /proc/meminfo
+#+END_SRC
+
+Información acerca de la utilización de la memoria física y del archivo
+de intercambio.
+
+#+BEGIN_SRC
+    $cat /proc/uptime
+#+END_SRC
+
+Indica el tiempo en segundos que el sistema lleva funcionando.
+
+Existen muchos comandos que solamente leen los archivos anteriores y les
+dan un formato distinto para que la información sea fácil de entender.
+Por ejemplo, el comando [[/2018/02/19/lshw-list-hardware/]["lshw"]]
+
+fuente
+[[http://www.tldp.org/pub/Linux/docs/ldp-archived/system-admin-guide/translations/es/html/ch04s07.html][www.tlpd.org]]

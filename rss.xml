@@ -4,7 +4,106 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>mié, 05 ene 2022 10:04:04 -0300</lastBuildDate>
+<lastBuildDate>jue, 06 ene 2022 23:37:47 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[El sistema de ficheros /proc]]></title>
+  <description><![CDATA[
+      <p>Process filesystem.</p>
+
+      <div id="outline-container-orgc6da7a6" class="outline-2">
+        <h2 id="orgc6da7a6">Wiki</h2>
+        <div class="outline-text-2" id="text-orgc6da7a6">
+          <p>
+            En los sistemas operativos tipo Unix, procfs es la abreviatura de
+            sistema de ficheros de procesos (process filesystem). Un pseudo
+            sistema de ficheros que se utiliza para permitir el acceso a la
+            información del núcleo sobre los procesos. Dado que proc no es un
+            sistema de ficheros real, no consume ningún espacio de
+            almacenamiento, y sólo consume una limitada cantidad de memoria.
+          </p>
+
+          <p>
+            El sistema de archivos se monta con frecuencia en /proc. Está
+            soportado bajo Solaris, BSD y GNU/Linux, el último de los cuales lo
+            extiende para incluir datos que no son propios de los procesos.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orga6c7af7" class="outline-2">
+        <h2 id="orga6c7af7">Ejemplos</h2>
+        <div class="outline-text-2" id="text-orga6c7af7">
+          <pre class="example">
+$cat /proc/cpuinfo
+</pre
+          >
+
+          <p>
+            Muestra información acerca del procesador: su tipo, marca, modelo,
+            rendimiento, etc.
+          </p>
+
+          <pre class="example">
+$cat /proc/devices
+</pre
+          >
+
+          <p>
+            ̣Lista de controladores de dispositivos configurados dentro del
+            núcleo que está en ejecución.
+          </p>
+
+          <pre class="example">
+$cat /proc/filesystem
+</pre
+          >
+
+          <p>
+            Lista los sistemas de archivos que están soportados por el kernel.
+          </p>
+
+          <pre class="example">
+$cat /proc/meminfo
+</pre
+          >
+
+          <p>
+            Información acerca de la utilización de la memoria física y del
+            archivo de intercambio.
+          </p>
+
+          <pre class="example">
+$cat /proc/uptime
+</pre
+          >
+
+          <p>Indica el tiempo en segundos que el sistema lleva funcionando.</p>
+
+          <p>
+            Existen muchos comandos que solamente leen los archivos anteriores y
+            les dan un formato distinto para que la información sea fácil de
+            entender. Por ejemplo, el comando
+            <a href="file:///2018/02/19/lshw-list-hardware/">"lshw"</a>
+          </p>
+
+          <p>
+            fuente
+            <a
+              href="http://www.tldp.org/pub/Linux/docs/ldp-archived/system-admin-guide/translations/es/html/ch04s07.html"
+              >www.tlpd.org</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2018-06-19-el-sistema-de-ficheros-proc.html</link>
+  <pubDate>jue, 06 ene 2022 23:28:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[El empaquetador tar]]></title>
   <description><![CDATA[
