@@ -7,9 +7,9 @@ La gestión de contraseñas debe ser simple y seguir Filosofía Unix.
 
 ** Introducción 
 
-   Con pass, cada contraseña vive dentro de un archivo gpg cifrado cuyo nombre de archivo es el título del sitio web, correo o recurso que requiere la contraseña. Estos archivos cifrados pueden organizarse en jerarquías de carpetas significativas, copiadas de ordenador a ordenador, y, en general, manipuladas utilizando los servicios de gestión de archivos de línea de comando estándar.
+   Con pass, cada contraseña vive dentro de un archivo gpg cifrado cuyo nombre de archivo es el título del sitio web, correo o recurso que requiere la contraseña. Estos archivos cifrados pueden organizarse en jerarquías de carpetas significativas, copiadas de maquina a maquina, y, en general, manipuladas utilizando los servicios de gestión de archivos de línea de comando estándar.
 
-pass hace que la gestión de estos archivos de contraseña individuales sea extremadamente fácil. Todas las contraseñas viven en *~/.password-store*, y pass proporciona algunos comandos agradables para agregar, editar, generar y recuperar contraseñas. Es un script de shell muy corto y sencillo. Es capaz de poner temporalmente contraseñas en su portapapeles y rastrear cambios de contraseña utilizando git.
+*pass* hace que la gestión de estos archivos de contraseña individuales sea extremadamente fácil. Todas las contraseñas viven en *~/.password-store*, y pass proporciona algunos comandos agradables para agregar, editar, generar y recuperar contraseñas. Es un script de shell muy corto y sencillo. Es capaz de poner temporalmente contraseñas en el portapapeles y rastrear cambios de contraseña utilizando git.
 
 **  Usando el Password-store
 
@@ -19,14 +19,14 @@ pass hace que la gestión de estos archivos de contraseña individuales sea extr
     dev1@devuan ~ $ pass 
     Password Store
     └── correo
-       ├── casaresrm@gmail.com
+       ├── micorreo@gmail.com
        └── probando@gmail.com
     #+END_SRC
 
 *** Mostrar contraseñas
 
        #+BEGIN_SRC
-       dev1@devuan ~ $ pass casaresrm@gmail.com 
+       dev1@devuan ~ $ pass micorreo@gmail.com 
        contraseñasegura
       #+END_SRC
 
@@ -34,8 +34,8 @@ pass hace que la gestión de estos archivos de contraseña individuales sea extr
     
     
        #+BEGIN_SRC
-        dev1@devuan ~ $ pass -c casaresrm@gmail.com 
-        Copied correo/casaresrm@gmail.com to clipboard. Will clear in 45 seconds.
+        dev1@devuan ~ $ pass -c micorreo@gmail.com 
+        Copied correo/micorreo@gmail.com to clipboard. Will clear in 45 seconds.
        #+END_SRC
 
 

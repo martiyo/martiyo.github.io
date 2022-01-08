@@ -19,20 +19,19 @@ body {
   padding: 0;
   font-family: "Source Code Pro", monospace;
   font-size: 12.5px;
-  /*   color: #00ff00; */
-  color: rgb(29, 138, 31);
+  color: #00ff00;
   text-align: left;
   line-height: 1.5 !important;
 }
 
 .post-title a {
   text-decoration: none;
-  font-size: 20px;
-  /*   color: #00ff00; */
-  color: rgb(29, 138, 31);
+  font-size: 15px;
+
+  color: #00ff00;
 }
 .taglist a {
-  /*   color: #00ff00; */
+  color: #00ff00;
 }
 #tagsoup {
   margin-left: 10em;
@@ -62,20 +61,22 @@ a {
   margin-bottom: 25px;
   line-height: 40px;
   font-weight: 200;
-  /*   border: dashed #00ff00 1px; */
-  border: dashed rgb(29, 138, 31) 1px;
+  border: dashed #00ff00 1px;
   border-left: none;
   border-right: none;
   text-align: right;
 }
-
+/* .header ul {
+   list-style-type: none;
+   margin-top: 20px;
+   margin-bottom: 2px;
+   } */
 .header ul li {
   display: inline;
   margin-left: 5px;
 }
 .header a {
-  /*   color: #00ff00; */
-  color: rgba(29, 138, 31);
+  color: #00ff00;
   text-decoration: none;
 }
 .header a:hover {
@@ -86,17 +87,20 @@ form {
   margin-top: 2em;
 }
 input {
+  // margin-top: 20px;
+  // margin-bottom: 30px;
   background: #010;
   color: #00ff00;
-  /*   color: rgba(29, 138, 31); */
   border: none;
+  //border-style: solid;
+  //border-width: 1px;
+  //outline-color: initial;
   height: 25px;
   width: 250px;
 }
 
 ::placeholder {
-  /*   color: #00ff00; */
-  color: rgba(29, 138, 31);
+  color: #00ff00;
   font-size: 15px;
   // font-weight: bold;
   //opacity: 1;

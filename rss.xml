@@ -4,32 +4,44 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>vie, 07 ene 2022 17:44:19 -0300</lastBuildDate>
+<lastBuildDate>sáb, 08 ene 2022 13:41:08 -0300</lastBuildDate>
 <item>
   <title><![CDATA[El empaquetador tar]]></title>
   <description><![CDATA[
       <p>Empaquetar archivos y directorios.</p>
 
-      <div id="outline-container-orgcc60ce0" class="outline-2">
-        <h2 id="orgcc60ce0">Descripción</h2>
-        <div class="outline-text-2" id="text-orgcc60ce0">
+      <div id="outline-container-org1fb02d3" class="outline-2">
+        <h2 id="org1fb02d3">Descripción</h2>
+        <div class="outline-text-2" id="text-org1fb02d3">
           <p>
             El programa tar, es usado para almacenar archivos y directorios en
             un solo archivo, no para comprimirlos. Dentro de los entornos Unix
             tar aparece como una orden que puede ser ejecutada desde la línea de
-            órdenes de una consola de texto o desde un simple terminal. Donde
-            &lt;archivoSalida&gt; es el archivo resultado y &lt;archivo1&gt;,
-            &lt;archivo2&gt;, etcétera son los diferentes archivos que serán
-            "empaquetados" en &lt;archivoSalida&gt;. Este proceso permite
-            respaldar archivos, compartirlos, transmitirlos por Internet o por
-            redes locales de una forma fácil.
+            órdenes de una consola de texto o desde un simple terminal. El
+            formato de la orden es comunmente:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh"></pre>
+          </div>
+          <p>
+            tar &lt;opciones&gt; &lt;archivoSalida&gt; &lt;archivo1&gt;
+            &lt;archivo2&gt; &#x2026; &lt;archivoN&gt; #+END<sub>SRC</sub>
+          </p>
+
+          <p>
+            Donde &lt;archivoSalida&gt; es el archivo resultado y
+            &lt;archivo1&gt;, &lt;archivo2&gt;, etcétera son los diferentes
+            archivos que serán "empaquetados" en &lt;archivoSalida&gt;. Este
+            proceso permite respaldar archivos, compartirlos, transmitirlos por
+            Internet o por redes locales de una forma fácil.
           </p>
         </div>
       </div>
 
-      <div id="outline-container-orgc1c4540" class="outline-2">
-        <h2 id="orgc1c4540">Opciones más usadas</h2>
-        <div class="outline-text-2" id="text-orgc1c4540">
+      <div id="outline-container-orgd10e45c" class="outline-2">
+        <h2 id="orgd10e45c">Opciones más usadas</h2>
+        <div class="outline-text-2" id="text-orgd10e45c">
           <ul class="org-ul">
             <li>
               <b>-c</b> Crea un archivo tar que contiene los elementos
@@ -62,13 +74,13 @@
         </div>
       </div>
 
-      <div id="outline-container-orgbc68acb" class="outline-2">
-        <h2 id="orgbc68acb">Ejemplos</h2>
-        <div class="outline-text-2" id="text-orgbc68acb"></div>
+      <div id="outline-container-org66868ee" class="outline-2">
+        <h2 id="org66868ee">Ejemplos</h2>
+        <div class="outline-text-2" id="text-org66868ee"></div>
         <ul class="org-ul">
           <li>
-            <a id="org6c88008"></a>Crear archivo tar sin comprimir<br />
-            <div class="outline-text-5" id="text-org6c88008">
+            <a id="org447039c"></a>Crear archivo tar sin comprimir<br />
+            <div class="outline-text-5" id="text-org447039c">
               <pre class="example">
 $ tar -cvf /path/to/foo.tar /path/to/foo/
 </pre
@@ -84,9 +96,9 @@ $ tar -cvf /path/to/foo.tar /path/to/foo/
           </li>
 
           <li>
-            <a id="org726c341"></a>Todos los archivos que comienzan con una
+            <a id="orgb6bf7fa"></a>Todos los archivos que comienzan con una
             letra<br />
-            <div class="outline-text-5" id="text-org726c341">
+            <div class="outline-text-5" id="text-orgb6bf7fa">
               <pre class="example">
 # tar -cvf fullbackup.tar i*
 install.log
@@ -97,8 +109,8 @@ install.log.syslog
           </li>
 
           <li>
-            <a id="org46c8724"></a>Agregar un archivo al tar existente<br />
-            <div class="outline-text-5" id="text-org46c8724">
+            <a id="org6cd9374"></a>Agregar un archivo al tar existente<br />
+            <div class="outline-text-5" id="text-org6cd9374">
               <pre class="example">
 # tar --append --file=backup.tar anaconda-ks.cfg
 </pre
@@ -107,8 +119,8 @@ install.log.syslog
           </li>
 
           <li>
-            <a id="orgc622b26"></a>Extraer archivos de un tar<br />
-            <div class="outline-text-5" id="text-orgc622b26">
+            <a id="org108c76c"></a>Extraer archivos de un tar<br />
+            <div class="outline-text-5" id="text-org108c76c">
               <pre class="example">
 $ tar -xvf /path/to/foo.tar
 </pre
@@ -117,9 +129,9 @@ $ tar -xvf /path/to/foo.tar
           </li>
 
           <li>
-            <a id="org05468e8"></a>Extraer archivos de un tar en un directorio
+            <a id="org7ed60ff"></a>Extraer archivos de un tar en un directorio
             especifico<br />
-            <div class="outline-text-5" id="text-org05468e8">
+            <div class="outline-text-5" id="text-org7ed60ff">
               <pre class="example">
 $ tar -xvf /path/to/foo.tar -C /path/to/destination/
 </pre
@@ -128,8 +140,8 @@ $ tar -xvf /path/to/foo.tar -C /path/to/destination/
           </li>
 
           <li>
-            <a id="org25121eb"></a>Extraer un archivo del archivo tar<br />
-            <div class="outline-text-5" id="text-org25121eb">
+            <a id="org5e599cd"></a>Extraer un archivo del archivo tar<br />
+            <div class="outline-text-5" id="text-org5e599cd">
               <pre class="example">
 $ tar --extract -vv --occurrence --file=./backup.tar anaconda-ks.cfg
 </pre
@@ -138,8 +150,8 @@ $ tar --extract -vv --occurrence --file=./backup.tar anaconda-ks.cfg
           </li>
 
           <li>
-            <a id="org086fb89"></a>Listar el contenido de tar<br />
-            <div class="outline-text-5" id="text-org086fb89">
+            <a id="org00b7977"></a>Listar el contenido de tar<br />
+            <div class="outline-text-5" id="text-org00b7977">
               <pre class="example">
 $ tar -ztvf /path/to/foo.tgz
 </pre
@@ -148,9 +160,9 @@ $ tar -ztvf /path/to/foo.tgz
           </li>
 
           <li>
-            <a id="org3780161"></a>Crear, extraer y listar un archivo .gz con
+            <a id="org6ddaa94"></a>Crear, extraer y listar un archivo .gz con
             tar<br />
-            <div class="outline-text-5" id="text-org3780161">
+            <div class="outline-text-5" id="text-org6ddaa94">
               <p>Crear</p>
 
               <pre class="example">
@@ -175,8 +187,8 @@ $ tar -ztvf /path/to/foo.tgz /path/to/foo/
           </li>
 
           <li>
-            <a id="org310d385"></a>Crear, extraer y listar un archivo .bz2<br />
-            <div class="outline-text-5" id="text-org310d385">
+            <a id="org6b4667e"></a>Crear, extraer y listar un archivo .bz2<br />
+            <div class="outline-text-5" id="text-org6b4667e">
               <p>Crear</p>
 
               <pre class="example">
@@ -360,66 +372,66 @@ PasswordAutentication no
   <description><![CDATA[
       <p>La gestión de contraseñas debe ser simple y seguir Filosofía Unix.</p>
 
-      <div id="outline-container-org08c100d" class="outline-2">
-        <h2 id="org08c100d">Introducción</h2>
-        <div class="outline-text-2" id="text-org08c100d">
+      <div id="outline-container-org7c5d4b7" class="outline-2">
+        <h2 id="org7c5d4b7">Introducción</h2>
+        <div class="outline-text-2" id="text-org7c5d4b7">
           <p>
             Con pass, cada contraseña vive dentro de un archivo gpg cifrado cuyo
             nombre de archivo es el título del sitio web, correo o recurso que
             requiere la contraseña. Estos archivos cifrados pueden organizarse
-            en jerarquías de carpetas significativas, copiadas de ordenador a
-            ordenador, y, en general, manipuladas utilizando los servicios de
+            en jerarquías de carpetas significativas, copiadas de maquina a
+            maquina, y, en general, manipuladas utilizando los servicios de
             gestión de archivos de línea de comando estándar.
           </p>
 
           <p>
-            pass hace que la gestión de estos archivos de contraseña
+            <b>pass</b> hace que la gestión de estos archivos de contraseña
             individuales sea extremadamente fácil. Todas las contraseñas viven
             en <b>~/.password-store</b>, y pass proporciona algunos comandos
             agradables para agregar, editar, generar y recuperar contraseñas. Es
             un script de shell muy corto y sencillo. Es capaz de poner
-            temporalmente contraseñas en su portapapeles y rastrear cambios de
+            temporalmente contraseñas en el portapapeles y rastrear cambios de
             contraseña utilizando git.
           </p>
         </div>
       </div>
 
-      <div id="outline-container-orgfc5d9c9" class="outline-2">
-        <h2 id="orgfc5d9c9">Usando el Password-store</h2>
-        <div class="outline-text-2" id="text-orgfc5d9c9"></div>
-        <div id="outline-container-org91e55c8" class="outline-3">
-          <h3 id="org91e55c8">
+      <div id="outline-container-org9928210" class="outline-2">
+        <h2 id="org9928210">Usando el Password-store</h2>
+        <div class="outline-text-2" id="text-org9928210"></div>
+        <div id="outline-container-org78d0bb0" class="outline-3">
+          <h3 id="org78d0bb0">
             Enumerar las contraseñas existentes en el store
           </h3>
-          <div class="outline-text-3" id="text-org91e55c8">
+          <div class="outline-text-3" id="text-org78d0bb0">
             <pre class="example">
 dev1@devuan ~ $ pass 
 Password Store
 └── correo
-   ├── casaresrm@gmail.com
+   ├── micorreo@gmail.com
    └── probando@gmail.com
 </pre
             >
           </div>
         </div>
 
-        <div id="outline-container-orgb4db78c" class="outline-3">
-          <h3 id="orgb4db78c">Mostrar contraseñas</h3>
-          <div class="outline-text-3" id="text-orgb4db78c">
+        <div id="outline-container-org32efec5" class="outline-3">
+          <h3 id="org32efec5">Mostrar contraseñas</h3>
+          <div class="outline-text-3" id="text-org32efec5">
             <pre class="example">
-dev1@devuan ~ $ pass casaresrm@gmail.com 
+dev1@devuan ~ $ pass micorreo@gmail.com 
 contraseñasegura
 </pre
             >
           </div>
         </div>
 
-        <div id="outline-container-org9ffb360" class="outline-3">
-          <h3 id="org9ffb360">Copiar al portapapeles</h3>
-          <div class="outline-text-3" id="text-org9ffb360">
+        <div id="outline-container-org7e83733" class="outline-3">
+          <h3 id="org7e83733">Copiar al portapapeles</h3>
+          <div class="outline-text-3" id="text-org7e83733">
             <pre class="example">
-dev1@devuan ~ $ pass -c casaresrm@gmail.com 
-Copied correo/casaresrm@gmail.com to clipboard. Will clear in 45 seconds.
+dev1@devuan ~ $ pass -c micorreo@gmail.com 
+Copied correo/micorreo@gmail.com to clipboard. Will clear in 45 seconds.
 </pre
             >
 
@@ -431,9 +443,9 @@ Copied correo/casaresrm@gmail.com to clipboard. Will clear in 45 seconds.
             </p>
           </div>
         </div>
-        <div id="outline-container-org742e5cb" class="outline-3">
-          <h3 id="org742e5cb">Añadir o modificar contraseñas</h3>
-          <div class="outline-text-3" id="text-org742e5cb">
+        <div id="outline-container-org1b179ec" class="outline-3">
+          <h3 id="org1b179ec">Añadir o modificar contraseñas</h3>
+          <div class="outline-text-3" id="text-org1b179ec">
             <p>
               Añadir #+BEGIN [dev1@devuan ~]$ pass insert martiyo@protonmail.com
               Enter password for martiyo@protonmail.com: Retype password for
@@ -455,9 +467,9 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
             </p>
           </div>
         </div>
-        <div id="outline-container-org17c8d44" class="outline-3">
-          <h3 id="org17c8d44">Contraseñas automaticas</h3>
-          <div class="outline-text-3" id="text-org17c8d44">
+        <div id="outline-container-org290537d" class="outline-3">
+          <h3 id="org290537d">Contraseñas automaticas</h3>
+          <div class="outline-text-3" id="text-org290537d">
             <p>
               La utilidad <b>generate</b> crea nuevas contraseñas utilzando
               <b>/dev/urandom</b>
@@ -478,9 +490,9 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
             </p>
           </div>
         </div>
-        <div id="outline-container-orgc5aa252" class="outline-3">
-          <h3 id="orgc5aa252">Eliminar</h3>
-          <div class="outline-text-3" id="text-orgc5aa252">
+        <div id="outline-container-org424c415" class="outline-3">
+          <h3 id="org424c415">Eliminar</h3>
+          <div class="outline-text-3" id="text-org424c415">
             <pre class="example">
 [dev1@devuan ~]$  pass rm correo/probando@gmail.com 
   Are you sure you would like to delete correo/probando@gmail.com? [y/N] y
@@ -489,9 +501,9 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
             >
           </div>
         </div>
-        <div id="outline-container-org934e6c0" class="outline-3">
-          <h3 id="org934e6c0">Git</h3>
-          <div class="outline-text-3" id="text-org934e6c0">
+        <div id="outline-container-org1d74fbc" class="outline-3">
+          <h3 id="org1d74fbc">Git</h3>
+          <div class="outline-text-3" id="text-org1d74fbc">
             <p>
               Si la tienda de contraseñas es un repositorio de git, ya que cada
               manipulación crea un git commit, puede sincronizar la tienda de
@@ -502,9 +514,9 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
           </div>
         </div>
       </div>
-      <div id="outline-container-org37174ab" class="outline-2">
-        <h2 id="org37174ab">Configuración</h2>
-        <div class="outline-text-2" id="text-org37174ab">
+      <div id="outline-container-org22f76d8" class="outline-2">
+        <h2 id="org22f76d8">Configuración</h2>
+        <div class="outline-text-2" id="text-org22f76d8">
           <p>Para comenzar hay inicializar el dposito de contraseñas</p>
 
           <pre class="example">
@@ -513,9 +525,9 @@ pass init "id de mi clave GPG"
           >
         </div>
 
-        <div id="outline-container-orgc38d751" class="outline-3">
-          <h3 id="orgc38d751">Generando las claves con GnuPG</h3>
-          <div class="outline-text-3" id="text-orgc38d751">
+        <div id="outline-container-org78e82c4" class="outline-3">
+          <h3 id="org78e82c4">Generando las claves con GnuPG</h3>
+          <div class="outline-text-3" id="text-org78e82c4">
             <p>Para crear una pareja de claves (publica y privada) se usa</p>
 
             <pre class="example">
@@ -552,9 +564,9 @@ export GPG_TTY=$(tty)
           </div>
         </div>
 
-        <div id="outline-container-orge6d332f" class="outline-3">
-          <h3 id="orge6d332f">Inicializar el store como un repositorio git</h3>
-          <div class="outline-text-3" id="text-orge6d332f">
+        <div id="outline-container-orgf8e2998" class="outline-3">
+          <h3 id="orgf8e2998">Inicializar el store como un repositorio git</h3>
+          <div class="outline-text-3" id="text-orgf8e2998">
             <pre class="example">
 $ pass git init
 Initialized empty Git repository in /home/dev1/.password-store/.git/
@@ -568,9 +580,9 @@ Initialized empty Git repository in /home/dev1/.password-store/.git/
           </div>
         </div>
       </div>
-      <div id="outline-container-org10404d4" class="outline-2">
-        <h2 id="org10404d4">Organización</h2>
-        <div class="outline-text-2" id="text-org10404d4">
+      <div id="outline-container-org9b3367b" class="outline-2">
+        <h2 id="org9b3367b">Organización</h2>
+        <div class="outline-text-2" id="text-org9b3367b">
           <p>
             nombres de usuario, contraseñas, pins, sitios web, metadatos, etc.
           </p>
@@ -606,9 +618,9 @@ Phone Support PIN #: 84719
           </p>
         </div>
       </div>
-      <div id="outline-container-orgec0e6ab" class="outline-2">
-        <h2 id="orgec0e6ab">Emacs Pass-mode</h2>
-        <div class="outline-text-2" id="text-orgec0e6ab">
+      <div id="outline-container-org2dba31f" class="outline-2">
+        <h2 id="org2dba31f">Emacs Pass-mode</h2>
+        <div class="outline-text-2" id="text-org2dba31f">
           <p>
             Y no podia faltar el pass-modo para emacs, se instala con
             <b>package-install</b> y listo, la interfaz es muy intuitiva.
@@ -4459,9 +4471,9 @@ exit
   <description><![CDATA[
       <p>Reproducir audio en emacs</p>
 
-      <div id="outline-container-org923e755" class="outline-2">
-        <h2 id="org923e755">Emms</h2>
-        <div class="outline-text-2" id="text-org923e755">
+      <div id="outline-container-org36f26d6" class="outline-2">
+        <h2 id="org36f26d6">Emms</h2>
+        <div class="outline-text-2" id="text-org36f26d6">
           <p>
             Emms es el sistema multimedia de Emacs. Intenta ser una aplicación
             limpia y pequeña para reproducir archivos multimedia de Emacs
@@ -4470,9 +4482,9 @@ exit
         </div>
       </div>
 
-      <div id="outline-container-orgc0eee31" class="outline-2">
-        <h2 id="orgc0eee31">Instalación</h2>
-        <div class="outline-text-2" id="text-orgc0eee31">
+      <div id="outline-container-org2675575" class="outline-2">
+        <h2 id="org2675575">Instalación</h2>
+        <div class="outline-text-2" id="text-org2675575">
           <p>
             Para poder escuchar musica en emacs primero hay que instalar el
             paquete
@@ -4505,9 +4517,9 @@ mv emms-4.0 .emacs.d/lisp
           </p>
         </div>
 
-        <div id="outline-container-orgfd6053e" class="outline-3">
-          <h3 id="orgfd6053e">Navegar por el sistema de archivos</h3>
-          <div class="outline-text-3" id="text-orgfd6053e">
+        <div id="outline-container-org636bc43" class="outline-3">
+          <h3 id="org636bc43">Navegar por el sistema de archivos</h3>
+          <div class="outline-text-3" id="text-org636bc43">
             <p>
               El comando <b>M-x emms-play-file</b> permite navegar por el
               sistema de archivos y elegir un archivo de audio para reproducir,
@@ -4529,9 +4541,9 @@ mv emms-4.0 .emacs.d/lisp
           </div>
         </div>
 
-        <div id="outline-container-orgdad6cd8" class="outline-3">
-          <h3 id="orgdad6cd8">Escuchar radios</h3>
-          <div class="outline-text-3" id="text-orgdad6cd8">
+        <div id="outline-container-orgbe2641b" class="outline-3">
+          <h3 id="orgbe2641b">Escuchar radios</h3>
+          <div class="outline-text-3" id="text-orgbe2641b">
             <p>
               Para escuchar radios, hay que crear un archivo con las URL de las
               radios de y ejecutar <b>M-x emms-play-m3u-playlist</b> y navegar

@@ -36,89 +36,784 @@
     </div>
     <div id="content">
       <h1 class="title">Posts tagged "git":</h1>
-      <h2 class="post-title">
+      <div class="post-date">04 abr 2021</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2021-04-04-magit.html"
           >It's Magit!</a
         >
-      </h2>
-      <div class="post-date">04 abr 2021</div>
-      <p>
-        Magit es una interfaz de usuario completa basada en texto para Git .
-        Llena la brecha evidente entre la interfaz de línea de comandos de Git y
-        varias GUI, lo que le permite realizar tareas de control de versiones
-        triviales y elaboradas con solo un par de pulsaciones de teclas
-        mnemotécnicas.
-      </p>
-      (...)
+      </h1>
+
+      <div id="outline-container-org88e5d94" class="outline-2">
+        <h2 id="org88e5d94">¿Que es magit?</h2>
+        <div class="outline-text-2" id="text-org88e5d94">
+          <p>
+            Magit es una interfaz de usuario completa basada en texto para Git .
+            Llena la brecha evidente entre la interfaz de línea de comandos de
+            Git y varias GUI, lo que le permite realizar tareas de control de
+            versiones triviales y elaboradas con solo un par de pulsaciones de
+            teclas mnemotécnicas.
+          </p>
+
+          <p>
+            Magit parece una versión mejorada de lo que obtiene después de
+            ejecutar algunos comandos de Git, pero en Magit cada bit de
+            información visible también es procesable hasta un punto que va
+            mucho más allá de lo que proporciona cualquier GUI de Git y se
+            encarga de actualizar automáticamente esta salida cuando se vuelve
+            obsoleto. En segundo plano, Magit solo ejecuta comandos de Git y, si
+            lo desea, puede ver qué se está ejecutando exactamente, lo que le
+            permite aprender la gitlínea de comandos usando Magit.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orga96febb" class="outline-2">
+        <h2 id="orga96febb">Comenzando</h2>
+        <div class="outline-text-2" id="text-orga96febb">
+          <pre class="example">
+C-x g
+</pre
+          >
+
+          <p>
+            Para mostrar información sobre el repositorio git actual en un
+            buffer dedicado, llamado buffer de estado.
+          </p>
+
+          <p>
+            La mayoría de los comandos de Magit se invocan habitualmente desde
+            el buffer de estado. Se puede considerar la interfaz principal para
+            interactuar con Git usando Magit. Pueden existir muchos otros
+            buffers de Magit en un momento dado, pero a menudo se crean desde
+            este buffer.
+          </p>
+
+          <p>
+            Dependiendo del estado en el que se encuentre tu repositorio, este
+            buffer puede contener secciones tituladas "Staged changes",
+            "Unstaged changes", "Unmerged into origin/master", "Unpushed to
+            origin/master", y muchas otras.
+          </p>
+
+          <p>
+            Como estamos empezando desde un estado seguro, al que puedes volver
+            fácilmente (haciendo un git reset &#x2013;hard PRE-MAGIT-STATE),
+            actualmente no hay cambios escalonados o no escalonados. Edita
+            algunos archivos y guarda los cambios. Luego vuelve al buffer de
+            estado, mientras que al mismo tiempo lo refrescas, escribiendo C-x
+            g. (En el buffer de estado, o cualquier buffer Magit para el caso,
+            es el buffer actual, entonces también puedes usar sólo g para
+            refrescarlo).
+          </p>
+
+          <p>
+            Desplácese entre las secciones utilizando p y n. Tenga en cuenta que
+            los cuerpos de algunas secciones están ocultos. Escriba TAB para
+            expandir o contraer la sección en cuestión. También puede utilizar
+            C-tab para alternar la visibilidad de la sección actual y sus hijos.
+            Desplácese a la sección de un archivo dentro de la sección
+            denominada "Cambios no escenificados" y escriba s para escenificar
+            los cambios que ha realizado en ese archivo. Ese archivo aparece
+            ahora en "Cambios escenificados".
+          </p>
+
+          <p>
+            Magit puede organizar y desorganizar bloques individuales, no sólo
+            archivos completos. Muévete al archivo que acabas de escenificar,
+            expándelo usando TAB, muévete a uno de los hunks usando n, y
+            desescenifica sólo eso escribiendo u. Observa cómo los comandos de
+            escenificación (s) y desescenificación (u) operan en el cambio en el
+            punto. Muchos otros comandos se comportan de la misma manera.
+          </p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <tbody>
+              <tr>
+                <td class="org-left">entrada</td>
+                <td class="org-left">salida</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">--------</td>
+                <td class="org-left">-------</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-x g</td>
+                <td class="org-left">
+                  Muestra info en buffer dedicado (buffer de estado)
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">g</td>
+                <td class="org-left">Actualiza el buffer de estado</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">p n</td>
+                <td class="org-left">Desplazarse entre secciones</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">TAB</td>
+                <td class="org-left">Expandir o contraer secciones</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-TAB</td>
+                <td class="org-left">
+                  Alternar visibilidad entre secciones e hijos
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s</td>
+                <td class="org-left">Agregar cambios al stage (git add .)</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">&#xa0;</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-git.html">git</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">04 jul 2019</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2019-07-04-git-gestion-de-ramas.html"
           >Git gestion de ramas</a
         >
-      </h2>
-      <div class="post-date">04 jul 2019</div>
+      </h1>
       <p>
         El comando git branch tiene más funciones que las de crear y borrar
         ramas. Si se lanza sin parámetros, se obtiene una lista de las ramas
         presentes en el proyecto:
       </p>
-      (...)
+
+      <pre class="example">
+$ git branch
+  iss53
+* master
+  testing
+</pre
+      >
+
+      <p>
+        El carácter * delante de la rama master: indica la rama activa en este
+        momento (la rama a la que apunta HEAD). Si se confirman los cambios
+        (commit), esa será la rama que avance. Para ver la última confirmación
+        de cambios en cada rama, se usa el comando git branch -v:
+      </p>
+
+      <pre class="example">
+$ git branch -v
+  iss53   93b412c fix javascript issue
+* master  7a98805 Merge branch 'iss53'
+  testing 782fd34 add scott to the author list in the readmes
+</pre
+      >
+
+      <p>
+        Otra opción útil para averiguar el estado de las ramas, es filtrarlas y
+        mostrar solo aquellas que han sido fusionadas (o que no lo han sido) con
+        la rama actualmente activa. Para ello, Git dispone de las opciones
+        &#x2013;merged y &#x2013;no-merged. Para ver las ramas que han sido
+        fusionadas en la rama activa, se usa el comando git branch
+        &#x2013;merged:
+      </p>
+
+      <pre class="example">
+$ git branch --merged
+  iss53
+* master
+</pre
+      >
+
+      <p>
+        Aparece la rama iss53 porque ya ha sido fusionada. Las ramas que no
+        llevan por delante el carácter * pueden ser eliminadas sin problemas,
+        porque todo su contenido ya ha sido incorporado a otras ramas.
+      </p>
+
+      <p>
+        Para mostrar todas las ramas que contienen trabajos sin fusionar, se
+        puede utilizar el comando git branch &#x2013;no-merged:
+      </p>
+
+      <pre class="example">
+$ git branch --no-merged
+  testing
+</pre
+      >
+
+      <p>
+        Esto nos muestra la otra rama del proyecto. Debido a que contiene
+        trabajos sin fusionar, al intentarla borrarla con git branch -d, el
+        comando nos dará un error:
+      </p>
+
+      <pre class="example">
+$ git branch -d testing
+error: The branch 'testing' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D testing'.
+</pre
+      >
+
+      <p>
+        Para borrar la rama, y perder el trabajo contenido en ella, se puede
+        forzar el borrado con la opción -D; tal y como indica el mensaje de
+        ayuda.
+      </p>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-git.html">git</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">30 jun 2019</div>
+      <h1 class="post-title">
         <a
           href="https://martiyo.github.io/2019-06-30-git-ramificar-y-fusionar.html"
           >Git ramificar y fusionar</a
         >
-      </h2>
-      <div class="post-date">30 jun 2019</div>
-      <p>
-        Para crear una rama y saltar a ella, en un solo paso, se utiliza el
-        comando git checkout -b:
-      </p>
-      (...)
+      </h1>
+
+      <div id="outline-container-orgb465ae1" class="outline-2">
+        <h2 id="orgb465ae1">Ramificación</h2>
+        <div class="outline-text-2" id="text-orgb465ae1">
+          <p>
+            Para crear una rama y saltar a ella, en un solo paso, se utiliza el
+            comando git checkout -b:
+          </p>
+
+          <pre class="example">
+git checkout -b iss53
+</pre
+          >
+
+          <p>esto es un atajo a:</p>
+
+          <pre class="example">
+git branch iss53
+git checkout iss53
+</pre
+          >
+
+          <p>
+            una vez realizados los cambios en la nueva rama, se confirman los
+            cambios con:
+          </p>
+
+          <pre class="example">
+git commit -a -m 'added a new footer [issue 53]'    
+</pre
+          >
+
+          <p>Para volver a la rama anterior se usa:</p>
+
+          <pre class="example">
+git checkout master
+</pre
+          >
+
+          <blockquote>
+            <p>
+              es importante aclarar que teniendo cambios sin confirmar en la
+              carpeta de trabajo o en el area de preparacion, git no permitira
+              saltar a la otra rama con la que podria tener conflicto
+            </p>
+          </blockquote>
+
+          <p>
+            Luego de realizar las pruebas oportunas, asegurarse de que la
+            solución es correcta, e incorporar los cambios a la nueva rama, es
+            necesario ponerlos en producción. Esto se hace con el comando git
+            merge:
+          </p>
+
+          <pre class="example">
+git merge iss53
+</pre
+          >
+
+          <p>
+            Una vez terminado el trabajo ya no se necesita la nueva rama se la
+            puede eliminar con:
+          </p>
+
+          <pre class="example">
+git branch -d iss53
+</pre
+          >
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-git.html">git</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">22 ene 2019</div>
+      <h1 class="post-title">
         <a
           href="https://martiyo.github.io/2019-01-22-ramificaciones-en-git.html"
           >Ramificaciones en git</a
         >
-      </h2>
-      <div class="post-date">22 ene 2019</div>
-      <p>
-        Una rama Git es simplemente un apuntador móvil apuntando a una de esas
-        confirmaciones. La rama por defecto de Git es la rama master. Con la
-        primera confirmación de cambios que realicemos, se creará esta rama
-        principal master apuntando a dicha confirmación. En cada confirmación de
-        cambios que realicemos, la rama irá avanzando automáticamente. Y la rama
-        master apuntará siempre a la última confirmación realizada. Cuando se
-        crea una nueva rama simplemente se crea un nuevo apuntador para que lo
-        puedas mover libremente. Por ejemplo, si quieres crear una nueva rama
-        denominada "testing". Usarás el comando git branch:
-      </p>
-      (...)
+      </h1>
+
+      <div id="outline-container-orge3a0cd8" class="outline-2">
+        <h2 id="orge3a0cd8">¿Que es una rama?</h2>
+        <div class="outline-text-2" id="text-orge3a0cd8">
+          <p>
+            Una rama Git es simplemente un apuntador móvil apuntando a una de
+            esas confirmaciones. La rama por defecto de Git es la rama master.
+            Con la primera confirmación de cambios que realicemos, se creará
+            esta rama principal master apuntando a dicha confirmación. En cada
+            confirmación de cambios que realicemos, la rama irá avanzando
+            automáticamente. Y la rama master apuntará siempre a la última
+            confirmación realizada. Cuando se crea una nueva rama simplemente se
+            crea un nuevo apuntador para que lo puedas mover libremente. Por
+            ejemplo, si quieres crear una nueva rama denominada "testing".
+            Usarás el comando git branch:
+          </p>
+
+          <pre class="example">
+git branch testing
+</pre
+          >
+
+          <p>
+            Esto creará un nuevo apuntador apuntando a la misma confirmación
+            donde estés actualmente.
+          </p>
+
+          <figure>
+            <img src="./images/git-ramas.png" alt="git-ramas.png" />
+
+            <figcaption>
+              <span class="figure-number">Figure 1: </span>git-branch
+            </figcaption>
+          </figure>
+
+          <p>
+            Y, ¿cómo sabe Git en qué rama estás en este momento? Pues&#x2026;,
+            mediante un apuntador especial denominado HEAD. Aunque es preciso
+            comentar que este HEAD es totalmente distinto al concepto de HEAD en
+            otros sistemas de control de cambios como Subversion o CVS. En Git,
+            es simplemente el apuntador a la rama local en la que tú estés en
+            ese momento. En este caso, en la rama master. Puesto que el comando
+            git branch solamente crea una nueva rama, y no salta a dicha rama.
+          </p>
+
+          <figure>
+            <img src="./images/git-head.png" alt="git-head.png" />
+
+            <figcaption>
+              <span class="figure-number">Figure 2: </span>git-head
+            </figcaption>
+          </figure>
+
+          <p>
+            Para saltar de una rama a otra, tienes que utilizar el comando git
+            checkout.
+          </p>
+
+          <pre class="example">
+git checkout testing
+</pre
+          >
+
+          <p>Esto mueve el apuntador HEAD a la rama testing.</p>
+
+          <figure>
+            <img src="./images/git-checkout.png" alt="git-checkout.png" />
+
+            <figcaption>
+              <span class="figure-number">Figure 3: </span>git-checkout
+            </figcaption>
+          </figure>
+
+          <p>
+            ¿Cuál es el significado de todo esto?. Bueno&#x2026; lo veremos tras
+            realizar otra confirmación de cambios:
+          </p>
+
+          <pre class="example">
+vim test.rb
+git commit -a -m 'made a change'
+</pre
+          >
+
+          <figure>
+            <img src="./images/git-head-avanza.png" alt="git-head-avanza.png" />
+
+            <figcaption>
+              <span class="figure-number">Figure 4: </span>git-head-avanza
+            </figcaption>
+          </figure>
+
+          <p>
+            Observamos algo interesante: la rama testing avanza, mientras que la
+            rama master permanece en la confirmación donde estaba cuando
+            lanzaste el comando git checkout para saltar. Volvamos ahora a la
+            rama master:
+          </p>
+
+          <pre class="example">
+git checkout master
+</pre
+          >
+
+          <figure>
+            <img
+              src="./images/git-head-a-master.png"
+              alt="git-head-a-master.png"
+            />
+
+            <figcaption>
+              <span class="figure-number">Figure 5: </span>git-head-a-master
+            </figcaption>
+          </figure>
+
+          <p>
+            Este comando realiza dos acciones: Mueve el apuntador HEAD de nuevo
+            a la rama master, y revierte los archivos de tu directorio de
+            trabajo; dejándolos tal y como estaban en la última instantánea
+            confirmada en dicha rama master. Esto supone que los cambios que
+            hagas desde este momento en adelante divergirán de la antigua
+            versión del proyecto. Básicamente, lo que se está haciendo es
+            rebobinar el trabajo que habías hecho temporalmente en la rama
+            testing; de tal forma que puedas avanzar en otra dirección
+            diferente.
+          </p>
+
+          <p>
+            Debido a que una rama Git es realmente un simple archivo que
+            contiene los 40 caracteres de una suma de control SHA-1,
+            (representando la confirmación de cambios a la que apunta), no
+            cuesta nada el crear y destruir ramas en Git. Crear una nueva rama
+            es tan rápido y simple como escribir 41 bytes en un archivo, (40
+            caracteres y un retorno de carro).
+          </p>
+
+          <p>
+            Fuente
+            <a
+              href="https://git-scm.com/book/es/v1/Ramificaciones-en-Git-%C2%BFQu%C3%A9-es-una-rama?"
+              >resumen de git-book</a
+            >
+          </p>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-git.html">git</a>
       </div>
-      <h2 class="post-title">
-        <a href="https://martiyo.github.io/2019-01-08-git.html">Git init!</a>
-      </h2>
+
       <div class="post-date">08 ene 2019</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2019-01-08-git.html">Git init!</a>
+      </h1>
       <p>
         Git es un sistema de control de versiones distribuido, gratuito y de
         código abierto, diseñado para manejar todo tipo de proyectos, desde
         pequeños hasta muy grandes, con rapidez y eficiencia.
       </p>
-      (...)
+
+      <div id="outline-container-org78c76d0" class="outline-3">
+        <h3 id="configuración-del-entorno-local">
+          <a id="org78c76d0"></a>Configuración del entorno local
+        </h3>
+        <div class="outline-text-3" id="text-configuración-del-entorno-local">
+          <p>
+            Lo primero que hay que hacer para empezar con git, después de
+            instalarlo (<b>apt install git</b> y listo!) es configurar nombre y
+            correo para que git pueda firmar los commits que se hacen. Esto se
+            hace así:
+          </p>
+
+          <pre class="example">
+git config --global user.name
+git config --global user.email
+</pre
+          >
+
+          <p>
+            dicha información se guarda en ~/.gitconfig Para cambiar estos
+            valores para un proyecto concreto, se pueden ejecutar esos mismos
+            comandos pero sin la opción <b>&#x2013;global</b>, de ésta forma la
+            configuración se guarda en <b>.git/config</b> del proyecto. Otra
+            configuración puede ser
+          </p>
+
+          <pre class="example">
+git config --global color.status auto
+git config --global color.branch auto
+git config --global color.diff auto
+git config --global color.interactive auto
+</pre
+          >
+
+          <p>
+            un poco de color para que sea más fácil leer la información que
+            proporciona git.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgf476a37" class="outline-3">
+        <h3 id="git-init"><a id="orgf476a37"></a>Git init</h3>
+        <div class="outline-text-3" id="text-git-init">
+          <p>
+            <b>git init</b> es el comando para crear un repositorio git, se
+            ejecuta en la carpeta del proyecto y lo que hace es crear el
+            directorio <b>.git</b> en la misma carpeta. #### .gitignore Antes de
+            continuar es mejor crear el archivo <b>.gitignore</b> el cual
+            contiene una lista de los archivos y directorios que git debe
+            ignorar:
+          </p>
+
+          <pre class="example">
+$cat .gitignore
+build/
+*.[oa]
+*~
+doc/*.txt
+</pre
+          >
+
+          <ul class="org-ul">
+            <li>
+              La primera línea indica que se ignore el directorio <b>build</b> y
+              todo su contenido.
+            </li>
+            <li>
+              La segunda línea que se ignore cualquier archivo cuyo nombre
+              termine en <b>.o</b> o <b>.a</b> archivos objeto que suelen ser
+              producto de la compilación de código.
+            </li>
+            <li>
+              La tercera línea que se ignore todos los archivos que terminan en
+              tilde <b>~</b>, usada por muchos editores de texto, como Emacs,
+              para marcar archivos temporales.
+            </li>
+            <li>
+              La cuarta línea dice que se ignore los archivos con la extensión
+              <b>.txt</b> dentro del directorio <b>doc/</b>, pero no el resto de
+              archivos y directorios que <b>doc/</b> contiene.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org8f726ec" class="outline-3">
+        <h3 id="git-add"><a id="org8f726ec"></a>Git add</h3>
+        <div class="outline-text-3" id="text-git-add">
+          <p>
+            Para empezar el seguimiento de un archivo se usa el comando
+            <b>git add</b>
+            que recibe como parámetro la ruta de un archivo o directorio, si es
+            un directorio añade todos los archivos que contenga de manera
+            recursiva.
+          </p>
+
+          <pre class="example">
+git add .
+</pre
+          >
+
+          <p>Este comando añade todos los archivos del directorio local.</p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgbeda481" class="outline-3">
+        <h3 id="git-status"><a id="orgbeda481"></a>Git status</h3>
+        <div class="outline-text-3" id="text-git-status">
+          <p>
+            Una vez creados o modificados los archivos que están bajo
+            seguimiento, se puede ejecutar <b>git status</b> para ver un listado
+            de los archivos modificados.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orga0cf12b" class="outline-3">
+        <h3 id="git-diff"><a id="orga0cf12b"></a>Git diff</h3>
+        <div class="outline-text-3" id="text-git-diff">
+          <p>
+            Este comando compara lo que hay en el directorio de trabajo con lo
+            que hay en el área de preparación. El resultado indica los cambios
+            que se han hecho y que todavía no se han preparado.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgae748a2" class="outline-3">
+        <h3 id="git-diff-cached">
+          <a id="orgae748a2"></a>Git diff &#x2013;cached
+        </h3>
+        <div class="outline-text-3" id="text-git-diff-cached">
+          <p>
+            Se usa para ver los cambios que se han preparado y que irán en la
+            próxima confirmación, lo que hace concretamente es comparar los
+            cambios preparados con la última confirmación.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgb05eaa9" class="outline-3">
+        <h3 id="git-commit"><a id="orgb05eaa9"></a>Git commit</h3>
+        <div class="outline-text-3" id="text-git-commit">
+          <p>
+            Una vez que se realizan los cambios necesarios y luego de ejecutar
+            <b>git add .</b> es hora de confirmar los cambios, para esto se usa
+            el comando <b>git commit -m</b> el flag <b>-m</b> es para añadir un
+            comentario directamente desde la consola(sin abrir un editor).
+          </p>
+
+          <pre class="example">
+git commit -m "mi comentario"
+</pre
+          >
+
+          <p>
+            Un atajo para saltarse toda el área de preparación es pasar al
+            comando
+            <b>git commit</b> la opción <b>-a</b>, esto hace que git prepare
+            todo archivo que estuviese en seguimiento antes de la confirmación,
+            permitiendo obviar toda la parte del <b>add</b>.
+          </p>
+
+          <pre class="example">
+git commit -a -m "mi nuevo comentario"
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org36c0d92" class="outline-3">
+        <h3 id="git-rm"><a id="org36c0d92"></a>Git rm</h3>
+        <div class="outline-text-3" id="text-git-rm">
+          <p>
+            Para eliminar un archivo de Git, hay eliminarlo de los archivos bajo
+            seguimiento (más concretamente, eliminarlo del área de preparación),
+            y después confirmar. El comando git rm se encarga de eso, y también
+            elimina el archivo del directorio de trabajo, para que no se vea
+            entre los archivos sin seguimiento.
+          </p>
+
+          <pre class="example">
+git rm archivo.a
+</pre
+          >
+
+          <p>
+            Aveces es necesario conservar un archivo pero interrumpir su
+            seguimiento, esto es útil cuando dicho archivo no ha sido incluido
+            en
+            <b>.gitignore</b>, para hacer esto su usa la opción
+            <b>&#x2013;cached</b>:
+          </p>
+
+          <pre class="example">
+git rm --cached archivo.a
+</pre
+          >
+
+          <p>
+            El comando <b>git rm</b> acepta archivos, directorio y patrones
+            glog(expresiones regulares) por ejemplo:
+          </p>
+
+          <pre class="example">
+git rm log/\*.log
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgf29dab8" class="outline-2">
+        <h2 id="gitlab"><a id="orgf29dab8"></a>Gitlab</h2>
+        <div class="outline-text-2" id="text-gitlab">
+          <p>
+            Gitlab es un servicio web de control de versiones y desarrollo de
+            software colaborativo basado en Git. Además de gestor de
+            repositorios, el servicio ofrece también alojamiento de wikis y un
+            sistema de seguimiento de errores, todo ello publicado bajo una
+            Licencia de código abierto. Gitlab usa una clave ssh para establecer
+            una conexión segura entre una maquina cliente y el servidor. Para
+            generar una clave ssh en
+            <b>devuan GNU/Linux</b> se usa el comando <b>ssh-keygen</b>:
+          </p>
+
+          <pre class="example">
+$ ssh-keygen -t rsa -b 8192
+</pre
+          >
+
+          <p>
+            Cuando se utiliza RSA, ssh-keygen guarda la clave privada en el
+            archivo ~/.ssh/id\<sub>dsa</sub> y la clave pública en
+            ~/.ssh/id\<sub>dsa.pub</sub>.
+          </p>
+
+          <p>
+            Luego en gitlab ir a <b>llaves ssh</b>, pegar el contenido del
+            archivo <b>id\<sub>rsa.pub</sub></b> y poner un titilo que
+            identifique la maquina o el sistema. Para probar la conexión se usa
+            el comando:
+          </p>
+
+          <pre class="example">
+$ssh git@gitlab.com
+Welcome to GitLab, @martiyo!
+Connection to gitlab.com closed.
+</pre
+          >
+        </div>
+
+        <div id="outline-container-orgf0a1756" class="outline-3">
+          <h3 id="git-push"><a id="orgf0a1756"></a>Git push</h3>
+          <div class="outline-text-3" id="text-git-push">
+            <p>
+              Cuando el proyecto esta listo para subirlo, lo que sigue es crear
+              un nuevo proyecto en gitlab que devuelve la ruta que se agrega
+              con:
+            </p>
+
+            <pre class="example">
+git remote add origin git@gitlab.com:martiyo/mi_proyecto.git
+</pre
+            >
+
+            <p>y por fin&#x2026;!!!</p>
+
+            <pre class="example">
+git push -u origin master
+</pre
+            >
+
+            <p>
+              <b>Fuente</b>
+              Resumen y traducción de
+              <a
+                href="https://git-scm.com/book/es/v1/Fundamentos-de-Git-Obteniendo-un-repositorio-Git"
+                >git-scm.com</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-git.html">git</a>

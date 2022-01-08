@@ -36,23 +36,158 @@
     </div>
     <div id="content">
       <h1 class="title">Posts tagged "emacs":</h1>
-      <h2 class="post-title">
-        <a href="https://martiyo.github.io/2021-04-11-neotree.html">Neotree</a>
-      </h2>
       <div class="post-date">11 abr 2021</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2021-04-11-neotree.html">Neotree</a>
+      </h1>
       <p>Arbol de directorio integrado en <b>emacs</b>.</p>
-      (...)
+
+      <div id="outline-container-orgb9e3226" class="outline-2">
+        <h2 id="orgb9e3226">Instalación</h2>
+        <div class="outline-text-2" id="text-orgb9e3226">
+          <pre class="example">
+M-x package-install RET 
+</pre
+          >
+        </div>
+
+        <div id="outline-container-org21a61f6" class="outline-3">
+          <h3 id="org21a61f6">En el archivo init.el hay que agregar esto:</h3>
+          <div class="outline-text-3" id="text-org21a61f6">
+            <pre class="example">
+(add-to-list 'load-path "~/.emacs.d/elpa/neotree-2020324.1946")
+(require 'neotree)
+(global-set-key [f11] 'neotree-toggle)
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org23801e1" class="outline-3">
+          <h3 id="org23801e1">Abrir/cerrar</h3>
+          <div class="outline-text-3" id="text-org23801e1">
+            <pre class="example">
+f11
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org4087918" class="outline-2">
+        <h2 id="org4087918">Keybinding</h2>
+        <div class="outline-text-2" id="text-org4087918">
+          <p>En el buffer de Neotree:</p>
+
+          <ul class="org-ul">
+            <li><b>n</b> linea siguiente, <b>p</b></li>
+            <li>
+              <b>SPC</b> o <b>RET</b> o <b>TAB</b> abrir el elemento actual si
+              es un archivo. Plegar/desplegar si es un elemento.
+            </li>
+            <li><b>U</b> subir un directorio.</li>
+            <li><b>g</b> actualizar.</li>
+            <li><b>A</b> maximizar/minimizar.</li>
+            <li><b>H</b> mostrar/ocultar archivos ocultos.</li>
+            <li><b>O</b> abre un directorio recursivamente.</li>
+            <li>
+              <b>C-c C-n</b> crea un nuevo archivo o un nuevo directorio si el
+              nombre termina con <b>/</b> .
+            </li>
+            <li><b>C-c C-d</b> elimina un archivo o directorio.</li>
+            <li><b>C-c C-r</b> renombrar archivo o directorio.</li>
+            <li><b>C-c C-c</b> cambiar directorio.</li>
+            <li><b>C-c C-p</b> copiar un archivo o directorio.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org18598f1" class="outline-2">
+        <h2 id="org18598f1">Configuración</h2>
+        <div class="outline-text-2" id="text-org18598f1">
+          <p>Mi configuración con use-package:</p>
+
+          <pre class="example">
+(use-package neotree
+:ensure t
+:load-path "~/.emacs.d/elpa/neotree-20200324.1946"
+:config
+(setq neo-theme 'icons)
+(setq neo-smart-open t)
+(setq projectile-switch-project-action 'neotree-projectile-action)
+(global-set-key [f11] 'neotree-toggle))
+</pre
+          >
+        </div>
+
+        <div id="outline-container-org9890b37" class="outline-3">
+          <h3 id="org9890b37">Connsejos útiles</h3>
+          <div class="outline-text-3" id="text-org9890b37">
+            <p>
+              Para que cada vez que se abra <b>neotree</b> encuentre al archivo
+              y salte a ese directorio:
+            </p>
+
+            <pre class="example">
+(setq neo-smart-open t)
+</pre
+            >
+
+            <p>
+              Al ejecutar <b>projectile-switch-project</b>
+              <b>(C-c p p), *neotree</b> cambiará a ese directorio
+              automaticamente:
+            </p>
+
+            <pre class="example">
+(setq projectile-switch-project-action 'neotree-projectile-action)
+</pre
+            >
+
+            <p>
+              Esto se integra perfectamente con <b>Dashboard</b> (que a la vez
+              se integra con <b>Projectile)</b> y muestran una lista de los
+              últimos proyectos abiertos y al cliquear en uno se abre el
+              proyecto en <b>Neotree</b>.
+            </p>
+
+            <p>
+              Para habilitar los iconos basta con instalar el paquete
+              all-the-icons y agregar esto:
+            </p>
+
+            <pre class="example">
+(setq neo-theme 'icons)
+</pre
+            >
+
+            <p>
+              <b>Fuente</b>
+            </p>
+
+            <p>
+              Esto es una traducción casi literal de la
+              <a href="https://github.com/jaypei/emacs-neotree"
+                >pagina de github</a
+              >. La
+              <a href="https://www.emacswiki.org/emacs/NeoTree">emacswiki</a>
+              tiene unos tips muy útiles.
+            </p>
+          </div>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">17 feb 2021</div>
+      <h1 class="post-title">
         <a
           href="https://martiyo.github.io/2021-02-17-busquedas-con-grep-en-emacs.html"
           >Busqueda con grep en emacs</a
         >
-      </h2>
-      <div class="post-date">17 feb 2021</div>
+      </h1>
       <p>
         El comando <code>grep</code> de emacs te permite ejecutar el programa
         <code>grep</code> de Unix o GNU/Linux, que busca en los archivos las
@@ -61,61 +196,505 @@
         encotradas: cuando se hace clic en resultado de la búsqueda, emacs
         visita el archivo de destino en la ocurrencia.
       </p>
-      (...)
+
+      <p>Por jemplo:</p>
+
+      <pre class="example">
+M-x grep RET
+</pre
+      >
+
+      <p>al hacer esto, emacs te muestra en el minibuffer</p>
+
+      <pre class="example">
+M-x grep --color -nH --null -e 
+</pre
+      >
+
+      <p>donde&#x2026;</p>
+
+      <ul class="org-ul">
+        <li><b>-color</b> muestra la busqueda en color.</li>
+        <li>
+          <b>-n</b> indica el número de linea en que aparece la expresión
+          buscada dentro de cada archivo.
+        </li>
+        <li><b>-H</b> muestra el nombre completo de cada archivo</li>
+        <li>
+          <b>&#x2013;null</b> introduce el caracter ASCII NULL para evitar
+          complicaciones caundo el nombre del archivo tiene un corte de línea.
+        </li>
+        <li>
+          <b>-e</b> para indicar la expresión a buscar, que se escribe a
+          continuación, se pueden usar expresiones regulares y caracteres
+          comodín.
+        </li>
+      </ul>
+
+      <p>
+        entonces solo hay que agrear la expresión regular a buscar y el archivo
+        o archivos donde buscar.
+      </p>
+
+      <p>Ejemplo:</p>
+
+      <pre class="example">
+M-x grep --color -nH --null -e setq ~/.emacs.d/init.el
+</pre
+      >
+
+      <p>
+        esto lista todas las líneas que coinciden con <b>setq</b> en el archivo
+        <b>init.el</b>, mostrando el nombre del del archivo y el numero de
+        línea, al pulsar RET o hacer click en una de las líneas el archivo se
+        abre en la correspondiente linea.
+      </p>
+
+      <div id="outline-container-org05968e2" class="outline-2">
+        <h2 id="org05968e2">lgrep y rgrep</h2>
+        <div class="outline-text-2" id="text-org05968e2">
+          <p>
+            Ambos te preguntan lo que debe buscar de manera conveniente.
+            <code>lgrep</code> busca en el directorio actual y
+            <code>rgrep</code> busca en el árbol de directorios actual.
+            <code>rgrep</code> conoce los sistemas de control de versiones por
+            lo que es posible evitar buscar en los directorios de control.
+          </p>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">10 feb 2021</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2021-02-10-dashboard.html"
           >Dashboard, una pantalla de inicio extencible para emacs</a
         >
-      </h2>
-      <div class="post-date">10 feb 2021</div>
+      </h1>
       <p>Pantalla de inicio practica y útil en <b>exwm</b>.</p>
-      (...)
+
+      <div id="outline-container-org76ec7eb" class="outline-2">
+        <h2 id="org76ec7eb">Caracteristicas</h2>
+        <div class="outline-text-2" id="text-org76ec7eb">
+          <ul class="org-ul">
+            <li>Muestra un banner de Emacs (editable).</li>
+            <li>Lista de archivos recientes.</li>
+            <li>
+              <a href="file:///2020-12-21-emacs-bookmarks.html">Bookmarks</a>
+              list
+            </li>
+            <li>
+              Proyectos recientes (para esto usa
+              <a href="file:///2020-12-07-projectile.html">projectile</a> como
+              dependencia)
+            </li>
+            <li>Agenda org-mode</li>
+            <li>Lista de Registros</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org04f4cda" class="outline-2">
+        <h2 id="org04f4cda">Dependencias</h2>
+        <div class="outline-text-2" id="text-org04f4cda">
+          <p>
+            Para que todo funcióne correctamente son necesarios los siguientes
+            paquetes (disponibles en Melpa):
+          </p>
+
+          <p>
+            page-break-lines -
+            <a href="https://github.com/purcell/page-break-lines"
+              >https://github.com/purcell/page-break-lines</a
+            >
+            (optional) projectile -
+            <a href="https://github.com/bbatsov/projectile"
+              >https://github.com/bbatsov/projectile</a
+            >
+            (optional) all-the-icons -
+            <a href="https://github.com/domtronn/all-the-icons.el"
+              >https://github.com/domtronn/all-the-icons.el</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org97fa788" class="outline-2">
+        <h2 id="org97fa788">Instalación y uso</h2>
+        <div class="outline-text-2" id="text-org97fa788">
+          <pre class="example">
+M-x package-install RET Dashboard
+</pre
+          >
+
+          <pre class="example">
+(require 'dashboard)
+(dashboard-setup-startup-hook)
+;; Or if you use use-package
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
+</pre
+          >
+
+          <p>
+            En mi configuración personalizada todo esto y más se hace con
+            use-package.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgadfc00c" class="outline-2">
+        <h2 id="orgadfc00c">Mi configuración</h2>
+        <div class="outline-text-2" id="text-orgadfc00c">
+          <pre class="example">
+;; Dashboard
+(use-package dashboard
+  :ensure t
+  :custom
+  (dashboard-banner-logo-title (format "Welcome to GNU/Emacs" user-full-name))
+  (dashboard-startup-banner "~/storage/img/otra_estrella_min.png")
+  (dashboard-items '((recents . 6)
+		     (projects . 4)
+		     (bookmarks . 4)
+		     (agenda . 5)
+
+		     ))
+  :config
+
+  (setq dashboard-set-heading-icons t
+	dashboard-set-file-icons t
+	dashboard-set-init-info t
+	dashboard-set-navigator t)
+
+  (setq dashboard-navigator-buttons
+	`((
+	   (,(when (display-graphic-p)
+	       (all-the-icons-octicon "home" :height 1.1 :v-adjust 0.0))
+	    "FAQ" "El universo perdido de GNU/Emacs"
+	    (lambda (&amp;rest _) (browse-url "https://martiyo.github.io/faq")))
+
+	   (,(when (display-graphic-p)
+	       (all-the-icons-material "home" :height 1.35 :v-adjust -0.24))
+	    "Localhost" "Abrir minnotas.com"
+	    (lambda (&amp;rest _) (browse-url "http://misnotas.com/")))
+
+	   (,(when (display-graphic-p)
+	       (all-the-icons-octicon "tools" :height 1.0 :v-adjust 0.0))
+	    "Configuración" "Archivo de configuración de emacs"
+	    (lambda (&amp;rest _) (find-file (expand-file-name  "~/.emacs.d/init.el"))))
+
+	   (,(when (display-graphic-p)
+	       (all-the-icons-octicon "list-ordered" :height 1.0 :v-adjust 0.0))
+	    "TODO" "Abrir myTodo"
+	    (lambda (&amp;rest _) (find-file (expand-file-name  "~/org/myTodo.org"))))
+
+	   (,(when (display-graphic-p)
+	       (all-the-icons-octicon "calendar" :height 1.0 :v-adjust 0.0))
+	    "Agenda" "Agenda personal"
+	    (lambda (&amp;rest _)
+	      (interactive)
+	      (if (get-buffer "*Org Agenda*")
+		  (progn
+		    (switch-to-buffer-other-window "*Org Agenda*")
+		    (kill-buffer "*Org Agenda*")
+		    (org-agenda-list))
+		(split-window-right)
+		(org-agenda-list))))
+
+	   )))
+  :hook
+  (after-init . dashboard-setup-startup-hook))
+</pre
+          >
+
+          <p>
+            <b>Fuentes</b>
+          </p>
+
+          <p>
+            Esto es solo una guia que a la vez sirve como backup de la
+            configuración que yo uso, la pagina de
+            <a href="https://github.com/emacs-dashboard/emacs-dashboard"
+              >github de dashboard</a
+            >
+            tiene la posta.
+          </p>
+
+          <p>
+            Esta configuración y otras muy útilies está
+            <a
+              href="https://gitlab.com/hefistion/emacs-config-with-lp/-/blob/master/emacs-configuracion.org"
+              >aquí</a
+            >
+          </p>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">20 ene 2021</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2021-01-20-Aweshell.html"
           >Todo el poder a la shell!</a
         >
-      </h2>
-      <div class="post-date">20 ene 2021</div>
+      </h1>
       <p>
         Aweshell en un paquete de emacs que sirve para darle más poder a eshell.
       </p>
-      (...)
+
+      <div id="outline-container-orgc6ea1bb" class="outline-2">
+        <h2 id="características"><a id="orgc6ea1bb"></a>Características:</h2>
+        <div class="outline-text-2" id="text-características">
+          <ul class="org-ul">
+            <li>Crear y gestionar múltiples buffers eshell.</li>
+            <li>
+              Añade algunos comandos útiles, como: limpiar el buffer, cambiar a
+              sudo, etc.
+            </li>
+            <li>
+              Mostrar información extra y color como zsh, impulsado por
+              "eshell-prompt-extras
+            </li>
+            <li>Validar y resaltar el comando antes de enviar a eshell.</li>
+            <li>Cambiar el nombre del buffer por el nombre de directorio.</li>
+            <li>Agregar las terminaciones para el comando git.</li>
+            <li>Integrar "eshell".</li>
+            <li>Descomprimir archivos.</li>
+            <li>Abrir el archivo con el alias e.</li>
+            <li>Salida "¿Quiso decir&#x2026;?" ayudante al escribir.</li>
+            <li>Hacer archivo cat con resaltado de sintaxis.</li>
+            <li>
+              Avisar al usuario cuando el proceso de fondo termine o sea
+              abortado.
+            </li>
+            <li>
+              Completar los argumentos de los comandos del shell como el
+              sentimiento IDE.
+            </li>
+            <li>
+              Ventana de shell dedicada como la ventana del terminal inferior de
+              un IDE
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org723438c" class="outline-2">
+        <h2 id="instalación"><a id="org723438c"></a>Instalación:</h2>
+        <div class="outline-text-2" id="text-instalación">
+          <p>El proyecto está en github entonces:</p>
+
+          <pre class="example">
+cd .emacs.d
+git clone https://github.com/manateelazycat/aweshell.git
+</pre
+          >
+
+          <p>
+            después hay que agregar el load-path en el archivo <b>.emacs</b>.
+          </p>
+
+          <pre class="example">
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/aweshell"))
+(require 'aweshell)
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orge232584" class="outline-2">
+        <h2 id="comandos-de-aweshell-y-mis-atajos-en-emacs">
+          <a id="orge232584"></a>Comandos de aweshell y mis atajos en emacs:
+        </h2>
+        <div
+          class="outline-text-2"
+          id="text-comandos-de-aweshell-y-mis-atajos-en-emacs"
+        >
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Comando</th>
+                <th scope="col" class="org-left">Abreviación</th>
+                <th scope="col" class="org-left">Atajo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">aweshell-new</td>
+                <td class="org-left">M-x aw-new RET</td>
+                <td class="org-left">C-xn</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-next</td>
+                <td class="org-left">M-x aw-nex RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-prev</td>
+                <td class="org-left">M-x aw-p RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-clear-buffer</td>
+                <td class="org-left">&#xa0;</td>
+                <td class="org-left">C-l</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-sudo-toggle</td>
+                <td class="org-left">&#xa0;</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-switch-buffer</td>
+                <td class="org-left">M-x a-sw RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-dedicated-toggle</td>
+                <td class="org-left">M-x a-d-t RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-dedicated-open</td>
+                <td class="org-left">M-x aw-o RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">aweshell-dedicated-close</td>
+                <td class="org-left">M-x aw&#x2013;c RET</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">21 dic 2020</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2020-12-21-emacs-bookmarks.html"
           >Emacs Bookmarks</a
         >
-      </h2>
-      <div class="post-date">21 dic 2020</div>
-      <p>
-        Los marcadores registran ubicaciones para que puedas volver a ellas más
-        tarde. Los marcadores de Emacs utilizan tres cosas que están
-        relacionadas pero son diferentes: una lista de marcadores , un archivo
-        de marcadores y una pantalla de lista de marcadores . Comprenderlos es
-        importante para usar los marcadores de Emacs.
-      </p>
-      (...)
+      </h1>
+
+      <div id="outline-container-org12ca3af" class="outline-2">
+        <h2 id="org12ca3af">
+          <a href="https://www.emacswiki.org/emacs/BookMarks">Emacs Wiki</a>
+        </h2>
+        <div class="outline-text-2" id="text-org12ca3af">
+          <p>
+            Los marcadores registran ubicaciones para que puedas volver a ellas
+            más tarde. Los marcadores de Emacs utilizan tres cosas que están
+            relacionadas pero son diferentes: una lista de marcadores , un
+            archivo de marcadores y una pantalla de lista de marcadores .
+            Comprenderlos es importante para usar los marcadores de Emacs.
+          </p>
+
+          <p>Algunos comandos de marcadores para comenzar:</p>
+
+          <ul class="org-ul">
+            <li>
+              <b>C-x r m</b> establece un marcador en la ubicacion actual.
+            </li>
+
+            <li><b>C-x r b</b> salta a un marcador.</li>
+
+            <li><b>C-x r l</b> lista marcadores.</li>
+
+            <li><b>M-x bookmark-delete</b> elimina un marcador.</li>
+          </ul>
+
+          <p>
+            La opción ‘bookmark-default-file’ define un archivo bookmarks , que
+            por defecto es ` ~/.emacs.d/bookmarks` en las versiones más
+            recientes. Emacs mantiene el archivo automáticamente a medida que
+            crea, cambia y elimina marcadores.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgd023208" class="outline-2">
+        <h2 id="orgd023208">Lista de marcadores</h2>
+        <div class="outline-text-2" id="text-orgd023208">
+          <p>
+            El comando <b>bookmark-bmenu-list</b>, vinculado a <b>C-x r l</b>,
+            proporciona un menú conveniente para acceder a los marcadores. La
+            lista es como un dired para marcadores
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org8edbc27" class="outline-2">
+        <h2 id="org8edbc27">Claves en <b>bookmark list</b>:</h2>
+        <div class="outline-text-2" id="text-org8edbc27">
+          <ul class="org-ul">
+            <li><b>a</b> mostrar anotación para el marcador actual.</li>
+
+            <li><b>A</b> mostrar todas las anotaciónes para sus marcadores.</li>
+
+            <li>
+              <b>d</b> marcar varias entradas para borrarlas(<b>x</b> para
+              borrarlas)
+            </li>
+
+            <li><b>e</b> editar anotación del marcador actual.</li>
+
+            <li>
+              <b>m</b> marcar varias entradas para visualización y otras
+              operaciones, ( <b>v</b> para visitar)
+            </li>
+
+            <li>
+              <b>o</b> visitar el marcador actual en otra ventana, mateniendo
+              abierta la lista de marcadores.
+            </li>
+
+            <li><b>C-o</b> cambiar al marcador actual en otro ventana.</li>
+
+            <li><b>r</b> cambiar el nombre del marcador actual.</li>
+          </ul>
+
+          <p>
+            Esto es solo un <code>miniresumen</code> de
+            <a href="https://www.emacswiki.org/emacs/BookMarks">Emacs Wiki</a>
+          </p>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">15 dic 2020</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2020-12-15-dired.html"
           >Dired, el navegador de archivos de emacs</a
         >
-      </h2>
-      <div class="post-date">15 dic 2020</div>
+      </h1>
       <p>
         <b>*Dired</b> crea un buffer de Emacs que contiene un listado de un
         directorio y subdirectorios, se pueden usar los comandos normales de
@@ -124,148 +703,1741 @@
         <b><b>Dired</b></b> funciona tanto con los directorios locales como con
         los remotos.
       </p>
-      (...)
+
+      <div id="outline-container-org685febf" class="outline-2">
+        <h2 id="org685febf">Atajos</h2>
+        <div class="outline-text-2" id="text-org685febf"></div>
+        <div id="outline-container-org680cec3" class="outline-4">
+          <h4 id="org680cec3">
+            Para abrir dired se usa <b><b>(M-x dired)</b></b> o el atajo
+            <b><b>(C-x d)</b></b
+            >. Los atajos más comunes son:
+          </h4>
+          <div class="outline-text-4" id="text-org680cec3">
+            <ul class="org-ul">
+              <li>
+                <b><b>+</b></b> (Crear directorio)
+              </li>
+              <li>e [enter] (Editar el archivo)</li>
+              <li>g (Después de una modificación actualiza la pantalla)</li>
+              <li>q (Regresa al listado)</li>
+              <li>
+                d (Marca un archivo para su eliminación, pone una
+                <b><b>D</b></b> en la primera columna)
+              </li>
+              <li>u (Elimina la marca anterior)</li>
+              <li>U (Desmarcar todos los marcados)</li>
+              <li>
+                x (Elimina los archivos marcados con una <b><b>D</b></b
+                >)
+              </li>
+              <li>D (Eliminación inmediata, pide confirmación)</li>
+              <li>m (marca un archivo)</li>
+              <li>%m (marcar por patron)</li>
+              <li>C (copiar)</li>
+              <li>4C (Copiar el archivo del cursor y los 4 siguientes)</li>
+              <li>R (Renombrar o mover)</li>
+              <li>
+                Z (Comprimir/descomprimir [compress (.z .Z) y gzip (.gz)])
+              </li>
+              <li>
+                X (Entrar comandos de shell [chmod, grep, find, sort&#x2026;])
+              </li>
+              <li>S (Crear un enlace simbólico)</li>
+              <li>h (Muestra la ayuda y todos los atajos de teclado)</li>
+              <li>( (Muestra/esconde detalles de archivos y directorios)</li>
+              <li>
+                &amp; (Con el cursor sobre un archivo, permite entrar una
+                aplicación para abrirla)
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgc93eec4" class="outline-2">
+        <h2 id="orgc93eec4">Algunas funciones útiles</h2>
+        <div class="outline-text-2" id="text-orgc93eec4">
+          <p>
+            Es posible asignar claves DedicatedKeys , como S-&lt;f1&gt;(
+            shift+F1), para abrir una lista de directorios. Por ejemplo, agregar
+            lo siguiente al init.el permite visitar su directorio de inicio al
+            presionar S-&lt;f1&gt; en modo Dired.
+          </p>
+
+          <pre class="example">
+(clave de conjunto global (kbd "S- &lt;f1&gt;" )
+  ( lambda ()
+    (interactivo)
+    (dired "~ /" )))
+</pre
+          >
+        </div>
+
+        <div id="outline-container-org2f17200" class="outline-4">
+          <h4 id="org2f17200">
+            Función para ocultar detalles y permisos de archivos:
+          </h4>
+          <div class="outline-text-4" id="text-org2f17200">
+            <pre class="example">
+;; ocultar detalles de archivos
+(defun dired-mode-setup ()
+  "hook para que dired-mode oculte propietario y permisos de archivo"
+  (dired-hide-details-mode 1))
+
+(add-hook 'dired-mode-hook 'dired-mode-setup)
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org118c571" class="outline-4">
+          <h4 id="org118c571">Abrir archivos con aplicaciónes externas:</h4>
+          <div class="outline-text-4" id="text-org118c571">
+            <pre class="example">
+(defun external-app ()
+"Abrir archivo con apps externas."
+(interactive)
+(let* ((file (dired-get-filename nil t)))
+(call-process "xdg-open" nil 0 nil file)))
+;;; Atajo para abrir archivos con apps externas con f9.
+(global-set-key [f9] 'external-app)
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgc3fca7e" class="outline-2">
+        <h2 id="orgc3fca7e">Settings</h2>
+        <div class="outline-text-2" id="text-orgc3fca7e"></div>
+        <div id="outline-container-org9650b07" class="outline-4">
+          <h4 id="org9650b07">
+            Abrir directorio con Enter (subdirectorio) y ^ (directorio padre) en
+            un mismo buffer.
+          </h4>
+          <div class="outline-text-4" id="text-org9650b07">
+            <pre class="example">
+(require 'dired )
+(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) ; 
+(define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org7136469" class="outline-4">
+          <h4 id="org7136469">
+            En un archivo abrir el directorio de dicho archivo con C-c C-j
+          </h4>
+          <div class="outline-text-4" id="text-org7136469">
+            <pre class="example">
+(require 'dired-x)
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgea3c478" class="outline-2">
+        <h2 id="orgea3c478">Wdired</h2>
+        <div class="outline-text-2" id="text-orgea3c478">
+          <p>
+            WDired, que significa "Writable Dired", ha sido parte de Emacs desde
+            hace mucho tiempo. Su modo de funcionamiento es sencillo: si
+            cualquier búfer "dired" o "dired-derived" se cambia a "writable"
+            desde "read-only" con la unión <b>C-x C-q</b>, reconocida
+            mundialmente, puedes editar el búfer "dired" como si fuera un búfer
+            ordinario. Si está en modo de edición de la memoria intermedia, la
+            línea de modelo de la memoria intermedia dirá Editable.
+          </p>
+
+          <p>
+            Cualquier cambio que hagas en el buffer permanecerá sin cambios
+            hasta que los confirmes escribiendo <b>C-c C-c</b>. Para cancelar
+            los cambios y volver al estado original puedes escribir
+            <b>C-c ESC</b>.
+          </p>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">10 dic 2020</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2020-12-10-eww.html"
           >Eww Emacs Web Wowser</a
         >
-      </h2>
-      <div class="post-date">10 dic 2020</div>
+      </h1>
       <p>
         EWW, el Emacs Web Wowser, es un navegador web para GNU Emacs. Puede
         cargar, analizar y mostrar varias páginas web usando shr.el. Sin
         embargo, se requiere un GNU/Emacs con soporte para libxml2.
       </p>
-      (...)
+
+      <p>Definir eww como navegador por defecto</p>
+      <pre class="example">
+(setq browse-url-browser-function 'eww-browse-url)
+</pre
+      >
+
+      <p>Cambiar directorio de descargas</p>
+      <pre class="example">
+'(eww-download-directory "~/storage/descargas")
+</pre
+      >
+
+      <div id="outline-container-org6a2ec7e" class="outline-2">
+        <h2 id="org6a2ec7e">Atajos</h2>
+        <div class="outline-text-2" id="text-org6a2ec7e">
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">comando</th>
+                <th scope="col" class="org-left">Atajo</th>
+                <th scope="col" class="org-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">eww</td>
+                <td class="org-left">f5</td>
+                <td class="org-left">Abrir URL o buscar en la web</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-open-file</td>
+                <td class="org-left"><a href="file://">file://</a></td>
+                <td class="org-left">Abrir un archivo</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-quit</td>
+                <td class="org-left">q</td>
+                <td class="org-left">Salir</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-reload</td>
+                <td class="org-left">g</td>
+                <td class="org-left">Recargar</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-copy-page-url</td>
+                <td class="org-left">w</td>
+                <td class="org-left">Copia la URL en el kill-ring</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-open-in-new-buffer</td>
+                <td class="org-left">M-RET</td>
+                <td class="org-left">Abre la URL en un nuevo buffer</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-readable</td>
+                <td class="org-left">R</td>
+                <td class="org-left">Muestra solo texto legible</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-toggle-fonts</td>
+                <td class="org-left">F</td>
+                <td class="org-left">Usar fuentes de tono variable o no</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-toggle-colors</td>
+                <td class="org-left">M-C</td>
+                <td class="org-left">
+                  Usar o no colores especificados por HTML
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-dowload</td>
+                <td class="org-left">d</td>
+                <td class="org-left">
+                  Descarga el link bajo el punto o la pagina actual
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-back-url</td>
+                <td class="org-left">"pipe"</td>
+                <td class="org-left">Volver a la URL anterior</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-forward-url</td>
+                <td class="org-left">r</td>
+                <td class="org-left">Ir hacia adelante</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-list-histories</td>
+                <td class="org-left">H</td>
+                <td class="org-left">
+                  Abrir el buffer del historial(se pierde al salir)
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-add-bookmark</td>
+                <td class="org-left">b</td>
+                <td class="org-left">Agregar marcador para la pagina actual</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-list-bookmarks</td>
+                <td class="org-left">B</td>
+                <td class="org-left">Listar marcadores</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-list-buffers</td>
+                <td class="org-left">S</td>
+                <td class="org-left">Listar eww-buffers abiertos</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">eww-switch-to-buffer</td>
+                <td class="org-left">s</td>
+                <td class="org-left">Cambiar entre buffer de eww abiertos</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">07 dic 2020</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2020-12-07-ivy-counsel-swiper.html"
           >ivy counsel swiper</a
         >
-      </h2>
-      <div class="post-date">07 dic 2020</div>
-      <p>
-        Ivy es un marco de terminación, similar a helm, que proporciona una
-        interfaz para listar, buscar, filtrar y realizar acciones sobre una
-        colección de "cosas". Estas "cosas" pueden ir desde cadenas a buffers, a
-        Ivy no le importa. Sólo proporciona una forma para que el usuario
-        interactúe con esta colección.
-      </p>
-      (...)
+      </h1>
+      <ul class="org-ul">
+        <li>
+          Ivy-mode
+          <span class="timestamp-wrapper"
+            ><span class="timestamp">[2020-11-08 dom]</span></span
+          >
+        </li>
+      </ul>
+      <div id="outline-container-org1e51419" class="outline-2">
+        <h2 id="org1e51419">Que es ivy</h2>
+        <div class="outline-text-2" id="text-org1e51419">
+          <p>
+            Ivy es un marco de terminación, similar a helm, que proporciona una
+            interfaz para listar, buscar, filtrar y realizar acciones sobre una
+            colección de "cosas". Estas "cosas" pueden ir desde cadenas a
+            buffers, a Ivy no le importa. Sólo proporciona una forma para que el
+            usuario interactúe con esta colección.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org329144b" class="outline-2">
+        <h2 id="org329144b">Instalación</h2>
+        <div class="outline-text-2" id="text-org329144b">
+          <pre class="example">
+M-x package-install counsel
+</pre
+          >
+
+          <p>Instalando Counsel intalara Ivy y Swipwer como dependencias.</p>
+        </div>
+      </div>
+
+      <div id="outline-container-org8cc60e6" class="outline-2">
+        <h2 id="org8cc60e6">Uso</h2>
+        <div class="outline-text-2" id="text-org8cc60e6">
+          <p>
+            Habilita ivy usando <code>M-x ivy-mode</code> o agregando al archivo
+            init.el (ivy-mode 1) y listo. Ivy puede trabajar sin configuración
+            pero hay un par de lineas más que recomiendan los mantenedores.
+          </p>
+
+          <pre class="example">
+(use-package ivy :demand
+   :config
+   (setq ivy-use-virtual-buffers t
+	 ivy-count-format "%d/%d "))
+</pre
+          >
+
+          <p>
+            <code>ivy-use-virtual-buffers</code>
+            Agrega archivos recientes y marcadores a
+            <code>ivy-switch-buffer</code>
+            <code>ivy-count-format</code>
+            Muestra el número actual y total de la colección en el aviso.
+          </p>
+
+          <p>
+            Hay muchas más configuraciónes disponibles detalladas en la
+            documentacíon, o con ivy instalado ejecutar
+            <code>M-x customize-group ivy</code>.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgba1cebe" class="outline-2">
+        <h2 id="orgba1cebe">Keybindings</h2>
+        <div class="outline-text-2" id="text-orgba1cebe">
+          <p>
+            Cuando ivy esta activo en el minibuffer las siguientes Keybindings
+            están activas:
+          </p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Key</th>
+                <th scope="col" class="org-left">Command</th>
+                <th scope="col" class="org-left">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">M-n</td>
+                <td class="org-left">ivy-next-line</td>
+                <td class="org-left">Linea siguiente</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-p</td>
+                <td class="org-left">ivy-previous-line</td>
+                <td class="org-left">Linea anterior</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-&lt;</td>
+                <td class="org-left">ivy-beginning-of-buffer</td>
+                <td class="org-left">Beginning of the ivy minibuffer</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-&gt;</td>
+                <td class="org-left">ivy-end-fo-buffer</td>
+                <td class="org-left">End of the ivy minibuffer</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-v</td>
+                <td class="org-left">ivy-scroll-up-command</td>
+                <td class="org-left">Page up by one Ivy buffer size</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-v</td>
+                <td class="org-left">ivy-scroll-down-command</td>
+                <td class="org-left">Page down by one Ivy buffer size</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-m or RET</td>
+                <td class="org-left">ivy-done</td>
+                <td class="org-left">Llama a la acción por defecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-M-m</td>
+                <td class="org-left">ivy-call</td>
+                <td class="org-left">
+                  LLama a al aación por defecto, mantiene ivy abierto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">M-o</td>
+                <td class="org-left">ivy-dispacthing-done</td>
+                <td class="org-left">Muestra las acciónes disponibles</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-M-o</td>
+                <td class="org-left">ivy-dispacthing-call</td>
+                <td class="org-left">
+                  Muestra las acciones disponibles, mantiene ivy abierto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-'</td>
+                <td class="org-left">ivy-avy</td>
+                <td class="org-left">Usa avy para seleccionar candidatos</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">TAB</td>
+                <td class="org-left">ivy-partial-or-done</td>
+                <td class="org-left">Autocompletar</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            <code>Fuente</code>
+            <a
+              href="https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html#fnr.1"
+              >writequit.org</a
+            >
+          </p>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">07 dic 2020</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2020-12-07-prettier-js.html"
           >Formatear codigo con prettier-js</a
         >
-      </h2>
-      <div class="post-date">07 dic 2020</div>
-      <p>
-        Prettier-js es una función que formatea el buffer actual usando
-        Prettier.
-      </p>
-      (...)
+      </h1>
+
+      <div id="outline-container-org4245149" class="outline-2">
+        <h2 id="org4245149">Prettier-js</h2>
+        <div class="outline-text-2" id="text-org4245149">
+          <p>
+            Prettier-js es una función que formatea el buffer actual usando
+            Prettier.
+          </p>
+        </div>
+
+        <div id="outline-container-orgbdb51ba" class="outline-3">
+          <h3 id="orgbdb51ba">Requerimientos</h3>
+          <div class="outline-text-3" id="text-orgbdb51ba">
+            <p>
+              Prettier debe estar instalado en el sistema, esto se puede hacer
+              con npm.
+            </p>
+
+            <pre class="example">
+sudo npm i -g prettier
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgebebc6f" class="outline-3">
+          <h3 id="orgebebc6f">Configuración Basica</h3>
+          <div class="outline-text-3" id="text-orgebebc6f">
+            <p>El el archivo de configuración de emacs <b>init.el</b></p>
+
+            <pre class="example">
+(require 'prettier-js)
+</pre
+            >
+
+            <p>Despues para lanzar Prettier-js con <b>web-mode</b></p>
+
+            <pre class="example">
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'web-mode-hook 'prettier-js-mode)
+</pre
+            >
+
+            <p>
+              <b>Fuente</b>
+            </p>
+
+            <p>
+              <a href="https://github.com/prettier/prettier-emacs"
+                >gihub-prettier</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">05 dic 2020</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2020-12-07-projectile.html"
           >Projectile. Integración de Projectos para Emacs</a
         >
-      </h2>
-      <div class="post-date">05 dic 2020</div>
-      <p>
-        Projectile es una biblioteca de interacción de proyectos para Emacs. Su
-        objetivo es proporcionar un buen conjunto de características que operan
-        a nivel de proyecto sin introducir dependencias externas. Esta
-        biblioteca proporciona una fácil gestión y navegación de proyectos. El
-        concepto de proyecto es bastante básico: solo una carpeta que contiene
-        algún archivo especial (por ejemplo, un marcador VCS o un archivo
-        descriptor de proyecto). Actualmente git, mercurial, darcsy bazaarrepos
-        se consideran proyectos por defecto. Si desea marcar un directorio
-        manualmente como proyecto, simplemente cree un archivo vacío en ella
-        llamado ".projectile".
-      </p>
-      (...)
+      </h1>
+
+      <div id="outline-container-orgc5073a9" class="outline-2">
+        <h2 id="orgc5073a9">Docs.Projectile.mx</h2>
+        <div class="outline-text-2" id="text-orgc5073a9">
+          <p>
+            Projectile es una biblioteca de interacción de proyectos para Emacs.
+            Su objetivo es proporcionar un buen conjunto de características que
+            operan a nivel de proyecto sin introducir dependencias externas.
+            Esta biblioteca proporciona una fácil gestión y navegación de
+            proyectos. El concepto de proyecto es bastante básico: solo una
+            carpeta que contiene algún archivo especial (por ejemplo, un
+            marcador VCS o un archivo descriptor de proyecto). Actualmente git,
+            mercurial, darcsy bazaarrepos se consideran proyectos por defecto.
+            Si desea marcar un directorio manualmente como proyecto, simplemente
+            cree un archivo vacío en ella llamado ".projectile".
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org91bdb44" class="outline-2">
+        <h2 id="org91bdb44">Caracteristicas:</h2>
+        <div class="outline-text-2" id="text-org91bdb44"></div>
+        <ul class="org-ul">
+          <li>
+            <a id="org4569a44"></a>Saltar a un archivo en el proyecto.<br />
+          </li>
+
+          <li>
+            <a id="orge4075b7"></a>Saltar a un directorio en el proyecto.<br />
+          </li>
+
+          <li>
+            <a id="orgb3901b8"></a>Saltar a un archivo en un directorio.<br />
+          </li>
+
+          <li><a id="orgdc4315c"></a>Saltar a un buffer del proyecto.<br /></li>
+
+          <li>
+            <a id="orgb554234"></a>Saltar a archivos visitados recientemente en
+            el proyecto.<br />
+          </li>
+
+          <li>
+            <a id="org9937b1b"></a>Cambiar entre proyectos en los que ha
+            trabajado.<br />
+          </li>
+
+          <li>
+            <a id="org2bc30f8"></a>Matar todos los buffer del proyecto.<br />
+          </li>
+
+          <li><a id="org3b48d37"></a>Reemplazar un proyecto.<br /></li>
+
+          <li><a id="org766d17f"></a>Grep en el proyecto.<br /></li>
+
+          <li>
+            <a id="orgcbd29b7"></a>Ejecutar make en un proyecto con un solo
+            acorde.<br />
+          </li>
+
+          <li>
+            <a id="orgc4585e1"></a>Soporte para multiples bibliotecas de
+            finalización/selección (ido, ivy, helm y el sistema de terminación
+            por defecto).<br />
+          </li>
+        </ul>
+      </div>
+
+      <div id="outline-container-org42af3ac" class="outline-2">
+        <h2 id="org42af3ac">Inicio rápido</h2>
+        <div class="outline-text-2" id="text-org42af3ac">
+          <p>
+            Projectile esta disponible en los repositorios principales,
+            entonces:
+          </p>
+
+          <pre class="example">
+M-x package-install RET projectile RET
+</pre
+          >
+
+          <p>Despues en el init.el:</p>
+
+          <pre class="example">
+(modo proyectil +1 )
+( define-clave proyectil-modo-mapa ( kbd  " sp " ) 'proyectil-comando-mapa )
+( define-clave proyectil-modo-mapa ( kbd  " Cc p " ) 'proyectil-comando-mapa )
+</pre
+          >
+
+          <p>
+            Estos Keybindings son solo una sugerencia, pueden modificarse a
+            gusto.
+          </p>
+        </div>
+
+        <div id="outline-container-orgd834d55" class="outline-3">
+          <h3 id="orgd834d55">Instalación mediante <b>use-package</b></h3>
+          <div class="outline-text-3" id="text-orgd834d55">
+            <p>
+              Para instalar la versión de projectile que esta en la rama master,
+              se declara los siguiente en el init.el:
+            </p>
+
+            <pre class="example">
+(use-package projectile
+  :ensure t
+  :init
+  (projectile-mode +1)
+  :bind (:map projectile-mode-map
+	      ("s-p" . projectile-command-map)
+	      ("C-c p" . projectile-command-map)))
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org3eb0790" class="outline-2">
+        <h2 id="org3eb0790">Uso básico</h2>
+        <div class="outline-text-2" id="text-org3eb0790">
+          <p>
+            Para habilitar projectile <code>projectile mode</code>, luego en uno
+            de los archivos del proyecto lanzar el comando <b>C-c p f</b> o
+            <b>s-p f</b> que son los atajos para buscar en el proyecto.
+          </p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Keybinding</th>
+                <th scope="col" class="org-left">Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">s-p f</td>
+                <td class="org-left">Lista todos los archivos del proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p F</td>
+                <td class="org-left">
+                  Lista todos los archivos de todos los proyectos
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p g</td>
+                <td class="org-left">
+                  Lista todos los archivos en un punto del proyectos
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 4 f</td>
+                <td class="org-left">
+                  Salta a un archivo de un proyecto y lo muestra en otra ventana
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p d</td>
+                <td class="org-left">
+                  Lista todos los directorios del proyecto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 4 d</td>
+                <td class="org-left">
+                  Cambia a un directorio de proyecto y lo muestra en otra
+                  ventana
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 5 d</td>
+                <td class="org-left">
+                  Cambia a un directorio de proyecto y lo muestra en otro marco
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p T</td>
+                <td class="org-left">
+                  Lista todos los archivos de prueba del proyecto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 1</td>
+                <td class="org-left">
+                  Lista todos los archivos de un directorio
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p s g</td>
+                <td class="org-left">
+                  Ejecuta grep en los archivos del proyecto
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p b</td>
+                <td class="org-left">
+                  Lista todos los buffers del proyecto abiertos
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p k</td>
+                <td class="org-left">Mata todos los búfers del proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p D</td>
+                <td class="org-left">Abre la raíz del proyecto en dired</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 4 D</td>
+                <td class="org-left">
+                  Abre la raíz del proyecto en dired en otra ventana
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p 5 D</td>
+                <td class="org-left">
+                  Abre la raíz del proyecto en dired en otra marco
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p e</td>
+                <td class="org-left">
+                  Lista de archivos de proyectos visitados recientemente
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p left</td>
+                <td class="org-left">
+                  Cambiar al buffer del proyecto anterior
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p right</td>
+                <td class="org-left">
+                  Cambiar al buffer del proyecto siguiente
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s-p m</td>
+                <td class="org-left">
+                  Projectile-comander (interfaz ejecutar comandos con una sola
+                  teclas)
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">&#xa0;</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="outline-container-org18a5dca" class="outline-3">
+          <h3 id="org18a5dca">Atajos</h3>
+          <div class="outline-text-3" id="text-org18a5dca">
+            <p>Unos cuantos atajos para los comandos más comunes:</p>
+
+            <pre class="example">
+(define-key projectile-mode-map [?\s-d] 'projectile-find-dir)
+(define-key projectile-mode-map [?\s-p] 'projectile-switch-project)
+(define-key projectile-mode-map [?\s-f] 'projectile-find-file)
+(define-key projectile-mode-map [?\s-g] 'projectile-grep)
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org2905725" class="outline-2">
+        <h2 id="org2905725">Projectile-comander</h2>
+        <div class="outline-text-2" id="text-org2905725">
+          <p>
+            Es una ingeniosa utilidad para recordar combinaciónes de teclas. Se
+            invoca con <code>s-p m</code>
+          </p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Keybindings</th>
+                <th scope="col" class="org-left">Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">?</td>
+                <td class="org-left">Agyda de comander</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">D</td>
+                <td class="org-left">Abre la raiz del proyecto en dired</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">a</td>
+                <td class="org-left">Ejecutar un proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">b</td>
+                <td class="org-left">Cambiar al buffer del proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">d</td>
+                <td class="org-left">Encuentra un directorio en el proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">e</td>
+                <td class="org-left">
+                  Encuentra un archivo visitado recientemente
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">f</td>
+                <td class="org-left">Buscar archivo en el proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">k</td>
+                <td class="org-left">Mata todos los buffers del proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">r</td>
+                <td class="org-left">Reemplazar una cadena en el proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">s</td>
+                <td class="org-left">Cambiar de proyecto</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">v</td>
+                <td class="org-left">Abre la raiz del proyecto en magit</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            El
+            <a href="https://docs.projectile.mx/projectile/index.html"
+              >manual del usuario</a
+            >
+            tiene la posta.
+          </p>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">04 dic 2020</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2020-12-07-autocompletar-.html"
           >Auto-complete</a
         >
-      </h2>
-      <div class="post-date">04 dic 2020</div>
+      </h1>
       <p>
         Auto-complete es una extensión inteligente de autocompletado para el
         Emacs. Amplía la interfaz estándar de finalización de Emacs y
         proporciona un entorno que permite a los usuarios concentrarse más en su
         propio trabajo.
       </p>
-      (...)
+
+      <div id="outline-container-org6c2867b" class="outline-2">
+        <h2 id="org6c2867b">Instalación</h2>
+        <div class="outline-text-2" id="text-org6c2867b">
+          <p>
+            <code>M-x package-install RET auto-complete</code>
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orge443a7e" class="outline-2">
+        <h2 id="orge443a7e">Configuración</h2>
+        <div class="outline-text-2" id="text-orge443a7e">
+          <p>En el archivo init.el&#x2026;</p>
+
+          <pre class="example">
+(add-to-list 'load-path "/.emacs.d/auto-complete-20201011.1341/")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete-20201041/dict")
+(ac-config-default)
+;; habilitar en web-mode
+(add-to-list 'ac-modes 'web-mode)
+</pre
+          >
+
+          <p>
+            <b>Fuente</b>
+            <a
+              href="https://github.com/auto-complete/auto-complete/blob/master/doc/manual.md"
+              >Auto-complete github</a
+            >
+          </p>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">27 nov 2020</div>
+      <h1 class="post-title">
         <a
           href="https://martiyo.github.io/2020-11-27-traductor-de-google-en-emacs.html"
           >El traductor de google en emacs</a
         >
-      </h2>
-      <div class="post-date">27 nov 2020</div>
-      <p>Selecionar el texto a traducir y lanzar:</p>
-      (...)
+      </h1>
+
+      <div id="outline-container-orgc4bfb80" class="outline-2">
+        <h2 id="orgc4bfb80">Instalación</h2>
+        <div class="outline-text-2" id="text-orgc4bfb80">
+          <pre class="example">
+M-x package-install RET google-translate
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org3f21788" class="outline-2">
+        <h2 id="org3f21788">Uso</h2>
+        <div class="outline-text-2" id="text-org3f21788">
+          <p>Selecionar el texto a traducir y lanzar:</p>
+
+          <pre class="example">
+M-x google-translate-at-point
+</pre
+          >
+
+          <p>
+            Luego indicar el idioma en el que esta el texto y al que hay que
+            traducir. Para traducir siempre de inglés a español se agrega al
+            init.el:
+          </p>
+
+          <pre class="example">
+(custom-set-variables
+'(google-translate-default-source-language "en")
+'(google-translate-default-target-language "es"))
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orge765103" class="outline-2">
+        <h2 id="orge765103">
+          configuración con use-package y solución del error "failed to search
+          tkk"
+        </h2>
+        <div class="outline-text-2" id="text-orge765103">
+          <p>
+            #+BEGIN<sub>EXAMPLE</sub> (use-package google-translate :ensure t
+            :config (when (and (string-match "0.12.0"
+            (google-translate-version)) (&gt;= (time-to-seconds)
+            (time-to-seconds (encode-time 0 0 0 23 9 2018)))) (defun
+            google-translate&#x2013;get-b-d1 () ;; TKK='427110.1469889687' (list
+            427110 1469889687))) (custom-set-variables
+            '(google-translate-default-source-language "en")
+            '(google-translate-default-target-language "es")) ) #+END<sub
+              >SRC</sub
+            >
+          </p>
+
+          <p>
+            <b>Fuente</b>
+          </p>
+
+          <p>
+            Esto es solo una pequeñisima parte del
+            <a href="http://lapipaplena.duckdns.org/emacs/">curso de emacs</a>
+            de <a href="https://lapipaplena.wordpress.com/">la pipa plena</a>
+          </p>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">09 feb 2019</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2019-02-09-emms.html"
           >Reproducir audio en emacs</a
         >
-      </h2>
-      <div class="post-date">09 feb 2019</div>
+      </h1>
       <p>Reproducir audio en emacs</p>
-      (...)
+
+      <div id="outline-container-org36f26d6" class="outline-2">
+        <h2 id="org36f26d6">Emms</h2>
+        <div class="outline-text-2" id="text-org36f26d6">
+          <p>
+            Emms es el sistema multimedia de Emacs. Intenta ser una aplicación
+            limpia y pequeña para reproducir archivos multimedia de Emacs
+            utilizando reproductores externos.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org2675575" class="outline-2">
+        <h2 id="org2675575">Instalación</h2>
+        <div class="outline-text-2" id="text-org2675575">
+          <p>
+            Para poder escuchar musica en emacs primero hay que instalar el
+            paquete
+            <b>emms</b> con apt, luego descargar tar.gz de emms y moverlo al
+            directorio emacs.d:
+          </p>
+
+          <pre class="example">
+wget http://ftp.gnu.org/gnu/emms/emms-4.0.tar.gz
+tar -zxf emms-4.0.tar.gz
+mv emms-4.0 .emacs.d/lisp
+</pre
+          >
+
+          <p>Editar el archivo .emacs y añadir las siguientes lineas:</p>
+
+          <pre class="example">
+(add-to-list 'load-path "~/.emacs.d/lisp/emms-4.0/")
+(require 'emms-setup)
+(emms-standard)
+(emms-default-players)
+</pre
+          >
+
+          <p>
+            <b>C-x s</b> guarda los cambios <b>M-x ev-b</b> recarga la
+            configuración sin necesidad de reiniciar emacs, luego
+            <b>M-x emms</b> TAB TAB muestra una ventana con las opciones
+            disponibles.
+          </p>
+        </div>
+
+        <div id="outline-container-org636bc43" class="outline-3">
+          <h3 id="org636bc43">Navegar por el sistema de archivos</h3>
+          <div class="outline-text-3" id="text-org636bc43">
+            <p>
+              El comando <b>M-x emms-play-file</b> permite navegar por el
+              sistema de archivos y elegir un archivo de audio para reproducir,
+              <b>M-x emms</b> muestra la playlist y <b>M-x emm-stop</b> detiene
+              la reproducción. Es posible establecer un directorio
+              predeterminado para la carpeta <b>musica</b>
+              editando el archivo .emacs como siempre y agregando esto:
+            </p>
+
+            <pre class="example">
+(setq emms-source-file-default-directory "~/Musica/")
+</pre
+            >
+
+            <p>
+              esta linea permite acceder directamente a ese directorio tipeando
+              <b>M-x emms</b>
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgbe2641b" class="outline-3">
+          <h3 id="orgbe2641b">Escuchar radios</h3>
+          <div class="outline-text-3" id="text-orgbe2641b">
+            <p>
+              Para escuchar radios, hay que crear un archivo con las URL de las
+              radios de y ejecutar <b>M-x emms-play-m3u-playlist</b> y navegar
+              hasta dicho archivo, pero para hacerla mas fácil se puede crear un
+              atajo en .emmacs con:
+            </p>
+
+            <pre class="example">
+(global-set-key (kbd "C-c r") 'emms-play-m3u-playlist)
+</pre
+            >
+
+            <p>
+              ahora para cargar el archivo radios que está en la carpeta Musica
+              basta con <b>C-c r</b>
+            </p>
+          </div>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
-      <h2 class="post-title">
-        <a href="https://martiyo.github.io/2018-09-29-elfeed.html">Elfeed</a>
-      </h2>
+
       <div class="post-date">29 sep 2018</div>
-      <p>
-        Elfeed en un lector de noticias para Emacs, compatible con Atom y Rss.
-      </p>
-      (...)
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2018-09-29-elfeed.html">Elfeed</a>
+      </h1>
+
+      <div id="outline-container-org77863f7" class="outline-2">
+        <h2 id="org77863f7">Descripción</h2>
+        <div class="outline-text-2" id="text-org77863f7">
+          <p>
+            Elfeed en un lector de noticias para Emacs, compatible con Atom y
+            Rss.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgb23f3fa" class="outline-2">
+        <h2 id="orgb23f3fa">Instalación</h2>
+        <div class="outline-text-2" id="text-orgb23f3fa">
+          <p>
+            <b>Elfeed</b> se puede instalar con el gestor de paquetes de emacs,
+            está en los repositorios melpa, entoces:
+          </p>
+
+          <pre class="example">
+M-x list-packages RET elfeed RET y listo.
+</pre
+          >
+
+          <p>
+            Después en el archivo de configuración hay que darle a emacs el
+            directorio de elfeed, requerirlo y agregar los feeds a la
+            elfeed-feeds:
+          </p>
+
+          <pre class="example">
+(add-to-list 'load-path "~/.emacs.d/plugins/elfeed/")
+(require 'elfeed)
+
+(setq elfeed-feeds
+  '(
+    "https://ondahostil.wordpress.com/feed/"
+    "http://www.lapipaplena.org/feed/" 
+    "https://lamiradadelreplicante.com/feed/" 
+    "https://colaboratorio.net/feed/" 
+    "http://www.maxxcan.com/feed/"
+    "https://www.linuxito.com/?format=feed&amp;type=rss"
+    ))
+</pre
+          >
+
+          <p>guardar los cambios con <b>C-c C-s</b> y evaluar el buffer con:</p>
+
+          <pre class="example">
+M-x eval-buffer RET
+</pre
+          >
+
+          <p>y listo!</p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgc7da5ba" class="outline-2">
+        <h2 id="orgc7da5ba">Elfeed-search</h2>
+        <div class="outline-text-2" id="text-orgc7da5ba">
+          <p>Al ejecutar la función interactiva elfeed</p>
+
+          <pre class="example">
+M-x elfeed RET
+</pre
+          >
+
+          <p>
+            aparecerá el <b><b>elfeed-search</b></b> que muestra la lista de
+            feeds.
+          </p>
+
+          <figure>
+            <img src="./images/elfeed.png" alt="elfeed.png" />
+
+            <figcaption>
+              <span class="figure-number">Figure 1: </span>elfeed
+            </figcaption>
+          </figure>
+        </div>
+
+        <div id="outline-container-org32af23a" class="outline-3">
+          <h3 id="org32af23a">Teclas rapidas</h3>
+          <div class="outline-text-3" id="text-org32af23a">
+            <ul class="org-ul">
+              <li>g: actualiza la lista de feeds.</li>
+
+              <li>G: actualiza la lista de feeds desde los servidores.</li>
+
+              <li>s: actualiza el filtro de búsqueda (ver etiquetas)</li>
+
+              <li>c: borra el filtro de búsqueda.</li>
+
+              <li>RET: ver la entrada seleccionada en un búfer.</li>
+
+              <li>b: abre las entradas seleccionadas en el navegador.</li>
+
+              <li>
+                y: copia la URL de la entrada seleccionada en el portapapeles.
+              </li>
+
+              <li>r: marca las entradas seleccionadas como leídas.</li>
+
+              <li>u: marca las entradas seleccionadas como no leídas.</li>
+
+              <li>
+                +: agrega una etiqueta especifica a las entradas seleccionadas.
+              </li>
+
+              <li>
+                -: elimina una etiqueta específica de las entradas seleccionadas
+              </li>
+            </ul>
+
+            <blockquote>
+              <p>
+                Esta lista se puede ver dentro de Emacs con el estándar Ch m .
+              </p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org92bd363" class="outline-2">
+        <h2 id="org92bd363">Etiquetas</h2>
+        <div class="outline-text-2" id="text-org92bd363">
+          <p>
+            Elfeed mantiene una lista de etiquetas arbitrarias, símbolos
+            adjuntos a una entrada. La etiqueta unread se trata especialmente de
+            forma predeterminada, con entradas no leídas que aparecen en
+            negrita.
+          </p>
+        </div>
+
+        <div id="outline-container-orgd167f91" class="outline-3">
+          <h3 id="orgd167f91">Etiquetado automático</h3>
+          <div class="outline-text-3" id="text-orgd167f91">
+            <p>
+              Las etiquetas se pueden aplicar automáticamente a las entradas
+              listadas en <b>elfeed-feeds</b> específicos mediante una sintaxis
+              adicional en elfeed-feeds . Normalmente, esta es una lista strings
+              que proporciona un conjunto de "etiquetas automáticas" para las
+              entradas de un feed.
+            </p>
+
+            <pre class="example">
+(setq elfeed-feeds
+  '(
+    "https://ondahostil.wordpress.com/feed/" blog emacs
+    "http://www.lapipaplena.org/feed/"  blog emacs
+    "https://lamiradadelreplicante.com/feed/" software libre
+    "https://colaboratorio.net/feed/" software libre
+    "http://www.maxxcan.com/feed/" emacs
+    "https://www.linuxito.com/?format=feed&amp;type=rss" linux
+    ))
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org6be1159" class="outline-2">
+        <h2 id="org6be1159">Elfeed + eww</h2>
+        <div class="outline-text-2" id="text-org6be1159">
+          <p>
+            <b>eww</b> es un navegador en texto plano que viene con emacs, para
+            abrir los enlaces desde el visor de entradas de elfeed hay que
+            colocar el cursor en el enlace y presionar M-x eww + enter, para
+            salir de eww y volver a elfeed presionar q.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgd3572fe" class="outline-2">
+        <h2 id="orgd3572fe">Accesos directos</h2>
+        <div class="outline-text-2" id="text-orgd3572fe">
+          <p>Para tener accesos directos se agrega esto en .emacs:</p>
+
+          <pre class="example">
+(global-set-key [f7] 'elfeed)
+(global-set-key [f8] 'elfeed-update)
+
+(global-set-key [f5] 'eww)
+(global-set-key (kbd "C-x w b") 'eww-add-bookmark)
+(global-set-key (kbd "C-x w l") 'eww-list-bookmarks)
+(global-set-key (kbd "C-x w f") 'eww-open-file)
+</pre
+          >
+
+          <blockquote>
+            <p>
+              Ahora f7 abre el lector, f8 lo actualiza, y al ubicar el cursor y
+              presionar f5 se abre con eww.
+            </p>
+          </blockquote>
+        </div>
+
+        <div id="outline-container-org38cb437" class="outline-3">
+          <h3 id="org38cb437">Fuente</h3>
+          <div class="outline-text-3" id="text-org38cb437">
+            <p>
+              <a href="https://github.com/skeeto/elfeed">elfeed-github</a>
+              nasciiboy
+            </p>
+          </div>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">04 jul 2018</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2018-07-04-introduccion-a-emacs.html"
           >Introduccion a GNU/Emacs</a
         >
-      </h2>
-      <div class="post-date">04 jul 2018</div>
-      <p>
-        Emacs es un editor extensible, personalizable, auto-documentado y de
-        tiempo real.
-      </p>
-      (...)
+      </h1>
+
+      <div id="outline-container-orgd8ec753" class="outline-2">
+        <h2 id="gnuemacs">
+          <a id="orgd8ec753"></a>El universo perdido de GNU/Emacs
+        </h2>
+        <div class="outline-text-2" id="text-gnuemacs">
+          <blockquote>
+            <p>
+              Emacs es un editor extensible, personalizable, auto-documentado y
+              de tiempo real.
+            </p>
+          </blockquote>
+        </div>
+
+        <div id="outline-container-org8b7b8e7" class="outline-3">
+          <h3 id="modos-de-edición"><a id="org8b7b8e7"></a>Modos de edición</h3>
+          <div class="outline-text-3" id="text-modos-de-edición">
+            <p>
+              Emacs adapta su comportamiento al tipo de texto que está editando
+              mediante modos de edición llamados "modos mayores" ("major
+              modes"). Los modos mayores se definen para ficheros de texto
+              ordinario, código fuente para diversos lenguajes de programación,
+              documentos HTML, TeX y LaTeX y muchos otros tipos de texto. Cada
+              modo mayor modifica ciertas variables en Lisp para que Emacs se
+              comporte de forma más conveniente para ese tipo concreto de texto.
+              Habitualmente, definen las tablas para resaltado de sintaxis,
+              usando distintos tipos de letra o colores para mostrar las
+              palabras clave, comentarios, etc. Los modos mayores también
+              ofrecen comandos especiales de edición. Por ejemplo, los modos
+              mayores para lenguajes de programación definen habitualmente
+              comandos para saltar al principio o al final de una función.
+            </p>
+
+            <p>
+              El comportamiento de Emacs puede ser más personalizado aún
+              utilizando los "modos menores" ("minor modes"). Mientras que sólo
+              se puede asociar un modo mayor con un buffer a la vez, se puede
+              tener activos varios modos menores. Por ejemplo, el modo mayor
+              para el lenguaje de programación C define un modo menor diferente
+              para cada uno de los estilos de indentación más populares.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org9c907dd" class="outline-3">
+          <h3 id="significado-de-algunas-teclas-en-la-terminología-de-emacs">
+            <a id="org9c907dd"></a>Significado de algunas teclas en la
+            terminología de emacs:
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-significado-de-algunas-teclas-en-la-terminología-de-emacs"
+          >
+            <ul class="org-ul">
+              <li>Alt = M (meta)</li>
+              <li>Crtl= C (control)</li>
+              <li>SPC (Barra espacio)</li>
+              <li>RET (intro)</li>
+              <li>RETRO(retroceso)</li>
+            </ul>
+
+            <p>
+              $ emacs -nw (Lanzar emacs en consola. Para crear un alias: alias
+              emacs='emacs -nw') $ emacs -nw &#x2013;debug-ini (Modo debuger
+              para comprobar errores de sintaxis en ~/.emacs)
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orge379551" class="outline-3">
+          <h3 id="teclas-de-socorro">
+            <a id="orge379551"></a>Teclas de socorro:
+          </h3>
+          <div class="outline-text-3" id="text-teclas-de-socorro">
+            <ul class="org-ul">
+              <li>
+                C-g (Cancelar algo: un comando, una combinación de
+                teclas&#x2026;)
+              </li>
+              <li>C-x u (Deshacer la última pífia)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org819d386" class="outline-3">
+          <h3 id="teclas-para-moverse-por-el-texto-con-más-o-menos-soltura">
+            <a id="org819d386"></a>Teclas para moverse por el texto con más o
+            menos soltura:
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-teclas-para-moverse-por-el-texto-con-más-o-menos-soltura"
+          >
+            <ul class="org-ul">
+              <li>C-a (ir al comienzo de una línea)</li>
+              <li>C-e (ir al final de una línea)</li>
+              <li>C-f (un caracter hacia adelante)</li>
+              <li>C-b (un caracter hacia atrás)</li>
+              <li>M-f (una palabra hacia adelante)</li>
+              <li>M-b (una palabra hacia atrás)</li>
+              <li>C-n (ir a la siguiente línea)</li>
+              <li>C-p (ir a la línea anterior)</li>
+              <li>M-a (Ir al inicio de la frase)</li>
+              <li>M-e (Ir al final de la frase)</li>
+              <li>C-v (Pagina siguiente)</li>
+              <li>M-8 C-v (baja 8 lineas la pantalla, NO 8 PÁGINAS)</li>
+              <li>M-v (Pagina anterior)</li>
+              <li>M-8 M-v (Sube 8 lineas la pantalla, NO 8 PÁGINAS)</li>
+              <li>M-&lt; (Ir al principio del texto)</li>
+              <li>M-&gt; (Ir al final del texto)</li>
+              <li>C-l (Redibuja la pantalla. La primera vez que se pulsa,</li>
+            </ul>
+            <p>
+              coloca la linea del cursor en el centro, la segunda arriba y la
+              tercera abajo)
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgd78227b" class="outline-3">
+          <h3 id="salir"><a id="orgd78227b"></a>Salir:</h3>
+          <div class="outline-text-3" id="text-salir">
+            <ul class="org-ul">
+              <li>C-x C-c (Salir de Emacs)</li>
+              <li>C-x C-s (Guardar sin salir)</li>
+              <li>C-x C-w (Guardarcomo)</li>
+              <li>C-x s (Guardar todos los ficheros abiertos. Preguntará.)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org35b7a7d" class="outline-3">
+          <h3 id="copiar-cortar-pegar">
+            <a id="org35b7a7d"></a>Copiar, cortar, pegar
+          </h3>
+          <div class="outline-text-3" id="text-copiar-cortar-pegar">
+            <ul class="org-ul">
+              <li>C-Epc (Inicio del marcado de texto)</li>
+              <li>C-h (Marcar todo el buffer, "Seleccionar todo")</li>
+              <li>M-w (Copiar)</li>
+              <li>C-w (Cortar)</li>
+              <li>C-y (Pegar)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org6ae974f" class="outline-3">
+          <h3 id="buscar-alguna-palabra">
+            <a id="org6ae974f"></a>Buscar alguna palabra:
+          </h3>
+          <div class="outline-text-3" id="text-buscar-alguna-palabra">
+            <ul class="org-ul">
+              <li>C-s (busca hacia adelante)</li>
+              <li>C-r (busca hacia atras)</li>
+              <li>C-s C-s (repite la busqueda)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-orgc0d21d8" class="outline-3">
+          <h3 id="borrar"><a id="orgc0d21d8"></a>Borrar:</h3>
+          <div class="outline-text-3" id="text-borrar">
+            <ul class="org-ul">
+              <li>M-d (Palabra despues del cursor)</li>
+              <li>M-3 M-d (Borra 3 palabras)</li>
+              <li>C-k (del cursor a fin de linea)</li>
+              <li>M-3 C-k (Borra 3 lineas)</li>
+              <li>M-k (todo el párrafo)</li>
+              <li>M-3 M-k (Borra 3 párrafos)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org7fd7dfd" class="outline-3">
+          <h3 id="ventanas"><a id="org7fd7dfd"></a>Ventanas</h3>
+          <div class="outline-text-3" id="text-ventanas">
+            <ul class="org-ul">
+              <li>C-x 2 (división horizontal de la ventana en dos)</li>
+              <li>C-x 3 (división vertical de la ventana en dos)</li>
+              <li>C-x 1 (Deja solo la ventana activa abierta)</li>
+              <li>C-x o (cambiar de ventana)</li>
+              <li>C-x 0 (Eliminar ventana actual)</li>
+              <li>C-x { (La acorta en dirección horizontal)</li>
+              <li>C-x \^ (La alarga en dirección vertical)</li>
+              <li>C-x } (alarga la ventana activa en dirección horizontal)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-orgb9e3ecd" class="outline-3">
+          <h3 id="bufers"><a id="orgb9e3ecd"></a>Bufers</h3>
+          <div class="outline-text-3" id="text-bufers">
+            <ul class="org-ul">
+              <li>C-x b (Cambiar de buffer)</li>
+              <li>C-x k (cierra la buffer actual. Pide confirmación)</li>
+              <li>
+                C-x C-b (Listar buffers. Cada archivo se abre en un buffer)
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org425a1de" class="outline-3">
+          <h3
+            id="marcas-para-volver-a-una-linea-más-adelante-o-de-aquí-a-varios-dias"
+          >
+            <a id="org425a1de"></a>Marcas para volver a una linea más adelante o
+            de aquí a varios dias:
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-marcas-para-volver-a-una-linea-más-adelante-o-de-aquí-a-varios-dias"
+          >
+            <ul class="org-ul">
+              <li>C-x r m (Solicita nombre para la linea marcada)</li>
+              <li>
+                C-x r b (Ir a la linea marcada con el nombre que entremos, en
+                este caso la "b")
+              </li>
+              <li>C-x r l (Lista todas las marcas)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org6876b37" class="outline-3">
+          <h3 id="varios"><a id="org6876b37"></a>Varios:</h3>
+          <div class="outline-text-3" id="text-varios">
+            <ul class="org-ul">
+              <li>C-x C-f (brir un archivo)</li>
+              <li>C-o (Inserta linea en blanco a continuación del cursor)</li>
+              <li>
+                M-x tetris (Otros juegos: dunnet, snake, doctor, zone&#x2026;)
+              </li>
+              <li>
+                M-x help-with-tutorial-spec-language (abre buffer con los
+                idiomas disponibles para el manual)
+              </li>
+              <li>F10 (Abre menú)</li>
+              <li>C-x d (Abre un directorio que se especifique)</li>
+              <li>
+                C-x RET f (Entrar codificación de caracteres: latin-1-unix
+                [latin1], utf-8-unix [utf8]..)
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org01e5e0c" class="outline-3">
+          <h3 id="entrar-comandos-de-shell-durante-la-sesión-de-emacs">
+            <a id="org01e5e0c"></a>Entrar comandos de shell durante la sesión de
+            emacs:
+          </h3>
+          <div
+            class="outline-text-3"
+            id="text-entrar-comandos-de-shell-durante-la-sesión-de-emacs"
+          >
+            <ul class="org-ul">
+              <li>
+                C-z (Suspende la sesion emacs y entra en la shell. Volver a
+                emacs con fg o con %emacs)
+              </li>
+              <li>
+                M-! (Muestra en el mini buffer un mensaje para entrar un comando
+                y lo abre un una ventana)
+              </li>
+              <li>
+                C-u M-! (Inserta la salida del comando en la posición del
+                cursor)
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="outline-container-org20f4078" class="outline-3">
+          <h3 id="algunas-posibilidades">
+            <a id="org20f4078"></a>Algunas posibilidades:
+          </h3>
+          <div class="outline-text-3" id="text-algunas-posibilidades">
+            <ul class="org-ul">
+              <li>M-x recover file (levantar respaldo del archivo)</li>
+              <li>
+                M-x describe-key INTRO (y presionando una combinación de teclas
+                devuelve el comando asignado)
+              </li>
+              <li>M-x apropos INTRO print (Muestra información de "print")</li>
+              <li>
+                M-x list-faces-display (Ver lista y muestra de los estilos
+                disponibles)
+              </li>
+              <li>
+                M-x set-foreground-color (Pedirá color en inglés para las
+                fuentes.
+              </li>
+              <li>M-x set-background-color (Pedirá color para el fondo)</li>
+              <li>
+                M-x w3m-browser-url(Pedirá url para conectar. Precisa w3m-el)
+              </li>
+              <li>M-x global-linum-mode (Mostras/esconder números de linea)</li>
+              <li>
+                M-x global-visual-line-mode (Cortar/no cortar palabras al final
+                de la pantalla)
+              </li>
+              <li>
+                M-x global-hl-line-mode (Resaltar la linea donde está el cursor)
+              </li>
+              <li>M-x goto-line (Ir a una linea que se especifique)</li>
+              <li>M-x insert file (Para insertar en el cursor un archivo)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>

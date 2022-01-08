@@ -35,63 +35,860 @@
       </div>
     </div>
     <div id="content">
-      <h2 class="post-title">
+      <div class="post-date">05 ene 2022</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2022-01-05-el-empaquetador-tar.html"
           >El empaquetador tar</a
         >
-      </h2>
-      <div class="post-date">05 ene 2022</div>
+      </h1>
       <p>Empaquetar archivos y directorios.</p>
-      (...)
+
+      <div id="outline-container-org1fb02d3" class="outline-2">
+        <h2 id="org1fb02d3">Descripción</h2>
+        <div class="outline-text-2" id="text-org1fb02d3">
+          <p>
+            El programa tar, es usado para almacenar archivos y directorios en
+            un solo archivo, no para comprimirlos. Dentro de los entornos Unix
+            tar aparece como una orden que puede ser ejecutada desde la línea de
+            órdenes de una consola de texto o desde un simple terminal. El
+            formato de la orden es comunmente:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh"></pre>
+          </div>
+          <p>
+            tar &lt;opciones&gt; &lt;archivoSalida&gt; &lt;archivo1&gt;
+            &lt;archivo2&gt; &#x2026; &lt;archivoN&gt; #+END<sub>SRC</sub>
+          </p>
+
+          <p>
+            Donde &lt;archivoSalida&gt; es el archivo resultado y
+            &lt;archivo1&gt;, &lt;archivo2&gt;, etcétera son los diferentes
+            archivos que serán "empaquetados" en &lt;archivoSalida&gt;. Este
+            proceso permite respaldar archivos, compartirlos, transmitirlos por
+            Internet o por redes locales de una forma fácil.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgd10e45c" class="outline-2">
+        <h2 id="orgd10e45c">Opciones más usadas</h2>
+        <div class="outline-text-2" id="text-orgd10e45c">
+          <ul class="org-ul">
+            <li>
+              <b>-c</b> Crea un archivo tar que contiene los elementos
+              especificados.
+            </li>
+            <li><b>-x</b> Extrae el archivo de almacenamiento al disco.</li>
+            <li><b>-t</b> Listar el contenido del archivo tar.</li>
+            <li>
+              <b>-f</b> Especifica el nombre del archivo de almacenamiento.
+            </li>
+            <li><b>-v</b> Visualizar lo que se realiza.</li>
+            <li>
+              <b>-j</b> Se utiliza para comprimir el archivo a con de bzip2.
+            </li>
+            <li>
+              <b>-z</b> Se utiliza para comprimir el archivo a con de gzip.
+            </li>
+          </ul>
+          <p>
+            <b>+ -r</b> Se utiliza para agregar o actualizar un archivo
+            existente con archivos o directorios
+          </p>
+          <ul class="org-ul">
+            <li>
+              <b>-u</b> Como -r, pero las nuevas entradas se agregan solo si
+              tienen una fecha de modificación más reciente que la entrada
+              correspondiente en el archivo.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org66868ee" class="outline-2">
+        <h2 id="org66868ee">Ejemplos</h2>
+        <div class="outline-text-2" id="text-org66868ee"></div>
+        <ul class="org-ul">
+          <li>
+            <a id="org447039c"></a>Crear archivo tar sin comprimir<br />
+            <div class="outline-text-5" id="text-org447039c">
+              <pre class="example">
+$ tar -cvf /path/to/foo.tar /path/to/foo/
+</pre
+              >
+
+              <p>
+                Dónde ‘/path/to/foo.tar‘ es la ubicación del archivo tar
+                resultante (con extención tar) y ‘/path/to/foo’ es la ubicación
+                del archivo o directorio que se utilizará como entrada, las
+                rutas pueden ser ralativas o absolutas.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <a id="orgb6bf7fa"></a>Todos los archivos que comienzan con una
+            letra<br />
+            <div class="outline-text-5" id="text-orgb6bf7fa">
+              <pre class="example">
+# tar -cvf fullbackup.tar i*
+install.log
+install.log.syslog
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org6cd9374"></a>Agregar un archivo al tar existente<br />
+            <div class="outline-text-5" id="text-org6cd9374">
+              <pre class="example">
+# tar --append --file=backup.tar anaconda-ks.cfg
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org108c76c"></a>Extraer archivos de un tar<br />
+            <div class="outline-text-5" id="text-org108c76c">
+              <pre class="example">
+$ tar -xvf /path/to/foo.tar
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org7ed60ff"></a>Extraer archivos de un tar en un directorio
+            especifico<br />
+            <div class="outline-text-5" id="text-org7ed60ff">
+              <pre class="example">
+$ tar -xvf /path/to/foo.tar -C /path/to/destination/
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org5e599cd"></a>Extraer un archivo del archivo tar<br />
+            <div class="outline-text-5" id="text-org5e599cd">
+              <pre class="example">
+$ tar --extract -vv --occurrence --file=./backup.tar anaconda-ks.cfg
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org00b7977"></a>Listar el contenido de tar<br />
+            <div class="outline-text-5" id="text-org00b7977">
+              <pre class="example">
+$ tar -ztvf /path/to/foo.tgz
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org6ddaa94"></a>Crear, extraer y listar un archivo .gz con
+            tar<br />
+            <div class="outline-text-5" id="text-org6ddaa94">
+              <p>Crear</p>
+
+              <pre class="example">
+$ tar -czvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+
+              <p>Extraer</p>
+
+              <pre class="example">
+$ tar -xzvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+
+              <p>Listar</p>
+
+              <pre class="example">
+$ tar -ztvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org6b4667e"></a>Crear, extraer y listar un archivo .bz2<br />
+            <div class="outline-text-5" id="text-org6b4667e">
+              <p>Crear</p>
+
+              <pre class="example">
+$ tar -czvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+
+              <p>Extraer</p>
+
+              <pre class="example">
+$ tar -xjvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+
+              <p>Listar</p>
+
+              <pre class="example">
+$ tar -jtvf /path/to/foo.tgz /path/to/foo/
+</pre
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">02 nov 2021</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2021-11-02-ssh-server.html"
           >ssh-server</a
         >
-      </h2>
-      <div class="post-date">02 nov 2021</div>
+      </h1>
       <p>Consola segura.</p>
-      (...)
+
+      <div id="outline-container-org4fd383e" class="outline-2">
+        <h2 id="org4fd383e">Descripción</h2>
+        <div class="outline-text-2" id="text-org4fd383e">
+          <p>
+            El protocolo SSH (consola segura: "Secure SHell"), fue diseñado
+            pensando en la seguridad y la confiabilidad. Las coneciones que
+            utilizan SSH son seguras: la otra parte es autenticada y se cifran
+            todos los datos intercambiados.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgbeaa5a4" class="outline-2">
+        <h2 id="orgbeaa5a4">Instalación</h2>
+        <div class="outline-text-2" id="text-orgbeaa5a4">
+          <pre class="example">
+$ sudo aptitude install openssh-server openssh-client
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org9e972a9" class="outline-2">
+        <h2 id="org9e972a9">Configuración</h2>
+        <div class="outline-text-2" id="text-org9e972a9">
+          <p>
+            Todas las posibilidades de configuración del servidor SSH están en
+            el archivo /etc/ssh/sshd<sub>config</sub>. Para configurarlo hay que
+            indicar las direcciones ip donde el servicio va a "escuchar" y
+            "responder". En mi caso son conexiones ligadas a la dirección
+            192.168.1.xxx, a través del puerto 22222 (es recomendable cambiar el
+            puerto por defecto por cuestiones de seguridad) y utilizando la
+            versión 2 del protocolo ssh:
+          </p>
+
+          <pre class="example">
+Protocol 2
+</pre
+          >
+
+          <p>
+            También hay que impedir las sesiones o logins de cuentas sin
+            contraseña (Empty Passwords):
+          </p>
+
+          <pre class="example">
+# To enable empty passwords, change to yes (NOT RECOMMENDED)
+PermitEmptyPasswords no
+#[...]  
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgf5b8a33" class="outline-2">
+        <h2 id="orgf5b8a33">Autenticaión basada en llaves</h2>
+        <div class="outline-text-2" id="text-orgf5b8a33">
+          <p>
+            Cada vez que alguien inicia sesión a travéz de SSH, el servidor
+            remoto pide una contraseña para autenticar al usuario. Esto puede
+            ser problemático si desea automatizar la conexíon o si se utiliza
+            una herramineta que necesita conexiones frecuentes sobre SSH. Es por
+            esto que SSH ofrece un sistema de autenticación basada en llaves.
+          </p>
+
+          <p>Ejemplo</p>
+
+          <p>
+            Para conectarse a un servidor remoto lo primero que debe hacerse es
+            generar una llave en la máquina local, sin ser root ejecutar:
+          </p>
+
+          <pre class="example">
+$ ssh-keygen -t rsa -b 8192
+</pre
+          >
+
+          <p>
+            Esto genera una llave más que segura ya que normalmente se usan
+            llaves de 1024 a 2048. Cuando se utiliza RSA, ssh-keygen guarda la
+            clave privada en el archivo ~/.ssh/id\<sub>dsa</sub> y la clave
+            pública en ~/.ssh/id\<sub>dsa.pub</sub>. Luego subir la llave al
+            servidor con:
+          </p>
+
+          <pre class="example">
+$ ssh-copy-id usuario@ip_del_servidor
+</pre
+          >
+
+          <p>
+            Una vez hecho esto y conectados al servidor remoto con permisos de
+            root modificar el archivo /etc/ssh/sshd\<sub>config</sub> para
+            deshabilitar la autenticación con contrseña
+          </p>
+
+          <pre class="example">
+PasswordAutentication no
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org7388144" class="outline-2">
+        <h2 id="org7388144">Tranferemcia de archivos</h2>
+        <div class="outline-text-2" id="text-org7388144">
+          <p>
+            SSH también ofrece dos servicios de tranferemcia de archivos,
+            <a href="...">scp</a> y <a href="...">sftp</a>. scp es una
+            herramienta para la terminal que puede se utilizar como cp excepto
+            que cualquier ruta a otro equipo utilizará un prefijo con el nombre
+            de la máquina seguido de dos puntos(":"). sftp es un programa
+            interactivo similar a ftp. En una sola sesión sftp puede transferir
+            varios archivos y es posible manipular archivos remotos con él
+            (eliminar, renombrar, cambiar permisos, etc).
+          </p>
+
+          <p>
+            <b>Referencias</b>
+            <a
+              href="https://debian-handbook.info/download/es-ES/stable/debian-handbook.pdf"
+            >
+              Ellibro del administrador debian</a
+            >
+            <a
+              href="https://www.linuxito.com/gnu-linux/nivel-alto/459-como-autenticar-con-clave-publica-en-ssh"
+              >www.linuxito.com</a
+            >
+          </p>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-consola.html">consola</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">24 oct 2021</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2021-10-24-pass.html"
           >Pass el gestor de contraseñas estandar de unix</a
         >
-      </h2>
-      <div class="post-date">24 oct 2021</div>
+      </h1>
       <p>La gestión de contraseñas debe ser simple y seguir Filosofía Unix.</p>
-      (...)
+
+      <div id="outline-container-org7c5d4b7" class="outline-2">
+        <h2 id="org7c5d4b7">Introducción</h2>
+        <div class="outline-text-2" id="text-org7c5d4b7">
+          <p>
+            Con pass, cada contraseña vive dentro de un archivo gpg cifrado cuyo
+            nombre de archivo es el título del sitio web, correo o recurso que
+            requiere la contraseña. Estos archivos cifrados pueden organizarse
+            en jerarquías de carpetas significativas, copiadas de maquina a
+            maquina, y, en general, manipuladas utilizando los servicios de
+            gestión de archivos de línea de comando estándar.
+          </p>
+
+          <p>
+            <b>pass</b> hace que la gestión de estos archivos de contraseña
+            individuales sea extremadamente fácil. Todas las contraseñas viven
+            en <b>~/.password-store</b>, y pass proporciona algunos comandos
+            agradables para agregar, editar, generar y recuperar contraseñas. Es
+            un script de shell muy corto y sencillo. Es capaz de poner
+            temporalmente contraseñas en el portapapeles y rastrear cambios de
+            contraseña utilizando git.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org9928210" class="outline-2">
+        <h2 id="org9928210">Usando el Password-store</h2>
+        <div class="outline-text-2" id="text-org9928210"></div>
+        <div id="outline-container-org78d0bb0" class="outline-3">
+          <h3 id="org78d0bb0">
+            Enumerar las contraseñas existentes en el store
+          </h3>
+          <div class="outline-text-3" id="text-org78d0bb0">
+            <pre class="example">
+dev1@devuan ~ $ pass 
+Password Store
+└── correo
+   ├── micorreo@gmail.com
+   └── probando@gmail.com
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org32efec5" class="outline-3">
+          <h3 id="org32efec5">Mostrar contraseñas</h3>
+          <div class="outline-text-3" id="text-org32efec5">
+            <pre class="example">
+dev1@devuan ~ $ pass micorreo@gmail.com 
+contraseñasegura
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org7e83733" class="outline-3">
+          <h3 id="org7e83733">Copiar al portapapeles</h3>
+          <div class="outline-text-3" id="text-org7e83733">
+            <pre class="example">
+dev1@devuan ~ $ pass -c micorreo@gmail.com 
+Copied correo/micorreo@gmail.com to clipboard. Will clear in 45 seconds.
+</pre
+            >
+
+            <p>
+              Cualquira de estos comandos habrirá un diálogo de entrada de
+              contraseña agradable usando el estándar gpg-agent (que se puede
+              configurar para mantenerse autenticado durante varios minutos), ya
+              que todas las contraseñas están encriptadas.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org1b179ec" class="outline-3">
+          <h3 id="org1b179ec">Añadir o modificar contraseñas</h3>
+          <div class="outline-text-3" id="text-org1b179ec">
+            <p>
+              Añadir #+BEGIN [dev1@devuan ~]$ pass insert martiyo@protonmail.com
+              Enter password for martiyo@protonmail.com: Retype password for
+              martiyo@protonmail.com: #+END<sub>SRC</sub>
+            </p>
+
+            <p>Modificar</p>
+
+            <pre class="example">
+[dev1@devuan ~]$  pass insert correo/probando@gmail.com
+An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
+</pre
+            >
+
+            <p>
+              Esto también maneja contraseñas multilíneas u otros datos con
+              &#x2013;multiline or -m, y las contraseñas se pueden editar en su
+              editor de texto predeterminado utilizando pass edit pass-name.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org290537d" class="outline-3">
+          <h3 id="org290537d">Contraseñas automaticas</h3>
+          <div class="outline-text-3" id="text-org290537d">
+            <p>
+              La utilidad <b>generate</b> crea nuevas contraseñas utilzando
+              <b>/dev/urandom</b>
+            </p>
+
+            <pre class="example">
+[dev1@devuan ~]$  pass generate web/midudev.com 15
+  mkdir: se ha creado el directorio '/home/dev1/.password-store/web'
+  The generated password for web/midudev.com is:
+  r?&gt;T.C/NE)&gt;kT9W
+</pre
+            >
+
+            <p>
+              Es posible generar contraseñas sin símbolos usando
+              &#x2013;no-symbols or -n, y podemos copiarlo al portapapeles en
+              lugar de mostrarlo en la consola usando &#x2013;clip or -c.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org424c415" class="outline-3">
+          <h3 id="org424c415">Eliminar</h3>
+          <div class="outline-text-3" id="text-org424c415">
+            <pre class="example">
+[dev1@devuan ~]$  pass rm correo/probando@gmail.com 
+  Are you sure you would like to delete correo/probando@gmail.com? [y/N] y
+  '/home/dev1/.password-store/correo/probando@gmail.com.gpg' borrado
+</pre
+            >
+          </div>
+        </div>
+        <div id="outline-container-org1d74fbc" class="outline-3">
+          <h3 id="org1d74fbc">Git</h3>
+          <div class="outline-text-3" id="text-org1d74fbc">
+            <p>
+              Si la tienda de contraseñas es un repositorio de git, ya que cada
+              manipulación crea un git commit, puede sincronizar la tienda de
+              contraseñas utilizando <b>pass git push</b> y
+              <b>pass git pull</b>, que llamada git-push or git-pull en la
+              tienda.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org22f76d8" class="outline-2">
+        <h2 id="org22f76d8">Configuración</h2>
+        <div class="outline-text-2" id="text-org22f76d8">
+          <p>Para comenzar hay inicializar el dposito de contraseñas</p>
+
+          <pre class="example">
+pass init "id de mi clave GPG"
+</pre
+          >
+        </div>
+
+        <div id="outline-container-org78e82c4" class="outline-3">
+          <h3 id="org78e82c4">Generando las claves con GnuPG</h3>
+          <div class="outline-text-3" id="text-org78e82c4">
+            <p>Para crear una pareja de claves (publica y privada) se usa</p>
+
+            <pre class="example">
+gpg --gen-key
+</pre
+            >
+
+            <p>se completan los datos solicitados y listo.</p>
+
+            <p>el comando</p>
+
+            <pre class="example">
+gpg -k
+</pre
+            >
+
+            <p>
+              mostrará la identificación de cada clave
+              <a
+                href="https://lignux.com/wp-content/uploads/2014/01/instrucciones-gpg.pdf"
+                >más info sobre gpg</a
+              >
+            </p>
+
+            <p>
+              <b>Nota</b> para que pass pueda descifrar las contraseñas hay que
+              exportar un variable de entorno:
+            </p>
+
+            <pre class="example">
+export GPG_TTY=$(tty)
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-orgf8e2998" class="outline-3">
+          <h3 id="orgf8e2998">Inicializar el store como un repositorio git</h3>
+          <div class="outline-text-3" id="text-orgf8e2998">
+            <pre class="example">
+$ pass git init
+Initialized empty Git repository in /home/dev1/.password-store/.git/
+</pre
+            >
+
+            <p>
+              Si un repositirio git es inicializado, pass crea un git commit
+              cada vez que se manipula el store de contraseñas.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org9b3367b" class="outline-2">
+        <h2 id="org9b3367b">Organización</h2>
+        <div class="outline-text-2" id="text-org9b3367b">
+          <p>
+            nombres de usuario, contraseñas, pins, sitios web, metadatos, etc.
+          </p>
+
+          <p>
+            Password-store no impone ningún esquema o tipo de organización
+            particular de los datos, ya que es simplemente un archivo de texto
+            plano, que puede contener datos arbitrarios. aunque el caso más
+            común es almacenar una contraseña única por entrada, algunos
+            usuarios prefieren almacenar más que su contraseña dentro de la
+            tienda de contraseñas, y además almacenar respuestas a preguntas
+            secretas, urls del sitio web y otra información o metadatos
+            sensibles. como la pass no impone un esquema propio, puede elegir su
+            propia organización. hay muchas posibilidades. Un enfoque es
+            utilizar la funcionalidad multilínea de pase (&#x2013;multiline or
+            -m in insert), y almacenar la contraseña en sí misma en la primera
+            línea del archivo, y la información adicional en líneas posteriores.
+            por ejemplo, Amazon/bookreader podría parecer así:
+          </p>
+
+          <pre class="example">
+Yw|ZSNH!}z"6{ym9pI
+URL: *.amazon.com/*
+Username: AmazonianChicken@example.com
+Secret Question 1: What is your childhood best friend's most bizarre superhero fantasy? Oh god, Amazon, it's too awful to say...
+Phone Support PIN #: 84719
+</pre
+          >
+
+          <p>
+            Las opciones <b>&#x2013;clip / -c</b> solo copiarán la primer línea
+            de tal archivo en el portapapeles.
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-org2dba31f" class="outline-2">
+        <h2 id="org2dba31f">Emacs Pass-mode</h2>
+        <div class="outline-text-2" id="text-org2dba31f">
+          <p>
+            Y no podia faltar el pass-modo para emacs, se instala con
+            <b>package-install</b> y listo, la interfaz es muy intuitiva.
+          </p>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
-      <h2 class="post-title">
-        <a href="https://martiyo.github.io/2021-10-21-tmux.html">tmux</a>
-      </h2>
+
       <div class="post-date">21 oct 2021</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2021-10-21-tmux.html">tmux</a>
+      </h1>
       <p>Multiplexor de terminal.</p>
-      (...)
+
+      <div id="outline-container-orgaca8126" class="outline-2">
+        <h2 id="orgaca8126">Wikipedia</h2>
+        <div class="outline-text-2" id="text-orgaca8126">
+          <p>
+            tmux es un multiplexor de terminal para sistemas tipo unix, similar
+            a GNU Screen que permite dividir una consola en múltiples secciones
+            o generar sesiones independientes en la misma terminal. Permite
+            crear varias terminales dentro de una misma pantalla, las que
+            incluso pueden desacoplarse y volver a acoplar en una sesión
+            distinta​. tmux utiliza un modelo cliente-servidor. El servidor
+            tiene varias sesiones y cada ventana es una entidad independiente
+            que puede ser libremente vinculado a otras sesiones. En cada sesión
+            se podrán visualizar y aceptar la entrada de teclado de varios
+            clientes.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org046da17" class="outline-2">
+        <h2 id="org046da17">Configuración</h2>
+        <div class="outline-text-2" id="text-org046da17">
+          <p>
+            El archivo de configuración es ~/.tmux.conf. Por defecto la
+            combinación de teclas básica es <b>C-b</b> que yo por comodidad la
+            he cambiado por <b>C-a</b>
+            editando dicho archivo
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org9e9687f" class="outline-2">
+        <h2 id="org9e9687f">Comandos básicos</h2>
+        <div class="outline-text-2" id="text-org9e9687f">
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">bind-key</th>
+                <th scope="col" class="org-left">salida</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">C-a %</td>
+                <td class="org-left">Abre un panel vertical</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a "</td>
+                <td class="org-left">Abre un panel horizontal</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a derecha-izquierda-arriba-abajo</td>
+                <td class="org-left">
+                  Cambiar al panel derecho, izquierdo, arriba, abajo
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a c</td>
+                <td class="org-left">Crea una nueva pestaña</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a ,</td>
+                <td class="org-left">Darle nombre a la nueva pestaña</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a n</td>
+                <td class="org-left">Cambiar a la pestaña siguiente</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a p</td>
+                <td class="org-left">Cambiar a la pestaña previa</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a ?</td>
+                <td class="org-left">Lista de comandos</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a d</td>
+                <td class="org-left">Salir de la sesión</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tmux a</td>
+                <td class="org-left">Retomar la sesión</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="outline-container-org4272bf0" class="outline-3">
+          <h3 id="org4272bf0">
+            La wiki de arch tiene un muy buen ejemplo del archivo de
+            configuración
+          </h3>
+          <div class="outline-text-3" id="text-org4272bf0">
+            <pre class="example">
+# Mover las ventanas izquierda o derecha en la sesión
+bind-key -n C-right next
+bind-key -n C-left prev
+# Nueva combinacion Ctrl + z + (Las teclas a continuación abajo)
+set -g prefix C-z
+# Desatamos la tecla predeterminada Ctrl + b y utilizamos la nueva combinación Ctrl + z + [tecla] 
+unbind-key C-b
+bind-key C-z send-prefix
+# Nueva ventana
+bind-key C-n new-window
+# Dividir la ventana en forma horizontal
+bind-key C-h split-window -h
+# Dividir la ventana en forma vertical
+bind-key C-v split-window -v
+# Movernos al panel arriba
+bind-key C-up select-pane -U
+# Movernos al panel abajo
+bind-key C-down select-pane -D
+# Movernos al panel a la izquierda
+bind-key C-left select-pane -L
+# Movernos al panel a la derecha
+bind-key C-right select-pane -R
+# Ocultar la session para volver a entrar solo tipeamos en consola: tmux attach-session ó tmux attach
+bind-key C-d detach
+# Habilitar que el mouse selecciones los paneles
+set-option -g mouse-select-pane on
+set-option -g set-titles on
+# Sin actividad visual
+set -g visual-activity on
+set -g visual-bell on
+# Barra de estado
+set-option -g status-utf8 on
+set-option -g status-justify right
+set-option -g status-bg black
+set-option -g status-fg green
+set-option -g status-interval 5
+set-option -g status-left-length 30
+set-option -g status-left '#[fg=magenta]» #[fg=blue,bold]#T#[default]'
+set-option -g status-right '#[fg=cyan]»» #[fg=blue,bold] #[fg=magenta]%D %k:%M#[default]'
+set-option -g visual-activity on
+set-window-option -g monitor-activity on
+set-window-option -g window-status-current-fg green
+set-window-option -g clock-mode-colour white 
+set-window-option -g clock-mode-style 24
+</pre
+            >
+
+            <p>TODO Habilitar history y mouse</p>
+
+            <p>
+              Fuentes:
+              <a href="https://wiki.archlinux.org/index.php/Tmux_(Espa%C3%B1ol)"
+                >archwiki</a
+              >
+              <a href="https://hipertextual.com/archivo/2014/09/tmux/"
+                >hipertextual.com</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
-      <h2 class="post-title">
+
+      <div class="post-date">03 oct 2021</div>
+      <h1 class="post-title">
         <a href="https://martiyo.github.io/2021-10-03-youtube-dl.html"
           >youtube-dl</a
         >
-      </h2>
-      <div class="post-date">03 oct 2021</div>
+      </h1>
       <p>
         Youtube-dl es un programa de línea de comandos para descargar videos de
         youtube y algunos otros sitios más
       </p>
-      (...)
+
+      <div id="outline-container-orgc034160" class="outline-2">
+        <h2 id="orgc034160">Instalación</h2>
+        <div class="outline-text-2" id="text-orgc034160">
+          <p>Con curl</p>
+
+          <pre class="example">
+sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl
+</pre
+          >
+
+          <p>Con wget</p>
+
+          <pre class="example">
+sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org81d8fef" class="outline-2">
+        <h2 id="org81d8fef">Usos frecuentes</h2>
+        <div class="outline-text-2" id="text-org81d8fef">
+          <p>
+            Descargar lista de reproducción completa y extraer audio en formato
+            mp3
+          </p>
+
+          <pre class="example">
+youtube-dl --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" &lt;url to playlist&gt;
+</pre
+          >
+        </div>
+      </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-linux.html">linux</a>
