@@ -62,8 +62,8 @@ a {
   margin-bottom: 25px;
   line-height: 40px;
   font-weight: 200;
-  /*   border: dashed #00ff00 1px; */
-  border: dashed rgb(29, 138, 31) 1px;
+  border: dashed #00ff00 1px;
+  /*border: dashed rgb(29, 138, 31) 1px; */
   border-left: none;
   border-right: none;
   text-align: right;
@@ -74,8 +74,8 @@ a {
   margin-left: 5px;
 }
 .header a {
-  /*   color: #00ff00; */
-  color: rgba(29, 138, 31);
+  color: #00ff00;
+  /*   color: rgba(29, 138, 31); */
   text-decoration: none;
 }
 .header a:hover {

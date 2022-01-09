@@ -2,13 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="description" content="reproducir audio en emacs" />
     <link
       rel="alternate"
       type="application/rss+xml"
       href="https://martiyo.github.io/rss.xml"
       title="RSS feed for https://martiyo.github.io/"
     />
-    <title>Reproducir audio en emacs</title>
+    <title>Emms el reprocutor de audio de emacs</title>
     <meta name="author" content="martiyo" />
     <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -37,15 +38,16 @@
     <div id="content">
       <div class="post-date">09 feb 2019</div>
       <h1 class="post-title">
-        <a href="https://martiyo.github.io/2019-02-09-emms.html"
-          >Reproducir audio en emacs</a
+        <a
+          href="https://martiyo.github.io/2019-02-09-emms-el-reprocutor-de-audio-de-emacs.html"
+          >Emms el reprocutor de audio de emacs</a
         >
       </h1>
-      <p>Reproducir audio en emacs</p>
+      <p>reproducir audio en emacs</p>
 
-      <div id="outline-container-org36f26d6" class="outline-2">
-        <h2 id="org36f26d6">Emms</h2>
-        <div class="outline-text-2" id="text-org36f26d6">
+      <div id="outline-container-orgf95bf24" class="outline-2">
+        <h2 id="orgf95bf24">Emms</h2>
+        <div class="outline-text-2" id="text-orgf95bf24">
           <p>
             Emms es el sistema multimedia de Emacs. Intenta ser una aplicación
             limpia y pequeña para reproducir archivos multimedia de Emacs
@@ -54,9 +56,9 @@
         </div>
       </div>
 
-      <div id="outline-container-org2675575" class="outline-2">
-        <h2 id="org2675575">Instalación</h2>
-        <div class="outline-text-2" id="text-org2675575">
+      <div id="outline-container-org16845e5" class="outline-2">
+        <h2 id="org16845e5">Instalación</h2>
+        <div class="outline-text-2" id="text-org16845e5">
           <p>
             Para poder escuchar musica en emacs primero hay que instalar el
             paquete
@@ -88,51 +90,52 @@ mv emms-4.0 .emacs.d/lisp
             disponibles.
           </p>
         </div>
+      </div>
 
-        <div id="outline-container-org636bc43" class="outline-3">
-          <h3 id="org636bc43">Navegar por el sistema de archivos</h3>
-          <div class="outline-text-3" id="text-org636bc43">
-            <p>
-              El comando <b>M-x emms-play-file</b> permite navegar por el
-              sistema de archivos y elegir un archivo de audio para reproducir,
-              <b>M-x emms</b> muestra la playlist y <b>M-x emm-stop</b> detiene
-              la reproducción. Es posible establecer un directorio
-              predeterminado para la carpeta <b>musica</b>
-              editando el archivo .emacs como siempre y agregando esto:
-            </p>
+      <div id="outline-container-orga49a79c" class="outline-2">
+        <h2 id="orga49a79c">Navegar por el sistema de archivos</h2>
+        <div class="outline-text-2" id="text-orga49a79c">
+          <p>
+            El comando <b>M-x emms-play-file</b> permite navegar por el sistema
+            de archivos y elegir un archivo de audio para reproducir,
+            <b>M-x emms</b> muestra la playlist y <b>M-x emm-stop</b> detiene la
+            reproducción. Es posible establecer un directorio predeterminado
+            para la carpeta <b>musica</b>
+            editando el archivo .emacs como siempre y agregando esto:
+          </p>
 
-            <pre class="example">
+          <pre class="example">
 (setq emms-source-file-default-directory "~/Musica/")
+
 </pre
-            >
+          >
 
-            <p>
-              esta linea permite acceder directamente a ese directorio tipeando
-              <b>M-x emms</b>
-            </p>
-          </div>
+          <p>
+            esta linea permite acceder directamente a ese directorio tipeando
+            <b>M-x emms</b>
+          </p>
         </div>
+      </div>
 
-        <div id="outline-container-orgbe2641b" class="outline-3">
-          <h3 id="orgbe2641b">Escuchar radios</h3>
-          <div class="outline-text-3" id="text-orgbe2641b">
-            <p>
-              Para escuchar radios, hay que crear un archivo con las URL de las
-              radios de y ejecutar <b>M-x emms-play-m3u-playlist</b> y navegar
-              hasta dicho archivo, pero para hacerla mas fácil se puede crear un
-              atajo en .emmacs con:
-            </p>
+      <div id="outline-container-org35be44c" class="outline-2">
+        <h2 id="org35be44c">Escuchar radios</h2>
+        <div class="outline-text-2" id="text-org35be44c">
+          <p>
+            Para escuchar radios, hay que crear un archivo con las URL de las
+            radios de y ejecutar <b>M-x emms-play-m3u-playlist</b> y navegar
+            hasta dicho archivo, pero para hacerla mas fácil se puede crear un
+            atajo en .emmacs con:
+          </p>
 
-            <pre class="example">
+          <pre class="example">
 (global-set-key (kbd "C-c r") 'emms-play-m3u-playlist)
 </pre
-            >
+          >
 
-            <p>
-              ahora para cargar el archivo radios que está en la carpeta Musica
-              basta con <b>C-c r</b>
-            </p>
-          </div>
+          <p>
+            ahora para cargar el archivo radios que está en la carpeta Musica
+            basta con <b>C-c r</b>
+          </p>
         </div>
       </div>
       <div class="taglist">

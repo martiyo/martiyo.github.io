@@ -4,15 +4,15 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>sáb, 08 ene 2022 13:41:08 -0300</lastBuildDate>
+<lastBuildDate>sáb, 08 ene 2022 22:07:17 -0300</lastBuildDate>
 <item>
   <title><![CDATA[El empaquetador tar]]></title>
   <description><![CDATA[
       <p>Empaquetar archivos y directorios.</p>
 
-      <div id="outline-container-org1fb02d3" class="outline-2">
-        <h2 id="org1fb02d3">Descripción</h2>
-        <div class="outline-text-2" id="text-org1fb02d3">
+      <div id="outline-container-org7871f79" class="outline-2">
+        <h2 id="org7871f79">Descripción</h2>
+        <div class="outline-text-2" id="text-org7871f79">
           <p>
             El programa tar, es usado para almacenar archivos y directorios en
             un solo archivo, no para comprimirlos. Dentro de los entornos Unix
@@ -22,12 +22,11 @@
           </p>
 
           <div class="org-src-container">
-            <pre class="src src-sh"></pre>
+            <pre class="src src-sh">
+tar &lt;opciones&gt; &lt;archivoSalida&gt; &lt;archivo1&gt; &lt;archivo2&gt; ... &lt;archivoN&gt;
+</pre
+            >
           </div>
-          <p>
-            tar &lt;opciones&gt; &lt;archivoSalida&gt; &lt;archivo1&gt;
-            &lt;archivo2&gt; &#x2026; &lt;archivoN&gt; #+END<sub>SRC</sub>
-          </p>
 
           <p>
             Donde &lt;archivoSalida&gt; es el archivo resultado y
@@ -39,9 +38,9 @@
         </div>
       </div>
 
-      <div id="outline-container-orgd10e45c" class="outline-2">
-        <h2 id="orgd10e45c">Opciones más usadas</h2>
-        <div class="outline-text-2" id="text-orgd10e45c">
+      <div id="outline-container-org9182d41" class="outline-2">
+        <h2 id="org9182d41">Opciones más usadas</h2>
+        <div class="outline-text-2" id="text-org9182d41">
           <ul class="org-ul">
             <li>
               <b>-c</b> Crea un archivo tar que contiene los elementos
@@ -74,144 +73,145 @@
         </div>
       </div>
 
-      <div id="outline-container-org66868ee" class="outline-2">
-        <h2 id="org66868ee">Ejemplos</h2>
-        <div class="outline-text-2" id="text-org66868ee"></div>
-        <ul class="org-ul">
-          <li>
-            <a id="org447039c"></a>Crear archivo tar sin comprimir<br />
-            <div class="outline-text-5" id="text-org447039c">
-              <pre class="example">
+      <div id="outline-container-org7123a4a" class="outline-2">
+        <h2 id="org7123a4a">Ejemplos</h2>
+        <div class="outline-text-2" id="text-org7123a4a"></div>
+        <div id="outline-container-org06d887a" class="outline-4">
+          <h4 id="org06d887a">Crear archivo tar sin comprimir</h4>
+          <div class="outline-text-4" id="text-org06d887a">
+            <pre class="example">
 $ tar -cvf /path/to/foo.tar /path/to/foo/
 </pre
-              >
+            >
 
-              <p>
-                Dónde ‘/path/to/foo.tar‘ es la ubicación del archivo tar
-                resultante (con extención tar) y ‘/path/to/foo’ es la ubicación
-                del archivo o directorio que se utilizará como entrada, las
-                rutas pueden ser ralativas o absolutas.
-              </p>
-            </div>
-          </li>
+            <p>
+              Dónde ‘/path/to/foo.tar‘ es la ubicación del archivo tar
+              resultante (con extención tar) y ‘/path/to/foo’ es la ubicación
+              del archivo o directorio que se utilizará como entrada, las rutas
+              pueden ser ralativas o absolutas.
+            </p>
+          </div>
+        </div>
 
-          <li>
-            <a id="orgb6bf7fa"></a>Todos los archivos que comienzan con una
-            letra<br />
-            <div class="outline-text-5" id="text-orgb6bf7fa">
-              <pre class="example">
+        <div id="outline-container-orga2aee0e" class="outline-4">
+          <h4 id="orga2aee0e">
+            Todos los archivos que comienzan con una letra
+          </h4>
+          <div class="outline-text-4" id="text-orga2aee0e">
+            <pre class="example">
 # tar -cvf fullbackup.tar i*
 install.log
 install.log.syslog
 </pre
-              >
-            </div>
-          </li>
+            >
+          </div>
+        </div>
 
-          <li>
-            <a id="org6cd9374"></a>Agregar un archivo al tar existente<br />
-            <div class="outline-text-5" id="text-org6cd9374">
-              <pre class="example">
+        <div id="outline-container-org49362cb" class="outline-4">
+          <h4 id="org49362cb">Agregar un archivo al tar existente</h4>
+          <div class="outline-text-4" id="text-org49362cb">
+            <pre class="example">
 # tar --append --file=backup.tar anaconda-ks.cfg
 </pre
-              >
-            </div>
-          </li>
+            >
+          </div>
+        </div>
 
-          <li>
-            <a id="org108c76c"></a>Extraer archivos de un tar<br />
-            <div class="outline-text-5" id="text-org108c76c">
-              <pre class="example">
+        <div id="outline-container-org35e49c6" class="outline-4">
+          <h4 id="org35e49c6">Extraer archivos de un tar</h4>
+          <div class="outline-text-4" id="text-org35e49c6">
+            <pre class="example">
 $ tar -xvf /path/to/foo.tar
 </pre
-              >
-            </div>
-          </li>
+            >
+          </div>
+        </div>
 
-          <li>
-            <a id="org7ed60ff"></a>Extraer archivos de un tar en un directorio
-            especifico<br />
-            <div class="outline-text-5" id="text-org7ed60ff">
-              <pre class="example">
+        <div id="outline-container-org09e76bb" class="outline-4">
+          <h4 id="org09e76bb">
+            Extraer archivos de un tar en un directorio especifico
+          </h4>
+          <div class="outline-text-4" id="text-org09e76bb">
+            <pre class="example">
 $ tar -xvf /path/to/foo.tar -C /path/to/destination/
 </pre
-              >
-            </div>
-          </li>
+            >
+          </div>
+        </div>
 
-          <li>
-            <a id="org5e599cd"></a>Extraer un archivo del archivo tar<br />
-            <div class="outline-text-5" id="text-org5e599cd">
-              <pre class="example">
+        <div id="outline-container-orgafaadf7" class="outline-4">
+          <h4 id="orgafaadf7">Extraer un archivo del archivo tar</h4>
+          <div class="outline-text-4" id="text-orgafaadf7">
+            <pre class="example">
 $ tar --extract -vv --occurrence --file=./backup.tar anaconda-ks.cfg
 </pre
-              >
-            </div>
-          </li>
+            >
+          </div>
+        </div>
 
-          <li>
-            <a id="org00b7977"></a>Listar el contenido de tar<br />
-            <div class="outline-text-5" id="text-org00b7977">
-              <pre class="example">
+        <div id="outline-container-orgb57f26b" class="outline-4">
+          <h4 id="orgb57f26b">Listar el contenido de tar</h4>
+          <div class="outline-text-4" id="text-orgb57f26b">
+            <pre class="example">
 $ tar -ztvf /path/to/foo.tgz
 </pre
-              >
-            </div>
-          </li>
+            >
+          </div>
+        </div>
 
-          <li>
-            <a id="org6ddaa94"></a>Crear, extraer y listar un archivo .gz con
-            tar<br />
-            <div class="outline-text-5" id="text-org6ddaa94">
-              <p>Crear</p>
+        <div id="outline-container-orgca26028" class="outline-4">
+          <h4 id="orgca26028">
+            Crear, extraer y listar un archivo .gz con tar
+          </h4>
+          <div class="outline-text-4" id="text-orgca26028">
+            <p>Crear</p>
 
-              <pre class="example">
+            <pre class="example">
 $ tar -czvf /path/to/foo.tgz /path/to/foo/
 </pre
-              >
+            >
 
-              <p>Extraer</p>
+            <p>Extraer</p>
 
-              <pre class="example">
+            <pre class="example">
 $ tar -xzvf /path/to/foo.tgz /path/to/foo/
 </pre
-              >
+            >
 
-              <p>Listar</p>
+            <p>Listar</p>
 
-              <pre class="example">
+            <pre class="example">
 $ tar -ztvf /path/to/foo.tgz /path/to/foo/
 </pre
-              >
-            </div>
-          </li>
+            >
+          </div>
+        </div>
 
-          <li>
-            <a id="org6b4667e"></a>Crear, extraer y listar un archivo .bz2<br />
-            <div class="outline-text-5" id="text-org6b4667e">
-              <p>Crear</p>
+        <div id="outline-container-orge06d908" class="outline-4">
+          <h4 id="orge06d908">Crear, extraer y listar un archivo .bz2</h4>
+          <div class="outline-text-4" id="text-orge06d908">
+            <p>Crear</p>
 
-              <pre class="example">
+            <pre class="example">
 $ tar -czvf /path/to/foo.tgz /path/to/foo/
 </pre
-              >
+            >
 
-              <p>Extraer</p>
+            <p>Extraer</p>
 
-              <pre class="example">
+            <pre class="example">
 $ tar -xjvf /path/to/foo.tgz /path/to/foo/
 </pre
-              >
+            >
 
-              <p>Listar</p>
+            <p>Listar</p>
 
-              <pre class="example">
+            <pre class="example">
 $ tar -jtvf /path/to/foo.tgz /path/to/foo/
 </pre
-              >
-            </div>
-          </li>
-        </ul>
+            >
+          </div>
+        </div>
       </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
@@ -4467,13 +4467,13 @@ exit
   <pubDate>dom, 10 feb 2019 11:49:00 -0300</pubDate>
 </item>
 <item>
-  <title><![CDATA[Reproducir audio en emacs]]></title>
+  <title><![CDATA[Emms el reprocutor de audio de emacs]]></title>
   <description><![CDATA[
-      <p>Reproducir audio en emacs</p>
+      <p>reproducir audio en emacs</p>
 
-      <div id="outline-container-org36f26d6" class="outline-2">
-        <h2 id="org36f26d6">Emms</h2>
-        <div class="outline-text-2" id="text-org36f26d6">
+      <div id="outline-container-orgf95bf24" class="outline-2">
+        <h2 id="orgf95bf24">Emms</h2>
+        <div class="outline-text-2" id="text-orgf95bf24">
           <p>
             Emms es el sistema multimedia de Emacs. Intenta ser una aplicación
             limpia y pequeña para reproducir archivos multimedia de Emacs
@@ -4482,9 +4482,9 @@ exit
         </div>
       </div>
 
-      <div id="outline-container-org2675575" class="outline-2">
-        <h2 id="org2675575">Instalación</h2>
-        <div class="outline-text-2" id="text-org2675575">
+      <div id="outline-container-org16845e5" class="outline-2">
+        <h2 id="org16845e5">Instalación</h2>
+        <div class="outline-text-2" id="text-org16845e5">
           <p>
             Para poder escuchar musica en emacs primero hay que instalar el
             paquete
@@ -4516,51 +4516,52 @@ mv emms-4.0 .emacs.d/lisp
             disponibles.
           </p>
         </div>
+      </div>
 
-        <div id="outline-container-org636bc43" class="outline-3">
-          <h3 id="org636bc43">Navegar por el sistema de archivos</h3>
-          <div class="outline-text-3" id="text-org636bc43">
-            <p>
-              El comando <b>M-x emms-play-file</b> permite navegar por el
-              sistema de archivos y elegir un archivo de audio para reproducir,
-              <b>M-x emms</b> muestra la playlist y <b>M-x emm-stop</b> detiene
-              la reproducción. Es posible establecer un directorio
-              predeterminado para la carpeta <b>musica</b>
-              editando el archivo .emacs como siempre y agregando esto:
-            </p>
+      <div id="outline-container-orga49a79c" class="outline-2">
+        <h2 id="orga49a79c">Navegar por el sistema de archivos</h2>
+        <div class="outline-text-2" id="text-orga49a79c">
+          <p>
+            El comando <b>M-x emms-play-file</b> permite navegar por el sistema
+            de archivos y elegir un archivo de audio para reproducir,
+            <b>M-x emms</b> muestra la playlist y <b>M-x emm-stop</b> detiene la
+            reproducción. Es posible establecer un directorio predeterminado
+            para la carpeta <b>musica</b>
+            editando el archivo .emacs como siempre y agregando esto:
+          </p>
 
-            <pre class="example">
+          <pre class="example">
 (setq emms-source-file-default-directory "~/Musica/")
+
 </pre
-            >
+          >
 
-            <p>
-              esta linea permite acceder directamente a ese directorio tipeando
-              <b>M-x emms</b>
-            </p>
-          </div>
+          <p>
+            esta linea permite acceder directamente a ese directorio tipeando
+            <b>M-x emms</b>
+          </p>
         </div>
+      </div>
 
-        <div id="outline-container-orgbe2641b" class="outline-3">
-          <h3 id="orgbe2641b">Escuchar radios</h3>
-          <div class="outline-text-3" id="text-orgbe2641b">
-            <p>
-              Para escuchar radios, hay que crear un archivo con las URL de las
-              radios de y ejecutar <b>M-x emms-play-m3u-playlist</b> y navegar
-              hasta dicho archivo, pero para hacerla mas fácil se puede crear un
-              atajo en .emmacs con:
-            </p>
+      <div id="outline-container-org35be44c" class="outline-2">
+        <h2 id="org35be44c">Escuchar radios</h2>
+        <div class="outline-text-2" id="text-org35be44c">
+          <p>
+            Para escuchar radios, hay que crear un archivo con las URL de las
+            radios de y ejecutar <b>M-x emms-play-m3u-playlist</b> y navegar
+            hasta dicho archivo, pero para hacerla mas fácil se puede crear un
+            atajo en .emmacs con:
+          </p>
 
-            <pre class="example">
+          <pre class="example">
 (global-set-key (kbd "C-c r") 'emms-play-m3u-playlist)
 </pre
-            >
+          >
 
-            <p>
-              ahora para cargar el archivo radios que está en la carpeta Musica
-              basta con <b>C-c r</b>
-            </p>
-          </div>
+          <p>
+            ahora para cargar el archivo radios que está en la carpeta Musica
+            basta con <b>C-c r</b>
+          </p>
         </div>
       </div>
       <div class="taglist">
@@ -4569,8 +4570,8 @@ mv emms-4.0 .emacs.d/lisp
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/2019-02-09-emms.html</link>
-  <pubDate>sáb, 09 feb 2019 13:03:00 -0300</pubDate>
+  <link>https://martiyo.github.io/2019-02-09-emms-el-reprocutor-de-audio-de-emacs.html</link>
+  <pubDate>sáb, 09 feb 2019 22:04:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Ramificaciones en git]]></title>

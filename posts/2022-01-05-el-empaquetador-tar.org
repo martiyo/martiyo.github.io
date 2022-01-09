@@ -5,19 +5,18 @@
 
 Empaquetar archivos y directorios. 
 
-** Descripción
+*** Descripción
 
 El programa tar, es usado para almacenar archivos y directorios en un solo archivo, no para comprimirlos. Dentro de los entornos Unix tar aparece como una orden que puede ser ejecutada desde la línea de órdenes de una consola de texto o desde un simple terminal.
 El formato de la orden es comunmente:
 
 #+BEGIN_SRC sh
-#+END_SRC
 tar <opciones> <archivoSalida> <archivo1> <archivo2> ... <archivoN>
 #+END_SRC
 
 Donde <archivoSalida> es el archivo resultado y <archivo1>, <archivo2>, etcétera son los diferentes archivos que serán "empaquetados" en <archivoSalida>. Este proceso permite respaldar archivos, compartirlos, transmitirlos por Internet o por redes locales de una forma fácil.
 
-** Opciones más usadas
+*** Opciones más usadas
 + *-c* Crea un archivo tar que contiene los elementos especificados.
 + *-x* Extrae el archivo de almacenamiento al disco.
 + *-t* Listar el contenido del archivo tar.
@@ -28,7 +27,7 @@ Donde <archivoSalida> es el archivo resultado y <archivo1>, <archivo2>, etcéter
 *+ -r* Se utiliza para agregar o actualizar un archivo existente con archivos o directorios
 + *-u* Como -r, pero las nuevas entradas se agregan solo si tienen una fecha de modificación más reciente que la entrada correspondiente en el archivo.
 
-** Ejemplos 
+*** Ejemplos 
 
 *****  Crear archivo tar sin comprimir
 

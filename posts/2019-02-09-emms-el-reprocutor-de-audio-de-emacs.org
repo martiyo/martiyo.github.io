@@ -1,16 +1,17 @@
-#+title: Reproducir audio en emacs
-#+date: <2019-02-09 13:03>
+#+title: Emms el reprocutor de audio de emacs
+#+date: <2019-02-09 22:04>
+#+description: reproducir audio en emacs
 #+filetags: emacs
 
-Reproducir audio en emacs
+reproducir audio en emacs
 
-** Emms
+*** Emms
 
 Emms es el sistema multimedia de Emacs. Intenta ser una aplicación
 limpia y pequeña para reproducir archivos multimedia de Emacs utilizando
 reproductores externos.
 
-** Instalación
+*** Instalación
 
 Para poder escuchar musica en emacs primero hay que instalar el paquete
 *emms* con apt, luego descargar tar.gz de emms y moverlo al directorio emacs.d:
@@ -44,6 +45,7 @@ editando el archivo .emacs como siempre y agregando esto:
 
 #+BEGIN_SRC
     (setq emms-source-file-default-directory "~/Musica/")
+
 #+END_SRC
 
 esta linea permite acceder directamente a ese directorio tipeando *M-x
