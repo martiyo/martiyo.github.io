@@ -1,0 +1,76 @@
+#+title: Package-list el sistema de packetes de emacs
+#+date: <2018-12-09 09:53>
+#+description: emacs package list
+#+filetags: emacs
+
+La mejor forma de instalar paquetes en emacs.
+
+*** # El sistema de paquetes de GNU/Emacs
+  
+Emacs cuenta con un sistema de paquetes al mejor estilo *apt o packman*,
+el repositorio por defecto es *Emacs Lisp Package Archive*
+[[http://elpa.gnu.org/packages/][ELPA]] para los amigos, pero también están en  [[https://melpa.org/][MELPA]] y [[http://marmalade-repo.org/][MARMALADE]]. Para poder usar estos
+repositorios hay que agregarlos al archivo *.emacs*:
+
+#+BEGIN_SRC sh
+    (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                             ("marmalade" . "https://marmalade-repo.org/packages/")
+                             ("melpa" . "https://melpa.org/packages/")))
+#+END_SRC
+
+como siempre esto se guarda con *C-x C-s* y para recargar la configuración:
+
+#+BEGIN_SRC
+M-x eval-buffer
+#+END_SRC
+
+
+*** # Teclas
+    
+
+Las teclas que más se usan dentro del *list-package* son:
+
+- *RET* (*package-menu-describe-package*) => Describe el paquete que
+  está bajo el cursor(en un nuevo buffer).
+- *i* (*package-menu-mark-install*) => marca un paquete para su
+  instalación.
+- *u* (*package-menu-mark-unmark*) => desmarca.
+- *d* (*package-menu-mark-delete*) => marca un paquete para desinstalar.
+- *x* (*package-menu-execute*) => ejecuta la instalación o
+  desinstalación de los paquetes marcados.
+- *r* (*package-menu-refresh*) => refresca la lista de paquetes desde el
+  servidor.
+
+
+*** # Instalar paquetes
+ 
+La forma más fácil de instalar un paquete (conociendo de antemano el
+nombre) es:
+
+#+BEGIN_SRC
+M-x package-install RET /nombre del paquete/
+#+END_SRC
+
+Pero cuando no se conoce el nombre del paquete lo que debe hacerse es
+listar todos los paquetes con:
+
+#+BEGIN_SRC
+M-x list-package RET
+#+END_SRC
+
+#+CAPTION: list-packages
+[[./images/list-packages.png]]
+
+Seleccionar un paquete con *i*, ejecutar la instalación con *x*.
+
+*** # Actualizar un paquete
+ 
+Para actualizar un paquete solo hay que presionar *U* (U mayúscula) con
+el cursor sobre un paquete y luego *x*. *Nota*: para evitar problemas al
+actualizar lo mejor es primero desinstalar el paquete y luego instalar
+la nueva versión.
+
+*** # Ubicación de los paquetes
+ 
+Los nuevos paquetes son instalados en *~/.emacs.d/elpa/*. Una forma
+adicional de desinstalar un paquete eliminarlo de este directorio

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="emacs package list" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Package-list el sistema de packetes de emacs</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">09 dic 2018</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/2018-12-09-package-list-el-sistema-de-paquetes-de-emacs.html"
+          >Package-list el sistema de packetes de emacs</a
+        >
+      </h1>
+      <p>La mejor forma de instalar paquetes en emacs.</p>
+
+      <div id="outline-container-org1a126e4" class="outline-2">
+        <h2 id="org1a126e4"># El sistema de paquetes de GNU/Emacs</h2>
+        <div class="outline-text-2" id="text-org1a126e4">
+          <p>
+            Emacs cuenta con un sistema de paquetes al mejor estilo
+            <b>apt o packman</b>, el repositorio por defecto es
+            <b>Emacs Lisp Package Archive</b>
+            <a href="http://elpa.gnu.org/packages/">ELPA</a> para los amigos,
+            pero también están en <a href="https://melpa.org/">MELPA</a> y
+            <a href="http://marmalade-repo.org/">MARMALADE</a>. Para poder usar
+            estos repositorios hay que agregarlos al archivo <b>.emacs</b>:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+			 ("marmalade" . "https://marmalade-repo.org/packages/")
+			 ("melpa" . "https://melpa.org/packages/")))
+</pre
+            >
+          </div>
+
+          <p>
+            como siempre esto se guarda con <b>C-x C-s</b> y para recargar la
+            configuración:
+          </p>
+
+          <pre class="example">
+M-x eval-buffer
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgf807ea5" class="outline-2">
+        <h2 id="orgf807ea5"># Teclas</h2>
+        <div class="outline-text-2" id="text-orgf807ea5">
+          <p>Las teclas que más se usan dentro del <b>list-package</b> son:</p>
+
+          <ul class="org-ul">
+            <li>
+              <b>RET</b> (<b>package-menu-describe-package</b>) =&gt; Describe
+              el paquete que está bajo el cursor(en un nuevo buffer).
+            </li>
+            <li>
+              <b>i</b> (<b>package-menu-mark-install</b>) =&gt; marca un paquete
+              para su instalación.
+            </li>
+            <li><b>u</b> (<b>package-menu-mark-unmark</b>) =&gt; desmarca.</li>
+            <li>
+              <b>d</b> (<b>package-menu-mark-delete</b>) =&gt; marca un paquete
+              para desinstalar.
+            </li>
+            <li>
+              <b>x</b> (<b>package-menu-execute</b>) =&gt; ejecuta la
+              instalación o desinstalación de los paquetes marcados.
+            </li>
+            <li>
+              <b>r</b> (<b>package-menu-refresh</b>) =&gt; refresca la lista de
+              paquetes desde el servidor.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org7a0d33a" class="outline-2">
+        <h2 id="org7a0d33a"># Instalar paquetes</h2>
+        <div class="outline-text-2" id="text-org7a0d33a">
+          <p>
+            La forma más fácil de instalar un paquete (conociendo de antemano el
+            nombre) es:
+          </p>
+
+          <pre class="example">
+M-x package-install RET /nombre del paquete/
+</pre
+          >
+
+          <p>
+            Pero cuando no se conoce el nombre del paquete lo que debe hacerse
+            es listar todos los paquetes con:
+          </p>
+
+          <pre class="example">
+M-x list-package RET
+</pre
+          >
+
+          <figure>
+            <img
+              src="./images/list-packages.png"
+              alt="list-packages.png"
+              width="550"
+              height="350"
+            />
+
+            <figcaption>
+              <span class="figure-number">Figure 1: </span>list-packages
+            </figcaption>
+          </figure>
+
+          <p>
+            Seleccionar un paquete con <b>i</b>, ejecutar la instalación con
+            <b>x</b>.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org3ed7250" class="outline-2">
+        <h2 id="org3ed7250"># Actualizar un paquete</h2>
+        <div class="outline-text-2" id="text-org3ed7250">
+          <p>
+            Para actualizar un paquete solo hay que presionar <b>U</b> (U
+            mayúscula) con el cursor sobre un paquete y luego <b>x</b>.
+            <b>Nota</b>: para evitar problemas al actualizar lo mejor es primero
+            desinstalar el paquete y luego instalar la nueva versión.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgdedf556" class="outline-2">
+        <h2 id="orgdedf556"># Ubicación de los paquetes</h2>
+        <div class="outline-text-2" id="text-orgdedf556">
+          <p>
+            Los nuevos paquetes son instalados en <b>~/.emacs.d/elpa/</b>. Una
+            forma adicional de desinstalar un paquete eliminarlo de este
+            directorio
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

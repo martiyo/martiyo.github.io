@@ -1,0 +1,89 @@
+#+title: NVM Node Version Manager
+#+date: <2022-01-09 12:38>
+#+description: nvm diferentes versiones de node
+#+filetags: 
+
+*nvm* permite instalar y utilizar diferentes versiones de node a través de la linea de comandos.
+
+*** # About 
+
+*nvm* es un gestor de veriones para node.js, trabaja en cualquier shell compatible con POSIX.
+
+*** # Instalación
+
+Para instalarlo hay que descargar y ejecutar manualmente el script de intalación, o usar el siguiente comando:
+
+con cURL:
+
+#+BEGIN_SRC 
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+#+END_SRC
+
+o con Wget:
+
+#+BEGIN_SRC 
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+#+END_SRC
+
+La ejecución de cualquiera de estos dos comandos clona el repositorio nvm a *~/.nvm*, y añade la variable de entorno NVM DIR al archivo *~/.bashrc*.
+
+Variable de entorno:
+
+#+BEGIN_SRC 
+export NVM_DIR="$([ -z "${xdg_config_home-}" ] && printf %s "${home}/.nvm" 
+|| printf %s "${xdg_config_home}/nvm")"
+[ -s "$nvm_dir/nvm.sh" ] && \. "$nvm_dir/nvm.sh"
+#+end_src
+
+esto carga nvm.
+
+**** verificar la instalación
+     
+para verificar que nvm ha sido instalado se usa:
+
+#+BEGIN_SRC
+command -v nvm
+#+end_src
+
+la salida solo imprime *nvm*, si es correcta la intalación. hay que tener en cuenta que el comando *which* no funcionara, ya que *nvm* es una funcion shell fuente, no un binario ejecutable.      
+
+*** # uso
+para instalar la última versión de node:
+
+#+BEGIN_SRC 
+$ nvm install node
+#+END_SRC
+
+una versión se especifica se instala con:
+
+#+BEGIN_SRC 
+$ nvm install node 10.10.0
+#+END_SRC
+
+listar todas las versiones:
+
+#+BEGIN_SRC 
+$ nvm ls
+#+END_SRC
+
+listar versiones disponibles:
+
+#+BEGIN_SRC 
+$ nvm ls-remote
+#+END_SRC
+
+cambiar de versión:
+
+#+BEGIN_SRC 
+$ nvm use # para usar la última versión
+$ nvm use 10.10.0 # para usar una versión especifica
+#+END_SRC
+
+desintalar
+
+#+BEGIN_SRC 
+$ nvm uninstall 10.10.0
+#+END_SRC
+
+****  Fuente
+    Esto es solo un pequeño resumen que he usado para mi instalación,configuración y uso  personal. Toda la data está en [[https://github.com/nvm-sh/nvm][la pagina de github del proyecto]]

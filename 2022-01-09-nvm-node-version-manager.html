@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="nvm diferentes versiones de node" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>NVM Node Version Manager</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">09 ene 2022</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/2022-01-09-nvm-node-version-manager.html"
+          >NVM Node Version Manager</a
+        >
+      </h1>
+      <p>
+        <b>nvm</b> permite instalar y utilizar diferentes versiones de node a
+        través de la linea de comandos.
+      </p>
+
+      <div id="outline-container-orgea14e42" class="outline-2">
+        <h2 id="orgea14e42"># About</h2>
+        <div class="outline-text-2" id="text-orgea14e42">
+          <p>
+            <b>nvm</b> es un gestor de veriones para node.js, trabaja en
+            cualquier shell compatible con POSIX.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org024f106" class="outline-2">
+        <h2 id="org024f106"># Instalación</h2>
+        <div class="outline-text-2" id="text-org024f106">
+          <p>
+            Para instalarlo hay que descargar y ejecutar manualmente el script
+            de intalación, o usar el siguiente comando:
+          </p>
+
+          <p>con cURL:</p>
+
+          <pre class="example">
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+</pre
+          >
+
+          <p>o con Wget:</p>
+
+          <pre class="example">
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+</pre
+          >
+
+          <p>
+            La ejecución de cualquiera de estos dos comandos clona el
+            repositorio nvm a <b>~/.nvm</b>, y añade la variable de entorno NVM
+            DIR al archivo <b>~/.bashrc</b>.
+          </p>
+
+          <p>Variable de entorno:</p>
+
+          <pre class="example">
+export NVM_DIR="$([ -z "${xdg_config_home-}" ] &amp;&amp; printf %s "${home}/.nvm" 
+|| printf %s "${xdg_config_home}/nvm")"
+[ -s "$nvm_dir/nvm.sh" ] &amp;&amp; \. "$nvm_dir/nvm.sh"
+</pre
+          >
+
+          <p>esto carga nvm.</p>
+        </div>
+
+        <div id="outline-container-org913427b" class="outline-3">
+          <h3 id="org913427b">verificar la instalación</h3>
+          <div class="outline-text-3" id="text-org913427b">
+            <p>para verificar que nvm ha sido instalado se usa:</p>
+
+            <pre class="example">
+command -v nvm
+</pre
+            >
+
+            <p>
+              la salida solo imprime <b>nvm</b>, si es correcta la intalación.
+              hay que tener en cuenta que el comando <b>which</b> no funcionara,
+              ya que <b>nvm</b> es una funcion shell fuente, no un binario
+              ejecutable.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org88a2691" class="outline-2">
+        <h2 id="org88a2691"># uso</h2>
+        <div class="outline-text-2" id="text-org88a2691">
+          <p>para instalar la última versión de node:</p>
+
+          <pre class="example">
+$ nvm install node
+</pre
+          >
+
+          <p>una versión se especifica se instala con:</p>
+
+          <pre class="example">
+$ nvm install node 10.10.0
+</pre
+          >
+
+          <p>listar todas las versiones:</p>
+
+          <pre class="example">
+$ nvm ls
+</pre
+          >
+
+          <p>listar versiones disponibles:</p>
+
+          <pre class="example">
+$ nvm ls-remote
+</pre
+          >
+
+          <p>cambiar de versión:</p>
+
+          <pre class="example">
+$ nvm use # para usar la última versión
+$ nvm use 10.10.0 # para usar una versión especifica
+</pre
+          >
+
+          <p>desintalar</p>
+
+          <pre class="example">
+$ nvm uninstall 10.10.0
+</pre
+          >
+        </div>
+
+        <div id="outline-container-org235cd7e" class="outline-3">
+          <h3 id="org235cd7e">Fuente</h3>
+          <div class="outline-text-3" id="text-org235cd7e">
+            <p>
+              Esto es solo un pequeño resumen que he usado para mi
+              instalación,configuración y uso personal. Toda la data está en
+              <a href="https://github.com/nvm-sh/nvm"
+                >la pagina de github del proyecto</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist"></div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

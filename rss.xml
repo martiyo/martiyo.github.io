@@ -4,7 +4,150 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>sáb, 08 ene 2022 22:07:17 -0300</lastBuildDate>
+<lastBuildDate>sáb, 15 ene 2022 22:38:41 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[NVM Node Version Manager]]></title>
+  <description><![CDATA[
+      <p>
+        <b>nvm</b> permite instalar y utilizar diferentes versiones de node a
+        través de la linea de comandos.
+      </p>
+
+      <div id="outline-container-orgea14e42" class="outline-2">
+        <h2 id="orgea14e42"># About</h2>
+        <div class="outline-text-2" id="text-orgea14e42">
+          <p>
+            <b>nvm</b> es un gestor de veriones para node.js, trabaja en
+            cualquier shell compatible con POSIX.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org024f106" class="outline-2">
+        <h2 id="org024f106"># Instalación</h2>
+        <div class="outline-text-2" id="text-org024f106">
+          <p>
+            Para instalarlo hay que descargar y ejecutar manualmente el script
+            de intalación, o usar el siguiente comando:
+          </p>
+
+          <p>con cURL:</p>
+
+          <pre class="example">
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+</pre
+          >
+
+          <p>o con Wget:</p>
+
+          <pre class="example">
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+</pre
+          >
+
+          <p>
+            La ejecución de cualquiera de estos dos comandos clona el
+            repositorio nvm a <b>~/.nvm</b>, y añade la variable de entorno NVM
+            DIR al archivo <b>~/.bashrc</b>.
+          </p>
+
+          <p>Variable de entorno:</p>
+
+          <pre class="example">
+export NVM_DIR="$([ -z "${xdg_config_home-}" ] &amp;&amp; printf %s "${home}/.nvm" 
+|| printf %s "${xdg_config_home}/nvm")"
+[ -s "$nvm_dir/nvm.sh" ] &amp;&amp; \. "$nvm_dir/nvm.sh"
+</pre
+          >
+
+          <p>esto carga nvm.</p>
+        </div>
+
+        <div id="outline-container-org913427b" class="outline-3">
+          <h3 id="org913427b">verificar la instalación</h3>
+          <div class="outline-text-3" id="text-org913427b">
+            <p>para verificar que nvm ha sido instalado se usa:</p>
+
+            <pre class="example">
+command -v nvm
+</pre
+            >
+
+            <p>
+              la salida solo imprime <b>nvm</b>, si es correcta la intalación.
+              hay que tener en cuenta que el comando <b>which</b> no funcionara,
+              ya que <b>nvm</b> es una funcion shell fuente, no un binario
+              ejecutable.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org88a2691" class="outline-2">
+        <h2 id="org88a2691"># uso</h2>
+        <div class="outline-text-2" id="text-org88a2691">
+          <p>para instalar la última versión de node:</p>
+
+          <pre class="example">
+$ nvm install node
+</pre
+          >
+
+          <p>una versión se especifica se instala con:</p>
+
+          <pre class="example">
+$ nvm install node 10.10.0
+</pre
+          >
+
+          <p>listar todas las versiones:</p>
+
+          <pre class="example">
+$ nvm ls
+</pre
+          >
+
+          <p>listar versiones disponibles:</p>
+
+          <pre class="example">
+$ nvm ls-remote
+</pre
+          >
+
+          <p>cambiar de versión:</p>
+
+          <pre class="example">
+$ nvm use # para usar la última versión
+$ nvm use 10.10.0 # para usar una versión especifica
+</pre
+          >
+
+          <p>desintalar</p>
+
+          <pre class="example">
+$ nvm uninstall 10.10.0
+</pre
+          >
+        </div>
+
+        <div id="outline-container-org235cd7e" class="outline-3">
+          <h3 id="org235cd7e">Fuente</h3>
+          <div class="outline-text-3" id="text-org235cd7e">
+            <p>
+              Esto es solo un pequeño resumen que he usado para mi
+              instalación,configuración y uso personal. Toda la data está en
+              <a href="https://github.com/nvm-sh/nvm"
+                >la pagina de github del proyecto</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist"></div>
+    ]]></description>
+  <link>https://martiyo.github.io/2022-01-09-nvm-node-version-manager.html</link>
+  <pubDate>dom, 09 ene 2022 12:38:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[El empaquetador tar]]></title>
   <description><![CDATA[
@@ -5031,6 +5174,150 @@ git push -u origin master
   <category><![CDATA[git]]></category>
   <link>https://martiyo.github.io/2019-01-08-git.html</link>
   <pubDate>mar, 08 ene 2019 12:30:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Package-list el sistema de packetes de emacs]]></title>
+  <description><![CDATA[
+      <p>La mejor forma de instalar paquetes en emacs.</p>
+
+      <div id="outline-container-org1a126e4" class="outline-2">
+        <h2 id="org1a126e4"># El sistema de paquetes de GNU/Emacs</h2>
+        <div class="outline-text-2" id="text-org1a126e4">
+          <p>
+            Emacs cuenta con un sistema de paquetes al mejor estilo
+            <b>apt o packman</b>, el repositorio por defecto es
+            <b>Emacs Lisp Package Archive</b>
+            <a href="http://elpa.gnu.org/packages/">ELPA</a> para los amigos,
+            pero también están en <a href="https://melpa.org/">MELPA</a> y
+            <a href="http://marmalade-repo.org/">MARMALADE</a>. Para poder usar
+            estos repositorios hay que agregarlos al archivo <b>.emacs</b>:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+			 ("marmalade" . "https://marmalade-repo.org/packages/")
+			 ("melpa" . "https://melpa.org/packages/")))
+</pre
+            >
+          </div>
+
+          <p>
+            como siempre esto se guarda con <b>C-x C-s</b> y para recargar la
+            configuración:
+          </p>
+
+          <pre class="example">
+M-x eval-buffer
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgf807ea5" class="outline-2">
+        <h2 id="orgf807ea5"># Teclas</h2>
+        <div class="outline-text-2" id="text-orgf807ea5">
+          <p>Las teclas que más se usan dentro del <b>list-package</b> son:</p>
+
+          <ul class="org-ul">
+            <li>
+              <b>RET</b> (<b>package-menu-describe-package</b>) =&gt; Describe
+              el paquete que está bajo el cursor(en un nuevo buffer).
+            </li>
+            <li>
+              <b>i</b> (<b>package-menu-mark-install</b>) =&gt; marca un paquete
+              para su instalación.
+            </li>
+            <li><b>u</b> (<b>package-menu-mark-unmark</b>) =&gt; desmarca.</li>
+            <li>
+              <b>d</b> (<b>package-menu-mark-delete</b>) =&gt; marca un paquete
+              para desinstalar.
+            </li>
+            <li>
+              <b>x</b> (<b>package-menu-execute</b>) =&gt; ejecuta la
+              instalación o desinstalación de los paquetes marcados.
+            </li>
+            <li>
+              <b>r</b> (<b>package-menu-refresh</b>) =&gt; refresca la lista de
+              paquetes desde el servidor.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org7a0d33a" class="outline-2">
+        <h2 id="org7a0d33a"># Instalar paquetes</h2>
+        <div class="outline-text-2" id="text-org7a0d33a">
+          <p>
+            La forma más fácil de instalar un paquete (conociendo de antemano el
+            nombre) es:
+          </p>
+
+          <pre class="example">
+M-x package-install RET /nombre del paquete/
+</pre
+          >
+
+          <p>
+            Pero cuando no se conoce el nombre del paquete lo que debe hacerse
+            es listar todos los paquetes con:
+          </p>
+
+          <pre class="example">
+M-x list-package RET
+</pre
+          >
+
+          <figure>
+            <img
+              src="./images/list-packages.png"
+              alt="list-packages.png"
+              width="550"
+              height="350"
+            />
+
+            <figcaption>
+              <span class="figure-number">Figure 1: </span>list-packages
+            </figcaption>
+          </figure>
+
+          <p>
+            Seleccionar un paquete con <b>i</b>, ejecutar la instalación con
+            <b>x</b>.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org3ed7250" class="outline-2">
+        <h2 id="org3ed7250"># Actualizar un paquete</h2>
+        <div class="outline-text-2" id="text-org3ed7250">
+          <p>
+            Para actualizar un paquete solo hay que presionar <b>U</b> (U
+            mayúscula) con el cursor sobre un paquete y luego <b>x</b>.
+            <b>Nota</b>: para evitar problemas al actualizar lo mejor es primero
+            desinstalar el paquete y luego instalar la nueva versión.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgdedf556" class="outline-2">
+        <h2 id="orgdedf556"># Ubicación de los paquetes</h2>
+        <div class="outline-text-2" id="text-orgdedf556">
+          <p>
+            Los nuevos paquetes son instalados en <b>~/.emacs.d/elpa/</b>. Una
+            forma adicional de desinstalar un paquete eliminarlo de este
+            directorio
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/2018-12-09-package-list-el-sistema-de-paquetes-de-emacs.html</link>
+  <pubDate>dom, 09 dic 2018 09:53:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[ffmpeg video converter]]></title>
