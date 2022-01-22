@@ -4,7 +4,7 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>sáb, 15 ene 2022 22:38:41 -0300</lastBuildDate>
+<lastBuildDate>sáb, 22 ene 2022 11:28:21 -0300</lastBuildDate>
 <item>
   <title><![CDATA[NVM Node Version Manager]]></title>
   <description><![CDATA[
@@ -3590,39 +3590,39 @@ docker run -d -p 27017:27017 --name mydatabase mongo:4.2
 </pre
       >
 
-      <div id="outline-container-orgfb34755" class="outline-2">
-        <h2 id="orgfb34755">Este comando hace lo siguiente:</h2>
-        <div class="outline-text-2" id="text-orgfb34755"></div>
+      <div id="outline-container-orge653199" class="outline-2">
+        <h2 id="orge653199">Este comando hace lo siguiente:</h2>
+        <div class="outline-text-2" id="text-orge653199"></div>
         <ul class="org-ul">
           <li>
-            <a id="orgd8b6fcf"></a><b>d:</b> permite ejecutar el proceso en
+            <a id="org18f2028"></a><b>d:</b> permite ejecutar el proceso en
             background<br />
           </li>
           <li>
-            <a id="org94fd546"></a><b>-p</b> 27017:27017 esto le indica a docker
+            <a id="org38924da"></a><b>-p</b> 27017:27017 esto le indica a docker
             que las conexiones del puerto 27017 del contenedor se redireccionen
             al 27017 de la máquina host.<br />
           </li>
           <li>
-            <a id="org8996c33"></a><b>-name mydatabase</b>: nombre que se le
+            <a id="org30329cb"></a><b>-name mydatabase</b>: nombre que se le
             asigna al contenedor.<br />
           </li>
           <li>
-            <a id="org105a0ec"></a><b>mongo:4.2</b>: nombre de la imagen y
+            <a id="orga9d8d72"></a><b>mongo:4.2</b>: nombre de la imagen y
             version.<br />
-            <div class="outline-text-5" id="text-org105a0ec">
+            <div class="outline-text-5" id="text-orga9d8d72">
               <p>Con esto queda listo el contenedor.</p>
             </div>
           </li>
         </ul>
       </div>
 
-      <div id="outline-container-org03593e7" class="outline-2">
-        <h2 id="org03593e7">
+      <div id="outline-container-orgee97d98" class="outline-2">
+        <h2 id="orgee97d98">
           Para conectarse al contenedor se usa el comando <code>exec</code> de
           docker
         </h2>
-        <div class="outline-text-2" id="text-org03593e7">
+        <div class="outline-text-2" id="text-orgee97d98">
           <pre class="example">
 docker exec -it mydatabase bash
 </pre
@@ -3631,18 +3631,18 @@ docker exec -it mydatabase bash
 
         <ul class="org-ul">
           <li>
-            <a id="orgcca75f4"></a><b>-it</b>: ejecutar el contenedor de manera
+            <a id="orgbfd813f"></a><b>-it</b>: ejecutar el contenedor de manera
             intenctiva y que la terminal tome el control de instrucccion que
             sigue al final.<br />
           </li>
           <li>
-            <a id="orga6ea904"></a><b>mydatabase</b>: nombre del contendor a
+            <a id="org92b9141"></a><b>mydatabase</b>: nombre del contendor a
             usar.<br />
           </li>
           <li>
-            <a id="org7dbd41a"></a><b>bash</b>: comando a ejecutar al final,
+            <a id="org3c14620"></a><b>bash</b>: comando a ejecutar al final,
             osea, que acceda a las shell del contenedor.<br />
-            <div class="outline-text-5" id="text-org7dbd41a">
+            <div class="outline-text-5" id="text-org3c14620">
               <p>
                 Con este comando se ingresa al contenedor recien creado (para
                 ejecutar un contenedor creado anteriormente, pero no ingresar en
@@ -3669,9 +3669,13 @@ docker exec -it mydatabase bash
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tag-docker.html">docker</a>
+        <a href="https://martiyo.github.io/tag-database.html">database</a>
       </div>
     ]]></description>
   <category><![CDATA[linux]]></category>
+  <category><![CDATA[docker]]></category>
+  <category><![CDATA[database]]></category>
   <link>https://martiyo.github.io/2020-11-20-instalar-mongodb-con-docker.html</link>
   <pubDate>vie, 20 nov 2020 10:49:00 -0300</pubDate>
 </item>
@@ -3683,9 +3687,9 @@ docker exec -it mydatabase bash
         automaticamente.
       </p>
 
-      <div id="outline-container-orgb06587f" class="outline-2">
-        <h2 id="orgb06587f">Set up del repositorio</h2>
-        <div class="outline-text-2" id="text-orgb06587f">
+      <div id="outline-container-org2817491" class="outline-2">
+        <h2 id="org2817491">Set up del repositorio</h2>
+        <div class="outline-text-2" id="text-org2817491">
           <p>
             Actualizar el indice de paquetes de apt e instalar los paquetes
             necesarios para permitir a apt usar un repositorio sobre https:
@@ -3705,9 +3709,9 @@ software-properties-common
         </div>
       </div>
 
-      <div id="outline-container-orgd2f598d" class="outline-2">
-        <h2 id="orgd2f598d">Agregar la clave oficial de GPG de Docker:</h2>
-        <div class="outline-text-2" id="text-orgd2f598d">
+      <div id="outline-container-org1a6533f" class="outline-2">
+        <h2 id="org1a6533f">Agregar la clave oficial de GPG de Docker:</h2>
+        <div class="outline-text-2" id="text-org1a6533f">
           <pre class="example">
 $ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 </pre
@@ -3729,9 +3733,9 @@ pub   4096R/0EBFCD88 2017-02-22
         </div>
       </div>
 
-      <div id="outline-container-orga447e8c" class="outline-2">
-        <h2 id="orga447e8c">Agregar el repositorio al sources.list</h2>
-        <div class="outline-text-2" id="text-orga447e8c">
+      <div id="outline-container-org060b22c" class="outline-2">
+        <h2 id="org060b22c">Agregar el repositorio al sources.list</h2>
+        <div class="outline-text-2" id="text-org060b22c">
           <pre class="example">
 $ sudo add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/debian \
@@ -3742,9 +3746,9 @@ $ sudo add-apt-repository \
         </div>
       </div>
 
-      <div id="outline-container-org6365b08" class="outline-2">
-        <h2 id="org6365b08">Inatalar Docker Engine</h2>
-        <div class="outline-text-2" id="text-org6365b08">
+      <div id="outline-container-org274099e" class="outline-2">
+        <h2 id="org274099e">Inatalar Docker Engine</h2>
+        <div class="outline-text-2" id="text-org274099e">
           <pre class="example">
 $ sudo apt-get update
 $ sudo apt-get install docker-ce docker-ce-cli containerd.io
@@ -3778,9 +3782,11 @@ sudo usermod -aG docker your-user
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tag-docker.html">docker</a>
       </div>
     ]]></description>
   <category><![CDATA[linux]]></category>
+  <category><![CDATA[docker]]></category>
   <link>https://martiyo.github.io/2020-11-06-instalar-docker.html</link>
   <pubDate>vie, 06 nov 2020 10:32:00 -0300</pubDate>
 </item>
@@ -4608,6 +4614,259 @@ exit
   <category><![CDATA[Linux]]></category>
   <link>https://martiyo.github.io/2019-02-10-linux,-comandos,-trucos-y-cosas-utiles.html</link>
   <pubDate>dom, 10 feb 2019 11:49:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Mongodb comandos basicos]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-orgb18d8d3" class="outline-2">
+        <h2 id="orgb18d8d3"># Mongodb</h2>
+        <div class="outline-text-2" id="text-orgb18d8d3">
+          <p>
+            MongoDB forma parte de la nueva familia de sistemas de base de datos
+            NoSQL. En lugar de guardar los datos en tablas como se hace en las
+            base de datos relacionales, MongoDB guarda estructuras de datos en
+            documentos similares a JSON con un esquema dinámico (MongoDB utiliza
+            una especificación llamada BSON), haciendo que la integración de los
+            datos en ciertas aplicaciones sea más fácil y rápida.
+          </p>
+        </div>
+
+        <div id="outline-container-org843cabc" class="outline-3">
+          <h3 id="org843cabc">Comandos</h3>
+          <div class="outline-text-3" id="text-org843cabc">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+mongo
+</pre
+              >
+            </div>
+
+            <p>inicia mongodb.</p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+show dbs
+</pre
+              >
+            </div>
+
+            <p>muestra las bases de datos existentes.</p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+use [nombre de la db]
+</pre
+              >
+            </div>
+
+            <p>con este comando se hace uso de la db y si no existe la crea.</p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+show collections
+</pre
+              >
+            </div>
+
+            <p>
+              Este comando muestra las colecciones disponibles en la base datos,
+              primero se debe seleccionar la base de datos con el comando use.
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+db.[coleccion].find().pretty()
+</pre
+              >
+            </div>
+
+            <p>
+              El comando find() muestra la lista de documentos ("registros") de
+              una coleccion, se puede filtrar o enviar parámetros al comando
+              find para especificar los resultados de la consulta.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgfd6fc0d" class="outline-2">
+        <h2 id="orgfd6fc0d"># Eliminar DB</h2>
+        <div class="outline-text-2" id="text-orgfd6fc0d">
+          <p>
+            Para eliminar la db primero hay que ubicarse en la db a eliminar con
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+use [nombre de la db]
+</pre
+            >
+          </div>
+
+          <p>y luego ejecutar:</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+db.dropDatabase()
+</pre
+            >
+          </div>
+
+          <p>Elimina la base de datos.</p>
+        </div>
+      </div>
+
+      <div id="outline-container-orga9f8fb2" class="outline-2">
+        <h2 id="orga9f8fb2"># Eliminar Collections</h2>
+        <div class="outline-text-2" id="text-orga9f8fb2">
+          <p>Para eliminar la colección el comando es:</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+db.[collections].drop();
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgc0315a3" class="outline-2">
+        <h2 id="orgc0315a3"># Eliminar un documento</h2>
+        <div class="outline-text-2" id="text-orgc0315a3">
+          <div class="org-src-container">
+            <pre class="src src-sh">
+db.[collections].remove({"id": "id"});
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orga794ba0" class="outline-2">
+        <h2 id="orga794ba0"># Backup</h2>
+        <div class="outline-text-2" id="text-orga794ba0">
+          <p>
+            Para crear un backup de todas las DBs en mongo se usa el comando:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+mongodump
+</pre
+            >
+          </div>
+
+          <p>
+            El cual, por defecto crea una carpeta llamada dump, que contiene
+            todas las bases de datos separadas por carpetas.
+          </p>
+        </div>
+
+        <div id="outline-container-org241e623" class="outline-3">
+          <h3 id="org241e623">Resturar</h3>
+          <div class="outline-text-3" id="text-org241e623">
+            <p>
+              Para restaurar es necesario ubicarse en la ruta en donde este
+              almacenado el backup, es decir en donde este la carpeta dump y
+              ejecutar el comando mongorestore. Este comando lo que hará es leer
+              la carpeta dump y restaurar todas las bases de datos que encuentre
+              ella.
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+mongorestore
+</pre
+              >
+            </div>
+          </div>
+        </div>
+
+        <div id="outline-container-org84157a1" class="outline-3">
+          <h3 id="org84157a1">Backup de una DB especifica</h3>
+          <div class="outline-text-3" id="text-org84157a1">
+            <p>
+              Para respaldar una DB especifica hay que pasarle como parámetro en
+              nombre de la DB al comando <b>mongorestore</b>
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+mongodump --db [nombre de la db]
+</pre
+              >
+            </div>
+
+            <p>
+              este comando de nuevo creara una carpeta llamada dump, pero esta
+              vez tan solo con la base de datos seleccionada.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgb67b811" class="outline-3">
+          <h3 id="orgb67b811">Restaurar una DB especifica</h3>
+          <div class="outline-text-3" id="text-orgb67b811">
+            <p>
+              Y para restaurar esta única base de datos, se usa el comando
+              mongorestore pero esta vez con la opción &#x2013;db y la ruta de
+              la carpeta en donde se encuentra la base de datos a restaurar:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+mongorestore --db mibasededatos dump/mibasededatos
+</pre
+              >
+            </div>
+
+            <p>Otra opción es restaurar solo una colección de la DB:</p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+mongodump --db mibasededatos --collection micolección
+</pre
+              >
+            </div>
+          </div>
+        </div>
+
+        <div id="outline-container-org9d17036" class="outline-3">
+          <h3 id="org9d17036">Clonar una Coleccíon</h3>
+          <div class="outline-text-3" id="text-org9d17036">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+&gt; db.books.find().forEach( function(x){db.books_copy.insert(x)} );
+</pre
+              >
+            </div>
+          </div>
+        </div>
+
+        <div id="outline-container-org5684d8e" class="outline-3">
+          <h3 id="org5684d8e">Mover</h3>
+          <div class="outline-text-3" id="text-org5684d8e">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+&gt; use admin
+&gt; db.runCommand({renameCollection: 'newNotas.books', to: 'express-book.books'})
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tag-database.html">database</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <category><![CDATA[database]]></category>
+  <link>https://martiyo.github.io/2019-02-10-mongodb-comandos-basicos.html</link>
+  <pubDate>dom, 10 feb 2019 11:12:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Emms el reprocutor de audio de emacs]]></title>

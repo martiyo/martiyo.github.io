@@ -1,6 +1,6 @@
 #+title: Instalar mongodb con docker
 #+date: <2020-11-20 10:49>
-#+filetags: linux
+#+filetags: linux docker database
 
 Instalación y ejecución de mongodb en docker.
 

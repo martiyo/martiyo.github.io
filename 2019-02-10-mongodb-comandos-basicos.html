@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="comandos basicos de Mongodb" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Mongodb comandos basicos</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">10 feb 2019</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/2019-02-10-mongodb-comandos-basicos.html"
+          >Mongodb comandos basicos</a
+        >
+      </h1>
+
+      <div id="outline-container-orgb18d8d3" class="outline-2">
+        <h2 id="orgb18d8d3"># Mongodb</h2>
+        <div class="outline-text-2" id="text-orgb18d8d3">
+          <p>
+            MongoDB forma parte de la nueva familia de sistemas de base de datos
+            NoSQL. En lugar de guardar los datos en tablas como se hace en las
+            base de datos relacionales, MongoDB guarda estructuras de datos en
+            documentos similares a JSON con un esquema dinámico (MongoDB utiliza
+            una especificación llamada BSON), haciendo que la integración de los
+            datos en ciertas aplicaciones sea más fácil y rápida.
+          </p>
+        </div>
+
+        <div id="outline-container-org843cabc" class="outline-3">
+          <h3 id="org843cabc">Comandos</h3>
+          <div class="outline-text-3" id="text-org843cabc">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+mongo
+</pre
+              >
+            </div>
+
+            <p>inicia mongodb.</p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+show dbs
+</pre
+              >
+            </div>
+
+            <p>muestra las bases de datos existentes.</p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+use [nombre de la db]
+</pre
+              >
+            </div>
+
+            <p>con este comando se hace uso de la db y si no existe la crea.</p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+show collections
+</pre
+              >
+            </div>
+
+            <p>
+              Este comando muestra las colecciones disponibles en la base datos,
+              primero se debe seleccionar la base de datos con el comando use.
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+db.[coleccion].find().pretty()
+</pre
+              >
+            </div>
+
+            <p>
+              El comando find() muestra la lista de documentos ("registros") de
+              una coleccion, se puede filtrar o enviar parámetros al comando
+              find para especificar los resultados de la consulta.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgfd6fc0d" class="outline-2">
+        <h2 id="orgfd6fc0d"># Eliminar DB</h2>
+        <div class="outline-text-2" id="text-orgfd6fc0d">
+          <p>
+            Para eliminar la db primero hay que ubicarse en la db a eliminar con
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+use [nombre de la db]
+</pre
+            >
+          </div>
+
+          <p>y luego ejecutar:</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+db.dropDatabase()
+</pre
+            >
+          </div>
+
+          <p>Elimina la base de datos.</p>
+        </div>
+      </div>
+
+      <div id="outline-container-orga9f8fb2" class="outline-2">
+        <h2 id="orga9f8fb2"># Eliminar Collections</h2>
+        <div class="outline-text-2" id="text-orga9f8fb2">
+          <p>Para eliminar la colección el comando es:</p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+db.[collections].drop();
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgc0315a3" class="outline-2">
+        <h2 id="orgc0315a3"># Eliminar un documento</h2>
+        <div class="outline-text-2" id="text-orgc0315a3">
+          <div class="org-src-container">
+            <pre class="src src-sh">
+db.[collections].remove({"id": "id"});
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orga794ba0" class="outline-2">
+        <h2 id="orga794ba0"># Backup</h2>
+        <div class="outline-text-2" id="text-orga794ba0">
+          <p>
+            Para crear un backup de todas las DBs en mongo se usa el comando:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+mongodump
+</pre
+            >
+          </div>
+
+          <p>
+            El cual, por defecto crea una carpeta llamada dump, que contiene
+            todas las bases de datos separadas por carpetas.
+          </p>
+        </div>
+
+        <div id="outline-container-org241e623" class="outline-3">
+          <h3 id="org241e623">Resturar</h3>
+          <div class="outline-text-3" id="text-org241e623">
+            <p>
+              Para restaurar es necesario ubicarse en la ruta en donde este
+              almacenado el backup, es decir en donde este la carpeta dump y
+              ejecutar el comando mongorestore. Este comando lo que hará es leer
+              la carpeta dump y restaurar todas las bases de datos que encuentre
+              ella.
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+mongorestore
+</pre
+              >
+            </div>
+          </div>
+        </div>
+
+        <div id="outline-container-org84157a1" class="outline-3">
+          <h3 id="org84157a1">Backup de una DB especifica</h3>
+          <div class="outline-text-3" id="text-org84157a1">
+            <p>
+              Para respaldar una DB especifica hay que pasarle como parámetro en
+              nombre de la DB al comando <b>mongorestore</b>
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+mongodump --db [nombre de la db]
+</pre
+              >
+            </div>
+
+            <p>
+              este comando de nuevo creara una carpeta llamada dump, pero esta
+              vez tan solo con la base de datos seleccionada.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgb67b811" class="outline-3">
+          <h3 id="orgb67b811">Restaurar una DB especifica</h3>
+          <div class="outline-text-3" id="text-orgb67b811">
+            <p>
+              Y para restaurar esta única base de datos, se usa el comando
+              mongorestore pero esta vez con la opción &#x2013;db y la ruta de
+              la carpeta en donde se encuentra la base de datos a restaurar:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+mongorestore --db mibasededatos dump/mibasededatos
+</pre
+              >
+            </div>
+
+            <p>Otra opción es restaurar solo una colección de la DB:</p>
+
+            <div class="org-src-container">
+              <pre class="src src-sh">
+mongodump --db mibasededatos --collection micolección
+</pre
+              >
+            </div>
+          </div>
+        </div>
+
+        <div id="outline-container-org9d17036" class="outline-3">
+          <h3 id="org9d17036">Clonar una Coleccíon</h3>
+          <div class="outline-text-3" id="text-org9d17036">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+&gt; db.books.find().forEach( function(x){db.books_copy.insert(x)} );
+</pre
+              >
+            </div>
+          </div>
+        </div>
+
+        <div id="outline-container-org5684d8e" class="outline-3">
+          <h3 id="org5684d8e">Mover</h3>
+          <div class="outline-text-3" id="text-org5684d8e">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+&gt; use admin
+&gt; db.runCommand({renameCollection: 'newNotas.books', to: 'express-book.books'})
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tag-database.html">database</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

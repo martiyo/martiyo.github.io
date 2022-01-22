@@ -1,6 +1,6 @@
 #+title: Instalar Docker engine usando el repositorio
 #+date: <2020-11-06 10:32>
-#+filetags: linux
+#+filetags: linux docker
 
 Instalando desde el repositorio despues podés actualizarlo automaticamente.
 

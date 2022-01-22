@@ -1,0 +1,143 @@
+#+title: Mongodb comandos basicos
+#+date: <2019-02-10 11:12>
+#+description: comandos basicos de Mongodb
+#+filetags: linux database
+
+*** # Mongodb
+
+
+MongoDB forma parte de la nueva familia de sistemas de base de datos
+NoSQL. En lugar de guardar los datos en tablas como se hace en las base
+de datos relacionales, MongoDB guarda estructuras de datos en documentos
+similares a JSON con un esquema dinámico (MongoDB utiliza una
+especificación llamada BSON), haciendo que la integración de los datos
+en ciertas aplicaciones sea más fácil y rápida.
+
+**** Comandos
+
+
+#+BEGIN_SRC sh
+    mongo
+#+END_SRC
+
+inicia mongodb.
+
+#+BEGIN_SRC sh
+    show dbs
+#+END_SRC
+
+muestra las bases de datos existentes.
+
+#+BEGIN_SRC sh
+    use [nombre de la db]
+#+END_SRC
+
+con este comando se hace uso de la db y si no existe la crea.
+
+#+BEGIN_SRC sh
+        show collections
+#+END_SRC
+
+Este comando muestra las colecciones disponibles en la base datos,
+primero se debe seleccionar la base de datos con el comando use.
+
+#+BEGIN_SRC sh
+    db.[coleccion].find().pretty()
+#+END_SRC
+
+El comando find() muestra la lista de documentos ("registros") de una
+coleccion, se puede filtrar o enviar parámetros al comando find para
+especificar los resultados de la consulta.
+
+*** # Eliminar DB
+ 
+Para eliminar la db primero hay que ubicarse en la db a eliminar con
+
+#+BEGIN_SRC sh
+    use [nombre de la db]
+#+END_SRC
+
+y luego ejecutar:
+
+#+BEGIN_SRC sh
+    db.dropDatabase()
+#+END_SRC
+
+Elimina la base de datos.
+
+*** # Eliminar Collections
+
+Para eliminar la colección el comando es:
+
+#+BEGIN_SRC sh
+    db.[collections].drop();
+#+END_SRC
+
+*** # Eliminar un documento
+ 
+#+BEGIN_SRC sh
+    db.[collections].remove({"id": "id"});
+#+END_SRC
+
+*** # Backup
+   
+Para crear un backup de todas las DBs en mongo se usa el comando:
+
+#+BEGIN_SRC sh
+    mongodump
+#+END_SRC
+
+El cual, por defecto crea una carpeta llamada dump, que contiene todas
+las bases de datos separadas por carpetas.
+
+**** Resturar
+
+Para restaurar es necesario ubicarse en la ruta en donde este almacenado
+el backup, es decir en donde este la carpeta dump y ejecutar el comando
+mongorestore. Este comando lo que hará es leer la carpeta dump y
+restaurar todas las bases de datos que encuentre ella.
+
+#+BEGIN_SRC sh
+    mongorestore
+#+END_SRC
+
+**** Backup de una DB especifica
+   
+Para respaldar una DB especifica hay que pasarle como parámetro en
+nombre de la DB al comando *mongorestore*
+
+#+BEGIN_SRC sh
+    mongodump --db [nombre de la db]
+#+END_SRC
+
+este comando de nuevo creara una carpeta llamada dump, pero esta vez tan
+solo con la base de datos seleccionada.
+
+**** Restaurar una DB especifica
+    
+Y para restaurar esta única base de datos, se usa el comando
+mongorestore pero esta vez con la opción --db y la ruta de la carpeta en
+donde se encuentra la base de datos a restaurar:
+
+#+BEGIN_SRC sh
+    mongorestore --db mibasededatos dump/mibasededatos
+#+END_SRC
+
+Otra opción es restaurar solo una colección de la DB:
+
+#+BEGIN_SRC sh
+    mongodump --db mibasededatos --collection micolección
+#+END_SRC
+
+**** Clonar una Coleccíon
+
+    #+BEGIN_SRC sh
+    > db.books.find().forEach( function(x){db.books_copy.insert(x)} );
+#+END_SRC
+
+**** Mover
+   
+#+BEGIN_SRC sh
+    > use admin
+    > db.runCommand({renameCollection: 'newNotas.books', to: 'express-book.books'})
+#+END_SRC

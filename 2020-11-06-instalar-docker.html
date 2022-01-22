@@ -9,7 +9,7 @@
       title="RSS feed for https://martiyo.github.io/"
     />
     <title>Instalar Docker engine usando el repositorio</title>
-    <meta name="author" content="martin" />
+    <meta name="author" content="martiyo" />
     <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="static/style.css" rel="stylesheet" type="text/css" />
@@ -19,10 +19,19 @@
     <div id="preamble" class="status">
       <div class="header">
         <ul>
-          <li><a href="https://martiyo.github.io">/home</a></li>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
           <li><a href="https://martiyo.github.io/about">/about</a></li>
           <li><a href="https://martiyo.github.io/contact">/contact</a></li>
         </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
       </div>
     </div>
     <div id="content">
@@ -37,9 +46,9 @@
         automaticamente.
       </p>
 
-      <div id="outline-container-orgb06587f" class="outline-2">
-        <h2 id="orgb06587f">Set up del repositorio</h2>
-        <div class="outline-text-2" id="text-orgb06587f">
+      <div id="outline-container-org2817491" class="outline-2">
+        <h2 id="org2817491">Set up del repositorio</h2>
+        <div class="outline-text-2" id="text-org2817491">
           <p>
             Actualizar el indice de paquetes de apt e instalar los paquetes
             necesarios para permitir a apt usar un repositorio sobre https:
@@ -59,9 +68,9 @@ software-properties-common
         </div>
       </div>
 
-      <div id="outline-container-orgd2f598d" class="outline-2">
-        <h2 id="orgd2f598d">Agregar la clave oficial de GPG de Docker:</h2>
-        <div class="outline-text-2" id="text-orgd2f598d">
+      <div id="outline-container-org1a6533f" class="outline-2">
+        <h2 id="org1a6533f">Agregar la clave oficial de GPG de Docker:</h2>
+        <div class="outline-text-2" id="text-org1a6533f">
           <pre class="example">
 $ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 </pre
@@ -83,9 +92,9 @@ pub   4096R/0EBFCD88 2017-02-22
         </div>
       </div>
 
-      <div id="outline-container-orga447e8c" class="outline-2">
-        <h2 id="orga447e8c">Agregar el repositorio al sources.list</h2>
-        <div class="outline-text-2" id="text-orga447e8c">
+      <div id="outline-container-org060b22c" class="outline-2">
+        <h2 id="org060b22c">Agregar el repositorio al sources.list</h2>
+        <div class="outline-text-2" id="text-org060b22c">
           <pre class="example">
 $ sudo add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/debian \
@@ -96,9 +105,9 @@ $ sudo add-apt-repository \
         </div>
       </div>
 
-      <div id="outline-container-org6365b08" class="outline-2">
-        <h2 id="org6365b08">Inatalar Docker Engine</h2>
-        <div class="outline-text-2" id="text-org6365b08">
+      <div id="outline-container-org274099e" class="outline-2">
+        <h2 id="org274099e">Inatalar Docker Engine</h2>
+        <div class="outline-text-2" id="text-org274099e">
           <pre class="example">
 $ sudo apt-get update
 $ sudo apt-get install docker-ce docker-ce-cli containerd.io
@@ -132,12 +141,14 @@ sudo usermod -aG docker your-user
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
         <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tag-docker.html">docker</a>
       </div>
     </div>
     <div id="postamble" class="status">
       <div id="archive">
         <a href="https://martiyo.github.io/archive.html">Other posts</a>
       </div>
+      <footer></footer>
     </div>
   </body>
 </html>
