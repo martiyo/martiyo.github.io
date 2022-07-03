@@ -1,0 +1,13 @@
+#+title: Wordpress en docker
+#+date: <2022-04-27 18:20>
+#+description: 
+#+filetags: docker
+
+
+*** Docker-compose
+
+Docker Compose es una herramienta que permite definir y ejecutar aplicaciones Docker empleando varios contenedores.
+Compose usa un fichero de texto con la extensión yaml en el que se guarda la configuración de los servicios(imagenes), redes y volúmenes para persistencia de datos que requieran las aplicaciones
+https://www.arsys.es/blog/wordpress-contenedordocker
+
+https://forums.docker.com/t/how-to-get-access-to-php-ini-file/68986/2

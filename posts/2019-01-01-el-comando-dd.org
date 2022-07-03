@@ -1,0 +1,45 @@
+#+title: El comando dd
+#+date: <2019-01-01 22:23>
+#+description: 
+#+filetags: linux 
+
+***  El viejo y querido dd
+   
+dd es un comando de la familia de los sistemas operativos Unix que
+permite copiar y convertir datos de archivos​ a bajo nivel. Es
+generalmente usado para realizar operaciones avanzadas sobre
+dispositivos o archivos, como pueden ser transferencias de datos
+específicos y copias de seguridad de la información «en crudo» (raw
+data).
+
+*** Ejemplos
+    
+#+BEGIN_SRC
+    dd if=/dev/sda of=/dev/sdb bs=1M 
+#+END_SRC
+
+Con bs=1M, tanto la lectura como la escritura se hace en bloques de 1
+megabyte (menos, sería más lento pero más seguro, y con más se podria
+perder datos por el camino). Hay que tener en cuenta que de esta forma
+graba el disco "tal cual", MBR, tabla de particiones, espacio vacío,
+etc., por lo que sólo se puede grabar en un disco del mismo o mayor
+tamaño.
+
+#+BEGIN_SRC
+    dd if=/dev/sda | gzip > /home/sda.bin.gz    
+#+END_SRC
+
+Este comando crea una imagen del disco comprimida.
+
+#+BEGIN_SRC
+    for n in {1..5}; do dd if=/dev/urandom of=/dev/hda bs=8b conv=notrunc; done
+#+END_SRC
+
+esto llena el disco de caracteres aleatorios 5 veces, no queda rastro de
+la información que contenia el disco
+
+*** Usb booteable
+    
+#+BEGIN_SRC
+    dd if=devuan_jessie_1.0.0_amd64_desktop-live.iso of=/dev/sdc bs=4096 conv=sync,noerror
+#+END_SRC

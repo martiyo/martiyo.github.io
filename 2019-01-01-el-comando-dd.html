@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>El comando dd</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">01 ene 2019</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2019-01-01-el-comando-dd.html"
+          >El comando dd</a
+        >
+      </h1>
+
+      <div id="outline-container-org8d056f6" class="outline-2">
+        <h2 id="org8d056f6">El viejo y querido dd</h2>
+        <div class="outline-text-2" id="text-org8d056f6">
+          <p>
+            dd es un comando de la familia de los sistemas operativos Unix que
+            permite copiar y convertir datos de archivos​ a bajo nivel. Es
+            generalmente usado para realizar operaciones avanzadas sobre
+            dispositivos o archivos, como pueden ser transferencias de datos
+            específicos y copias de seguridad de la información «en crudo» (raw
+            data).
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org5f6157e" class="outline-2">
+        <h2 id="org5f6157e">Ejemplos</h2>
+        <div class="outline-text-2" id="text-org5f6157e">
+          <pre class="example">
+dd if=/dev/sda of=/dev/sdb bs=1M 
+</pre
+          >
+
+          <p>
+            Con bs=1M, tanto la lectura como la escritura se hace en bloques de
+            1 megabyte (menos, sería más lento pero más seguro, y con más se
+            podria perder datos por el camino). Hay que tener en cuenta que de
+            esta forma graba el disco "tal cual", MBR, tabla de particiones,
+            espacio vacío, etc., por lo que sólo se puede grabar en un disco del
+            mismo o mayor tamaño.
+          </p>
+
+          <pre class="example">
+dd if=/dev/sda | gzip &gt; /home/sda.bin.gz    
+</pre
+          >
+
+          <p>Este comando crea una imagen del disco comprimida.</p>
+
+          <pre class="example">
+for n in {1..5}; do dd if=/dev/urandom of=/dev/hda bs=8b conv=notrunc; done
+</pre
+          >
+
+          <p>
+            esto llena el disco de caracteres aleatorios 5 veces, no queda
+            rastro de la información que contenia el disco
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org30b68f5" class="outline-2">
+        <h2 id="org30b68f5">Usb booteable</h2>
+        <div class="outline-text-2" id="text-org30b68f5">
+          <pre class="example">
+dd if=devuan_jessie_1.0.0_amd64_desktop-live.iso of=/dev/sdc bs=4096 conv=sync,noerror
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>
