@@ -1,10 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>sáb, 22 ene 2022 11:28:21 -0300</lastBuildDate>
+<lastBuildDate>Mon, 04 Jul 2022 02:04:35 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[Wordpress en docker]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-org0edbb6a" class="outline-2">
+        <h2 id="org0edbb6a">Docker-compose</h2>
+        <div class="outline-text-2" id="text-org0edbb6a">
+          <p>
+            Docker Compose es una herramienta que permite definir y ejecutar
+            aplicaciones Docker empleando varios contenedores. Compose usa un
+            fichero de texto con la extensión yaml en el que se guarda la
+            configuración de los servicios(imagenes), redes y volúmenes para
+            persistencia de datos que requieran las aplicaciones
+            <a href="https://www.arsys.es/blog/wordpress-contenedordocker"
+              >https://www.arsys.es/blog/wordpress-contenedordocker</a
+            >
+          </p>
+
+          <p>
+            <a
+              href="https://forums.docker.com/t/how-to-get-access-to-php-ini-file/68986/2"
+              >https://forums.docker.com/t/how-to-get-access-to-php-ini-file/68986/2</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-docker.html">docker</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[docker]]></category>
+  <link>https://martiyo.github.io/2022-04-27-wordpress-en-docker.html</link>
+  <guid>https://martiyo.github.io/2022-04-27-wordpress-en-docker.html</guid>
+  <pubDate>Wed, 27 Apr 2022 18:20:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[NVM Node Version Manager]]></title>
   <description><![CDATA[
@@ -146,7 +182,8 @@ $ nvm uninstall 10.10.0
       <div class="taglist"></div>
     ]]></description>
   <link>https://martiyo.github.io/2022-01-09-nvm-node-version-manager.html</link>
-  <pubDate>dom, 09 ene 2022 12:38:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2022-01-09-nvm-node-version-manager.html</guid>
+  <pubDate>Sun, 09 Jan 2022 12:38:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[El empaquetador tar]]></title>
@@ -363,16 +400,17 @@ $ tar -jtvf /path/to/foo.tgz /path/to/foo/
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2022-01-05-el-empaquetador-tar.html</link>
-  <pubDate>mié, 05 ene 2022 08:50:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2022-01-05-el-empaquetador-tar.html</guid>
+  <pubDate>Wed, 05 Jan 2022 08:50:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[ssh-server]]></title>
   <description><![CDATA[
       <p>Consola segura.</p>
 
-      <div id="outline-container-org4fd383e" class="outline-2">
-        <h2 id="org4fd383e">Descripción</h2>
-        <div class="outline-text-2" id="text-org4fd383e">
+      <div id="outline-container-org87110af" class="outline-2">
+        <h2 id="org87110af">Descripción</h2>
+        <div class="outline-text-2" id="text-org87110af">
           <p>
             El protocolo SSH (consola segura: "Secure SHell"), fue diseñado
             pensando en la seguridad y la confiabilidad. Las coneciones que
@@ -382,9 +420,9 @@ $ tar -jtvf /path/to/foo.tgz /path/to/foo/
         </div>
       </div>
 
-      <div id="outline-container-orgbeaa5a4" class="outline-2">
-        <h2 id="orgbeaa5a4">Instalación</h2>
-        <div class="outline-text-2" id="text-orgbeaa5a4">
+      <div id="outline-container-orgfc57897" class="outline-2">
+        <h2 id="orgfc57897">Instalación</h2>
+        <div class="outline-text-2" id="text-orgfc57897">
           <pre class="example">
 $ sudo aptitude install openssh-server openssh-client
 </pre
@@ -392,9 +430,9 @@ $ sudo aptitude install openssh-server openssh-client
         </div>
       </div>
 
-      <div id="outline-container-org9e972a9" class="outline-2">
-        <h2 id="org9e972a9">Configuración</h2>
-        <div class="outline-text-2" id="text-org9e972a9">
+      <div id="outline-container-org09b8ff5" class="outline-2">
+        <h2 id="org09b8ff5">Configuración</h2>
+        <div class="outline-text-2" id="text-org09b8ff5">
           <p>
             Todas las posibilidades de configuración del servidor SSH están en
             el archivo /etc/ssh/sshd<sub>config</sub>. Para configurarlo hay que
@@ -424,9 +462,9 @@ PermitEmptyPasswords no
         </div>
       </div>
 
-      <div id="outline-container-orgf5b8a33" class="outline-2">
-        <h2 id="orgf5b8a33">Autenticaión basada en llaves</h2>
-        <div class="outline-text-2" id="text-orgf5b8a33">
+      <div id="outline-container-org115172d" class="outline-2">
+        <h2 id="org115172d">Autenticaión basada en llaves</h2>
+        <div class="outline-text-2" id="text-org115172d">
           <p>
             Cada vez que alguien inicia sesión a travéz de SSH, el servidor
             remoto pide una contraseña para autenticar al usuario. Esto puede
@@ -473,9 +511,9 @@ PasswordAutentication no
         </div>
       </div>
 
-      <div id="outline-container-org7388144" class="outline-2">
-        <h2 id="org7388144">Tranferemcia de archivos</h2>
-        <div class="outline-text-2" id="text-org7388144">
+      <div id="outline-container-orge10f11d" class="outline-2">
+        <h2 id="orge10f11d">Tranferemcia de archivos</h2>
+        <div class="outline-text-2" id="text-orge10f11d">
           <p>
             SSH también ofrece dos servicios de tranferemcia de archivos,
             <a href="...">scp</a> y <a href="...">sftp</a>. scp es una
@@ -503,12 +541,13 @@ PasswordAutentication no
       </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-consola.html">consola</a>
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
       </div>
     ]]></description>
-  <category><![CDATA[consola]]></category>
+  <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2021-11-02-ssh-server.html</link>
-  <pubDate>mar, 02 nov 2021 13:17:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2021-11-02-ssh-server.html</guid>
+  <pubDate>Tue, 02 Nov 2021 13:17:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Pass el gestor de contraseñas estandar de unix]]></title>
@@ -777,16 +816,17 @@ Phone Support PIN #: 84719
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2021-10-24-pass.html</link>
-  <pubDate>dom, 24 oct 2021 16:48:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2021-10-24-pass.html</guid>
+  <pubDate>Sun, 24 Oct 2021 16:48:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[tmux]]></title>
   <description><![CDATA[
       <p>Multiplexor de terminal.</p>
 
-      <div id="outline-container-orgaca8126" class="outline-2">
-        <h2 id="orgaca8126">Wikipedia</h2>
-        <div class="outline-text-2" id="text-orgaca8126">
+      <div id="outline-container-org986a9a9" class="outline-2">
+        <h2 id="org986a9a9">Wikipedia</h2>
+        <div class="outline-text-2" id="text-org986a9a9">
           <p>
             tmux es un multiplexor de terminal para sistemas tipo unix, similar
             a GNU Screen que permite dividir una consola en múltiples secciones
@@ -802,9 +842,9 @@ Phone Support PIN #: 84719
         </div>
       </div>
 
-      <div id="outline-container-org046da17" class="outline-2">
-        <h2 id="org046da17">Configuración</h2>
-        <div class="outline-text-2" id="text-org046da17">
+      <div id="outline-container-orga72352a" class="outline-2">
+        <h2 id="orga72352a">Configuración</h2>
+        <div class="outline-text-2" id="text-orga72352a">
           <p>
             El archivo de configuración es ~/.tmux.conf. Por defecto la
             combinación de teclas básica es <b>C-b</b> que yo por comodidad la
@@ -814,9 +854,9 @@ Phone Support PIN #: 84719
         </div>
       </div>
 
-      <div id="outline-container-org9e9687f" class="outline-2">
-        <h2 id="org9e9687f">Comandos básicos</h2>
-        <div class="outline-text-2" id="text-org9e9687f">
+      <div id="outline-container-org09eb6d8" class="outline-2">
+        <h2 id="org09eb6d8">Comandos básicos</h2>
+        <div class="outline-text-2" id="text-org09eb6d8">
           <table>
             <colgroup>
               <col class="org-left" />
@@ -881,76 +921,27 @@ Phone Support PIN #: 84719
                 <td class="org-left">tmux a</td>
                 <td class="org-left">Retomar la sesión</td>
               </tr>
+
+              <tr>
+                <td class="org-left">C-a &amp;</td>
+                <td class="org-left">
+                  Forzar el cierre la pestaña actual y sus paneles
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a w</td>
+                <td class="org-left">
+                  Listar pestañas para cambiar entre ellas con cursores
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">&#xa0;</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
             </tbody>
           </table>
-        </div>
-
-        <div id="outline-container-org4272bf0" class="outline-3">
-          <h3 id="org4272bf0">
-            La wiki de arch tiene un muy buen ejemplo del archivo de
-            configuración
-          </h3>
-          <div class="outline-text-3" id="text-org4272bf0">
-            <pre class="example">
-# Mover las ventanas izquierda o derecha en la sesión
-bind-key -n C-right next
-bind-key -n C-left prev
-# Nueva combinacion Ctrl + z + (Las teclas a continuación abajo)
-set -g prefix C-z
-# Desatamos la tecla predeterminada Ctrl + b y utilizamos la nueva combinación Ctrl + z + [tecla] 
-unbind-key C-b
-bind-key C-z send-prefix
-# Nueva ventana
-bind-key C-n new-window
-# Dividir la ventana en forma horizontal
-bind-key C-h split-window -h
-# Dividir la ventana en forma vertical
-bind-key C-v split-window -v
-# Movernos al panel arriba
-bind-key C-up select-pane -U
-# Movernos al panel abajo
-bind-key C-down select-pane -D
-# Movernos al panel a la izquierda
-bind-key C-left select-pane -L
-# Movernos al panel a la derecha
-bind-key C-right select-pane -R
-# Ocultar la session para volver a entrar solo tipeamos en consola: tmux attach-session ó tmux attach
-bind-key C-d detach
-# Habilitar que el mouse selecciones los paneles
-set-option -g mouse-select-pane on
-set-option -g set-titles on
-# Sin actividad visual
-set -g visual-activity on
-set -g visual-bell on
-# Barra de estado
-set-option -g status-utf8 on
-set-option -g status-justify right
-set-option -g status-bg black
-set-option -g status-fg green
-set-option -g status-interval 5
-set-option -g status-left-length 30
-set-option -g status-left '#[fg=magenta]» #[fg=blue,bold]#T#[default]'
-set-option -g status-right '#[fg=cyan]»» #[fg=blue,bold] #[fg=magenta]%D %k:%M#[default]'
-set-option -g visual-activity on
-set-window-option -g monitor-activity on
-set-window-option -g window-status-current-fg green
-set-window-option -g clock-mode-colour white 
-set-window-option -g clock-mode-style 24
-</pre
-            >
-
-            <p>TODO Habilitar history y mouse</p>
-
-            <p>
-              Fuentes:
-              <a href="https://wiki.archlinux.org/index.php/Tmux_(Espa%C3%B1ol)"
-                >archwiki</a
-              >
-              <a href="https://hipertextual.com/archivo/2014/09/tmux/"
-                >hipertextual.com</a
-              >
-            </p>
-          </div>
         </div>
       </div>
       <div class="taglist">
@@ -960,7 +951,8 @@ set-window-option -g clock-mode-style 24
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2021-10-21-tmux.html</link>
-  <pubDate>jue, 21 oct 2021 16:44:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2021-10-21-tmux.html</guid>
+  <pubDate>Thu, 21 Oct 2021 16:44:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[youtube-dl]]></title>
@@ -1012,7 +1004,8 @@ youtube-dl --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" &lt;url to 
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2021-10-03-youtube-dl.html</link>
-  <pubDate>dom, 03 oct 2021 21:19:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2021-10-03-youtube-dl.html</guid>
+  <pubDate>Sun, 03 Oct 2021 21:19:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Neotree]]></title>
@@ -1160,7 +1153,8 @@ f11
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2021-04-11-neotree.html</link>
-  <pubDate>dom, 11 abr 2021 12:33:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2021-04-11-neotree.html</guid>
+  <pubDate>Sun, 11 Apr 2021 12:33:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[It's Magit!]]></title>
@@ -1315,7 +1309,8 @@ C-x g
     ]]></description>
   <category><![CDATA[git]]></category>
   <link>https://martiyo.github.io/2021-04-04-magit.html</link>
-  <pubDate>dom, 04 abr 2021 23:45:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2021-04-04-magit.html</guid>
+  <pubDate>Sun, 04 Apr 2021 23:45:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Busqueda con grep en emacs]]></title>
@@ -1401,7 +1396,8 @@ M-x grep --color -nH --null -e setq ~/.emacs.d/init.el
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2021-02-17-busquedas-con-grep-en-emacs.html</link>
-  <pubDate>mié, 17 feb 2021 11:10:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2021-02-17-busquedas-con-grep-en-emacs.html</guid>
+  <pubDate>Wed, 17 Feb 2021 11:10:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Dashboard, una pantalla de inicio extencible para emacs]]></title>
@@ -1573,7 +1569,8 @@ M-x package-install RET Dashboard
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2021-02-10-dashboard.html</link>
-  <pubDate>mié, 10 feb 2021 09:09:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2021-02-10-dashboard.html</guid>
+  <pubDate>Wed, 10 Feb 2021 09:09:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Todo el poder a la shell!]]></title>
@@ -1730,7 +1727,8 @@ git clone https://github.com/manateelazycat/aweshell.git
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2021-01-20-Aweshell.html</link>
-  <pubDate>mié, 20 ene 2021 07:54:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2021-01-20-Aweshell.html</guid>
+  <pubDate>Wed, 20 Jan 2021 07:54:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Servidor webDAV]]></title>
@@ -1932,7 +1930,8 @@ sudo find ~/webDAV -type f -exec chmod ug+rw {} \;
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2020-12-23-servidor-webdav.html</link>
-  <pubDate>mié, 23 dic 2020 17:24:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2020-12-23-servidor-webdav.html</guid>
+  <pubDate>Wed, 23 Dec 2020 17:24:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Emacs Bookmarks]]></title>
@@ -2028,7 +2027,8 @@ sudo find ~/webDAV -type f -exec chmod ug+rw {} \;
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2020-12-21-emacs-bookmarks.html</link>
-  <pubDate>lun, 21 dic 2020 11:06:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2020-12-21-emacs-bookmarks.html</guid>
+  <pubDate>Mon, 21 Dec 2020 11:06:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Mocp reproducir audio desde la terminal]]></title>
@@ -2397,7 +2397,8 @@ rm eqsets.tar.gz
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2020-12-19-mocp.html</link>
-  <pubDate>sáb, 19 dic 2020 20:21:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2020-12-19-mocp.html</guid>
+  <pubDate>Sat, 19 Dec 2020 20:21:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Dired, el navegador de archivos de emacs]]></title>
@@ -2574,7 +2575,8 @@ rm eqsets.tar.gz
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2020-12-15-dired.html</link>
-  <pubDate>mar, 15 dic 2020 10:23:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2020-12-15-dired.html</guid>
+  <pubDate>Tue, 15 Dec 2020 10:23:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[mplayer-resumer]]></title>
@@ -2638,7 +2640,8 @@ $ make
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2020-12-11-mplayer-resumer.html</link>
-  <pubDate>vie, 11 dic 2020 19:48:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2020-12-11-mplayer-resumer.html</guid>
+  <pubDate>Fri, 11 Dec 2020 19:48:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Eww Emacs Web Wowser]]></title>
@@ -2798,7 +2801,8 @@ $ make
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2020-12-10-eww.html</link>
-  <pubDate>jue, 10 dic 2020 17:29:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2020-12-10-eww.html</guid>
+  <pubDate>Thu, 10 Dec 2020 17:29:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[ivy counsel swiper]]></title>
@@ -2987,7 +2991,8 @@ M-x package-install counsel
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2020-12-07-ivy-counsel-swiper.html</link>
-  <pubDate>lun, 07 dic 2020 14:58:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2020-12-07-ivy-counsel-swiper.html</guid>
+  <pubDate>Mon, 07 Dec 2020 14:58:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Formatear codigo con prettier-js]]></title>
@@ -3054,7 +3059,8 @@ sudo npm i -g prettier
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2020-12-07-prettier-js.html</link>
-  <pubDate>lun, 07 dic 2020 11:46:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2020-12-07-prettier-js.html</guid>
+  <pubDate>Mon, 07 Dec 2020 11:46:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Projectile. Integración de Projectos para Emacs]]></title>
@@ -3448,7 +3454,8 @@ M-x package-install RET projectile RET
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2020-12-07-projectile.html</link>
-  <pubDate>sáb, 05 dic 2020 19:53:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2020-12-07-projectile.html</guid>
+  <pubDate>Sat, 05 Dec 2020 19:53:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Auto-complete]]></title>
@@ -3500,7 +3507,8 @@ M-x package-install RET projectile RET
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2020-12-07-autocompletar-.html</link>
-  <pubDate>vie, 04 dic 2020 16:59:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2020-12-07-autocompletar-.html</guid>
+  <pubDate>Fri, 04 Dec 2020 16:59:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[El traductor de google en emacs]]></title>
@@ -3578,7 +3586,8 @@ M-x google-translate-at-point
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2020-11-27-traductor-de-google-en-emacs.html</link>
-  <pubDate>vie, 27 nov 2020 17:40:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2020-11-27-traductor-de-google-en-emacs.html</guid>
+  <pubDate>Fri, 27 Nov 2020 17:40:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Instalar mongodb con docker]]></title>
@@ -3677,7 +3686,8 @@ docker exec -it mydatabase bash
   <category><![CDATA[docker]]></category>
   <category><![CDATA[database]]></category>
   <link>https://martiyo.github.io/2020-11-20-instalar-mongodb-con-docker.html</link>
-  <pubDate>vie, 20 nov 2020 10:49:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2020-11-20-instalar-mongodb-con-docker.html</guid>
+  <pubDate>Fri, 20 Nov 2020 10:49:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Instalar Docker engine usando el repositorio]]></title>
@@ -3788,7 +3798,8 @@ sudo usermod -aG docker your-user
   <category><![CDATA[linux]]></category>
   <category><![CDATA[docker]]></category>
   <link>https://martiyo.github.io/2020-11-06-instalar-docker.html</link>
-  <pubDate>vie, 06 nov 2020 10:32:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2020-11-06-instalar-docker.html</guid>
+  <pubDate>Fri, 06 Nov 2020 10:32:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Gestión de permisos en linux]]></title>
@@ -3958,7 +3969,8 @@ sudo chmod ug+rwx
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2020-02-24-gestion-de-permisos-en-linux.html</link>
-  <pubDate>lun, 24 feb 2020 16:38:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2020-02-24-gestion-de-permisos-en-linux.html</guid>
+  <pubDate>Mon, 24 Feb 2020 16:38:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Git gestion de ramas]]></title>
@@ -4050,7 +4062,8 @@ If you are sure you want to delete it, run 'git branch -D testing'.
     ]]></description>
   <category><![CDATA[git]]></category>
   <link>https://martiyo.github.io/2019-07-04-git-gestion-de-ramas.html</link>
-  <pubDate>jue, 04 jul 2019 17:37:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2019-07-04-git-gestion-de-ramas.html</guid>
+  <pubDate>Thu, 04 Jul 2019 17:37:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Git ramificar y fusionar]]></title>
@@ -4132,7 +4145,8 @@ git branch -d iss53
     ]]></description>
   <category><![CDATA[git]]></category>
   <link>https://martiyo.github.io/2019-06-30-git-ramificar-y-fusionar.html</link>
-  <pubDate>dom, 30 jun 2019 18:10:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2019-06-30-git-ramificar-y-fusionar.html</guid>
+  <pubDate>Sun, 30 Jun 2019 18:10:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Linux, comandos, trucos y cosas utiles]]></title>
@@ -4613,7 +4627,8 @@ exit
     ]]></description>
   <category><![CDATA[Linux]]></category>
   <link>https://martiyo.github.io/2019-02-10-linux,-comandos,-trucos-y-cosas-utiles.html</link>
-  <pubDate>dom, 10 feb 2019 11:49:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2019-02-10-linux,-comandos,-trucos-y-cosas-utiles.html</guid>
+  <pubDate>Sun, 10 Feb 2019 11:49:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Mongodb comandos basicos]]></title>
@@ -4866,7 +4881,8 @@ mongodump --db mibasededatos --collection micolección
   <category><![CDATA[linux]]></category>
   <category><![CDATA[database]]></category>
   <link>https://martiyo.github.io/2019-02-10-mongodb-comandos-basicos.html</link>
-  <pubDate>dom, 10 feb 2019 11:12:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2019-02-10-mongodb-comandos-basicos.html</guid>
+  <pubDate>Sun, 10 Feb 2019 11:12:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Emms el reprocutor de audio de emacs]]></title>
@@ -4973,7 +4989,8 @@ mv emms-4.0 .emacs.d/lisp
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2019-02-09-emms-el-reprocutor-de-audio-de-emacs.html</link>
-  <pubDate>sáb, 09 feb 2019 22:04:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2019-02-09-emms-el-reprocutor-de-audio-de-emacs.html</guid>
+  <pubDate>Sat, 09 Feb 2019 22:04:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Ramificaciones en git]]></title>
@@ -5130,7 +5147,8 @@ git checkout master
     ]]></description>
   <category><![CDATA[git]]></category>
   <link>https://martiyo.github.io/2019-01-22-ramificaciones-en-git.html</link>
-  <pubDate>mar, 22 ene 2019 17:41:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2019-01-22-ramificaciones-en-git.html</guid>
+  <pubDate>Tue, 22 Jan 2019 17:41:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Git init!]]></title>
@@ -5432,7 +5450,81 @@ git push -u origin master
     ]]></description>
   <category><![CDATA[git]]></category>
   <link>https://martiyo.github.io/2019-01-08-git.html</link>
-  <pubDate>mar, 08 ene 2019 12:30:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2019-01-08-git.html</guid>
+  <pubDate>Tue, 08 Jan 2019 12:30:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[El comando dd]]></title>
+  <description><![CDATA[
+
+      <div id="outline-container-org8d056f6" class="outline-2">
+        <h2 id="org8d056f6">El viejo y querido dd</h2>
+        <div class="outline-text-2" id="text-org8d056f6">
+          <p>
+            dd es un comando de la familia de los sistemas operativos Unix que
+            permite copiar y convertir datos de archivos​ a bajo nivel. Es
+            generalmente usado para realizar operaciones avanzadas sobre
+            dispositivos o archivos, como pueden ser transferencias de datos
+            específicos y copias de seguridad de la información «en crudo» (raw
+            data).
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org5f6157e" class="outline-2">
+        <h2 id="org5f6157e">Ejemplos</h2>
+        <div class="outline-text-2" id="text-org5f6157e">
+          <pre class="example">
+dd if=/dev/sda of=/dev/sdb bs=1M 
+</pre
+          >
+
+          <p>
+            Con bs=1M, tanto la lectura como la escritura se hace en bloques de
+            1 megabyte (menos, sería más lento pero más seguro, y con más se
+            podria perder datos por el camino). Hay que tener en cuenta que de
+            esta forma graba el disco "tal cual", MBR, tabla de particiones,
+            espacio vacío, etc., por lo que sólo se puede grabar en un disco del
+            mismo o mayor tamaño.
+          </p>
+
+          <pre class="example">
+dd if=/dev/sda | gzip &gt; /home/sda.bin.gz    
+</pre
+          >
+
+          <p>Este comando crea una imagen del disco comprimida.</p>
+
+          <pre class="example">
+for n in {1..5}; do dd if=/dev/urandom of=/dev/hda bs=8b conv=notrunc; done
+</pre
+          >
+
+          <p>
+            esto llena el disco de caracteres aleatorios 5 veces, no queda
+            rastro de la información que contenia el disco
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org30b68f5" class="outline-2">
+        <h2 id="org30b68f5">Usb booteable</h2>
+        <div class="outline-text-2" id="text-org30b68f5">
+          <pre class="example">
+dd if=devuan_jessie_1.0.0_amd64_desktop-live.iso of=/dev/sdc bs=4096 conv=sync,noerror
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2019-01-01-el-comando-dd.html</link>
+  <guid>https://martiyo.github.io/2019-01-01-el-comando-dd.html</guid>
+  <pubDate>Tue, 01 Jan 2019 22:23:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Package-list el sistema de packetes de emacs]]></title>
@@ -5576,7 +5668,8 @@ M-x list-package RET
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2018-12-09-package-list-el-sistema-de-paquetes-de-emacs.html</link>
-  <pubDate>dom, 09 dic 2018 09:53:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2018-12-09-package-list-el-sistema-de-paquetes-de-emacs.html</guid>
+  <pubDate>Sun, 09 Dec 2018 09:53:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[ffmpeg video converter]]></title>
@@ -5900,7 +5993,8 @@ ffmpeg -i entrada -pass 2 -passlogfile ffmpeg2pass salida
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2018-12-08-ffmpeg-video-converter.html</link>
-  <pubDate>sáb, 08 dic 2018 13:52:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2018-12-08-ffmpeg-video-converter.html</guid>
+  <pubDate>Sat, 08 Dec 2018 13:52:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Update-alternatives]]></title>
@@ -6123,7 +6217,8 @@ editor.ru.1.gz /usr/share/man/ru/man1/vim.1.gz
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2018-12-01-update-alternatives.html</link>
-  <pubDate>sáb, 01 dic 2018 16:27:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2018-12-01-update-alternatives.html</guid>
+  <pubDate>Sat, 01 Dec 2018 16:27:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Elfeed]]></title>
@@ -6342,7 +6437,8 @@ M-x elfeed RET
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2018-09-29-elfeed.html</link>
-  <pubDate>sáb, 29 sep 2018 23:57:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2018-09-29-elfeed.html</guid>
+  <pubDate>Sat, 29 Sep 2018 23:57:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Procesos en linux]]></title>
@@ -6535,7 +6631,8 @@ M-x elfeed RET
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2018-09-19-procesos-en-linux.html</link>
-  <pubDate>mié, 19 sep 2018 14:51:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2018-09-19-procesos-en-linux.html</guid>
+  <pubDate>Wed, 19 Sep 2018 14:51:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Runlevels e inittab]]></title>
@@ -6932,7 +7029,8 @@ sudo init 6 (reinicia el equipo)
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2018-09-19-runlevels-e-inittab.html</link>
-  <pubDate>mié, 19 sep 2018 12:41:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2018-09-19-runlevels-e-inittab.html</guid>
+  <pubDate>Wed, 19 Sep 2018 12:41:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Planificación y administración de tareas con Cron y Crontab]]></title>
@@ -7127,7 +7225,8 @@ crontab [opciones][usuario]
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2018-09-15-Cron.html</link>
-  <pubDate>sáb, 15 sep 2018 12:18:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2018-09-15-Cron.html</guid>
+  <pubDate>Sat, 15 Sep 2018 12:18:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Introduccion a GNU/Emacs]]></title>
@@ -7450,7 +7549,8 @@ crontab [opciones][usuario]
     ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2018-07-04-introduccion-a-emacs.html</link>
-  <pubDate>mié, 04 jul 2018 14:41:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2018-07-04-introduccion-a-emacs.html</guid>
+  <pubDate>Wed, 04 Jul 2018 14:41:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[El sistema de ficheros /proc]]></title>
@@ -7549,7 +7649,8 @@ $cat /proc/uptime
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2018-06-19-el-sistema-de-ficheros-proc.html</link>
-  <pubDate>mar, 19 jun 2018 23:28:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2018-06-19-el-sistema-de-ficheros-proc.html</guid>
+  <pubDate>Tue, 19 Jun 2018 23:28:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Dirección ip estatica]]></title>
@@ -7679,7 +7780,8 @@ root@devuan:/home/martin# ping www.devuan.org
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2018-03-06-direccion-ip-estatica.html</link>
-  <pubDate>mar, 06 mar 2018 22:06:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2018-03-06-direccion-ip-estatica.html</guid>
+  <pubDate>Tue, 06 Mar 2018 22:06:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[El demonio miniDLNA]]></title>
@@ -7800,7 +7902,8 @@ media_dir=A,/path/multimedia/musica\n
     ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2018-02-27-el-demonio-minidlna.html</link>
-  <pubDate>jue, 22 feb 2018 03:04:00 -0300</pubDate>
+  <guid>https://martiyo.github.io/2018-02-27-el-demonio-minidlna.html</guid>
+  <pubDate>Thu, 22 Feb 2018 03:04:00 -0300</pubDate>
 </item>
 </channel>
 </rss>

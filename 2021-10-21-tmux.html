@@ -42,9 +42,9 @@
       </h1>
       <p>Multiplexor de terminal.</p>
 
-      <div id="outline-container-orgaca8126" class="outline-2">
-        <h2 id="orgaca8126">Wikipedia</h2>
-        <div class="outline-text-2" id="text-orgaca8126">
+      <div id="outline-container-org986a9a9" class="outline-2">
+        <h2 id="org986a9a9">Wikipedia</h2>
+        <div class="outline-text-2" id="text-org986a9a9">
           <p>
             tmux es un multiplexor de terminal para sistemas tipo unix, similar
             a GNU Screen que permite dividir una consola en múltiples secciones
@@ -60,9 +60,9 @@
         </div>
       </div>
 
-      <div id="outline-container-org046da17" class="outline-2">
-        <h2 id="org046da17">Configuración</h2>
-        <div class="outline-text-2" id="text-org046da17">
+      <div id="outline-container-orga72352a" class="outline-2">
+        <h2 id="orga72352a">Configuración</h2>
+        <div class="outline-text-2" id="text-orga72352a">
           <p>
             El archivo de configuración es ~/.tmux.conf. Por defecto la
             combinación de teclas básica es <b>C-b</b> que yo por comodidad la
@@ -72,9 +72,9 @@
         </div>
       </div>
 
-      <div id="outline-container-org9e9687f" class="outline-2">
-        <h2 id="org9e9687f">Comandos básicos</h2>
-        <div class="outline-text-2" id="text-org9e9687f">
+      <div id="outline-container-org09eb6d8" class="outline-2">
+        <h2 id="org09eb6d8">Comandos básicos</h2>
+        <div class="outline-text-2" id="text-org09eb6d8">
           <table>
             <colgroup>
               <col class="org-left" />
@@ -139,76 +139,27 @@
                 <td class="org-left">tmux a</td>
                 <td class="org-left">Retomar la sesión</td>
               </tr>
+
+              <tr>
+                <td class="org-left">C-a &amp;</td>
+                <td class="org-left">
+                  Forzar el cierre la pestaña actual y sus paneles
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">C-a w</td>
+                <td class="org-left">
+                  Listar pestañas para cambiar entre ellas con cursores
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">&#xa0;</td>
+                <td class="org-left">&#xa0;</td>
+              </tr>
             </tbody>
           </table>
-        </div>
-
-        <div id="outline-container-org4272bf0" class="outline-3">
-          <h3 id="org4272bf0">
-            La wiki de arch tiene un muy buen ejemplo del archivo de
-            configuración
-          </h3>
-          <div class="outline-text-3" id="text-org4272bf0">
-            <pre class="example">
-# Mover las ventanas izquierda o derecha en la sesión
-bind-key -n C-right next
-bind-key -n C-left prev
-# Nueva combinacion Ctrl + z + (Las teclas a continuación abajo)
-set -g prefix C-z
-# Desatamos la tecla predeterminada Ctrl + b y utilizamos la nueva combinación Ctrl + z + [tecla] 
-unbind-key C-b
-bind-key C-z send-prefix
-# Nueva ventana
-bind-key C-n new-window
-# Dividir la ventana en forma horizontal
-bind-key C-h split-window -h
-# Dividir la ventana en forma vertical
-bind-key C-v split-window -v
-# Movernos al panel arriba
-bind-key C-up select-pane -U
-# Movernos al panel abajo
-bind-key C-down select-pane -D
-# Movernos al panel a la izquierda
-bind-key C-left select-pane -L
-# Movernos al panel a la derecha
-bind-key C-right select-pane -R
-# Ocultar la session para volver a entrar solo tipeamos en consola: tmux attach-session ó tmux attach
-bind-key C-d detach
-# Habilitar que el mouse selecciones los paneles
-set-option -g mouse-select-pane on
-set-option -g set-titles on
-# Sin actividad visual
-set -g visual-activity on
-set -g visual-bell on
-# Barra de estado
-set-option -g status-utf8 on
-set-option -g status-justify right
-set-option -g status-bg black
-set-option -g status-fg green
-set-option -g status-interval 5
-set-option -g status-left-length 30
-set-option -g status-left '#[fg=magenta]» #[fg=blue,bold]#T#[default]'
-set-option -g status-right '#[fg=cyan]»» #[fg=blue,bold] #[fg=magenta]%D %k:%M#[default]'
-set-option -g visual-activity on
-set-window-option -g monitor-activity on
-set-window-option -g window-status-current-fg green
-set-window-option -g clock-mode-colour white 
-set-window-option -g clock-mode-style 24
-</pre
-            >
-
-            <p>TODO Habilitar history y mouse</p>
-
-            <p>
-              Fuentes:
-              <a href="https://wiki.archlinux.org/index.php/Tmux_(Espa%C3%B1ol)"
-                >archwiki</a
-              >
-              <a href="https://hipertextual.com/archivo/2014/09/tmux/"
-                >hipertextual.com</a
-              >
-            </p>
-          </div>
         </div>
       </div>
       <div class="taglist">

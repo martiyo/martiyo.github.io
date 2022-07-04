@@ -285,3 +285,11 @@ sudo su
 sync && echo 3 > /proc/sys/vm/drop_caches
 exit
 #+END_SRC
+
+*** Buscar texto en varios archivos
+   
+    #+BEGIN_SRC
+find / -type f -exec grep -H 'texto-a-buscar-aqui' {} \;
+
+#+END_SRC
+    
