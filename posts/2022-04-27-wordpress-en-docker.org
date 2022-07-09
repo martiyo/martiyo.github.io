@@ -7,7 +7,121 @@
 *** Docker-compose
 
 Docker Compose es una herramienta que permite definir y ejecutar aplicaciones Docker empleando varios contenedores.
-Compose usa un fichero de texto con la extensión yaml en el que se guarda la configuración de los servicios(imagenes), redes y volúmenes para persistencia de datos que requieran las aplicaciones
-https://www.arsys.es/blog/wordpress-contenedordocker
+Compose usa un fichero de texto con la extensión yaml en el que se guarda la configuración de los servicios(imagenes), redes y volúmenes para persistencia de datos que requieran las aplicaciones.
 
-https://forums.docker.com/t/how-to-get-access-to-php-ini-file/68986/2
+*** Configuración
+
+    Para empezar creo una carpeta en para instalar el proyecto Wordpress
+
+#+BEGIN_SRC
+mkdir wp-docker
+
+cd wp-docker
+#+END_SRC
+
+   Despues creo el archivo ***docker-compose.yml*** para definir el stack de contenedores que se gestiorán con Compose.
+
+#+BEGIN_SRC 
+touch docker-compose.yml 
+#+END_SRC
+
+***** Archivo docker-compose.yml
+
+#+BEGIN_SRC 
+services:
+
+  db:
+
+    image: mysql:8
+
+    volumes:
+
+      - db_data:/var/lib/mysql
+
+    restart: always
+
+    environment:
+
+      MYSQL_ROOT_PASSWORD: Passw0rd
+
+      MYSQL_DATABASE: wordpress
+
+      MYSQL_USER: wp_user
+
+      MYSQL_PASSWORD: Passw0rd
+
+  wordpress:
+
+    depends_on:
+
+      - db
+
+    image: wordpress:latest
+
+    volumes:
+
+      - wordpress_data:/var/www/html
+
+    ports:
+
+      - "8000:80"
+
+    restart: always
+
+    environment:
+
+      WORDPRESS_DB_HOST: db:3306
+
+      WORDPRESS_DB_USER: wp_user
+
+      WORDPRESS_DB_PASSWORD: Passw0rd
+
+      WORDPRESS_DB_NAME: wordpress
+
+volumes:
+
+  db_data: {}
+
+  wordpress_data: {}
+
+#+END_SRC
+
+
+En este archivo de Compose se crean las dos imágenes que se necesitan para ejecutar WordPress. Primero la imagen del servidor MySQL y luego la imagen de WordPress. Ambas imágenes tienen unos datos de configuración que se pueden ver en el propio código. Por supuesto, se puede cambiar la configuración segun se necesite, sobre todo es importante escoger claves seguras para la base de datos. Además en el código de docker-compose.yml se puede observar que se han configurado un par de volúmenes, para los archivos de WordPress y para la persistencia de la base de datos.
+
+*****  Build de Compose
+
+Una vez creado el archivo el proyecto se ejecuta con el comando:
+
+#+BEGIN_SRC
+docker-compose up -d 
+#+END_SRC
+
+con esto comienza la descarga de las imagenes y se pondrán en funcionamiento.
+
+*****  Acceder al sitio web para la instalación de wordpress
+
+Se puede acceder al sitio web de wordpress en Docker con la dirección ip del servidor y el puerto 8000.
+
+*** Como acceder al archivo php.ini 
+
+Por ejemplo si quiero editar el archivo .htaccess para que wordpress soporte imagenes de mayor tamaño, lo que tengo que hacer es:
+
+primero conocer id del contenedor
+
+#+BEGIN_SRC 
+doker container ls --filter name="wordpress"
+#+END_SRC
+#+END_SRC
+
+este comando listara los contenedores que contengan la palabra wordpress en su nombre y mostrara su id, name, status, ports, etc.
+
+una vez que tengo el id del contenerdor puedo editar el .htaccess con el siguiente comando:
+
+#+BEGIN_SRC 
+docker container exec -it 9ddd9bded663 bash -c "echo 'php_value upload_max_filesize 256M' > '/var/www/html/.htaccess'"
+#+END_SRC
+
+Ahora wordpress soporta imagenes de 256M como maximo.
+
+[[https://www.arsys.es/blog/wordpress-contenedordocker][fuente]]
