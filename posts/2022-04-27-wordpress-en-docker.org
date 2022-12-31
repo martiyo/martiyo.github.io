@@ -103,7 +103,7 @@ con esto comienza la descarga de las imagenes y se pondrán en funcionamiento.
 
 Se puede acceder al sitio web de wordpress en Docker con la dirección ip del servidor y el puerto 8000.
 
-*** Como acceder al archivo php.ini 
+*** Como editar archivos de configuración del contenedor 
 
 Por ejemplo si quiero editar el archivo .htaccess para que wordpress soporte imagenes de mayor tamaño, lo que tengo que hacer es:
 

@@ -1,0 +1,61 @@
+#+title: org-mode
+#+date: <2022-07-27 18:24>
+#+description: 
+#+filetags: emacs
+
+
+Org-mode es un gestor de información personal y una herramienta de resúmenes para Emacs.
+
+** Lo básico
+*** Creando un nuevo fichero
+
+Emacs debería entrar en org-mode siempre y cuando se visite o cree un fichero con la extensión ".org"
+
+*** Lista simple de tareas
+
+Los títulos de primer nivel empiezan con una estrella; los de segundo nivel con dos estrellas, y así.
+En org-mode, los ítems TODO (tareas no hechas) son siempre títulos. Para crear nuevos
+ items TODO se ubica el cursor en la siguiente línea y se pulsa M-shift-RET para llamar
+ a org-insert-todo-heading. Se puede pulsar varias veces y añadir varios TODOs. 
+Para marcar una tarea como realizada márquese el ítem TODO como ítem DONE (tarea ya realizada)
+ moviendo el cursor a esa línea y pulsando C-c C-t, que ejecuta el comando org-todo.
+Nótese cómo org-mode usa una marca de tiempo para grabar cuando un ítem TODO fué cerrado.
+
+*** Usando títulos para estructurar el documento
+
+Con frecuencia el mejor camino para organizar ideas es un esquema.
+El siguiente paso es hacer un esquema de los diferentes asuntos del tutorial.
+Haciendo esto, se rompe la intimidatoria página en blanco en una serie
+de pequeños trozos menos intimidatorios.
+Una asterisco da comienzo a una cabecera de primer nivel, y dos asteriscos
+dan comienzo a una cabecera de segundo nivel. Si se necesita un anidamiento más
+profundo, ¡usá tres o más asteriscos!
+
+*** Rellenando secciones
+
+Fácilmente se puede añadir texto, un cuerpo de texto debajo de cada título.
+
+*** Enlaces a otros lugares
+
+La sintaxis para crear enlaces es [[enlace][descripción]
+El último corchete lo dejo abierto por que al cerrarlo se escondería el
+enlace y solo se vería descripción.
+Para editar un enlace ya oculto se presiona C-c C-o para org-open-at-point(abrir enlace)
+
+También se puede enlazar archivos locales con C-c C-l 
+[[~/.emacs][archivo de configuracion de emacs]]
+
+*** Añadiendo notas a una tarea
+
+Se puede poner tanto texto como se quiera bajo una cabecera de un ítem TODO.
+De hecho, se puede tener incluso subcabecera bajo un TODO, ¡y TODOs con TODOs!
+
+Siendo capaz de anotar tareas hace fácil recoger enlaces relacionados y
+pensamientos asociados a una tarea. Siendo capaz de anidar tareas es bueno para
+modelar flujos de trabajo — con bastante frecuencia, una tarea larga is dividida
+en pequeñas subtareas que se pretende marchar según se hagan.
+
+** Funcionalidades avanzadas
+
+
+[[https://orgmode.org/worg/org-tutorials/orgtutorial_dto-es.html][Esto es solo un resumen de un tutorial que está aquí]]

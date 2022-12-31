@@ -20,7 +20,7 @@
     <div id="preamble" class="status">
       <div class="header">
         <ul>
-          <li><a href="https://martiyo.github.io">/home</a></li>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
           <li><a href="https://martiyo.github.io/about">/about</a></li>
           <li><a href="https://martiyo.github.io/contact">/contact</a></li>
         </ul>
@@ -47,9 +47,9 @@
         youtube y algunos otros sitios más
       </p>
 
-      <div id="outline-container-orgc034160" class="outline-2">
-        <h2 id="orgc034160">Instalación</h2>
-        <div class="outline-text-2" id="text-orgc034160">
+      <div id="outline-container-orgf4edea7" class="outline-2">
+        <h2 id="orgf4edea7">#Instalación</h2>
+        <div class="outline-text-2" id="text-orgf4edea7">
           <p>Con curl</p>
 
           <pre class="example">
@@ -68,16 +68,81 @@ sudo chmod a+rx /usr/local/bin/youtube-dl
         </div>
       </div>
 
-      <div id="outline-container-org81d8fef" class="outline-2">
-        <h2 id="org81d8fef">Usos frecuentes</h2>
-        <div class="outline-text-2" id="text-org81d8fef">
-          <p>
-            Descargar lista de reproducción completa y extraer audio en formato
-            mp3
-          </p>
+      <div id="outline-container-orgfe305c8" class="outline-2">
+        <h2 id="orgfe305c8"># Usos frecuentes</h2>
+        <div class="outline-text-2" id="text-orgfe305c8">
+          <ul class="org-ul">
+            <li>Descargar un video o playlist:</li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-emacs-lisp">
+youtube-dl '{{https://www.youtube.com/watch?v=oHg5SJYRHA0}}'
+</pre
+            >
+          </div>
+
+          <ul class="org-ul">
+            <li>
+              Listar todos los formatos en los que esta disponible un video y
+              lista de reproducción:
+            </li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-emacs-lisp">
+youtube-dl --list-formats '{{https://www.youtube.com/watch?v=oHg5SJYRHA0}}'
+</pre
+            >
+          </div>
+
+          <ul class="org-ul">
+            <li>Descargar un video o playlist en una calidad especifica:</li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-emacs-lisp">
+youtube-dl --format "{{best[height&lt;=480]}}" '{{https://www.youtube.com/watch?v=oHg5SJYRHA0}}'
+</pre
+            >
+          </div>
+
+          <ul class="org-ul">
+            <li>
+              Descargar un video con formato mp4 con nombres de archivos
+              personalizados:
+            </li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-emacs-lisp">
+youtube-dl --sub-lang {{en}} --write -sub '{{https://www.youtube.com/watch?v=oHg5SJYRHA0}}'
+</pre
+            >
+          </div>
+
+          <ul class="org-ul">
+            <li>
+              Descargar lista de reproducción completa y extraer audio en
+              formato mp3:
+            </li>
+          </ul>
 
           <pre class="example">
 youtube-dl --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" &lt;url to playlist&gt;
+</pre
+          >
+
+          <ul class="org-ul">
+            <li>
+              Lo mismo pero con mejor la mejor calidad de audio disponible e
+              ignorando errores:
+            </li>
+          </ul>
+
+          <pre class="example">
+youtube-dl -f "bestaudio" --continue --no-overwrites --ignore-errors --extract-audio
+ --audio-format mp3 -o "%(title)s.%(ext)s" {{url_to_playlist}}
 </pre
           >
         </div>

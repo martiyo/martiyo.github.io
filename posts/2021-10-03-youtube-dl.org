@@ -5,7 +5,7 @@
 
 Youtube-dl es un programa de línea de comandos para descargar videos de youtube y algunos otros sitios más
 
-** Instalación
+*** #Instalación
 
 Con curl
 
@@ -22,11 +22,42 @@ sudo chmod a+rx /usr/local/bin/youtube-dl
 #+END_SRC
 
  
-** Usos frecuentes
+*** # Usos frecuentes
    
-Descargar lista de reproducción completa y extraer audio en formato mp3
++ Descargar un video o playlist:
+
+#+BEGIN_SRC emacs-lisp
+ youtube-dl '{{https://www.youtube.com/watch?v=oHg5SJYRHA0}}'
+#+END_SRC
+
++ Listar todos los formatos en los que esta disponible un video y lista de reproducción:
+
+#+BEGIN_SRC emacs-lisp
+ youtube-dl --list-formats '{{https://www.youtube.com/watch?v=oHg5SJYRHA0}}'
+#+END_SRC
+
++ Descargar un video o playlist en una calidad especifica:
+
+#+BEGIN_SRC emacs-lisp
+ youtube-dl --format "{{best[height<=480]}}" '{{https://www.youtube.com/watch?v=oHg5SJYRHA0}}'
+#+END_SRC
+
++ Descargar un video con formato mp4 con nombres de archivos personalizados:
+
+#+BEGIN_SRC emacs-lisp
+ youtube-dl --sub-lang {{en}} --write -sub '{{https://www.youtube.com/watch?v=oHg5SJYRHA0}}'
+#+END_SRC
+
+
++ Descargar lista de reproducción completa y extraer audio en formato mp3:
 
 #+BEGIN_SRC
 youtube-dl --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" <url to playlist>
 #+END_SRC
 
++ Lo mismo pero con mejor la mejor calidad de  audio disponible e ignorando errores:
+
+#+BEGIN_SRC
+youtube-dl -f "bestaudio" --continue --no-overwrites --ignore-errors --extract-audio
+ --audio-format mp3 -o "%(title)s.%(ext)s" {{url_to_playlist}}
+#+END_SRC

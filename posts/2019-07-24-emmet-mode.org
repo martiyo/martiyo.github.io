@@ -1,0 +1,273 @@
+#+title: Emmet-mode en emcas
+#+date: <2022-12-31 12:38>
+#+description: Mejorar el flujo de trabajo en html, css, js, etc
+#+filetags: emacs
+
+
+Emmet es un plugin para los editores de texto más populares que mejora
+enormemente el flujo de trabajo HTML y CSS.
+
+** Instalación
+
+Emmet-mode está en los repositorios de MELPA y Marmalade por lo tanto
+con *M-x package-install-RET emmet-mode* es suficiente.
+
+** Uso
+
+
+Colocar el punto en un fragmento de emmet y presione C-j para expandirlo
+(o, alternativamente, crear un alias con Mx emmet-expand-line) esto
+transformará su fragmento en la estructura de etiqueta apropiada.
+
+*** HTML abreviaciones
+
+
+**** Etiquetas basicas
+
+#+BEGIN_SRC sh
+      a            <a href=""></a>
+      a.x          <a class="x" href=""></a>
+      a#q.x        <a id="q" class="x" href=""></a>
+      a#q.x.y.z    <a id="q" class="x y z" href=""></a>
+      #q           <div id="q">
+                   </div>
+      .x           <div class="x">
+                  </div>
+      #q.x         <div id="q" class="x">
+                  </div>
+      #q.x.y.z     <div id="q" class="x y z">
+                  </div>
+      html:5              <!doctype html>
+                             <html lang="en">
+                               <head>
+                                 <meta charset="UTF-8"/>
+                                 <title>Document</title>
+                               </head>
+                               <body>
+                               </body>
+                             </html>              
+#+END_SRC
+
+**** Etiquetas vacías
+
+#+BEGIN_SRC sh
+    a/                       <a href=""/>
+    a/.x                     <a class="x" href=""/>
+    a/#q.x                   <a id="q" class="x" href=""/>
+    a/#q.x.y.z               <a id="q" class="x y z" href=""/>
+#+END_SRC
+
+**** Etiquetas de cierre automático
+
+#+BEGIN_SRC sh
+    input[type=text]         <input type="text" name="" value=""/>
+    img                      <img src="" alt=""/>
+    img>metadata/*2          <img src="" alt="">
+                                 <metadata/>
+                                 <metadata/>
+                             </img>
+#+END_SRC
+
+**** Hermanos
+
+#+BEGIN_SRC sh
+    a+b                      <a href=""></a>
+                             <b></b>
+    a+b+c                    <a href=""></a>
+                             <b></b>
+                             <c></c>
+    a.x+b                    <a class="x" href=""></a>
+                             <b></b>
+    a#q.x+b                  <a id="q" class="x" href=""></a>
+                             <b></b>
+    a#q.x.y.z+b              <a id="q" class="x y z" href=""></a>
+                             <b></b>
+    a#q.x.y.z+b#p.l.m.n      <a id="q" class="x y z" href=""></a>
+                             <b id="p" class="l m n"></b>
+#+END_SRC
+
+**** Etiquetas de expanción
+
+#+BEGIN_SRC sh
+    table+                   <table>
+                                 <tr>
+                                     <td>
+                                     </td>
+                                 </tr>
+                             </table>
+    dl+                      <dl>
+                                 <dt></dt>
+                                 <dd></dd>
+                             </dl>
+    ul+                      <ul>
+                                 <li></li>
+                             </ul>
+    ul++ol+                  <ul>
+                                 <li></li>
+                             </ul>
+                             <ol>
+                                 <li></li>
+                             </ol>
+    ul#q.x.y[m=l]            <ul id="q" class="x y" m="l">
+                                 <li></li>
+                             </ul>
+#+END_SRC
+
+**** Padre > hijo
+
+#+BEGIN_SRC sh
+    a>b                      <a href=""><b></b></a>
+    a>b>c                    <a href=""><b><c></c></b></a>
+    a.x>b                    <a class="x" href=""><b></b></a>
+    a#q.x>b                  <a id="q" class="x" href=""><b></b></a>
+    a#q.x.y.z>b              <a id="q" class="x y z" href=""><b></b></a>
+    a#q.x.y.z>b#p.l.m.n      <a id="q" class="x y z" href=""><b id="p" class="l m n"></b></a>
+    #q>.x                    <div id="q">
+                                 <div class="x">
+                                 </div>
+                             </div>
+    a>b+c                    <a href="">
+                                 <b></b>
+                                 <c></c>
+                             </a>
+    a>b+c>d                  <a href="">
+                                 <b></b>
+                                 <c><d></d></c>
+                             </a>
+#+END_SRC
+
+**** Escalar
+
+#+BEGIN_SRC sh
+    a>b^c                    <a href=""><b></b></a><c></c>
+    a>b>c^d                  <a href="">
+                                 <b><c></c></b>
+                                 <d></d>
+                             </a>
+    a>b>c^^d                 <a href=""><b><c></c></b></a>
+                             <d></d>
+#+END_SRC
+
+**** Multiplicación
+
+#+BEGIN_SRC sh
+    a*1                      <a href=""></a>
+    a*2                      <a href=""></a>
+                             <a href=""></a>
+    a/*2                     <a href=""/>
+                             <a href=""/>
+    a*2+b*2                  <a href=""></a>
+                             <a href=""></a>
+                             <b></b>
+                             <b></b>
+    a*2>b*2                  <a href="">
+                                 <b></b>
+                                 <b></b>
+                             </a>
+                             <a href="">
+                                 <b></b>
+                                 <b></b>
+                             </a>
+    a>b*2                    <a href="">
+                                 <b></b>
+                                 <b></b>
+                             </a>
+    a#q.x>b#q.x*2            <a id="q" class="x" href="">
+                                 <b id="q" class="x"></b>
+                                 <b id="q" class="x"></b>
+                             </a>
+    a#q.x>b/#q.x*2           <a id="q" class="x" href="">
+                                 <b id="q" class="x"/>
+                                 <b id="q" class="x"/>
+                             </a>
+#+END_SRC
+
+**** Numeración de items
+
+#+BEGIN_SRC sh
+    ul>li.item$*3            <ul>
+                                 <li class="item1"></li>
+                                 <li class="item2"></li>
+                                 <li class="item3"></li>
+                             </ul>
+    ul>li.item$$$*3          <ul>
+                                 <li class="item001"></li>
+                                 <li class="item002"></li>
+                                 <li class="item003"></li>
+                             </ul>
+    ul>li.item$@-*3          <ul>
+                                 <li class="item3"></li>
+                                 <li class="item2"></li>
+                                 <li class="item1"></li>
+                             </ul>
+    ul>li.item$@3*3          <ul>
+                                 <li class="item3"></li>
+                                 <li class="item4"></li>
+                                 <li class="item5"></li>
+                             </ul>
+    ul>li.item$@-3*3         <ul>
+                                 <li class="item5"></li>
+                                 <li class="item4"></li>
+                                 <li class="item3"></li>
+                             </ul>
+    a$b$@-/*5                <a1b5/>
+                             <a2b4/>
+                             <a3b3/>
+                             <a4b2/>
+                             <a5b1/>
+    a.$*2>b.$$@-*3           <a class=\"1\" href="">
+                                 <b class=\"03\"></b>
+                                 <b class=\"02\"></b>
+                                 <b class=\"01\"></b>
+                             </a>
+                             <a class=\"2\" href="">
+                                 <b class=\"03\"></b>
+                                 <b class=\"02\"></b>
+                                 <b class=\"01\"></b>
+                             </a>
+    (div>(a#id$$*2)+b.c$@-3+c#d$)*2
+                             <div>
+                                 <a id=\"id01\" href=""></a>
+                                 <a id=\"id02\" href=""></a>
+                                 <b class=\"c4\"></b>
+                                 <c id=\"d1\"></c>
+                             </div>
+                             <div>
+                                 <a id=\"id01\" href=""></a>
+                                 <a id=\"id02\" href=""></a>
+                                 <b class=\"c3\"></b>
+                                 <c id=\"d2\"></c>
+                             </div>
+    ul>li.c${price: 10\\$}*3 <ul>
+                                 <li class=\"c1\">price: 10$</li>
+                                 <li class=\"c2\">price: 10$</li>
+                                 <li class=\"c3\">price: 10$</li>
+                             </ul>
+#+END_SRC
+
+**** Generador Lorem-Ipsum
+
+#+BEGIN_SRC sh
+    lorem                    Diam, vulputate ut pharetra sit amet, aliquam id! Egestas sed tempus, urna et pharetra pharetra, massa massa ultricies mi, quis hendrerit dolor magna eget est lorem ipsum dolor sit amet!
+    lorem5                   Hendrerit gravida rutrum quisque non?
+    ipsum3                   Viverra ipsum nunc.
+    p*3>lorem3               <p>Pellentesque elit eget?</p>
+                             <p>Sed odio morbi?</p>
+                             <p>Eget arcu dictum!</p>
+    ul.list>ipsum3*3         <ul class=\"list\">
+                                 Nam libero justo.
+                                 Pellentesque habitant morbi?
+                                 Enim blandit volutpat.
+                             </ul>
+    ul.list>ipsum3.itm*3     <ul class=\"list\">
+                                 <div class=\"itm\">Urna condimentum mattis.</div> <!-- emmet-mode doesn't support implicit tag name resolver -->
+                                 <div class=\"itm\">Sed turpis tincidunt.</div>
+                                 <div class=\"itm\">Faucibus turpis in?</div>
+                             </ul>
+    ul.list>(li.itm>lorem3)*3
+                             <ul class=\"list\">
+                                 <li class=\"itm\">Est pellentesque elit.</li>
+                                 <li class=\"itm\">In nulla posuere.</li>
+                                 <li class=\"itm\">Felis eget nunc.</li>
+                             </ul>
+#+END_SRC

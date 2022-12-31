@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Mejorar el flujo de trabajo en html, css, js, etc"
+    />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Emmet-mode en emcas</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">31 dic 2022</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2019-07-24-emmet-mode.html"
+          >Emmet-mode en emcas</a
+        >
+      </h1>
+      <p>
+        Emmet es un plugin para los editores de texto más populares que mejora
+        enormemente el flujo de trabajo HTML y CSS.
+      </p>
+
+      <div id="outline-container-org08eaf0c" class="outline-2">
+        <h2 id="org08eaf0c">Instalación</h2>
+        <div class="outline-text-2" id="text-org08eaf0c">
+          <p>
+            Emmet-mode está en los repositorios de MELPA y Marmalade por lo
+            tanto con <b>M-x package-install-RET emmet-mode</b> es suficiente.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org53257cb" class="outline-2">
+        <h2 id="org53257cb">Uso</h2>
+        <div class="outline-text-2" id="text-org53257cb">
+          <p>
+            Colocar el punto en un fragmento de emmet y presione C-j para
+            expandirlo (o, alternativamente, crear un alias con Mx
+            emmet-expand-line) esto transformará su fragmento en la estructura
+            de etiqueta apropiada.
+          </p>
+        </div>
+
+        <div id="outline-container-org6ad41cd" class="outline-3">
+          <h3 id="org6ad41cd">HTML abreviaciones</h3>
+          <div class="outline-text-3" id="text-org6ad41cd"></div>
+          <div id="outline-container-org77ca7f7" class="outline-4">
+            <h4 id="org77ca7f7">Etiquetas basicas</h4>
+            <div class="outline-text-4" id="text-org77ca7f7">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+a            &lt;a href=""&gt;&lt;/a&gt;
+a.x          &lt;a class="x" href=""&gt;&lt;/a&gt;
+a#q.x        &lt;a id="q" class="x" href=""&gt;&lt;/a&gt;
+a#q.x.y.z    &lt;a id="q" class="x y z" href=""&gt;&lt;/a&gt;
+#q           &lt;div id="q"&gt;
+	     &lt;/div&gt;
+.x           &lt;div class="x"&gt;
+	    &lt;/div&gt;
+#q.x         &lt;div id="q" class="x"&gt;
+	    &lt;/div&gt;
+#q.x.y.z     &lt;div id="q" class="x y z"&gt;
+	    &lt;/div&gt;
+html:5              &lt;!doctype html&gt;
+		       &lt;html lang="en"&gt;
+			 &lt;head&gt;
+			   &lt;meta charset="UTF-8"/&gt;
+			   &lt;title&gt;Document&lt;/title&gt;
+			 &lt;/head&gt;
+			 &lt;body&gt;
+			 &lt;/body&gt;
+		       &lt;/html&gt;              
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-org90841a9" class="outline-4">
+            <h4 id="org90841a9">Etiquetas vacías</h4>
+            <div class="outline-text-4" id="text-org90841a9">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+a/                       &lt;a href=""/&gt;
+a/.x                     &lt;a class="x" href=""/&gt;
+a/#q.x                   &lt;a id="q" class="x" href=""/&gt;
+a/#q.x.y.z               &lt;a id="q" class="x y z" href=""/&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-orgf634f8e" class="outline-4">
+            <h4 id="orgf634f8e">Etiquetas de cierre automático</h4>
+            <div class="outline-text-4" id="text-orgf634f8e">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+input[type=text]         &lt;input type="text" name="" value=""/&gt;
+img                      &lt;img src="" alt=""/&gt;
+img&gt;metadata/*2          &lt;img src="" alt=""&gt;
+			     &lt;metadata/&gt;
+			     &lt;metadata/&gt;
+			 &lt;/img&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-org73e4618" class="outline-4">
+            <h4 id="org73e4618">Hermanos</h4>
+            <div class="outline-text-4" id="text-org73e4618">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+a+b                      &lt;a href=""&gt;&lt;/a&gt;
+			 &lt;b&gt;&lt;/b&gt;
+a+b+c                    &lt;a href=""&gt;&lt;/a&gt;
+			 &lt;b&gt;&lt;/b&gt;
+			 &lt;c&gt;&lt;/c&gt;
+a.x+b                    &lt;a class="x" href=""&gt;&lt;/a&gt;
+			 &lt;b&gt;&lt;/b&gt;
+a#q.x+b                  &lt;a id="q" class="x" href=""&gt;&lt;/a&gt;
+			 &lt;b&gt;&lt;/b&gt;
+a#q.x.y.z+b              &lt;a id="q" class="x y z" href=""&gt;&lt;/a&gt;
+			 &lt;b&gt;&lt;/b&gt;
+a#q.x.y.z+b#p.l.m.n      &lt;a id="q" class="x y z" href=""&gt;&lt;/a&gt;
+			 &lt;b id="p" class="l m n"&gt;&lt;/b&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-org743253b" class="outline-4">
+            <h4 id="org743253b">Etiquetas de expanción</h4>
+            <div class="outline-text-4" id="text-org743253b">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+table+                   &lt;table&gt;
+			     &lt;tr&gt;
+				 &lt;td&gt;
+				 &lt;/td&gt;
+			     &lt;/tr&gt;
+			 &lt;/table&gt;
+dl+                      &lt;dl&gt;
+			     &lt;dt&gt;&lt;/dt&gt;
+			     &lt;dd&gt;&lt;/dd&gt;
+			 &lt;/dl&gt;
+ul+                      &lt;ul&gt;
+			     &lt;li&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+ul++ol+                  &lt;ul&gt;
+			     &lt;li&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+			 &lt;ol&gt;
+			     &lt;li&gt;&lt;/li&gt;
+			 &lt;/ol&gt;
+ul#q.x.y[m=l]            &lt;ul id="q" class="x y" m="l"&gt;
+			     &lt;li&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-org49c0384" class="outline-4">
+            <h4 id="org49c0384">Padre &gt; hijo</h4>
+            <div class="outline-text-4" id="text-org49c0384">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+a&gt;b                      &lt;a href=""&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;
+a&gt;b&gt;c                    &lt;a href=""&gt;&lt;b&gt;&lt;c&gt;&lt;/c&gt;&lt;/b&gt;&lt;/a&gt;
+a.x&gt;b                    &lt;a class="x" href=""&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;
+a#q.x&gt;b                  &lt;a id="q" class="x" href=""&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;
+a#q.x.y.z&gt;b              &lt;a id="q" class="x y z" href=""&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;
+a#q.x.y.z&gt;b#p.l.m.n      &lt;a id="q" class="x y z" href=""&gt;&lt;b id="p" class="l m n"&gt;&lt;/b&gt;&lt;/a&gt;
+#q&gt;.x                    &lt;div id="q"&gt;
+			     &lt;div class="x"&gt;
+			     &lt;/div&gt;
+			 &lt;/div&gt;
+a&gt;b+c                    &lt;a href=""&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			     &lt;c&gt;&lt;/c&gt;
+			 &lt;/a&gt;
+a&gt;b+c&gt;d                  &lt;a href=""&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			     &lt;c&gt;&lt;d&gt;&lt;/d&gt;&lt;/c&gt;
+			 &lt;/a&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-org1a57a56" class="outline-4">
+            <h4 id="org1a57a56">Escalar</h4>
+            <div class="outline-text-4" id="text-org1a57a56">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+a&gt;b^c                    &lt;a href=""&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;&lt;c&gt;&lt;/c&gt;
+a&gt;b&gt;c^d                  &lt;a href=""&gt;
+			     &lt;b&gt;&lt;c&gt;&lt;/c&gt;&lt;/b&gt;
+			     &lt;d&gt;&lt;/d&gt;
+			 &lt;/a&gt;
+a&gt;b&gt;c^^d                 &lt;a href=""&gt;&lt;b&gt;&lt;c&gt;&lt;/c&gt;&lt;/b&gt;&lt;/a&gt;
+			 &lt;d&gt;&lt;/d&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-orgfd00ca7" class="outline-4">
+            <h4 id="orgfd00ca7">Multiplicación</h4>
+            <div class="outline-text-4" id="text-orgfd00ca7">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+a*1                      &lt;a href=""&gt;&lt;/a&gt;
+a*2                      &lt;a href=""&gt;&lt;/a&gt;
+			 &lt;a href=""&gt;&lt;/a&gt;
+a/*2                     &lt;a href=""/&gt;
+			 &lt;a href=""/&gt;
+a*2+b*2                  &lt;a href=""&gt;&lt;/a&gt;
+			 &lt;a href=""&gt;&lt;/a&gt;
+			 &lt;b&gt;&lt;/b&gt;
+			 &lt;b&gt;&lt;/b&gt;
+a*2&gt;b*2                  &lt;a href=""&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			 &lt;/a&gt;
+			 &lt;a href=""&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			 &lt;/a&gt;
+a&gt;b*2                    &lt;a href=""&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			 &lt;/a&gt;
+a#q.x&gt;b#q.x*2            &lt;a id="q" class="x" href=""&gt;
+			     &lt;b id="q" class="x"&gt;&lt;/b&gt;
+			     &lt;b id="q" class="x"&gt;&lt;/b&gt;
+			 &lt;/a&gt;
+a#q.x&gt;b/#q.x*2           &lt;a id="q" class="x" href=""&gt;
+			     &lt;b id="q" class="x"/&gt;
+			     &lt;b id="q" class="x"/&gt;
+			 &lt;/a&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-org2dacc28" class="outline-4">
+            <h4 id="org2dacc28">Numeración de items</h4>
+            <div class="outline-text-4" id="text-org2dacc28">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+ul&gt;li.item$*3            &lt;ul&gt;
+			     &lt;li class="item1"&gt;&lt;/li&gt;
+			     &lt;li class="item2"&gt;&lt;/li&gt;
+			     &lt;li class="item3"&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+ul&gt;li.item$$$*3          &lt;ul&gt;
+			     &lt;li class="item001"&gt;&lt;/li&gt;
+			     &lt;li class="item002"&gt;&lt;/li&gt;
+			     &lt;li class="item003"&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+ul&gt;li.item$@-*3          &lt;ul&gt;
+			     &lt;li class="item3"&gt;&lt;/li&gt;
+			     &lt;li class="item2"&gt;&lt;/li&gt;
+			     &lt;li class="item1"&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+ul&gt;li.item$@3*3          &lt;ul&gt;
+			     &lt;li class="item3"&gt;&lt;/li&gt;
+			     &lt;li class="item4"&gt;&lt;/li&gt;
+			     &lt;li class="item5"&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+ul&gt;li.item$@-3*3         &lt;ul&gt;
+			     &lt;li class="item5"&gt;&lt;/li&gt;
+			     &lt;li class="item4"&gt;&lt;/li&gt;
+			     &lt;li class="item3"&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+a$b$@-/*5                &lt;a1b5/&gt;
+			 &lt;a2b4/&gt;
+			 &lt;a3b3/&gt;
+			 &lt;a4b2/&gt;
+			 &lt;a5b1/&gt;
+a.$*2&gt;b.$$@-*3           &lt;a class=\"1\" href=""&gt;
+			     &lt;b class=\"03\"&gt;&lt;/b&gt;
+			     &lt;b class=\"02\"&gt;&lt;/b&gt;
+			     &lt;b class=\"01\"&gt;&lt;/b&gt;
+			 &lt;/a&gt;
+			 &lt;a class=\"2\" href=""&gt;
+			     &lt;b class=\"03\"&gt;&lt;/b&gt;
+			     &lt;b class=\"02\"&gt;&lt;/b&gt;
+			     &lt;b class=\"01\"&gt;&lt;/b&gt;
+			 &lt;/a&gt;
+(div&gt;(a#id$$*2)+b.c$@-3+c#d$)*2
+			 &lt;div&gt;
+			     &lt;a id=\"id01\" href=""&gt;&lt;/a&gt;
+			     &lt;a id=\"id02\" href=""&gt;&lt;/a&gt;
+			     &lt;b class=\"c4\"&gt;&lt;/b&gt;
+			     &lt;c id=\"d1\"&gt;&lt;/c&gt;
+			 &lt;/div&gt;
+			 &lt;div&gt;
+			     &lt;a id=\"id01\" href=""&gt;&lt;/a&gt;
+			     &lt;a id=\"id02\" href=""&gt;&lt;/a&gt;
+			     &lt;b class=\"c3\"&gt;&lt;/b&gt;
+			     &lt;c id=\"d2\"&gt;&lt;/c&gt;
+			 &lt;/div&gt;
+ul&gt;li.c${price: 10\\$}*3 &lt;ul&gt;
+			     &lt;li class=\"c1\"&gt;price: 10$&lt;/li&gt;
+			     &lt;li class=\"c2\"&gt;price: 10$&lt;/li&gt;
+			     &lt;li class=\"c3\"&gt;price: 10$&lt;/li&gt;
+			 &lt;/ul&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-org2509ec2" class="outline-4">
+            <h4 id="org2509ec2">Generador Lorem-Ipsum</h4>
+            <div class="outline-text-4" id="text-org2509ec2">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+lorem                    Diam, vulputate ut pharetra sit amet, aliquam id! Egestas sed tempus, urna et pharetra pharetra, massa massa ultricies mi, quis hendrerit dolor magna eget est lorem ipsum dolor sit amet!
+lorem5                   Hendrerit gravida rutrum quisque non?
+ipsum3                   Viverra ipsum nunc.
+p*3&gt;lorem3               &lt;p&gt;Pellentesque elit eget?&lt;/p&gt;
+			 &lt;p&gt;Sed odio morbi?&lt;/p&gt;
+			 &lt;p&gt;Eget arcu dictum!&lt;/p&gt;
+ul.list&gt;ipsum3*3         &lt;ul class=\"list\"&gt;
+			     Nam libero justo.
+			     Pellentesque habitant morbi?
+			     Enim blandit volutpat.
+			 &lt;/ul&gt;
+ul.list&gt;ipsum3.itm*3     &lt;ul class=\"list\"&gt;
+			     &lt;div class=\"itm\"&gt;Urna condimentum mattis.&lt;/div&gt; &lt;!-- emmet-mode doesn't support implicit tag name resolver --&gt;
+			     &lt;div class=\"itm\"&gt;Sed turpis tincidunt.&lt;/div&gt;
+			     &lt;div class=\"itm\"&gt;Faucibus turpis in?&lt;/div&gt;
+			 &lt;/ul&gt;
+ul.list&gt;(li.itm&gt;lorem3)*3
+			 &lt;ul class=\"list\"&gt;
+			     &lt;li class=\"itm\"&gt;Est pellentesque elit.&lt;/li&gt;
+			     &lt;li class=\"itm\"&gt;In nulla posuere.&lt;/li&gt;
+			     &lt;li class=\"itm\"&gt;Felis eget nunc.&lt;/li&gt;
+			 &lt;/ul&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

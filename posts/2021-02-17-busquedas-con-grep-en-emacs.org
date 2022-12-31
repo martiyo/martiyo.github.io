@@ -1,4 +1,4 @@
-#+title: Busqueda con grep en emacs
+w#+title: Busqueda con grep en emacs
 #+date: <2021-02-17 11:10>
 #+filetags: emacs
 
@@ -37,3 +37,4 @@ esto lista todas las líneas que coinciden con *setq* en el archivo *init.el*, m
 * lgrep y rgrep 
 
 Ambos te preguntan lo que debe buscar de manera conveniente. ~lgrep~ busca en el directorio actual y ~rgrep~ busca en el árbol de directorios actual. ~rgrep~ conoce los sistemas de control de versiones por lo que es posible evitar buscar en los directorios de control.
+*rgrep* te pedirá una cadena de búsqueda, un tipo de archivo y un directorio (en ese orden, y las indicaciones estarán etiquetadas para que no haya confusión). Solo escribe M-x regrep RET (termino buscado), (tipo de archivo por ej. *.js) y (directorio /src/xxx).
