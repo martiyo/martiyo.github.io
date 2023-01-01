@@ -4,7 +4,7 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Sun, 01 Jan 2023 15:47:50 -0300</lastBuildDate>
+<lastBuildDate>Sun, 01 Jan 2023 15:55:37 -0300</lastBuildDate>
 <item>
   <title><![CDATA[Emmet]]></title>
   <description><![CDATA[
@@ -485,10 +485,11 @@ ul.list&gt;(li.itm&gt;lorem3)*3
 <item>
   <title><![CDATA[Wordpress en docker]]></title>
   <description><![CDATA[
+      <p>Wordpress desde un contendor docker.</p>
 
-      <div id="outline-container-org5c8093b" class="outline-2">
-        <h2 id="org5c8093b">Docker-compose</h2>
-        <div class="outline-text-2" id="text-org5c8093b">
+      <div id="outline-container-org1021ca3" class="outline-2">
+        <h2 id="org1021ca3">Docker-compose</h2>
+        <div class="outline-text-2" id="text-org1021ca3">
           <p>
             Docker Compose es una herramienta que permite definir y ejecutar
             aplicaciones Docker empleando varios contenedores. Compose usa un
@@ -499,9 +500,9 @@ ul.list&gt;(li.itm&gt;lorem3)*3
         </div>
       </div>
 
-      <div id="outline-container-org5f44c48" class="outline-2">
-        <h2 id="org5f44c48">Configuración</h2>
-        <div class="outline-text-2" id="text-org5f44c48">
+      <div id="outline-container-orgb66efc8" class="outline-2">
+        <h2 id="orgb66efc8">Configuración</h2>
+        <div class="outline-text-2" id="text-orgb66efc8">
           <p>
             Para empezar creo una carpeta en para instalar el proyecto Wordpress
           </p>
@@ -527,9 +528,9 @@ touch docker-compose.yml
           >
         </div>
 
-        <div id="outline-container-org68a02b8" class="outline-4">
-          <h4 id="org68a02b8">Archivo docker-compose.yml</h4>
-          <div class="outline-text-4" id="text-org68a02b8">
+        <div id="outline-container-orgd8400c5" class="outline-4">
+          <h4 id="orgd8400c5">Archivo docker-compose.yml</h4>
+          <div class="outline-text-4" id="text-orgd8400c5">
             <pre class="example">
 services:
 
@@ -604,9 +605,9 @@ volumes:
           </div>
         </div>
 
-        <div id="outline-container-orgcbd8947" class="outline-4">
-          <h4 id="orgcbd8947">Build de Compose</h4>
-          <div class="outline-text-4" id="text-orgcbd8947">
+        <div id="outline-container-org0070be5" class="outline-4">
+          <h4 id="org0070be5">Build de Compose</h4>
+          <div class="outline-text-4" id="text-org0070be5">
             <p>
               Una vez creado el archivo el proyecto se ejecuta con el comando:
             </p>
@@ -623,11 +624,11 @@ docker-compose up -d
           </div>
         </div>
 
-        <div id="outline-container-org6d7081e" class="outline-4">
-          <h4 id="org6d7081e">
+        <div id="outline-container-orgdacb5d7" class="outline-4">
+          <h4 id="orgdacb5d7">
             Acceder al sitio web para la instalación de wordpress
           </h4>
-          <div class="outline-text-4" id="text-org6d7081e">
+          <div class="outline-text-4" id="text-orgdacb5d7">
             <p>
               Se puede acceder al sitio web de wordpress en Docker con la
               dirección ip del servidor y el puerto 8000.
@@ -636,11 +637,11 @@ docker-compose up -d
         </div>
       </div>
 
-      <div id="outline-container-org2babb24" class="outline-2">
-        <h2 id="org2babb24">
+      <div id="outline-container-orgf0399fa" class="outline-2">
+        <h2 id="orgf0399fa">
           Como editar archivos de configuración del contenedor
         </h2>
-        <div class="outline-text-2" id="text-org2babb24">
+        <div class="outline-text-2" id="text-orgf0399fa">
           <p>
             Por ejemplo si quiero editar el archivo .htaccess para que wordpress
             soporte imagenes de mayor tamaño, lo que tengo que hacer es:
@@ -1728,18 +1729,18 @@ youtube-dl -f "bestaudio" --continue --no-overwrites --ignore-errors --extract-a
   <description><![CDATA[
       <p>Arbol de directorio integrado en <b>emacs</b>.</p>
 
-      <div id="outline-container-orgb9e3226" class="outline-2">
-        <h2 id="orgb9e3226">Instalación</h2>
-        <div class="outline-text-2" id="text-orgb9e3226">
+      <div id="outline-container-orgea50cf5" class="outline-2">
+        <h2 id="orgea50cf5">Instalación</h2>
+        <div class="outline-text-2" id="text-orgea50cf5">
           <pre class="example">
 M-x package-install RET 
 </pre
           >
         </div>
 
-        <div id="outline-container-org21a61f6" class="outline-3">
-          <h3 id="org21a61f6">En el archivo init.el hay que agregar esto:</h3>
-          <div class="outline-text-3" id="text-org21a61f6">
+        <div id="outline-container-org2129bb9" class="outline-3">
+          <h3 id="org2129bb9">En el archivo init.el hay que agregar esto:</h3>
+          <div class="outline-text-3" id="text-org2129bb9">
             <pre class="example">
 (add-to-list 'load-path "~/.emacs.d/elpa/neotree-2020324.1946")
 (require 'neotree)
@@ -1749,9 +1750,9 @@ M-x package-install RET
           </div>
         </div>
 
-        <div id="outline-container-org23801e1" class="outline-3">
-          <h3 id="org23801e1">Abrir/cerrar</h3>
-          <div class="outline-text-3" id="text-org23801e1">
+        <div id="outline-container-org68d4cd6" class="outline-3">
+          <h3 id="org68d4cd6">Abrir/cerrar</h3>
+          <div class="outline-text-3" id="text-org68d4cd6">
             <pre class="example">
 f11
 </pre
@@ -1760,9 +1761,9 @@ f11
         </div>
       </div>
 
-      <div id="outline-container-org4087918" class="outline-2">
-        <h2 id="org4087918">Keybinding</h2>
-        <div class="outline-text-2" id="text-org4087918">
+      <div id="outline-container-org0c92b2d" class="outline-2">
+        <h2 id="org0c92b2d">Keybinding</h2>
+        <div class="outline-text-2" id="text-org0c92b2d">
           <p>En el buffer de Neotree:</p>
 
           <ul class="org-ul">
@@ -1788,9 +1789,9 @@ f11
         </div>
       </div>
 
-      <div id="outline-container-org18598f1" class="outline-2">
-        <h2 id="org18598f1">Configuración</h2>
-        <div class="outline-text-2" id="text-org18598f1">
+      <div id="outline-container-orgc912344" class="outline-2">
+        <h2 id="orgc912344">Configuración</h2>
+        <div class="outline-text-2" id="text-orgc912344">
           <p>Mi configuración con use-package:</p>
 
           <pre class="example">
@@ -1806,9 +1807,9 @@ f11
           >
         </div>
 
-        <div id="outline-container-org9890b37" class="outline-3">
-          <h3 id="org9890b37">Connsejos útiles</h3>
-          <div class="outline-text-3" id="text-org9890b37">
+        <div id="outline-container-org94eb949" class="outline-3">
+          <h3 id="org94eb949">Connsejos útiles</h3>
+          <div class="outline-text-3" id="text-org94eb949">
             <p>
               Para que cada vez que se abra <b>neotree</b> encuentre al archivo
               y salte a ese directorio:
@@ -1875,10 +1876,11 @@ f11
 <item>
   <title><![CDATA[It's Magit!]]></title>
   <description><![CDATA[
+      <p>Interfaz de usuario para git en emacs.</p>
 
-      <div id="outline-container-org88e5d94" class="outline-2">
-        <h2 id="org88e5d94">¿Que es magit?</h2>
-        <div class="outline-text-2" id="text-org88e5d94">
+      <div id="outline-container-org5bc6d19" class="outline-2">
+        <h2 id="org5bc6d19">¿Que es magit?</h2>
+        <div class="outline-text-2" id="text-org5bc6d19">
           <p>
             Magit es una interfaz de usuario completa basada en texto para Git .
             Llena la brecha evidente entre la interfaz de línea de comandos de
@@ -1900,9 +1902,9 @@ f11
         </div>
       </div>
 
-      <div id="outline-container-orga96febb" class="outline-2">
-        <h2 id="orga96febb">Comenzando</h2>
-        <div class="outline-text-2" id="text-orga96febb">
+      <div id="outline-container-org1c89e1f" class="outline-2">
+        <h2 id="org1c89e1f">Comenzando</h2>
+        <div class="outline-text-2" id="text-org1c89e1f">
           <pre class="example">
 C-x g
 </pre
@@ -2031,11 +2033,11 @@ C-x g
 <item>
   <title><![CDATA[Busqueda con grep en emacs]]></title>
   <description><![CDATA[
-      <p>grep, rgrep</p>
+      <p>grep, rgrep, lgrep</p>
 
-      <div id="outline-container-org08e05b9" class="outline-3">
-        <h3 id="org08e05b9">Description</h3>
-        <div class="outline-text-3" id="text-org08e05b9">
+      <div id="outline-container-org040bc4f" class="outline-2">
+        <h2 id="org040bc4f">Description</h2>
+        <div class="outline-text-2" id="text-org040bc4f">
           <p>
             El comando <code>grep</code> de emacs te permite ejecutar el
             programa <code>grep</code> de Unix o GNU/Linux, que busca en los
@@ -2044,66 +2046,72 @@ C-x g
             las líneas encotradas: cuando se hace clic en resultado de la
             búsqueda, emacs visita el archivo de destino en la ocurrencia.
           </p>
+        </div>
 
-          <p>Por jemplo:</p>
-
-          <pre class="example">
+        <div id="outline-container-org4694c0a" class="outline-3">
+          <h3 id="org4694c0a">Por jemplo:</h3>
+          <div class="outline-text-3" id="text-org4694c0a">
+            <pre class="example">
 M-x grep RET
 </pre
-          >
+            >
 
-          <p>al hacer esto, emacs te muestra en el minibuffer</p>
+            <p>al hacer esto, emacs te muestra en el minibuffer</p>
 
-          <pre class="example">
+            <pre class="example">
 M-x grep --color -nH --null -e 
 </pre
-          >
+            >
 
-          <p>donde&#x2026;</p>
+            <p>donde&#x2026;</p>
 
-          <ul class="org-ul">
-            <li><b>-color</b> muestra la busqueda en color.</li>
-            <li>
-              <b>-n</b> indica el número de linea en que aparece la expresión
-              buscada dentro de cada archivo.
-            </li>
-            <li><b>-H</b> muestra el nombre completo de cada archivo</li>
-            <li>
-              <b>&#x2013;null</b> introduce el caracter ASCII NULL para evitar
-              complicaciones caundo el nombre del archivo tiene un corte de
-              línea.
-            </li>
-            <li>
-              <b>-e</b> para indicar la expresión a buscar, que se escribe a
-              continuación, se pueden usar expresiones regulares y caracteres
-              comodín.
-            </li>
-          </ul>
+            <ul class="org-ul">
+              <li><b>-color</b> muestra la busqueda en color.</li>
+              <li>
+                <b>-n</b> indica el número de linea en que aparece la expresión
+                buscada dentro de cada archivo.
+              </li>
+              <li><b>-H</b> muestra el nombre completo de cada archivo</li>
+              <li>
+                <b>&#x2013;null</b> introduce el caracter ASCII NULL para evitar
+                complicaciones caundo el nombre del archivo tiene un corte de
+                línea.
+              </li>
+              <li>
+                <b>-e</b> para indicar la expresión a buscar, que se escribe a
+                continuación, se pueden usar expresiones regulares y caracteres
+                comodín.
+              </li>
+            </ul>
 
-          <p>
-            entonces solo hay que agrear la expresión regular a buscar y el
-            archivo o archivos donde buscar.
-          </p>
+            <p>
+              entonces solo hay que agrear la expresión regular a buscar y el
+              archivo o archivos donde buscar.
+            </p>
+          </div>
+        </div>
 
-          <p>Ejemplo:</p>
-
-          <pre class="example">
+        <div id="outline-container-orgc16e690" class="outline-3">
+          <h3 id="orgc16e690">Ejemplo:</h3>
+          <div class="outline-text-3" id="text-orgc16e690">
+            <pre class="example">
 M-x grep --color -nH --null -e setq ~/.emacs.d/init.el
 </pre
-          >
+            >
 
-          <p>
-            esto lista todas las líneas que coinciden con <b>setq</b> en el
-            archivo <b>init.el</b>, mostrando el nombre del del archivo y el
-            numero de línea, al pulsar RET o hacer click en una de las líneas el
-            archivo se abre en la correspondiente linea.
-          </p>
+            <p>
+              esto lista todas las líneas que coinciden con <b>setq</b> en el
+              archivo <b>init.el</b>, mostrando el nombre del del archivo y el
+              numero de línea, al pulsar RET o hacer click en una de las líneas
+              el archivo se abre en la correspondiente linea.
+            </p>
+          </div>
         </div>
       </div>
 
-      <div id="outline-container-org767c784" class="outline-2">
-        <h2 id="org767c784">lgrep y rgrep</h2>
-        <div class="outline-text-2" id="text-org767c784">
+      <div id="outline-container-orgb7792b7" class="outline-2">
+        <h2 id="orgb7792b7">lgrep y rgrep</h2>
+        <div class="outline-text-2" id="text-orgb7792b7">
           <p>
             Ambos te preguntan lo que debe buscar de manera conveniente.
             <code>lgrep</code> busca en el directorio actual y

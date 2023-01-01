@@ -3,6 +3,7 @@
 #+description: 
 #+filetags: docker
 
+Wordpress desde un contendor docker.
 
 *** Docker-compose
 

@@ -41,10 +41,11 @@
           >Wordpress en docker</a
         >
       </h1>
+      <p>Wordpress desde un contendor docker.</p>
 
-      <div id="outline-container-org5c8093b" class="outline-2">
-        <h2 id="org5c8093b">Docker-compose</h2>
-        <div class="outline-text-2" id="text-org5c8093b">
+      <div id="outline-container-org1021ca3" class="outline-2">
+        <h2 id="org1021ca3">Docker-compose</h2>
+        <div class="outline-text-2" id="text-org1021ca3">
           <p>
             Docker Compose es una herramienta que permite definir y ejecutar
             aplicaciones Docker empleando varios contenedores. Compose usa un
@@ -55,9 +56,9 @@
         </div>
       </div>
 
-      <div id="outline-container-org5f44c48" class="outline-2">
-        <h2 id="org5f44c48">Configuración</h2>
-        <div class="outline-text-2" id="text-org5f44c48">
+      <div id="outline-container-orgb66efc8" class="outline-2">
+        <h2 id="orgb66efc8">Configuración</h2>
+        <div class="outline-text-2" id="text-orgb66efc8">
           <p>
             Para empezar creo una carpeta en para instalar el proyecto Wordpress
           </p>
@@ -83,9 +84,9 @@ touch docker-compose.yml
           >
         </div>
 
-        <div id="outline-container-org68a02b8" class="outline-4">
-          <h4 id="org68a02b8">Archivo docker-compose.yml</h4>
-          <div class="outline-text-4" id="text-org68a02b8">
+        <div id="outline-container-orgd8400c5" class="outline-4">
+          <h4 id="orgd8400c5">Archivo docker-compose.yml</h4>
+          <div class="outline-text-4" id="text-orgd8400c5">
             <pre class="example">
 services:
 
@@ -160,9 +161,9 @@ volumes:
           </div>
         </div>
 
-        <div id="outline-container-orgcbd8947" class="outline-4">
-          <h4 id="orgcbd8947">Build de Compose</h4>
-          <div class="outline-text-4" id="text-orgcbd8947">
+        <div id="outline-container-org0070be5" class="outline-4">
+          <h4 id="org0070be5">Build de Compose</h4>
+          <div class="outline-text-4" id="text-org0070be5">
             <p>
               Una vez creado el archivo el proyecto se ejecuta con el comando:
             </p>
@@ -179,11 +180,11 @@ docker-compose up -d
           </div>
         </div>
 
-        <div id="outline-container-org6d7081e" class="outline-4">
-          <h4 id="org6d7081e">
+        <div id="outline-container-orgdacb5d7" class="outline-4">
+          <h4 id="orgdacb5d7">
             Acceder al sitio web para la instalación de wordpress
           </h4>
-          <div class="outline-text-4" id="text-org6d7081e">
+          <div class="outline-text-4" id="text-orgdacb5d7">
             <p>
               Se puede acceder al sitio web de wordpress en Docker con la
               dirección ip del servidor y el puerto 8000.
@@ -192,11 +193,11 @@ docker-compose up -d
         </div>
       </div>
 
-      <div id="outline-container-org2babb24" class="outline-2">
-        <h2 id="org2babb24">
+      <div id="outline-container-orgf0399fa" class="outline-2">
+        <h2 id="orgf0399fa">
           Como editar archivos de configuración del contenedor
         </h2>
-        <div class="outline-text-2" id="text-org2babb24">
+        <div class="outline-text-2" id="text-orgf0399fa">
           <p>
             Por ejemplo si quiero editar el archivo .htaccess para que wordpress
             soporte imagenes de mayor tamaño, lo que tengo que hacer es:
