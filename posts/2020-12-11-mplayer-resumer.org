@@ -1,5 +1,6 @@
 #+title: mplayer-resumer
 #+date: <2020-12-11 19:48>
+#+description: 
 #+filetags: linux
 
 Lo unico que le faltaba al bueno de mplayer era poder retomar la reprocucción en el punto donde había quedado, *mplayer-resumer* resuelve esta situación.

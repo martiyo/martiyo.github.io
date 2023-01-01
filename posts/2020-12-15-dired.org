@@ -1,8 +1,12 @@
-#+title: Dired, el navegador de archivos de emacs
+#+title: Dired 
 #+date: <2020-12-15 10:23>
+#+description: 
 #+filetags: emacs
 
- **Dired* crea un buffer de Emacs que contiene un listado de un directorio y subdirectorios, se pueden usar los comandos normales de Emacs para moverse por este buffer, y los comandos especiales de **Dired** para operar en los archivos listados. **Dired** funciona tanto con los directorios locales como con los remotos.
+El navegador de archivos de emacs
+
+** Descripción
+*Dired* crea un buffer de Emacs que contiene un listado de un directorio y subdirectorios, se pueden usar los comandos normales de Emacs para moverse por este buffer, y los comandos especiales de **Dired** para operar en los archivos listados. **Dired** funciona tanto con los directorios locales como con los remotos.
 
 ** Atajos
 

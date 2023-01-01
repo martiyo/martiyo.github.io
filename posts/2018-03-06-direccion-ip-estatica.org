@@ -1,6 +1,9 @@
 #+title: Dirección ip estatica
 #+date: <2018-03-06 22:06>
+#+description: 
 #+filetags: linux
+
+Configurar ip estatica en linux
 
 *** Descripción
 

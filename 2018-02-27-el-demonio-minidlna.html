@@ -9,7 +9,7 @@
       title="RSS feed for https://martiyo.github.io/"
     />
     <title>El demonio miniDLNA</title>
-    <meta name="author" content="martin" />
+    <meta name="author" content="martiyo" />
     <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="static/style.css" rel="stylesheet" type="text/css" />
@@ -19,18 +19,19 @@
     <div id="preamble" class="status">
       <div class="header">
         <ul>
-          <li><a href="https://martiyo.github.io">/home</a></li>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
           <li><a href="https://martiyo.github.io/about">/about</a></li>
           <li><a href="https://martiyo.github.io/contact">/contact</a></li>
         </ul>
-        <p>El universo perdido de GNU/Emacs</p>
-        <small
-          >Este blog es una farsa son solo resumenes, traducciónes y cosas que
-          encuentro por ahí.</small
-        >
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
         <form>
           <input type="text" placeholder="Search..." />
         </form>
+        <br />
       </div>
     </div>
     <div id="content">
@@ -40,113 +41,99 @@
           >El demonio miniDLNA</a
         >
       </h1>
+      <p>minidlnad - Servidor ligero DLNA/UPnP-AV</p>
 
-      <div id="outline-container-org6bfcae8" class="outline-2">
-        <h2 id="minidlnad---servidor-ligero-dlnaupnp-av">
-          <a id="org6bfcae8"></a>minidlnad - Servidor ligero DLNA/UPnP-AV
-        </h2>
-        <div
-          class="outline-text-2"
-          id="text-minidlnad---servidor-ligero-dlnaupnp-av"
-        >
+      <p>
+        El demonio minidlnad es un servidor DLNA/UPnP-AV que comparte archivos
+        multimedia(vídeo, música e imágenes) a los clientes de una red. Estos
+        son típicamente reproductores multimedia como vlc, totem y mplayer, y
+        dispositivos como reproductores multimedia portátiles, teléfonos
+        inteligentes y televisores, sistemas de entretenimiento de videojuegos y
+        reproductores de Blu-ray. De forma predeterminada, minidlnad escucha en
+        todas las interfaces de red (excepto loopback). Este comportamiento se
+        puede cambiar usando la opción -i, o en el archivo de configuración a
+        través de la opción network\<sub>interface</sub>.
+      </p>
+
+      <div id="outline-container-org894e922" class="outline-2">
+        <h2 id="configuracion-minima">Configuracion minima</h2>
+        <div class="outline-text-2" id="text-configuracion-minima">
           <p>
-            El demonio minidlnad es un servidor DLNA/UPnP-AV que comparte
-            archivos multimedia(vídeo, música e imágenes) a los clientes de una
-            red. Estos son típicamente reproductores multimedia como vlc, totem
-            y mplayer, y dispositivos como reproductores multimedia portátiles,
-            teléfonos inteligentes y televisores, sistemas de entretenimiento de
-            videojuegos y reproductores de Blu-ray. De forma predeterminada,
-            minidlnad escucha en todas las interfaces de red (excepto loopback).
-            Este comportamiento se puede cambiar usando la opción -i, o en el
-            archivo de configuración a través de la opción
-            network\<sub>interface</sub>.
+            El archivo de configuración por defecto es
+            <b>/etc/minidlna.conf</b>, o el especificado con el flag <b>-f</b>.
+            Para que el servidor funcione basta con editar un par de lineas:
+          </p>
+
+          <p>
+            <b>'media\<sub>dir</sub>=/path/peliculas'</b>
+          </p>
+
+          <p>
+            <b>'port=8200'</b>
           </p>
         </div>
+      </div>
 
-        <div id="outline-container-org4fbf9b7" class="outline-3">
-          <h3 id="configuracion-minima">
-            <a id="org4fbf9b7"></a>Configuracion minima
-          </h3>
-          <div class="outline-text-3" id="text-configuracion-minima">
-            <p>
-              El archivo de configuración por defecto es
-              <b>/etc/minidlna.conf</b>, o el especificado con el flag
-              <b>-f</b>. Para que el servidor funcione basta con editar un par
-              de lineas:
-            </p>
+      <div id="outline-container-org221cfc2" class="outline-2">
+        <h2 id="otras-opciónes-de-configuración">
+          Otras opciónes de configuración
+        </h2>
+        <div class="outline-text-2" id="text-otras-opciónes-de-configuración">
+          <p>
+            <b>'inotify'</b> Detecta automáticamente nuevos archivos en
+            media\<sub>dir</sub>.
+          </p>
 
-            <p>
-              <b>'media\<sub>dir</sub>=/path/peliculas'</b>
-            </p>
+          <p>
+            <b>'log\<sub>dir</sub>'</b> Ruta al directorio donde se almacenan
+            los archivos de registro. Por defecto es /var/log.
+          </p>
 
-            <p>
-              <b>'port=8200'</b>
-            </p>
-          </div>
+          <p>
+            <b>'max\<sub>connections</sub>'</b> Especifica el numero maximo de
+            conecciones simultaneas
+          </p>
+
+          <p>
+            <b>'friendly\<sub>name</sub>'</b> Configura el nombre del servidor
+            que se mostrara a los clientes.
+          </p>
+
+          <p>
+            <b>'media\<sub>dir</sub>'</b> Ruta al directorio que contiene los
+            archivos multimedia que se quiren compartir. Esta opción se puede
+            usar varias veces si se tiene mas de un directorio. Para restringir
+            una ruta a un tipo de archivo especifico (audio, videos, fotos), se
+            usa la siguiente sintaxis
+            <b>media\<sub>dir</sub>=[A,V,P], /path/multimedia</b>
+          </p>
         </div>
+      </div>
 
-        <div id="outline-container-orga03cb7d" class="outline-3">
-          <h3 id="otras-opciónes-de-configuración">
-            <a id="orga03cb7d"></a>Otras opciónes de configuración
-          </h3>
-          <div class="outline-text-3" id="text-otras-opciónes-de-configuración">
-            <p>
-              <b>'inotify'</b> Detecta automáticamente nuevos archivos en
-              media\<sub>dir</sub>.
-            </p>
-
-            <p>
-              <b>'log\<sub>dir</sub>'</b> Ruta al directorio donde se almacenan
-              los archivos de registro. Por defecto es /var/log.
-            </p>
-
-            <p>
-              <b>'max\<sub>connections</sub>'</b> Especifica el numero maximo de
-              conecciones simultaneas
-            </p>
-
-            <p>
-              <b>'friendly\<sub>name</sub>'</b> Configura el nombre del servidor
-              que se mostrara a los clientes.
-            </p>
-
-            <p>
-              <b>'media\<sub>dir</sub>'</b> Ruta al directorio que contiene los
-              archivos multimedia que se quiren compartir. Esta opción se puede
-              usar varias veces si se tiene mas de un directorio. Para
-              restringir una ruta a un tipo de archivo especifico (audio,
-              videos, fotos), se usa la siguiente sintaxis
-              <b>media\<sub>dir</sub>=[A,V,P], /path/multimedia</b>
-            </p>
-          </div>
-        </div>
-
-        <div id="outline-container-org7e9f321" class="outline-3">
-          <h3 id="ejemplos"><a id="org7e9f321"></a>Ejemplos</h3>
-          <div class="outline-text-3" id="text-ejemplos">
-            <pre class="example">
+      <div id="outline-container-orged0f515" class="outline-2">
+        <h2 id="ejemplos">Ejemplos</h2>
+        <div class="outline-text-2" id="text-ejemplos">
+          <pre class="example">
 media_dir=V,/path/multimedia/videos
 media_dir=P,/path/multimedia/fotos
 media_dir=A,/path/multimedia/musica\n
 </pre
-            >
+          >
 
-            <p>
-              <b>'merge\<sub>media</sub>\<sub>dirs</sub>'</b> Fusiona todos los
-              contenidos base de media\<sub>dir</sub>
-              en el contenedor raíz. El valor por defecto es no.
-            </p>
+          <p>
+            <b>'merge\<sub>media</sub>\<sub>dirs</sub>'</b> Fusiona todos los
+            contenidos base de media\<sub>dir</sub>
+            en el contenedor raíz. El valor por defecto es no.
+          </p>
 
-            <p>
-              <b>'network\<sub>interface</sub>'</b> Interfaz(es) de red a las
-              que se debe enlazar (por ejemplo, eth0), delimitadas por comas.
-              Esta opción se puede especificar más de una vez. Si no se
-              especifica, minidlnad se une a todas las interfaces de red
-              válidas.
-            </p>
+          <p>
+            <b>'network\<sub>interface</sub>'</b> Interfaz(es) de red a las que
+            se debe enlazar (por ejemplo, eth0), delimitadas por comas. Esta
+            opción se puede especificar más de una vez. Si no se especifica,
+            minidlnad se une a todas las interfaces de red válidas.
+          </p>
 
-            <p>Fuente man minidlna, man minidlna.conf</p>
-          </div>
+          <p>Fuente man minidlna, man minidlna.conf</p>
         </div>
       </div>
       <div class="taglist">
@@ -158,6 +145,7 @@ media_dir=A,/path/multimedia/musica\n
       <div id="archive">
         <a href="https://martiyo.github.io/archive.html">Other posts</a>
       </div>
+      <footer></footer>
     </div>
   </body>
 </html>

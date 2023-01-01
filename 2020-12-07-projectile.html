@@ -8,8 +8,8 @@
       href="https://martiyo.github.io/rss.xml"
       title="RSS feed for https://martiyo.github.io/"
     />
-    <title>Projectile. Integración de Projectos para Emacs</title>
-    <meta name="author" content="martin" />
+    <title>Projectile</title>
+    <meta name="author" content="martiyo" />
     <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="static/style.css" rel="stylesheet" type="text/css" />
@@ -19,23 +19,33 @@
     <div id="preamble" class="status">
       <div class="header">
         <ul>
-          <li><a href="https://martiyo.github.io">/home</a></li>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
           <li><a href="https://martiyo.github.io/about">/about</a></li>
           <li><a href="https://martiyo.github.io/contact">/contact</a></li>
         </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
       </div>
     </div>
     <div id="content">
       <div class="post-date">05 dic 2020</div>
       <h1 class="post-title">
         <a href="https://martiyo.github.io/2020-12-07-projectile.html"
-          >Projectile. Integración de Projectos para Emacs</a
-        >
+          >Projectile
+        </a>
       </h1>
+      <p>Integración de Projectos para Emacs</p>
 
-      <div id="outline-container-orgc5073a9" class="outline-2">
-        <h2 id="orgc5073a9">Docs.Projectile.mx</h2>
-        <div class="outline-text-2" id="text-orgc5073a9">
+      <div id="outline-container-org7752acd" class="outline-2">
+        <h2 id="org7752acd">Docs.Projectile.mx</h2>
+        <div class="outline-text-2" id="text-org7752acd">
           <p>
             Projectile es una biblioteca de interacción de proyectos para Emacs.
             Su objetivo es proporcionar un buen conjunto de características que
@@ -51,58 +61,58 @@
         </div>
       </div>
 
-      <div id="outline-container-org91bdb44" class="outline-2">
-        <h2 id="org91bdb44">Caracteristicas:</h2>
-        <div class="outline-text-2" id="text-org91bdb44"></div>
+      <div id="outline-container-orgbe597a3" class="outline-2">
+        <h2 id="orgbe597a3">Caracteristicas:</h2>
+        <div class="outline-text-2" id="text-orgbe597a3"></div>
         <ul class="org-ul">
           <li>
-            <a id="org4569a44"></a>Saltar a un archivo en el proyecto.<br />
+            <a id="org0d17bed"></a>Saltar a un archivo en el proyecto.<br />
           </li>
 
           <li>
-            <a id="orge4075b7"></a>Saltar a un directorio en el proyecto.<br />
+            <a id="org95bc0dd"></a>Saltar a un directorio en el proyecto.<br />
           </li>
 
           <li>
-            <a id="orgb3901b8"></a>Saltar a un archivo en un directorio.<br />
+            <a id="org1fa83f8"></a>Saltar a un archivo en un directorio.<br />
           </li>
 
-          <li><a id="orgdc4315c"></a>Saltar a un buffer del proyecto.<br /></li>
+          <li><a id="org33ac186"></a>Saltar a un buffer del proyecto.<br /></li>
 
           <li>
-            <a id="orgb554234"></a>Saltar a archivos visitados recientemente en
+            <a id="orgd5eb386"></a>Saltar a archivos visitados recientemente en
             el proyecto.<br />
           </li>
 
           <li>
-            <a id="org9937b1b"></a>Cambiar entre proyectos en los que ha
+            <a id="org8fb6545"></a>Cambiar entre proyectos en los que ha
             trabajado.<br />
           </li>
 
           <li>
-            <a id="org2bc30f8"></a>Matar todos los buffer del proyecto.<br />
+            <a id="orgb3fbea7"></a>Matar todos los buffer del proyecto.<br />
           </li>
 
-          <li><a id="org3b48d37"></a>Reemplazar un proyecto.<br /></li>
+          <li><a id="orgd67db0d"></a>Reemplazar un proyecto.<br /></li>
 
-          <li><a id="org766d17f"></a>Grep en el proyecto.<br /></li>
+          <li><a id="org7e9b71f"></a>Grep en el proyecto.<br /></li>
 
           <li>
-            <a id="orgcbd29b7"></a>Ejecutar make en un proyecto con un solo
+            <a id="org55de93a"></a>Ejecutar make en un proyecto con un solo
             acorde.<br />
           </li>
 
           <li>
-            <a id="orgc4585e1"></a>Soporte para multiples bibliotecas de
+            <a id="orgf86927e"></a>Soporte para multiples bibliotecas de
             finalización/selección (ido, ivy, helm y el sistema de terminación
             por defecto).<br />
           </li>
         </ul>
       </div>
 
-      <div id="outline-container-org42af3ac" class="outline-2">
-        <h2 id="org42af3ac">Inicio rápido</h2>
-        <div class="outline-text-2" id="text-org42af3ac">
+      <div id="outline-container-orgcbd2f8b" class="outline-2">
+        <h2 id="orgcbd2f8b">Inicio rápido</h2>
+        <div class="outline-text-2" id="text-orgcbd2f8b">
           <p>
             Projectile esta disponible en los repositorios principales,
             entonces:
@@ -128,9 +138,9 @@ M-x package-install RET projectile RET
           </p>
         </div>
 
-        <div id="outline-container-orgd834d55" class="outline-3">
-          <h3 id="orgd834d55">Instalación mediante <b>use-package</b></h3>
-          <div class="outline-text-3" id="text-orgd834d55">
+        <div id="outline-container-org5738c74" class="outline-3">
+          <h3 id="org5738c74">Instalación mediante <b>use-package</b></h3>
+          <div class="outline-text-3" id="text-org5738c74">
             <p>
               Para instalar la versión de projectile que esta en la rama master,
               se declara los siguiente en el init.el:
@@ -150,9 +160,9 @@ M-x package-install RET projectile RET
         </div>
       </div>
 
-      <div id="outline-container-org3eb0790" class="outline-2">
-        <h2 id="org3eb0790">Uso básico</h2>
-        <div class="outline-text-2" id="text-org3eb0790">
+      <div id="outline-container-org1ff748a" class="outline-2">
+        <h2 id="org1ff748a">Uso básico</h2>
+        <div class="outline-text-2" id="text-org1ff748a">
           <p>
             Para habilitar projectile <code>projectile mode</code>, luego en uno
             de los archivos del proyecto lanzar el comando <b>C-c p f</b> o
@@ -309,9 +319,9 @@ M-x package-install RET projectile RET
           </table>
         </div>
 
-        <div id="outline-container-org18a5dca" class="outline-3">
-          <h3 id="org18a5dca">Atajos</h3>
-          <div class="outline-text-3" id="text-org18a5dca">
+        <div id="outline-container-org4623af3" class="outline-3">
+          <h3 id="org4623af3">Atajos</h3>
+          <div class="outline-text-3" id="text-org4623af3">
             <p>Unos cuantos atajos para los comandos más comunes:</p>
 
             <pre class="example">
@@ -325,9 +335,9 @@ M-x package-install RET projectile RET
         </div>
       </div>
 
-      <div id="outline-container-org2905725" class="outline-2">
-        <h2 id="org2905725">Projectile-comander</h2>
-        <div class="outline-text-2" id="text-org2905725">
+      <div id="outline-container-org1856816" class="outline-2">
+        <h2 id="org1856816">Projectile-comander</h2>
+        <div class="outline-text-2" id="text-org1856816">
           <p>
             Es una ingeniosa utilidad para recordar combinaciónes de teclas. Se
             invoca con <code>s-p m</code>
@@ -423,6 +433,7 @@ M-x package-install RET projectile RET
       <div id="archive">
         <a href="https://martiyo.github.io/archive.html">Other posts</a>
       </div>
+      <footer></footer>
     </div>
   </body>
 </html>

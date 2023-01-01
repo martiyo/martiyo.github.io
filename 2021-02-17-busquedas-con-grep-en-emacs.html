@@ -19,7 +19,7 @@
     <div id="preamble" class="status">
       <div class="header">
         <ul>
-          <li><a href="https://martiyo.github.io">/home</a></li>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
           <li><a href="https://martiyo.github.io/about">/about</a></li>
           <li><a href="https://martiyo.github.io/contact">/contact</a></li>
         </ul>
@@ -42,77 +42,89 @@
           >Busqueda con grep en emacs</a
         >
       </h1>
-      <p>
-        El comando <code>grep</code> de emacs te permite ejecutar el programa
-        <code>grep</code> de Unix o GNU/Linux, que busca en los archivos las
-        líneas que coinciden con una expresión regular. El comando de emacs
-        colorea la salida y hace que se pueda hacer clic en las líneas
-        encotradas: cuando se hace clic en resultado de la búsqueda, emacs
-        visita el archivo de destino en la ocurrencia.
-      </p>
+      <p>grep, rgrep</p>
 
-      <p>Por jemplo:</p>
+      <div id="outline-container-org08e05b9" class="outline-3">
+        <h3 id="org08e05b9">Description</h3>
+        <div class="outline-text-3" id="text-org08e05b9">
+          <p>
+            El comando <code>grep</code> de emacs te permite ejecutar el
+            programa <code>grep</code> de Unix o GNU/Linux, que busca en los
+            archivos las líneas que coinciden con una expresión regular. El
+            comando de emacs colorea la salida y hace que se pueda hacer clic en
+            las líneas encotradas: cuando se hace clic en resultado de la
+            búsqueda, emacs visita el archivo de destino en la ocurrencia.
+          </p>
 
-      <pre class="example">
+          <p>Por jemplo:</p>
+
+          <pre class="example">
 M-x grep RET
 </pre
-      >
+          >
 
-      <p>al hacer esto, emacs te muestra en el minibuffer</p>
+          <p>al hacer esto, emacs te muestra en el minibuffer</p>
 
-      <pre class="example">
+          <pre class="example">
 M-x grep --color -nH --null -e 
 </pre
-      >
+          >
 
-      <p>donde&#x2026;</p>
+          <p>donde&#x2026;</p>
 
-      <ul class="org-ul">
-        <li><b>-color</b> muestra la busqueda en color.</li>
-        <li>
-          <b>-n</b> indica el número de linea en que aparece la expresión
-          buscada dentro de cada archivo.
-        </li>
-        <li><b>-H</b> muestra el nombre completo de cada archivo</li>
-        <li>
-          <b>&#x2013;null</b> introduce el caracter ASCII NULL para evitar
-          complicaciones caundo el nombre del archivo tiene un corte de línea.
-        </li>
-        <li>
-          <b>-e</b> para indicar la expresión a buscar, que se escribe a
-          continuación, se pueden usar expresiones regulares y caracteres
-          comodín.
-        </li>
-      </ul>
+          <ul class="org-ul">
+            <li><b>-color</b> muestra la busqueda en color.</li>
+            <li>
+              <b>-n</b> indica el número de linea en que aparece la expresión
+              buscada dentro de cada archivo.
+            </li>
+            <li><b>-H</b> muestra el nombre completo de cada archivo</li>
+            <li>
+              <b>&#x2013;null</b> introduce el caracter ASCII NULL para evitar
+              complicaciones caundo el nombre del archivo tiene un corte de
+              línea.
+            </li>
+            <li>
+              <b>-e</b> para indicar la expresión a buscar, que se escribe a
+              continuación, se pueden usar expresiones regulares y caracteres
+              comodín.
+            </li>
+          </ul>
 
-      <p>
-        entonces solo hay que agrear la expresión regular a buscar y el archivo
-        o archivos donde buscar.
-      </p>
+          <p>
+            entonces solo hay que agrear la expresión regular a buscar y el
+            archivo o archivos donde buscar.
+          </p>
 
-      <p>Ejemplo:</p>
+          <p>Ejemplo:</p>
 
-      <pre class="example">
+          <pre class="example">
 M-x grep --color -nH --null -e setq ~/.emacs.d/init.el
 </pre
-      >
+          >
 
-      <p>
-        esto lista todas las líneas que coinciden con <b>setq</b> en el archivo
-        <b>init.el</b>, mostrando el nombre del del archivo y el numero de
-        línea, al pulsar RET o hacer click en una de las líneas el archivo se
-        abre en la correspondiente linea.
-      </p>
+          <p>
+            esto lista todas las líneas que coinciden con <b>setq</b> en el
+            archivo <b>init.el</b>, mostrando el nombre del del archivo y el
+            numero de línea, al pulsar RET o hacer click en una de las líneas el
+            archivo se abre en la correspondiente linea.
+          </p>
+        </div>
+      </div>
 
-      <div id="outline-container-org05968e2" class="outline-2">
-        <h2 id="org05968e2">lgrep y rgrep</h2>
-        <div class="outline-text-2" id="text-org05968e2">
+      <div id="outline-container-org767c784" class="outline-2">
+        <h2 id="org767c784">lgrep y rgrep</h2>
+        <div class="outline-text-2" id="text-org767c784">
           <p>
             Ambos te preguntan lo que debe buscar de manera conveniente.
             <code>lgrep</code> busca en el directorio actual y
             <code>rgrep</code> busca en el árbol de directorios actual.
             <code>rgrep</code> conoce los sistemas de control de versiones por
             lo que es posible evitar buscar en los directorios de control.
+            <b>rgrep</b> te pedirá una cadena de búsqueda, un tipo de archivo y
+            un directorio (en ese orden, y las indicaciones estarán etiquetadas
+            para que no haya confusión). Solo escribe M-x regrep RET (termino
+            buscado), (tipo de archivo por ej. *.js) y (directorio /src/xxx).
           </p>
         </div>
       </div>

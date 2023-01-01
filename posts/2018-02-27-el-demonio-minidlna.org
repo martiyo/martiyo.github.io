@@ -1,12 +1,10 @@
 #+title: El demonio miniDLNA
 #+date: <2018-02-21 27:04>
+#+description: 
 #+filetags: linux
 
-** minidlnad - Servidor ligero DLNA/UPnP-AV
-   :PROPERTIES:
-   :CUSTOM_ID: minidlnad---servidor-ligero-dlnaupnp-av
-   :END:
-
+ minidlnad - Servidor ligero DLNA/UPnP-AV
+  
 El demonio minidlnad es un servidor DLNA/UPnP-AV que comparte archivos
 multimedia(vídeo, música e imágenes) a los clientes de una red. Estos
 son típicamente reproductores multimedia como vlc, totem y mplayer, y

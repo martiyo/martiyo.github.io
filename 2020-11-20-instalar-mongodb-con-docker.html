@@ -49,39 +49,39 @@ docker run -d -p 27017:27017 --name mydatabase mongo:4.2
 </pre
       >
 
-      <div id="outline-container-orge653199" class="outline-2">
-        <h2 id="orge653199">Este comando hace lo siguiente:</h2>
-        <div class="outline-text-2" id="text-orge653199"></div>
+      <div id="outline-container-orgfeaacd2" class="outline-2">
+        <h2 id="orgfeaacd2">Este comando hace lo siguiente:</h2>
+        <div class="outline-text-2" id="text-orgfeaacd2"></div>
         <ul class="org-ul">
           <li>
-            <a id="org18f2028"></a><b>d:</b> permite ejecutar el proceso en
+            <a id="org618a4e7"></a><b>d:</b> permite ejecutar el proceso en
             background<br />
           </li>
           <li>
-            <a id="org38924da"></a><b>-p</b> 27017:27017 esto le indica a docker
+            <a id="org886194f"></a><b>-p</b> 27017:27017 esto le indica a docker
             que las conexiones del puerto 27017 del contenedor se redireccionen
             al 27017 de la máquina host.<br />
           </li>
           <li>
-            <a id="org30329cb"></a><b>-name mydatabase</b>: nombre que se le
+            <a id="org23cfd3b"></a><b>-name mydatabase</b>: nombre que se le
             asigna al contenedor.<br />
           </li>
           <li>
-            <a id="orga9d8d72"></a><b>mongo:4.2</b>: nombre de la imagen y
+            <a id="org99a06eb"></a><b>mongo:4.2</b>: nombre de la imagen y
             version.<br />
-            <div class="outline-text-5" id="text-orga9d8d72">
+            <div class="outline-text-5" id="text-org99a06eb">
               <p>Con esto queda listo el contenedor.</p>
             </div>
           </li>
         </ul>
       </div>
 
-      <div id="outline-container-orgee97d98" class="outline-2">
-        <h2 id="orgee97d98">
+      <div id="outline-container-orge66d348" class="outline-2">
+        <h2 id="orge66d348">
           Para conectarse al contenedor se usa el comando <code>exec</code> de
           docker
         </h2>
-        <div class="outline-text-2" id="text-orgee97d98">
+        <div class="outline-text-2" id="text-orge66d348">
           <pre class="example">
 docker exec -it mydatabase bash
 </pre
@@ -90,18 +90,18 @@ docker exec -it mydatabase bash
 
         <ul class="org-ul">
           <li>
-            <a id="orgbfd813f"></a><b>-it</b>: ejecutar el contenedor de manera
+            <a id="orgfeea7cd"></a><b>-it</b>: ejecutar el contenedor de manera
             intenctiva y que la terminal tome el control de instrucccion que
             sigue al final.<br />
           </li>
           <li>
-            <a id="org92b9141"></a><b>mydatabase</b>: nombre del contendor a
+            <a id="org15582bd"></a><b>mydatabase</b>: nombre del contendor a
             usar.<br />
           </li>
           <li>
-            <a id="org3c14620"></a><b>bash</b>: comando a ejecutar al final,
+            <a id="org4279327"></a><b>bash</b>: comando a ejecutar al final,
             osea, que acceda a las shell del contenedor.<br />
-            <div class="outline-text-5" id="text-org3c14620">
+            <div class="outline-text-5" id="text-org4279327">
               <p>
                 Con este comando se ingresa al contenedor recien creado (para
                 ejecutar un contenedor creado anteriormente, pero no ingresar en

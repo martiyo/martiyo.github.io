@@ -1,8 +1,11 @@
 #+title: Git init!
 #+date: <2019-01-08 12:30>
+#+description: 
 #+filetags: git
 
+Control de versiones
 
+*** Descripcion
 Git es un sistema de control de versiones distribuido, gratuito y de
 código abierto, diseñado para manejar todo tipo de proyectos, desde
 pequeños hasta muy grandes, con rapidez y eficiencia.

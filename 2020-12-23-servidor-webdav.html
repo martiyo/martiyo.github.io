@@ -5,11 +5,11 @@
     <link
       rel="alternate"
       type="application/rss+xml"
-      href="http://misnotas.com/rss.xml"
-      title="RSS feed for http://misnotas.com/"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
     />
     <title>Servidor webDAV</title>
-    <meta name="author" content="martin" />
+    <meta name="author" content="martiyo" />
     <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="static/style.css" rel="stylesheet" type="text/css" />
@@ -19,13 +19,19 @@
     <div id="preamble" class="status">
       <div class="header">
         <ul>
-          <li><a href="https://martiyo.github.io">/home</a></li>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
           <li><a href="https://martiyo.github.io/about">/about</a></li>
           <li><a href="https://martiyo.github.io/contact">/contact</a></li>
         </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
         <form>
           <input type="text" placeholder="Search..." />
         </form>
+        <br />
       </div>
     </div>
     <div id="content">
@@ -36,9 +42,9 @@
         >
       </h1>
 
-      <div id="outline-container-orgfb8f13d" class="outline-2">
-        <h2 id="orgfb8f13d">Webdav wiki</h2>
-        <div class="outline-text-2" id="text-orgfb8f13d">
+      <div id="outline-container-org9917629" class="outline-2">
+        <h2 id="org9917629">Webdav wiki</h2>
+        <div class="outline-text-2" id="text-org9917629">
           <p>
             WebDAV es un grupo de trabajo del Internet Engineering Task Force.
             El término significa "Autoría y versionado distribuidos por Web"
@@ -62,15 +68,15 @@
         </div>
       </div>
 
-      <div id="outline-container-org79a79f4" class="outline-2">
-        <h2 id="org79a79f4">
+      <div id="outline-container-org2e9c8a1" class="outline-2">
+        <h2 id="org2e9c8a1">
           Instalación y configuración de un servidor webdav
         </h2>
-        <div class="outline-text-2" id="text-org79a79f4"></div>
+        <div class="outline-text-2" id="text-org2e9c8a1"></div>
         <ul class="org-ul">
           <li>
-            <a id="orga4924f7"></a>Instalar Apache2<br />
-            <div class="outline-text-5" id="text-orga4924f7">
+            <a id="org739f907"></a>Instalar Apache2<br />
+            <div class="outline-text-5" id="text-org739f907">
               <pre class="example">
 sudo apt install apache2 apache2-utils
 </pre
@@ -79,8 +85,8 @@ sudo apt install apache2 apache2-utils
           </li>
 
           <li>
-            <a id="orgfc444e5"></a>Directorio de almacenamiento:<br />
-            <div class="outline-text-5" id="text-orgfc444e5">
+            <a id="org58b0133"></a>Directorio de almacenamiento:<br />
+            <div class="outline-text-5" id="text-org58b0133">
               <pre class="example">
 sudo mkdir ~/webDAV
 </pre
@@ -96,9 +102,9 @@ sudo chown -R www-data:www-data ~/webDav
           </li>
 
           <li>
-            <a id="orga84bc23"></a>Habilitar los módulos dav y dav-fs en
+            <a id="orge9419cb"></a>Habilitar los módulos dav y dav-fs en
             apache<br />
-            <div class="outline-text-5" id="text-orga84bc23">
+            <div class="outline-text-5" id="text-orge9419cb">
               <pre class="example">
 sudo a2enmod dav
 
@@ -116,8 +122,8 @@ sudo service apache2 restart
           </li>
 
           <li>
-            <a id="org2f48528"></a>Configuración del virtual host de apache<br />
-            <div class="outline-text-5" id="text-org2f48528">
+            <a id="org7563f1d"></a>Configuración del virtual host de apache<br />
+            <div class="outline-text-5" id="text-org7563f1d">
               <p>
                 para configurar un servidor basico en apache hay que editar el
                 archivo
@@ -234,6 +240,7 @@ sudo find ~/webDAV -type f -exec chmod ug+rw {} \;
       <div id="archive">
         <a href="https://martiyo.github.io/archive.html">Other posts</a>
       </div>
+      <footer></footer>
     </div>
   </body>
 </html>

@@ -1,5 +1,6 @@
 #+title: Todo el poder a la shell!
 #+date: <2021-01-20 07:54>
+#+description: 
 #+filetags: emacs
 
 

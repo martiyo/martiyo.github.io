@@ -9,7 +9,7 @@
       title="RSS feed for https://martiyo.github.io/"
     />
     <title>Formatear codigo con prettier-js</title>
-    <meta name="author" content="martin" />
+    <meta name="author" content="martiyo" />
     <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="static/style.css" rel="stylesheet" type="text/css" />
@@ -19,10 +19,19 @@
     <div id="preamble" class="status">
       <div class="header">
         <ul>
-          <li><a href="https://martiyo.github.io">/home</a></li>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
           <li><a href="https://martiyo.github.io/about">/about</a></li>
           <li><a href="https://martiyo.github.io/contact">/contact</a></li>
         </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
       </div>
     </div>
     <div id="content">
@@ -32,59 +41,53 @@
           >Formatear codigo con prettier-js</a
         >
       </h1>
+      <p>
+        Prettier-js es una función que formatea el buffer actual usando
+        Prettier.
+      </p>
 
-      <div id="outline-container-org4245149" class="outline-2">
-        <h2 id="org4245149">Prettier-js</h2>
-        <div class="outline-text-2" id="text-org4245149">
+      <div id="outline-container-org7b4eefd" class="outline-2">
+        <h2 id="org7b4eefd">Requerimientos</h2>
+        <div class="outline-text-2" id="text-org7b4eefd">
           <p>
-            Prettier-js es una función que formatea el buffer actual usando
-            Prettier.
+            Prettier debe estar instalado en el sistema, esto se puede hacer con
+            npm.
           </p>
-        </div>
 
-        <div id="outline-container-orgbdb51ba" class="outline-3">
-          <h3 id="orgbdb51ba">Requerimientos</h3>
-          <div class="outline-text-3" id="text-orgbdb51ba">
-            <p>
-              Prettier debe estar instalado en el sistema, esto se puede hacer
-              con npm.
-            </p>
-
-            <pre class="example">
+          <pre class="example">
 sudo npm i -g prettier
 </pre
-            >
-          </div>
+          >
         </div>
+      </div>
 
-        <div id="outline-container-orgebebc6f" class="outline-3">
-          <h3 id="orgebebc6f">Configuración Basica</h3>
-          <div class="outline-text-3" id="text-orgebebc6f">
-            <p>El el archivo de configuración de emacs <b>init.el</b></p>
+      <div id="outline-container-org4bfbf82" class="outline-2">
+        <h2 id="org4bfbf82">Configuración Basica</h2>
+        <div class="outline-text-2" id="text-org4bfbf82">
+          <p>El el archivo de configuración de emacs <b>init.el</b></p>
 
-            <pre class="example">
+          <pre class="example">
 (require 'prettier-js)
 </pre
-            >
+          >
 
-            <p>Despues para lanzar Prettier-js con <b>web-mode</b></p>
+          <p>Despues para lanzar Prettier-js con <b>web-mode</b></p>
 
-            <pre class="example">
+          <pre class="example">
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 (add-hook 'web-mode-hook 'prettier-js-mode)
 </pre
+          >
+
+          <p>
+            <b>Fuente</b>
+          </p>
+
+          <p>
+            <a href="https://github.com/prettier/prettier-emacs"
+              >gihub-prettier</a
             >
-
-            <p>
-              <b>Fuente</b>
-            </p>
-
-            <p>
-              <a href="https://github.com/prettier/prettier-emacs"
-                >gihub-prettier</a
-              >
-            </p>
-          </div>
+          </p>
         </div>
       </div>
       <div class="taglist">
@@ -96,6 +99,7 @@ sudo npm i -g prettier
       <div id="archive">
         <a href="https://martiyo.github.io/archive.html">Other posts</a>
       </div>
+      <footer></footer>
     </div>
   </body>
 </html>

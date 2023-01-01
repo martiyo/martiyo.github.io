@@ -1,6 +1,6 @@
-#+title: Emmet-mode en emcas
+#+title: Emmet
 #+date: <2022-12-31 12:38>
-#+description: Mejorar el flujo de trabajo en html, css, js, etc
+#+description: Mejorar el flujo de trabajo en html, css.
 #+filetags: emacs
 
 

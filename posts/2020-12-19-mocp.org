@@ -1,8 +1,11 @@
-#+title: Mocp reproducir audio desde la terminal
+#+title: Mocp
 #+date: <2020-12-19 20:21>
+#+description: 
 #+filetags: linux
 
+Reproducir audio desde la terminal.
 
+** Descripción
 MOC es un reproductor de audio fácil de manejar y ligero, ideal para
 equipos con pocos recursos. La interfaz es similar a MC (Midnight
 Commander, el administrador de archivos) MOC reproduce todos los

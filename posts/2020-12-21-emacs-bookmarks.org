@@ -1,6 +1,9 @@
 #+title: Emacs Bookmarks
 #+date: <2020-12-21 11:06>
+#+description: 
 #+filetags: emacs
+
+Marcadores en emacs
 
 * [[https://www.emacswiki.org/emacs/BookMarks][Emacs Wiki]]
   

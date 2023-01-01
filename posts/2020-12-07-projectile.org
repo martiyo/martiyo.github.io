@@ -1,6 +1,9 @@
-#+title: Projectile. Integración de Projectos para Emacs
+#+title: Projectile 
 #+date: <2020-12-05 19:53>
+#+description: 
 #+filetags: emacs
+
+Integración de Projectos para Emacs
 
 * Docs.Projectile.mx
 

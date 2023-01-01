@@ -1,8 +1,8 @@
 #+title: Formatear codigo con prettier-js
 #+date: <2020-12-07 11:46>
+#+description: 
 #+filetags: emacs
 
-* Prettier-js
  
   Prettier-js es una función que formatea el buffer actual usando Prettier.
     

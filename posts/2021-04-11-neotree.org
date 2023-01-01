@@ -1,5 +1,6 @@
 #+title: Neotree
 #+date: <2021-04-11 12:33>
+#+description: 
 #+filetags: emacs
 
 Arbol de directorio integrado en *emacs*.

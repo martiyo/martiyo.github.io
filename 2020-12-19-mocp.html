@@ -8,7 +8,7 @@
       href="https://martiyo.github.io/rss.xml"
       title="RSS feed for https://martiyo.github.io/"
     />
-    <title>Mocp reproducir audio desde la terminal</title>
+    <title>Mocp</title>
     <meta name="author" content="martiyo" />
     <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,7 +19,7 @@
     <div id="preamble" class="status">
       <div class="header">
         <ul>
-          <li><a href="https://martiyo.github.io">/home</a></li>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
           <li><a href="https://martiyo.github.io/about">/about</a></li>
           <li><a href="https://martiyo.github.io/contact">/contact</a></li>
         </ul>
@@ -37,29 +37,34 @@
     <div id="content">
       <div class="post-date">19 dic 2020</div>
       <h1 class="post-title">
-        <a href="https://martiyo.github.io/2020-12-19-mocp.html"
-          >Mocp reproducir audio desde la terminal</a
-        >
+        <a href="https://martiyo.github.io/2020-12-19-mocp.html">Mocp</a>
       </h1>
-      <p>
-        MOC es un reproductor de audio fácil de manejar y ligero, ideal para
-        equipos con pocos recursos. La interfaz es similar a MC (Midnight
-        Commander, el administrador de archivos) MOC reproduce todos los
-        archivos en el directorio a partir del archivo seleccionado para lo que
-        no es necesario crear listas de reproducción. Es posible reproducir
-        varios archivos o directorios de archivos y después guardar lalista de
-        reproducción como un archivo con extensión m3u. Funciona como demonio,
-        es decir que se ejecuta en segundo plano por lo que no necesita entorno
-        gráfico. Esto quiere decir también que si necesitas usar la terminal, el
-        emulador de terminal ó cerrar el entorno gráfico no es necesario detener
-        la reproducción ya que ésta sigue activa en segundo plano. Soporta los
-        siguientes formatos: mp3, Ogg Vorbis, FLAC, Musepack, Speex, WAVE, AIFF
-        y AU entre otros. Soporta Internet stream. Soporta temas de
-        configuración.
-      </p>
+      <p>Reproducir audio desde la terminal.</p>
 
-      <div id="outline-container-orge2cf8a0" class="outline-2">
-        <h2 id="instalación"><a id="orge2cf8a0"></a>Instalación</h2>
+      <div id="outline-container-org10a5be5" class="outline-2">
+        <h2 id="org10a5be5">Descripción</h2>
+        <div class="outline-text-2" id="text-org10a5be5">
+          <p>
+            MOC es un reproductor de audio fácil de manejar y ligero, ideal para
+            equipos con pocos recursos. La interfaz es similar a MC (Midnight
+            Commander, el administrador de archivos) MOC reproduce todos los
+            archivos en el directorio a partir del archivo seleccionado para lo
+            que no es necesario crear listas de reproducción. Es posible
+            reproducir varios archivos o directorios de archivos y después
+            guardar lalista de reproducción como un archivo con extensión m3u.
+            Funciona como demonio, es decir que se ejecuta en segundo plano por
+            lo que no necesita entorno gráfico. Esto quiere decir también que si
+            necesitas usar la terminal, el emulador de terminal ó cerrar el
+            entorno gráfico no es necesario detener la reproducción ya que ésta
+            sigue activa en segundo plano. Soporta los siguientes formatos: mp3,
+            Ogg Vorbis, FLAC, Musepack, Speex, WAVE, AIFF y AU entre otros.
+            Soporta Internet stream. Soporta temas de configuración.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgfe47b30" class="outline-2">
+        <h2 id="instalación">Instalación</h2>
         <div class="outline-text-2" id="text-instalación">
           <pre class="example">
 sudo apt install moc
@@ -78,8 +83,8 @@ sudo apt install moc-ffmpeg-plugin
         </div>
       </div>
 
-      <div id="outline-container-org519ef0f" class="outline-2">
-        <h2 id="uso"><a id="org519ef0f"></a>Uso</h2>
+      <div id="outline-container-org1ee68a9" class="outline-2">
+        <h2 id="uso">Uso</h2>
         <div class="outline-text-2" id="text-uso">
           <p>
             El binario tiene el nombre <b>mocp</b> para evitar problemas con
@@ -180,9 +185,9 @@ k              Selecciona el siguiente preset del ecualizador
         </div>
       </div>
 
-      <div id="outline-container-org9a2e9ec" class="outline-2">
+      <div id="outline-container-orgedf4d4d" class="outline-2">
         <h2 id="directorio-de-configuración-.moc">
-          <a id="org9a2e9ec"></a>Directorio de configuración: ~/.moc
+          Directorio de configuración: ~/.moc
         </h2>
         <div class="outline-text-2" id="text-directorio-de-configuración-.moc">
           <p>
@@ -216,11 +221,11 @@ mv config.example config
           </p>
         </div>
       </div>
-      <div id="outline-container-org2e14657" class="outline-2">
-        <h2 id="org2e14657">
+      <div id="outline-container-org1935296" class="outline-2">
+        <h2 id="org1935296">
           ~/.moc/themes**. Es posible descargar temas de configuración, o
         </h2>
-        <div class="outline-text-2" id="text-org2e14657">
+        <div class="outline-text-2" id="text-org1935296">
           <p>
             editarlo uno y guardarlo en uno de estos directorios. Básicamente
             cada elemento tiene la siguiente estructura:
@@ -341,8 +346,8 @@ plist_time = yellow default
         </div>
       </div>
 
-      <div id="outline-container-org130afaf" class="outline-2">
-        <h2 id="ecualizador"><a id="org130afaf"></a>Ecualizador</h2>
+      <div id="outline-container-orgbf8d304" class="outline-2">
+        <h2 id="ecualizador">Ecualizador</h2>
         <div class="outline-text-2" id="text-ecualizador">
           <p>
             Moc tiene la opción de utilizar un ecualizador pero necesita de
@@ -369,10 +374,8 @@ rm eqsets.tar.gz
           </p>
         </div>
 
-        <div id="outline-container-org810d6d7" class="outline-3">
-          <h3 id="problemas-frecuentes">
-            <a id="org810d6d7"></a>Problemas frecuentes
-          </h3>
+        <div id="outline-container-orgf4841f5" class="outline-3">
+          <h3 id="problemas-frecuentes">Problemas frecuentes</h3>
           <div class="outline-text-3" id="text-problemas-frecuentes">
             <p>Mensaje de error al lanzar MOC:</p>
 

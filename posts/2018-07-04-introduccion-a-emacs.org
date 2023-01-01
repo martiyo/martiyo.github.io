@@ -1,5 +1,6 @@
 #+title: Introduccion a GNU/Emacs
 #+date: <2018-07-04 14:41>
+#+description:
 #+filetags: emacs
 
 ** El universo perdido de GNU/Emacs

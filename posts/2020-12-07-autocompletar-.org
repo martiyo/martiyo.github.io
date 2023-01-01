@@ -1,5 +1,6 @@
 #+title: Auto-complete
 #+date: <2020-12-04 16:59>
+#+description: 
 #+filetags: emacs
 
 Auto-complete es una extensión inteligente de autocompletado para el Emacs. Amplía la interfaz estándar de finalización de Emacs y proporciona un entorno que permite a los usuarios concentrarse más en su propio trabajo.

@@ -46,9 +46,9 @@
         automaticamente.
       </p>
 
-      <div id="outline-container-org2817491" class="outline-2">
-        <h2 id="org2817491">Set up del repositorio</h2>
-        <div class="outline-text-2" id="text-org2817491">
+      <div id="outline-container-org0f0a669" class="outline-2">
+        <h2 id="org0f0a669">Set up del repositorio</h2>
+        <div class="outline-text-2" id="text-org0f0a669">
           <p>
             Actualizar el indice de paquetes de apt e instalar los paquetes
             necesarios para permitir a apt usar un repositorio sobre https:
@@ -68,9 +68,9 @@ software-properties-common
         </div>
       </div>
 
-      <div id="outline-container-org1a6533f" class="outline-2">
-        <h2 id="org1a6533f">Agregar la clave oficial de GPG de Docker:</h2>
-        <div class="outline-text-2" id="text-org1a6533f">
+      <div id="outline-container-orgb53f54c" class="outline-2">
+        <h2 id="orgb53f54c">Agregar la clave oficial de GPG de Docker:</h2>
+        <div class="outline-text-2" id="text-orgb53f54c">
           <pre class="example">
 $ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 </pre
@@ -92,9 +92,9 @@ pub   4096R/0EBFCD88 2017-02-22
         </div>
       </div>
 
-      <div id="outline-container-org060b22c" class="outline-2">
-        <h2 id="org060b22c">Agregar el repositorio al sources.list</h2>
-        <div class="outline-text-2" id="text-org060b22c">
+      <div id="outline-container-orge56d720" class="outline-2">
+        <h2 id="orge56d720">Agregar el repositorio al sources.list</h2>
+        <div class="outline-text-2" id="text-orge56d720">
           <pre class="example">
 $ sudo add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/debian \
@@ -105,9 +105,9 @@ $ sudo add-apt-repository \
         </div>
       </div>
 
-      <div id="outline-container-org274099e" class="outline-2">
-        <h2 id="org274099e">Inatalar Docker Engine</h2>
-        <div class="outline-text-2" id="text-org274099e">
+      <div id="outline-container-org05460d5" class="outline-2">
+        <h2 id="org05460d5">Inatalar Docker Engine</h2>
+        <div class="outline-text-2" id="text-org05460d5">
           <pre class="example">
 $ sudo apt-get update
 $ sudo apt-get install docker-ce docker-ce-cli containerd.io

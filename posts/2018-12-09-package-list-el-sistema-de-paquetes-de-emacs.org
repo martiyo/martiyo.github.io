@@ -24,7 +24,6 @@ como siempre esto se guarda con *C-x C-s* y para recargar la configuración:
 M-x eval-buffer
 #+END_SRC
 
-
 *** # Teclas
     
 
@@ -40,7 +39,6 @@ Las teclas que más se usan dentro del *list-package* son:
   desinstalación de los paquetes marcados.
 - *r* (*package-menu-refresh*) => refresca la lista de paquetes desde el
   servidor.
-
 
 *** # Instalar paquetes
  

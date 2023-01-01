@@ -1,9 +1,10 @@
 #+title: ivy counsel swiper
 #+date: <2020-12-07 14:58>
+#+description: 
 #+filetags: emacs
 
- * Ivy-mode
-  [2020-11-08 dom]
+Un marco de terminación similar a helm.
+
 ** Que es ivy 
     Ivy es un marco de terminación, similar a helm, que proporciona una interfaz para listar, buscar, filtrar y realizar acciones sobre una colección de "cosas". Estas "cosas" pueden ir desde cadenas a buffers, a Ivy no le importa. Sólo proporciona una forma para que el usuario interactúe con esta colección.
 

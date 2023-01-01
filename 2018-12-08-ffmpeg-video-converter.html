@@ -19,7 +19,7 @@
     <div id="preamble" class="status">
       <div class="header">
         <ul>
-          <li><a href="https://martiyo.github.io">/home</a></li>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
           <li><a href="https://martiyo.github.io/about">/about</a></li>
           <li><a href="https://martiyo.github.io/contact">/contact</a></li>
         </ul>
@@ -42,10 +42,11 @@
           >ffmpeg video converter</a
         >
       </h1>
+      <p>Edición de audio y video por consola</p>
 
-      <div id="outline-container-orgc019ace" class="outline-2">
-        <h2 id="wikipedia"><a id="orgc019ace"></a>Wikipedia</h2>
-        <div class="outline-text-2" id="text-wikipedia">
+      <div id="outline-container-org341e1b5" class="outline-2">
+        <h2 id="org341e1b5">Wikipedia</h2>
+        <div class="outline-text-2" id="text-org341e1b5">
           <p>
             FFmpeg es una colección de software libre que puede grabar,
             convertir (transcodificar) y hacer streaming de audio y vídeo.
@@ -63,11 +64,11 @@
           </p>
         </div>
 
-        <div id="outline-container-org52fed73" class="outline-4">
-          <h4 id="obtener-información-de-un-video">
-            <a id="org52fed73"></a>Obtener información de un video
-          </h4>
-          <div class="outline-text-4" id="text-obtener-información-de-un-video">
+        <div id="outline-container-orgfdd9829" class="outline-3">
+          <h3 id="obtener-información-de-un-video">
+            Obtener información de un video
+          </h3>
+          <div class="outline-text-3" id="text-obtener-información-de-un-video">
             <pre class="example">
 ffmpeg -i video.avi
 </pre
@@ -75,12 +76,12 @@ ffmpeg -i video.avi
           </div>
         </div>
 
-        <div id="outline-container-orgcca574c" class="outline-4">
-          <h4 id="combinar-una-serie-de-imágenes-en-un-video">
-            <a id="orgcca574c"></a>Combinar una serie de imágenes en un video
-          </h4>
+        <div id="outline-container-orge864235" class="outline-3">
+          <h3 id="combinar-una-serie-de-imágenes-en-un-video">
+            Combinar una serie de imágenes en un video
+          </h3>
           <div
-            class="outline-text-4"
+            class="outline-text-3"
             id="text-combinar-una-serie-de-imágenes-en-un-video"
           >
             <pre class="example">
@@ -96,12 +97,12 @@ ffmpeg -f imagen1.jpg -i imagen%d.jpg video.mpg
           </div>
         </div>
 
-        <div id="outline-container-org7a242ff" class="outline-4">
-          <h4 id="añadir-de-un-archivo-de-audio-en-un-video">
-            <a id="org7a242ff"></a>Añadir de un archivo de audio en un video
-          </h4>
+        <div id="outline-container-org6a011d1" class="outline-3">
+          <h3 id="añadir-de-un-archivo-de-audio-en-un-video">
+            Añadir de un archivo de audio en un video
+          </h3>
           <div
-            class="outline-text-4"
+            class="outline-text-3"
             id="text-añadir-de-un-archivo-de-audio-en-un-video"
           >
             <pre class="example">
@@ -111,11 +112,11 @@ ffmpeg -i audio.wav -i video_entrada.avi video_salida.mpg
           </div>
         </div>
 
-        <div id="outline-container-orgeea1f1f" class="outline-4">
-          <h4 id="convertir-un-vídeo-en-imágenes">
-            <a id="orgeea1f1f"></a>Convertir un vídeo en imágenes
-          </h4>
-          <div class="outline-text-4" id="text-convertir-un-vídeo-en-imágenes">
+        <div id="outline-container-org9b1a995" class="outline-3">
+          <h3 id="convertir-un-vídeo-en-imágenes">
+            Convertir un vídeo en imágenes
+          </h3>
+          <div class="outline-text-3" id="text-convertir-un-vídeo-en-imágenes">
             <pre class="example">
 ffmpeg -i video.mpg imagen%d.jpg
 </pre
@@ -129,12 +130,12 @@ ffmpeg -i video.mpg imagen%d.jpg
           </div>
         </div>
 
-        <div id="outline-container-org9695f69" class="outline-4">
-          <h4 id="convertir-video-para-smartv-server-minidlna">
-            <a id="org9695f69"></a>Convertir video para SmarTV (Server MiniDLNA)
-          </h4>
+        <div id="outline-container-org2ffb5dc" class="outline-3">
+          <h3 id="convertir-video-para-smartv-server-minidlna">
+            Convertir video para SmarTV (Server MiniDLNA)
+          </h3>
           <div
-            class="outline-text-4"
+            class="outline-text-3"
             id="text-convertir-video-para-smartv-server-minidlna"
           >
             <pre class="example">
@@ -149,13 +150,12 @@ ffmpeg -i LaBellaylaBestia.mkv -c:a libmp3lame -b:v 2500k -b:a 150k LaBellaylaBe
           </div>
         </div>
 
-        <div id="outline-container-org29756b7" class="outline-4">
-          <h4 id="extraer-el-sonido-de-un-vídeo-y-guardarlo-como-mp3">
-            <a id="org29756b7"></a>Extraer el sonido de un vídeo, y guardarlo
-            como MP3
-          </h4>
+        <div id="outline-container-org442feb8" class="outline-3">
+          <h3 id="extraer-el-sonido-de-un-vídeo-y-guardarlo-como-mp3">
+            Extraer el sonido de un vídeo, y guardarlo como MP3
+          </h3>
           <div
-            class="outline-text-4"
+            class="outline-text-3"
             id="text-extraer-el-sonido-de-un-vídeo-y-guardarlo-como-mp3"
           >
             <pre class="example">
@@ -172,11 +172,9 @@ ffmpeg -i video.avi -vn -ar 44100 -ac 2 -ab 192 -f mp3 audio.mp3
           </div>
         </div>
 
-        <div id="outline-container-org8f6bc59" class="outline-4">
-          <h4 id="convertir-un-wav-en-mp3">
-            <a id="org8f6bc59"></a>Convertir un wav en MP3
-          </h4>
-          <div class="outline-text-4" id="text-convertir-un-wav-en-mp3">
+        <div id="outline-container-orgc01667d" class="outline-3">
+          <h3 id="convertir-un-wav-en-mp3">Convertir un wav en MP3</h3>
+          <div class="outline-text-3" id="text-convertir-un-wav-en-mp3">
             <pre class="example">
 ffmpeg -i audio.wav -ar 44100 audio.mp3
 </pre
@@ -184,11 +182,9 @@ ffmpeg -i audio.wav -ar 44100 audio.mp3
           </div>
         </div>
 
-        <div id="outline-container-orgc8f6de8" class="outline-4">
-          <h4 id="convertir-un-avi-a-mpg">
-            <a id="orgc8f6de8"></a>Convertir un avi a mpg
-          </h4>
-          <div class="outline-text-4" id="text-convertir-un-avi-a-mpg">
+        <div id="outline-container-org054beb0" class="outline-3">
+          <h3 id="convertir-un-avi-a-mpg">Convertir un avi a mpg</h3>
+          <div class="outline-text-3" id="text-convertir-un-avi-a-mpg">
             <pre class="example">
 ffmpeg -i entrada.avi salida.mpg
 </pre
@@ -196,11 +192,9 @@ ffmpeg -i entrada.avi salida.mpg
           </div>
         </div>
 
-        <div id="outline-container-orge55c6ef" class="outline-4">
-          <h4 id="convertir-un-mpg-a-avi">
-            <a id="orge55c6ef"></a>Convertir un mpg a avi
-          </h4>
-          <div class="outline-text-4" id="text-convertir-un-mpg-a-avi">
+        <div id="outline-container-orgc1fa5b1" class="outline-3">
+          <h3 id="convertir-un-mpg-a-avi">Convertir un mpg a avi</h3>
+          <div class="outline-text-3" id="text-convertir-un-mpg-a-avi">
             <pre class="example">
 ffmpeg -i entrada.mpg salida.avi
 </pre
@@ -208,11 +202,9 @@ ffmpeg -i entrada.mpg salida.avi
           </div>
         </div>
 
-        <div id="outline-container-org02601af" class="outline-4">
-          <h4 id="convertir-un-avi-a-gif">
-            <a id="org02601af"></a>Convertir un avi a gif
-          </h4>
-          <div class="outline-text-4" id="text-convertir-un-avi-a-gif">
+        <div id="outline-container-org461b9a9" class="outline-3">
+          <h3 id="convertir-un-avi-a-gif">Convertir un avi a gif</h3>
+          <div class="outline-text-3" id="text-convertir-un-avi-a-gif">
             <pre class="example">
 ffmpeg -i entrada.avi salida.gif
 </pre
@@ -220,11 +212,9 @@ ffmpeg -i entrada.avi salida.gif
           </div>
         </div>
 
-        <div id="outline-container-org340718e" class="outline-4">
-          <h4 id="convertir-avi-a-flv">
-            <a id="org340718e"></a>Convertir avi a flv
-          </h4>
-          <div class="outline-text-4" id="text-convertir-avi-a-flv">
+        <div id="outline-container-org757d7bd" class="outline-3">
+          <h3 id="convertir-avi-a-flv">Convertir avi a flv</h3>
+          <div class="outline-text-3" id="text-convertir-avi-a-flv">
             <pre class="example">
 ffmpeg -i entrada.avi -ab 56 -ar 44100 -b 200 -r 15 -s 320×240 -f flv salida.flv
 </pre
@@ -232,11 +222,9 @@ ffmpeg -i entrada.avi -ab 56 -ar 44100 -b 200 -r 15 -s 320×240 -f flv salida.fl
           </div>
         </div>
 
-        <div id="outline-container-org3867a09" class="outline-4">
-          <h4 id="convertir-avi-a-dv">
-            <a id="org3867a09"></a>Convertir avi a dv
-          </h4>
-          <div class="outline-text-4" id="text-convertir-avi-a-dv">
+        <div id="outline-container-orgeff02a4" class="outline-3">
+          <h3 id="convertir-avi-a-dv">Convertir avi a dv</h3>
+          <div class="outline-text-3" id="text-convertir-avi-a-dv">
             <pre class="example">
 ffmpeg -i entrada.avi -s pal -r pal -aspect 4:3 -ar 48000 -ac 2 salida.dv
 </pre
@@ -251,13 +239,12 @@ ffmpeg -i entrada.avi -target pal-dv salida.dv
           </div>
         </div>
 
-        <div id="outline-container-orgc5516ea" class="outline-4">
-          <h4 id="convertir-avi-a-mpeg-para-reproductores-de-dvd">
-            <a id="orgc5516ea"></a>Convertir avi a mpeg para reproductores de
-            dvd
-          </h4>
+        <div id="outline-container-orge302457" class="outline-3">
+          <h3 id="convertir-avi-a-mpeg-para-reproductores-de-dvd">
+            Convertir avi a mpeg para reproductores de dvd
+          </h3>
           <div
-            class="outline-text-4"
+            class="outline-text-3"
             id="text-convertir-avi-a-mpeg-para-reproductores-de-dvd"
           >
             <pre class="example">
@@ -276,11 +263,9 @@ ffmpeg -i entrada.avi -target pal-dvd -ps 2000000000 -aspect 16:9 salida.mpeg
           </div>
         </div>
 
-        <div id="outline-container-org64519e4" class="outline-4">
-          <h4 id="comprimir-avi-a-divx">
-            <a id="org64519e4"></a>Comprimir avi a divx
-          </h4>
-          <div class="outline-text-4" id="text-comprimir-avi-a-divx">
+        <div id="outline-container-org2ea2fa7" class="outline-3">
+          <h3 id="comprimir-avi-a-divx">Comprimir avi a divx</h3>
+          <div class="outline-text-3" id="text-comprimir-avi-a-divx">
             <pre class="example">
 ffmpeg -i entrada.avi -s 320×240 -vcodec msmpeg4v2 salida.avi
 </pre
@@ -288,11 +273,11 @@ ffmpeg -i entrada.avi -s 320×240 -vcodec msmpeg4v2 salida.avi
           </div>
         </div>
 
-        <div id="outline-container-org1df477f" class="outline-4">
-          <h4 id="comprimir-ogg-theora-a-mpeg-dvd">
-            <a id="org1df477f"></a>Comprimir Ogg Theora a Mpeg dvd
-          </h4>
-          <div class="outline-text-4" id="text-comprimir-ogg-theora-a-mpeg-dvd">
+        <div id="outline-container-orgaf58666" class="outline-3">
+          <h3 id="comprimir-ogg-theora-a-mpeg-dvd">
+            Comprimir Ogg Theora a Mpeg dvd
+          </h3>
+          <div class="outline-text-3" id="text-comprimir-ogg-theora-a-mpeg-dvd">
             <pre class="example">
 ffmpeg -i entrada.ogm -s 720×576 -vcodec mpeg2video -acodec mp3 salida.mpg
 </pre
@@ -300,11 +285,9 @@ ffmpeg -i entrada.ogm -s 720×576 -vcodec mpeg2video -acodec mp3 salida.mpg
           </div>
         </div>
 
-        <div id="outline-container-orgd6e49f0" class="outline-4">
-          <h4 id="comprimir-avi-a-svcd-mpeg2">
-            <a id="orgd6e49f0"></a>Comprimir avi a SVCD mpeg2
-          </h4>
-          <div class="outline-text-4" id="text-comprimir-avi-a-svcd-mpeg2">
+        <div id="outline-container-org4599d99" class="outline-3">
+          <h3 id="comprimir-avi-a-svcd-mpeg2">Comprimir avi a SVCD mpeg2</h3>
+          <div class="outline-text-3" id="text-comprimir-avi-a-svcd-mpeg2">
             <p>Para PAL:</p>
 
             <pre class="example">
@@ -321,11 +304,9 @@ ffmpeg -i entrada.avi -target ntsc-svcd salida.mpg
           </div>
         </div>
 
-        <div id="outline-container-org3810ccf" class="outline-4">
-          <h4 id="comprimir-avi-a-vcd-mpeg2">
-            <a id="org3810ccf"></a>Comprimir avi a VCD mpeg2
-          </h4>
-          <div class="outline-text-4" id="text-comprimir-avi-a-vcd-mpeg2">
+        <div id="outline-container-orgc099b7a" class="outline-3">
+          <h3 id="comprimir-avi-a-vcd-mpeg2">Comprimir avi a VCD mpeg2</h3>
+          <div class="outline-text-3" id="text-comprimir-avi-a-vcd-mpeg2">
             <p>Para PAL:</p>
 
             <pre class="example">
@@ -342,11 +323,11 @@ ffmpeg -i entrada.avi -target ntsc-vcd salida.mpg
           </div>
         </div>
 
-        <div id="outline-container-org4332034" class="outline-4">
-          <h4 id="codificación-con-varias-pasadas">
-            <a id="org4332034"></a>Codificación con varias pasadas
-          </h4>
-          <div class="outline-text-4" id="text-codificación-con-varias-pasadas">
+        <div id="outline-container-orgc010010" class="outline-3">
+          <h3 id="codificación-con-varias-pasadas">
+            Codificación con varias pasadas
+          </h3>
+          <div class="outline-text-3" id="text-codificación-con-varias-pasadas">
             <pre class="example">
 ffmpeg -i entrada -pass 2 -passlogfile ffmpeg2pass salida
 </pre

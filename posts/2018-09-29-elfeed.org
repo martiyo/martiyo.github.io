@@ -1,11 +1,9 @@
 #+title: Elfeed
 #+date: <2018-09-29 23:57>
+#+description: 
 #+filetags: emacs
 
-** Descripción
-
-
-Elfeed en un lector de noticias para Emacs, compatible con Atom y Rss.
+Lector de noticias para Emacs, compatible con Atom y Rss.
 
 ** Instalación
 

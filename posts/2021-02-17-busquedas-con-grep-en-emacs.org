@@ -1,10 +1,15 @@
-w#+title: Busqueda con grep en emacs
+#+title: Busqueda con grep en emacs
 #+date: <2021-02-17 11:10>
+#+description: 
 #+filetags: emacs
+
+grep, rgrep, lgrep
+
+** Description
 
 El comando ~grep~ de emacs te permite ejecutar el programa ~grep~ de Unix o GNU/Linux, que busca en los archivos las líneas que coinciden con una expresión regular. El comando de emacs colorea la salida y hace que se pueda hacer clic en las líneas encotradas: cuando se hace clic en resultado de la búsqueda, emacs visita el archivo de destino en la ocurrencia.
 
-Por jemplo:
+*** Por jemplo:
 
 #+BEGIN_SRC
   M-x grep RET
@@ -26,7 +31,7 @@ donde...
 
 entonces solo hay que agrear la expresión regular a buscar y el archivo o archivos donde buscar.
 
-Ejemplo:
+*** Ejemplo:
 
 #+BEGIN_SRC
   M-x grep --color -nH --null -e setq ~/.emacs.d/init.el
@@ -34,7 +39,7 @@ Ejemplo:
 
 esto lista todas las líneas que coinciden con *setq* en el archivo *init.el*, mostrando el nombre del del archivo y el numero de línea, al pulsar RET o hacer click en una de las líneas el archivo se abre en la correspondiente linea.
 
-* lgrep y rgrep 
+** lgrep y rgrep 
 
 Ambos te preguntan lo que debe buscar de manera conveniente. ~lgrep~ busca en el directorio actual y ~rgrep~ busca en el árbol de directorios actual. ~rgrep~ conoce los sistemas de control de versiones por lo que es posible evitar buscar en los directorios de control.
 *rgrep* te pedirá una cadena de búsqueda, un tipo de archivo y un directorio (en ese orden, y las indicaciones estarán etiquetadas para que no haya confusión). Solo escribe M-x regrep RET (termino buscado), (tipo de archivo por ej. *.js) y (directorio /src/xxx).

@@ -1,6 +1,11 @@
-#+title: Planificación y administración de tareas con Cron y Crontab
+#+title: Cron y Crontab
 #+date: <2018-09-15 12:18>
+#+description: 
 #+filetags: linux
+
+ Planificación y administración de tareas con Cron y crontabs
+
+** Descripción
 
 En el sistema operativo Unix, cron es un administrador regular de
 procesos en segundo plano (demonio) que ejecuta procesos o guiones a

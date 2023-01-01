@@ -4,29 +4,676 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Mon, 04 Jul 2022 02:04:35 -0300</lastBuildDate>
+<lastBuildDate>Sun, 01 Jan 2023 15:47:50 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[Emmet]]></title>
+  <description><![CDATA[
+      <p>
+        Emmet es un plugin para los editores de texto más populares que mejora
+        enormemente el flujo de trabajo HTML y CSS.
+      </p>
+
+      <div id="outline-container-org8213fb4" class="outline-2">
+        <h2 id="org8213fb4">Instalación</h2>
+        <div class="outline-text-2" id="text-org8213fb4">
+          <p>
+            Emmet-mode está en los repositorios de MELPA y Marmalade por lo
+            tanto con <b>M-x package-install-RET emmet-mode</b> es suficiente.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orga226daa" class="outline-2">
+        <h2 id="orga226daa">Uso</h2>
+        <div class="outline-text-2" id="text-orga226daa">
+          <p>
+            Colocar el punto en un fragmento de emmet y presione C-j para
+            expandirlo (o, alternativamente, crear un alias con Mx
+            emmet-expand-line) esto transformará su fragmento en la estructura
+            de etiqueta apropiada.
+          </p>
+        </div>
+
+        <div id="outline-container-org125f376" class="outline-3">
+          <h3 id="org125f376">HTML abreviaciones</h3>
+          <div class="outline-text-3" id="text-org125f376"></div>
+          <div id="outline-container-org22d00ff" class="outline-4">
+            <h4 id="org22d00ff">Etiquetas basicas</h4>
+            <div class="outline-text-4" id="text-org22d00ff">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+a            &lt;a href=""&gt;&lt;/a&gt;
+a.x          &lt;a class="x" href=""&gt;&lt;/a&gt;
+a#q.x        &lt;a id="q" class="x" href=""&gt;&lt;/a&gt;
+a#q.x.y.z    &lt;a id="q" class="x y z" href=""&gt;&lt;/a&gt;
+#q           &lt;div id="q"&gt;
+	     &lt;/div&gt;
+.x           &lt;div class="x"&gt;
+	    &lt;/div&gt;
+#q.x         &lt;div id="q" class="x"&gt;
+	    &lt;/div&gt;
+#q.x.y.z     &lt;div id="q" class="x y z"&gt;
+	    &lt;/div&gt;
+html:5              &lt;!doctype html&gt;
+		       &lt;html lang="en"&gt;
+			 &lt;head&gt;
+			   &lt;meta charset="UTF-8"/&gt;
+			   &lt;title&gt;Document&lt;/title&gt;
+			 &lt;/head&gt;
+			 &lt;body&gt;
+			 &lt;/body&gt;
+		       &lt;/html&gt;              
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-org71a9a89" class="outline-4">
+            <h4 id="org71a9a89">Etiquetas vacías</h4>
+            <div class="outline-text-4" id="text-org71a9a89">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+a/                       &lt;a href=""/&gt;
+a/.x                     &lt;a class="x" href=""/&gt;
+a/#q.x                   &lt;a id="q" class="x" href=""/&gt;
+a/#q.x.y.z               &lt;a id="q" class="x y z" href=""/&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-orgc2ea533" class="outline-4">
+            <h4 id="orgc2ea533">Etiquetas de cierre automático</h4>
+            <div class="outline-text-4" id="text-orgc2ea533">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+input[type=text]         &lt;input type="text" name="" value=""/&gt;
+img                      &lt;img src="" alt=""/&gt;
+img&gt;metadata/*2          &lt;img src="" alt=""&gt;
+			     &lt;metadata/&gt;
+			     &lt;metadata/&gt;
+			 &lt;/img&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-org989b4df" class="outline-4">
+            <h4 id="org989b4df">Hermanos</h4>
+            <div class="outline-text-4" id="text-org989b4df">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+a+b                      &lt;a href=""&gt;&lt;/a&gt;
+			 &lt;b&gt;&lt;/b&gt;
+a+b+c                    &lt;a href=""&gt;&lt;/a&gt;
+			 &lt;b&gt;&lt;/b&gt;
+			 &lt;c&gt;&lt;/c&gt;
+a.x+b                    &lt;a class="x" href=""&gt;&lt;/a&gt;
+			 &lt;b&gt;&lt;/b&gt;
+a#q.x+b                  &lt;a id="q" class="x" href=""&gt;&lt;/a&gt;
+			 &lt;b&gt;&lt;/b&gt;
+a#q.x.y.z+b              &lt;a id="q" class="x y z" href=""&gt;&lt;/a&gt;
+			 &lt;b&gt;&lt;/b&gt;
+a#q.x.y.z+b#p.l.m.n      &lt;a id="q" class="x y z" href=""&gt;&lt;/a&gt;
+			 &lt;b id="p" class="l m n"&gt;&lt;/b&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-orgb99a3a9" class="outline-4">
+            <h4 id="orgb99a3a9">Etiquetas de expanción</h4>
+            <div class="outline-text-4" id="text-orgb99a3a9">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+table+                   &lt;table&gt;
+			     &lt;tr&gt;
+				 &lt;td&gt;
+				 &lt;/td&gt;
+			     &lt;/tr&gt;
+			 &lt;/table&gt;
+dl+                      &lt;dl&gt;
+			     &lt;dt&gt;&lt;/dt&gt;
+			     &lt;dd&gt;&lt;/dd&gt;
+			 &lt;/dl&gt;
+ul+                      &lt;ul&gt;
+			     &lt;li&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+ul++ol+                  &lt;ul&gt;
+			     &lt;li&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+			 &lt;ol&gt;
+			     &lt;li&gt;&lt;/li&gt;
+			 &lt;/ol&gt;
+ul#q.x.y[m=l]            &lt;ul id="q" class="x y" m="l"&gt;
+			     &lt;li&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-org7c393c0" class="outline-4">
+            <h4 id="org7c393c0">Padre &gt; hijo</h4>
+            <div class="outline-text-4" id="text-org7c393c0">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+a&gt;b                      &lt;a href=""&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;
+a&gt;b&gt;c                    &lt;a href=""&gt;&lt;b&gt;&lt;c&gt;&lt;/c&gt;&lt;/b&gt;&lt;/a&gt;
+a.x&gt;b                    &lt;a class="x" href=""&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;
+a#q.x&gt;b                  &lt;a id="q" class="x" href=""&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;
+a#q.x.y.z&gt;b              &lt;a id="q" class="x y z" href=""&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;
+a#q.x.y.z&gt;b#p.l.m.n      &lt;a id="q" class="x y z" href=""&gt;&lt;b id="p" class="l m n"&gt;&lt;/b&gt;&lt;/a&gt;
+#q&gt;.x                    &lt;div id="q"&gt;
+			     &lt;div class="x"&gt;
+			     &lt;/div&gt;
+			 &lt;/div&gt;
+a&gt;b+c                    &lt;a href=""&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			     &lt;c&gt;&lt;/c&gt;
+			 &lt;/a&gt;
+a&gt;b+c&gt;d                  &lt;a href=""&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			     &lt;c&gt;&lt;d&gt;&lt;/d&gt;&lt;/c&gt;
+			 &lt;/a&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-orgcbe2ff8" class="outline-4">
+            <h4 id="orgcbe2ff8">Escalar</h4>
+            <div class="outline-text-4" id="text-orgcbe2ff8">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+a&gt;b^c                    &lt;a href=""&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;&lt;c&gt;&lt;/c&gt;
+a&gt;b&gt;c^d                  &lt;a href=""&gt;
+			     &lt;b&gt;&lt;c&gt;&lt;/c&gt;&lt;/b&gt;
+			     &lt;d&gt;&lt;/d&gt;
+			 &lt;/a&gt;
+a&gt;b&gt;c^^d                 &lt;a href=""&gt;&lt;b&gt;&lt;c&gt;&lt;/c&gt;&lt;/b&gt;&lt;/a&gt;
+			 &lt;d&gt;&lt;/d&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-orgf04f386" class="outline-4">
+            <h4 id="orgf04f386">Multiplicación</h4>
+            <div class="outline-text-4" id="text-orgf04f386">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+a*1                      &lt;a href=""&gt;&lt;/a&gt;
+a*2                      &lt;a href=""&gt;&lt;/a&gt;
+			 &lt;a href=""&gt;&lt;/a&gt;
+a/*2                     &lt;a href=""/&gt;
+			 &lt;a href=""/&gt;
+a*2+b*2                  &lt;a href=""&gt;&lt;/a&gt;
+			 &lt;a href=""&gt;&lt;/a&gt;
+			 &lt;b&gt;&lt;/b&gt;
+			 &lt;b&gt;&lt;/b&gt;
+a*2&gt;b*2                  &lt;a href=""&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			 &lt;/a&gt;
+			 &lt;a href=""&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			 &lt;/a&gt;
+a&gt;b*2                    &lt;a href=""&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			     &lt;b&gt;&lt;/b&gt;
+			 &lt;/a&gt;
+a#q.x&gt;b#q.x*2            &lt;a id="q" class="x" href=""&gt;
+			     &lt;b id="q" class="x"&gt;&lt;/b&gt;
+			     &lt;b id="q" class="x"&gt;&lt;/b&gt;
+			 &lt;/a&gt;
+a#q.x&gt;b/#q.x*2           &lt;a id="q" class="x" href=""&gt;
+			     &lt;b id="q" class="x"/&gt;
+			     &lt;b id="q" class="x"/&gt;
+			 &lt;/a&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-org7450e96" class="outline-4">
+            <h4 id="org7450e96">Numeración de items</h4>
+            <div class="outline-text-4" id="text-org7450e96">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+ul&gt;li.item$*3            &lt;ul&gt;
+			     &lt;li class="item1"&gt;&lt;/li&gt;
+			     &lt;li class="item2"&gt;&lt;/li&gt;
+			     &lt;li class="item3"&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+ul&gt;li.item$$$*3          &lt;ul&gt;
+			     &lt;li class="item001"&gt;&lt;/li&gt;
+			     &lt;li class="item002"&gt;&lt;/li&gt;
+			     &lt;li class="item003"&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+ul&gt;li.item$@-*3          &lt;ul&gt;
+			     &lt;li class="item3"&gt;&lt;/li&gt;
+			     &lt;li class="item2"&gt;&lt;/li&gt;
+			     &lt;li class="item1"&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+ul&gt;li.item$@3*3          &lt;ul&gt;
+			     &lt;li class="item3"&gt;&lt;/li&gt;
+			     &lt;li class="item4"&gt;&lt;/li&gt;
+			     &lt;li class="item5"&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+ul&gt;li.item$@-3*3         &lt;ul&gt;
+			     &lt;li class="item5"&gt;&lt;/li&gt;
+			     &lt;li class="item4"&gt;&lt;/li&gt;
+			     &lt;li class="item3"&gt;&lt;/li&gt;
+			 &lt;/ul&gt;
+a$b$@-/*5                &lt;a1b5/&gt;
+			 &lt;a2b4/&gt;
+			 &lt;a3b3/&gt;
+			 &lt;a4b2/&gt;
+			 &lt;a5b1/&gt;
+a.$*2&gt;b.$$@-*3           &lt;a class=\"1\" href=""&gt;
+			     &lt;b class=\"03\"&gt;&lt;/b&gt;
+			     &lt;b class=\"02\"&gt;&lt;/b&gt;
+			     &lt;b class=\"01\"&gt;&lt;/b&gt;
+			 &lt;/a&gt;
+			 &lt;a class=\"2\" href=""&gt;
+			     &lt;b class=\"03\"&gt;&lt;/b&gt;
+			     &lt;b class=\"02\"&gt;&lt;/b&gt;
+			     &lt;b class=\"01\"&gt;&lt;/b&gt;
+			 &lt;/a&gt;
+(div&gt;(a#id$$*2)+b.c$@-3+c#d$)*2
+			 &lt;div&gt;
+			     &lt;a id=\"id01\" href=""&gt;&lt;/a&gt;
+			     &lt;a id=\"id02\" href=""&gt;&lt;/a&gt;
+			     &lt;b class=\"c4\"&gt;&lt;/b&gt;
+			     &lt;c id=\"d1\"&gt;&lt;/c&gt;
+			 &lt;/div&gt;
+			 &lt;div&gt;
+			     &lt;a id=\"id01\" href=""&gt;&lt;/a&gt;
+			     &lt;a id=\"id02\" href=""&gt;&lt;/a&gt;
+			     &lt;b class=\"c3\"&gt;&lt;/b&gt;
+			     &lt;c id=\"d2\"&gt;&lt;/c&gt;
+			 &lt;/div&gt;
+ul&gt;li.c${price: 10\\$}*3 &lt;ul&gt;
+			     &lt;li class=\"c1\"&gt;price: 10$&lt;/li&gt;
+			     &lt;li class=\"c2\"&gt;price: 10$&lt;/li&gt;
+			     &lt;li class=\"c3\"&gt;price: 10$&lt;/li&gt;
+			 &lt;/ul&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+
+          <div id="outline-container-org130f6ed" class="outline-4">
+            <h4 id="org130f6ed">Generador Lorem-Ipsum</h4>
+            <div class="outline-text-4" id="text-org130f6ed">
+              <div class="org-src-container">
+                <pre class="src src-sh">
+lorem                    Diam, vulputate ut pharetra sit amet, aliquam id! Egestas sed tempus, urna et pharetra pharetra, massa massa ultricies mi, quis hendrerit dolor magna eget est lorem ipsum dolor sit amet!
+lorem5                   Hendrerit gravida rutrum quisque non?
+ipsum3                   Viverra ipsum nunc.
+p*3&gt;lorem3               &lt;p&gt;Pellentesque elit eget?&lt;/p&gt;
+			 &lt;p&gt;Sed odio morbi?&lt;/p&gt;
+			 &lt;p&gt;Eget arcu dictum!&lt;/p&gt;
+ul.list&gt;ipsum3*3         &lt;ul class=\"list\"&gt;
+			     Nam libero justo.
+			     Pellentesque habitant morbi?
+			     Enim blandit volutpat.
+			 &lt;/ul&gt;
+ul.list&gt;ipsum3.itm*3     &lt;ul class=\"list\"&gt;
+			     &lt;div class=\"itm\"&gt;Urna condimentum mattis.&lt;/div&gt; &lt;!-- emmet-mode doesn't support implicit tag name resolver --&gt;
+			     &lt;div class=\"itm\"&gt;Sed turpis tincidunt.&lt;/div&gt;
+			     &lt;div class=\"itm\"&gt;Faucibus turpis in?&lt;/div&gt;
+			 &lt;/ul&gt;
+ul.list&gt;(li.itm&gt;lorem3)*3
+			 &lt;ul class=\"list\"&gt;
+			     &lt;li class=\"itm\"&gt;Est pellentesque elit.&lt;/li&gt;
+			     &lt;li class=\"itm\"&gt;In nulla posuere.&lt;/li&gt;
+			     &lt;li class=\"itm\"&gt;Felis eget nunc.&lt;/li&gt;
+			 &lt;/ul&gt;
+</pre
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/2019-07-24-emmet-mode.html</link>
+  <guid>https://martiyo.github.io/2019-07-24-emmet-mode.html</guid>
+  <pubDate>Sat, 31 Dec 2022 12:38:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[org-mode]]></title>
+  <description><![CDATA[
+      <p>
+        Org-mode es un gestor de información personal y una herramienta de
+        resúmenes para Emacs.
+      </p>
+
+      <div id="outline-container-org086c888" class="outline-2">
+        <h2 id="org086c888">Lo básico</h2>
+        <div class="outline-text-2" id="text-org086c888"></div>
+        <div id="outline-container-org910ca8b" class="outline-3">
+          <h3 id="org910ca8b">Creando un nuevo fichero</h3>
+          <div class="outline-text-3" id="text-org910ca8b">
+            <p>
+              Emacs debería entrar en org-mode siempre y cuando se visite o cree
+              un fichero con la extensión ".org"
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orga896197" class="outline-3">
+          <h3 id="orga896197">Lista simple de tareas</h3>
+          <div class="outline-text-3" id="text-orga896197">
+            <p>
+              Los títulos de primer nivel empiezan con una estrella; los de
+              segundo nivel con dos estrellas, y así. En org-mode, los ítems
+              TODO (tareas no hechas) son siempre títulos. Para crear nuevos
+              items TODO se ubica el cursor en la siguiente línea y se pulsa
+              M-shift-RET para llamar a org-insert-todo-heading. Se puede pulsar
+              varias veces y añadir varios TODOs. Para marcar una tarea como
+              realizada márquese el ítem TODO como ítem DONE (tarea ya
+              realizada) moviendo el cursor a esa línea y pulsando C-c C-t, que
+              ejecuta el comando org-todo. Nótese cómo org-mode usa una marca de
+              tiempo para grabar cuando un ítem TODO fué cerrado.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org6ff753e" class="outline-3">
+          <h3 id="org6ff753e">Usando títulos para estructurar el documento</h3>
+          <div class="outline-text-3" id="text-org6ff753e">
+            <p>
+              Con frecuencia el mejor camino para organizar ideas es un esquema.
+              El siguiente paso es hacer un esquema de los diferentes asuntos
+              del tutorial. Haciendo esto, se rompe la intimidatoria página en
+              blanco en una serie de pequeños trozos menos intimidatorios. Una
+              asterisco da comienzo a una cabecera de primer nivel, y dos
+              asteriscos dan comienzo a una cabecera de segundo nivel. Si se
+              necesita un anidamiento más profundo, ¡usá tres o más asteriscos!
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org2efab6e" class="outline-3">
+          <h3 id="org2efab6e">Rellenando secciones</h3>
+          <div class="outline-text-3" id="text-org2efab6e">
+            <p>
+              Fácilmente se puede añadir texto, un cuerpo de texto debajo de
+              cada título.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgc1fa787" class="outline-3">
+          <h3 id="orgc1fa787">Enlaces a otros lugares</h3>
+          <div class="outline-text-3" id="text-orgc1fa787">
+            <p>
+              La sintaxis para crear enlaces es [[enlace][descripción] El último
+              corchete lo dejo abierto por que al cerrarlo se escondería el
+              enlace y solo se vería descripción. Para editar un enlace ya
+              oculto se presiona C-c C-o para org-open-at-point(abrir enlace)
+            </p>
+
+            <p>
+              También se puede enlazar archivos locales con C-c C-l
+              <a href="file:///home/dev1/.emacs"
+                >archivo de configuracion de emacs</a
+              >
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org88dd736" class="outline-3">
+          <h3 id="org88dd736">Añadiendo notas a una tarea</h3>
+          <div class="outline-text-3" id="text-org88dd736">
+            <p>
+              Se puede poner tanto texto como se quiera bajo una cabecera de un
+              ítem TODO. De hecho, se puede tener incluso subcabecera bajo un
+              TODO, ¡y TODOs con TODOs!
+            </p>
+
+            <p>
+              Siendo capaz de anotar tareas hace fácil recoger enlaces
+              relacionados y pensamientos asociados a una tarea. Siendo capaz de
+              anidar tareas es bueno para modelar flujos de trabajo — con
+              bastante frecuencia, una tarea larga is dividida en pequeñas
+              subtareas que se pretende marchar según se hagan.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org42f74b4" class="outline-2">
+        <h2 id="org42f74b4">Funcionalidades avanzadas</h2>
+        <div class="outline-text-2" id="text-org42f74b4">
+          <p>
+            <a
+              href="https://orgmode.org/worg/org-tutorials/orgtutorial_dto-es.html"
+              >Esto es solo un resumen de un tutorial que está aquí</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/2022-07-27-org-mode.html</link>
+  <guid>https://martiyo.github.io/2022-07-27-org-mode.html</guid>
+  <pubDate>Wed, 27 Jul 2022 18:24:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[Wordpress en docker]]></title>
   <description><![CDATA[
 
-      <div id="outline-container-org0edbb6a" class="outline-2">
-        <h2 id="org0edbb6a">Docker-compose</h2>
-        <div class="outline-text-2" id="text-org0edbb6a">
+      <div id="outline-container-org5c8093b" class="outline-2">
+        <h2 id="org5c8093b">Docker-compose</h2>
+        <div class="outline-text-2" id="text-org5c8093b">
           <p>
             Docker Compose es una herramienta que permite definir y ejecutar
             aplicaciones Docker empleando varios contenedores. Compose usa un
             fichero de texto con la extensión yaml en el que se guarda la
             configuración de los servicios(imagenes), redes y volúmenes para
-            persistencia de datos que requieran las aplicaciones
-            <a href="https://www.arsys.es/blog/wordpress-contenedordocker"
-              >https://www.arsys.es/blog/wordpress-contenedordocker</a
+            persistencia de datos que requieran las aplicaciones.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org5f44c48" class="outline-2">
+        <h2 id="org5f44c48">Configuración</h2>
+        <div class="outline-text-2" id="text-org5f44c48">
+          <p>
+            Para empezar creo una carpeta en para instalar el proyecto Wordpress
+          </p>
+
+          <pre class="example">
+mkdir wp-docker
+
+cd wp-docker
+</pre
+          >
+
+          <p>
+            Despues creo el archivo
+            <b
+              ><b><b>docker-compose.yml</b></b></b
             >
+            para definir el stack de contenedores que se gestiorán con Compose.
+          </p>
+
+          <pre class="example">
+touch docker-compose.yml 
+</pre
+          >
+        </div>
+
+        <div id="outline-container-org68a02b8" class="outline-4">
+          <h4 id="org68a02b8">Archivo docker-compose.yml</h4>
+          <div class="outline-text-4" id="text-org68a02b8">
+            <pre class="example">
+services:
+
+  db:
+
+    image: mysql:8
+
+    volumes:
+
+      - db_data:/var/lib/mysql
+
+    restart: always
+
+    environment:
+
+      MYSQL_ROOT_PASSWORD: Passw0rd
+
+      MYSQL_DATABASE: wordpress
+
+      MYSQL_USER: wp_user
+
+      MYSQL_PASSWORD: Passw0rd
+
+  wordpress:
+
+    depends_on:
+
+      - db
+
+    image: wordpress:latest
+
+    volumes:
+
+      - wordpress_data:/var/www/html
+
+    ports:
+
+      - "8000:80"
+
+    restart: always
+
+    environment:
+
+      WORDPRESS_DB_HOST: db:3306
+
+      WORDPRESS_DB_USER: wp_user
+
+      WORDPRESS_DB_PASSWORD: Passw0rd
+
+      WORDPRESS_DB_NAME: wordpress
+
+volumes:
+
+  db_data: {}
+
+  wordpress_data: {}
+
+</pre
+            >
+
+            <p>
+              En este archivo de Compose se crean las dos imágenes que se
+              necesitan para ejecutar WordPress. Primero la imagen del servidor
+              MySQL y luego la imagen de WordPress. Ambas imágenes tienen unos
+              datos de configuración que se pueden ver en el propio código. Por
+              supuesto, se puede cambiar la configuración segun se necesite,
+              sobre todo es importante escoger claves seguras para la base de
+              datos. Además en el código de docker-compose.yml se puede observar
+              que se han configurado un par de volúmenes, para los archivos de
+              WordPress y para la persistencia de la base de datos.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgcbd8947" class="outline-4">
+          <h4 id="orgcbd8947">Build de Compose</h4>
+          <div class="outline-text-4" id="text-orgcbd8947">
+            <p>
+              Una vez creado el archivo el proyecto se ejecuta con el comando:
+            </p>
+
+            <pre class="example">
+docker-compose up -d 
+</pre
+            >
+
+            <p>
+              con esto comienza la descarga de las imagenes y se pondrán en
+              funcionamiento.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org6d7081e" class="outline-4">
+          <h4 id="org6d7081e">
+            Acceder al sitio web para la instalación de wordpress
+          </h4>
+          <div class="outline-text-4" id="text-org6d7081e">
+            <p>
+              Se puede acceder al sitio web de wordpress en Docker con la
+              dirección ip del servidor y el puerto 8000.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org2babb24" class="outline-2">
+        <h2 id="org2babb24">
+          Como editar archivos de configuración del contenedor
+        </h2>
+        <div class="outline-text-2" id="text-org2babb24">
+          <p>
+            Por ejemplo si quiero editar el archivo .htaccess para que wordpress
+            soporte imagenes de mayor tamaño, lo que tengo que hacer es:
+          </p>
+
+          <p>primero conocer id del contenedor</p>
+
+          <pre class="example">
+doker container ls --filter name="wordpress"
+</pre
+          >
+          <p>#+END<sub>SRC</sub></p>
+
+          <p>
+            este comando listara los contenedores que contengan la palabra
+            wordpress en su nombre y mostrara su id, name, status, ports, etc.
           </p>
 
           <p>
-            <a
-              href="https://forums.docker.com/t/how-to-get-access-to-php-ini-file/68986/2"
-              >https://forums.docker.com/t/how-to-get-access-to-php-ini-file/68986/2</a
+            una vez que tengo el id del contenerdor puedo editar el .htaccess
+            con el siguiente comando:
+          </p>
+
+          <pre class="example">
+docker container exec -it 9ddd9bded663 bash -c "echo 'php_value upload_max_filesize 256M' &gt; '/var/www/html/.htaccess'"
+</pre
+          >
+
+          <p>Ahora wordpress soporta imagenes de 256M como maximo.</p>
+
+          <p>
+            <a href="https://www.arsys.es/blog/wordpress-contenedordocker"
+              >fuente</a
             >
           </p>
         </div>
@@ -49,9 +696,9 @@
         través de la linea de comandos.
       </p>
 
-      <div id="outline-container-orgea14e42" class="outline-2">
-        <h2 id="orgea14e42"># About</h2>
-        <div class="outline-text-2" id="text-orgea14e42">
+      <div id="outline-container-orgeb7cf9d" class="outline-2">
+        <h2 id="orgeb7cf9d"># About</h2>
+        <div class="outline-text-2" id="text-orgeb7cf9d">
           <p>
             <b>nvm</b> es un gestor de veriones para node.js, trabaja en
             cualquier shell compatible con POSIX.
@@ -59,9 +706,9 @@
         </div>
       </div>
 
-      <div id="outline-container-org024f106" class="outline-2">
-        <h2 id="org024f106"># Instalación</h2>
-        <div class="outline-text-2" id="text-org024f106">
+      <div id="outline-container-org461871e" class="outline-2">
+        <h2 id="org461871e"># Instalación</h2>
+        <div class="outline-text-2" id="text-org461871e">
           <p>
             Para instalarlo hay que descargar y ejecutar manualmente el script
             de intalación, o usar el siguiente comando:
@@ -99,9 +746,9 @@ export NVM_DIR="$([ -z "${xdg_config_home-}" ] &amp;&amp; printf %s "${home}/.nv
           <p>esto carga nvm.</p>
         </div>
 
-        <div id="outline-container-org913427b" class="outline-3">
-          <h3 id="org913427b">verificar la instalación</h3>
-          <div class="outline-text-3" id="text-org913427b">
+        <div id="outline-container-org85d91c7" class="outline-3">
+          <h3 id="org85d91c7">verificar la instalación</h3>
+          <div class="outline-text-3" id="text-org85d91c7">
             <p>para verificar que nvm ha sido instalado se usa:</p>
 
             <pre class="example">
@@ -119,9 +766,9 @@ command -v nvm
         </div>
       </div>
 
-      <div id="outline-container-org88a2691" class="outline-2">
-        <h2 id="org88a2691"># uso</h2>
-        <div class="outline-text-2" id="text-org88a2691">
+      <div id="outline-container-org3061690" class="outline-2">
+        <h2 id="org3061690"># uso</h2>
+        <div class="outline-text-2" id="text-org3061690">
           <p>para instalar la última versión de node:</p>
 
           <pre class="example">
@@ -166,9 +813,9 @@ $ nvm uninstall 10.10.0
           >
         </div>
 
-        <div id="outline-container-org235cd7e" class="outline-3">
-          <h3 id="org235cd7e">Fuente</h3>
-          <div class="outline-text-3" id="text-org235cd7e">
+        <div id="outline-container-orgc26e1d6" class="outline-3">
+          <h3 id="orgc26e1d6">Fuente</h3>
+          <div class="outline-text-3" id="text-orgc26e1d6">
             <p>
               Esto es solo un pequeño resumen que he usado para mi
               instalación,configuración y uso personal. Toda la data está en
@@ -179,8 +826,12 @@ $ nvm uninstall 10.10.0
           </div>
         </div>
       </div>
-      <div class="taglist"></div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
     ]]></description>
+  <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2022-01-09-nvm-node-version-manager.html</link>
   <guid>https://martiyo.github.io/2022-01-09-nvm-node-version-manager.html</guid>
   <pubDate>Sun, 09 Jan 2022 12:38:00 -0300</pubDate>
@@ -962,9 +1613,9 @@ Phone Support PIN #: 84719
         youtube y algunos otros sitios más
       </p>
 
-      <div id="outline-container-orgc034160" class="outline-2">
-        <h2 id="orgc034160">Instalación</h2>
-        <div class="outline-text-2" id="text-orgc034160">
+      <div id="outline-container-orgf4edea7" class="outline-2">
+        <h2 id="orgf4edea7">#Instalación</h2>
+        <div class="outline-text-2" id="text-orgf4edea7">
           <p>Con curl</p>
 
           <pre class="example">
@@ -983,16 +1634,81 @@ sudo chmod a+rx /usr/local/bin/youtube-dl
         </div>
       </div>
 
-      <div id="outline-container-org81d8fef" class="outline-2">
-        <h2 id="org81d8fef">Usos frecuentes</h2>
-        <div class="outline-text-2" id="text-org81d8fef">
-          <p>
-            Descargar lista de reproducción completa y extraer audio en formato
-            mp3
-          </p>
+      <div id="outline-container-orgfe305c8" class="outline-2">
+        <h2 id="orgfe305c8"># Usos frecuentes</h2>
+        <div class="outline-text-2" id="text-orgfe305c8">
+          <ul class="org-ul">
+            <li>Descargar un video o playlist:</li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-emacs-lisp">
+youtube-dl '{{https://www.youtube.com/watch?v=oHg5SJYRHA0}}'
+</pre
+            >
+          </div>
+
+          <ul class="org-ul">
+            <li>
+              Listar todos los formatos en los que esta disponible un video y
+              lista de reproducción:
+            </li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-emacs-lisp">
+youtube-dl --list-formats '{{https://www.youtube.com/watch?v=oHg5SJYRHA0}}'
+</pre
+            >
+          </div>
+
+          <ul class="org-ul">
+            <li>Descargar un video o playlist en una calidad especifica:</li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-emacs-lisp">
+youtube-dl --format "{{best[height&lt;=480]}}" '{{https://www.youtube.com/watch?v=oHg5SJYRHA0}}'
+</pre
+            >
+          </div>
+
+          <ul class="org-ul">
+            <li>
+              Descargar un video con formato mp4 con nombres de archivos
+              personalizados:
+            </li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-emacs-lisp">
+youtube-dl --sub-lang {{en}} --write -sub '{{https://www.youtube.com/watch?v=oHg5SJYRHA0}}'
+</pre
+            >
+          </div>
+
+          <ul class="org-ul">
+            <li>
+              Descargar lista de reproducción completa y extraer audio en
+              formato mp3:
+            </li>
+          </ul>
 
           <pre class="example">
 youtube-dl --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" &lt;url to playlist&gt;
+</pre
+          >
+
+          <ul class="org-ul">
+            <li>
+              Lo mismo pero con mejor la mejor calidad de audio disponible e
+              ignorando errores:
+            </li>
+          </ul>
+
+          <pre class="example">
+youtube-dl -f "bestaudio" --continue --no-overwrites --ignore-errors --extract-audio
+ --audio-format mp3 -o "%(title)s.%(ext)s" {{url_to_playlist}}
 </pre
           >
         </div>
@@ -1315,77 +2031,89 @@ C-x g
 <item>
   <title><![CDATA[Busqueda con grep en emacs]]></title>
   <description><![CDATA[
-      <p>
-        El comando <code>grep</code> de emacs te permite ejecutar el programa
-        <code>grep</code> de Unix o GNU/Linux, que busca en los archivos las
-        líneas que coinciden con una expresión regular. El comando de emacs
-        colorea la salida y hace que se pueda hacer clic en las líneas
-        encotradas: cuando se hace clic en resultado de la búsqueda, emacs
-        visita el archivo de destino en la ocurrencia.
-      </p>
+      <p>grep, rgrep</p>
 
-      <p>Por jemplo:</p>
+      <div id="outline-container-org08e05b9" class="outline-3">
+        <h3 id="org08e05b9">Description</h3>
+        <div class="outline-text-3" id="text-org08e05b9">
+          <p>
+            El comando <code>grep</code> de emacs te permite ejecutar el
+            programa <code>grep</code> de Unix o GNU/Linux, que busca en los
+            archivos las líneas que coinciden con una expresión regular. El
+            comando de emacs colorea la salida y hace que se pueda hacer clic en
+            las líneas encotradas: cuando se hace clic en resultado de la
+            búsqueda, emacs visita el archivo de destino en la ocurrencia.
+          </p>
 
-      <pre class="example">
+          <p>Por jemplo:</p>
+
+          <pre class="example">
 M-x grep RET
 </pre
-      >
+          >
 
-      <p>al hacer esto, emacs te muestra en el minibuffer</p>
+          <p>al hacer esto, emacs te muestra en el minibuffer</p>
 
-      <pre class="example">
+          <pre class="example">
 M-x grep --color -nH --null -e 
 </pre
-      >
+          >
 
-      <p>donde&#x2026;</p>
+          <p>donde&#x2026;</p>
 
-      <ul class="org-ul">
-        <li><b>-color</b> muestra la busqueda en color.</li>
-        <li>
-          <b>-n</b> indica el número de linea en que aparece la expresión
-          buscada dentro de cada archivo.
-        </li>
-        <li><b>-H</b> muestra el nombre completo de cada archivo</li>
-        <li>
-          <b>&#x2013;null</b> introduce el caracter ASCII NULL para evitar
-          complicaciones caundo el nombre del archivo tiene un corte de línea.
-        </li>
-        <li>
-          <b>-e</b> para indicar la expresión a buscar, que se escribe a
-          continuación, se pueden usar expresiones regulares y caracteres
-          comodín.
-        </li>
-      </ul>
+          <ul class="org-ul">
+            <li><b>-color</b> muestra la busqueda en color.</li>
+            <li>
+              <b>-n</b> indica el número de linea en que aparece la expresión
+              buscada dentro de cada archivo.
+            </li>
+            <li><b>-H</b> muestra el nombre completo de cada archivo</li>
+            <li>
+              <b>&#x2013;null</b> introduce el caracter ASCII NULL para evitar
+              complicaciones caundo el nombre del archivo tiene un corte de
+              línea.
+            </li>
+            <li>
+              <b>-e</b> para indicar la expresión a buscar, que se escribe a
+              continuación, se pueden usar expresiones regulares y caracteres
+              comodín.
+            </li>
+          </ul>
 
-      <p>
-        entonces solo hay que agrear la expresión regular a buscar y el archivo
-        o archivos donde buscar.
-      </p>
+          <p>
+            entonces solo hay que agrear la expresión regular a buscar y el
+            archivo o archivos donde buscar.
+          </p>
 
-      <p>Ejemplo:</p>
+          <p>Ejemplo:</p>
 
-      <pre class="example">
+          <pre class="example">
 M-x grep --color -nH --null -e setq ~/.emacs.d/init.el
 </pre
-      >
+          >
 
-      <p>
-        esto lista todas las líneas que coinciden con <b>setq</b> en el archivo
-        <b>init.el</b>, mostrando el nombre del del archivo y el numero de
-        línea, al pulsar RET o hacer click en una de las líneas el archivo se
-        abre en la correspondiente linea.
-      </p>
+          <p>
+            esto lista todas las líneas que coinciden con <b>setq</b> en el
+            archivo <b>init.el</b>, mostrando el nombre del del archivo y el
+            numero de línea, al pulsar RET o hacer click en una de las líneas el
+            archivo se abre en la correspondiente linea.
+          </p>
+        </div>
+      </div>
 
-      <div id="outline-container-org05968e2" class="outline-2">
-        <h2 id="org05968e2">lgrep y rgrep</h2>
-        <div class="outline-text-2" id="text-org05968e2">
+      <div id="outline-container-org767c784" class="outline-2">
+        <h2 id="org767c784">lgrep y rgrep</h2>
+        <div class="outline-text-2" id="text-org767c784">
           <p>
             Ambos te preguntan lo que debe buscar de manera conveniente.
             <code>lgrep</code> busca en el directorio actual y
             <code>rgrep</code> busca en el árbol de directorios actual.
             <code>rgrep</code> conoce los sistemas de control de versiones por
             lo que es posible evitar buscar en los directorios de control.
+            <b>rgrep</b> te pedirá una cadena de búsqueda, un tipo de archivo y
+            un directorio (en ese orden, y las indicaciones estarán etiquetadas
+            para que no haya confusión). Solo escribe M-x regrep RET (termino
+            buscado), (tipo de archivo por ej. *.js) y (directorio /src/xxx).
           </p>
         </div>
       </div>
@@ -1400,13 +2128,13 @@ M-x grep --color -nH --null -e setq ~/.emacs.d/init.el
   <pubDate>Wed, 17 Feb 2021 11:10:00 -0300</pubDate>
 </item>
 <item>
-  <title><![CDATA[Dashboard, una pantalla de inicio extencible para emacs]]></title>
+  <title><![CDATA[Dashboard]]></title>
   <description><![CDATA[
       <p>Pantalla de inicio practica y útil en <b>exwm</b>.</p>
 
-      <div id="outline-container-org76ec7eb" class="outline-2">
-        <h2 id="org76ec7eb">Caracteristicas</h2>
-        <div class="outline-text-2" id="text-org76ec7eb">
+      <div id="outline-container-org9f44198" class="outline-2">
+        <h2 id="org9f44198">Caracteristicas</h2>
+        <div class="outline-text-2" id="text-org9f44198">
           <ul class="org-ul">
             <li>Muestra un banner de Emacs (editable).</li>
             <li>Lista de archivos recientes.</li>
@@ -1425,9 +2153,9 @@ M-x grep --color -nH --null -e setq ~/.emacs.d/init.el
         </div>
       </div>
 
-      <div id="outline-container-org04f4cda" class="outline-2">
-        <h2 id="org04f4cda">Dependencias</h2>
-        <div class="outline-text-2" id="text-org04f4cda">
+      <div id="outline-container-orged1b2c1" class="outline-2">
+        <h2 id="orged1b2c1">Dependencias</h2>
+        <div class="outline-text-2" id="text-orged1b2c1">
           <p>
             Para que todo funcióne correctamente son necesarios los siguientes
             paquetes (disponibles en Melpa):
@@ -1450,9 +2178,9 @@ M-x grep --color -nH --null -e setq ~/.emacs.d/init.el
         </div>
       </div>
 
-      <div id="outline-container-org97fa788" class="outline-2">
-        <h2 id="org97fa788">Instalación y uso</h2>
-        <div class="outline-text-2" id="text-org97fa788">
+      <div id="outline-container-orga8cef12" class="outline-2">
+        <h2 id="orga8cef12">Instalación y uso</h2>
+        <div class="outline-text-2" id="text-orga8cef12">
           <pre class="example">
 M-x package-install RET Dashboard
 </pre
@@ -1476,9 +2204,9 @@ M-x package-install RET Dashboard
         </div>
       </div>
 
-      <div id="outline-container-orgadfc00c" class="outline-2">
-        <h2 id="orgadfc00c">Mi configuración</h2>
-        <div class="outline-text-2" id="text-orgadfc00c">
+      <div id="outline-container-org3afdd5e" class="outline-2">
+        <h2 id="org3afdd5e">Mi configuración</h2>
+        <div class="outline-text-2" id="text-org3afdd5e">
           <pre class="example">
 ;; Dashboard
 (use-package dashboard
@@ -1579,8 +2307,8 @@ M-x package-install RET Dashboard
         Aweshell en un paquete de emacs que sirve para darle más poder a eshell.
       </p>
 
-      <div id="outline-container-orgc6ea1bb" class="outline-2">
-        <h2 id="características"><a id="orgc6ea1bb"></a>Características:</h2>
+      <div id="outline-container-org7bbed6e" class="outline-2">
+        <h2 id="características">Características:</h2>
         <div class="outline-text-2" id="text-características">
           <ul class="org-ul">
             <li>Crear y gestionar múltiples buffers eshell.</li>
@@ -1616,8 +2344,8 @@ M-x package-install RET Dashboard
         </div>
       </div>
 
-      <div id="outline-container-org723438c" class="outline-2">
-        <h2 id="instalación"><a id="org723438c"></a>Instalación:</h2>
+      <div id="outline-container-org1ef2c5f" class="outline-2">
+        <h2 id="instalación">Instalación:</h2>
         <div class="outline-text-2" id="text-instalación">
           <p>El proyecto está en github entonces:</p>
 
@@ -1639,9 +2367,9 @@ git clone https://github.com/manateelazycat/aweshell.git
         </div>
       </div>
 
-      <div id="outline-container-orge232584" class="outline-2">
+      <div id="outline-container-orgf2b58d1" class="outline-2">
         <h2 id="comandos-de-aweshell-y-mis-atajos-en-emacs">
-          <a id="orge232584"></a>Comandos de aweshell y mis atajos en emacs:
+          Comandos de aweshell y mis atajos en emacs:
         </h2>
         <div
           class="outline-text-2"
@@ -1734,9 +2462,9 @@ git clone https://github.com/manateelazycat/aweshell.git
   <title><![CDATA[Servidor webDAV]]></title>
   <description><![CDATA[
 
-      <div id="outline-container-orgfb8f13d" class="outline-2">
-        <h2 id="orgfb8f13d">Webdav wiki</h2>
-        <div class="outline-text-2" id="text-orgfb8f13d">
+      <div id="outline-container-org9917629" class="outline-2">
+        <h2 id="org9917629">Webdav wiki</h2>
+        <div class="outline-text-2" id="text-org9917629">
           <p>
             WebDAV es un grupo de trabajo del Internet Engineering Task Force.
             El término significa "Autoría y versionado distribuidos por Web"
@@ -1760,15 +2488,15 @@ git clone https://github.com/manateelazycat/aweshell.git
         </div>
       </div>
 
-      <div id="outline-container-org79a79f4" class="outline-2">
-        <h2 id="org79a79f4">
+      <div id="outline-container-org2e9c8a1" class="outline-2">
+        <h2 id="org2e9c8a1">
           Instalación y configuración de un servidor webdav
         </h2>
-        <div class="outline-text-2" id="text-org79a79f4"></div>
+        <div class="outline-text-2" id="text-org2e9c8a1"></div>
         <ul class="org-ul">
           <li>
-            <a id="orga4924f7"></a>Instalar Apache2<br />
-            <div class="outline-text-5" id="text-orga4924f7">
+            <a id="org739f907"></a>Instalar Apache2<br />
+            <div class="outline-text-5" id="text-org739f907">
               <pre class="example">
 sudo apt install apache2 apache2-utils
 </pre
@@ -1777,8 +2505,8 @@ sudo apt install apache2 apache2-utils
           </li>
 
           <li>
-            <a id="orgfc444e5"></a>Directorio de almacenamiento:<br />
-            <div class="outline-text-5" id="text-orgfc444e5">
+            <a id="org58b0133"></a>Directorio de almacenamiento:<br />
+            <div class="outline-text-5" id="text-org58b0133">
               <pre class="example">
 sudo mkdir ~/webDAV
 </pre
@@ -1794,9 +2522,9 @@ sudo chown -R www-data:www-data ~/webDav
           </li>
 
           <li>
-            <a id="orga84bc23"></a>Habilitar los módulos dav y dav-fs en
+            <a id="orge9419cb"></a>Habilitar los módulos dav y dav-fs en
             apache<br />
-            <div class="outline-text-5" id="text-orga84bc23">
+            <div class="outline-text-5" id="text-orge9419cb">
               <pre class="example">
 sudo a2enmod dav
 
@@ -1814,8 +2542,8 @@ sudo service apache2 restart
           </li>
 
           <li>
-            <a id="org2f48528"></a>Configuración del virtual host de apache<br />
-            <div class="outline-text-5" id="text-org2f48528">
+            <a id="org7563f1d"></a>Configuración del virtual host de apache<br />
+            <div class="outline-text-5" id="text-org7563f1d">
               <p>
                 para configurar un servidor basico en apache hay que editar el
                 archivo
@@ -1936,12 +2664,13 @@ sudo find ~/webDAV -type f -exec chmod ug+rw {} \;
 <item>
   <title><![CDATA[Emacs Bookmarks]]></title>
   <description><![CDATA[
+      <p>Marcadores en emacs</p>
 
-      <div id="outline-container-org12ca3af" class="outline-2">
-        <h2 id="org12ca3af">
+      <div id="outline-container-org454e4db" class="outline-2">
+        <h2 id="org454e4db">
           <a href="https://www.emacswiki.org/emacs/BookMarks">Emacs Wiki</a>
         </h2>
-        <div class="outline-text-2" id="text-org12ca3af">
+        <div class="outline-text-2" id="text-org454e4db">
           <p>
             Los marcadores registran ubicaciones para que puedas volver a ellas
             más tarde. Los marcadores de Emacs utilizan tres cosas que están
@@ -1973,9 +2702,9 @@ sudo find ~/webDAV -type f -exec chmod ug+rw {} \;
         </div>
       </div>
 
-      <div id="outline-container-orgd023208" class="outline-2">
-        <h2 id="orgd023208">Lista de marcadores</h2>
-        <div class="outline-text-2" id="text-orgd023208">
+      <div id="outline-container-orge58a8ef" class="outline-2">
+        <h2 id="orge58a8ef">Lista de marcadores</h2>
+        <div class="outline-text-2" id="text-orge58a8ef">
           <p>
             El comando <b>bookmark-bmenu-list</b>, vinculado a <b>C-x r l</b>,
             proporciona un menú conveniente para acceder a los marcadores. La
@@ -1984,9 +2713,9 @@ sudo find ~/webDAV -type f -exec chmod ug+rw {} \;
         </div>
       </div>
 
-      <div id="outline-container-org8edbc27" class="outline-2">
-        <h2 id="org8edbc27">Claves en <b>bookmark list</b>:</h2>
-        <div class="outline-text-2" id="text-org8edbc27">
+      <div id="outline-container-org20be2ce" class="outline-2">
+        <h2 id="org20be2ce">Claves en <b>bookmark list</b>:</h2>
+        <div class="outline-text-2" id="text-org20be2ce">
           <ul class="org-ul">
             <li><b>a</b> mostrar anotación para el marcador actual.</li>
 
@@ -2031,27 +2760,34 @@ sudo find ~/webDAV -type f -exec chmod ug+rw {} \;
   <pubDate>Mon, 21 Dec 2020 11:06:00 -0300</pubDate>
 </item>
 <item>
-  <title><![CDATA[Mocp reproducir audio desde la terminal]]></title>
+  <title><![CDATA[Mocp]]></title>
   <description><![CDATA[
-      <p>
-        MOC es un reproductor de audio fácil de manejar y ligero, ideal para
-        equipos con pocos recursos. La interfaz es similar a MC (Midnight
-        Commander, el administrador de archivos) MOC reproduce todos los
-        archivos en el directorio a partir del archivo seleccionado para lo que
-        no es necesario crear listas de reproducción. Es posible reproducir
-        varios archivos o directorios de archivos y después guardar lalista de
-        reproducción como un archivo con extensión m3u. Funciona como demonio,
-        es decir que se ejecuta en segundo plano por lo que no necesita entorno
-        gráfico. Esto quiere decir también que si necesitas usar la terminal, el
-        emulador de terminal ó cerrar el entorno gráfico no es necesario detener
-        la reproducción ya que ésta sigue activa en segundo plano. Soporta los
-        siguientes formatos: mp3, Ogg Vorbis, FLAC, Musepack, Speex, WAVE, AIFF
-        y AU entre otros. Soporta Internet stream. Soporta temas de
-        configuración.
-      </p>
+      <p>Reproducir audio desde la terminal.</p>
 
-      <div id="outline-container-orge2cf8a0" class="outline-2">
-        <h2 id="instalación"><a id="orge2cf8a0"></a>Instalación</h2>
+      <div id="outline-container-org10a5be5" class="outline-2">
+        <h2 id="org10a5be5">Descripción</h2>
+        <div class="outline-text-2" id="text-org10a5be5">
+          <p>
+            MOC es un reproductor de audio fácil de manejar y ligero, ideal para
+            equipos con pocos recursos. La interfaz es similar a MC (Midnight
+            Commander, el administrador de archivos) MOC reproduce todos los
+            archivos en el directorio a partir del archivo seleccionado para lo
+            que no es necesario crear listas de reproducción. Es posible
+            reproducir varios archivos o directorios de archivos y después
+            guardar lalista de reproducción como un archivo con extensión m3u.
+            Funciona como demonio, es decir que se ejecuta en segundo plano por
+            lo que no necesita entorno gráfico. Esto quiere decir también que si
+            necesitas usar la terminal, el emulador de terminal ó cerrar el
+            entorno gráfico no es necesario detener la reproducción ya que ésta
+            sigue activa en segundo plano. Soporta los siguientes formatos: mp3,
+            Ogg Vorbis, FLAC, Musepack, Speex, WAVE, AIFF y AU entre otros.
+            Soporta Internet stream. Soporta temas de configuración.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgfe47b30" class="outline-2">
+        <h2 id="instalación">Instalación</h2>
         <div class="outline-text-2" id="text-instalación">
           <pre class="example">
 sudo apt install moc
@@ -2070,8 +2806,8 @@ sudo apt install moc-ffmpeg-plugin
         </div>
       </div>
 
-      <div id="outline-container-org519ef0f" class="outline-2">
-        <h2 id="uso"><a id="org519ef0f"></a>Uso</h2>
+      <div id="outline-container-org1ee68a9" class="outline-2">
+        <h2 id="uso">Uso</h2>
         <div class="outline-text-2" id="text-uso">
           <p>
             El binario tiene el nombre <b>mocp</b> para evitar problemas con
@@ -2172,9 +2908,9 @@ k              Selecciona el siguiente preset del ecualizador
         </div>
       </div>
 
-      <div id="outline-container-org9a2e9ec" class="outline-2">
+      <div id="outline-container-orgedf4d4d" class="outline-2">
         <h2 id="directorio-de-configuración-.moc">
-          <a id="org9a2e9ec"></a>Directorio de configuración: ~/.moc
+          Directorio de configuración: ~/.moc
         </h2>
         <div class="outline-text-2" id="text-directorio-de-configuración-.moc">
           <p>
@@ -2208,11 +2944,11 @@ mv config.example config
           </p>
         </div>
       </div>
-      <div id="outline-container-org2e14657" class="outline-2">
-        <h2 id="org2e14657">
+      <div id="outline-container-org1935296" class="outline-2">
+        <h2 id="org1935296">
           ~/.moc/themes**. Es posible descargar temas de configuración, o
         </h2>
-        <div class="outline-text-2" id="text-org2e14657">
+        <div class="outline-text-2" id="text-org1935296">
           <p>
             editarlo uno y guardarlo en uno de estos directorios. Básicamente
             cada elemento tiene la siguiente estructura:
@@ -2333,8 +3069,8 @@ plist_time = yellow default
         </div>
       </div>
 
-      <div id="outline-container-org130afaf" class="outline-2">
-        <h2 id="ecualizador"><a id="org130afaf"></a>Ecualizador</h2>
+      <div id="outline-container-orgbf8d304" class="outline-2">
+        <h2 id="ecualizador">Ecualizador</h2>
         <div class="outline-text-2" id="text-ecualizador">
           <p>
             Moc tiene la opción de utilizar un ecualizador pero necesita de
@@ -2361,10 +3097,8 @@ rm eqsets.tar.gz
           </p>
         </div>
 
-        <div id="outline-container-org810d6d7" class="outline-3">
-          <h3 id="problemas-frecuentes">
-            <a id="org810d6d7"></a>Problemas frecuentes
-          </h3>
+        <div id="outline-container-orgf4841f5" class="outline-3">
+          <h3 id="problemas-frecuentes">Problemas frecuentes</h3>
           <div class="outline-text-3" id="text-problemas-frecuentes">
             <p>Mensaje de error al lanzar MOC:</p>
 
@@ -2401,27 +3135,34 @@ rm eqsets.tar.gz
   <pubDate>Sat, 19 Dec 2020 20:21:00 -0300</pubDate>
 </item>
 <item>
-  <title><![CDATA[Dired, el navegador de archivos de emacs]]></title>
+  <title><![CDATA[Dired ]]></title>
   <description><![CDATA[
-      <p>
-        <b>*Dired</b> crea un buffer de Emacs que contiene un listado de un
-        directorio y subdirectorios, se pueden usar los comandos normales de
-        Emacs para moverse por este buffer, y los comandos especiales de
-        <b><b>Dired</b></b> para operar en los archivos listados.
-        <b><b>Dired</b></b> funciona tanto con los directorios locales como con
-        los remotos.
-      </p>
+      <p>El navegador de archivos de emacs</p>
 
-      <div id="outline-container-org685febf" class="outline-2">
-        <h2 id="org685febf">Atajos</h2>
-        <div class="outline-text-2" id="text-org685febf"></div>
-        <div id="outline-container-org680cec3" class="outline-4">
-          <h4 id="org680cec3">
+      <div id="outline-container-orgda9c3d2" class="outline-2">
+        <h2 id="orgda9c3d2">Descripción</h2>
+        <div class="outline-text-2" id="text-orgda9c3d2">
+          <p>
+            <b>Dired</b> crea un buffer de Emacs que contiene un listado de un
+            directorio y subdirectorios, se pueden usar los comandos normales de
+            Emacs para moverse por este buffer, y los comandos especiales de
+            <b><b>Dired</b></b> para operar en los archivos listados.
+            <b><b>Dired</b></b> funciona tanto con los directorios locales como
+            con los remotos.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org8c04a92" class="outline-2">
+        <h2 id="org8c04a92">Atajos</h2>
+        <div class="outline-text-2" id="text-org8c04a92"></div>
+        <div id="outline-container-orgd617b28" class="outline-4">
+          <h4 id="orgd617b28">
             Para abrir dired se usa <b><b>(M-x dired)</b></b> o el atajo
             <b><b>(C-x d)</b></b
             >. Los atajos más comunes son:
           </h4>
-          <div class="outline-text-4" id="text-org680cec3">
+          <div class="outline-text-4" id="text-orgd617b28">
             <ul class="org-ul">
               <li>
                 <b><b>+</b></b> (Crear directorio)
@@ -2463,9 +3204,9 @@ rm eqsets.tar.gz
         </div>
       </div>
 
-      <div id="outline-container-orgc93eec4" class="outline-2">
-        <h2 id="orgc93eec4">Algunas funciones útiles</h2>
-        <div class="outline-text-2" id="text-orgc93eec4">
+      <div id="outline-container-org658de48" class="outline-2">
+        <h2 id="org658de48">Algunas funciones útiles</h2>
+        <div class="outline-text-2" id="text-org658de48">
           <p>
             Es posible asignar claves DedicatedKeys , como S-&lt;f1&gt;(
             shift+F1), para abrir una lista de directorios. Por ejemplo, agregar
@@ -2482,11 +3223,11 @@ rm eqsets.tar.gz
           >
         </div>
 
-        <div id="outline-container-org2f17200" class="outline-4">
-          <h4 id="org2f17200">
+        <div id="outline-container-orgf510d75" class="outline-4">
+          <h4 id="orgf510d75">
             Función para ocultar detalles y permisos de archivos:
           </h4>
-          <div class="outline-text-4" id="text-org2f17200">
+          <div class="outline-text-4" id="text-orgf510d75">
             <pre class="example">
 ;; ocultar detalles de archivos
 (defun dired-mode-setup ()
@@ -2499,9 +3240,9 @@ rm eqsets.tar.gz
           </div>
         </div>
 
-        <div id="outline-container-org118c571" class="outline-4">
-          <h4 id="org118c571">Abrir archivos con aplicaciónes externas:</h4>
-          <div class="outline-text-4" id="text-org118c571">
+        <div id="outline-container-org0ec6041" class="outline-4">
+          <h4 id="org0ec6041">Abrir archivos con aplicaciónes externas:</h4>
+          <div class="outline-text-4" id="text-org0ec6041">
             <pre class="example">
 (defun external-app ()
 "Abrir archivo con apps externas."
@@ -2516,15 +3257,15 @@ rm eqsets.tar.gz
         </div>
       </div>
 
-      <div id="outline-container-orgc3fca7e" class="outline-2">
-        <h2 id="orgc3fca7e">Settings</h2>
-        <div class="outline-text-2" id="text-orgc3fca7e"></div>
-        <div id="outline-container-org9650b07" class="outline-4">
-          <h4 id="org9650b07">
+      <div id="outline-container-org3b717a0" class="outline-2">
+        <h2 id="org3b717a0">Settings</h2>
+        <div class="outline-text-2" id="text-org3b717a0"></div>
+        <div id="outline-container-orga2e0a0b" class="outline-4">
+          <h4 id="orga2e0a0b">
             Abrir directorio con Enter (subdirectorio) y ^ (directorio padre) en
             un mismo buffer.
           </h4>
-          <div class="outline-text-4" id="text-org9650b07">
+          <div class="outline-text-4" id="text-orga2e0a0b">
             <pre class="example">
 (require 'dired )
 (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) ; 
@@ -2534,11 +3275,11 @@ rm eqsets.tar.gz
           </div>
         </div>
 
-        <div id="outline-container-org7136469" class="outline-4">
-          <h4 id="org7136469">
+        <div id="outline-container-org0f6c687" class="outline-4">
+          <h4 id="org0f6c687">
             En un archivo abrir el directorio de dicho archivo con C-c C-j
           </h4>
-          <div class="outline-text-4" id="text-org7136469">
+          <div class="outline-text-4" id="text-org0f6c687">
             <pre class="example">
 (require 'dired-x)
 </pre
@@ -2547,9 +3288,9 @@ rm eqsets.tar.gz
         </div>
       </div>
 
-      <div id="outline-container-orgea3c478" class="outline-2">
-        <h2 id="orgea3c478">Wdired</h2>
-        <div class="outline-text-2" id="text-orgea3c478">
+      <div id="outline-container-orgd3989bc" class="outline-2">
+        <h2 id="orgd3989bc">Wdired</h2>
+        <div class="outline-text-2" id="text-orgd3989bc">
           <p>
             WDired, que significa "Writable Dired", ha sido parte de Emacs desde
             hace mucho tiempo. Su modo de funcionamiento es sencillo: si
@@ -2587,9 +3328,9 @@ rm eqsets.tar.gz
         <b>mplayer-resumer</b> resuelve esta situación.
       </p>
 
-      <div id="outline-container-org6c7a7fe" class="outline-2">
-        <h2 id="org6c7a7fe">Descarga</h2>
-        <div class="outline-text-2" id="text-org6c7a7fe">
+      <div id="outline-container-orgb382ad4" class="outline-2">
+        <h2 id="orgb382ad4">Descarga</h2>
+        <div class="outline-text-2" id="text-orgb382ad4">
           <pre class="example">
 git clone https://github.com/graysky2/mplayer-resumer.git
 </pre
@@ -2597,9 +3338,9 @@ git clone https://github.com/graysky2/mplayer-resumer.git
         </div>
       </div>
 
-      <div id="outline-container-orgacb515f" class="outline-2">
-        <h2 id="orgacb515f">Instalación</h2>
-        <div class="outline-text-2" id="text-orgacb515f">
+      <div id="outline-container-org1f6bf10" class="outline-2">
+        <h2 id="org1f6bf10">Instalación</h2>
+        <div class="outline-text-2" id="text-org1f6bf10">
           <p>
             El paquete clonado viene con un archivo <b><b>INSTALL</b></b> con
             las dependencias e instrucciones necesarias:
@@ -2664,9 +3405,9 @@ $ make
 </pre
       >
 
-      <div id="outline-container-org6a2ec7e" class="outline-2">
-        <h2 id="org6a2ec7e">Atajos</h2>
-        <div class="outline-text-2" id="text-org6a2ec7e">
+      <div id="outline-container-orga5f5459" class="outline-2">
+        <h2 id="orga5f5459">Atajos</h2>
+        <div class="outline-text-2" id="text-orga5f5459">
           <table>
             <colgroup>
               <col class="org-left" />
@@ -2807,17 +3548,11 @@ $ make
 <item>
   <title><![CDATA[ivy counsel swiper]]></title>
   <description><![CDATA[
-      <ul class="org-ul">
-        <li>
-          Ivy-mode
-          <span class="timestamp-wrapper"
-            ><span class="timestamp">[2020-11-08 dom]</span></span
-          >
-        </li>
-      </ul>
-      <div id="outline-container-org1e51419" class="outline-2">
-        <h2 id="org1e51419">Que es ivy</h2>
-        <div class="outline-text-2" id="text-org1e51419">
+      <p>Un marco de terminación similar a helm.</p>
+
+      <div id="outline-container-org4bc361a" class="outline-2">
+        <h2 id="org4bc361a">Que es ivy</h2>
+        <div class="outline-text-2" id="text-org4bc361a">
           <p>
             Ivy es un marco de terminación, similar a helm, que proporciona una
             interfaz para listar, buscar, filtrar y realizar acciones sobre una
@@ -2828,9 +3563,9 @@ $ make
         </div>
       </div>
 
-      <div id="outline-container-org329144b" class="outline-2">
-        <h2 id="org329144b">Instalación</h2>
-        <div class="outline-text-2" id="text-org329144b">
+      <div id="outline-container-orgbc209a6" class="outline-2">
+        <h2 id="orgbc209a6">Instalación</h2>
+        <div class="outline-text-2" id="text-orgbc209a6">
           <pre class="example">
 M-x package-install counsel
 </pre
@@ -2840,9 +3575,9 @@ M-x package-install counsel
         </div>
       </div>
 
-      <div id="outline-container-org8cc60e6" class="outline-2">
-        <h2 id="org8cc60e6">Uso</h2>
-        <div class="outline-text-2" id="text-org8cc60e6">
+      <div id="outline-container-orgeea6b50" class="outline-2">
+        <h2 id="orgeea6b50">Uso</h2>
+        <div class="outline-text-2" id="text-orgeea6b50">
           <p>
             Habilita ivy usando <code>M-x ivy-mode</code> o agregando al archivo
             init.el (ivy-mode 1) y listo. Ivy puede trabajar sin configuración
@@ -2873,9 +3608,9 @@ M-x package-install counsel
         </div>
       </div>
 
-      <div id="outline-container-orgba1cebe" class="outline-2">
-        <h2 id="orgba1cebe">Keybindings</h2>
-        <div class="outline-text-2" id="text-orgba1cebe">
+      <div id="outline-container-orgaa03b20" class="outline-2">
+        <h2 id="orgaa03b20">Keybindings</h2>
+        <div class="outline-text-2" id="text-orgaa03b20">
           <p>
             Cuando ivy esta activo en el minibuffer las siguientes Keybindings
             están activas:
@@ -2997,59 +3732,53 @@ M-x package-install counsel
 <item>
   <title><![CDATA[Formatear codigo con prettier-js]]></title>
   <description><![CDATA[
+      <p>
+        Prettier-js es una función que formatea el buffer actual usando
+        Prettier.
+      </p>
 
-      <div id="outline-container-org4245149" class="outline-2">
-        <h2 id="org4245149">Prettier-js</h2>
-        <div class="outline-text-2" id="text-org4245149">
+      <div id="outline-container-org7b4eefd" class="outline-2">
+        <h2 id="org7b4eefd">Requerimientos</h2>
+        <div class="outline-text-2" id="text-org7b4eefd">
           <p>
-            Prettier-js es una función que formatea el buffer actual usando
-            Prettier.
+            Prettier debe estar instalado en el sistema, esto se puede hacer con
+            npm.
           </p>
-        </div>
 
-        <div id="outline-container-orgbdb51ba" class="outline-3">
-          <h3 id="orgbdb51ba">Requerimientos</h3>
-          <div class="outline-text-3" id="text-orgbdb51ba">
-            <p>
-              Prettier debe estar instalado en el sistema, esto se puede hacer
-              con npm.
-            </p>
-
-            <pre class="example">
+          <pre class="example">
 sudo npm i -g prettier
 </pre
-            >
-          </div>
+          >
         </div>
+      </div>
 
-        <div id="outline-container-orgebebc6f" class="outline-3">
-          <h3 id="orgebebc6f">Configuración Basica</h3>
-          <div class="outline-text-3" id="text-orgebebc6f">
-            <p>El el archivo de configuración de emacs <b>init.el</b></p>
+      <div id="outline-container-org4bfbf82" class="outline-2">
+        <h2 id="org4bfbf82">Configuración Basica</h2>
+        <div class="outline-text-2" id="text-org4bfbf82">
+          <p>El el archivo de configuración de emacs <b>init.el</b></p>
 
-            <pre class="example">
+          <pre class="example">
 (require 'prettier-js)
 </pre
-            >
+          >
 
-            <p>Despues para lanzar Prettier-js con <b>web-mode</b></p>
+          <p>Despues para lanzar Prettier-js con <b>web-mode</b></p>
 
-            <pre class="example">
+          <pre class="example">
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 (add-hook 'web-mode-hook 'prettier-js-mode)
 </pre
+          >
+
+          <p>
+            <b>Fuente</b>
+          </p>
+
+          <p>
+            <a href="https://github.com/prettier/prettier-emacs"
+              >gihub-prettier</a
             >
-
-            <p>
-              <b>Fuente</b>
-            </p>
-
-            <p>
-              <a href="https://github.com/prettier/prettier-emacs"
-                >gihub-prettier</a
-              >
-            </p>
-          </div>
+          </p>
         </div>
       </div>
       <div class="taglist">
@@ -3063,12 +3792,13 @@ sudo npm i -g prettier
   <pubDate>Mon, 07 Dec 2020 11:46:00 -0300</pubDate>
 </item>
 <item>
-  <title><![CDATA[Projectile. Integración de Projectos para Emacs]]></title>
+  <title><![CDATA[Projectile ]]></title>
   <description><![CDATA[
+      <p>Integración de Projectos para Emacs</p>
 
-      <div id="outline-container-orgc5073a9" class="outline-2">
-        <h2 id="orgc5073a9">Docs.Projectile.mx</h2>
-        <div class="outline-text-2" id="text-orgc5073a9">
+      <div id="outline-container-org7752acd" class="outline-2">
+        <h2 id="org7752acd">Docs.Projectile.mx</h2>
+        <div class="outline-text-2" id="text-org7752acd">
           <p>
             Projectile es una biblioteca de interacción de proyectos para Emacs.
             Su objetivo es proporcionar un buen conjunto de características que
@@ -3084,58 +3814,58 @@ sudo npm i -g prettier
         </div>
       </div>
 
-      <div id="outline-container-org91bdb44" class="outline-2">
-        <h2 id="org91bdb44">Caracteristicas:</h2>
-        <div class="outline-text-2" id="text-org91bdb44"></div>
+      <div id="outline-container-orgbe597a3" class="outline-2">
+        <h2 id="orgbe597a3">Caracteristicas:</h2>
+        <div class="outline-text-2" id="text-orgbe597a3"></div>
         <ul class="org-ul">
           <li>
-            <a id="org4569a44"></a>Saltar a un archivo en el proyecto.<br />
+            <a id="org0d17bed"></a>Saltar a un archivo en el proyecto.<br />
           </li>
 
           <li>
-            <a id="orge4075b7"></a>Saltar a un directorio en el proyecto.<br />
+            <a id="org95bc0dd"></a>Saltar a un directorio en el proyecto.<br />
           </li>
 
           <li>
-            <a id="orgb3901b8"></a>Saltar a un archivo en un directorio.<br />
+            <a id="org1fa83f8"></a>Saltar a un archivo en un directorio.<br />
           </li>
 
-          <li><a id="orgdc4315c"></a>Saltar a un buffer del proyecto.<br /></li>
+          <li><a id="org33ac186"></a>Saltar a un buffer del proyecto.<br /></li>
 
           <li>
-            <a id="orgb554234"></a>Saltar a archivos visitados recientemente en
+            <a id="orgd5eb386"></a>Saltar a archivos visitados recientemente en
             el proyecto.<br />
           </li>
 
           <li>
-            <a id="org9937b1b"></a>Cambiar entre proyectos en los que ha
+            <a id="org8fb6545"></a>Cambiar entre proyectos en los que ha
             trabajado.<br />
           </li>
 
           <li>
-            <a id="org2bc30f8"></a>Matar todos los buffer del proyecto.<br />
+            <a id="orgb3fbea7"></a>Matar todos los buffer del proyecto.<br />
           </li>
 
-          <li><a id="org3b48d37"></a>Reemplazar un proyecto.<br /></li>
+          <li><a id="orgd67db0d"></a>Reemplazar un proyecto.<br /></li>
 
-          <li><a id="org766d17f"></a>Grep en el proyecto.<br /></li>
+          <li><a id="org7e9b71f"></a>Grep en el proyecto.<br /></li>
 
           <li>
-            <a id="orgcbd29b7"></a>Ejecutar make en un proyecto con un solo
+            <a id="org55de93a"></a>Ejecutar make en un proyecto con un solo
             acorde.<br />
           </li>
 
           <li>
-            <a id="orgc4585e1"></a>Soporte para multiples bibliotecas de
+            <a id="orgf86927e"></a>Soporte para multiples bibliotecas de
             finalización/selección (ido, ivy, helm y el sistema de terminación
             por defecto).<br />
           </li>
         </ul>
       </div>
 
-      <div id="outline-container-org42af3ac" class="outline-2">
-        <h2 id="org42af3ac">Inicio rápido</h2>
-        <div class="outline-text-2" id="text-org42af3ac">
+      <div id="outline-container-orgcbd2f8b" class="outline-2">
+        <h2 id="orgcbd2f8b">Inicio rápido</h2>
+        <div class="outline-text-2" id="text-orgcbd2f8b">
           <p>
             Projectile esta disponible en los repositorios principales,
             entonces:
@@ -3161,9 +3891,9 @@ M-x package-install RET projectile RET
           </p>
         </div>
 
-        <div id="outline-container-orgd834d55" class="outline-3">
-          <h3 id="orgd834d55">Instalación mediante <b>use-package</b></h3>
-          <div class="outline-text-3" id="text-orgd834d55">
+        <div id="outline-container-org5738c74" class="outline-3">
+          <h3 id="org5738c74">Instalación mediante <b>use-package</b></h3>
+          <div class="outline-text-3" id="text-org5738c74">
             <p>
               Para instalar la versión de projectile que esta en la rama master,
               se declara los siguiente en el init.el:
@@ -3183,9 +3913,9 @@ M-x package-install RET projectile RET
         </div>
       </div>
 
-      <div id="outline-container-org3eb0790" class="outline-2">
-        <h2 id="org3eb0790">Uso básico</h2>
-        <div class="outline-text-2" id="text-org3eb0790">
+      <div id="outline-container-org1ff748a" class="outline-2">
+        <h2 id="org1ff748a">Uso básico</h2>
+        <div class="outline-text-2" id="text-org1ff748a">
           <p>
             Para habilitar projectile <code>projectile mode</code>, luego en uno
             de los archivos del proyecto lanzar el comando <b>C-c p f</b> o
@@ -3342,9 +4072,9 @@ M-x package-install RET projectile RET
           </table>
         </div>
 
-        <div id="outline-container-org18a5dca" class="outline-3">
-          <h3 id="org18a5dca">Atajos</h3>
-          <div class="outline-text-3" id="text-org18a5dca">
+        <div id="outline-container-org4623af3" class="outline-3">
+          <h3 id="org4623af3">Atajos</h3>
+          <div class="outline-text-3" id="text-org4623af3">
             <p>Unos cuantos atajos para los comandos más comunes:</p>
 
             <pre class="example">
@@ -3358,9 +4088,9 @@ M-x package-install RET projectile RET
         </div>
       </div>
 
-      <div id="outline-container-org2905725" class="outline-2">
-        <h2 id="org2905725">Projectile-comander</h2>
-        <div class="outline-text-2" id="text-org2905725">
+      <div id="outline-container-org1856816" class="outline-2">
+        <h2 id="org1856816">Projectile-comander</h2>
+        <div class="outline-text-2" id="text-org1856816">
           <p>
             Es una ingeniosa utilidad para recordar combinaciónes de teclas. Se
             invoca con <code>s-p m</code>
@@ -3467,18 +4197,18 @@ M-x package-install RET projectile RET
         propio trabajo.
       </p>
 
-      <div id="outline-container-org6c2867b" class="outline-2">
-        <h2 id="org6c2867b">Instalación</h2>
-        <div class="outline-text-2" id="text-org6c2867b">
+      <div id="outline-container-org954b63d" class="outline-2">
+        <h2 id="org954b63d">Instalación</h2>
+        <div class="outline-text-2" id="text-org954b63d">
           <p>
             <code>M-x package-install RET auto-complete</code>
           </p>
         </div>
       </div>
 
-      <div id="outline-container-orge443a7e" class="outline-2">
-        <h2 id="orge443a7e">Configuración</h2>
-        <div class="outline-text-2" id="text-orge443a7e">
+      <div id="outline-container-org83031a5" class="outline-2">
+        <h2 id="org83031a5">Configuración</h2>
+        <div class="outline-text-2" id="text-org83031a5">
           <p>En el archivo init.el&#x2026;</p>
 
           <pre class="example">
@@ -3514,9 +4244,9 @@ M-x package-install RET projectile RET
   <title><![CDATA[El traductor de google en emacs]]></title>
   <description><![CDATA[
 
-      <div id="outline-container-orgc4bfb80" class="outline-2">
-        <h2 id="orgc4bfb80">Instalación</h2>
-        <div class="outline-text-2" id="text-orgc4bfb80">
+      <div id="outline-container-org79c57e3" class="outline-2">
+        <h2 id="org79c57e3">Instalación</h2>
+        <div class="outline-text-2" id="text-org79c57e3">
           <pre class="example">
 M-x package-install RET google-translate
 </pre
@@ -3524,9 +4254,9 @@ M-x package-install RET google-translate
         </div>
       </div>
 
-      <div id="outline-container-org3f21788" class="outline-2">
-        <h2 id="org3f21788">Uso</h2>
-        <div class="outline-text-2" id="text-org3f21788">
+      <div id="outline-container-org460ea5f" class="outline-2">
+        <h2 id="org460ea5f">Uso</h2>
+        <div class="outline-text-2" id="text-org460ea5f">
           <p>Selecionar el texto a traducir y lanzar:</p>
 
           <pre class="example">
@@ -3549,12 +4279,12 @@ M-x google-translate-at-point
         </div>
       </div>
 
-      <div id="outline-container-orge765103" class="outline-2">
-        <h2 id="orge765103">
+      <div id="outline-container-orgff7695d" class="outline-2">
+        <h2 id="orgff7695d">
           configuración con use-package y solución del error "failed to search
           tkk"
         </h2>
-        <div class="outline-text-2" id="text-orge765103">
+        <div class="outline-text-2" id="text-orgff7695d">
           <p>
             #+BEGIN<sub>EXAMPLE</sub> (use-package google-translate :ensure t
             :config (when (and (string-match "0.12.0"
@@ -3599,39 +4329,39 @@ docker run -d -p 27017:27017 --name mydatabase mongo:4.2
 </pre
       >
 
-      <div id="outline-container-orge653199" class="outline-2">
-        <h2 id="orge653199">Este comando hace lo siguiente:</h2>
-        <div class="outline-text-2" id="text-orge653199"></div>
+      <div id="outline-container-orgfeaacd2" class="outline-2">
+        <h2 id="orgfeaacd2">Este comando hace lo siguiente:</h2>
+        <div class="outline-text-2" id="text-orgfeaacd2"></div>
         <ul class="org-ul">
           <li>
-            <a id="org18f2028"></a><b>d:</b> permite ejecutar el proceso en
+            <a id="org618a4e7"></a><b>d:</b> permite ejecutar el proceso en
             background<br />
           </li>
           <li>
-            <a id="org38924da"></a><b>-p</b> 27017:27017 esto le indica a docker
+            <a id="org886194f"></a><b>-p</b> 27017:27017 esto le indica a docker
             que las conexiones del puerto 27017 del contenedor se redireccionen
             al 27017 de la máquina host.<br />
           </li>
           <li>
-            <a id="org30329cb"></a><b>-name mydatabase</b>: nombre que se le
+            <a id="org23cfd3b"></a><b>-name mydatabase</b>: nombre que se le
             asigna al contenedor.<br />
           </li>
           <li>
-            <a id="orga9d8d72"></a><b>mongo:4.2</b>: nombre de la imagen y
+            <a id="org99a06eb"></a><b>mongo:4.2</b>: nombre de la imagen y
             version.<br />
-            <div class="outline-text-5" id="text-orga9d8d72">
+            <div class="outline-text-5" id="text-org99a06eb">
               <p>Con esto queda listo el contenedor.</p>
             </div>
           </li>
         </ul>
       </div>
 
-      <div id="outline-container-orgee97d98" class="outline-2">
-        <h2 id="orgee97d98">
+      <div id="outline-container-orge66d348" class="outline-2">
+        <h2 id="orge66d348">
           Para conectarse al contenedor se usa el comando <code>exec</code> de
           docker
         </h2>
-        <div class="outline-text-2" id="text-orgee97d98">
+        <div class="outline-text-2" id="text-orge66d348">
           <pre class="example">
 docker exec -it mydatabase bash
 </pre
@@ -3640,18 +4370,18 @@ docker exec -it mydatabase bash
 
         <ul class="org-ul">
           <li>
-            <a id="orgbfd813f"></a><b>-it</b>: ejecutar el contenedor de manera
+            <a id="orgfeea7cd"></a><b>-it</b>: ejecutar el contenedor de manera
             intenctiva y que la terminal tome el control de instrucccion que
             sigue al final.<br />
           </li>
           <li>
-            <a id="org92b9141"></a><b>mydatabase</b>: nombre del contendor a
+            <a id="org15582bd"></a><b>mydatabase</b>: nombre del contendor a
             usar.<br />
           </li>
           <li>
-            <a id="org3c14620"></a><b>bash</b>: comando a ejecutar al final,
+            <a id="org4279327"></a><b>bash</b>: comando a ejecutar al final,
             osea, que acceda a las shell del contenedor.<br />
-            <div class="outline-text-5" id="text-org3c14620">
+            <div class="outline-text-5" id="text-org4279327">
               <p>
                 Con este comando se ingresa al contenedor recien creado (para
                 ejecutar un contenedor creado anteriormente, pero no ingresar en
@@ -3697,9 +4427,9 @@ docker exec -it mydatabase bash
         automaticamente.
       </p>
 
-      <div id="outline-container-org2817491" class="outline-2">
-        <h2 id="org2817491">Set up del repositorio</h2>
-        <div class="outline-text-2" id="text-org2817491">
+      <div id="outline-container-org0f0a669" class="outline-2">
+        <h2 id="org0f0a669">Set up del repositorio</h2>
+        <div class="outline-text-2" id="text-org0f0a669">
           <p>
             Actualizar el indice de paquetes de apt e instalar los paquetes
             necesarios para permitir a apt usar un repositorio sobre https:
@@ -3719,9 +4449,9 @@ software-properties-common
         </div>
       </div>
 
-      <div id="outline-container-org1a6533f" class="outline-2">
-        <h2 id="org1a6533f">Agregar la clave oficial de GPG de Docker:</h2>
-        <div class="outline-text-2" id="text-org1a6533f">
+      <div id="outline-container-orgb53f54c" class="outline-2">
+        <h2 id="orgb53f54c">Agregar la clave oficial de GPG de Docker:</h2>
+        <div class="outline-text-2" id="text-orgb53f54c">
           <pre class="example">
 $ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 </pre
@@ -3743,9 +4473,9 @@ pub   4096R/0EBFCD88 2017-02-22
         </div>
       </div>
 
-      <div id="outline-container-org060b22c" class="outline-2">
-        <h2 id="org060b22c">Agregar el repositorio al sources.list</h2>
-        <div class="outline-text-2" id="text-org060b22c">
+      <div id="outline-container-orge56d720" class="outline-2">
+        <h2 id="orge56d720">Agregar el repositorio al sources.list</h2>
+        <div class="outline-text-2" id="text-orge56d720">
           <pre class="example">
 $ sudo add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/debian \
@@ -3756,9 +4486,9 @@ $ sudo add-apt-repository \
         </div>
       </div>
 
-      <div id="outline-container-org274099e" class="outline-2">
-        <h2 id="org274099e">Inatalar Docker Engine</h2>
-        <div class="outline-text-2" id="text-org274099e">
+      <div id="outline-container-org05460d5" class="outline-2">
+        <h2 id="org05460d5">Inatalar Docker Engine</h2>
+        <div class="outline-text-2" id="text-org05460d5">
           <pre class="example">
 $ sudo apt-get update
 $ sudo apt-get install docker-ce docker-ce-cli containerd.io
@@ -3800,6 +4530,137 @@ sudo usermod -aG docker your-user
   <link>https://martiyo.github.io/2020-11-06-instalar-docker.html</link>
   <guid>https://martiyo.github.io/2020-11-06-instalar-docker.html</guid>
   <pubDate>Fri, 06 Nov 2020 10:32:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Exwm]]></title>
+  <description><![CDATA[
+      <p>
+        EXWM (Emacs X Window Manager) es un completo gestor de ventanas X en
+        mosaico para Emacs construido sobre XELB.
+      </p>
+
+      <div id="outline-container-org547cb8d" class="outline-2">
+        <h2 id="org547cb8d">#Instalación</h2>
+        <div class="outline-text-2" id="text-org547cb8d">
+          <p>Para instalar Exwm y todas sus dependencias&#x2026;</p>
+
+          <pre class="example">
+M-x package-install RET exwm RET.
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org83aa25b" class="outline-2">
+        <h2 id="org83aa25b">#Inicio .xinitrc y init.el</h2>
+        <div class="outline-text-2" id="text-org83aa25b">
+          <ul class="org-ul">
+            <li>
+              Para poder iniciarlo creo (o lo copio desde
+              <b>/etc/X11/xinitrc</b>) el archivo .xinitrc en el directorio
+              /home con el siguiente contenido:
+            </li>
+          </ul>
+
+          <p>dejo aqui mi .xinitrc con ejemplos a modo de buckup</p>
+
+          <pre class="example">
+#!/usr/bin/env bash
+#
+# This is a sample file for the ~/.xinitrc file.
+#
+
+# You may need to comment out the next line to disable access control
+#xhost +
+
+# Set themes, etc
+#gnome-settings-daemon &amp;
+
+# Set fallback cursor
+xsetroot -cursor_name left_ptr
+
+# If Emacs is started in server mode, `emacsclient` is a convenient way to edit
+# files in place (used by e.g. `git commit`)
+export VISUAL=emacsclient
+export EDITOR="$VISUAL"
+
+# Disable access control
+xhost +SI:localuser:$USER
+
+## Over-rides
+#
+xset b off &amp;
+#numlockx off                    # Turn off numlock
+
+# Set keyboard repeat rate
+xset r rate 300 40
+
+# Set capslock as ctrl
+#setxkbmap -layout us -option ctrl:nocaps
+sudo setxkbmap -layout 'es,es' -model pc105
+
+# Programs to start upon startup
+#volumeicon &amp;
+#transmission-daemon &amp;
+#/usr/bin/hexo-server.sh &amp;
+xmobar .config/xmobar/xmobar.config &amp;
+#xfce4-power-manager &amp;
+#syncthing -no-browser &amp;         # Syncthing
+#nm-applet &amp;                     # Network Manager
+#pasystray &amp;                     # Pulseaudio volume control from tray
+#udiskie --tray &amp;                # Disk mount utility
+
+# launch emacs upon startup
+#exec openbox/session
+exec dbus-launch --exit-with-session emacs
+</pre
+          >
+
+          <ul class="org-ul">
+            <li>luego le agredo los permisos 774 a este archivo</li>
+            <li>
+              creo un enlace simbolico a ~/.xinitrc llamado ~/.xsession o
+              ~/.xsessionrc
+            </li>
+          </ul>
+
+          <p>
+            <b>nota</b>
+            Crear el enlace simbolico ~/.xsession da la posibilidad de instalar
+            otro administrador de ventanas como openbox o xfce. Crear el enlace
+            a ~/.xsessionrc permite iniciar directamente con <b>exwm</b>.
+          </p>
+
+          <ul class="org-ul">
+            <li>por último en el <b>init.el</b> agrego:</li>
+          </ul>
+
+          <pre class="example">
+(add-to-list 'load-path "~/.emacs.d/xelb/")
+(add-to-list 'load-path "~/.emacs.d/elpa/exwm-0.24/")
+(require 'exwm)
+(require 'exwm-config)
+(exwm-config-default)
+(exwm-enable)
+(setq exwm-workspace-minibuffer-position (quote bottom))
+(setq exwm-workspace-number 10)
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org9bbdc22" class="outline-2">
+        <h2 id="org9bbdc22"># Atajo de teclado</h2>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/2020-08-20-exwm.html</link>
+  <guid>https://martiyo.github.io/2020-08-20-exwm.html</guid>
+  <pubDate>Thu, 20 Aug 2020 16:06:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Gestión de permisos en linux]]></title>
@@ -4069,9 +4930,9 @@ If you are sure you want to delete it, run 'git branch -D testing'.
   <title><![CDATA[Git ramificar y fusionar]]></title>
   <description><![CDATA[
 
-      <div id="outline-container-orgb465ae1" class="outline-2">
-        <h2 id="orgb465ae1">Ramificación</h2>
-        <div class="outline-text-2" id="text-orgb465ae1">
+      <div id="outline-container-orgb3b74f5" class="outline-2">
+        <h2 id="orgb3b74f5">Ramificación</h2>
+        <div class="outline-text-2" id="text-orgb3b74f5">
           <p>
             Para crear una rama y saltar a ella, en un solo paso, se utiliza el
             comando git checkout -b:
@@ -4153,9 +5014,9 @@ git branch -d iss53
   <description><![CDATA[
       <p>Un rejunte de cosas útiles que voy encontrando por ahí&#x2026;</p>
 
-      <div id="outline-container-org08c9755" class="outline-2">
-        <h2 id="org08c9755">Eliminar kernels viejos</h2>
-        <div class="outline-text-2" id="text-org08c9755">
+      <div id="outline-container-org1791df8" class="outline-2">
+        <h2 id="org1791df8">Eliminar kernels viejos</h2>
+        <div class="outline-text-2" id="text-org1791df8">
           <ul class="org-ul">
             <li>
               Verificar que kernel se está usando, con esto se cual es el que
@@ -4214,9 +5075,9 @@ $ uname -r
           </div>
         </div>
 
-        <div id="outline-container-org0fa1a05" class="outline-3">
-          <h3 id="org0fa1a05">Otra forma de hacer todo lo anterior es:</h3>
-          <div class="outline-text-3" id="text-org0fa1a05">
+        <div id="outline-container-orgf7dafbc" class="outline-3">
+          <h3 id="orgf7dafbc">Otra forma de hacer todo lo anterior es:</h3>
+          <div class="outline-text-3" id="text-orgf7dafbc">
             <div class="org-src-container">
               <pre class="src src-sh">
 # aptitude search linux-image | grep ^i
@@ -4258,9 +5119,9 @@ aptitude purge linux-headers-2.6.26-1
         </div>
       </div>
 
-      <div id="outline-container-org1131ac9" class="outline-2">
-        <h2 id="org1131ac9">Uuid</h2>
-        <div class="outline-text-2" id="text-org1131ac9">
+      <div id="outline-container-org88c568c" class="outline-2">
+        <h2 id="org88c568c">Uuid</h2>
+        <div class="outline-text-2" id="text-org88c568c">
           <div class="org-src-container">
             <pre class="src src-sh">
 ### uuid
@@ -4272,9 +5133,9 @@ $ls -l /dev/disk/by-uuid
         </div>
       </div>
 
-      <div id="outline-container-org256b420" class="outline-2">
-        <h2 id="org256b420">Liberar memoria ram</h2>
-        <div class="outline-text-2" id="text-org256b420">
+      <div id="outline-container-org10572de" class="outline-2">
+        <h2 id="org10572de">Liberar memoria ram</h2>
+        <div class="outline-text-2" id="text-org10572de">
           <p>RAM que se está empleando en tiempo real:</p>
 
           <div class="org-src-container">
@@ -4295,9 +5156,9 @@ $sysctl -w vm.drop_caches=3
         </div>
       </div>
 
-      <div id="outline-container-org16831e8" class="outline-2">
-        <h2 id="org16831e8">Fecha de instalcion del sistema</h2>
-        <div class="outline-text-2" id="text-org16831e8">
+      <div id="outline-container-org0ba871d" class="outline-2">
+        <h2 id="org0ba871d">Fecha de instalcion del sistema</h2>
+        <div class="outline-text-2" id="text-org0ba871d">
           <p>(Creacion del sistema de archivos raiz)</p>
 
           <div class="org-src-container">
@@ -4320,9 +5181,9 @@ Filesystem created:       Fri Jun  3 23:25:38 2016
         </div>
       </div>
 
-      <div id="outline-container-orgceb9513" class="outline-2">
-        <h2 id="orgceb9513">Como evitar que algunos paquetes se actualicen</h2>
-        <div class="outline-text-2" id="text-orgceb9513">
+      <div id="outline-container-orga236c5c" class="outline-2">
+        <h2 id="orga236c5c">Como evitar que algunos paquetes se actualicen</h2>
+        <div class="outline-text-2" id="text-orga236c5c">
           <div class="org-src-container">
             <pre class="src src-sh">
 $echo "paquete hold" | sudo dpkg --set-selections
@@ -4344,9 +5205,9 @@ $ sudo dpkg --get-selections
         </div>
       </div>
 
-      <div id="outline-container-orgce7af57" class="outline-2">
-        <h2 id="orgce7af57">capturar pantalla</h2>
-        <div class="outline-text-2" id="text-orgce7af57">
+      <div id="outline-container-org59d9490" class="outline-2">
+        <h2 id="org59d9490">capturar pantalla</h2>
+        <div class="outline-text-2" id="text-org59d9490">
           <p>
             Una forma fácil de tomar una captura de pantalla del sistema actual
             es usar el comando de import :
@@ -4370,9 +5231,9 @@ $ import -window root screenshot.jpg
         </div>
       </div>
 
-      <div id="outline-container-orgba00dca" class="outline-2">
-        <h2 id="orgba00dca">Configurar xterm</h2>
-        <div class="outline-text-2" id="text-orgba00dca">
+      <div id="outline-container-orgcc68a87" class="outline-2">
+        <h2 id="orgcc68a87">Configurar xterm</h2>
+        <div class="outline-text-2" id="text-orgcc68a87">
           <p>Editar el archivo .Xresources y recargar</p>
 
           <div class="org-src-container">
@@ -4384,9 +5245,9 @@ xrdb -merge .Xresources
         </div>
       </div>
 
-      <div id="outline-container-org0edf90b" class="outline-2">
-        <h2 id="org0edf90b">Youtube-dl</h2>
-        <div class="outline-text-2" id="text-org0edf90b">
+      <div id="outline-container-org33f6f1e" class="outline-2">
+        <h2 id="org33f6f1e">Youtube-dl</h2>
+        <div class="outline-text-2" id="text-org33f6f1e">
           <p>
             Actualmente Youtube-dl permite descargar videos y audio de más de
             800 sitios web.
@@ -4435,9 +5296,9 @@ xrdb -merge .Xresources
         </div>
       </div>
 
-      <div id="outline-container-org57292a4" class="outline-2">
-        <h2 id="org57292a4">E2fsprogs</h2>
-        <div class="outline-text-2" id="text-org57292a4">
+      <div id="outline-container-orgd001017" class="outline-2">
+        <h2 id="orgd001017">E2fsprogs</h2>
+        <div class="outline-text-2" id="text-orgd001017">
           <p>
             El paquete e2fsprogs (también llamado programas e2fs) es un conjunto
             de utilidades para mantenimiento de los sistemas de ficheros ext2,
@@ -4473,9 +5334,9 @@ xrdb -merge .Xresources
           </ul>
         </div>
 
-        <div id="outline-container-org4f0dd12" class="outline-3">
-          <h3 id="org4f0dd12">Tune2fs</h3>
-          <div class="outline-text-3" id="text-org4f0dd12">
+        <div id="outline-container-org3b3e459" class="outline-3">
+          <h3 id="org3b3e459">Tune2fs</h3>
+          <div class="outline-text-3" id="text-org3b3e459">
             <div class="org-src-container">
               <pre class="src src-sh">
 # tune2fs -c 80 /dev/sda1 (cada 80 reinicios)
@@ -4498,9 +5359,9 @@ sudo e2fsck -fy /dev/sda1
         </div>
       </div>
 
-      <div id="outline-container-org101ff96" class="outline-2">
-        <h2 id="org101ff96">Nano</h2>
-        <div class="outline-text-2" id="text-org101ff96">
+      <div id="outline-container-org10ac0c6" class="outline-2">
+        <h2 id="org10ac0c6">Nano</h2>
+        <div class="outline-text-2" id="text-org10ac0c6">
           <p>
             <b>Seleccionar:</b>
           </p>
@@ -4537,52 +5398,52 @@ Ctrl + u
 
           <p>Resaltar sistaxis</p>
         </div>
-        <div id="outline-container-orgdab2f3c" class="outline-3">
-          <h3 id="orgdab2f3c">HTML</h3>
-          <div class="outline-text-3" id="text-orgdab2f3c">
+        <div id="outline-container-org03bcd98" class="outline-3">
+          <h3 id="org03bcd98">HTML</h3>
+          <div class="outline-text-3" id="text-org03bcd98">
             <p>include "/usr/share/nano/html.nanorc"</p>
           </div>
         </div>
 
-        <div id="outline-container-org4188044" class="outline-3">
-          <h3 id="org4188044">Manpages</h3>
-          <div class="outline-text-3" id="text-org4188044">
+        <div id="outline-container-orgb19916d" class="outline-3">
+          <h3 id="orgb19916d">Manpages</h3>
+          <div class="outline-text-3" id="text-orgb19916d">
             <p>include "/usr/share/nano/man.nanorc"</p>
           </div>
         </div>
 
-        <div id="outline-container-org9520c40" class="outline-3">
-          <h3 id="org9520c40">Python</h3>
-          <div class="outline-text-3" id="text-org9520c40">
+        <div id="outline-container-org095482c" class="outline-3">
+          <h3 id="org095482c">Python</h3>
+          <div class="outline-text-3" id="text-org095482c">
             <p>include "/usr/share/nano/python.nanorc"</p>
           </div>
         </div>
 
-        <div id="outline-container-org9145645" class="outline-3">
-          <h3 id="org9145645">Bourne shell scripts</h3>
-          <div class="outline-text-3" id="text-org9145645">
+        <div id="outline-container-org256d75d" class="outline-3">
+          <h3 id="org256d75d">Bourne shell scripts</h3>
+          <div class="outline-text-3" id="text-org256d75d">
             <p>include "/usr/share/nano/sh.nanorc"</p>
           </div>
         </div>
 
-        <div id="outline-container-org89fde2a" class="outline-3">
-          <h3 id="org89fde2a">Javascript</h3>
-          <div class="outline-text-3" id="text-org89fde2a">
+        <div id="outline-container-orgc2ae76a" class="outline-3">
+          <h3 id="orgc2ae76a">Javascript</h3>
+          <div class="outline-text-3" id="text-orgc2ae76a">
             <p>include "/usr/share/nano/javascript.nanorc"</p>
           </div>
         </div>
 
-        <div id="outline-container-org96fa427" class="outline-3">
-          <h3 id="org96fa427">Json</h3>
-          <div class="outline-text-3" id="text-org96fa427">
+        <div id="outline-container-org0827350" class="outline-3">
+          <h3 id="org0827350">Json</h3>
+          <div class="outline-text-3" id="text-org0827350">
             <p>include "/usr/share/nano/json.nanorc"</p>
           </div>
         </div>
       </div>
 
-      <div id="outline-container-org91babf0" class="outline-2">
-        <h2 id="org91babf0">Sudo</h2>
-        <div class="outline-text-2" id="text-org91babf0">
+      <div id="outline-container-org859c3b0" class="outline-2">
+        <h2 id="org859c3b0">Sudo</h2>
+        <div class="outline-text-2" id="text-org859c3b0">
           <p>
             Para dar permisos de root a un usuario, en el archivo
             <b>/etc/sudoers</b>
@@ -4607,9 +5468,9 @@ nombre_usuario ALL=(ALL) NOPASSWD: ALL
         </div>
       </div>
 
-      <div id="outline-container-org5ce6758" class="outline-2">
-        <h2 id="org5ce6758">Limpiar cache</h2>
-        <div class="outline-text-2" id="text-org5ce6758">
+      <div id="outline-container-org5b7a0d3" class="outline-2">
+        <h2 id="org5b7a0d3">Limpiar cache</h2>
+        <div class="outline-text-2" id="text-org5b7a0d3">
           <div class="org-src-container">
             <pre class="src src-sh">
 sudo su
@@ -4618,6 +5479,17 @@ exit
 </pre
             >
           </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org1a19c13" class="outline-2">
+        <h2 id="org1a19c13">Buscar texto en varios archivos</h2>
+        <div class="outline-text-2" id="text-org1a19c13">
+          <pre class="example">
+find / -type f -exec grep -H 'texto-a-buscar-aqui' {} \;
+
+</pre
+          >
         </div>
       </div>
       <div class="taglist">
@@ -4996,9 +5868,9 @@ mv emms-4.0 .emacs.d/lisp
   <title><![CDATA[Ramificaciones en git]]></title>
   <description><![CDATA[
 
-      <div id="outline-container-orge3a0cd8" class="outline-2">
-        <h2 id="orge3a0cd8">¿Que es una rama?</h2>
-        <div class="outline-text-2" id="text-orge3a0cd8">
+      <div id="outline-container-org1859392" class="outline-2">
+        <h2 id="org1859392">¿Que es una rama?</h2>
+        <div class="outline-text-2" id="text-org1859392">
           <p>
             Una rama Git es simplemente un apuntador móvil apuntando a una de
             esas confirmaciones. La rama por defecto de Git es la rama master.
@@ -5134,7 +6006,7 @@ git checkout master
           <p>
             Fuente
             <a
-              href="https://git-scm.com/book/es/v1/Ramificaciones-en-Git-%C2%BFQu%C3%A9-es-una-rama?"
+              href="https://git-scm.com/book/es/v1/Ramificaciones-en-Git-%C2%BFQu%C3%A9-es-una-rama%3F"
               >resumen de git-book</a
             >
           </p>
@@ -5153,15 +6025,22 @@ git checkout master
 <item>
   <title><![CDATA[Git init!]]></title>
   <description><![CDATA[
-      <p>
-        Git es un sistema de control de versiones distribuido, gratuito y de
-        código abierto, diseñado para manejar todo tipo de proyectos, desde
-        pequeños hasta muy grandes, con rapidez y eficiencia.
-      </p>
+      <p>Control de versiones</p>
 
-      <div id="outline-container-org78c76d0" class="outline-3">
+      <div id="outline-container-org5cc3273" class="outline-3">
+        <h3 id="org5cc3273">Descripcion</h3>
+        <div class="outline-text-3" id="text-org5cc3273">
+          <p>
+            Git es un sistema de control de versiones distribuido, gratuito y de
+            código abierto, diseñado para manejar todo tipo de proyectos, desde
+            pequeños hasta muy grandes, con rapidez y eficiencia.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org46955a5" class="outline-3">
         <h3 id="configuración-del-entorno-local">
-          <a id="org78c76d0"></a>Configuración del entorno local
+          Configuración del entorno local
         </h3>
         <div class="outline-text-3" id="text-configuración-del-entorno-local">
           <p>
@@ -5200,8 +6079,8 @@ git config --global color.interactive auto
         </div>
       </div>
 
-      <div id="outline-container-orgf476a37" class="outline-3">
-        <h3 id="git-init"><a id="orgf476a37"></a>Git init</h3>
+      <div id="outline-container-org369bab4" class="outline-3">
+        <h3 id="git-init">Git init</h3>
         <div class="outline-text-3" id="text-git-init">
           <p>
             <b>git init</b> es el comando para crear un repositorio git, se
@@ -5245,8 +6124,8 @@ doc/*.txt
         </div>
       </div>
 
-      <div id="outline-container-org8f726ec" class="outline-3">
-        <h3 id="git-add"><a id="org8f726ec"></a>Git add</h3>
+      <div id="outline-container-orgd458573" class="outline-3">
+        <h3 id="git-add">Git add</h3>
         <div class="outline-text-3" id="text-git-add">
           <p>
             Para empezar el seguimiento de un archivo se usa el comando
@@ -5265,8 +6144,8 @@ git add .
         </div>
       </div>
 
-      <div id="outline-container-orgbeda481" class="outline-3">
-        <h3 id="git-status"><a id="orgbeda481"></a>Git status</h3>
+      <div id="outline-container-org47559f1" class="outline-3">
+        <h3 id="git-status">Git status</h3>
         <div class="outline-text-3" id="text-git-status">
           <p>
             Una vez creados o modificados los archivos que están bajo
@@ -5276,8 +6155,8 @@ git add .
         </div>
       </div>
 
-      <div id="outline-container-orga0cf12b" class="outline-3">
-        <h3 id="git-diff"><a id="orga0cf12b"></a>Git diff</h3>
+      <div id="outline-container-orge97f218" class="outline-3">
+        <h3 id="git-diff">Git diff</h3>
         <div class="outline-text-3" id="text-git-diff">
           <p>
             Este comando compara lo que hay en el directorio de trabajo con lo
@@ -5287,10 +6166,8 @@ git add .
         </div>
       </div>
 
-      <div id="outline-container-orgae748a2" class="outline-3">
-        <h3 id="git-diff-cached">
-          <a id="orgae748a2"></a>Git diff &#x2013;cached
-        </h3>
+      <div id="outline-container-org3343a8e" class="outline-3">
+        <h3 id="git-diff-cached">Git diff &#x2013;cached</h3>
         <div class="outline-text-3" id="text-git-diff-cached">
           <p>
             Se usa para ver los cambios que se han preparado y que irán en la
@@ -5300,8 +6177,8 @@ git add .
         </div>
       </div>
 
-      <div id="outline-container-orgb05eaa9" class="outline-3">
-        <h3 id="git-commit"><a id="orgb05eaa9"></a>Git commit</h3>
+      <div id="outline-container-org486f4b5" class="outline-3">
+        <h3 id="git-commit">Git commit</h3>
         <div class="outline-text-3" id="text-git-commit">
           <p>
             Una vez que se realizan los cambios necesarios y luego de ejecutar
@@ -5330,8 +6207,8 @@ git commit -a -m "mi nuevo comentario"
         </div>
       </div>
 
-      <div id="outline-container-org36c0d92" class="outline-3">
-        <h3 id="git-rm"><a id="org36c0d92"></a>Git rm</h3>
+      <div id="outline-container-orgd8d868e" class="outline-3">
+        <h3 id="git-rm">Git rm</h3>
         <div class="outline-text-3" id="text-git-rm">
           <p>
             Para eliminar un archivo de Git, hay eliminarlo de los archivos bajo
@@ -5371,8 +6248,8 @@ git rm log/\*.log
         </div>
       </div>
 
-      <div id="outline-container-orgf29dab8" class="outline-2">
-        <h2 id="gitlab"><a id="orgf29dab8"></a>Gitlab</h2>
+      <div id="outline-container-orgd97c16d" class="outline-2">
+        <h2 id="gitlab">Gitlab</h2>
         <div class="outline-text-2" id="text-gitlab">
           <p>
             Gitlab es un servicio web de control de versiones y desarrollo de
@@ -5411,8 +6288,8 @@ Connection to gitlab.com closed.
           >
         </div>
 
-        <div id="outline-container-orgf0a1756" class="outline-3">
-          <h3 id="git-push"><a id="orgf0a1756"></a>Git push</h3>
+        <div id="outline-container-org022bdb3" class="outline-3">
+          <h3 id="git-push">Git push</h3>
           <div class="outline-text-3" id="text-git-push">
             <p>
               Cuando el proyecto esta listo para subirlo, lo que sigue es crear
@@ -5456,10 +6333,11 @@ git push -u origin master
 <item>
   <title><![CDATA[El comando dd]]></title>
   <description><![CDATA[
+      <p>Copiar y convertir datos de archivos a bajo nivel.</p>
 
-      <div id="outline-container-org8d056f6" class="outline-2">
-        <h2 id="org8d056f6">El viejo y querido dd</h2>
-        <div class="outline-text-2" id="text-org8d056f6">
+      <div id="outline-container-orgfb22b56" class="outline-2">
+        <h2 id="orgfb22b56">El viejo y querido dd</h2>
+        <div class="outline-text-2" id="text-orgfb22b56">
           <p>
             dd es un comando de la familia de los sistemas operativos Unix que
             permite copiar y convertir datos de archivos​ a bajo nivel. Es
@@ -5471,9 +6349,9 @@ git push -u origin master
         </div>
       </div>
 
-      <div id="outline-container-org5f6157e" class="outline-2">
-        <h2 id="org5f6157e">Ejemplos</h2>
-        <div class="outline-text-2" id="text-org5f6157e">
+      <div id="outline-container-orgde23c36" class="outline-2">
+        <h2 id="orgde23c36">Ejemplos</h2>
+        <div class="outline-text-2" id="text-orgde23c36">
           <pre class="example">
 dd if=/dev/sda of=/dev/sdb bs=1M 
 </pre
@@ -5507,9 +6385,9 @@ for n in {1..5}; do dd if=/dev/urandom of=/dev/hda bs=8b conv=notrunc; done
         </div>
       </div>
 
-      <div id="outline-container-org30b68f5" class="outline-2">
-        <h2 id="org30b68f5">Usb booteable</h2>
-        <div class="outline-text-2" id="text-org30b68f5">
+      <div id="outline-container-orgc7de7c4" class="outline-2">
+        <h2 id="orgc7de7c4">Usb booteable</h2>
+        <div class="outline-text-2" id="text-orgc7de7c4">
           <pre class="example">
 dd if=devuan_jessie_1.0.0_amd64_desktop-live.iso of=/dev/sdc bs=4096 conv=sync,noerror
 </pre
@@ -5531,9 +6409,9 @@ dd if=devuan_jessie_1.0.0_amd64_desktop-live.iso of=/dev/sdc bs=4096 conv=sync,n
   <description><![CDATA[
       <p>La mejor forma de instalar paquetes en emacs.</p>
 
-      <div id="outline-container-org1a126e4" class="outline-2">
-        <h2 id="org1a126e4"># El sistema de paquetes de GNU/Emacs</h2>
-        <div class="outline-text-2" id="text-org1a126e4">
+      <div id="outline-container-org4ce0c25" class="outline-2">
+        <h2 id="org4ce0c25"># El sistema de paquetes de GNU/Emacs</h2>
+        <div class="outline-text-2" id="text-org4ce0c25">
           <p>
             Emacs cuenta con un sistema de paquetes al mejor estilo
             <b>apt o packman</b>, el repositorio por defecto es
@@ -5565,9 +6443,9 @@ M-x eval-buffer
         </div>
       </div>
 
-      <div id="outline-container-orgf807ea5" class="outline-2">
-        <h2 id="orgf807ea5"># Teclas</h2>
-        <div class="outline-text-2" id="text-orgf807ea5">
+      <div id="outline-container-org5aae527" class="outline-2">
+        <h2 id="org5aae527"># Teclas</h2>
+        <div class="outline-text-2" id="text-org5aae527">
           <p>Las teclas que más se usan dentro del <b>list-package</b> son:</p>
 
           <ul class="org-ul">
@@ -5596,9 +6474,9 @@ M-x eval-buffer
         </div>
       </div>
 
-      <div id="outline-container-org7a0d33a" class="outline-2">
-        <h2 id="org7a0d33a"># Instalar paquetes</h2>
-        <div class="outline-text-2" id="text-org7a0d33a">
+      <div id="outline-container-org7d30f75" class="outline-2">
+        <h2 id="org7d30f75"># Instalar paquetes</h2>
+        <div class="outline-text-2" id="text-org7d30f75">
           <p>
             La forma más fácil de instalar un paquete (conociendo de antemano el
             nombre) es:
@@ -5620,12 +6498,7 @@ M-x list-package RET
           >
 
           <figure>
-            <img
-              src="./images/list-packages.png"
-              alt="list-packages.png"
-              width="550"
-              height="350"
-            />
+            <img src="./images/list-packages.png" alt="list-packages.png" />
 
             <figcaption>
               <span class="figure-number">Figure 1: </span>list-packages
@@ -5639,9 +6512,9 @@ M-x list-package RET
         </div>
       </div>
 
-      <div id="outline-container-org3ed7250" class="outline-2">
-        <h2 id="org3ed7250"># Actualizar un paquete</h2>
-        <div class="outline-text-2" id="text-org3ed7250">
+      <div id="outline-container-org0ca04f3" class="outline-2">
+        <h2 id="org0ca04f3"># Actualizar un paquete</h2>
+        <div class="outline-text-2" id="text-org0ca04f3">
           <p>
             Para actualizar un paquete solo hay que presionar <b>U</b> (U
             mayúscula) con el cursor sobre un paquete y luego <b>x</b>.
@@ -5651,9 +6524,9 @@ M-x list-package RET
         </div>
       </div>
 
-      <div id="outline-container-orgdedf556" class="outline-2">
-        <h2 id="orgdedf556"># Ubicación de los paquetes</h2>
-        <div class="outline-text-2" id="text-orgdedf556">
+      <div id="outline-container-orgc279ed6" class="outline-2">
+        <h2 id="orgc279ed6"># Ubicación de los paquetes</h2>
+        <div class="outline-text-2" id="text-orgc279ed6">
           <p>
             Los nuevos paquetes son instalados en <b>~/.emacs.d/elpa/</b>. Una
             forma adicional de desinstalar un paquete eliminarlo de este
@@ -5674,10 +6547,11 @@ M-x list-package RET
 <item>
   <title><![CDATA[ffmpeg video converter]]></title>
   <description><![CDATA[
+      <p>Edición de audio y video por consola</p>
 
-      <div id="outline-container-orgc019ace" class="outline-2">
-        <h2 id="wikipedia"><a id="orgc019ace"></a>Wikipedia</h2>
-        <div class="outline-text-2" id="text-wikipedia">
+      <div id="outline-container-org341e1b5" class="outline-2">
+        <h2 id="org341e1b5">Wikipedia</h2>
+        <div class="outline-text-2" id="text-org341e1b5">
           <p>
             FFmpeg es una colección de software libre que puede grabar,
             convertir (transcodificar) y hacer streaming de audio y vídeo.
@@ -5695,11 +6569,11 @@ M-x list-package RET
           </p>
         </div>
 
-        <div id="outline-container-org52fed73" class="outline-4">
-          <h4 id="obtener-información-de-un-video">
-            <a id="org52fed73"></a>Obtener información de un video
-          </h4>
-          <div class="outline-text-4" id="text-obtener-información-de-un-video">
+        <div id="outline-container-orgfdd9829" class="outline-3">
+          <h3 id="obtener-información-de-un-video">
+            Obtener información de un video
+          </h3>
+          <div class="outline-text-3" id="text-obtener-información-de-un-video">
             <pre class="example">
 ffmpeg -i video.avi
 </pre
@@ -5707,12 +6581,12 @@ ffmpeg -i video.avi
           </div>
         </div>
 
-        <div id="outline-container-orgcca574c" class="outline-4">
-          <h4 id="combinar-una-serie-de-imágenes-en-un-video">
-            <a id="orgcca574c"></a>Combinar una serie de imágenes en un video
-          </h4>
+        <div id="outline-container-orge864235" class="outline-3">
+          <h3 id="combinar-una-serie-de-imágenes-en-un-video">
+            Combinar una serie de imágenes en un video
+          </h3>
           <div
-            class="outline-text-4"
+            class="outline-text-3"
             id="text-combinar-una-serie-de-imágenes-en-un-video"
           >
             <pre class="example">
@@ -5728,12 +6602,12 @@ ffmpeg -f imagen1.jpg -i imagen%d.jpg video.mpg
           </div>
         </div>
 
-        <div id="outline-container-org7a242ff" class="outline-4">
-          <h4 id="añadir-de-un-archivo-de-audio-en-un-video">
-            <a id="org7a242ff"></a>Añadir de un archivo de audio en un video
-          </h4>
+        <div id="outline-container-org6a011d1" class="outline-3">
+          <h3 id="añadir-de-un-archivo-de-audio-en-un-video">
+            Añadir de un archivo de audio en un video
+          </h3>
           <div
-            class="outline-text-4"
+            class="outline-text-3"
             id="text-añadir-de-un-archivo-de-audio-en-un-video"
           >
             <pre class="example">
@@ -5743,11 +6617,11 @@ ffmpeg -i audio.wav -i video_entrada.avi video_salida.mpg
           </div>
         </div>
 
-        <div id="outline-container-orgeea1f1f" class="outline-4">
-          <h4 id="convertir-un-vídeo-en-imágenes">
-            <a id="orgeea1f1f"></a>Convertir un vídeo en imágenes
-          </h4>
-          <div class="outline-text-4" id="text-convertir-un-vídeo-en-imágenes">
+        <div id="outline-container-org9b1a995" class="outline-3">
+          <h3 id="convertir-un-vídeo-en-imágenes">
+            Convertir un vídeo en imágenes
+          </h3>
+          <div class="outline-text-3" id="text-convertir-un-vídeo-en-imágenes">
             <pre class="example">
 ffmpeg -i video.mpg imagen%d.jpg
 </pre
@@ -5761,12 +6635,12 @@ ffmpeg -i video.mpg imagen%d.jpg
           </div>
         </div>
 
-        <div id="outline-container-org9695f69" class="outline-4">
-          <h4 id="convertir-video-para-smartv-server-minidlna">
-            <a id="org9695f69"></a>Convertir video para SmarTV (Server MiniDLNA)
-          </h4>
+        <div id="outline-container-org2ffb5dc" class="outline-3">
+          <h3 id="convertir-video-para-smartv-server-minidlna">
+            Convertir video para SmarTV (Server MiniDLNA)
+          </h3>
           <div
-            class="outline-text-4"
+            class="outline-text-3"
             id="text-convertir-video-para-smartv-server-minidlna"
           >
             <pre class="example">
@@ -5781,13 +6655,12 @@ ffmpeg -i LaBellaylaBestia.mkv -c:a libmp3lame -b:v 2500k -b:a 150k LaBellaylaBe
           </div>
         </div>
 
-        <div id="outline-container-org29756b7" class="outline-4">
-          <h4 id="extraer-el-sonido-de-un-vídeo-y-guardarlo-como-mp3">
-            <a id="org29756b7"></a>Extraer el sonido de un vídeo, y guardarlo
-            como MP3
-          </h4>
+        <div id="outline-container-org442feb8" class="outline-3">
+          <h3 id="extraer-el-sonido-de-un-vídeo-y-guardarlo-como-mp3">
+            Extraer el sonido de un vídeo, y guardarlo como MP3
+          </h3>
           <div
-            class="outline-text-4"
+            class="outline-text-3"
             id="text-extraer-el-sonido-de-un-vídeo-y-guardarlo-como-mp3"
           >
             <pre class="example">
@@ -5804,11 +6677,9 @@ ffmpeg -i video.avi -vn -ar 44100 -ac 2 -ab 192 -f mp3 audio.mp3
           </div>
         </div>
 
-        <div id="outline-container-org8f6bc59" class="outline-4">
-          <h4 id="convertir-un-wav-en-mp3">
-            <a id="org8f6bc59"></a>Convertir un wav en MP3
-          </h4>
-          <div class="outline-text-4" id="text-convertir-un-wav-en-mp3">
+        <div id="outline-container-orgc01667d" class="outline-3">
+          <h3 id="convertir-un-wav-en-mp3">Convertir un wav en MP3</h3>
+          <div class="outline-text-3" id="text-convertir-un-wav-en-mp3">
             <pre class="example">
 ffmpeg -i audio.wav -ar 44100 audio.mp3
 </pre
@@ -5816,11 +6687,9 @@ ffmpeg -i audio.wav -ar 44100 audio.mp3
           </div>
         </div>
 
-        <div id="outline-container-orgc8f6de8" class="outline-4">
-          <h4 id="convertir-un-avi-a-mpg">
-            <a id="orgc8f6de8"></a>Convertir un avi a mpg
-          </h4>
-          <div class="outline-text-4" id="text-convertir-un-avi-a-mpg">
+        <div id="outline-container-org054beb0" class="outline-3">
+          <h3 id="convertir-un-avi-a-mpg">Convertir un avi a mpg</h3>
+          <div class="outline-text-3" id="text-convertir-un-avi-a-mpg">
             <pre class="example">
 ffmpeg -i entrada.avi salida.mpg
 </pre
@@ -5828,11 +6697,9 @@ ffmpeg -i entrada.avi salida.mpg
           </div>
         </div>
 
-        <div id="outline-container-orge55c6ef" class="outline-4">
-          <h4 id="convertir-un-mpg-a-avi">
-            <a id="orge55c6ef"></a>Convertir un mpg a avi
-          </h4>
-          <div class="outline-text-4" id="text-convertir-un-mpg-a-avi">
+        <div id="outline-container-orgc1fa5b1" class="outline-3">
+          <h3 id="convertir-un-mpg-a-avi">Convertir un mpg a avi</h3>
+          <div class="outline-text-3" id="text-convertir-un-mpg-a-avi">
             <pre class="example">
 ffmpeg -i entrada.mpg salida.avi
 </pre
@@ -5840,11 +6707,9 @@ ffmpeg -i entrada.mpg salida.avi
           </div>
         </div>
 
-        <div id="outline-container-org02601af" class="outline-4">
-          <h4 id="convertir-un-avi-a-gif">
-            <a id="org02601af"></a>Convertir un avi a gif
-          </h4>
-          <div class="outline-text-4" id="text-convertir-un-avi-a-gif">
+        <div id="outline-container-org461b9a9" class="outline-3">
+          <h3 id="convertir-un-avi-a-gif">Convertir un avi a gif</h3>
+          <div class="outline-text-3" id="text-convertir-un-avi-a-gif">
             <pre class="example">
 ffmpeg -i entrada.avi salida.gif
 </pre
@@ -5852,11 +6717,9 @@ ffmpeg -i entrada.avi salida.gif
           </div>
         </div>
 
-        <div id="outline-container-org340718e" class="outline-4">
-          <h4 id="convertir-avi-a-flv">
-            <a id="org340718e"></a>Convertir avi a flv
-          </h4>
-          <div class="outline-text-4" id="text-convertir-avi-a-flv">
+        <div id="outline-container-org757d7bd" class="outline-3">
+          <h3 id="convertir-avi-a-flv">Convertir avi a flv</h3>
+          <div class="outline-text-3" id="text-convertir-avi-a-flv">
             <pre class="example">
 ffmpeg -i entrada.avi -ab 56 -ar 44100 -b 200 -r 15 -s 320×240 -f flv salida.flv
 </pre
@@ -5864,11 +6727,9 @@ ffmpeg -i entrada.avi -ab 56 -ar 44100 -b 200 -r 15 -s 320×240 -f flv salida.fl
           </div>
         </div>
 
-        <div id="outline-container-org3867a09" class="outline-4">
-          <h4 id="convertir-avi-a-dv">
-            <a id="org3867a09"></a>Convertir avi a dv
-          </h4>
-          <div class="outline-text-4" id="text-convertir-avi-a-dv">
+        <div id="outline-container-orgeff02a4" class="outline-3">
+          <h3 id="convertir-avi-a-dv">Convertir avi a dv</h3>
+          <div class="outline-text-3" id="text-convertir-avi-a-dv">
             <pre class="example">
 ffmpeg -i entrada.avi -s pal -r pal -aspect 4:3 -ar 48000 -ac 2 salida.dv
 </pre
@@ -5883,13 +6744,12 @@ ffmpeg -i entrada.avi -target pal-dv salida.dv
           </div>
         </div>
 
-        <div id="outline-container-orgc5516ea" class="outline-4">
-          <h4 id="convertir-avi-a-mpeg-para-reproductores-de-dvd">
-            <a id="orgc5516ea"></a>Convertir avi a mpeg para reproductores de
-            dvd
-          </h4>
+        <div id="outline-container-orge302457" class="outline-3">
+          <h3 id="convertir-avi-a-mpeg-para-reproductores-de-dvd">
+            Convertir avi a mpeg para reproductores de dvd
+          </h3>
           <div
-            class="outline-text-4"
+            class="outline-text-3"
             id="text-convertir-avi-a-mpeg-para-reproductores-de-dvd"
           >
             <pre class="example">
@@ -5908,11 +6768,9 @@ ffmpeg -i entrada.avi -target pal-dvd -ps 2000000000 -aspect 16:9 salida.mpeg
           </div>
         </div>
 
-        <div id="outline-container-org64519e4" class="outline-4">
-          <h4 id="comprimir-avi-a-divx">
-            <a id="org64519e4"></a>Comprimir avi a divx
-          </h4>
-          <div class="outline-text-4" id="text-comprimir-avi-a-divx">
+        <div id="outline-container-org2ea2fa7" class="outline-3">
+          <h3 id="comprimir-avi-a-divx">Comprimir avi a divx</h3>
+          <div class="outline-text-3" id="text-comprimir-avi-a-divx">
             <pre class="example">
 ffmpeg -i entrada.avi -s 320×240 -vcodec msmpeg4v2 salida.avi
 </pre
@@ -5920,11 +6778,11 @@ ffmpeg -i entrada.avi -s 320×240 -vcodec msmpeg4v2 salida.avi
           </div>
         </div>
 
-        <div id="outline-container-org1df477f" class="outline-4">
-          <h4 id="comprimir-ogg-theora-a-mpeg-dvd">
-            <a id="org1df477f"></a>Comprimir Ogg Theora a Mpeg dvd
-          </h4>
-          <div class="outline-text-4" id="text-comprimir-ogg-theora-a-mpeg-dvd">
+        <div id="outline-container-orgaf58666" class="outline-3">
+          <h3 id="comprimir-ogg-theora-a-mpeg-dvd">
+            Comprimir Ogg Theora a Mpeg dvd
+          </h3>
+          <div class="outline-text-3" id="text-comprimir-ogg-theora-a-mpeg-dvd">
             <pre class="example">
 ffmpeg -i entrada.ogm -s 720×576 -vcodec mpeg2video -acodec mp3 salida.mpg
 </pre
@@ -5932,11 +6790,9 @@ ffmpeg -i entrada.ogm -s 720×576 -vcodec mpeg2video -acodec mp3 salida.mpg
           </div>
         </div>
 
-        <div id="outline-container-orgd6e49f0" class="outline-4">
-          <h4 id="comprimir-avi-a-svcd-mpeg2">
-            <a id="orgd6e49f0"></a>Comprimir avi a SVCD mpeg2
-          </h4>
-          <div class="outline-text-4" id="text-comprimir-avi-a-svcd-mpeg2">
+        <div id="outline-container-org4599d99" class="outline-3">
+          <h3 id="comprimir-avi-a-svcd-mpeg2">Comprimir avi a SVCD mpeg2</h3>
+          <div class="outline-text-3" id="text-comprimir-avi-a-svcd-mpeg2">
             <p>Para PAL:</p>
 
             <pre class="example">
@@ -5953,11 +6809,9 @@ ffmpeg -i entrada.avi -target ntsc-svcd salida.mpg
           </div>
         </div>
 
-        <div id="outline-container-org3810ccf" class="outline-4">
-          <h4 id="comprimir-avi-a-vcd-mpeg2">
-            <a id="org3810ccf"></a>Comprimir avi a VCD mpeg2
-          </h4>
-          <div class="outline-text-4" id="text-comprimir-avi-a-vcd-mpeg2">
+        <div id="outline-container-orgc099b7a" class="outline-3">
+          <h3 id="comprimir-avi-a-vcd-mpeg2">Comprimir avi a VCD mpeg2</h3>
+          <div class="outline-text-3" id="text-comprimir-avi-a-vcd-mpeg2">
             <p>Para PAL:</p>
 
             <pre class="example">
@@ -5974,11 +6828,11 @@ ffmpeg -i entrada.avi -target ntsc-vcd salida.mpg
           </div>
         </div>
 
-        <div id="outline-container-org4332034" class="outline-4">
-          <h4 id="codificación-con-varias-pasadas">
-            <a id="org4332034"></a>Codificación con varias pasadas
-          </h4>
-          <div class="outline-text-4" id="text-codificación-con-varias-pasadas">
+        <div id="outline-container-orgc010010" class="outline-3">
+          <h3 id="codificación-con-varias-pasadas">
+            Codificación con varias pasadas
+          </h3>
+          <div class="outline-text-3" id="text-codificación-con-varias-pasadas">
             <pre class="example">
 ffmpeg -i entrada -pass 2 -passlogfile ffmpeg2pass salida
 </pre
@@ -6223,20 +7077,11 @@ editor.ru.1.gz /usr/share/man/ru/man1/vim.1.gz
 <item>
   <title><![CDATA[Elfeed]]></title>
   <description><![CDATA[
+      <p>Lector de noticias para Emacs, compatible con Atom y Rss.</p>
 
-      <div id="outline-container-org77863f7" class="outline-2">
-        <h2 id="org77863f7">Descripción</h2>
-        <div class="outline-text-2" id="text-org77863f7">
-          <p>
-            Elfeed en un lector de noticias para Emacs, compatible con Atom y
-            Rss.
-          </p>
-        </div>
-      </div>
-
-      <div id="outline-container-orgb23f3fa" class="outline-2">
-        <h2 id="orgb23f3fa">Instalación</h2>
-        <div class="outline-text-2" id="text-orgb23f3fa">
+      <div id="outline-container-orgd3ebc3f" class="outline-2">
+        <h2 id="orgd3ebc3f">Instalación</h2>
+        <div class="outline-text-2" id="text-orgd3ebc3f">
           <p>
             <b>Elfeed</b> se puede instalar con el gestor de paquetes de emacs,
             está en los repositorios melpa, entoces:
@@ -6280,9 +7125,9 @@ M-x eval-buffer RET
         </div>
       </div>
 
-      <div id="outline-container-orgc7da5ba" class="outline-2">
-        <h2 id="orgc7da5ba">Elfeed-search</h2>
-        <div class="outline-text-2" id="text-orgc7da5ba">
+      <div id="outline-container-org1a7bcb1" class="outline-2">
+        <h2 id="org1a7bcb1">Elfeed-search</h2>
+        <div class="outline-text-2" id="text-org1a7bcb1">
           <p>Al ejecutar la función interactiva elfeed</p>
 
           <pre class="example">
@@ -6304,9 +7149,9 @@ M-x elfeed RET
           </figure>
         </div>
 
-        <div id="outline-container-org32af23a" class="outline-3">
-          <h3 id="org32af23a">Teclas rapidas</h3>
-          <div class="outline-text-3" id="text-org32af23a">
+        <div id="outline-container-orgdbbde44" class="outline-3">
+          <h3 id="orgdbbde44">Teclas rapidas</h3>
+          <div class="outline-text-3" id="text-orgdbbde44">
             <ul class="org-ul">
               <li>g: actualiza la lista de feeds.</li>
 
@@ -6346,9 +7191,9 @@ M-x elfeed RET
         </div>
       </div>
 
-      <div id="outline-container-org92bd363" class="outline-2">
-        <h2 id="org92bd363">Etiquetas</h2>
-        <div class="outline-text-2" id="text-org92bd363">
+      <div id="outline-container-orgbe49f45" class="outline-2">
+        <h2 id="orgbe49f45">Etiquetas</h2>
+        <div class="outline-text-2" id="text-orgbe49f45">
           <p>
             Elfeed mantiene una lista de etiquetas arbitrarias, símbolos
             adjuntos a una entrada. La etiqueta unread se trata especialmente de
@@ -6357,9 +7202,9 @@ M-x elfeed RET
           </p>
         </div>
 
-        <div id="outline-container-orgd167f91" class="outline-3">
-          <h3 id="orgd167f91">Etiquetado automático</h3>
-          <div class="outline-text-3" id="text-orgd167f91">
+        <div id="outline-container-org2e291cd" class="outline-3">
+          <h3 id="org2e291cd">Etiquetado automático</h3>
+          <div class="outline-text-3" id="text-org2e291cd">
             <p>
               Las etiquetas se pueden aplicar automáticamente a las entradas
               listadas en <b>elfeed-feeds</b> específicos mediante una sintaxis
@@ -6384,9 +7229,9 @@ M-x elfeed RET
         </div>
       </div>
 
-      <div id="outline-container-org6be1159" class="outline-2">
-        <h2 id="org6be1159">Elfeed + eww</h2>
-        <div class="outline-text-2" id="text-org6be1159">
+      <div id="outline-container-org4376cfc" class="outline-2">
+        <h2 id="org4376cfc">Elfeed + eww</h2>
+        <div class="outline-text-2" id="text-org4376cfc">
           <p>
             <b>eww</b> es un navegador en texto plano que viene con emacs, para
             abrir los enlaces desde el visor de entradas de elfeed hay que
@@ -6396,9 +7241,9 @@ M-x elfeed RET
         </div>
       </div>
 
-      <div id="outline-container-orgd3572fe" class="outline-2">
-        <h2 id="orgd3572fe">Accesos directos</h2>
-        <div class="outline-text-2" id="text-orgd3572fe">
+      <div id="outline-container-orgf3ff6c2" class="outline-2">
+        <h2 id="orgf3ff6c2">Accesos directos</h2>
+        <div class="outline-text-2" id="text-orgf3ff6c2">
           <p>Para tener accesos directos se agrega esto en .emacs:</p>
 
           <pre class="example">
@@ -6420,9 +7265,9 @@ M-x elfeed RET
           </blockquote>
         </div>
 
-        <div id="outline-container-org38cb437" class="outline-3">
-          <h3 id="org38cb437">Fuente</h3>
-          <div class="outline-text-3" id="text-org38cb437">
+        <div id="outline-container-orgf79054d" class="outline-3">
+          <h3 id="orgf79054d">Fuente</h3>
+          <div class="outline-text-3" id="text-orgf79054d">
             <p>
               <a href="https://github.com/skeeto/elfeed">elfeed-github</a>
               nasciiboy
@@ -7033,19 +7878,26 @@ sudo init 6 (reinicia el equipo)
   <pubDate>Wed, 19 Sep 2018 12:41:00 -0300</pubDate>
 </item>
 <item>
-  <title><![CDATA[Planificación y administración de tareas con Cron y Crontab]]></title>
+  <title><![CDATA[Cron y Crontab]]></title>
   <description><![CDATA[
-      <p>
-        En el sistema operativo Unix, cron es un administrador regular de
-        procesos en segundo plano (demonio) que ejecuta procesos o guiones a
-        intervalos regulares (por ejemplo, cada minuto, día, semana o mes). Los
-        procesos que deben ejecutarse y la hora en la que deben hacerlo se
-        especifican en el fichero crontab. Este servicio es muy útil para
-        realizar tareas de mantenimiento como copias de respaldo del sistema,
-        verificación del equipo o estadísticas de uso.
-      </p>
+      <p>Planificación y administración de tareas con Cron y crontabs</p>
 
-      <div id="outline-container-orgb1743f4" class="outline-2">
+      <div id="outline-container-orgd2cccc5" class="outline-2">
+        <h2 id="orgd2cccc5">Descripción</h2>
+        <div class="outline-text-2" id="text-orgd2cccc5">
+          <p>
+            En el sistema operativo Unix, cron es un administrador regular de
+            procesos en segundo plano (demonio) que ejecuta procesos o guiones a
+            intervalos regulares (por ejemplo, cada minuto, día, semana o mes).
+            Los procesos que deben ejecutarse y la hora en la que deben hacerlo
+            se especifican en el fichero crontab. Este servicio es muy útil para
+            realizar tareas de mantenimiento como copias de respaldo del
+            sistema, verificación del equipo o estadísticas de uso.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgc4bb569" class="outline-2">
         <h2 id="crontab-del-usuario">Crontab del usuario</h2>
         <div class="outline-text-2" id="text-crontab-del-usuario">
           <p>
@@ -7102,9 +7954,9 @@ crontab [opciones][usuario]
         </ul>
       </div>
 
-      <div id="outline-container-org0ee77ce" class="outline-2">
-        <h2 id="org0ee77ce">Comando a ejecutar</h2>
-        <div class="outline-text-2" id="text-org0ee77ce">
+      <div id="outline-container-org9ddc610" class="outline-2">
+        <h2 id="org9ddc610">Comando a ejecutar</h2>
+        <div class="outline-text-2" id="text-org9ddc610">
           <p>
             Se pueden utilizar asteriscos para especificar todos (ejemplo: todos
             los días de la semana), guiones para especificar rangos (ejemplo: de
@@ -7115,7 +7967,7 @@ crontab [opciones][usuario]
           </p>
         </div>
 
-        <div id="outline-container-orge6adb79" class="outline-4">
+        <div id="outline-container-orgaeaa099" class="outline-4">
           <h4 id="ejemplos">Ejemplos</h4>
           <div class="outline-text-4" id="text-ejemplos">
             <ul class="org-ul">
@@ -7190,7 +8042,7 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-org33de090" class="outline-3">
+        <div id="outline-container-org7d928a8" class="outline-3">
           <h3 id="crontab-del-sistema">Crontab del sistema</h3>
           <div class="outline-text-3" id="text-crontab-del-sistema">
             <p>
@@ -7232,10 +8084,8 @@ crontab [opciones][usuario]
   <title><![CDATA[Introduccion a GNU/Emacs]]></title>
   <description><![CDATA[
 
-      <div id="outline-container-orgd8ec753" class="outline-2">
-        <h2 id="gnuemacs">
-          <a id="orgd8ec753"></a>El universo perdido de GNU/Emacs
-        </h2>
+      <div id="outline-container-org5964a13" class="outline-2">
+        <h2 id="gnuemacs">El universo perdido de GNU/Emacs</h2>
         <div class="outline-text-2" id="text-gnuemacs">
           <blockquote>
             <p>
@@ -7245,8 +8095,8 @@ crontab [opciones][usuario]
           </blockquote>
         </div>
 
-        <div id="outline-container-org8b7b8e7" class="outline-3">
-          <h3 id="modos-de-edición"><a id="org8b7b8e7"></a>Modos de edición</h3>
+        <div id="outline-container-orgc70c4d8" class="outline-3">
+          <h3 id="modos-de-edición">Modos de edición</h3>
           <div class="outline-text-3" id="text-modos-de-edición">
             <p>
               Emacs adapta su comportamiento al tipo de texto que está editando
@@ -7275,10 +8125,9 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-org9c907dd" class="outline-3">
+        <div id="outline-container-org8aaa812" class="outline-3">
           <h3 id="significado-de-algunas-teclas-en-la-terminología-de-emacs">
-            <a id="org9c907dd"></a>Significado de algunas teclas en la
-            terminología de emacs:
+            Significado de algunas teclas en la terminología de emacs:
           </h3>
           <div
             class="outline-text-3"
@@ -7300,10 +8149,8 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-orge379551" class="outline-3">
-          <h3 id="teclas-de-socorro">
-            <a id="orge379551"></a>Teclas de socorro:
-          </h3>
+        <div id="outline-container-org837e73c" class="outline-3">
+          <h3 id="teclas-de-socorro">Teclas de socorro:</h3>
           <div class="outline-text-3" id="text-teclas-de-socorro">
             <ul class="org-ul">
               <li>
@@ -7315,10 +8162,9 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-org819d386" class="outline-3">
+        <div id="outline-container-orgff2f275" class="outline-3">
           <h3 id="teclas-para-moverse-por-el-texto-con-más-o-menos-soltura">
-            <a id="org819d386"></a>Teclas para moverse por el texto con más o
-            menos soltura:
+            Teclas para moverse por el texto con más o menos soltura:
           </h3>
           <div
             class="outline-text-3"
@@ -7350,8 +8196,8 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-orgd78227b" class="outline-3">
-          <h3 id="salir"><a id="orgd78227b"></a>Salir:</h3>
+        <div id="outline-container-orgca3d331" class="outline-3">
+          <h3 id="salir">Salir:</h3>
           <div class="outline-text-3" id="text-salir">
             <ul class="org-ul">
               <li>C-x C-c (Salir de Emacs)</li>
@@ -7362,10 +8208,8 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-org35b7a7d" class="outline-3">
-          <h3 id="copiar-cortar-pegar">
-            <a id="org35b7a7d"></a>Copiar, cortar, pegar
-          </h3>
+        <div id="outline-container-org643267c" class="outline-3">
+          <h3 id="copiar-cortar-pegar">Copiar, cortar, pegar</h3>
           <div class="outline-text-3" id="text-copiar-cortar-pegar">
             <ul class="org-ul">
               <li>C-Epc (Inicio del marcado de texto)</li>
@@ -7377,10 +8221,8 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-org6ae974f" class="outline-3">
-          <h3 id="buscar-alguna-palabra">
-            <a id="org6ae974f"></a>Buscar alguna palabra:
-          </h3>
+        <div id="outline-container-orge035f43" class="outline-3">
+          <h3 id="buscar-alguna-palabra">Buscar alguna palabra:</h3>
           <div class="outline-text-3" id="text-buscar-alguna-palabra">
             <ul class="org-ul">
               <li>C-s (busca hacia adelante)</li>
@@ -7390,8 +8232,8 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-orgc0d21d8" class="outline-3">
-          <h3 id="borrar"><a id="orgc0d21d8"></a>Borrar:</h3>
+        <div id="outline-container-org703abfe" class="outline-3">
+          <h3 id="borrar">Borrar:</h3>
           <div class="outline-text-3" id="text-borrar">
             <ul class="org-ul">
               <li>M-d (Palabra despues del cursor)</li>
@@ -7404,8 +8246,8 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-org7fd7dfd" class="outline-3">
-          <h3 id="ventanas"><a id="org7fd7dfd"></a>Ventanas</h3>
+        <div id="outline-container-org3b8c191" class="outline-3">
+          <h3 id="ventanas">Ventanas</h3>
           <div class="outline-text-3" id="text-ventanas">
             <ul class="org-ul">
               <li>C-x 2 (división horizontal de la ventana en dos)</li>
@@ -7420,8 +8262,8 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-orgb9e3ecd" class="outline-3">
-          <h3 id="bufers"><a id="orgb9e3ecd"></a>Bufers</h3>
+        <div id="outline-container-org0d88e18" class="outline-3">
+          <h3 id="bufers">Bufers</h3>
           <div class="outline-text-3" id="text-bufers">
             <ul class="org-ul">
               <li>C-x b (Cambiar de buffer)</li>
@@ -7433,12 +8275,11 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-org425a1de" class="outline-3">
+        <div id="outline-container-org7bc6128" class="outline-3">
           <h3
             id="marcas-para-volver-a-una-linea-más-adelante-o-de-aquí-a-varios-dias"
           >
-            <a id="org425a1de"></a>Marcas para volver a una linea más adelante o
-            de aquí a varios dias:
+            Marcas para volver a una linea más adelante o de aquí a varios dias:
           </h3>
           <div
             class="outline-text-3"
@@ -7455,8 +8296,8 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-org6876b37" class="outline-3">
-          <h3 id="varios"><a id="org6876b37"></a>Varios:</h3>
+        <div id="outline-container-org6110518" class="outline-3">
+          <h3 id="varios">Varios:</h3>
           <div class="outline-text-3" id="text-varios">
             <ul class="org-ul">
               <li>C-x C-f (brir un archivo)</li>
@@ -7478,10 +8319,9 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-org01e5e0c" class="outline-3">
+        <div id="outline-container-orge510bf9" class="outline-3">
           <h3 id="entrar-comandos-de-shell-durante-la-sesión-de-emacs">
-            <a id="org01e5e0c"></a>Entrar comandos de shell durante la sesión de
-            emacs:
+            Entrar comandos de shell durante la sesión de emacs:
           </h3>
           <div
             class="outline-text-3"
@@ -7504,10 +8344,8 @@ crontab [opciones][usuario]
           </div>
         </div>
 
-        <div id="outline-container-org20f4078" class="outline-3">
-          <h3 id="algunas-posibilidades">
-            <a id="org20f4078"></a>Algunas posibilidades:
-          </h3>
+        <div id="outline-container-org563daea" class="outline-3">
+          <h3 id="algunas-posibilidades">Algunas posibilidades:</h3>
           <div class="outline-text-3" id="text-algunas-posibilidades">
             <ul class="org-ul">
               <li>M-x recover file (levantar respaldo del archivo)</li>
@@ -7655,10 +8493,11 @@ $cat /proc/uptime
 <item>
   <title><![CDATA[Dirección ip estatica]]></title>
   <description><![CDATA[
+      <p>Configurar ip estatica en linux</p>
 
-      <div id="outline-container-orga352ebd" class="outline-2">
-        <h2 id="orga352ebd">Descripción</h2>
-        <div class="outline-text-2" id="text-orga352ebd">
+      <div id="outline-container-orgd46c398" class="outline-2">
+        <h2 id="orgd46c398">Descripción</h2>
+        <div class="outline-text-2" id="text-orgd46c398">
           <p>
             El sistema está configurado para obtener de forma automática la
             configuración de red (ip, máscara de red, servidores DNS, puerta de
@@ -7670,9 +8509,9 @@ $cat /proc/uptime
         </div>
       </div>
 
-      <div id="outline-container-org80296a3" class="outline-2">
-        <h2 id="org80296a3">Configuración</h2>
-        <div class="outline-text-2" id="text-org80296a3">
+      <div id="outline-container-org547b516" class="outline-2">
+        <h2 id="org547b516">Configuración</h2>
+        <div class="outline-text-2" id="text-org547b516">
           <p>
             Antes de cambiar la configuración, hay que detener la interfaz de
             red:
@@ -7723,9 +8562,9 @@ root@devuan:~# ifdown eth0
         </div>
       </div>
 
-      <div id="outline-container-org168ac6e" class="outline-2">
-        <h2 id="org168ac6e">Verificación</h2>
-        <div class="outline-text-2" id="text-org168ac6e">
+      <div id="outline-container-org5a279f2" class="outline-2">
+        <h2 id="org5a279f2">Verificación</h2>
+        <div class="outline-text-2" id="text-org5a279f2">
           <p>
             El comando ifconfig muestra información detallada de la
             configuración de las interfaces de red. Primero hay que activar la
@@ -7786,113 +8625,99 @@ root@devuan:/home/martin# ping www.devuan.org
 <item>
   <title><![CDATA[El demonio miniDLNA]]></title>
   <description><![CDATA[
+      <p>minidlnad - Servidor ligero DLNA/UPnP-AV</p>
 
-      <div id="outline-container-org6bfcae8" class="outline-2">
-        <h2 id="minidlnad---servidor-ligero-dlnaupnp-av">
-          <a id="org6bfcae8"></a>minidlnad - Servidor ligero DLNA/UPnP-AV
-        </h2>
-        <div
-          class="outline-text-2"
-          id="text-minidlnad---servidor-ligero-dlnaupnp-av"
-        >
+      <p>
+        El demonio minidlnad es un servidor DLNA/UPnP-AV que comparte archivos
+        multimedia(vídeo, música e imágenes) a los clientes de una red. Estos
+        son típicamente reproductores multimedia como vlc, totem y mplayer, y
+        dispositivos como reproductores multimedia portátiles, teléfonos
+        inteligentes y televisores, sistemas de entretenimiento de videojuegos y
+        reproductores de Blu-ray. De forma predeterminada, minidlnad escucha en
+        todas las interfaces de red (excepto loopback). Este comportamiento se
+        puede cambiar usando la opción -i, o en el archivo de configuración a
+        través de la opción network\<sub>interface</sub>.
+      </p>
+
+      <div id="outline-container-org894e922" class="outline-2">
+        <h2 id="configuracion-minima">Configuracion minima</h2>
+        <div class="outline-text-2" id="text-configuracion-minima">
           <p>
-            El demonio minidlnad es un servidor DLNA/UPnP-AV que comparte
-            archivos multimedia(vídeo, música e imágenes) a los clientes de una
-            red. Estos son típicamente reproductores multimedia como vlc, totem
-            y mplayer, y dispositivos como reproductores multimedia portátiles,
-            teléfonos inteligentes y televisores, sistemas de entretenimiento de
-            videojuegos y reproductores de Blu-ray. De forma predeterminada,
-            minidlnad escucha en todas las interfaces de red (excepto loopback).
-            Este comportamiento se puede cambiar usando la opción -i, o en el
-            archivo de configuración a través de la opción
-            network\<sub>interface</sub>.
+            El archivo de configuración por defecto es
+            <b>/etc/minidlna.conf</b>, o el especificado con el flag <b>-f</b>.
+            Para que el servidor funcione basta con editar un par de lineas:
+          </p>
+
+          <p>
+            <b>'media\<sub>dir</sub>=/path/peliculas'</b>
+          </p>
+
+          <p>
+            <b>'port=8200'</b>
           </p>
         </div>
+      </div>
 
-        <div id="outline-container-org4fbf9b7" class="outline-3">
-          <h3 id="configuracion-minima">
-            <a id="org4fbf9b7"></a>Configuracion minima
-          </h3>
-          <div class="outline-text-3" id="text-configuracion-minima">
-            <p>
-              El archivo de configuración por defecto es
-              <b>/etc/minidlna.conf</b>, o el especificado con el flag
-              <b>-f</b>. Para que el servidor funcione basta con editar un par
-              de lineas:
-            </p>
+      <div id="outline-container-org221cfc2" class="outline-2">
+        <h2 id="otras-opciónes-de-configuración">
+          Otras opciónes de configuración
+        </h2>
+        <div class="outline-text-2" id="text-otras-opciónes-de-configuración">
+          <p>
+            <b>'inotify'</b> Detecta automáticamente nuevos archivos en
+            media\<sub>dir</sub>.
+          </p>
 
-            <p>
-              <b>'media\<sub>dir</sub>=/path/peliculas'</b>
-            </p>
+          <p>
+            <b>'log\<sub>dir</sub>'</b> Ruta al directorio donde se almacenan
+            los archivos de registro. Por defecto es /var/log.
+          </p>
 
-            <p>
-              <b>'port=8200'</b>
-            </p>
-          </div>
+          <p>
+            <b>'max\<sub>connections</sub>'</b> Especifica el numero maximo de
+            conecciones simultaneas
+          </p>
+
+          <p>
+            <b>'friendly\<sub>name</sub>'</b> Configura el nombre del servidor
+            que se mostrara a los clientes.
+          </p>
+
+          <p>
+            <b>'media\<sub>dir</sub>'</b> Ruta al directorio que contiene los
+            archivos multimedia que se quiren compartir. Esta opción se puede
+            usar varias veces si se tiene mas de un directorio. Para restringir
+            una ruta a un tipo de archivo especifico (audio, videos, fotos), se
+            usa la siguiente sintaxis
+            <b>media\<sub>dir</sub>=[A,V,P], /path/multimedia</b>
+          </p>
         </div>
+      </div>
 
-        <div id="outline-container-orga03cb7d" class="outline-3">
-          <h3 id="otras-opciónes-de-configuración">
-            <a id="orga03cb7d"></a>Otras opciónes de configuración
-          </h3>
-          <div class="outline-text-3" id="text-otras-opciónes-de-configuración">
-            <p>
-              <b>'inotify'</b> Detecta automáticamente nuevos archivos en
-              media\<sub>dir</sub>.
-            </p>
-
-            <p>
-              <b>'log\<sub>dir</sub>'</b> Ruta al directorio donde se almacenan
-              los archivos de registro. Por defecto es /var/log.
-            </p>
-
-            <p>
-              <b>'max\<sub>connections</sub>'</b> Especifica el numero maximo de
-              conecciones simultaneas
-            </p>
-
-            <p>
-              <b>'friendly\<sub>name</sub>'</b> Configura el nombre del servidor
-              que se mostrara a los clientes.
-            </p>
-
-            <p>
-              <b>'media\<sub>dir</sub>'</b> Ruta al directorio que contiene los
-              archivos multimedia que se quiren compartir. Esta opción se puede
-              usar varias veces si se tiene mas de un directorio. Para
-              restringir una ruta a un tipo de archivo especifico (audio,
-              videos, fotos), se usa la siguiente sintaxis
-              <b>media\<sub>dir</sub>=[A,V,P], /path/multimedia</b>
-            </p>
-          </div>
-        </div>
-
-        <div id="outline-container-org7e9f321" class="outline-3">
-          <h3 id="ejemplos"><a id="org7e9f321"></a>Ejemplos</h3>
-          <div class="outline-text-3" id="text-ejemplos">
-            <pre class="example">
+      <div id="outline-container-orged0f515" class="outline-2">
+        <h2 id="ejemplos">Ejemplos</h2>
+        <div class="outline-text-2" id="text-ejemplos">
+          <pre class="example">
 media_dir=V,/path/multimedia/videos
 media_dir=P,/path/multimedia/fotos
 media_dir=A,/path/multimedia/musica\n
 </pre
-            >
+          >
 
-            <p>
-              <b>'merge\<sub>media</sub>\<sub>dirs</sub>'</b> Fusiona todos los
-              contenidos base de media\<sub>dir</sub>
-              en el contenedor raíz. El valor por defecto es no.
-            </p>
+          <p>
+            <b>'merge\<sub>media</sub>\<sub>dirs</sub>'</b> Fusiona todos los
+            contenidos base de media\<sub>dir</sub>
+            en el contenedor raíz. El valor por defecto es no.
+          </p>
 
-            <p>
-              <b>'network\<sub>interface</sub>'</b> Interfaz(es) de red a las
-              que se debe enlazar (por ejemplo, eth0), delimitadas por comas.
-              Esta opción se puede especificar más de una vez. Si no se
-              especifica, minidlnad se une a todas las interfaces de red
-              válidas.
-            </p>
+          <p>
+            <b>'network\<sub>interface</sub>'</b> Interfaz(es) de red a las que
+            se debe enlazar (por ejemplo, eth0), delimitadas por comas. Esta
+            opción se puede especificar más de una vez. Si no se especifica,
+            minidlnad se une a todas las interfaces de red válidas.
+          </p>
 
-            <p>Fuente man minidlna, man minidlna.conf</p>
-          </div>
+          <p>Fuente man minidlna, man minidlna.conf</p>
         </div>
       </div>
       <div class="taglist">

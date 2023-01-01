@@ -3,6 +3,8 @@
 #+description: 
 #+filetags: linux 
 
+Copiar y convertir datos de archivos a bajo nivel.
+
 ***  El viejo y querido dd
    
 dd es un comando de la familia de los sistemas operativos Unix que

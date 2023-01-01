@@ -1,6 +1,9 @@
 #+title: It's Magit!
 #+date: <2021-04-04 23:45>
+#+description: 
 #+filetags: git
+
+Interfaz de usuario para git en emacs.
 
 ** ¿Que es magit?
 

@@ -1,11 +1,11 @@
 #+title: ffmpeg video converter
 #+date: <2018-12-08 13:52>
+#+description: 
 #+filetags: linux
 
-* Wikipedia
-  :PROPERTIES:
-  :CUSTOM_ID: wikipedia
-  :END:
+Edición de audio y video por consola
+
+** Wikipedia
 
 FFmpeg es una colección de software libre que puede grabar, convertir
 (transcodificar) y hacer streaming de audio y vídeo. Incluye libavcodec,

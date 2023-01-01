@@ -1,5 +1,6 @@
 #+title: Ramificaciones en git
 #+date: <2019-01-22 17:41>
+#+description: 
 #+filetags: git
 
 ** ¿Que es una rama?
