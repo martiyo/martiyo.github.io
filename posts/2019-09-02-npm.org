@@ -1,0 +1,123 @@
+#+title: npm
+#+date: <2019-09-02 23:05>
+#+description: 
+#+filetags: nodejs
+
+El gestor de paquetes de nodejs.
+
+*** #NPM
+
+Es el sistema de gestión de paquetes por defecto de nodejs. Desde la
+versión 0.6.3 de Node.js npm es instalado automáticamente con el
+entorno. npm se ejecuta desde la línea de comandos y maneja las
+dependencias para una aplicación. Además, permite instalar aplicaciones
+Node.js que se encuentran en el repositorio. npm está escrito
+enteramente en JavaScript.
+
+*** #¿Que hace?
+  
+Como buen gestor de paquetes lo que hace npm es:
+
+- Instalar/desinstalar paquetes.
+
+- Actualizar en caso de nueva versión los paquetes instalados.
+
+- Descargar una versión específica de un paquete.
+
+- Gestionar las dependencias entre paquetes.
+
+- Distribuir paquetes.
+
+*** #¿Como funciona?
+
+Al comenzar un proyecto con nodejs el primer comando a ejecutar es:
+
+#+BEGIN_SRC
+    npm init -y
+#+END_SRC
+
+este comando crea un archivo llamado *package.json* el cual contiene la
+descripción del proyecto, el autor, la versión, scripts de ejecución y
+prueba entre otras cosas, pero lo principal es que en él se declaran los
+paquetes que se van instalando y sus versiones.
+
+*** #Para instalar un paquete la orden es:
+   
+#+BEGIN_SRC
+    npm i "nombre-paquete"
+#+END_SRC
+
+esto crea la carpeta *node\_modules* en la raiz del proyecto, descarga
+ahí dicho paquete y lo agrega al *package.json*
+
+*** #Descargar paquete y añadir versión exacta:
+    
+    #+BEGIN_SRC
+    npm i "nombre-paquete" --save-exact
+#+END_SRC
+
+Este comando es igual que el anterior con la diferencia de que al
+guardarse en el package.json se guarda con la versión exacta en ese
+momento, es decir, nunca se va actualizar. Esto permite mantener siempre
+la misma versión para que todo funcione igual.
+
+*** #Instalar paquete globalmente
+
+#+BEGIN_SRC sh
+    npm i "nombre-paquete" -g
+#+END_SRC
+
+Instalará el paquete en la carpeta de instalación de nodejs, no en
+*node\_modules* del proyecto actual. Aveces es útil tener paquetes
+instalados globalmente para poder ejecutarlos desde cualquier
+directorio, por ejemplo el paquete *create-react-app*, para crear
+proyectos con *reactjs* desde cualquier parte.
+
+*** #Desinstalar
+
+#+BEGIN_SRC
+    npm uninstall "nombre-paquete" 
+#+END_SRC
+
+Elimina el paquete de la carpeta node\_modules y de las dependencias del
+package.json.
+
+*** #NPM update
+    
+Actualizar todos los paquetes del *package.json*
+
+#+BEGIN_SRC 
+    npm update
+#+END_SRC
+
+actualizar solo un paquete
+
+#+BEGIN_SRC
+    npm update "paquete"
+#+END_SRC
+
+Con npm al usar versionado semántico, se puede indicar que tipo de
+actualización realizar en cada paquete:
+
+- *Poniendo ~1.0.4*, por ejemplo, solo va a actualizar el último número,
+  es decir, va a subir solo de versión patch
+- *Poniendo \^1.0.4*, por ejemplo, solo va a actualizar los dos últimos
+  números, es decir, va a subir solo de versión minor
+- *Poniendo simplemente un asterisco en la versión **, va actualizar
+  también de versión mayor.
+
+#+BEGIN_QUOTE
+  NPM al instalar un paquete, por defecto le pone el \^ para que
+  actualice versiones patch y minor.
+#+END_QUOTE
+
+*** #Check updates
+    
+Para comprobar si existen actualizaciones de los paquetes instalados se
+usa el paquete *npm-check-updates*
+
+#+BEGIN_SRC 
+    npm i -g npm-chek-updates
+#+END_SRC
+
+Una vez instalado, simplemente se ejecuta ncu.

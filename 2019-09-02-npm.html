@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>npm</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">02 sep 2019</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2019-09-02-npm.html">npm</a>
+      </h1>
+      <p>El gestor de paquetes de nodejs.</p>
+
+      <div id="outline-container-org647c72d" class="outline-2">
+        <h2 id="org647c72d">#NPM</h2>
+        <div class="outline-text-2" id="text-org647c72d">
+          <p>
+            Es el sistema de gestión de paquetes por defecto de nodejs. Desde la
+            versión 0.6.3 de Node.js npm es instalado automáticamente con el
+            entorno. npm se ejecuta desde la línea de comandos y maneja las
+            dependencias para una aplicación. Además, permite instalar
+            aplicaciones Node.js que se encuentran en el repositorio. npm está
+            escrito enteramente en JavaScript.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgaa3956f" class="outline-2">
+        <h2 id="orgaa3956f">#¿Que hace?</h2>
+        <div class="outline-text-2" id="text-orgaa3956f">
+          <p>Como buen gestor de paquetes lo que hace npm es:</p>
+
+          <ul class="org-ul">
+            <li>Instalar/desinstalar paquetes.</li>
+
+            <li>
+              Actualizar en caso de nueva versión los paquetes instalados.
+            </li>
+
+            <li>Descargar una versión específica de un paquete.</li>
+
+            <li>Gestionar las dependencias entre paquetes.</li>
+
+            <li>Distribuir paquetes.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org8fad48e" class="outline-2">
+        <h2 id="org8fad48e">#¿Como funciona?</h2>
+        <div class="outline-text-2" id="text-org8fad48e">
+          <p>
+            Al comenzar un proyecto con nodejs el primer comando a ejecutar es:
+          </p>
+
+          <pre class="example">
+npm init -y
+</pre
+          >
+
+          <p>
+            este comando crea un archivo llamado <b>package.json</b> el cual
+            contiene la descripción del proyecto, el autor, la versión, scripts
+            de ejecución y prueba entre otras cosas, pero lo principal es que en
+            él se declaran los paquetes que se van instalando y sus versiones.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgc412799" class="outline-2">
+        <h2 id="orgc412799">#Para instalar un paquete la orden es:</h2>
+        <div class="outline-text-2" id="text-orgc412799">
+          <pre class="example">
+npm i "nombre-paquete"
+</pre
+          >
+
+          <p>
+            esto crea la carpeta <b>node\<sub>modules</sub></b> en la raiz del
+            proyecto, descarga ahí dicho paquete y lo agrega al
+            <b>package.json</b>
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgb4b7a5e" class="outline-2">
+        <h2 id="orgb4b7a5e">#Descargar paquete y añadir versión exacta:</h2>
+        <div class="outline-text-2" id="text-orgb4b7a5e">
+          <pre class="example">
+npm i "nombre-paquete" --save-exact
+</pre
+          >
+
+          <p>
+            Este comando es igual que el anterior con la diferencia de que al
+            guardarse en el package.json se guarda con la versión exacta en ese
+            momento, es decir, nunca se va actualizar. Esto permite mantener
+            siempre la misma versión para que todo funcione igual.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org2041929" class="outline-2">
+        <h2 id="org2041929">#Instalar paquete globalmente</h2>
+        <div class="outline-text-2" id="text-org2041929">
+          <div class="org-src-container">
+            <pre class="src src-sh">
+npm i "nombre-paquete" -g
+</pre
+            >
+          </div>
+
+          <p>
+            Instalará el paquete en la carpeta de instalación de nodejs, no en
+            <b>node\<sub>modules</sub></b> del proyecto actual. Aveces es útil
+            tener paquetes instalados globalmente para poder ejecutarlos desde
+            cualquier directorio, por ejemplo el paquete
+            <b>create-react-app</b>, para crear proyectos con
+            <b>reactjs</b> desde cualquier parte.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgbf07fb1" class="outline-2">
+        <h2 id="orgbf07fb1">#Desinstalar</h2>
+        <div class="outline-text-2" id="text-orgbf07fb1">
+          <pre class="example">
+npm uninstall "nombre-paquete" 
+</pre
+          >
+
+          <p>
+            Elimina el paquete de la carpeta node\<sub>modules</sub> y de las
+            dependencias del package.json.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgb895c60" class="outline-2">
+        <h2 id="orgb895c60">#NPM update</h2>
+        <div class="outline-text-2" id="text-orgb895c60">
+          <p>Actualizar todos los paquetes del <b>package.json</b></p>
+
+          <pre class="example">
+npm update
+</pre
+          >
+
+          <p>actualizar solo un paquete</p>
+
+          <pre class="example">
+npm update "paquete"
+</pre
+          >
+
+          <p>
+            Con npm al usar versionado semántico, se puede indicar que tipo de
+            actualización realizar en cada paquete:
+          </p>
+
+          <ul class="org-ul">
+            <li>
+              <b>Poniendo ~1.0.4</b>, por ejemplo, solo va a actualizar el
+              último número, es decir, va a subir solo de versión patch
+            </li>
+            <li>
+              <b>Poniendo \<sup>1.0.4</sup></b
+              >, por ejemplo, solo va a actualizar los dos últimos números, es
+              decir, va a subir solo de versión minor
+            </li>
+            <li>
+              <b>Poniendo simplemente un asterisco en la versión *</b>, va
+              actualizar también de versión mayor.
+            </li>
+          </ul>
+
+          <blockquote>
+            <p>
+              NPM al instalar un paquete, por defecto le pone el \^ para que
+              actualice versiones patch y minor.
+            </p>
+          </blockquote>
+        </div>
+      </div>
+
+      <div id="outline-container-orge78a010" class="outline-2">
+        <h2 id="orge78a010">#Check updates</h2>
+        <div class="outline-text-2" id="text-orge78a010">
+          <p>
+            Para comprobar si existen actualizaciones de los paquetes instalados
+            se usa el paquete <b>npm-check-updates</b>
+          </p>
+
+          <pre class="example">
+npm i -g npm-chek-updates
+</pre
+          >
+
+          <p>Una vez instalado, simplemente se ejecuta ncu.</p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-nodejs.html">nodejs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>
