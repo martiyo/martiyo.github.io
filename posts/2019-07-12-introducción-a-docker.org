@@ -1,0 +1,82 @@
+#+title: Introducción a docker
+#+date: <2023-01-10 11:55>
+#+description: 
+#+filetags: docker
+
+Contenedores docker
+
+
+*** #Descipción
+
+Docker es un proyecto de código abierto que automatiza el despliegue de
+aplicaciones dentro de contenedores de software, proporcionando una capa
+adicional de abstracción y automatización de virtualización de
+aplicaciones en múltiples sistemas operativos.​ Docker utiliza
+características de aislamiento de recursos del kernel Linux, tales como
+cgroups y espacios de nombres (namespaces) para permitir que
+"contenedores" independientes se ejecuten dentro de una sola instancia
+de Linux, evitando la sobrecarga de iniciar y mantener máquinas
+virtuales. Es una herramienta que puede empaquetar una aplicación y sus
+dependencias en un contenedor virtual que se puede ejecutar en cualquier
+servidor Linux. Esto ayuda a permitir la flexibilidad y portabilidad en
+donde la aplicación se puede ejecutar, ya sea en las instalaciones
+físicas, la nube pública, nube privada, etc.
+
+*** # Instalación
+   
+Actualización
+
+#+BEGIN_SRC
+        $ sudo apt-get update 
+#+END_SRC
+
+Instalación de dependencias
+
+#+BEGIN_SRC
+    $ sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+#+END_SRC
+
+Clave y repositorio Docker
+
+#+BEGIN_SRC
+    $ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add – 
+    $ sudo add-apt-repository «deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable»
+#+END_SRC
+
+Instalación de Docker CE
+
+#+BEGIN_SRC
+    $ sudo apt-get install docker-ce
+#+END_SRC
+
+*** Agregar usuario al grupo docker
+
+#+BEGIN_SRC sh
+    sudo usermod -aG docker martin
+#+END_SRC
+
+*** Comandos básicos
+
+Listado de imagenes docker
+
+#+BEGIN_SRC
+    docker images
+#+END_SRC
+
+Listar todos los contenedores (en ejecución o no)
+
+#+BEGIN_SRC
+    docker ps -a
+#+END_SRC
+
+Eliminar un contenedor e imagen
+
+#+BEGIN_SRC
+    docker rm CONTAINER_ID
+#+END_SRC
+
+Eliminar una imagen sin contenedor existente
+
+#+BEGIN_SRC
+    docker image rm IMAGE_ID
+#+END_SRC

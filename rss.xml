@@ -4,7 +4,122 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Mon, 09 Jan 2023 23:17:08 -0300</lastBuildDate>
+<lastBuildDate>Tue, 10 Jan 2023 12:45:07 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[Introducción a docker]]></title>
+  <description><![CDATA[
+      <p>Contenedores docker</p>
+
+      <div id="outline-container-orgc8659d3" class="outline-2">
+        <h2 id="orgc8659d3">#Descipción</h2>
+        <div class="outline-text-2" id="text-orgc8659d3">
+          <p>
+            Docker es un proyecto de código abierto que automatiza el despliegue
+            de aplicaciones dentro de contenedores de software, proporcionando
+            una capa adicional de abstracción y automatización de virtualización
+            de aplicaciones en múltiples sistemas operativos.​ Docker utiliza
+            características de aislamiento de recursos del kernel Linux, tales
+            como cgroups y espacios de nombres (namespaces) para permitir que
+            "contenedores" independientes se ejecuten dentro de una sola
+            instancia de Linux, evitando la sobrecarga de iniciar y mantener
+            máquinas virtuales. Es una herramienta que puede empaquetar una
+            aplicación y sus dependencias en un contenedor virtual que se puede
+            ejecutar en cualquier servidor Linux. Esto ayuda a permitir la
+            flexibilidad y portabilidad en donde la aplicación se puede
+            ejecutar, ya sea en las instalaciones físicas, la nube pública, nube
+            privada, etc.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgbbae9e0" class="outline-2">
+        <h2 id="orgbbae9e0"># Instalación</h2>
+        <div class="outline-text-2" id="text-orgbbae9e0">
+          <p>Actualización</p>
+
+          <pre class="example">
+$ sudo apt-get update 
+</pre
+          >
+
+          <p>Instalación de dependencias</p>
+
+          <pre class="example">
+$ sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+</pre
+          >
+
+          <p>Clave y repositorio Docker</p>
+
+          <pre class="example">
+$ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add – 
+$ sudo add-apt-repository «deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable»
+</pre
+          >
+
+          <p>Instalación de Docker CE</p>
+
+          <pre class="example">
+$ sudo apt-get install docker-ce
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgcc8c8cb" class="outline-2">
+        <h2 id="orgcc8c8cb">Agregar usuario al grupo docker</h2>
+        <div class="outline-text-2" id="text-orgcc8c8cb">
+          <div class="org-src-container">
+            <pre class="src src-sh">
+sudo usermod -aG docker martin
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgf7818b3" class="outline-2">
+        <h2 id="orgf7818b3">Comandos básicos</h2>
+        <div class="outline-text-2" id="text-orgf7818b3">
+          <p>Listado de imagenes docker</p>
+
+          <pre class="example">
+docker images
+</pre
+          >
+
+          <p>Listar todos los contenedores (en ejecución o no)</p>
+
+          <pre class="example">
+docker ps -a
+</pre
+          >
+
+          <p>Eliminar un contenedor e imagen</p>
+
+          <pre class="example">
+docker rm CONTAINER_ID
+</pre
+          >
+
+          <p>Eliminar una imagen sin contenedor existente</p>
+
+          <pre class="example">
+docker image rm IMAGE_ID
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-docker.html">docker</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[docker]]></category>
+  <link>https://martiyo.github.io/2019-07-12-introducci%C3%B3n-a-docker.html</link>
+  <guid>https://martiyo.github.io/2019-07-12-introducci%C3%B3n-a-docker.html</guid>
+  <pubDate>Tue, 10 Jan 2023 11:55:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[Emmet]]></title>
   <description><![CDATA[
