@@ -8,7 +8,7 @@
       href="https://martiyo.github.io/rss.xml"
       title="RSS feed for https://martiyo.github.io/"
     />
-    <title>reparar el grub</title>
+    <title>Recuperar el grub</title>
     <meta name="author" content="martiyo" />
     <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -38,28 +38,27 @@
       <div class="post-date">02 feb 2023</div>
       <h1 class="post-title">
         <a href="https://martiyo.github.io/2023-02-02-reparar-el-grub.html"
-          >reparar el grub</a
+          >Recuperar el grub</a
         >
       </h1>
       <p>Usar un LiveUSB para reinstalar el grub</p>
 
-      <div id="outline-container-orgaf6a96a" class="outline-2">
-        <h2 id="orgaf6a96a">
+      <div id="outline-container-org7a00fae" class="outline-2">
+        <h2 id="org7a00fae">
           # Una vez iniciado el LiveUSB, hay que localizar la particion donde
           esta instalado el grub.
         </h2>
-        <div class="outline-text-2" id="text-orgaf6a96a">
+        <div class="outline-text-2" id="text-org7a00fae">
           <pre class="example">
 sudo fdisk -l
 </pre
           >
-          <p>#+END<sub>SRC</sub></p>
         </div>
       </div>
 
-      <div id="outline-container-org4e9c330" class="outline-2">
-        <h2 id="org4e9c330"># Montar la particion raiz</h2>
-        <div class="outline-text-2" id="text-org4e9c330">
+      <div id="outline-container-orgc4c2109" class="outline-2">
+        <h2 id="orgc4c2109"># Montar la particion raiz</h2>
+        <div class="outline-text-2" id="text-orgc4c2109">
           <pre class="example">
 sudo mount /dev/sda2 /mnt
 </pre
@@ -67,35 +66,34 @@ sudo mount /dev/sda2 /mnt
         </div>
       </div>
 
-      <div id="outline-container-org316640d" class="outline-2">
-        <h2 id="org316640d"># Montar el resto de los dispositivos:</h2>
-        <div class="outline-text-2" id="text-org316640d">
-          <pre class="example"></pre>
-          <p>
-            sudo mount &#x2013;bind /dev /mnt/dev sudo mount &#x2013;bind
-            /dev/pts /mnt/dev/pts sudo mount &#x2013;bind /proc /mnt/proc sudo
-            mount &#x2013;bind /sys /mnt/sys #+END<sub>SRC</sub>
-          </p>
+      <div id="outline-container-org75262ce" class="outline-2">
+        <h2 id="org75262ce"># Montar el resto de los dispositivos:</h2>
+        <div class="outline-text-2" id="text-org75262ce">
+          <pre class="example">
+sudo mount --bind /dev /mnt/dev 
+sudo mount --bind /dev/pts /mnt/dev/pts 
+sudo mount --bind /proc /mnt/proc 
+sudo mount --bind /sys /mnt/sys
+</pre
+          >
         </div>
       </div>
 
-      <div id="outline-container-orgb7ea35e" class="outline-2">
-        <h2 id="orgb7ea35e">
+      <div id="outline-container-org9b6bb17" class="outline-2">
+        <h2 id="org9b6bb17">
           # Acceder a la partición raiz del sistema original como root:
         </h2>
-        <div class="outline-text-2" id="text-orgb7ea35e">
-          <div class="org-src-container">
-            <pre class="src src-#+END_SRC">
+        <div class="outline-text-2" id="text-org9b6bb17">
+          <pre class="example">
 sudo chroot /mnt
 </pre
-            >
-          </div>
+          >
         </div>
       </div>
 
-      <div id="outline-container-orgec87335" class="outline-2">
-        <h2 id="orgec87335"># Instalar el grub en el MRB:</h2>
-        <div class="outline-text-2" id="text-orgec87335">
+      <div id="outline-container-orgcff25ad" class="outline-2">
+        <h2 id="orgcff25ad"># Instalar el grub en el MRB:</h2>
+        <div class="outline-text-2" id="text-orgcff25ad">
           <div class="org-src-container">
             <pre class="src src-END_SRC">
 grub-install --boot-directory=/boot/ --recheck /dev/sda
@@ -110,11 +108,11 @@ grub-install --boot-directory=/boot/ --recheck /dev/sda
         </div>
       </div>
 
-      <div id="outline-container-org1f77efd" class="outline-2">
-        <h2 id="org1f77efd">
+      <div id="outline-container-org818555b" class="outline-2">
+        <h2 id="org818555b">
           # Reiniciar y una vez dentro del sistema original:
         </h2>
-        <div class="outline-text-2" id="text-org1f77efd">
+        <div class="outline-text-2" id="text-org818555b">
           <pre class="example">
 sudo update-grub2
 </pre

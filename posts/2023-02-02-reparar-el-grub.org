@@ -5,19 +5,19 @@
 
 Usar un LiveUSB para reinstalar el grub
 
-*** # Una vez iniciado el LiveUSB, hay que localizar la particion donde esta instalado el grub.
+**** # Una vez iniciado el LiveUSB, hay que localizar la particion donde esta instalado el grub.
 
 #+BEGIN_SRC
 sudo fdisk -l
 #+END_SRC
 
-*** # Montar la particion raiz
+**** # Montar la particion raiz
 
 #+BEGIN_SRC
 sudo mount /dev/sda2 /mnt
 #+END_SRC
 
-*** # Montar el resto de los dispositivos:
+**** # Montar el resto de los dispositivos:
 
 #+BEGIN_SRC 
 sudo mount --bind /dev /mnt/dev 
@@ -26,13 +26,13 @@ sudo mount --bind /proc /mnt/proc
 sudo mount --bind /sys /mnt/sys
 #+END_SRC
 
-*** # Acceder a la partición raiz del sistema original como root:
+**** # Acceder a la partición raiz del sistema original como root:
 
 #+BEGIN_SRC 
 sudo chroot /mnt
 #+END_SRC
 
-*** # Instalar el grub en el MRB:
+**** # Instalar el grub en el MRB:
 
 #+BEGIN_SRC END_SRC
 grub-install --boot-directory=/boot/ --recheck /dev/sda
@@ -40,7 +40,7 @@ grub-install --boot-directory=/boot/ --recheck /dev/sda
 
 Aqui no hay que especificar la partición solo el disco, en este caso /dev/sda.
 
-*** # Reiniciar y una vez dentro del sistema original:
+**** # Reiniciar y una vez dentro del sistema original:
 
 #+BEGIN_SRC
 sudo update-grub2
