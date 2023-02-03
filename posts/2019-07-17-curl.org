@@ -1,0 +1,92 @@
+#+title: cURL
+#+date: <2019-07-17 15:25>
+#+description: 
+#+filetags: linux
+
+Transferencia de archivos
+
+*** #cURL wikipedia
+
+cURL es un proyecto de software consistente en una biblioteca (libcurl)
+y un intérprete de comandos (curl) orientado a la transferencia de
+archivos. Soporta los protocolos FTP, FTPS, HTTP, HTTPS, TFTP, SCP,
+SFTP, Telnet, DICT, FILE y LDAP, entre otros. cURL soporta certificados
+HTTPS, HTTP POST, HTTP PUT, subidas FTP, Kerberos, subidas mediante
+formulario HTTP, proxies, cookies, autenticación mediante usuario y
+contraseña (Basic, DIgest, NTLM y Negotiate para HTTP y kerberos 4 para
+FTP), continuación de transferencia de archivos, tunneling de proxy HTTP
+y otras prestaciones. cURL es de código abierto, software libre
+distribuido bajo la Licencia MIT. El principal propósito y uso para cURL
+es automatizar transferencias de archivos o secuencias de operaciones no
+supervisadas. Es por ejemplo, una herramienta válida para simular las
+acciones de usuarios en un navegador web.
+
+*** #Ejemplos de uso
+  
+**** Petición GET a una API
+  
+
+#+BEGIN_SRC
+    curl https://jsonplaceholder.typicode.com/posts
+#+END_SRC
+
+petición get a una API con información sobre la cabecera.
+
+#+BEGIN_SRC
+    curl https://jsonplaceholder.typicode.com/posts -v
+#+END_SRC
+
+esto muestra información sobre la cabecera, que muestra la version de
+http, la longitud de la transaccion, el tipo de contenido, etc. Si se
+cambia el parametro -v por -i se ve la misma información pero más
+resumida.
+
+**** Peticipon POST a una API
+
+#+BEGIN_SRC
+    curl --data "title=hello world&body=this is my first post" https://jsonplaceholder.typicode.com/posts
+#+END_SRC
+
+donde *title* y *body* son campos del modelo *post*.
+
+**** Petición PUT a una API
+
+
+#+BEGIN_SRC
+    curl -X PUT --data "title=title update&body=this is my new post" https://jsonplaceholder.typicode.com/posts/1
+#+END_SRC
+
+esto modifica el post 1 como se indica en la url.
+
+**** Petición DELETE a una API
+
+
+#+BEGIN_SRC
+    curl -X DELETE https://jsonplaceholder.typicode.com/posts/1
+#+END_SRC
+
+esto elimina el post 1 indicado en la url.
+
+**** Descargas
+
+Descargar y guardar la información (pueden ser imagenes, pdf, etc) en un
+archivo.
+
+#+BEGIN_SRC
+    curl -o nuevoArchivo https://jsonplaceholder.typicode.com/posts -v
+#+END_SRC
+
+guardar contenido html de una pagina
+
+#+BEGIN_SRC
+    curl -o wikipedia.html https://wikipedia.com
+#+END_SRC
+
+con la opción -O (o mayuscula) guarda sin necesidad de ponerle nombre al
+archivo
+
+**** Subir archivos a un ftp
+
+#+BEGIN_SRC
+    curl -u user:password -T archivo.pdf ftp://ftp.server.com
+#+END_SRC

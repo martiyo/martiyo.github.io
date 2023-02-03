@@ -1,0 +1,127 @@
+#+title: Emacs-cosas-utiles
+#+date: <2019-02-28 23:03>
+#+description: 
+#+filetags: emacs 
+
+
+Algunos comandos, atajos y funciones.
+
+*** Listado de paquetes instalados
+  
+#+BEGIN_SRC
+    C-h v package-activate-list
+#+END_SRC
+*** Busquedas  
+
+**** Buscar hacia adelante
+   
+#+BEGIN_SRC
+    C-s
+#+END_SRC
+
+**** Pasar a la siguiente opción encontrada
+
+#+BEGIN_SRC
+    C-s
+#+END_SRC
+
+**** Para volver a realizar la última búsqueda efectuada pulsar:
+
+#+BEGIN_SRC
+    C-s C-s
+#+END_SRC
+
+
+**** Buscar hacia atras
+    
+#+BEGIN_SRC
+    C-r
+#+END_SRC
+
+**** Ubicar el cursor en una palabra y buscar otras coincidencias en el buffer:
+   
+#+BEGIN_SRC
+    C-s C-w
+#+END_SRC
+
+**** Buscar y reemplazar palabra
+  
+
+#+BEGIN_SRC
+    M-x replace-string RET
+#+END_SRC
+
+*** Añade o quita los delimitadores de comentarios de todas las líneas de la región.
+  
+#+BEGIN_SRC
+    M-x comment-region
+#+END_SRC
+
+#+BEGIN_SRC 
+    M-Shift-; 
+#+END_SRC
+
+*** Comando para contar lineas palabras y caracteres
+  
+#+BEGIN_SRC
+    M-x count-lines-region
+
+    o el atajo
+
+    M-=
+#+END_SRC
+
+*** Agrear fecha
+  
+#+BEGIN_SRC
+    C-c !
+#+END_SRC
+
+*** Ir a una linea especifica
+#+BEGIN_SRC
+    M-x goto-line RET nro de linea
+#+END_SRC
+
+o con las teclas
+
+#+BEGIN_SRC 
+M-g-g
+#+END_SRC
+
+*** Tiempo de inicio
+  
+#+BEGIN_SRC
+    M-x emacs-init-time
+#+END_SRC
+
+*** begining to buffer
+  
+#+BEGIN_SRC
+    M-<
+
+    va al inicio del buffer
+
+    C-x C-x 
+
+    retorna al punto anterior.
+#+END_SRC
+
+*** Buscar funciones y variables
+  
+#+BEGIN_SRC
+    C-h f RET function RET
+#+END_SRC
+   
+ llama a **describe function** que muestra información de la función.
+
+#+BEGIN_SRC 
+    C-h v 
+#+END_SRC
+
+busca variables
+
+*** Abrir archivo como root
+
+  #+BEGIN_SRC 
+    C-x C-f /sudo::/path/to/file
+#+END_SRC

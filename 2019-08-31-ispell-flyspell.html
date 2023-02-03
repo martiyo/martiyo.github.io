@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Ispell-Flyspell</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">31 ago 2019</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2019-08-31-ispell-flyspell.html"
+          >Ispell-Flyspell</a
+        >
+      </h1>
+      <p>Corrección ortografica en linux y emacs</p>
+
+      <div id="outline-container-org18c241f" class="outline-2">
+        <h2 id="org18c241f"># Ispell - Flyspell</h2>
+        <div class="outline-text-2" id="text-org18c241f">
+          <p>
+            En los
+            <a href="file:///Objetivos-de-MyFaq">Objetivos de emcs/faq</a> dice:
+          </p>
+
+          <blockquote>
+            <p>
+              Cuidar la ortografía aunque ningún colega o superior tenga acceso
+              a la documentación. Tener una buena ortografía es una
+              característica destacable en toda persona, especialmente en un
+              profesional.
+            </p>
+          </blockquote>
+
+          <p>
+            Así que voy a configurar emacs para que <b>ispell</b> y
+            <b>flyspell</b> corrijan mi ortografía.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgdccf3b4" class="outline-2">
+        <h2 id="orgdccf3b4"># Primero lo primero, instalar aspell</h2>
+        <div class="outline-text-2" id="text-orgdccf3b4">
+          <p>Para instalar <b>Aspell</b> en <b>devuan</b> basta con:</p>
+
+          <pre class="example">
+apt intall aspell-es
+</pre
+          >
+
+          <p>este comando instala aspell y el diccionario español.</p>
+
+          <p>Para ejecutar aspell desde la terminal se usa</p>
+
+          <pre class="example">
+aspell check texto.txt
+</pre
+          >
+
+          <p>pero la onda es hacerlo con emacs!</p>
+        </div>
+      </div>
+
+      <div id="outline-container-orge3f8d74" class="outline-2">
+        <h2 id="orge3f8d74"># Configurar Emacs</h2>
+        <div class="outline-text-2" id="text-orge3f8d74">
+          <p>
+            La siguiente linea (en algún lugar del <b>.emacs</b>) le indica a
+            emacs el diccionario que debe usar
+          </p>
+
+          <pre class="example">
+(setq-default ispell-program-name "aspell")
+</pre
+          >
+
+          <p>y para establecer un diccionario por defecto:</p>
+
+          <pre class="example">
+(setq ispell-dictionary "español")
+</pre
+          >
+
+          <p>para seleccionar el diccionario correspondiente se usa:</p>
+
+          <pre class="example">
+M-x ispell-change-dictionary
+</pre
+          >
+
+          <p>Entonces al ejecutar la orden</p>
+
+          <pre class="example">
+M-x ispell
+</pre
+          >
+
+          <p>
+            aparece en la parte superior del buffer las opciones para corregir
+            el primer error:
+          </p>
+
+          <figure>
+            <img src="./images/ispell1.png" alt="ispell1.png" />
+
+            <figcaption>
+              <span class="figure-number">Figure 1: </span>ispell1.png
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+      <div id="outline-container-org1d8b6a9" class="outline-2">
+        <h2 id="org1d8b6a9"># Opciones de ispell</h2>
+        <div class="outline-text-2" id="text-org1d8b6a9">
+          <ul class="org-ul">
+            <li>
+              <b>Presionar el número</b> en el teclado que se muestra junto a
+              cada una de las alternativas para reemplazar la palabra mal
+              escrita por la que aparece seleccionada.
+            </li>
+
+            <li>
+              <b>Presionar i</b> para ignorar el error, o presiona I para
+              ignorar todas las apariciones de este supuesto error.
+            </li>
+
+            <li>
+              <b>Presionar a</b> para agregar la palabra al diccionario de
+              Aspell y que en futuras comprobaciones no tome esa palabra como un
+              error.
+            </li>
+
+            <li>
+              <b>Presionar r o R</b> para reemplazar esa palabra o todas las
+              apariciones de la palabra con una palabra nueva.
+            </li>
+
+            <li><b>Presionar q</b> para salir.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org26842b3" class="outline-2">
+        <h2 id="org26842b3"># Flaspell-mode</h2>
+        <div class="outline-text-2" id="text-org26842b3">
+          <p>
+            flyspell básicamente resalta y colorea los errores ortográficos
+            detectados en el buffer actual. Las dos órdenes básicas son:
+          </p>
+
+          <ul class="org-ul">
+            <li>
+              <b>M-x flyspell-buffer</b> recorre el buffer actual completo,
+              resaltando todos los errores ortográficos que encuentra, pero no
+              detectará errores debidos a modificaciones posteriores.
+            </li>
+
+            <li>
+              <b>M-x flyspell-mode</b> activa un minor mode interactivo que
+              resalta los errores conforme se va escribiendo el texto. Sin
+              embargo no analiza el texto escrito de antemano, a menos que el
+              cursor pase por encima.
+            </li>
+          </ul>
+
+          <p>También se puede fijar un diccionario por defecto con:</p>
+
+          <pre class="example">
+M-x customize-variable
+flyspell-default-dictionary
+</pre
+          >
+
+          <p>(mas arriba he hecho esto configurando el archivo .emas)</p>
+        </div>
+
+        <div id="outline-container-org6017b57" class="outline-3">
+          <h3 id="org6017b57">Activación automática</h3>
+          <div class="outline-text-3" id="text-org6017b57">
+            <p>Activar Flyspell en modo texto y modos relacionados en .emacs</p>
+
+            <pre class="example">
+(add-hook 'text-mode-hook
+      '(lambda () (flyspell-mode 1)))
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org78f8f78" class="outline-3">
+          <h3 id="org78f8f78">Correcciones</h3>
+          <div class="outline-text-3" id="text-org78f8f78">
+            <p>
+              Para corregir un error (resaltado en rojo), simplemente se pulsa
+              el botón central del ratón sobre la palabra y aparecerá un lista
+              con las alternativas más probables. Como suele ser habitual en
+              estos casos, también puedes añadir la palabra a tu diccionario
+              personal o aceptar la palabra sólo para este fichero. Si la
+              palabra aparece marcada en amarillo significa que ese mismo error
+              ya ha sido marcado más arriba. También aparecen marcadas en
+              amarillo las palabras palabras repetidas.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org7865b57" class="outline-3">
+          <h3 id="org7865b57">Fuentes</h3>
+          <div class="outline-text-3" id="text-org7865b57">
+            <p>
+              Como siempre esto es solo una recopilación y resumen de la
+              información que aparece en:
+            </p>
+
+            <p>
+              <a
+                href="https://ondahostil.wordpress.com/2017/01/17/lo-que-he-aprendido-configurando-aspell-para-emacs/"
+                >OndaHostil</a
+              >
+            </p>
+
+            <p>
+              <a href="https://ubunlog.com/aspell-controla-ortografia-terminal/"
+                >ubunlog.com</a
+              >
+            </p>
+
+            <p>
+              <a
+                href="https://crysol.github.io/recipe/2007-03-13/gnu-emacs-ortografa-al-vuelo-con-flyspell.html#.XWvAfadfjDE"
+                >crysol.github.io</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

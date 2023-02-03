@@ -4,7 +4,120 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Tue, 10 Jan 2023 12:45:07 -0300</lastBuildDate>
+<lastBuildDate>Thu, 02 Feb 2023 22:56:21 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[reparar el grub]]></title>
+  <description><![CDATA[
+      <p>Usar un LiveUSB para reinstalar el grub</p>
+
+      <div id="outline-container-orgaf6a96a" class="outline-2">
+        <h2 id="orgaf6a96a">
+          # Una vez iniciado el LiveUSB, hay que localizar la particion donde
+          esta instalado el grub.
+        </h2>
+        <div class="outline-text-2" id="text-orgaf6a96a">
+          <pre class="example">
+sudo fdisk -l
+</pre
+          >
+          <p>#+END<sub>SRC</sub></p>
+        </div>
+      </div>
+
+      <div id="outline-container-org4e9c330" class="outline-2">
+        <h2 id="org4e9c330"># Montar la particion raiz</h2>
+        <div class="outline-text-2" id="text-org4e9c330">
+          <pre class="example">
+sudo mount /dev/sda2 /mnt
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org316640d" class="outline-2">
+        <h2 id="org316640d"># Montar el resto de los dispositivos:</h2>
+        <div class="outline-text-2" id="text-org316640d">
+          <pre class="example"></pre>
+          <p>
+            sudo mount &#x2013;bind /dev /mnt/dev sudo mount &#x2013;bind
+            /dev/pts /mnt/dev/pts sudo mount &#x2013;bind /proc /mnt/proc sudo
+            mount &#x2013;bind /sys /mnt/sys #+END<sub>SRC</sub>
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgb7ea35e" class="outline-2">
+        <h2 id="orgb7ea35e">
+          # Acceder a la partición raiz del sistema original como root:
+        </h2>
+        <div class="outline-text-2" id="text-orgb7ea35e">
+          <div class="org-src-container">
+            <pre class="src src-#+END_SRC">
+sudo chroot /mnt
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgec87335" class="outline-2">
+        <h2 id="orgec87335"># Instalar el grub en el MRB:</h2>
+        <div class="outline-text-2" id="text-orgec87335">
+          <div class="org-src-container">
+            <pre class="src src-END_SRC">
+grub-install --boot-directory=/boot/ --recheck /dev/sda
+</pre
+            >
+          </div>
+
+          <p>
+            Aqui no hay que especificar la partición solo el disco, en este caso
+            /dev/sda.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org1f77efd" class="outline-2">
+        <h2 id="org1f77efd">
+          # Reiniciar y una vez dentro del sistema original:
+        </h2>
+        <div class="outline-text-2" id="text-org1f77efd">
+          <pre class="example">
+sudo update-grub2
+</pre
+          >
+
+          <p>y listo!</p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2023-02-02-reparar-el-grub.html</link>
+  <guid>https://martiyo.github.io/2023-02-02-reparar-el-grub.html</guid>
+  <pubDate>Thu, 02 Feb 2023 21:07:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[resclient.el]]></title>
+  <description><![CDATA[
+      <p>Explorar servicios web HTTP REST.</p>
+
+      <div id="outline-container-orgff0239c" class="outline-2">
+        <h2 id="orgff0239c">#recclient.el</h2>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/2023-01-22-resclient.el.html</link>
+  <guid>https://martiyo.github.io/2023-01-22-resclient.el.html</guid>
+  <pubDate>Sun, 22 Jan 2023 08:32:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[Introducción a docker]]></title>
   <description><![CDATA[
@@ -4786,6 +4899,124 @@ exec dbus-launch --exit-with-session emacs
   <pubDate>Thu, 20 Aug 2020 16:06:00 -0300</pubDate>
 </item>
 <item>
+  <title><![CDATA[Find]]></title>
+  <description><![CDATA[
+      <p>Bunquedas con find</p>
+      <div id="outline-container-org87d4ffb" class="outline-2">
+        <h2 id="org87d4ffb"># Wiki</h2>
+        <div class="outline-text-2" id="text-org87d4ffb">
+          <p>
+            find es un comando común en sistemas Unix que se utiliza para
+            encontrar archivos en un determinado directorio a partir de diversas
+            reglas de búsqueda, tales como nombre exacto de archivo, fecha de
+            creación, tamaño, permisos, etc. llegando a ser muy flexible y una
+            de las herramientas más útiles en la administración de sistemas
+            cuando se sabe utilizar. En los sistemas GNU/Linux forma parte del
+            paquete findutils.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orga5580f6" class="outline-2">
+        <h2 id="orga5580f6"># Sintaxis basica</h2>
+        <div class="outline-text-2" id="text-orga5580f6">
+          <pre class="example">
+find [ruta] [expresión_de_busqueda] [acción]
+</pre
+          >
+
+          <ul class="org-ul">
+            <li>
+              La [ruta] es cualquier directorio o path que se quiera indicar y
+              desde donde inicia la búsqueda, ejemplos pueden ser "<i
+                >etc", "/home/user", "</i
+              >", "." si no se indica una ruta se toma en cuenta entonces el
+              directorio donde se este actualemte, es decir el directorio de
+              trabajo actual, que es lo mismo que indicar punto ".". De hecho es
+              posible indicar más de un directorio de búsqueda como se verá más
+              adelante en un ejemplo.
+            </li>
+
+            <li>
+              La [expresión<sub>de</sub><sub>búsqueda</sub>] es una o más
+              opciones que puede devolver la búsqueda a realizar en si o
+              acciones a realizar sobre la búsqueda, si no se indica ninguna
+              expresión de búsqueda se aplica por defecto la opción -print que
+              muestra el resultado de la búsqueda.
+            </li>
+
+            <li>
+              La [acción] es cualquier comando de Linux invocado a ejecutarse
+              sobre cada archivo o directorio encontrado con la [expresión<sub
+                >de</sub
+              ><sub>búsqueda</sub>].
+            </li>
+          </ul>
+
+          <p>Estos tres argumento son totalmente opcionales.</p>
+        </div>
+      </div>
+
+      <div id="outline-container-orge0ddad0" class="outline-2">
+        <h2 id="orge0ddad0"># Búsquedas básicas</h2>
+        <div class="outline-text-2" id="text-orge0ddad0">
+          <p>
+            El siguiente ejemplo busca todos los archivos cuyo nombre sea
+            "reporte" dede la raíz:
+          </p>
+
+          <pre class="example">
+find / -name reporte
+</pre
+          >
+
+          <p>lo mismo, pero sin tomar en cuenta mayúsculas y minúsculas</p>
+
+          <pre class="example">
+find / -iname Reporte 
+</pre
+          >
+
+          <p>Busca en /home todos los archivos que pertenezcan al un usuario</p>
+
+          <pre class="example">
+find /home -user nombre
+</pre
+          >
+
+          <pre class="example">
+find /home -user nombre -name "*enero*"
+</pre
+          >
+
+          <p>
+            lo mismo y que contengan con "enero" como en reporte<sub
+              >enero2011</sub
+            >
+          </p>
+
+          <p>Buscar en más de un directorio</p>
+
+          <pre class="example">
+find /etc /usr /var -group admin
+
+(busca en tres directorios todos los archivos o
+subdirectorios que pertenezcan al grupo 'admin')
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2020-03-18-find.html</link>
+  <guid>https://martiyo.github.io/2020-03-18-find.html</guid>
+  <pubDate>Wed, 18 Mar 2020 23:11:00 -0300</pubDate>
+</item>
+<item>
   <title><![CDATA[Gestión de permisos en linux]]></title>
   <description><![CDATA[
       <p>Permisos de acceso a archivos y directorios.</p>
@@ -5160,6 +5391,635 @@ npm i -g npm-chek-updates
   <pubDate>Mon, 02 Sep 2019 23:05:00 -0300</pubDate>
 </item>
 <item>
+  <title><![CDATA[Ispell-Flyspell]]></title>
+  <description><![CDATA[
+      <p>Corrección ortografica en linux y emacs</p>
+
+      <div id="outline-container-org18c241f" class="outline-2">
+        <h2 id="org18c241f"># Ispell - Flyspell</h2>
+        <div class="outline-text-2" id="text-org18c241f">
+          <p>
+            En los
+            <a href="file:///Objetivos-de-MyFaq">Objetivos de emcs/faq</a> dice:
+          </p>
+
+          <blockquote>
+            <p>
+              Cuidar la ortografía aunque ningún colega o superior tenga acceso
+              a la documentación. Tener una buena ortografía es una
+              característica destacable en toda persona, especialmente en un
+              profesional.
+            </p>
+          </blockquote>
+
+          <p>
+            Así que voy a configurar emacs para que <b>ispell</b> y
+            <b>flyspell</b> corrijan mi ortografía.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgdccf3b4" class="outline-2">
+        <h2 id="orgdccf3b4"># Primero lo primero, instalar aspell</h2>
+        <div class="outline-text-2" id="text-orgdccf3b4">
+          <p>Para instalar <b>Aspell</b> en <b>devuan</b> basta con:</p>
+
+          <pre class="example">
+apt intall aspell-es
+</pre
+          >
+
+          <p>este comando instala aspell y el diccionario español.</p>
+
+          <p>Para ejecutar aspell desde la terminal se usa</p>
+
+          <pre class="example">
+aspell check texto.txt
+</pre
+          >
+
+          <p>pero la onda es hacerlo con emacs!</p>
+        </div>
+      </div>
+
+      <div id="outline-container-orge3f8d74" class="outline-2">
+        <h2 id="orge3f8d74"># Configurar Emacs</h2>
+        <div class="outline-text-2" id="text-orge3f8d74">
+          <p>
+            La siguiente linea (en algún lugar del <b>.emacs</b>) le indica a
+            emacs el diccionario que debe usar
+          </p>
+
+          <pre class="example">
+(setq-default ispell-program-name "aspell")
+</pre
+          >
+
+          <p>y para establecer un diccionario por defecto:</p>
+
+          <pre class="example">
+(setq ispell-dictionary "español")
+</pre
+          >
+
+          <p>para seleccionar el diccionario correspondiente se usa:</p>
+
+          <pre class="example">
+M-x ispell-change-dictionary
+</pre
+          >
+
+          <p>Entonces al ejecutar la orden</p>
+
+          <pre class="example">
+M-x ispell
+</pre
+          >
+
+          <p>
+            aparece en la parte superior del buffer las opciones para corregir
+            el primer error:
+          </p>
+
+          <figure>
+            <img src="./images/ispell1.png" alt="ispell1.png" />
+
+            <figcaption>
+              <span class="figure-number">Figure 1: </span>ispell1.png
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+      <div id="outline-container-org1d8b6a9" class="outline-2">
+        <h2 id="org1d8b6a9"># Opciones de ispell</h2>
+        <div class="outline-text-2" id="text-org1d8b6a9">
+          <ul class="org-ul">
+            <li>
+              <b>Presionar el número</b> en el teclado que se muestra junto a
+              cada una de las alternativas para reemplazar la palabra mal
+              escrita por la que aparece seleccionada.
+            </li>
+
+            <li>
+              <b>Presionar i</b> para ignorar el error, o presiona I para
+              ignorar todas las apariciones de este supuesto error.
+            </li>
+
+            <li>
+              <b>Presionar a</b> para agregar la palabra al diccionario de
+              Aspell y que en futuras comprobaciones no tome esa palabra como un
+              error.
+            </li>
+
+            <li>
+              <b>Presionar r o R</b> para reemplazar esa palabra o todas las
+              apariciones de la palabra con una palabra nueva.
+            </li>
+
+            <li><b>Presionar q</b> para salir.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="outline-container-org26842b3" class="outline-2">
+        <h2 id="org26842b3"># Flaspell-mode</h2>
+        <div class="outline-text-2" id="text-org26842b3">
+          <p>
+            flyspell básicamente resalta y colorea los errores ortográficos
+            detectados en el buffer actual. Las dos órdenes básicas son:
+          </p>
+
+          <ul class="org-ul">
+            <li>
+              <b>M-x flyspell-buffer</b> recorre el buffer actual completo,
+              resaltando todos los errores ortográficos que encuentra, pero no
+              detectará errores debidos a modificaciones posteriores.
+            </li>
+
+            <li>
+              <b>M-x flyspell-mode</b> activa un minor mode interactivo que
+              resalta los errores conforme se va escribiendo el texto. Sin
+              embargo no analiza el texto escrito de antemano, a menos que el
+              cursor pase por encima.
+            </li>
+          </ul>
+
+          <p>También se puede fijar un diccionario por defecto con:</p>
+
+          <pre class="example">
+M-x customize-variable
+flyspell-default-dictionary
+</pre
+          >
+
+          <p>(mas arriba he hecho esto configurando el archivo .emas)</p>
+        </div>
+
+        <div id="outline-container-org6017b57" class="outline-3">
+          <h3 id="org6017b57">Activación automática</h3>
+          <div class="outline-text-3" id="text-org6017b57">
+            <p>Activar Flyspell en modo texto y modos relacionados en .emacs</p>
+
+            <pre class="example">
+(add-hook 'text-mode-hook
+      '(lambda () (flyspell-mode 1)))
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org78f8f78" class="outline-3">
+          <h3 id="org78f8f78">Correcciones</h3>
+          <div class="outline-text-3" id="text-org78f8f78">
+            <p>
+              Para corregir un error (resaltado en rojo), simplemente se pulsa
+              el botón central del ratón sobre la palabra y aparecerá un lista
+              con las alternativas más probables. Como suele ser habitual en
+              estos casos, también puedes añadir la palabra a tu diccionario
+              personal o aceptar la palabra sólo para este fichero. Si la
+              palabra aparece marcada en amarillo significa que ese mismo error
+              ya ha sido marcado más arriba. También aparecen marcadas en
+              amarillo las palabras palabras repetidas.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org7865b57" class="outline-3">
+          <h3 id="org7865b57">Fuentes</h3>
+          <div class="outline-text-3" id="text-org7865b57">
+            <p>
+              Como siempre esto es solo una recopilación y resumen de la
+              información que aparece en:
+            </p>
+
+            <p>
+              <a
+                href="https://ondahostil.wordpress.com/2017/01/17/lo-que-he-aprendido-configurando-aspell-para-emacs/"
+                >OndaHostil</a
+              >
+            </p>
+
+            <p>
+              <a href="https://ubunlog.com/aspell-controla-ortografia-terminal/"
+                >ubunlog.com</a
+              >
+            </p>
+
+            <p>
+              <a
+                href="https://crysol.github.io/recipe/2007-03-13/gnu-emacs-ortografa-al-vuelo-con-flyspell.html#.XWvAfadfjDE"
+                >crysol.github.io</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2019-08-31-ispell-flyspell.html</link>
+  <guid>https://martiyo.github.io/2019-08-31-ispell-flyspell.html</guid>
+  <pubDate>Sat, 31 Aug 2019 14:37:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[cURL]]></title>
+  <description><![CDATA[
+      <p>Transferencia de archivos</p>
+
+      <div id="outline-container-org80c8026" class="outline-2">
+        <h2 id="org80c8026">#cURL wikipedia</h2>
+        <div class="outline-text-2" id="text-org80c8026">
+          <p>
+            cURL es un proyecto de software consistente en una biblioteca
+            (libcurl) y un intérprete de comandos (curl) orientado a la
+            transferencia de archivos. Soporta los protocolos FTP, FTPS, HTTP,
+            HTTPS, TFTP, SCP, SFTP, Telnet, DICT, FILE y LDAP, entre otros. cURL
+            soporta certificados HTTPS, HTTP POST, HTTP PUT, subidas FTP,
+            Kerberos, subidas mediante formulario HTTP, proxies, cookies,
+            autenticación mediante usuario y contraseña (Basic, DIgest, NTLM y
+            Negotiate para HTTP y kerberos 4 para FTP), continuación de
+            transferencia de archivos, tunneling de proxy HTTP y otras
+            prestaciones. cURL es de código abierto, software libre distribuido
+            bajo la Licencia MIT. El principal propósito y uso para cURL es
+            automatizar transferencias de archivos o secuencias de operaciones
+            no supervisadas. Es por ejemplo, una herramienta válida para simular
+            las acciones de usuarios en un navegador web.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org474ace9" class="outline-2">
+        <h2 id="org474ace9">#Ejemplos de uso</h2>
+        <div class="outline-text-2" id="text-org474ace9"></div>
+        <div id="outline-container-orgf046b0b" class="outline-3">
+          <h3 id="orgf046b0b">Petición GET a una API</h3>
+          <div class="outline-text-3" id="text-orgf046b0b">
+            <pre class="example">
+curl https://jsonplaceholder.typicode.com/posts
+</pre
+            >
+
+            <p>petición get a una API con información sobre la cabecera.</p>
+
+            <pre class="example">
+curl https://jsonplaceholder.typicode.com/posts -v
+</pre
+            >
+
+            <p>
+              esto muestra información sobre la cabecera, que muestra la version
+              de http, la longitud de la transaccion, el tipo de contenido, etc.
+              Si se cambia el parametro -v por -i se ve la misma información
+              pero más resumida.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgd21b260" class="outline-3">
+          <h3 id="orgd21b260">Peticipon POST a una API</h3>
+          <div class="outline-text-3" id="text-orgd21b260">
+            <pre class="example">
+curl --data "title=hello world&amp;body=this is my first post" https://jsonplaceholder.typicode.com/posts
+</pre
+            >
+
+            <p>
+              donde <b>title</b> y <b>body</b> son campos del modelo
+              <b>post</b>.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org6f1c829" class="outline-3">
+          <h3 id="org6f1c829">Petición PUT a una API</h3>
+          <div class="outline-text-3" id="text-org6f1c829">
+            <pre class="example">
+curl -X PUT --data "title=title update&amp;body=this is my new post" https://jsonplaceholder.typicode.com/posts/1
+</pre
+            >
+
+            <p>esto modifica el post 1 como se indica en la url.</p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgdec1549" class="outline-3">
+          <h3 id="orgdec1549">Petición DELETE a una API</h3>
+          <div class="outline-text-3" id="text-orgdec1549">
+            <pre class="example">
+curl -X DELETE https://jsonplaceholder.typicode.com/posts/1
+</pre
+            >
+
+            <p>esto elimina el post 1 indicado en la url.</p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgb43d9ef" class="outline-3">
+          <h3 id="orgb43d9ef">Descargas</h3>
+          <div class="outline-text-3" id="text-orgb43d9ef">
+            <p>
+              Descargar y guardar la información (pueden ser imagenes, pdf, etc)
+              en un archivo.
+            </p>
+
+            <pre class="example">
+curl -o nuevoArchivo https://jsonplaceholder.typicode.com/posts -v
+</pre
+            >
+
+            <p>guardar contenido html de una pagina</p>
+
+            <pre class="example">
+curl -o wikipedia.html https://wikipedia.com
+</pre
+            >
+
+            <p>
+              con la opción -O (o mayuscula) guarda sin necesidad de ponerle
+              nombre al archivo
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgb97d1d2" class="outline-3">
+          <h3 id="orgb97d1d2">Subir archivos a un ftp</h3>
+          <div class="outline-text-3" id="text-orgb97d1d2">
+            <pre class="example">
+curl -u user:password -T archivo.pdf ftp://ftp.server.com
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2019-07-17-curl.html</link>
+  <guid>https://martiyo.github.io/2019-07-17-curl.html</guid>
+  <pubDate>Wed, 17 Jul 2019 15:25:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Empaquetar y comprimir]]></title>
+  <description><![CDATA[
+      <p>Empaquetar comprimir y descomprimir archivos en linux</p>
+
+      <div id="outline-container-orgfd0690b" class="outline-2">
+        <h2 id="orgfd0690b">#gzip</h2>
+        <div class="outline-text-2" id="text-orgfd0690b">
+          <p>
+            Este comando comprime uno o varios archivos seleccionados y genera
+            un nuevo archivo con la extención gz. Ejemplo:
+          </p>
+
+          <pre class="example">
+gzip archivo.txt
+</pre
+          >
+
+          <p>esto genera un archivo llamado archivo.txt.gz</p>
+
+          <p>
+            Para descomprimir el archivo y volverlo a su estado original se usa
+            el comando <b>gunzip</b>
+          </p>
+
+          <pre class="example">
+gunzip archivo.txt.gz
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org48ad955" class="outline-2">
+        <h2 id="org48ad955">#bzip</h2>
+        <div class="outline-text-2" id="text-org48ad955">
+          <p>
+            Este comando comprime de una forma más efeciente pero tarda más
+            tiempo y genera un archivo con la extención bz2. Ejemplo:
+          </p>
+
+          <pre class="example">
+bzip2 archivo.txt
+</pre
+          >
+
+          <p>
+            Para descomprimir un archivo bz2 y regresarlo a su estado original
+            el comando es <b>bunzip2</b>
+          </p>
+
+          <pre class="example">
+bunzip2 archivo.txt.bz2
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org48d5bb6" class="outline-2">
+        <h2 id="org48d5bb6">#Comando tar</h2>
+        <div class="outline-text-2" id="text-org48d5bb6">
+          <p>
+            El comando tar permite empaquetar archivos, no los comprime sino que
+            los pone a todos juntos convirtiendolos a todos en un solo archivo.
+            Algunas opciones de este comando:
+          </p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Comando</th>
+                <th scope="col" class="org-left">Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">tar -c</td>
+                <td class="org-left">crea un archivo tar.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tar -x</td>
+                <td class="org-left">extraer de un archivo tar.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tar -v</td>
+                <td class="org-left">modo explicativo.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tar -f arvhivo</td>
+                <td class="org-left">
+                  agrupa o desagrupa en o hacia un fichero.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tar -z</td>
+                <td class="org-left">
+                  comprime o descomprime el archivo resultante una vez agrupado
+                  o desagrupdo con gzip y gunzip respectivamente.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tar -j</td>
+                <td class="org-left">
+                  comprime o descomprime el archivo resultante una vez agrupado
+                  o desagrupdo con bzip2 y bunzip2 respectivamente.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tar -t</td>
+                <td class="org-left">lista el contenido de un archivo tar.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tar -M</td>
+                <td class="org-left">agrupa en volúmenes.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="outline-container-org725c822" class="outline-2">
+        <h2 id="org725c822">#Ejemplos:</h2>
+        <div class="outline-text-2" id="text-org725c822">
+          <p>empaquetar en tar</p>
+
+          <pre class="example">
+tar cf nuevo.tar archivo1 archivo2 archivo3
+</pre
+          >
+
+          <p>desempaquetar</p>
+
+          <pre class="example">
+ta xf nuevo.tar
+</pre
+          >
+
+          <p>empaquetar con tar y comprimir con gz (crear tar.gz)</p>
+
+          <pre class="example">
+tar cvfz /tmp/etc.tar.gz /etc
+</pre
+          >
+
+          <p>desempaquetar y descomprimir</p>
+
+          <pre class="example">
+tar xvfz /tmp/etc.tar.gz 
+</pre
+          >
+
+          <p>empaquetar con tar y comprimir con bzip2 (crear tar.bz2)</p>
+
+          <pre class="example">
+tar cjfz /tmp/etc.tar.bz2 /etc
+</pre
+          >
+
+          <p>desempaquetar y descomprimir</p>
+
+          <pre class="example">
+tar xjfz /tmp/etc.tar.bz2 /etc
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgfaaa8f3" class="outline-2">
+        <h2 id="orgfaaa8f3">#Otros tipos de archivos comprimidos</h2>
+        <div class="outline-text-2" id="text-orgfaaa8f3">
+          <p>
+            Archivos <b>rar</b>. Para descomprimir archivos rar se usa el
+            comando unrar.
+          </p>
+
+          <p>algunas opciones de unrar</p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">parametro</th>
+                <th scope="col" class="org-left">función</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">e</td>
+                <td class="org-left">
+                  Extrae archivos en el directorio actual.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">l</td>
+                <td class="org-left">Lista el contenido del archivo rar.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">p</td>
+                <td class="org-left">Print file to stdout.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">t</td>
+                <td class="org-left">Comprobar los ficheros del archivo.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">x</td>
+                <td class="org-left">Extrae ficheros con la ruta complet.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">p</td>
+                <td class="org-left">Establecer contraseña.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>Descomprimir *.r00</p>
+
+          <pre class="example">
+unrar e *.r00
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2019-07-13-empaquetar-y-comprimir.html</link>
+  <guid>https://martiyo.github.io/2019-07-13-empaquetar-y-comprimir.html</guid>
+  <pubDate>Sat, 13 Jul 2019 12:03:00 -0300</pubDate>
+</item>
+<item>
   <title><![CDATA[Git gestion de ramas]]></title>
   <description><![CDATA[
       <p>
@@ -5334,6 +6194,217 @@ git branch -d iss53
   <link>https://martiyo.github.io/2019-06-30-git-ramificar-y-fusionar.html</link>
   <guid>https://martiyo.github.io/2019-06-30-git-ramificar-y-fusionar.html</guid>
   <pubDate>Sun, 30 Jun 2019 18:10:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Emacs-cosas-utiles]]></title>
+  <description><![CDATA[
+      <p>Algunos comandos, atajos y funciones.</p>
+
+      <div id="outline-container-org14b6cab" class="outline-2">
+        <h2 id="org14b6cab">Listado de paquetes instalados</h2>
+        <div class="outline-text-2" id="text-org14b6cab">
+          <pre class="example">
+C-h v package-activate-list
+</pre
+          >
+        </div>
+      </div>
+      <div id="outline-container-orgc15a721" class="outline-2">
+        <h2 id="orgc15a721">Busquedas</h2>
+        <div class="outline-text-2" id="text-orgc15a721"></div>
+        <div id="outline-container-org8677a18" class="outline-3">
+          <h3 id="org8677a18">Buscar hacia adelante</h3>
+          <div class="outline-text-3" id="text-org8677a18">
+            <pre class="example">
+C-s
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org178b386" class="outline-3">
+          <h3 id="org178b386">Pasar a la siguiente opción encontrada</h3>
+          <div class="outline-text-3" id="text-org178b386">
+            <pre class="example">
+C-s
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org0385914" class="outline-3">
+          <h3 id="org0385914">
+            Para volver a realizar la última búsqueda efectuada pulsar:
+          </h3>
+          <div class="outline-text-3" id="text-org0385914">
+            <pre class="example">
+C-s C-s
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org7d9af62" class="outline-3">
+          <h3 id="org7d9af62">Buscar hacia atras</h3>
+          <div class="outline-text-3" id="text-org7d9af62">
+            <pre class="example">
+C-r
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org6e3be40" class="outline-3">
+          <h3 id="org6e3be40">
+            Ubicar el cursor en una palabra y buscar otras coincidencias en el
+            buffer:
+          </h3>
+          <div class="outline-text-3" id="text-org6e3be40">
+            <pre class="example">
+C-s C-w
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org37743b6" class="outline-3">
+          <h3 id="org37743b6">Buscar y reemplazar palabra</h3>
+          <div class="outline-text-3" id="text-org37743b6">
+            <pre class="example">
+M-x replace-string RET
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org8995f3a" class="outline-2">
+        <h2 id="org8995f3a">
+          Añade o quita los delimitadores de comentarios de todas las líneas de
+          la región.
+        </h2>
+        <div class="outline-text-2" id="text-org8995f3a">
+          <pre class="example">
+M-x comment-region
+</pre
+          >
+
+          <pre class="example">
+M-Shift-; 
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgf398089" class="outline-2">
+        <h2 id="orgf398089">
+          Comando para contar lineas palabras y caracteres
+        </h2>
+        <div class="outline-text-2" id="text-orgf398089">
+          <pre class="example">
+M-x count-lines-region
+
+o el atajo
+
+M-=
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orge126867" class="outline-2">
+        <h2 id="orge126867">Agrear fecha</h2>
+        <div class="outline-text-2" id="text-orge126867">
+          <pre class="example">
+C-c !
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org5fb8a3a" class="outline-2">
+        <h2 id="org5fb8a3a">Ir a una linea especifica</h2>
+        <div class="outline-text-2" id="text-org5fb8a3a">
+          <pre class="example">
+M-x goto-line RET nro de linea
+</pre
+          >
+
+          <p>o con las teclas</p>
+
+          <pre class="example">
+M-g-g
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org975197d" class="outline-2">
+        <h2 id="org975197d">Tiempo de inicio</h2>
+        <div class="outline-text-2" id="text-org975197d">
+          <pre class="example">
+M-x emacs-init-time
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orga51b98d" class="outline-2">
+        <h2 id="orga51b98d">begining to buffer</h2>
+        <div class="outline-text-2" id="text-orga51b98d">
+          <pre class="example">
+M-&lt;
+
+va al inicio del buffer
+
+C-x C-x 
+
+retorna al punto anterior.
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org0c0fa4f" class="outline-2">
+        <h2 id="org0c0fa4f">Buscar funciones y variables</h2>
+        <div class="outline-text-2" id="text-org0c0fa4f">
+          <pre class="example">
+C-h f RET function RET
+</pre
+          >
+
+          <p>
+            llama a <b><b>describe function</b></b> que muestra información de
+            la función.
+          </p>
+
+          <pre class="example">
+C-h v 
+</pre
+          >
+
+          <p>busca variables</p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgaa522e0" class="outline-2">
+        <h2 id="orgaa522e0">Abrir archivo como root</h2>
+        <div class="outline-text-2" id="text-orgaa522e0">
+          <pre class="example">
+C-x C-f /sudo::/path/to/file
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/2019-02-28-emacs-cosas-utiles.html</link>
+  <guid>https://martiyo.github.io/2019-02-28-emacs-cosas-utiles.html</guid>
+  <pubDate>Thu, 28 Feb 2019 23:03:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Linux, comandos, trucos y cosas utiles]]></title>

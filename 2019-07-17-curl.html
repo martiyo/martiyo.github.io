@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>cURL</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">17 jul 2019</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2019-07-17-curl.html">cURL</a>
+      </h1>
+      <p>Transferencia de archivos</p>
+
+      <div id="outline-container-org80c8026" class="outline-2">
+        <h2 id="org80c8026">#cURL wikipedia</h2>
+        <div class="outline-text-2" id="text-org80c8026">
+          <p>
+            cURL es un proyecto de software consistente en una biblioteca
+            (libcurl) y un intérprete de comandos (curl) orientado a la
+            transferencia de archivos. Soporta los protocolos FTP, FTPS, HTTP,
+            HTTPS, TFTP, SCP, SFTP, Telnet, DICT, FILE y LDAP, entre otros. cURL
+            soporta certificados HTTPS, HTTP POST, HTTP PUT, subidas FTP,
+            Kerberos, subidas mediante formulario HTTP, proxies, cookies,
+            autenticación mediante usuario y contraseña (Basic, DIgest, NTLM y
+            Negotiate para HTTP y kerberos 4 para FTP), continuación de
+            transferencia de archivos, tunneling de proxy HTTP y otras
+            prestaciones. cURL es de código abierto, software libre distribuido
+            bajo la Licencia MIT. El principal propósito y uso para cURL es
+            automatizar transferencias de archivos o secuencias de operaciones
+            no supervisadas. Es por ejemplo, una herramienta válida para simular
+            las acciones de usuarios en un navegador web.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org474ace9" class="outline-2">
+        <h2 id="org474ace9">#Ejemplos de uso</h2>
+        <div class="outline-text-2" id="text-org474ace9"></div>
+        <div id="outline-container-orgf046b0b" class="outline-3">
+          <h3 id="orgf046b0b">Petición GET a una API</h3>
+          <div class="outline-text-3" id="text-orgf046b0b">
+            <pre class="example">
+curl https://jsonplaceholder.typicode.com/posts
+</pre
+            >
+
+            <p>petición get a una API con información sobre la cabecera.</p>
+
+            <pre class="example">
+curl https://jsonplaceholder.typicode.com/posts -v
+</pre
+            >
+
+            <p>
+              esto muestra información sobre la cabecera, que muestra la version
+              de http, la longitud de la transaccion, el tipo de contenido, etc.
+              Si se cambia el parametro -v por -i se ve la misma información
+              pero más resumida.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgd21b260" class="outline-3">
+          <h3 id="orgd21b260">Peticipon POST a una API</h3>
+          <div class="outline-text-3" id="text-orgd21b260">
+            <pre class="example">
+curl --data "title=hello world&amp;body=this is my first post" https://jsonplaceholder.typicode.com/posts
+</pre
+            >
+
+            <p>
+              donde <b>title</b> y <b>body</b> son campos del modelo
+              <b>post</b>.
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-org6f1c829" class="outline-3">
+          <h3 id="org6f1c829">Petición PUT a una API</h3>
+          <div class="outline-text-3" id="text-org6f1c829">
+            <pre class="example">
+curl -X PUT --data "title=title update&amp;body=this is my new post" https://jsonplaceholder.typicode.com/posts/1
+</pre
+            >
+
+            <p>esto modifica el post 1 como se indica en la url.</p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgdec1549" class="outline-3">
+          <h3 id="orgdec1549">Petición DELETE a una API</h3>
+          <div class="outline-text-3" id="text-orgdec1549">
+            <pre class="example">
+curl -X DELETE https://jsonplaceholder.typicode.com/posts/1
+</pre
+            >
+
+            <p>esto elimina el post 1 indicado en la url.</p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgb43d9ef" class="outline-3">
+          <h3 id="orgb43d9ef">Descargas</h3>
+          <div class="outline-text-3" id="text-orgb43d9ef">
+            <p>
+              Descargar y guardar la información (pueden ser imagenes, pdf, etc)
+              en un archivo.
+            </p>
+
+            <pre class="example">
+curl -o nuevoArchivo https://jsonplaceholder.typicode.com/posts -v
+</pre
+            >
+
+            <p>guardar contenido html de una pagina</p>
+
+            <pre class="example">
+curl -o wikipedia.html https://wikipedia.com
+</pre
+            >
+
+            <p>
+              con la opción -O (o mayuscula) guarda sin necesidad de ponerle
+              nombre al archivo
+            </p>
+          </div>
+        </div>
+
+        <div id="outline-container-orgb97d1d2" class="outline-3">
+          <h3 id="orgb97d1d2">Subir archivos a un ftp</h3>
+          <div class="outline-text-3" id="text-orgb97d1d2">
+            <pre class="example">
+curl -u user:password -T archivo.pdf ftp://ftp.server.com
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

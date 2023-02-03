@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Find</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">18 mar 2020</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2020-03-18-find.html">Find</a>
+      </h1>
+      <p>Bunquedas con find</p>
+      <div id="outline-container-org87d4ffb" class="outline-2">
+        <h2 id="org87d4ffb"># Wiki</h2>
+        <div class="outline-text-2" id="text-org87d4ffb">
+          <p>
+            find es un comando común en sistemas Unix que se utiliza para
+            encontrar archivos en un determinado directorio a partir de diversas
+            reglas de búsqueda, tales como nombre exacto de archivo, fecha de
+            creación, tamaño, permisos, etc. llegando a ser muy flexible y una
+            de las herramientas más útiles en la administración de sistemas
+            cuando se sabe utilizar. En los sistemas GNU/Linux forma parte del
+            paquete findutils.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orga5580f6" class="outline-2">
+        <h2 id="orga5580f6"># Sintaxis basica</h2>
+        <div class="outline-text-2" id="text-orga5580f6">
+          <pre class="example">
+find [ruta] [expresión_de_busqueda] [acción]
+</pre
+          >
+
+          <ul class="org-ul">
+            <li>
+              La [ruta] es cualquier directorio o path que se quiera indicar y
+              desde donde inicia la búsqueda, ejemplos pueden ser "<i
+                >etc", "/home/user", "</i
+              >", "." si no se indica una ruta se toma en cuenta entonces el
+              directorio donde se este actualemte, es decir el directorio de
+              trabajo actual, que es lo mismo que indicar punto ".". De hecho es
+              posible indicar más de un directorio de búsqueda como se verá más
+              adelante en un ejemplo.
+            </li>
+
+            <li>
+              La [expresión<sub>de</sub><sub>búsqueda</sub>] es una o más
+              opciones que puede devolver la búsqueda a realizar en si o
+              acciones a realizar sobre la búsqueda, si no se indica ninguna
+              expresión de búsqueda se aplica por defecto la opción -print que
+              muestra el resultado de la búsqueda.
+            </li>
+
+            <li>
+              La [acción] es cualquier comando de Linux invocado a ejecutarse
+              sobre cada archivo o directorio encontrado con la [expresión<sub
+                >de</sub
+              ><sub>búsqueda</sub>].
+            </li>
+          </ul>
+
+          <p>Estos tres argumento son totalmente opcionales.</p>
+        </div>
+      </div>
+
+      <div id="outline-container-orge0ddad0" class="outline-2">
+        <h2 id="orge0ddad0"># Búsquedas básicas</h2>
+        <div class="outline-text-2" id="text-orge0ddad0">
+          <p>
+            El siguiente ejemplo busca todos los archivos cuyo nombre sea
+            "reporte" dede la raíz:
+          </p>
+
+          <pre class="example">
+find / -name reporte
+</pre
+          >
+
+          <p>lo mismo, pero sin tomar en cuenta mayúsculas y minúsculas</p>
+
+          <pre class="example">
+find / -iname Reporte 
+</pre
+          >
+
+          <p>Busca en /home todos los archivos que pertenezcan al un usuario</p>
+
+          <pre class="example">
+find /home -user nombre
+</pre
+          >
+
+          <pre class="example">
+find /home -user nombre -name "*enero*"
+</pre
+          >
+
+          <p>
+            lo mismo y que contengan con "enero" como en reporte<sub
+              >enero2011</sub
+            >
+          </p>
+
+          <p>Buscar en más de un directorio</p>
+
+          <pre class="example">
+find /etc /usr /var -group admin
+
+(busca en tres directorios todos los archivos o
+subdirectorios que pertenezcan al grupo 'admin')
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

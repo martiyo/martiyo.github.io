@@ -1,0 +1,75 @@
+#+title: Find
+#+date: <2020-03-18 23:11>
+#+description: 
+#+filetags: linux
+
+Bunquedas con find
+*** # Wiki
+
+find es un comando común en sistemas Unix que se utiliza para encontrar
+archivos en un determinado directorio a partir de diversas reglas de
+búsqueda, tales como nombre exacto de archivo, fecha de creación,
+tamaño, permisos, etc. llegando a ser muy flexible y una de las
+herramientas más útiles en la administración de sistemas cuando se sabe
+utilizar. En los sistemas GNU/Linux forma parte del paquete findutils.
+
+*** # Sintaxis basica
+
+
+#+BEGIN_SRC 
+  find [ruta] [expresión_de_busqueda] [acción]
+#+END_SRC
+
+- La [ruta] es cualquier directorio o path que se quiera indicar y desde
+  donde inicia la búsqueda, ejemplos pueden ser "/etc", "/home/user",
+  "/", "." si no se indica una ruta se toma en cuenta entonces el
+  directorio donde se este actualemte, es decir el directorio de trabajo
+  actual, que es lo mismo que indicar punto ".". De hecho es posible
+  indicar más de un directorio de búsqueda como se verá más adelante en
+  un ejemplo.
+
+- La [expresión_de_búsqueda] es una o más opciones que puede devolver la
+  búsqueda a realizar en si o acciones a realizar sobre la búsqueda, si
+  no se indica ninguna expresión de búsqueda se aplica por defecto la
+  opción -print que muestra el resultado de la búsqueda.
+
+- La [acción] es cualquier comando de Linux invocado a ejecutarse sobre
+  cada archivo o directorio encontrado con la [expresión_de_búsqueda].
+
+Estos tres argumento son totalmente opcionales.
+  
+*** # Búsquedas básicas
+   
+El siguiente ejemplo busca todos los archivos cuyo nombre sea "reporte"
+dede la raíz:
+
+#+BEGIN_SRC
+  find / -name reporte
+#+END_SRC
+
+lo mismo, pero sin tomar en cuenta mayúsculas y minúsculas
+
+#+BEGIN_SRC
+  find / -iname Reporte 
+#+END_SRC
+
+Busca en /home todos los archivos que pertenezcan al un usuario
+
+#+BEGIN_SRC
+  find /home -user nombre
+#+END_SRC
+
+#+BEGIN_SRC
+  find /home -user nombre -name "*enero*"
+#+END_SRC
+
+lo mismo y que contengan con "enero" como en reporte_enero2011
+
+Buscar en más de un directorio
+
+#+BEGIN_SRC
+  find /etc /usr /var -group admin
+
+  (busca en tres directorios todos los archivos o
+  subdirectorios que pertenezcan al grupo 'admin')
+#+END_SRC

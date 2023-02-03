@@ -1,0 +1,117 @@
+#+title: Empaquetar y comprimir
+#+date: <2019-07-13 12:03>
+#+description: 
+#+filetags: linux
+
+Empaquetar comprimir y descomprimir archivos en linux
+
+*** #gzip
+
+
+Este comando comprime uno o varios archivos seleccionados y genera un
+nuevo archivo con la extención gz. Ejemplo:
+
+#+BEGIN_SRC
+    gzip archivo.txt
+#+END_SRC
+
+esto genera un archivo llamado archivo.txt.gz
+
+Para descomprimir el archivo y volverlo a su estado original se usa el
+comando *gunzip*
+
+#+BEGIN_SRC
+    gunzip archivo.txt.gz
+#+END_SRC
+
+*** #bzip
+
+Este comando comprime de una forma más efeciente pero tarda más tiempo y
+genera un archivo con la extención bz2. Ejemplo:
+
+#+BEGIN_SRC
+    bzip2 archivo.txt
+#+END_SRC
+
+Para descomprimir un archivo bz2 y regresarlo a su estado original el
+comando es *bunzip2*
+
+#+BEGIN_SRC
+    bunzip2 archivo.txt.bz2
+#+END_SRC
+
+*** #Comando tar
+
+El comando tar permite empaquetar archivos, no los comprime sino que los
+pone a todos juntos convirtiendolos a todos en un solo archivo. Algunas
+opciones de este comando:
+
+| Comando          | Descripción                                                                                                       |
+|------------------+-------------------------------------------------------------------------------------------------------------------|
+| tar -c           | crea un archivo tar.                                                                                              |
+| tar -x           | extraer de un archivo tar.                                                                                        |
+| tar -v           | modo explicativo.                                                                                                 |
+| tar -f arvhivo   | agrupa o desagrupa en o hacia un fichero.                                                                         |
+| tar -z           | comprime o descomprime el archivo resultante una vez agrupado o desagrupdo con gzip y gunzip respectivamente.     |
+| tar -j           | comprime o descomprime el archivo resultante una vez agrupado o desagrupdo con bzip2 y bunzip2 respectivamente.   |
+| tar -t           | lista el contenido de un archivo tar.                                                                             |
+| tar -M           | agrupa en volúmenes.                                                                                              |
+
+*** #Ejemplos:
+
+empaquetar en tar
+
+#+BEGIN_SRC
+    tar cf nuevo.tar archivo1 archivo2 archivo3
+#+END_SRC
+
+desempaquetar
+
+#+BEGIN_SRC
+    ta xf nuevo.tar
+#+END_SRC
+
+empaquetar con tar y comprimir con gz (crear tar.gz)
+
+#+BEGIN_SRC
+    tar cvfz /tmp/etc.tar.gz /etc
+#+END_SRC
+
+desempaquetar y descomprimir
+
+#+BEGIN_SRC
+    tar xvfz /tmp/etc.tar.gz 
+#+END_SRC
+
+empaquetar con tar y comprimir con bzip2 (crear tar.bz2)
+
+#+BEGIN_SRC
+    tar cjfz /tmp/etc.tar.bz2 /etc
+#+END_SRC
+
+desempaquetar y descomprimir
+
+#+BEGIN_SRC
+    tar xjfz /tmp/etc.tar.bz2 /etc
+#+END_SRC
+
+*** #Otros tipos de archivos comprimidos
+
+Archivos *rar*. Para descomprimir archivos rar se usa el comando unrar.
+
+algunas opciones de unrar
+
+| parametro   | función                                    |
+|-------------+--------------------------------------------|
+| e           | Extrae archivos en el directorio actual.   |
+| l           | Lista el contenido del archivo rar.        |
+| p           | Print file to stdout.                      |
+| t           | Comprobar los ficheros del archivo.        |
+| x           | Extrae ficheros con la ruta complet.       |
+| p           | Establecer contraseña.                     |
+
+Descomprimir *.r00
+
+#+BEGIN_SRC
+    unrar e *.r00
+#+END_SRC

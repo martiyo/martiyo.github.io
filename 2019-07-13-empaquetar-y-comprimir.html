@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Empaquetar y comprimir</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">13 jul 2019</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/2019-07-13-empaquetar-y-comprimir.html"
+          >Empaquetar y comprimir</a
+        >
+      </h1>
+      <p>Empaquetar comprimir y descomprimir archivos en linux</p>
+
+      <div id="outline-container-orgfd0690b" class="outline-2">
+        <h2 id="orgfd0690b">#gzip</h2>
+        <div class="outline-text-2" id="text-orgfd0690b">
+          <p>
+            Este comando comprime uno o varios archivos seleccionados y genera
+            un nuevo archivo con la extención gz. Ejemplo:
+          </p>
+
+          <pre class="example">
+gzip archivo.txt
+</pre
+          >
+
+          <p>esto genera un archivo llamado archivo.txt.gz</p>
+
+          <p>
+            Para descomprimir el archivo y volverlo a su estado original se usa
+            el comando <b>gunzip</b>
+          </p>
+
+          <pre class="example">
+gunzip archivo.txt.gz
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org48ad955" class="outline-2">
+        <h2 id="org48ad955">#bzip</h2>
+        <div class="outline-text-2" id="text-org48ad955">
+          <p>
+            Este comando comprime de una forma más efeciente pero tarda más
+            tiempo y genera un archivo con la extención bz2. Ejemplo:
+          </p>
+
+          <pre class="example">
+bzip2 archivo.txt
+</pre
+          >
+
+          <p>
+            Para descomprimir un archivo bz2 y regresarlo a su estado original
+            el comando es <b>bunzip2</b>
+          </p>
+
+          <pre class="example">
+bunzip2 archivo.txt.bz2
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org48d5bb6" class="outline-2">
+        <h2 id="org48d5bb6">#Comando tar</h2>
+        <div class="outline-text-2" id="text-org48d5bb6">
+          <p>
+            El comando tar permite empaquetar archivos, no los comprime sino que
+            los pone a todos juntos convirtiendolos a todos en un solo archivo.
+            Algunas opciones de este comando:
+          </p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Comando</th>
+                <th scope="col" class="org-left">Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">tar -c</td>
+                <td class="org-left">crea un archivo tar.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tar -x</td>
+                <td class="org-left">extraer de un archivo tar.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tar -v</td>
+                <td class="org-left">modo explicativo.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tar -f arvhivo</td>
+                <td class="org-left">
+                  agrupa o desagrupa en o hacia un fichero.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tar -z</td>
+                <td class="org-left">
+                  comprime o descomprime el archivo resultante una vez agrupado
+                  o desagrupdo con gzip y gunzip respectivamente.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tar -j</td>
+                <td class="org-left">
+                  comprime o descomprime el archivo resultante una vez agrupado
+                  o desagrupdo con bzip2 y bunzip2 respectivamente.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tar -t</td>
+                <td class="org-left">lista el contenido de un archivo tar.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">tar -M</td>
+                <td class="org-left">agrupa en volúmenes.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="outline-container-org725c822" class="outline-2">
+        <h2 id="org725c822">#Ejemplos:</h2>
+        <div class="outline-text-2" id="text-org725c822">
+          <p>empaquetar en tar</p>
+
+          <pre class="example">
+tar cf nuevo.tar archivo1 archivo2 archivo3
+</pre
+          >
+
+          <p>desempaquetar</p>
+
+          <pre class="example">
+ta xf nuevo.tar
+</pre
+          >
+
+          <p>empaquetar con tar y comprimir con gz (crear tar.gz)</p>
+
+          <pre class="example">
+tar cvfz /tmp/etc.tar.gz /etc
+</pre
+          >
+
+          <p>desempaquetar y descomprimir</p>
+
+          <pre class="example">
+tar xvfz /tmp/etc.tar.gz 
+</pre
+          >
+
+          <p>empaquetar con tar y comprimir con bzip2 (crear tar.bz2)</p>
+
+          <pre class="example">
+tar cjfz /tmp/etc.tar.bz2 /etc
+</pre
+          >
+
+          <p>desempaquetar y descomprimir</p>
+
+          <pre class="example">
+tar xjfz /tmp/etc.tar.bz2 /etc
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgfaaa8f3" class="outline-2">
+        <h2 id="orgfaaa8f3">#Otros tipos de archivos comprimidos</h2>
+        <div class="outline-text-2" id="text-orgfaaa8f3">
+          <p>
+            Archivos <b>rar</b>. Para descomprimir archivos rar se usa el
+            comando unrar.
+          </p>
+
+          <p>algunas opciones de unrar</p>
+
+          <table>
+            <colgroup>
+              <col class="org-left" />
+
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">parametro</th>
+                <th scope="col" class="org-left">función</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">e</td>
+                <td class="org-left">
+                  Extrae archivos en el directorio actual.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="org-left">l</td>
+                <td class="org-left">Lista el contenido del archivo rar.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">p</td>
+                <td class="org-left">Print file to stdout.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">t</td>
+                <td class="org-left">Comprobar los ficheros del archivo.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">x</td>
+                <td class="org-left">Extrae ficheros con la ruta complet.</td>
+              </tr>
+
+              <tr>
+                <td class="org-left">p</td>
+                <td class="org-left">Establecer contraseña.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>Descomprimir *.r00</p>
+
+          <pre class="example">
+unrar e *.r00
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

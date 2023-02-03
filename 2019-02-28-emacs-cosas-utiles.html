@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Emacs-cosas-utiles</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">28 feb 2019</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2019-02-28-emacs-cosas-utiles.html"
+          >Emacs-cosas-utiles</a
+        >
+      </h1>
+      <p>Algunos comandos, atajos y funciones.</p>
+
+      <div id="outline-container-org14b6cab" class="outline-2">
+        <h2 id="org14b6cab">Listado de paquetes instalados</h2>
+        <div class="outline-text-2" id="text-org14b6cab">
+          <pre class="example">
+C-h v package-activate-list
+</pre
+          >
+        </div>
+      </div>
+      <div id="outline-container-orgc15a721" class="outline-2">
+        <h2 id="orgc15a721">Busquedas</h2>
+        <div class="outline-text-2" id="text-orgc15a721"></div>
+        <div id="outline-container-org8677a18" class="outline-3">
+          <h3 id="org8677a18">Buscar hacia adelante</h3>
+          <div class="outline-text-3" id="text-org8677a18">
+            <pre class="example">
+C-s
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org178b386" class="outline-3">
+          <h3 id="org178b386">Pasar a la siguiente opción encontrada</h3>
+          <div class="outline-text-3" id="text-org178b386">
+            <pre class="example">
+C-s
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org0385914" class="outline-3">
+          <h3 id="org0385914">
+            Para volver a realizar la última búsqueda efectuada pulsar:
+          </h3>
+          <div class="outline-text-3" id="text-org0385914">
+            <pre class="example">
+C-s C-s
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org7d9af62" class="outline-3">
+          <h3 id="org7d9af62">Buscar hacia atras</h3>
+          <div class="outline-text-3" id="text-org7d9af62">
+            <pre class="example">
+C-r
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org6e3be40" class="outline-3">
+          <h3 id="org6e3be40">
+            Ubicar el cursor en una palabra y buscar otras coincidencias en el
+            buffer:
+          </h3>
+          <div class="outline-text-3" id="text-org6e3be40">
+            <pre class="example">
+C-s C-w
+</pre
+            >
+          </div>
+        </div>
+
+        <div id="outline-container-org37743b6" class="outline-3">
+          <h3 id="org37743b6">Buscar y reemplazar palabra</h3>
+          <div class="outline-text-3" id="text-org37743b6">
+            <pre class="example">
+M-x replace-string RET
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org8995f3a" class="outline-2">
+        <h2 id="org8995f3a">
+          Añade o quita los delimitadores de comentarios de todas las líneas de
+          la región.
+        </h2>
+        <div class="outline-text-2" id="text-org8995f3a">
+          <pre class="example">
+M-x comment-region
+</pre
+          >
+
+          <pre class="example">
+M-Shift-; 
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orgf398089" class="outline-2">
+        <h2 id="orgf398089">
+          Comando para contar lineas palabras y caracteres
+        </h2>
+        <div class="outline-text-2" id="text-orgf398089">
+          <pre class="example">
+M-x count-lines-region
+
+o el atajo
+
+M-=
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orge126867" class="outline-2">
+        <h2 id="orge126867">Agrear fecha</h2>
+        <div class="outline-text-2" id="text-orge126867">
+          <pre class="example">
+C-c !
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org5fb8a3a" class="outline-2">
+        <h2 id="org5fb8a3a">Ir a una linea especifica</h2>
+        <div class="outline-text-2" id="text-org5fb8a3a">
+          <pre class="example">
+M-x goto-line RET nro de linea
+</pre
+          >
+
+          <p>o con las teclas</p>
+
+          <pre class="example">
+M-g-g
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org975197d" class="outline-2">
+        <h2 id="org975197d">Tiempo de inicio</h2>
+        <div class="outline-text-2" id="text-org975197d">
+          <pre class="example">
+M-x emacs-init-time
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-orga51b98d" class="outline-2">
+        <h2 id="orga51b98d">begining to buffer</h2>
+        <div class="outline-text-2" id="text-orga51b98d">
+          <pre class="example">
+M-&lt;
+
+va al inicio del buffer
+
+C-x C-x 
+
+retorna al punto anterior.
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org0c0fa4f" class="outline-2">
+        <h2 id="org0c0fa4f">Buscar funciones y variables</h2>
+        <div class="outline-text-2" id="text-org0c0fa4f">
+          <pre class="example">
+C-h f RET function RET
+</pre
+          >
+
+          <p>
+            llama a <b><b>describe function</b></b> que muestra información de
+            la función.
+          </p>
+
+          <pre class="example">
+C-h v 
+</pre
+          >
+
+          <p>busca variables</p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgaa522e0" class="outline-2">
+        <h2 id="orgaa522e0">Abrir archivo como root</h2>
+        <div class="outline-text-2" id="text-orgaa522e0">
+          <pre class="example">
+C-x C-f /sudo::/path/to/file
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>
