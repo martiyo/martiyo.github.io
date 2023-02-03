@@ -1,4 +1,4 @@
-#+title: reparar el grub
+#+title: Recuperar el grub
 #+date: <2023-02-02 21:07>
 #+description: 
 #+filetags: linux
@@ -10,7 +10,6 @@ Usar un LiveUSB para reinstalar el grub
 #+BEGIN_SRC
 sudo fdisk -l
 #+END_SRC
-#+END_SRC
 
 *** # Montar la particion raiz
 
@@ -21,7 +20,6 @@ sudo mount /dev/sda2 /mnt
 *** # Montar el resto de los dispositivos:
 
 #+BEGIN_SRC 
-#+END_SRC
 sudo mount --bind /dev /mnt/dev 
 sudo mount --bind /dev/pts /mnt/dev/pts 
 sudo mount --bind /proc /mnt/proc 
@@ -30,7 +28,7 @@ sudo mount --bind /sys /mnt/sys
 
 *** # Acceder a la partición raiz del sistema original como root:
 
-#+BEGIN_SRC #+END_SRC
+#+BEGIN_SRC 
 sudo chroot /mnt
 #+END_SRC
 
