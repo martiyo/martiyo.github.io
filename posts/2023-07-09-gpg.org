@@ -1,0 +1,82 @@
+#+title: gpg
+#+date: <2023-07-09 19:47>
+#+description: 
+#+filetags: linux
+
+Cifrar y firmar datos y comunicaciones con GnuPG
+
+*** #Intro [[https://gnupg.org/][pagina oficial]]
+ 
+GnuPG es una implementación completa y gratuita del estándar OpenPGP definido por RFC4880 (también conocido como PGP). GnuPG le permite cifrar y firmar sus datos y comunicaciones; cuenta con un versátil sistema de gestión de claves, junto con módulos de acceso para todo tipo de directorios de claves públicas. GnuPG, también conocido como GPG, es una herramienta de línea de comandos con funciones para integrarse fácilmente con otras aplicaciones. Dispone de una gran cantidad de aplicaciones graficas y bibliotecas. GnuPG también ofrece soporte para S/MIME y Secure Shell (ssh).
+
+*** #Cifrado simétrico
+
+La criptografía simétrica solo utiliza una clave para cifrar y descifrar el mensaje, que tiene que conocer el emisor y el receptor previamente y este es el punto débil del sistema, la comunicación de las claves entre ambos sujetos. El cifrado simétrico es el tipo de cifrado más sencillo que hay, es más rápido de procesar y por desgracia menos seguro que el cifrado asimétrico.
+
+****  Ejemplos:
+
+Cifrar:
+
+#+BEGIN_SRC
+  echo "hola munco" > archivo
+  gpg -c archivo
+#+END_SRC
+
+Decifrar: 
+
+#+BEGIN_SRC
+  gpg -d archivo
+#+END_SRC
+  
+*** #Cifrado asimétrico
+
+El cifrado asimétrico se basa en el uso de dos claves: una publica y una privada. Los sistemas de cifrado de clave pública se inventaron con el fin de evitar por completo el problema del intercambio de claves. Un sistema de cifrado de clave pública usa un par de claves para el envío de mensajes. Las dos claves pertenecen a la misma persona a la que se ha enviado el mensaje. Una clave es pública y se puede entregar a cualquier persona. La otra clave es privada y el propietario debe guardarla para que nadie tenga acceso a ella. El remitente usa la clave pública del destinatario para cifrar el mensaje, y una vez cifrado, sólo la clave privada del destinatario podrá descifrar este mensaje.
+
+**** Ejemplos: 
+
+Generar claves
+
+#+BEGIN_SRC
+gpg --gen-key
+#+END_SRC
+
+Este comando muestra un menu de opciones y las respuestas pueden ser:
+
++ Su eleccion: 1 (RSA).
+ 
++ ¿De qué tamaño quiere la clave (0)? 0
+
++ ¿Es correcto? (s/n) s
+
++ Nombre y apellidos : John Doe
+
++ Dirección de correo electronico: johndoe@email.com
+
++ Comentario: 
+
++ ¿Cambia (N)ombre, (C)omentario, (D)irección o (V)ale/(S)alir? V
+
+Luego pide crear una contraseña maestra para la clave y genera las claves gpg.
+
+*** #Obtener el KEY_ID de nuestra clave GPG
+
+#+BEGIN_SRC
+  gpg -k --keyid-format log
+#+END_SRC
+
+Dentro del bloque de clave identificada, la key id es el código alfanumérico mostrado después del cifrado (rsa4096) que utilizado al crear clave, algo como esto: 81F0CD4B06C52998.
+
+*** #Cambiar dialogo GTK pinentry  por pinentry-curses
+
+Editar el archivo *~/.gnupg/gpg-agent.conf* y agregar:
+
+#+BEGIN_SRC
+pinentry-program /usr/bin/pinentry-curses
+#+END_SRC
+
+y recargar la configuracion de GPG
+
+#+BEGIN_SRC
+echo RELOADAGENT | gpg-connect-agent
+#+END_SRC
+

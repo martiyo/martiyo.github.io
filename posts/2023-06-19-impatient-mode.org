@@ -1,0 +1,20 @@
+#+title: impatient-mode
+#+date: <2023-06-19 08:26>
+#+description: 
+#+filetags: emacs
+
+Ver los cambios hechos en el html al vuelo.
+
+*** #Uso
+
+  Habilitar el servidor web proporcionado por simple-httpd:
+
+  #+BEGIN_SRC 
+  M-x httpd-start
+  #+END_SRC
+
+  Habilitar impatient-mode:
+
+  #+BEGIN_SRC 
+  M-x impatient-mode
+  #+END_SRC

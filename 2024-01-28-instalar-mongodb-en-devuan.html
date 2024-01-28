@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Instalar mongodb en devuan</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Search..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">28 ene 2024</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/2024-01-28-instalar-mongodb-en-devuan.html"
+          >Instalar mongodb en devuan</a
+        >
+      </h1>
+      <p>Desde los repositorios oficiales de Mongodb.</p>
+
+      <div id="outline-container-orgeda8614" class="outline-2">
+        <h2 id="orgeda8614">#Agregar repositorios oficiales:</h2>
+        <div class="outline-text-2" id="text-orgeda8614">
+          <p>
+            Mongodb no está disponible en los repositorios oficiales de devuan,
+            por lo tanto hay que agregar el repositorio oficial de Mongodb e
+            intalar desde ahí.
+          </p>
+        </div>
+
+        <ul class="org-ul">
+          <li>
+            <a id="orga5992b9"></a>Agregar la clave GPG del repositorio de
+            Mongodb<br />
+            <div class="outline-text-5" id="text-orga5992b9">
+              <pre class="example">
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 4B7C549A058F8B6B
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org833c5b3"></a>Agregar el repositorio de Mongodb al
+            sources.list<br />
+            <div class="outline-text-5" id="text-org833c5b3">
+              <p>
+                Entonces en el archivo <b>*</b> /etc/apt/sources.list
+                <b>*</b> agrego:
+              </p>
+              <pre class="example">
+deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org2f794bf"></a>El resto es lo de siempre, actualizar e
+            instalar<br />
+            <div class="outline-text-5" id="text-org2f794bf">
+              <pre class="example">
+sudo apt update
+sudo apt install mondogdb-org
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org3240d52"></a>Iniciar el servicio de Mongodb<br />
+            <div class="outline-text-5" id="text-org3240d52">
+              <pre class="example">
+sudo service mondod 
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org2e93300"></a>Para iniciar el servicio automaticamente al
+            arrancar el sistema:<br />
+            <div class="outline-text-5" id="text-org2e93300">
+              <pre class="example">
+sudo update-rc.d mongod defaults
+</pre
+              >
+            </div>
+
+            <ul class="org-ul">
+              <li>
+                <a id="orgc616ed4"></a>Si mongod no es reconocido como un
+                servicio al intentar usar <b>*</b> sudo service mongod start
+                <b>*</b><br />
+                <div class="outline-text-6" id="text-orgc616ed4">
+                  <p>
+                    entonces se puede iniciar Mongodb directamente utilizando el
+                    binario que esta en <b>*</b> /user/bin/mongod <b>*</b> :
+                  </p>
+
+                  <pre class="example">
+sudo /usr/bin/mongod --config /etc/mongod.conf
+</pre
+                  >
+
+                  <p>
+                    Este comando iniciará el servidor Mongodb usando en binario
+                    mondod y especificará el archivo de configuración en
+                    <b>*</b> /etc/mongod.conf <b>*</b>
+                  </p>
+
+                  <p>Para detener el servicio se usa:</p>
+
+                  <pre class="example">
+sudo /usr/bin/mongod --shutdown /etc/mongod.conf
+</pre
+                  >
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-mongodb.html">mongodb</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

@@ -294,3 +294,38 @@ find / -type f -exec grep -H 'texto-a-buscar-aqui' {} \;
 
 #+END_SRC
     
+
+*** Configurar fecha y hora 
+
+Fecha y hora del sistema usando el comando date:
+
+#+BEGIN_SRC 
+sudo date --set "2023-02-03 16:18"
+#+END_SRC
+
+Cambiar fecha y hora del bios usando hwclock:
+
+#+BEGIN_SRC 
+sudo hwclock --set --date="2023-02-03 18:23"
+#+END_SRC
+
+Muestra la hora actual según lo informado por el reloj del hardware:
+  
+#+BEGIN_SRC 
+ sudo hwclock
+#+END_SRC
+
+Escribir la hora actual del reloj del software en el reloj del hardware (a veces se usa durante la configuración del sistema):
+
+#+BEGIN_SRC  
+sudo hwclock --systohc
+#+END_SRC
+
+Escribir la hora actual del reloj del hardware en el reloj del software: 
+
+#+BEGIN_SRC
+hwclock --hctosys
+#+END_SRC
+
+
+

@@ -1,0 +1,57 @@
+#+title: Instalar mongodb en devuan
+#+date: <2024-01-28 15:14>
+#+description: 
+#+filetags: mongodb
+
+Desde los  repositorios oficiales de Mongodb.
+
+*** #Agregar repositorios oficiales:
+
+Mongodb no está disponible en los repositorios oficiales de devuan, por lo tanto hay que agregar el repositorio oficial de Mongodb e intalar desde ahí.
+
+****** Agregar la clave GPG del repositorio de Mongodb
+
+#+BEGIN_SRC
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 4B7C549A058F8B6B
+#+END_SRC
+
+****** Agregar el repositorio de Mongodb al sources.list
+
+Entonces en el archivo *** /etc/apt/sources.list *** agrego:
+#+BEGIN_SRC
+deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main
+#+END_SRC
+
+****** El resto es lo de siempre, actualizar e instalar
+
+#+BEGIN_SRC
+sudo apt update
+sudo apt install mondogdb-org
+#+END_SRC
+
+****** Iniciar el servicio de Mongodb
+
+#+BEGIN_SRC
+sudo service mondod 
+#+END_SRC
+
+****** Para iniciar el servicio automaticamente al arrancar el sistema:
+
+#+BEGIN_SRC
+sudo update-rc.d mongod defaults
+#+END_SRC
+
+******* Si mongod no es reconocido como un servicio al intentar usar *** sudo service mongod start ***
+entonces se puede iniciar Mongodb directamente utilizando el binario que esta en *** /user/bin/mongod *** :
+
+#+BEGIN_SRC
+sudo /usr/bin/mongod --config /etc/mongod.conf
+#+END_SRC
+
+Este comando iniciará el servidor Mongodb usando en binario mondod y especificará el archivo de configuración en *** /etc/mongod.conf ***
+
+Para detener el servicio se usa:
+
+#+BEGIN_SRC
+sudo /usr/bin/mongod --shutdown /etc/mongod.conf
+#+END_SRC

@@ -4,7 +4,323 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Thu, 02 Feb 2023 23:12:43 -0300</lastBuildDate>
+<lastBuildDate>Sun, 28 Jan 2024 16:03:35 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[Instalar mongodb en devuan]]></title>
+  <description><![CDATA[
+      <p>Desde los repositorios oficiales de Mongodb.</p>
+
+      <div id="outline-container-orgeda8614" class="outline-2">
+        <h2 id="orgeda8614">#Agregar repositorios oficiales:</h2>
+        <div class="outline-text-2" id="text-orgeda8614">
+          <p>
+            Mongodb no está disponible en los repositorios oficiales de devuan,
+            por lo tanto hay que agregar el repositorio oficial de Mongodb e
+            intalar desde ahí.
+          </p>
+        </div>
+
+        <ul class="org-ul">
+          <li>
+            <a id="orga5992b9"></a>Agregar la clave GPG del repositorio de
+            Mongodb<br />
+            <div class="outline-text-5" id="text-orga5992b9">
+              <pre class="example">
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 4B7C549A058F8B6B
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org833c5b3"></a>Agregar el repositorio de Mongodb al
+            sources.list<br />
+            <div class="outline-text-5" id="text-org833c5b3">
+              <p>
+                Entonces en el archivo <b>*</b> /etc/apt/sources.list
+                <b>*</b> agrego:
+              </p>
+              <pre class="example">
+deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org2f794bf"></a>El resto es lo de siempre, actualizar e
+            instalar<br />
+            <div class="outline-text-5" id="text-org2f794bf">
+              <pre class="example">
+sudo apt update
+sudo apt install mondogdb-org
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org3240d52"></a>Iniciar el servicio de Mongodb<br />
+            <div class="outline-text-5" id="text-org3240d52">
+              <pre class="example">
+sudo service mondod 
+</pre
+              >
+            </div>
+          </li>
+
+          <li>
+            <a id="org2e93300"></a>Para iniciar el servicio automaticamente al
+            arrancar el sistema:<br />
+            <div class="outline-text-5" id="text-org2e93300">
+              <pre class="example">
+sudo update-rc.d mongod defaults
+</pre
+              >
+            </div>
+
+            <ul class="org-ul">
+              <li>
+                <a id="orgc616ed4"></a>Si mongod no es reconocido como un
+                servicio al intentar usar <b>*</b> sudo service mongod start
+                <b>*</b><br />
+                <div class="outline-text-6" id="text-orgc616ed4">
+                  <p>
+                    entonces se puede iniciar Mongodb directamente utilizando el
+                    binario que esta en <b>*</b> /user/bin/mongod <b>*</b> :
+                  </p>
+
+                  <pre class="example">
+sudo /usr/bin/mongod --config /etc/mongod.conf
+</pre
+                  >
+
+                  <p>
+                    Este comando iniciará el servidor Mongodb usando en binario
+                    mondod y especificará el archivo de configuración en
+                    <b>*</b> /etc/mongod.conf <b>*</b>
+                  </p>
+
+                  <p>Para detener el servicio se usa:</p>
+
+                  <pre class="example">
+sudo /usr/bin/mongod --shutdown /etc/mongod.conf
+</pre
+                  >
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-mongodb.html">mongodb</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[mongodb]]></category>
+  <link>https://martiyo.github.io/2024-01-28-instalar-mongodb-en-devuan.html</link>
+  <guid>https://martiyo.github.io/2024-01-28-instalar-mongodb-en-devuan.html</guid>
+  <pubDate>Sun, 28 Jan 2024 15:14:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[gpg]]></title>
+  <description><![CDATA[
+      <p>Cifrar y firmar datos y comunicaciones con GnuPG</p>
+
+      <div id="outline-container-org09db9fa" class="outline-2">
+        <h2 id="org09db9fa">
+          #Intro <a href="https://gnupg.org/">pagina oficial</a>
+        </h2>
+        <div class="outline-text-2" id="text-org09db9fa">
+          <p>
+            GnuPG es una implementación completa y gratuita del estándar OpenPGP
+            definido por RFC4880 (también conocido como PGP). GnuPG le permite
+            cifrar y firmar sus datos y comunicaciones; cuenta con un versátil
+            sistema de gestión de claves, junto con módulos de acceso para todo
+            tipo de directorios de claves públicas. GnuPG, también conocido como
+            GPG, es una herramienta de línea de comandos con funciones para
+            integrarse fácilmente con otras aplicaciones. Dispone de una gran
+            cantidad de aplicaciones graficas y bibliotecas. GnuPG también
+            ofrece soporte para S/MIME y Secure Shell (ssh).
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgdca87eb" class="outline-2">
+        <h2 id="orgdca87eb">#Cifrado simétrico</h2>
+        <div class="outline-text-2" id="text-orgdca87eb">
+          <p>
+            La criptografía simétrica solo utiliza una clave para cifrar y
+            descifrar el mensaje, que tiene que conocer el emisor y el receptor
+            previamente y este es el punto débil del sistema, la comunicación de
+            las claves entre ambos sujetos. El cifrado simétrico es el tipo de
+            cifrado más sencillo que hay, es más rápido de procesar y por
+            desgracia menos seguro que el cifrado asimétrico.
+          </p>
+        </div>
+
+        <div id="outline-container-orge4b626d" class="outline-3">
+          <h3 id="orge4b626d">Ejemplos:</h3>
+          <div class="outline-text-3" id="text-orge4b626d">
+            <p>Cifrar:</p>
+
+            <pre class="example">
+echo "hola munco" &gt; archivo
+gpg -c archivo
+</pre
+            >
+
+            <p>Decifrar:</p>
+
+            <pre class="example">
+gpg -d archivo
+</pre
+            >
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-orgef33517" class="outline-2">
+        <h2 id="orgef33517">#Cifrado asimétrico</h2>
+        <div class="outline-text-2" id="text-orgef33517">
+          <p>
+            El cifrado asimétrico se basa en el uso de dos claves: una publica y
+            una privada. Los sistemas de cifrado de clave pública se inventaron
+            con el fin de evitar por completo el problema del intercambio de
+            claves. Un sistema de cifrado de clave pública usa un par de claves
+            para el envío de mensajes. Las dos claves pertenecen a la misma
+            persona a la que se ha enviado el mensaje. Una clave es pública y se
+            puede entregar a cualquier persona. La otra clave es privada y el
+            propietario debe guardarla para que nadie tenga acceso a ella. El
+            remitente usa la clave pública del destinatario para cifrar el
+            mensaje, y una vez cifrado, sólo la clave privada del destinatario
+            podrá descifrar este mensaje.
+          </p>
+        </div>
+
+        <div id="outline-container-orge1cd103" class="outline-3">
+          <h3 id="orge1cd103">Ejemplos:</h3>
+          <div class="outline-text-3" id="text-orge1cd103">
+            <p>Generar claves</p>
+
+            <pre class="example">
+gpg --gen-key
+</pre
+            >
+
+            <p>
+              Este comando muestra un menu de opciones y las respuestas pueden
+              ser:
+            </p>
+
+            <ul class="org-ul">
+              <li>Su eleccion: 1 (RSA).</li>
+
+              <li>¿De qué tamaño quiere la clave (0)? 0</li>
+
+              <li>¿Es correcto? (s/n) s</li>
+
+              <li>Nombre y apellidos : John Doe</li>
+
+              <li>Dirección de correo electronico: johndoe@email.com</li>
+
+              <li>Comentario:</li>
+
+              <li>
+                ¿Cambia (N)ombre, (C)omentario, (D)irección o (V)ale/(S)alir? V
+              </li>
+            </ul>
+
+            <p>
+              Luego pide crear una contraseña maestra para la clave y genera las
+              claves gpg.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="outline-container-org17ba634" class="outline-2">
+        <h2 id="org17ba634">
+          #Obtener el KEY<sub>ID</sub> de nuestra clave GPG
+        </h2>
+        <div class="outline-text-2" id="text-org17ba634">
+          <pre class="example">
+gpg -k --keyid-format log
+</pre
+          >
+
+          <p>
+            Dentro del bloque de clave identificada, la key id es el código
+            alfanumérico mostrado después del cifrado (rsa4096) que utilizado al
+            crear clave, algo como esto: 81F0CD4B06C52998.
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgbb501a7" class="outline-2">
+        <h2 id="orgbb501a7">
+          #Cambiar dialogo GTK pinentry por pinentry-curses
+        </h2>
+        <div class="outline-text-2" id="text-orgbb501a7">
+          <p>Editar el archivo <b>~/.gnupg/gpg-agent.conf</b> y agregar:</p>
+
+          <pre class="example">
+pinentry-program /usr/bin/pinentry-curses
+</pre
+          >
+
+          <p>y recargar la configuracion de GPG</p>
+
+          <pre class="example">
+echo RELOADAGENT | gpg-connect-agent
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2023-07-09-gpg.html</link>
+  <guid>https://martiyo.github.io/2023-07-09-gpg.html</guid>
+  <pubDate>Sun, 09 Jul 2023 19:47:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[impatient-mode]]></title>
+  <description><![CDATA[
+      <p>Ver los cambios hechos en el html al vuelo.</p>
+
+      <div id="outline-container-orge46bddc" class="outline-2">
+        <h2 id="orge46bddc">#Uso</h2>
+        <div class="outline-text-2" id="text-orge46bddc">
+          <p>Habilitar el servidor web proporcionado por simple-httpd:</p>
+
+          <pre class="example">
+M-x httpd-start
+</pre
+          >
+
+          <p>Habilitar impatient-mode:</p>
+
+          <pre class="example">
+M-x impatient-mode
+</pre
+          >
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/2023-06-19-impatient-mode.html</link>
+  <guid>https://martiyo.github.io/2023-06-19-impatient-mode.html</guid>
+  <pubDate>Mon, 19 Jun 2023 08:26:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[Recuperar el grub]]></title>
   <description><![CDATA[
@@ -6409,9 +6725,9 @@ C-x C-f /sudo::/path/to/file
   <description><![CDATA[
       <p>Un rejunte de cosas útiles que voy encontrando por ahí&#x2026;</p>
 
-      <div id="outline-container-org1791df8" class="outline-2">
-        <h2 id="org1791df8">Eliminar kernels viejos</h2>
-        <div class="outline-text-2" id="text-org1791df8">
+      <div id="outline-container-orgf887c52" class="outline-2">
+        <h2 id="orgf887c52">Eliminar kernels viejos</h2>
+        <div class="outline-text-2" id="text-orgf887c52">
           <ul class="org-ul">
             <li>
               Verificar que kernel se está usando, con esto se cual es el que
@@ -6470,9 +6786,9 @@ $ uname -r
           </div>
         </div>
 
-        <div id="outline-container-orgf7dafbc" class="outline-3">
-          <h3 id="orgf7dafbc">Otra forma de hacer todo lo anterior es:</h3>
-          <div class="outline-text-3" id="text-orgf7dafbc">
+        <div id="outline-container-orgcf084ff" class="outline-3">
+          <h3 id="orgcf084ff">Otra forma de hacer todo lo anterior es:</h3>
+          <div class="outline-text-3" id="text-orgcf084ff">
             <div class="org-src-container">
               <pre class="src src-sh">
 # aptitude search linux-image | grep ^i
@@ -6514,9 +6830,9 @@ aptitude purge linux-headers-2.6.26-1
         </div>
       </div>
 
-      <div id="outline-container-org88c568c" class="outline-2">
-        <h2 id="org88c568c">Uuid</h2>
-        <div class="outline-text-2" id="text-org88c568c">
+      <div id="outline-container-org6de92a9" class="outline-2">
+        <h2 id="org6de92a9">Uuid</h2>
+        <div class="outline-text-2" id="text-org6de92a9">
           <div class="org-src-container">
             <pre class="src src-sh">
 ### uuid
@@ -6528,9 +6844,9 @@ $ls -l /dev/disk/by-uuid
         </div>
       </div>
 
-      <div id="outline-container-org10572de" class="outline-2">
-        <h2 id="org10572de">Liberar memoria ram</h2>
-        <div class="outline-text-2" id="text-org10572de">
+      <div id="outline-container-org738ddfe" class="outline-2">
+        <h2 id="org738ddfe">Liberar memoria ram</h2>
+        <div class="outline-text-2" id="text-org738ddfe">
           <p>RAM que se está empleando en tiempo real:</p>
 
           <div class="org-src-container">
@@ -6551,9 +6867,9 @@ $sysctl -w vm.drop_caches=3
         </div>
       </div>
 
-      <div id="outline-container-org0ba871d" class="outline-2">
-        <h2 id="org0ba871d">Fecha de instalcion del sistema</h2>
-        <div class="outline-text-2" id="text-org0ba871d">
+      <div id="outline-container-orga2fe0af" class="outline-2">
+        <h2 id="orga2fe0af">Fecha de instalcion del sistema</h2>
+        <div class="outline-text-2" id="text-orga2fe0af">
           <p>(Creacion del sistema de archivos raiz)</p>
 
           <div class="org-src-container">
@@ -6576,9 +6892,9 @@ Filesystem created:       Fri Jun  3 23:25:38 2016
         </div>
       </div>
 
-      <div id="outline-container-orga236c5c" class="outline-2">
-        <h2 id="orga236c5c">Como evitar que algunos paquetes se actualicen</h2>
-        <div class="outline-text-2" id="text-orga236c5c">
+      <div id="outline-container-org46ed1b9" class="outline-2">
+        <h2 id="org46ed1b9">Como evitar que algunos paquetes se actualicen</h2>
+        <div class="outline-text-2" id="text-org46ed1b9">
           <div class="org-src-container">
             <pre class="src src-sh">
 $echo "paquete hold" | sudo dpkg --set-selections
@@ -6600,9 +6916,9 @@ $ sudo dpkg --get-selections
         </div>
       </div>
 
-      <div id="outline-container-org59d9490" class="outline-2">
-        <h2 id="org59d9490">capturar pantalla</h2>
-        <div class="outline-text-2" id="text-org59d9490">
+      <div id="outline-container-orgbe5a988" class="outline-2">
+        <h2 id="orgbe5a988">capturar pantalla</h2>
+        <div class="outline-text-2" id="text-orgbe5a988">
           <p>
             Una forma fácil de tomar una captura de pantalla del sistema actual
             es usar el comando de import :
@@ -6626,9 +6942,9 @@ $ import -window root screenshot.jpg
         </div>
       </div>
 
-      <div id="outline-container-orgcc68a87" class="outline-2">
-        <h2 id="orgcc68a87">Configurar xterm</h2>
-        <div class="outline-text-2" id="text-orgcc68a87">
+      <div id="outline-container-org5d2fd91" class="outline-2">
+        <h2 id="org5d2fd91">Configurar xterm</h2>
+        <div class="outline-text-2" id="text-org5d2fd91">
           <p>Editar el archivo .Xresources y recargar</p>
 
           <div class="org-src-container">
@@ -6640,9 +6956,9 @@ xrdb -merge .Xresources
         </div>
       </div>
 
-      <div id="outline-container-org33f6f1e" class="outline-2">
-        <h2 id="org33f6f1e">Youtube-dl</h2>
-        <div class="outline-text-2" id="text-org33f6f1e">
+      <div id="outline-container-orgb5d9500" class="outline-2">
+        <h2 id="orgb5d9500">Youtube-dl</h2>
+        <div class="outline-text-2" id="text-orgb5d9500">
           <p>
             Actualmente Youtube-dl permite descargar videos y audio de más de
             800 sitios web.
@@ -6691,9 +7007,9 @@ xrdb -merge .Xresources
         </div>
       </div>
 
-      <div id="outline-container-orgd001017" class="outline-2">
-        <h2 id="orgd001017">E2fsprogs</h2>
-        <div class="outline-text-2" id="text-orgd001017">
+      <div id="outline-container-orgf1357e1" class="outline-2">
+        <h2 id="orgf1357e1">E2fsprogs</h2>
+        <div class="outline-text-2" id="text-orgf1357e1">
           <p>
             El paquete e2fsprogs (también llamado programas e2fs) es un conjunto
             de utilidades para mantenimiento de los sistemas de ficheros ext2,
@@ -6729,9 +7045,9 @@ xrdb -merge .Xresources
           </ul>
         </div>
 
-        <div id="outline-container-org3b3e459" class="outline-3">
-          <h3 id="org3b3e459">Tune2fs</h3>
-          <div class="outline-text-3" id="text-org3b3e459">
+        <div id="outline-container-orgaa31232" class="outline-3">
+          <h3 id="orgaa31232">Tune2fs</h3>
+          <div class="outline-text-3" id="text-orgaa31232">
             <div class="org-src-container">
               <pre class="src src-sh">
 # tune2fs -c 80 /dev/sda1 (cada 80 reinicios)
@@ -6754,9 +7070,9 @@ sudo e2fsck -fy /dev/sda1
         </div>
       </div>
 
-      <div id="outline-container-org10ac0c6" class="outline-2">
-        <h2 id="org10ac0c6">Nano</h2>
-        <div class="outline-text-2" id="text-org10ac0c6">
+      <div id="outline-container-org12e2e85" class="outline-2">
+        <h2 id="org12e2e85">Nano</h2>
+        <div class="outline-text-2" id="text-org12e2e85">
           <p>
             <b>Seleccionar:</b>
           </p>
@@ -6793,52 +7109,52 @@ Ctrl + u
 
           <p>Resaltar sistaxis</p>
         </div>
-        <div id="outline-container-org03bcd98" class="outline-3">
-          <h3 id="org03bcd98">HTML</h3>
-          <div class="outline-text-3" id="text-org03bcd98">
+        <div id="outline-container-org33447a0" class="outline-3">
+          <h3 id="org33447a0">HTML</h3>
+          <div class="outline-text-3" id="text-org33447a0">
             <p>include "/usr/share/nano/html.nanorc"</p>
           </div>
         </div>
 
-        <div id="outline-container-orgb19916d" class="outline-3">
-          <h3 id="orgb19916d">Manpages</h3>
-          <div class="outline-text-3" id="text-orgb19916d">
+        <div id="outline-container-org5f800e1" class="outline-3">
+          <h3 id="org5f800e1">Manpages</h3>
+          <div class="outline-text-3" id="text-org5f800e1">
             <p>include "/usr/share/nano/man.nanorc"</p>
           </div>
         </div>
 
-        <div id="outline-container-org095482c" class="outline-3">
-          <h3 id="org095482c">Python</h3>
-          <div class="outline-text-3" id="text-org095482c">
+        <div id="outline-container-orgb12183c" class="outline-3">
+          <h3 id="orgb12183c">Python</h3>
+          <div class="outline-text-3" id="text-orgb12183c">
             <p>include "/usr/share/nano/python.nanorc"</p>
           </div>
         </div>
 
-        <div id="outline-container-org256d75d" class="outline-3">
-          <h3 id="org256d75d">Bourne shell scripts</h3>
-          <div class="outline-text-3" id="text-org256d75d">
+        <div id="outline-container-org1cc3daa" class="outline-3">
+          <h3 id="org1cc3daa">Bourne shell scripts</h3>
+          <div class="outline-text-3" id="text-org1cc3daa">
             <p>include "/usr/share/nano/sh.nanorc"</p>
           </div>
         </div>
 
-        <div id="outline-container-orgc2ae76a" class="outline-3">
-          <h3 id="orgc2ae76a">Javascript</h3>
-          <div class="outline-text-3" id="text-orgc2ae76a">
+        <div id="outline-container-org95ddc60" class="outline-3">
+          <h3 id="org95ddc60">Javascript</h3>
+          <div class="outline-text-3" id="text-org95ddc60">
             <p>include "/usr/share/nano/javascript.nanorc"</p>
           </div>
         </div>
 
-        <div id="outline-container-org0827350" class="outline-3">
-          <h3 id="org0827350">Json</h3>
-          <div class="outline-text-3" id="text-org0827350">
+        <div id="outline-container-orgb0c37db" class="outline-3">
+          <h3 id="orgb0c37db">Json</h3>
+          <div class="outline-text-3" id="text-orgb0c37db">
             <p>include "/usr/share/nano/json.nanorc"</p>
           </div>
         </div>
       </div>
 
-      <div id="outline-container-org859c3b0" class="outline-2">
-        <h2 id="org859c3b0">Sudo</h2>
-        <div class="outline-text-2" id="text-org859c3b0">
+      <div id="outline-container-org2b6c5fc" class="outline-2">
+        <h2 id="org2b6c5fc">Sudo</h2>
+        <div class="outline-text-2" id="text-org2b6c5fc">
           <p>
             Para dar permisos de root a un usuario, en el archivo
             <b>/etc/sudoers</b>
@@ -6863,9 +7179,9 @@ nombre_usuario ALL=(ALL) NOPASSWD: ALL
         </div>
       </div>
 
-      <div id="outline-container-org5b7a0d3" class="outline-2">
-        <h2 id="org5b7a0d3">Limpiar cache</h2>
-        <div class="outline-text-2" id="text-org5b7a0d3">
+      <div id="outline-container-org9afcbb4" class="outline-2">
+        <h2 id="org9afcbb4">Limpiar cache</h2>
+        <div class="outline-text-2" id="text-org9afcbb4">
           <div class="org-src-container">
             <pre class="src src-sh">
 sudo su
@@ -6877,12 +7193,60 @@ exit
         </div>
       </div>
 
-      <div id="outline-container-org1a19c13" class="outline-2">
-        <h2 id="org1a19c13">Buscar texto en varios archivos</h2>
-        <div class="outline-text-2" id="text-org1a19c13">
+      <div id="outline-container-orga132cd2" class="outline-2">
+        <h2 id="orga132cd2">Buscar texto en varios archivos</h2>
+        <div class="outline-text-2" id="text-orga132cd2">
           <pre class="example">
 find / -type f -exec grep -H 'texto-a-buscar-aqui' {} \;
 
+</pre
+          >
+        </div>
+      </div>
+
+      <div id="outline-container-org3c03e0e" class="outline-2">
+        <h2 id="org3c03e0e">Configurar fecha y hora</h2>
+        <div class="outline-text-2" id="text-org3c03e0e">
+          <p>Fecha y hora del sistema usando el comando date:</p>
+
+          <pre class="example">
+sudo date --set "2023-02-03 16:18"
+</pre
+          >
+
+          <p>Cambiar fecha y hora del bios usando hwclock:</p>
+
+          <pre class="example">
+sudo hwclock --set --date="2023-02-03 18:23"
+</pre
+          >
+
+          <p>
+            Muestra la hora actual según lo informado por el reloj del hardware:
+          </p>
+
+          <pre class="example">
+sudo hwclock
+</pre
+          >
+
+          <p>
+            Escribir la hora actual del reloj del software en el reloj del
+            hardware (a veces se usa durante la configuración del sistema):
+          </p>
+
+          <pre class="example">
+sudo hwclock --systohc
+</pre
+          >
+
+          <p>
+            Escribir la hora actual del reloj del hardware en el reloj del
+            software:
+          </p>
+
+          <pre class="example">
+hwclock --hctosys
 </pre
           >
         </div>
