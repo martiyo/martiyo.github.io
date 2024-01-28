@@ -22,20 +22,20 @@ Entonces en el archivo *** /etc/apt/sources.list *** agrego:
 deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main
 #+END_SRC
 
-****** El resto es lo de siempre, actualizar e instalar
+*** #El resto es lo de siempre, actualizar e instalar
 
 #+BEGIN_SRC
 sudo apt update
 sudo apt install mondogdb-org
 #+END_SRC
 
-****** Iniciar el servicio de Mongodb
+*** #Iniciar el servicio de Mongodb
 
 #+BEGIN_SRC
 sudo service mondod 
 #+END_SRC
 
-****** Para iniciar el servicio automaticamente al arrancar el sistema:
+*** #Para iniciar el servicio automaticamente al arrancar el sistema:
 
 #+BEGIN_SRC
 sudo update-rc.d mongod defaults

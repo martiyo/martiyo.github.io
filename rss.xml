@@ -4,15 +4,15 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Sun, 28 Jan 2024 16:03:35 -0300</lastBuildDate>
+<lastBuildDate>Sun, 28 Jan 2024 16:48:18 -0300</lastBuildDate>
 <item>
   <title><![CDATA[Instalar mongodb en devuan]]></title>
   <description><![CDATA[
       <p>Desde los repositorios oficiales de Mongodb.</p>
 
-      <div id="outline-container-orgeda8614" class="outline-2">
-        <h2 id="orgeda8614">#Agregar repositorios oficiales:</h2>
-        <div class="outline-text-2" id="text-orgeda8614">
+      <div id="outline-container-org5be4ab5" class="outline-2">
+        <h2 id="org5be4ab5">#Agregar repositorios oficiales:</h2>
+        <div class="outline-text-2" id="text-org5be4ab5">
           <p>
             Mongodb no está disponible en los repositorios oficiales de devuan,
             por lo tanto hay que agregar el repositorio oficial de Mongodb e
@@ -22,9 +22,9 @@
 
         <ul class="org-ul">
           <li>
-            <a id="orga5992b9"></a>Agregar la clave GPG del repositorio de
+            <a id="org48cb174"></a>Agregar la clave GPG del repositorio de
             Mongodb<br />
-            <div class="outline-text-5" id="text-orga5992b9">
+            <div class="outline-text-5" id="text-org48cb174">
               <pre class="example">
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 4B7C549A058F8B6B
 </pre
@@ -33,9 +33,9 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 4B7C549A0
           </li>
 
           <li>
-            <a id="org833c5b3"></a>Agregar el repositorio de Mongodb al
+            <a id="orgebb87fa"></a>Agregar el repositorio de Mongodb al
             sources.list<br />
-            <div class="outline-text-5" id="text-org833c5b3">
+            <div class="outline-text-5" id="text-orgebb87fa">
               <p>
                 Entonces en el archivo <b>*</b> /etc/apt/sources.list
                 <b>*</b> agrego:
@@ -46,70 +46,71 @@ deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main
               >
             </div>
           </li>
+        </ul>
+      </div>
 
-          <li>
-            <a id="org2f794bf"></a>El resto es lo de siempre, actualizar e
-            instalar<br />
-            <div class="outline-text-5" id="text-org2f794bf">
-              <pre class="example">
+      <div id="outline-container-orge2abee0" class="outline-2">
+        <h2 id="orge2abee0">
+          #El resto es lo de siempre, actualizar e instalar
+        </h2>
+        <div class="outline-text-2" id="text-orge2abee0">
+          <pre class="example">
 sudo apt update
 sudo apt install mondogdb-org
 </pre
-              >
-            </div>
-          </li>
+          >
+        </div>
+      </div>
 
-          <li>
-            <a id="org3240d52"></a>Iniciar el servicio de Mongodb<br />
-            <div class="outline-text-5" id="text-org3240d52">
-              <pre class="example">
+      <div id="outline-container-org062a1fd" class="outline-2">
+        <h2 id="org062a1fd">#Iniciar el servicio de Mongodb</h2>
+        <div class="outline-text-2" id="text-org062a1fd">
+          <pre class="example">
 sudo service mondod 
 </pre
-              >
-            </div>
-          </li>
+          >
+        </div>
+      </div>
 
-          <li>
-            <a id="org2e93300"></a>Para iniciar el servicio automaticamente al
-            arrancar el sistema:<br />
-            <div class="outline-text-5" id="text-org2e93300">
-              <pre class="example">
+      <div id="outline-container-orgdea877a" class="outline-2">
+        <h2 id="orgdea877a">
+          #Para iniciar el servicio automaticamente al arrancar el sistema:
+        </h2>
+        <div class="outline-text-2" id="text-orgdea877a">
+          <pre class="example">
 sudo update-rc.d mongod defaults
 </pre
-              >
-            </div>
+          >
+        </div>
 
-            <ul class="org-ul">
-              <li>
-                <a id="orgc616ed4"></a>Si mongod no es reconocido como un
-                servicio al intentar usar <b>*</b> sudo service mongod start
-                <b>*</b><br />
-                <div class="outline-text-6" id="text-orgc616ed4">
-                  <p>
-                    entonces se puede iniciar Mongodb directamente utilizando el
-                    binario que esta en <b>*</b> /user/bin/mongod <b>*</b> :
-                  </p>
+        <ul class="org-ul">
+          <li>
+            <a id="org40e12a8"></a>Si mongod no es reconocido como un servicio
+            al intentar usar <b>*</b> sudo service mongod start <b>*</b><br />
+            <div class="outline-text-6" id="text-org40e12a8">
+              <p>
+                entonces se puede iniciar Mongodb directamente utilizando el
+                binario que esta en <b>*</b> /user/bin/mongod <b>*</b> :
+              </p>
 
-                  <pre class="example">
+              <pre class="example">
 sudo /usr/bin/mongod --config /etc/mongod.conf
 </pre
-                  >
+              >
 
-                  <p>
-                    Este comando iniciará el servidor Mongodb usando en binario
-                    mondod y especificará el archivo de configuración en
-                    <b>*</b> /etc/mongod.conf <b>*</b>
-                  </p>
+              <p>
+                Este comando iniciará el servidor Mongodb usando en binario
+                mondod y especificará el archivo de configuración en
+                <b>*</b> /etc/mongod.conf <b>*</b>
+              </p>
 
-                  <p>Para detener el servicio se usa:</p>
+              <p>Para detener el servicio se usa:</p>
 
-                  <pre class="example">
+              <pre class="example">
 sudo /usr/bin/mongod --shutdown /etc/mongod.conf
 </pre
-                  >
-                </div>
-              </li>
-            </ul>
+              >
+            </div>
           </li>
         </ul>
       </div>
@@ -128,11 +129,11 @@ sudo /usr/bin/mongod --shutdown /etc/mongod.conf
   <description><![CDATA[
       <p>Cifrar y firmar datos y comunicaciones con GnuPG</p>
 
-      <div id="outline-container-org09db9fa" class="outline-2">
-        <h2 id="org09db9fa">
+      <div id="outline-container-orgc42c9e5" class="outline-2">
+        <h2 id="orgc42c9e5">
           #Intro <a href="https://gnupg.org/">pagina oficial</a>
         </h2>
-        <div class="outline-text-2" id="text-org09db9fa">
+        <div class="outline-text-2" id="text-orgc42c9e5">
           <p>
             GnuPG es una implementación completa y gratuita del estándar OpenPGP
             definido por RFC4880 (también conocido como PGP). GnuPG le permite
@@ -147,9 +148,9 @@ sudo /usr/bin/mongod --shutdown /etc/mongod.conf
         </div>
       </div>
 
-      <div id="outline-container-orgdca87eb" class="outline-2">
-        <h2 id="orgdca87eb">#Cifrado simétrico</h2>
-        <div class="outline-text-2" id="text-orgdca87eb">
+      <div id="outline-container-org84b57fd" class="outline-2">
+        <h2 id="org84b57fd">#Cifrado simétrico</h2>
+        <div class="outline-text-2" id="text-org84b57fd">
           <p>
             La criptografía simétrica solo utiliza una clave para cifrar y
             descifrar el mensaje, que tiene que conocer el emisor y el receptor
@@ -160,9 +161,9 @@ sudo /usr/bin/mongod --shutdown /etc/mongod.conf
           </p>
         </div>
 
-        <div id="outline-container-orge4b626d" class="outline-3">
-          <h3 id="orge4b626d">Ejemplos:</h3>
-          <div class="outline-text-3" id="text-orge4b626d">
+        <div id="outline-container-orge70e42b" class="outline-3">
+          <h3 id="orge70e42b">Ejemplos:</h3>
+          <div class="outline-text-3" id="text-orge70e42b">
             <p>Cifrar:</p>
 
             <pre class="example">
@@ -181,9 +182,9 @@ gpg -d archivo
         </div>
       </div>
 
-      <div id="outline-container-orgef33517" class="outline-2">
-        <h2 id="orgef33517">#Cifrado asimétrico</h2>
-        <div class="outline-text-2" id="text-orgef33517">
+      <div id="outline-container-orgac2220d" class="outline-2">
+        <h2 id="orgac2220d">#Cifrado asimétrico</h2>
+        <div class="outline-text-2" id="text-orgac2220d">
           <p>
             El cifrado asimétrico se basa en el uso de dos claves: una publica y
             una privada. Los sistemas de cifrado de clave pública se inventaron
@@ -199,9 +200,9 @@ gpg -d archivo
           </p>
         </div>
 
-        <div id="outline-container-orge1cd103" class="outline-3">
-          <h3 id="orge1cd103">Ejemplos:</h3>
-          <div class="outline-text-3" id="text-orge1cd103">
+        <div id="outline-container-org416496f" class="outline-3">
+          <h3 id="org416496f">Ejemplos:</h3>
+          <div class="outline-text-3" id="text-org416496f">
             <p>Generar claves</p>
 
             <pre class="example">
@@ -240,11 +241,11 @@ gpg --gen-key
         </div>
       </div>
 
-      <div id="outline-container-org17ba634" class="outline-2">
-        <h2 id="org17ba634">
+      <div id="outline-container-org889c327" class="outline-2">
+        <h2 id="org889c327">
           #Obtener el KEY<sub>ID</sub> de nuestra clave GPG
         </h2>
-        <div class="outline-text-2" id="text-org17ba634">
+        <div class="outline-text-2" id="text-org889c327">
           <pre class="example">
 gpg -k --keyid-format log
 </pre
@@ -258,11 +259,11 @@ gpg -k --keyid-format log
         </div>
       </div>
 
-      <div id="outline-container-orgbb501a7" class="outline-2">
-        <h2 id="orgbb501a7">
+      <div id="outline-container-org5e3a7f0" class="outline-2">
+        <h2 id="org5e3a7f0">
           #Cambiar dialogo GTK pinentry por pinentry-curses
         </h2>
-        <div class="outline-text-2" id="text-orgbb501a7">
+        <div class="outline-text-2" id="text-org5e3a7f0">
           <p>Editar el archivo <b>~/.gnupg/gpg-agent.conf</b> y agregar:</p>
 
           <pre class="example">

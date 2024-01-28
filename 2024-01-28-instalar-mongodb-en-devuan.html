@@ -44,9 +44,9 @@
       </h1>
       <p>Desde los repositorios oficiales de Mongodb.</p>
 
-      <div id="outline-container-orgeda8614" class="outline-2">
-        <h2 id="orgeda8614">#Agregar repositorios oficiales:</h2>
-        <div class="outline-text-2" id="text-orgeda8614">
+      <div id="outline-container-org5be4ab5" class="outline-2">
+        <h2 id="org5be4ab5">#Agregar repositorios oficiales:</h2>
+        <div class="outline-text-2" id="text-org5be4ab5">
           <p>
             Mongodb no está disponible en los repositorios oficiales de devuan,
             por lo tanto hay que agregar el repositorio oficial de Mongodb e
@@ -56,9 +56,9 @@
 
         <ul class="org-ul">
           <li>
-            <a id="orga5992b9"></a>Agregar la clave GPG del repositorio de
+            <a id="org48cb174"></a>Agregar la clave GPG del repositorio de
             Mongodb<br />
-            <div class="outline-text-5" id="text-orga5992b9">
+            <div class="outline-text-5" id="text-org48cb174">
               <pre class="example">
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 4B7C549A058F8B6B
 </pre
@@ -67,9 +67,9 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 4B7C549A0
           </li>
 
           <li>
-            <a id="org833c5b3"></a>Agregar el repositorio de Mongodb al
+            <a id="orgebb87fa"></a>Agregar el repositorio de Mongodb al
             sources.list<br />
-            <div class="outline-text-5" id="text-org833c5b3">
+            <div class="outline-text-5" id="text-orgebb87fa">
               <p>
                 Entonces en el archivo <b>*</b> /etc/apt/sources.list
                 <b>*</b> agrego:
@@ -80,70 +80,71 @@ deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main
               >
             </div>
           </li>
+        </ul>
+      </div>
 
-          <li>
-            <a id="org2f794bf"></a>El resto es lo de siempre, actualizar e
-            instalar<br />
-            <div class="outline-text-5" id="text-org2f794bf">
-              <pre class="example">
+      <div id="outline-container-orge2abee0" class="outline-2">
+        <h2 id="orge2abee0">
+          #El resto es lo de siempre, actualizar e instalar
+        </h2>
+        <div class="outline-text-2" id="text-orge2abee0">
+          <pre class="example">
 sudo apt update
 sudo apt install mondogdb-org
 </pre
-              >
-            </div>
-          </li>
+          >
+        </div>
+      </div>
 
-          <li>
-            <a id="org3240d52"></a>Iniciar el servicio de Mongodb<br />
-            <div class="outline-text-5" id="text-org3240d52">
-              <pre class="example">
+      <div id="outline-container-org062a1fd" class="outline-2">
+        <h2 id="org062a1fd">#Iniciar el servicio de Mongodb</h2>
+        <div class="outline-text-2" id="text-org062a1fd">
+          <pre class="example">
 sudo service mondod 
 </pre
-              >
-            </div>
-          </li>
+          >
+        </div>
+      </div>
 
-          <li>
-            <a id="org2e93300"></a>Para iniciar el servicio automaticamente al
-            arrancar el sistema:<br />
-            <div class="outline-text-5" id="text-org2e93300">
-              <pre class="example">
+      <div id="outline-container-orgdea877a" class="outline-2">
+        <h2 id="orgdea877a">
+          #Para iniciar el servicio automaticamente al arrancar el sistema:
+        </h2>
+        <div class="outline-text-2" id="text-orgdea877a">
+          <pre class="example">
 sudo update-rc.d mongod defaults
 </pre
-              >
-            </div>
+          >
+        </div>
 
-            <ul class="org-ul">
-              <li>
-                <a id="orgc616ed4"></a>Si mongod no es reconocido como un
-                servicio al intentar usar <b>*</b> sudo service mongod start
-                <b>*</b><br />
-                <div class="outline-text-6" id="text-orgc616ed4">
-                  <p>
-                    entonces se puede iniciar Mongodb directamente utilizando el
-                    binario que esta en <b>*</b> /user/bin/mongod <b>*</b> :
-                  </p>
+        <ul class="org-ul">
+          <li>
+            <a id="org40e12a8"></a>Si mongod no es reconocido como un servicio
+            al intentar usar <b>*</b> sudo service mongod start <b>*</b><br />
+            <div class="outline-text-6" id="text-org40e12a8">
+              <p>
+                entonces se puede iniciar Mongodb directamente utilizando el
+                binario que esta en <b>*</b> /user/bin/mongod <b>*</b> :
+              </p>
 
-                  <pre class="example">
+              <pre class="example">
 sudo /usr/bin/mongod --config /etc/mongod.conf
 </pre
-                  >
+              >
 
-                  <p>
-                    Este comando iniciará el servidor Mongodb usando en binario
-                    mondod y especificará el archivo de configuración en
-                    <b>*</b> /etc/mongod.conf <b>*</b>
-                  </p>
+              <p>
+                Este comando iniciará el servidor Mongodb usando en binario
+                mondod y especificará el archivo de configuración en
+                <b>*</b> /etc/mongod.conf <b>*</b>
+              </p>
 
-                  <p>Para detener el servicio se usa:</p>
+              <p>Para detener el servicio se usa:</p>
 
-                  <pre class="example">
+              <pre class="example">
 sudo /usr/bin/mongod --shutdown /etc/mongod.conf
 </pre
-                  >
-                </div>
-              </li>
-            </ul>
+              >
+            </div>
           </li>
         </ul>
       </div>
