@@ -1,7 +1,7 @@
 #+title: Instalar mongodb en devuan
 #+date: <2024-01-28 15:14>
 #+description: 
-#+filetags: mongodb
+#+filetags: linux
 
 Desde los  repositorios oficiales de Mongodb.
 
@@ -17,7 +17,7 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 4B7C549A0
 
 ****** Agregar el repositorio de Mongodb al sources.list
 
-Entonces en el archivo *** /etc/apt/sources.list *** agrego:
+Entonces en el archivo **/etc/apt/sources.list** agrego:
 #+BEGIN_SRC
 deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main
 #+END_SRC
@@ -41,14 +41,14 @@ sudo service mondod
 sudo update-rc.d mongod defaults
 #+END_SRC
 
-******* Si mongod no es reconocido como un servicio al intentar usar *** sudo service mongod start ***
+*** Si mongod no es reconocido como un servicio al intentar usar *sudo service mongod start*
 entonces se puede iniciar Mongodb directamente utilizando el binario que esta en *** /user/bin/mongod *** :
 
 #+BEGIN_SRC
 sudo /usr/bin/mongod --config /etc/mongod.conf
 #+END_SRC
 
-Este comando iniciará el servidor Mongodb usando en binario mondod y especificará el archivo de configuración en *** /etc/mongod.conf ***
+Este comando iniciará el servidor Mongodb usando en binario mondod y especificará el archivo de configuración en **/etc/mongod.conf**
 
 Para detener el servicio se usa:
 
