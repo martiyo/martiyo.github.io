@@ -42,7 +42,7 @@ sudo update-rc.d mongod defaults
 #+END_SRC
 
 *** Si mongod no es reconocido como un servicio al intentar usar *sudo service mongod start*
-entonces se puede iniciar Mongodb directamente utilizando el binario que esta en *** /user/bin/mongod *** :
+entonces se puede iniciar Mongodb directamente utilizando el binario que esta en **/user/bin/mongod* :
 
 #+BEGIN_SRC
 sudo /usr/bin/mongod --config /etc/mongod.conf
