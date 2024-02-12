@@ -1,0 +1,59 @@
+#+title: git, eliminar el ultimo commit
+#+date: <2024-02-12 12:22>
+#+description: 
+#+filetags: git
+
+Guía de cómo deshacer el último commit con git
+
+*** # Antes de haber hecho push:
+
+Para mantener los cambios:
+
+#+Begin_SRC
+  git reset --soft HEAD~1
+#+End_SRC
+    
+Para eliminar los cambios:
+
+#+Begin_SRC
+  git reset --hard HEAD~1
+#+End_SRC
+
+
+Para arreglar el commit (mensaje) o añadir cambios:
+
+#+Begin_SRC
+  git commit -ammend -m "Mensaje corregido"
+#+End_SRC
+
+***  # Después de haber hecho push:
+
+Para crear un nuevo commit que invierte los cambios
+
+#+Begin_SRC
+  git revert <hash>
+#+End_SRC
+
+Para obtener el hash del commit a revertir:
+
+#+Begin_SRC
+  git log
+#+End_SRC
+
+***  # Nivel experto:
+
+Modificar el orden del historial de commits localmente:
+
+#+Begin_SRC
+  git rebase -i
+#+End_SRC
+
+Con esto se puede cambiar el orden, combinar, editar, o eliminar commits.
+
+Después ejecutar:
+
+#+Begin_SRC
+  git push --force-with-lease
+#+End_SRC
+
+Sólo usa rebase y push forzado en ramas donde seas el único colaborador o en situaciones donde todos los colaboradores estén al tanto y de acuerdo en reescribir la historia.
