@@ -29,6 +29,9 @@ para un proyecto concreto, se pueden ejecutar esos mismos comandos pero
 sin la opción *--global*, de ésta forma la configuración se guarda en
 *.git/config* del proyecto. Otra configuración puede ser
 
+un poco de color para que sea más fácil leer la información que
+proporciona git.
+
 #+BEGIN_SRC
     git config --global color.status auto
     git config --global color.branch auto
@@ -36,8 +39,24 @@ sin la opción *--global*, de ésta forma la configuración se guarda en
     git config --global color.interactive auto
 #+END_SRC
 
-un poco de color para que sea más fácil leer la información que
-proporciona git.
+Para listar la coficuración se usa:
+
+#+BEGIN_SRC
+  git config --list
+#+END_SRC
+
+Para ver mi usuario:
+
+#+BEGIN_SRC
+  git config --get user.name
+#+END_SRC
+
+Para ver el correo:
+
+#+BEGIN_SRC
+  git config --get user.email
+#+END_SRC
+
 
 *** Git init
     :PROPERTIES:

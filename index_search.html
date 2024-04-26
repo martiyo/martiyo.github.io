@@ -28,15 +28,17 @@
           Este blog es una farsa son solo resumenes, traducciónes y cosas que
           encuentro por ahí.
         </blockquote>
-        <form>
-          <input
-            type="search"
-            onkeyup="search()"
-            id="myInput"
-            placeholder="Search..."
-          />
-        </form>
+        <!-- <form>
+             <input type="text" id="searchInput" placeholder="Search..." />
+             </form>
+             <ul id="searchResults"></ul> -->
       </div>
+      <form>
+        <input type="text" id="searchInput" placeholder="Search..." />
+      </form>
+      <ul>
+        <a href="" id="searchResults"></a>
+      </ul>
     </div>
     <div id="content">
       <h2 class="post-title" id="post-title">
@@ -145,28 +147,28 @@
       </div>
       <footer></footer>
     </div>
-    <script>
-      function search() {
-        // Declare variables
-        var input, filter, posttitle, title, a, i, txtValue;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        posttitle = document.getElementById("post-title");
-        title = posttitle.getElementsByTagName("a");
+    <script src="./scriptSearch.js">
+      /* function search() {
+       *   // Declare variables
+       *   var input, filter, posttitle, title, a, i, txtValue;
+       *   input = document.getElementById("myInput");
+       *   filter = input.value.toUpperCase();
+       *   posttitle = document.getElementById("post-title");
+       *   title = posttitle.getElementsByTagName("a");
 
-        // Loop through all list items, and hide those who don't match the search query
-        for (i = 0; i < title.length; i++) {
-          a = title[i].getElementsByTagName("a")[0];
-          console.log("mi console.log", a);
-          txtValue = a.innerText;
+       *   // Loop through all list items, and hide those who don't match the search query
+       *   for (i = 0; i < title.length; i++) {
+       *     a = title[i].getElementsByTagName("a")[0];
+       *     console.log("mi console.log", a);
+       *     txtValue = a.innerText;
 
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            title[i].style.display = "";
-          } else {
-            title[i].style.display = "none";
-          }
-        }
-      }
+       *     if (txtValue.toUpperCase().indexOf(filter) > -1) {
+       *       title[i].style.display = "";
+       *     } else {
+       *       title[i].style.display = "none";
+       *     }
+       *   }
+       * } */
     </script>
   </body>
 </html>
