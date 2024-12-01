@@ -1,0 +1,25 @@
+#+title: Conexion directa ssh a openwrt
+#+date: <2024-07-09 16:46>
+#+description:
+#+filetags: linux
+
+ Configuración Permanente en el Archivo de Configuración SSH
+
+* # Editar el archivo de configuración SSH:
+
+y añadir la configuración para el router
+
+#+BEGIN_SRC
+ Host openwrt
+    HostName 192.168.1.1
+    User root
+    KexAlgorithms +diffie-hellman-group1-sha1
+    HostKeyAlgorithms +ssh-rsa
+    PubkeyAcceptedKeyTypes +ssh-rsa
+#+END_SRC
+
+* Conectar
+
+#+BEGIN_SRC
+  ssh openwrt
+#+END_SRC
