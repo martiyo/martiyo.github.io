@@ -1,0 +1,60 @@
+#+title: Eglot
+#+date: <2024-12-25 18:35>
+#+description: 
+#+filetags: emacs
+
+Eglot (Emacs Poliglota) es un cliente LSP (Language Server Protocol) para Emacs  
+
+* # Características
+
+  Integración con ElDoc. Si MarkdownMode está instalado, la documentación Se mejorará el formato. Diagnósticos sobre la marcha y soluciones sugeridas a través de FlyMake.  Encontrar definiciones y usos de símbolos a través de InfoXref. Navegación en el búfer a través de ImenuMode. Finalización mejorada  mediante 'finalización en el punto' * Reformateo automático del código a medida que escribe. Herramientas de terceros mejoradas:  aumente las capacidades de paquetes como CompanyMode y Yasnippet.
+
+    
+* Configuración de eglot para javascript
+
+
+** Instalar el servidor LSP adecuado
+
+    Eglot necesita un servidor LSP para JavaScript, como typescript-language-server. Instalcion con npm:
+
+#+BEGIN_SRC
+  npm install -g typescript typescript-language-server
+#+END_SRC
+
+    
+    
+** En el init.el
+
+#+BEGIN_SRC
+(use-package eglot
+  :ensure t
+  :config
+  ;; Asociar web-mode con el servidor TypeScript
+  (add-to-list 'eglot-server-programs
+               '((web-mode js-mode typescript-mode) "typescript-language-server" "--stdio")))
+;
+(setenv "PATH" (mapconcat 'identity exec-path path-separator))
+(setq exec-path (append exec-path '("/usr/bin/typescript-language-server")))
+
+#+END_SRC
+
+  
+** Habilitar Eglot en el proyecto
+
+  Abrir cualquier archivo JavaScript y asegúrarse de que Eglot esté activado (debería mostrarse en la barra de estado). Si no lo está, *M-x eglot* para iniciarlo.
+
+  
+** Configurar opciones adicionales
+
+Se puede personalizar el comportamiento del servidor añadiendo un archivo *tsconfig.json* en la raíz del proyecto en TypeScript o un *jsconfig.json* para JavaScript puro. Por ejemplo:
+
+#+BEGIN_SRC
+  {
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"]
+    }
+  }
+}
+#+END_SRC

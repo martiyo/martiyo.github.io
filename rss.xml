@@ -4,7 +4,113 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Sun, 01 Dec 2024 01:05:45 -0300</lastBuildDate>
+<lastBuildDate>Wed, 25 Dec 2024 22:30:41 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[Eglot]]></title>
+  <description><![CDATA[
+      <p>
+        Eglot (Emacs Poliglota) es un cliente LSP (Language Server Protocol)
+        para Emacs
+      </p>
+      <div id="outline-container-orgc8baad8" class="outline-2">
+        <h2 id="orgc8baad8"># Características</h2>
+        <div class="outline-text-2" id="text-orgc8baad8">
+          <p>
+            Integración con ElDoc. Si MarkdownMode está instalado, la
+            documentación Se mejorará el formato. Diagnósticos sobre la marcha y
+            soluciones sugeridas a través de FlyMake. Encontrar definiciones y
+            usos de símbolos a través de InfoXref. Navegación en el búfer a
+            través de ImenuMode. Finalización mejorada mediante 'finalización en
+            el punto' * Reformateo automático del código a medida que escribe.
+            Herramientas de terceros mejoradas: aumente las capacidades de
+            paquetes como CompanyMode y Yasnippet.
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-org7fe9a57" class="outline-2">
+        <h2 id="org7fe9a57">Configuración de eglot para javascript</h2>
+        <div class="outline-text-2" id="text-org7fe9a57"></div>
+        <div id="outline-container-orge2fccbb" class="outline-3">
+          <h3 id="orge2fccbb">Instalar el servidor LSP adecuado</h3>
+          <div class="outline-text-3" id="text-orge2fccbb">
+            <p>
+              Eglot necesita un servidor LSP para JavaScript, como
+              typescript-language-server. Instalcion con npm:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-nil">
+npm install -g typescript typescript-language-server
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgeadcf6c" class="outline-3">
+          <h3 id="orgeadcf6c">En el init.el</h3>
+          <div class="outline-text-3" id="text-orgeadcf6c">
+            <div class="org-src-container">
+              <pre class="src src-nil">
+(use-package eglot
+  :ensure t
+  :config
+  ;; Asociar web-mode con el servidor TypeScript
+  (add-to-list 'eglot-server-programs
+               '((web-mode js-mode typescript-mode) "typescript-language-server" "--stdio")))
+;
+(setenv "PATH" (mapconcat 'identity exec-path path-separator))
+(setq exec-path (append exec-path '("/usr/bin/typescript-language-server")))
+
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org40019ef" class="outline-3">
+          <h3 id="org40019ef">Habilitar Eglot en el proyecto</h3>
+          <div class="outline-text-3" id="text-org40019ef">
+            <p>
+              Abrir cualquier archivo JavaScript y asegúrarse de que Eglot esté
+              activado (debería mostrarse en la barra de estado). Si no lo está,
+              <b>M-x eglot</b> para iniciarlo.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-orgc2c8488" class="outline-3">
+          <h3 id="orgc2c8488">Configurar opciones adicionales</h3>
+          <div class="outline-text-3" id="text-orgc2c8488">
+            <p>
+              Se puede personalizar el comportamiento del servidor añadiendo un
+              archivo <b>tsconfig.json</b> en la raíz del proyecto en TypeScript
+              o un <b>jsconfig.json</b> para JavaScript puro. Por ejemplo:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-nil">
+  {
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"]
+    }
+  }
+}
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/2024-12-25-eglot.html</link>
+  <guid>https://martiyo.github.io/2024-12-25-eglot.html</guid>
+  <pubDate>Wed, 25 Dec 2024 18:35:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[Conexion directa ssh a openwrt]]></title>
   <description><![CDATA[
@@ -4073,20 +4179,23 @@ $ make
       </p>
 
       <p>Definir eww como navegador por defecto</p>
-      <pre class="example">
+      <div class="org-src-container">
+        <pre class="src src-nil">
 (setq browse-url-browser-function 'eww-browse-url)
 </pre
-      >
+        >
+      </div>
 
       <p>Cambiar directorio de descargas</p>
-      <pre class="example">
+      <div class="org-src-container">
+        <pre class="src src-nil">
 '(eww-download-directory "~/storage/descargas")
 </pre
-      >
-
-      <div id="outline-container-orga5f5459" class="outline-2">
-        <h2 id="orga5f5459">Atajos</h2>
-        <div class="outline-text-2" id="text-orga5f5459">
+        >
+      </div>
+      <div id="outline-container-org86f7679" class="outline-2">
+        <h2 id="org86f7679">Atajos</h2>
+        <div class="outline-text-2" id="text-org86f7679">
           <table>
             <colgroup>
               <col class="org-left" />
