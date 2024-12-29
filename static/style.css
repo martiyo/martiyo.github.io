@@ -99,7 +99,7 @@ input {
   /*   color: #00ff00; */
   color: rgba(29, 138, 31);
   font-size: 15px;
-  // font-weight: bold;
+  //font-weight: bold;
   //opacity: 1;
 }
 
@@ -114,7 +114,7 @@ code {
 
 table {
   width: 100%;
-  // border: 1px solid #00ff00;
+  //border: 1px solid #00ff00;
 }
 th,
 td {
@@ -137,3 +137,33 @@ thead {
    //margin-left: 93px;
    margin-bottom: 70px;
    } */
+
+/* Estilo del contenedor de resultados */
+input[placeholder="Search..."] + div {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+}
+
+/* Estilo de cada resultado */
+.search-result {
+  margin-bottom: 10px;
+}
+
+/* Estilo de la fecha */
+.search-date {
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* Estilo del título */
+.search-title a {
+  font-size: 1.1em;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.search-title a:hover {
+  text-decoration: underline;
+}
