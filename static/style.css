@@ -11,6 +11,7 @@ html {
   max-width: 600px;
   margin-right: auto;
   margin-left: auto;
+  padding: 10px;
 }
 
 body {
@@ -19,13 +20,15 @@ body {
   padding: 0;
   font-family: "Lucida console";
   /*   font-family: "Source Code Pro", monospace; */
-  font-size: 12.5px;
+  font-size: 14.5px;
   /*   color: #00ff00; */
   color: rgb(29, 138, 31);
   text-align: left;
   line-height: 1.5 !important;
 }
 
+#content p {
+}
 .post-title a {
   text-decoration: none;
   font-size: 20px;
@@ -79,7 +82,7 @@ a {
   /*   color: rgba(29, 138, 31); */
   text-decoration: none;
 }
-.header a:hover {
+.header ul li a:hover {
   color: #000;
   background: #00ff00;
 }
@@ -139,31 +142,47 @@ thead {
    } */
 
 /* Estilo del contenedor de resultados */
-input[placeholder="Search..."] + div {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+input {
+  background-color: #010;
+  outline: none;
 }
 
 /* Estilo de cada resultado */
 .search-result {
   margin-bottom: 10px;
+  margin-top: 10px;
+  background: #010;
 }
 
 /* Estilo de la fecha */
-.search-date {
+.result-date {
   font-size: 0.9em;
   color: #666;
 }
 
 /* Estilo del título */
-.search-title a {
+.result-title a {
   font-size: 1.1em;
-  color: #007bff;
+  color: rgba(29, 138, 31);
   text-decoration: none;
 }
 
-.search-title a:hover {
+.result-title a:hover {
   text-decoration: underline;
+  color: rgba(29, 138, 31);
+  /*   background-color: #00ff00; */
+}
+
+@media (max-width: 500px) {
+  .header,
+  .footer {
+    padding: 10px;
+  }
+
+  #content {
+    padding: 30px;
+  }
+  .post-title {
+    font-size: 1.2em;
+  }
 }
