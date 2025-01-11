@@ -1,0 +1,122 @@
+#+title: Iptables en openwrt
+#+date: <2025-01-11 13:05>
+#+description: 
+#+filetags: openwrt
+
+Bloquear conexion a internet por IP o MAC con iptables.
+
+* # Editar las reglas del fierwall manualmente
+
+El archivo de configuración del firewall en *openwrt* es */etc/config/firewall* entonces:
+
+#+BEGIN_SRC shell
+  vi /etc/config/firewall
+#+END_SRC
+
+** Agregar la regla para bloquear la IP del dispositivo
+
+#+BEGIN_SRC shell
+  config rule
+    option name 'Bloquear Dispositivo'
+    option src 'lan'
+    option dest 'wan'
+    option src_ip '192.168.1.100'
+    option target 'DROP'
+#+END_SRC
+
+Cambiar *src_ip* por *src_mac* para bloquear por dirección mac, o para bloquear varios dispositivos en lugar de *option src ip ...*,  debe ser *list src ip...*
+
+
+** Reiniciar el firewall
+
+Aplicar los cambios reiniciando el servicio del firewall:
+
+#+BEGIN_SRC shell
+  /etc/init.d/firewall restart
+#+END_SRC
+
+** Verificar regla aplicada
+
+#+BEGIN_SRC shell
+  iptables -L -v
+#+END_SRC
+
+Buscar una regla que contenga la IP del dispositivo y confirme que está bloqueda.
+
+
+* # Habilitar y deshabilitar la regla en un horario especifico utilizando *cron*
+
+** Crear scripts para habilitar y deshabilitar la regla
+
+*** Script para habilitar la regla:
+
+ #+BEGIN_SRC shell
+ vi /etc/firewall.enable_block.sh   
+ #+END_SRC
+
+ Contenido del script:
+
+ #+BEGIN_SRC shell
+ #!/bin/sh
+ uci set firewall.@rule[<índice>].enabled='1'
+ uci commit firewall
+ /etc/init.d/firewall restart
+ #+END_SRC
+
+ Cambiar *<índice>* por el índice de la regla en el archivo */etc/config/firewall*.
+ Usar:
+    
+ #+BEGIN_SRC shell
+ uci show firewall | grep 'Bloquear Dispositivo'
+ #+END_SRC
+
+ para identificarlo.
+ Ejemplo: si hay algo como firewall.@rule[4], entonces <índice> será 4.
+
+
+*** Script para deshabilitar la regla
+
+ #+BEGIN_SRC shell
+ vi /etc/firewall.disable_block.sh
+ #+END_SRC
+
+ Contenido del script:
+
+ #+BEGIN_SRC shell
+ #!/bin/sh
+ uci set firewall.@rule[<índice>].enabled='0'
+ uci commit firewall
+ /etc/init.d/firewall restart
+ #+END_SRC
+
+
+*** Scripts ejecutables:
+
+ #+BEGIN_SRC shell
+ chmod +x /etc/firewall.enable_block.sh /etc/firewall.disable_block.sh
+ #+END_SRC
+
+
+** Programar las tares con cron
+
+ #+BEGIN_SRC shell
+ crontaba -e
+ #+END_SRC
+
+ Agregar las siguientes líneas para habilitar y deshabilitar la regla a horarios especificos:
+
+ #+BEGIN_SRC shell
+ # Habilitar la regla todos los días a las 8:00 AM
+ 0 8 * * * /etc/firewall.enable_block.sh
+
+
+ # Deshabilitar la regla todos los días a las 8:00 PM
+ 0 20 * * * /etc/firewall.disable_block.sh
+ #+END_SRC
+
+ Reiniciar cron
+
+ #+BEGIN_SRC shell
+ /etc/init.d/cron restart
+ #+END_SRC
+      

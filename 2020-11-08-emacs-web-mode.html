@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="uso de web-mode" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>emacs-web-mode</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+    <script src="static/search.js"></script>
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Buscar..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">08 nov 2020</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2020-11-08-emacs-web-mode.html"
+          >emacs-web-mode</a
+        >
+      </h1>
+      <div id="outline-container-org4bbe40b" class="outline-2">
+        <h2 id="org4bbe40b">Web-mode</h2>
+        <div class="outline-text-2" id="text-org4bbe40b">
+          <p>
+            <span class="timestamp-wrapper"
+              ><span class="timestamp">[2020-11-08 dom]</span></span
+            >
+          </p>
+
+          <p>
+            Web-mode.el es un modo mayor autónomo de emacs para editar
+            plantillas web.
+          </p>
+        </div>
+        <div id="outline-container-org41fb675" class="outline-3">
+          <h3 id="org41fb675">Caracteristicas</h3>
+          <div class="outline-text-3" id="text-org41fb675">
+            <ul class="org-ul">
+              <li>
+                <b>Indentación inteligente</b> según el conxte: HTML, Javascript
+                o CSS.
+              </li>
+
+              <li>
+                <b>Compatibilidad</b> con los siguientes motores de plantillas:
+                php, jsp, gsp (grails), asp / asp.net ajax (atlas), django /
+                twig / jinja(2) / erlydtl (zotonic) / selmer, erb, ejs,
+                freemarker, velocity, cheetah, smarty, ctemplate / mustache /
+                hapax / handlebars / meteor / blaze / ember.js / velvet, blade
+                (laravel), knockoutjs, go template (revel), razor/play, dust,
+                closure (soy), underscore.js, template-toolkit, liquid (jekyll),
+                angular.js, web2py, mako (pylons), reactjs (jsx), mojolicious,
+                elixir (erlang), thymeleaf, cl-emb, heist, archibus, xoops,
+                hero, spip, svelte, elixir
+              </li>
+
+              <li>
+                <b>Saltar</b> entre tags HTML (ej. &lt;div&gt; y &lt;/div&gt;) o
+                entre bloques de control ({% for %} … {% endfor %}, {{#SECTION}}
+                … {{/SECTION}}, etc.)
+              </li>
+
+              <li>
+                <b>Plegado de codigo</b> para elementos HTML y bloques de
+                control con <code>C-c C-f</code>.
+              </li>
+
+              <li><b>Cierre automatico de etiquetas HTML.</b></li>
+
+              <li><b>Resaltado de sintaxis</b> acorde al codigo o bloque.</li>
+
+              <li>
+                <b>Inserción de snippets <code>C-c C-s</code>.</b>
+              </li>
+
+              <li>
+                <b>Comentar/descomentar</b> com <code>M-;</code> segun el tipo
+                de bloque.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="outline-container-org92136cc" class="outline-3">
+          <h3 id="org92136cc">Inalación y configuración</h3>
+          <div class="outline-text-3" id="text-org92136cc">
+            <p>Dejo aqui mi configuración a modo de backup.</p>
+
+            <div class="org-src-container">
+              <pre class="src src-lisp">
+    ;; Web-mode
+;; ========
+(use-package web-mode
+   :ensure t
+   :mode (("\\.js\\'" . web-mode)
+          ("\\.jsx\\'" . web-mode)
+          ("\\.ts\\'" . web-mode)
+          ("\\.tsx\\'" . web-mode)
+          ("\\.html\\'" . web-mode)
+          ("\\.vue\\'" . web-mode)
+          ("\\.json\\'" . web-mode)
+          ("\\.hbs\\'" . web-mode)
+          ("\\.php\\'" . web-mode)
+          ("\\.css\\'" . web-mode)
+          ("\\.ejs\\'" . web-mode)
+          ("\\.scss\\'" . web-mode)
+         )
+  :commands web-mode
+  :config
+   ;;resaltar comienzo y final de un tag
+  (setq web-mode-enable-current-column-highlight nil)
+  (setq web-mode-enable-current-element-highlight t)
+  ;;indentación de dos espacios
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-markup-indent-offset 2)
+  (setq web-mode-code-markup-indent-offset 2)
+  ;; resaltar sintaxis jsx
+  (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+   ;; sincronizar etiquetas manualmente
+  (define-key web-mode-map (kbd "C-c C-r") 'web-mode-element-rename)
+
+  )
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgef5d3f8" class="outline-3">
+          <h3 id="orgef5d3f8">Algunos atajos utiles</h3>
+          <div class="outline-text-3" id="text-orgef5d3f8">
+            <table>
+              <colgroup>
+                <col class="org-left" />
+
+                <col class="org-left" />
+
+                <col class="org-left" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col" class="org-left">atajo</th>
+                  <th scope="col" class="org-left">funsion</th>
+                  <th scope="col" class="org-left">descricion</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="org-left">C-c C-r</td>
+                  <td class="org-left">M-x web-mode-element-rename</td>
+                  <td class="org-left">renombrar etiquta y su cierre</td>
+                </tr>
+
+                <tr>
+                  <td class="org-left">C-c C-f</td>
+                  <td class="org-left">M-x web-mode-fold-or-unfold</td>
+                  <td class="org-left">replegar/desplegar</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>&#x2026;</p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

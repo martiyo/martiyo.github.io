@@ -1,0 +1,76 @@
+#+title: emacs-web-mode
+#+date: <2020-11-08 17:36>
+#+description: uso de web-mode
+#+filetags: emacs
+
+* Web-mode
+
+  [2020-11-08 dom]
+
+  Web-mode.el es un modo mayor autónomo de emacs para editar plantillas web.
+
+** Caracteristicas
+
+   * *Indentación inteligente* según el conxte: HTML, Javascript o CSS.
+   
+   * *Compatibilidad* con los siguientes motores de plantillas: php, jsp, gsp (grails), asp / asp.net ajax (atlas), django / twig / jinja(2) / erlydtl (zotonic) / selmer, erb, ejs, freemarker, velocity, cheetah, smarty, ctemplate / mustache / hapax / handlebars / meteor / blaze / ember.js / velvet, blade (laravel), knockoutjs, go template (revel), razor/play, dust, closure (soy), underscore.js, template-toolkit, liquid (jekyll), angular.js, web2py, mako (pylons), reactjs (jsx), mojolicious, elixir (erlang), thymeleaf, cl-emb, heist, archibus, xoops, hero, spip, svelte, elixir  
+   
+   * *Saltar* entre tags HTML (ej. <div> y </div>) o entre bloques de control ({% for %} … {% endfor %}, {{#SECTION}} … {{/SECTION}}, etc.)
+  
+   * *Plegado de codigo* para elementos HTML y bloques de control con ~C-c C-f~.
+     
+   * *Cierre automatico de etiquetas HTML.* 
+
+   * *Resaltado de sintaxis* acorde al codigo o bloque.
+
+   * *Inserción de snippets ~C-c C-s~.*
+
+   * *Comentar/descomentar* com ~M-;~ segun el tipo de bloque.
+
+** Inalación y configuración
+
+  Dejo aqui mi configuración a modo de backup.
+
+#+BEGIN_SRC lisp
+    ;; Web-mode
+;; ========
+(use-package web-mode
+   :ensure t
+   :mode (("\\.js\\'" . web-mode)
+          ("\\.jsx\\'" . web-mode)
+          ("\\.ts\\'" . web-mode)
+          ("\\.tsx\\'" . web-mode)
+          ("\\.html\\'" . web-mode)
+          ("\\.vue\\'" . web-mode)
+          ("\\.json\\'" . web-mode)
+	  ("\\.hbs\\'" . web-mode)
+	  ("\\.php\\'" . web-mode)
+	  ("\\.css\\'" . web-mode)
+	  ("\\.ejs\\'" . web-mode)
+          ("\\.scss\\'" . web-mode)
+	 )
+  :commands web-mode
+  :config
+   ;;resaltar comienzo y final de un tag
+  (setq web-mode-enable-current-column-highlight nil)
+  (setq web-mode-enable-current-element-highlight t)
+  ;;indentación de dos espacios
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-markup-indent-offset 2)
+  (setq web-mode-code-markup-indent-offset 2)
+  ;; resaltar sintaxis jsx
+  (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+   ;; sincronizar etiquetas manualmente
+  (define-key web-mode-map (kbd "C-c C-r") 'web-mode-element-rename)
+
+  )
+#+END_SRC
+
+** Algunos atajos utiles
+
+  |atajo |funsion | descricion |
+  |---+---|
+  |C-c C-r |M-x web-mode-element-rename | renombrar etiquta y su cierre|
+  |C-c C-f |M-x web-mode-fold-or-unfold | replegar/desplegar |
+  ...
+  

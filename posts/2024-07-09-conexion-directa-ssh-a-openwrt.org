@@ -7,9 +7,9 @@
 
 * # Editar el archivo de configuración SSH:
 
-y añadir la configuración para el router
+*~/.config/ssh/config* y añadir la configuración para el router
 
-#+BEGIN_SRC
+#+BEGIN_SRC shell
  Host openwrt
     HostName 192.168.1.1
     User root
@@ -19,7 +19,6 @@ y añadir la configuración para el router
 #+END_SRC
 
 * Conectar
-
-#+BEGIN_SRC
-  ssh openwrt
+#+BEGIN_SRC shell
+ssh openwrt
 #+END_SRC

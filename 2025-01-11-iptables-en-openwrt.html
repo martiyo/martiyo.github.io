@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Iptables en openwrt</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+    <script src="static/search.js"></script>
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Buscar..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">11 ene 2025</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2025-01-11-iptables-en-openwrt.html"
+          >Iptables en openwrt</a
+        >
+      </h1>
+      <p>Bloquear conexion a internet por IP o MAC con iptables.</p>
+      <div id="outline-container-org80fc593" class="outline-2">
+        <h2 id="org80fc593"># Editar las reglas del fierwall manualmente</h2>
+        <div class="outline-text-2" id="text-org80fc593">
+          <p>
+            El archivo de configuración del firewall en <b>openwrt</b> es
+            <b>/etc/config/firewall</b> entonces:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-shell">
+vi /etc/config/firewall
+</pre
+            >
+          </div>
+        </div>
+        <div id="outline-container-org849cfdf" class="outline-3">
+          <h3 id="org849cfdf">
+            Agregar la regla para bloquear la IP del dispositivo
+          </h3>
+          <div class="outline-text-3" id="text-org849cfdf">
+            <div class="org-src-container">
+              <pre class="src src-shell">
+config rule
+  option name 'Bloquear Dispositivo'
+  option src 'lan'
+  option dest 'wan'
+  option src_ip '192.168.1.100'
+  option target 'DROP'
+</pre
+              >
+            </div>
+
+            <p>
+              Cambiar <b>src<sub>ip</sub></b> por <b>src<sub>mac</sub></b> para
+              bloquear por dirección mac, o para bloquear varios dispositivos en
+              lugar de <b>option src ip &#x2026;</b>, debe ser
+              <b>list src ip&#x2026;</b>
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org6397fea" class="outline-3">
+          <h3 id="org6397fea">Reiniciar el firewall</h3>
+          <div class="outline-text-3" id="text-org6397fea">
+            <p>Aplicar los cambios reiniciando el servicio del firewall:</p>
+
+            <div class="org-src-container">
+              <pre class="src src-shell">
+/etc/init.d/firewall restart
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org88756c4" class="outline-3">
+          <h3 id="org88756c4">Verificar regla aplicada</h3>
+          <div class="outline-text-3" id="text-org88756c4">
+            <div class="org-src-container">
+              <pre class="src src-shell">
+iptables -L -v
+</pre
+              >
+            </div>
+
+            <p>
+              Buscar una regla que contenga la IP del dispositivo y confirme que
+              está bloqueda.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgdc11bb5" class="outline-2">
+        <h2 id="orgdc11bb5">
+          # Habilitar y deshabilitar la regla en un horario especifico
+          utilizando <b>cron</b>
+        </h2>
+        <div class="outline-text-2" id="text-orgdc11bb5"></div>
+        <div id="outline-container-org5220a2e" class="outline-3">
+          <h3 id="org5220a2e">
+            Crear scripts para habilitar y deshabilitar la regla
+          </h3>
+          <div class="outline-text-3" id="text-org5220a2e"></div>
+          <div id="outline-container-org3134770" class="outline-4">
+            <h4 id="org3134770">Script para habilitar la regla:</h4>
+            <div class="outline-text-4" id="text-org3134770">
+              <div class="org-src-container">
+                <pre class="src src-shell">
+vi /etc/firewall.enable_block.sh   
+</pre
+                >
+              </div>
+
+              <p>Contenido del script:</p>
+
+              <div class="org-src-container">
+                <pre class="src src-shell">
+#!/bin/sh
+uci set firewall.@rule[&lt;índice&gt;].enabled='1'
+uci commit firewall
+/etc/init.d/firewall restart
+</pre
+                >
+              </div>
+
+              <p>
+                Cambiar <b>&lt;índice&gt;</b> por el índice de la regla en el
+                archivo <b>/etc/config/firewall</b>. Usar:
+              </p>
+
+              <div class="org-src-container">
+                <pre class="src src-shell">
+uci show firewall | grep 'Bloquear Dispositivo'
+</pre
+                >
+              </div>
+
+              <p>
+                para identificarlo. Ejemplo: si hay algo como firewall.@rule[4],
+                entonces &lt;índice&gt; será 4.
+              </p>
+            </div>
+          </div>
+          <div id="outline-container-org9ef9de7" class="outline-4">
+            <h4 id="org9ef9de7">Script para deshabilitar la regla</h4>
+            <div class="outline-text-4" id="text-org9ef9de7">
+              <div class="org-src-container">
+                <pre class="src src-shell">
+vi /etc/firewall.disable_block.sh
+</pre
+                >
+              </div>
+
+              <p>Contenido del script:</p>
+
+              <div class="org-src-container">
+                <pre class="src src-shell">
+#!/bin/sh
+uci set firewall.@rule[&lt;índice&gt;].enabled='0'
+uci commit firewall
+/etc/init.d/firewall restart
+</pre
+                >
+              </div>
+            </div>
+          </div>
+          <div id="outline-container-orgc19d522" class="outline-4">
+            <h4 id="orgc19d522">Scripts ejecutables:</h4>
+            <div class="outline-text-4" id="text-orgc19d522">
+              <div class="org-src-container">
+                <pre class="src src-shell">
+chmod +x /etc/firewall.enable_block.sh /etc/firewall.disable_block.sh
+</pre
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgaecd6da" class="outline-3">
+          <h3 id="orgaecd6da">Programar las tares con cron</h3>
+          <div class="outline-text-3" id="text-orgaecd6da">
+            <div class="org-src-container">
+              <pre class="src src-shell">
+crontaba -e
+</pre
+              >
+            </div>
+
+            <p>
+              Agregar las siguientes líneas para habilitar y deshabilitar la
+              regla a horarios especificos:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-shell">
+# Habilitar la regla todos los días a las 8:00 AM
+0 8 * * * /etc/firewall.enable_block.sh
+
+
+# Deshabilitar la regla todos los días a las 8:00 PM
+0 20 * * * /etc/firewall.disable_block.sh
+</pre
+              >
+            </div>
+
+            <p>Reiniciar cron</p>
+
+            <div class="org-src-container">
+              <pre class="src src-shell">
+/etc/init.d/cron restart
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-openwrt.html">openwrt</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

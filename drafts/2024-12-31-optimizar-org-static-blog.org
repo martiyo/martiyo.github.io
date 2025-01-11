@@ -1,0 +1,144 @@
+#+title: Optimizar org-static-blog
+#+date: <2024-12-31 11:40>
+#+description: 
+#+filetags: emacs
+
+Optimizar el flujo de trabajo y el uso de org-static-blog.
+
+* # org-static-blog
+
+* 1. Automatización del Flujo de Trabajo
+Scripts para publicar automáticamente: Crea un script en Bash para publicar todos los cambios con un solo comando:
+
+#+BEGIN_SRC sh
+  #!/bin/bash
+emacs --batch -l ~/.emacs.d/init.el --eval '(org-static-blog-publish)' && \
+git add . && git commit -m "Actualización del blog" && git push
+
+#+END_SRC
+
+Esto compila el blog y sube los cambios a tu repositorio en un paso.
+
+Publicación programada: Usa cron o systemd timers para ejecutar el script a intervalos regulares.
+
+* 2. Personalización del Diseño
+** Temas personalizados:
+Edita tu archivo CSS (eww-style.css o un nuevo estilo en static/style.css) para mejorar la estética y usabilidad del blog.
+
+Por ejemplo, añade estilos responsivos para móviles:
+
+#+BEGIN_SRC css
+  @media (max-width: 600px) {
+  .header, .content, .footer {
+      padding: 10px;
+  }
+  .post-title {
+      font-size: 1.2em;
+  }
+}
+#+END_SRC
+
+Componentes dinámicos: Si usas JavaScript, puedes implementar funcionalidades como:
+
+Modo oscuro.
+Botones para compartir posts en redes sociales.
+Contadores de visitas con Google Analytics o servicios alternativos.
+
+* 3. Mejoras en la Edición de Posts
+Plantillas para nuevos posts: Usa org-capture para generar automáticamente archivos de nuevos posts con una estructura predefinida:
+
+#+BEGIN_SRC lisp
+  (setq org-capture-templates
+      '(("b" "Blog Post" entry
+         (file "~/projects/blog/drafts/new-post.org")
+         "* %^{Title}\n:PROPERTIES:\n:EXPORT_DATE: %U\n:END:\n\n%?")))
+
+#+END_SRC
+
+Esto asegura consistencia en los metadatos y el formato de los posts.
+
+** Vista previa de posts: Implementa una función en Emacs para previsualizar un post antes de publicarlo:
+
+#+BEGIN_SRC lisp
+  (defun org-static-blog-preview ()
+  "Renderiza y abre el último post en el navegador."
+  (interactive)
+  (org-static-blog-publish)
+  (browse-url (concat org-static-blog-publish-url "index.html")))
+
+#+END_SRC
+
+* 4. Optimización del Contenido
+Compresión de imágenes: Usa herramientas como imagemagick o optipng para reducir el tamaño de las imágenes sin pérdida de calidad:
+
+ #+BEGIN_SRC shell
+   find static/images -type f -name "*.png" -exec optipng {} \;
+#+END_SRC
+
+** Generación de un sitemap: Genera automáticamente un archivo sitemap.xml para mejorar el SEO:
+
+#+BEGIN_SRC lisp
+  (setq org-static-blog-sitemap
+      (lambda ()
+        (with-temp-buffer
+          (insert "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+          (insert "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n")
+          (dolist (post (org-static-blog-get-posts))
+            (let ((url (org-static-blog-get-post-url post))
+                  (date (org-static-blog-get-post-date post)))
+              (insert (format "<url><loc>%s</loc><lastmod>%s</lastmod></url>\n"
+                              url date))))
+          (insert "</urlset>")
+          (write-region (point-min) (point-max) "~/projects/blog/sitemap.xml"))))
+#+END_SRC
+
+* 5. Herramientas Externas
+Markdown y otros formatos: Si ocasionalmente necesitas escribir en Markdown o HTML, puedes convertir estos archivos automáticamente con pandoc:
+
+#+BEGIN_SRC shell
+  pandoc post.md -o post.html
+#+END_SRC
+
+** Verificación de enlaces rotos: Usa una herramienta como linkchecker para verificar todos los enlaces de tu sitio:
+
+#+BEGIN_SRC shell
+  linkchecker https://martiyo.github.io
+#+END_SRC
+
+* 6. Mejoras para la Indexación y Búsquedas
+** Búsqueda avanzada:
+Implementa un motor de búsqueda estático basado en JavaScript, como Lunr.js, para indexar y buscar en los posts del blog.
+
+** Etiquetas dinámicas:
+Genera una página dinámica de etiquetas basadas en los metadatos de tus posts:
+
+#+BEGIN_SRC lisp
+  (setq org-static-blog-tags-page
+      (lambda ()
+        (with-temp-buffer
+          (insert "<h1>Tags</h1>\n<ul>\n")
+          (dolist (tag org-static-blog-tag-cache)
+            (insert (format "<li><a href=\"%s\">%s</a></li>\n"
+                            (org-static-blog-get-tag-url tag) tag)))
+          (insert "</ul>\n")
+          (write-region (point-min) (point-max) "~/projects/blog/tags.html"))))
+
+#+END_SRC
+
+* 7. Depuración y Mantenimiento
+
+** Logs detallados:
+Agrega mensajes en el proceso de publicación para rastrear errores fácilmente:
+
+#+BEGIN_SRC lisp
+  (defun org-static-blog-log (message)
+  (with-current-buffer (get-buffer-create "*org-static-blog*")
+    (insert (concat (current-time-string) ": " message "\n"))))
+#+END_SRC
+
+** Modo seguro para publicaciones:
+ Antes de publicar, genera un backup de tu carpeta del blog:
+
+ #+BEGIN_SRC shell
+   tar -czf ~/projects/blog-backup-$(date +%Y%m%d).tar.gz ~/projects/blog/
+#+END_SRC

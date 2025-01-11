@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Optimizar org-static-blog</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+    <script src="static/search.js"></script>
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Buscar..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">31 dic 2024</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/2024-12-31-optimizar-org-static-blog.html"
+          >Optimizar org-static-blog</a
+        >
+      </h1>
+      <p>Optimizar el flujo de trabajo y el uso de org-static-blog.</p>
+      <div id="outline-container-orgf705df8" class="outline-2">
+        <h2 id="orgf705df8"># org-static-blog</h2>
+      </div>
+
+      <div id="outline-container-orge72c2b3" class="outline-2">
+        <h2 id="orge72c2b3">1. Automatización del Flujo de Trabajo</h2>
+        <div class="outline-text-2" id="text-orge72c2b3">
+          <p>
+            Scripts para publicar automáticamente: Crea un script en Bash para
+            publicar todos los cambios con un solo comando:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-sh">
+  #!/bin/bash
+emacs --batch -l ~/.emacs.d/init.el --eval '(org-static-blog-publish)' &amp;&amp; \
+git add . &amp;&amp; git commit -m "Actualización del blog" &amp;&amp; git push
+
+</pre
+            >
+          </div>
+
+          <p>
+            Esto compila el blog y sube los cambios a tu repositorio en un paso.
+          </p>
+
+          <p>
+            Publicación programada: Usa cron o systemd timers para ejecutar el
+            script a intervalos regulares.
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-orgd460b40" class="outline-2">
+        <h2 id="orgd460b40">2. Personalización del Diseño</h2>
+        <div class="outline-text-2" id="text-orgd460b40"></div>
+        <div id="outline-container-orged3e697" class="outline-3">
+          <h3 id="orged3e697">Temas personalizados:</h3>
+          <div class="outline-text-3" id="text-orged3e697">
+            <p>
+              Edita tu archivo CSS (eww-style.css o un nuevo estilo en
+              static/style.css) para mejorar la estética y usabilidad del blog.
+            </p>
+
+            <p>Por ejemplo, añade estilos responsivos para móviles:</p>
+
+            <div class="org-src-container">
+              <pre class="src src-css">
+  @media (max-width: 600px) {
+  .header, .content, .footer {
+      padding: 10px;
+  }
+  .post-title {
+      font-size: 1.2em;
+  }
+}
+</pre
+              >
+            </div>
+
+            <p>
+              Componentes dinámicos: Si usas JavaScript, puedes implementar
+              funcionalidades como:
+            </p>
+
+            <p>
+              Modo oscuro. Botones para compartir posts en redes sociales.
+              Contadores de visitas con Google Analytics o servicios
+              alternativos.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgde2bd54" class="outline-2">
+        <h2 id="orgde2bd54">3. Mejoras en la Edición de Posts</h2>
+        <div class="outline-text-2" id="text-orgde2bd54">
+          <p>
+            Plantillas para nuevos posts: Usa org-capture para generar
+            automáticamente archivos de nuevos posts con una estructura
+            predefinida:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-lisp">
+(setq org-capture-templates
+    '(("b" "Blog Post" entry
+       (file "~/projects/blog/drafts/new-post.org")
+       "* %^{Title}\n:PROPERTIES:\n:EXPORT_DATE: %U\n:END:\n\n%?")))
+
+</pre
+            >
+          </div>
+
+          <p>
+            Esto asegura consistencia en los metadatos y el formato de los
+            posts.
+          </p>
+        </div>
+        <div id="outline-container-org66f1603" class="outline-3">
+          <h3 id="org66f1603">
+            Vista previa de posts: Implementa una función en Emacs para
+            previsualizar un post antes de publicarlo:
+          </h3>
+          <div class="outline-text-3" id="text-org66f1603">
+            <div class="org-src-container">
+              <pre class="src src-lisp">
+(defun org-static-blog-preview ()
+"Renderiza y abre el último post en el navegador."
+(interactive)
+(org-static-blog-publish)
+(browse-url (concat org-static-blog-publish-url "index.html")))
+
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org71cf14a" class="outline-2">
+        <h2 id="org71cf14a">4. Optimización del Contenido</h2>
+        <div class="outline-text-2" id="text-org71cf14a">
+          <p>
+            Compresión de imágenes: Usa herramientas como imagemagick o optipng
+            para reducir el tamaño de las imágenes sin pérdida de calidad:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-shell">
+find static/images -type f -name "*.png" -exec optipng {} \;
+</pre
+            >
+          </div>
+        </div>
+        <div id="outline-container-org002cb79" class="outline-3">
+          <h3 id="org002cb79">
+            Generación de un sitemap: Genera automáticamente un archivo
+            sitemap.xml para mejorar el SEO:
+          </h3>
+          <div class="outline-text-3" id="text-org002cb79">
+            <div class="org-src-container">
+              <pre class="src src-lisp">
+(setq org-static-blog-sitemap
+    (lambda ()
+      (with-temp-buffer
+        (insert "&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;\n")
+        (insert "&lt;urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"&gt;\n")
+        (dolist (post (org-static-blog-get-posts))
+          (let ((url (org-static-blog-get-post-url post))
+                (date (org-static-blog-get-post-date post)))
+            (insert (format "&lt;url&gt;&lt;loc&gt;%s&lt;/loc&gt;&lt;lastmod&gt;%s&lt;/lastmod&gt;&lt;/url&gt;\n"
+                            url date))))
+        (insert "&lt;/urlset&gt;")
+        (write-region (point-min) (point-max) "~/projects/blog/sitemap.xml"))))
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgee98be0" class="outline-2">
+        <h2 id="orgee98be0">5. Herramientas Externas</h2>
+        <div class="outline-text-2" id="text-orgee98be0">
+          <p>
+            Markdown y otros formatos: Si ocasionalmente necesitas escribir en
+            Markdown o HTML, puedes convertir estos archivos automáticamente con
+            pandoc:
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-shell">
+pandoc post.md -o post.html
+</pre
+            >
+          </div>
+        </div>
+        <div id="outline-container-orgbc4a234" class="outline-3">
+          <h3 id="orgbc4a234">
+            Verificación de enlaces rotos: Usa una herramienta como linkchecker
+            para verificar todos los enlaces de tu sitio:
+          </h3>
+          <div class="outline-text-3" id="text-orgbc4a234">
+            <div class="org-src-container">
+              <pre class="src src-shell">
+linkchecker https://martiyo.github.io
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org570ca4d" class="outline-2">
+        <h2 id="org570ca4d">6. Mejoras para la Indexación y Búsquedas</h2>
+        <div class="outline-text-2" id="text-org570ca4d"></div>
+        <div id="outline-container-org7413db9" class="outline-3">
+          <h3 id="org7413db9">Búsqueda avanzada:</h3>
+          <div class="outline-text-3" id="text-org7413db9">
+            <p>
+              Implementa un motor de búsqueda estático basado en JavaScript,
+              como Lunr.js, para indexar y buscar en los posts del blog.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org1bbe8ad" class="outline-3">
+          <h3 id="org1bbe8ad">Etiquetas dinámicas:</h3>
+          <div class="outline-text-3" id="text-org1bbe8ad">
+            <p>
+              Genera una página dinámica de etiquetas basadas en los metadatos
+              de tus posts:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-lisp">
+(setq org-static-blog-tags-page
+    (lambda ()
+      (with-temp-buffer
+        (insert "&lt;h1&gt;Tags&lt;/h1&gt;\n&lt;ul&gt;\n")
+        (dolist (tag org-static-blog-tag-cache)
+          (insert (format "&lt;li&gt;&lt;a href=\"%s\"&gt;%s&lt;/a&gt;&lt;/li&gt;\n"
+                          (org-static-blog-get-tag-url tag) tag)))
+        (insert "&lt;/ul&gt;\n")
+        (write-region (point-min) (point-max) "~/projects/blog/tags.html"))))
+
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgb6cff3a" class="outline-2">
+        <h2 id="orgb6cff3a">7. Depuración y Mantenimiento</h2>
+        <div class="outline-text-2" id="text-orgb6cff3a"></div>
+        <div id="outline-container-org11065a2" class="outline-3">
+          <h3 id="org11065a2">Logs detallados:</h3>
+          <div class="outline-text-3" id="text-org11065a2">
+            <p>
+              Agrega mensajes en el proceso de publicación para rastrear errores
+              fácilmente:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-lisp">
+(defun org-static-blog-log (message)
+(with-current-buffer (get-buffer-create "*org-static-blog*")
+  (insert (concat (current-time-string) ": " message "\n"))))
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org8f5de16" class="outline-3">
+          <h3 id="org8f5de16">Modo seguro para publicaciones:</h3>
+          <div class="outline-text-3" id="text-org8f5de16">
+            <p>Antes de publicar, genera un backup de tu carpeta del blog:</p>
+
+            <div class="org-src-container">
+              <pre class="src src-shell">
+tar -czf ~/projects/blog-backup-$(date +%Y%m%d).tar.gz ~/projects/blog/
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

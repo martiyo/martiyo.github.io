@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>tree-sitter</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+    <script src="static/search.js"></script>
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Buscar..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">04 ene 2025</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2025-01-04-tree-sitter.html"
+          >tree-sitter</a
+        >
+      </h1>
+      <div id="outline-container-org8f13ebc" class="outline-2">
+        <h2 id="org8f13ebc"># tree-sitter</h2>
+        <div class="outline-text-2" id="text-org8f13ebc">
+          <p>
+            Sistema de análisis incremental que transforma el código fuente en
+            un árbol de sintaxis.
+          </p>
+
+          <p>
+            tree-sitter es una herramienta moderna para analizar la estructura
+            de código, que proporciona capacidades avanzadas de plegado y
+            navegación en lenguajes como JavaScript y JSX.
+          </p>
+        </div>
+        <div id="outline-container-orgf78f89f" class="outline-3">
+          <h3 id="orgf78f89f">Permite:</h3>
+          <div class="outline-text-3" id="text-orgf78f89f">
+            <ol class="org-ol">
+              <li>Resaltado de código más rápido y detallado</li>
+              <li>Plegado de código más flexible</li>
+              <li>Edición estructural para código no Lisp</li>
+              <li>Indexación más informativa para imenu</li>
+              <li>Inspección visual de la estructura del código</li>
+              <li>Identificación de errores de sintaxis</li>
+              <li>
+                Depuración de problemas relacionados con el resaltado de
+                sintaxis o el análisis de código
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org7260d99" class="outline-2">
+        <h2 id="org7260d99">1 Instalacion</h2>
+        <div class="outline-text-2" id="text-org7260d99">
+          <div class="org-src-container">
+            <pre class="src src-elisp">
+  (use-package tree-sitter
+  :ensure t
+  :config
+  (global-tree-sitter-mode))
+
+(use-package tree-sitter-langs
+  :ensure t)
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org9c1a5cf" class="outline-2">
+        <h2 id="org9c1a5cf">2 Configuración para JavaScript y React:</h2>
+        <div class="outline-text-2" id="text-org9c1a5cf">
+          <div class="org-src-container">
+            <pre class="src src-lisp">
+(add-hook 'js-mode-hook #'tree-sitter-mode)
+(add-hook 'js-mode-hook #'tree-sitter-hl-mode)
+(add-hook 'typescript-mode-hook #'tree-sitter-mode)
+(add-hook 'typescript-mode-hook #'tree-sitter-hl-mode)
+(add-hook 'web-mode-hook #'tree-sitter-mode)
+(add-hook 'web-mode-hook #'tree-sitter-hl-mode)
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org3b4cd73" class="outline-2">
+        <h2 id="org3b4cd73">3 Hablitar plegado basico en tree-sitter:</h2>
+        <div class="outline-text-2" id="text-org3b4cd73">
+          <div class="org-src-container">
+            <pre class="src src-lisp">
+(defun tree-sitter-toggle-fold ()
+ "Toggle folding of the current node."
+ (interactive)
+ (if (tree-sitter-node-at-point)
+     (tree-sitter-fold-toggle)
+   (message "No foldable node at point")))
+
+(global-set-key (kbd "C-c C-f") 'tree-sitter-toggle-fold)
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

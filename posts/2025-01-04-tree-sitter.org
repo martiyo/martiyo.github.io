@@ -1,0 +1,55 @@
+#+title: tree-sitter
+#+date: <2025-01-04 18:11>
+#+description: 
+#+filetags: emacs
+
+* # tree-sitter
+
+Sistema de análisis incremental que transforma el código fuente en un árbol de sintaxis.
+
+tree-sitter es una herramienta moderna para analizar la estructura de código, que proporciona capacidades avanzadas de plegado y navegación en lenguajes como JavaScript y JSX.
+
+** Permite: 
+  1. Resaltado de código más rápido y detallado
+  2. Plegado de código más flexible 
+  3. Edición estructural para código no Lisp 
+  4. Indexación más informativa para imenu 
+  5. Inspección visual de la estructura del código 
+  6. Identificación de errores de sintaxis 
+  7. Depuración de problemas relacionados con el resaltado de sintaxis o el análisis de código 
+
+* 1 Instalacion
+
+#+BEGIN_SRC elisp
+  (use-package tree-sitter
+  :ensure t
+  :config
+  (global-tree-sitter-mode))
+
+(use-package tree-sitter-langs
+  :ensure t)
+#+END_SRC
+
+* 2 Configuración para JavaScript y React:
+
+#+BEGIN_SRC lisp
+  (add-hook 'js-mode-hook #'tree-sitter-mode)
+  (add-hook 'js-mode-hook #'tree-sitter-hl-mode)
+  (add-hook 'typescript-mode-hook #'tree-sitter-mode)
+  (add-hook 'typescript-mode-hook #'tree-sitter-hl-mode)
+  (add-hook 'web-mode-hook #'tree-sitter-mode)
+  (add-hook 'web-mode-hook #'tree-sitter-hl-mode)
+#+END_SRC
+
+* 3 Hablitar plegado basico en tree-sitter:
+
+#+BEGIN_SRC lisp
+ (defun tree-sitter-toggle-fold ()
+  "Toggle folding of the current node."
+  (interactive)
+  (if (tree-sitter-node-at-point)
+      (tree-sitter-fold-toggle)
+    (message "No foldable node at point")))
+
+ (global-set-key (kbd "C-c C-f") 'tree-sitter-toggle-fold)
+#+END_SRC
