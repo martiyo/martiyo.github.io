@@ -55,6 +55,16 @@ pensamientos asociados a una tarea. Siendo capaz de anidar tareas es bueno para
 modelar flujos de trabajo — con bastante frecuencia, una tarea larga is dividida
 en pequeñas subtareas que se pretende marchar según se hagan.
 
+| Item    | Quantity | Price | Total |
+|---------+----------+-------+-------|
+| Apples  |       10 |     2 |    20 |
+| Oranges |        5 |     3 |    15 |
+| Bananas |        5 |     1 |     7 |
+|---------+----------+-------+-------|
+| *Sum*     |       20 |       |    42 |
+#+TBLFM: $4=$2*$3:: @>$2=vsum(@2..@-1):: @>$4=vsum(@2..@-1)
+
+
 ** Funcionalidades avanzadas
 
 

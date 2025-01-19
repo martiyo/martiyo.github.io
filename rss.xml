@@ -4,14 +4,14 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Sat, 11 Jan 2025 16:13:03 -0300</lastBuildDate>
+<lastBuildDate>Sun, 19 Jan 2025 12:05:29 -0300</lastBuildDate>
 <item>
   <title><![CDATA[Iptables en openwrt]]></title>
   <description><![CDATA[
       <p>Bloquear conexion a internet por IP o MAC con iptables.</p>
-      <div id="outline-container-orgda278c3" class="outline-2">
-        <h2 id="orgda278c3"># Editar las reglas del fierwall manualmente</h2>
-        <div class="outline-text-2" id="text-orgda278c3">
+      <div id="outline-container-org80fc593" class="outline-2">
+        <h2 id="org80fc593"># Editar las reglas del fierwall manualmente</h2>
+        <div class="outline-text-2" id="text-org80fc593">
           <p>
             El archivo de configuración del firewall en <b>openwrt</b> es
             <b>/etc/config/firewall</b> entonces:
@@ -24,11 +24,11 @@ vi /etc/config/firewall
             >
           </div>
         </div>
-        <div id="outline-container-orgfc53272" class="outline-3">
-          <h3 id="orgfc53272">
+        <div id="outline-container-org849cfdf" class="outline-3">
+          <h3 id="org849cfdf">
             Agregar la regla para bloquear la IP del dispositivo
           </h3>
-          <div class="outline-text-3" id="text-orgfc53272">
+          <div class="outline-text-3" id="text-org849cfdf">
             <div class="org-src-container">
               <pre class="src src-shell">
 config rule
@@ -49,9 +49,9 @@ config rule
             </p>
           </div>
         </div>
-        <div id="outline-container-org6b53b35" class="outline-3">
-          <h3 id="org6b53b35">Reiniciar el firewall</h3>
-          <div class="outline-text-3" id="text-org6b53b35">
+        <div id="outline-container-org6397fea" class="outline-3">
+          <h3 id="org6397fea">Reiniciar el firewall</h3>
+          <div class="outline-text-3" id="text-org6397fea">
             <p>Aplicar los cambios reiniciando el servicio del firewall:</p>
 
             <div class="org-src-container">
@@ -62,9 +62,9 @@ config rule
             </div>
           </div>
         </div>
-        <div id="outline-container-org2ce2dfe" class="outline-3">
-          <h3 id="org2ce2dfe">Verificar regla aplicada</h3>
-          <div class="outline-text-3" id="text-org2ce2dfe">
+        <div id="outline-container-org88756c4" class="outline-3">
+          <h3 id="org88756c4">Verificar regla aplicada</h3>
+          <div class="outline-text-3" id="text-org88756c4">
             <div class="org-src-container">
               <pre class="src src-shell">
 iptables -L -v
@@ -79,20 +79,20 @@ iptables -L -v
           </div>
         </div>
       </div>
-      <div id="outline-container-org6da154a" class="outline-2">
-        <h2 id="org6da154a">
-          Habilitar y deshabilitar la regla en un horario especifico utilizando
-          <b>cron</b>
+      <div id="outline-container-orgdc11bb5" class="outline-2">
+        <h2 id="orgdc11bb5">
+          # Habilitar y deshabilitar la regla en un horario especifico
+          utilizando <b>cron</b>
         </h2>
-        <div class="outline-text-2" id="text-org6da154a"></div>
-        <div id="outline-container-org2656bbc" class="outline-3">
-          <h3 id="org2656bbc">
+        <div class="outline-text-2" id="text-orgdc11bb5"></div>
+        <div id="outline-container-org5220a2e" class="outline-3">
+          <h3 id="org5220a2e">
             Crear scripts para habilitar y deshabilitar la regla
           </h3>
-          <div class="outline-text-3" id="text-org2656bbc"></div>
-          <div id="outline-container-orgb0603f0" class="outline-4">
-            <h4 id="orgb0603f0">Script para habilitar la regla:</h4>
-            <div class="outline-text-4" id="text-orgb0603f0">
+          <div class="outline-text-3" id="text-org5220a2e"></div>
+          <div id="outline-container-org3134770" class="outline-4">
+            <h4 id="org3134770">Script para habilitar la regla:</h4>
+            <div class="outline-text-4" id="text-org3134770">
               <div class="org-src-container">
                 <pre class="src src-shell">
 vi /etc/firewall.enable_block.sh   
@@ -130,9 +130,9 @@ uci show firewall | grep 'Bloquear Dispositivo'
               </p>
             </div>
           </div>
-          <div id="outline-container-orge1bf5ba" class="outline-4">
-            <h4 id="orge1bf5ba">Script para deshabilitar la regla</h4>
-            <div class="outline-text-4" id="text-orge1bf5ba">
+          <div id="outline-container-org9ef9de7" class="outline-4">
+            <h4 id="org9ef9de7">Script para deshabilitar la regla</h4>
+            <div class="outline-text-4" id="text-org9ef9de7">
               <div class="org-src-container">
                 <pre class="src src-shell">
 vi /etc/firewall.disable_block.sh
@@ -153,9 +153,9 @@ uci commit firewall
               </div>
             </div>
           </div>
-          <div id="outline-container-org03ec78f" class="outline-4">
-            <h4 id="org03ec78f">Scripts ejecutables:</h4>
-            <div class="outline-text-4" id="text-org03ec78f">
+          <div id="outline-container-orgc19d522" class="outline-4">
+            <h4 id="orgc19d522">Scripts ejecutables:</h4>
+            <div class="outline-text-4" id="text-orgc19d522">
               <div class="org-src-container">
                 <pre class="src src-shell">
 chmod +x /etc/firewall.enable_block.sh /etc/firewall.disable_block.sh
@@ -165,9 +165,9 @@ chmod +x /etc/firewall.enable_block.sh /etc/firewall.disable_block.sh
             </div>
           </div>
         </div>
-        <div id="outline-container-org0d8089d" class="outline-3">
-          <h3 id="org0d8089d">Programar las tares con cron</h3>
-          <div class="outline-text-3" id="text-org0d8089d">
+        <div id="outline-container-orgaecd6da" class="outline-3">
+          <h3 id="orgaecd6da">Programar las tares con cron</h3>
+          <div class="outline-text-3" id="text-orgaecd6da">
             <div class="org-src-container">
               <pre class="src src-shell">
 crontaba -e
@@ -960,12 +960,308 @@ sudo update-grub2
   <pubDate>Thu, 02 Feb 2023 21:07:00 -0300</pubDate>
 </item>
 <item>
-  <title><![CDATA[resclient.el]]></title>
+  <title><![CDATA[restclient.el]]></title>
   <description><![CDATA[
       <p>Explorar servicios web HTTP REST.</p>
+      <div id="outline-container-org4b4a3a0" class="outline-2">
+        <h2 id="org4b4a3a0"># Restclient.el</h2>
+        <div class="outline-text-2" id="text-org4b4a3a0">
+          <p>
+            Restclient es una herramienta para explorar y probar manualmente los
+            servicios web HTTP REST. Ejecuta consultas desde una hoja de
+            consulta de texto sin formato y muestra los resultados como XML,
+            JSON e incluso imágenes.
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-orge3dc339" class="outline-2">
+        <h2 id="orge3dc339"># Instalación</h2>
+        <div class="outline-text-2" id="text-orge3dc339">
+          <ul class="org-ul">
+            <li>
+              Actualizar la lista de paquetes
+              <b>M-x package-refresh-contents</b>.
+            </li>
 
-      <div id="outline-container-orgff0239c" class="outline-2">
-        <h2 id="orgff0239c">#recclient.el</h2>
+            <li>Instalar con <b>M-x package-install RET restclient RET</b>.</li>
+          </ul>
+        </div>
+        <div id="outline-container-orgf8d502e" class="outline-3">
+          <h3 id="orgf8d502e">Configuración básica</h3>
+          <div class="outline-text-3" id="text-orgf8d502e">
+            <div class="org-src-container">
+              <pre class="src src-elisp">
+;; Cargar restclient
+(require 'restclient)
+
+;; Asocia archivos .http con restclient-mode
+(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
+</pre
+              >
+            </div>
+
+            <ul class="org-ul">
+              <li>
+                Opcional company-restclient: para el autocompletado instalar
+                <b>M-x package-install RET company-restclient RET</b>.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="outline-container-org37c45f9" class="outline-3">
+          <h3 id="org37c45f9">Configuración opcional</h3>
+          <div class="outline-text-3" id="text-org37c45f9">
+            <div class="org-src-container">
+              <pre class="src src-elisp">
+(with-eval-after-load 'company
+(add-to-list 'company-backends 'company-restclient))
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgda409e0" class="outline-2">
+        <h2 id="orgda409e0"># Uso</h2>
+        <div class="outline-text-2" id="text-orgda409e0">
+          <ul class="org-ul">
+            <li>
+              Crear un archivo con extensión <b>.http</b> o usar un buffer en
+              <b>restclient-mode</b>.
+            </li>
+
+            <li>
+              Escribir las solicitudes <b>http</b> en el siguiente formato:
+            </li>
+          </ul>
+
+          <div class="org-src-container">
+            <pre class="src src-shell">
+# Solicitud GET
+GET https://jsonplaceholder.typicode.com/posts/1
+Accept: application/json
+
+# Solicitud POST
+POST https://jsonplaceholder.typicode.com/posts
+Content-Type: application/json
+
+{
+  "title": "foo",
+  "body": "bar",
+  "userId": 1
+}
+</pre
+            >
+          </div>
+        </div>
+        <div id="outline-container-org50e22fb" class="outline-3">
+          <h3 id="org50e22fb">Para ejecutar una solicitud:</h3>
+          <div class="outline-text-3" id="text-org50e22fb">
+            <ul class="org-ul">
+              <li>Colocar el cursor dentro del bloque de la solicitud.</li>
+
+              <li>
+                Ejecutar <b>M-x restclient-http-send-current</b> o usa el atajo
+                <b>C-c C-c</b>.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org36bc148" class="outline-2">
+        <h2 id="org36bc148"># Caracteristicas avanzadas</h2>
+        <div class="outline-text-2" id="text-org36bc148"></div>
+        <div id="outline-container-org83f7fcc" class="outline-3">
+          <h3 id="org83f7fcc">Variables de entrono:</h3>
+          <div class="outline-text-3" id="text-org83f7fcc">
+            <p>
+              Se pueden definir variables de entorno en el archivo para
+              reutilizarlas:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-http">
+:var base_url = https://jsonplaceholder.typicode.com
+
+GET :base_url/posts/1
+Accept: application/json
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orga8f5b36" class="outline-3">
+          <h3 id="orga8f5b36">Integración con <b>json-mode</b></h3>
+          <div class="outline-text-3" id="text-orga8f5b36">
+            <p>
+              Formatear automáticamente las respuestas en formato <b>JSON</b>.
+            </p>
+
+            <ul class="org-ul">
+              <li>Instalación <b>M-x package-install RET json-mode RET</b></li>
+              <li>
+                Configurar <b>restclient</b> para abrir automáticamente las
+                respuestas <b>JSON</b> en <b>json-mode</b>:
+              </li>
+            </ul>
+
+            <div class="org-src-container">
+              <pre class="src src-elisp">
+    (with-eval-after-load 'restclient
+      (add-hook 'restclient-response-loaded-hook
+                (lambda ()
+                  (when(
+                    string-match-p"application/json"(or
+(restclient-get-response-header "Content-Type") ""))
+                    (json-mode)))))
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org3e5b76d" class="outline-3">
+          <h3 id="org3e5b76d">Integración org-mode</h3>
+          <div class="outline-text-3" id="text-org3e5b76d">
+            <p>
+              <b>restclient</b> se puede usar dentro de bloques de código en
+              <b>org-mode</b> usando el paquete <b>ob-resclient</b>. Esto
+              permite ejecutar solicitudes <b>http</b> directamente desde un
+              archivo <b>org</b> y guardar los resultados.
+            </p>
+
+            <ul class="org-ul">
+              <li>
+                Instalación <b>M-x package-install RET ob-resclient RET</b>
+              </li>
+
+              <li>
+                <p>Configuración</p>
+
+                <p>Añadir <b>ob-resclient</b> a <b>org-babel</b></p>
+
+                <div class="org-src-container">
+                  <pre class="src src-elisp">
+(with-eval-after-load 'org
+(add-to-list 'org-babel-load-languages '(restclient . t)))
+</pre
+                  >
+                </div>
+              </li>
+
+              <li>
+                <p>Uso</p>
+
+                <p>
+                  En un archivo <b>org</b>, crear un bloque de código para
+                  <b>restclient</b>:
+                </p>
+
+                <div class="org-src-container">
+                  <pre class="src src-restclient">
+#+BEGIN_SRC restclient
+GET https://jsonplaceholder.typicode.com/posts/1
+Accept: application/json
+#+END_SRC
+
+#+RESULTS:    
+
+</pre
+                  >
+                </div>
+
+                <p>para enviar un token por cookie:</p>
+
+                <div class="org-src-container">
+                  <pre class="src src-restclient">
+GET http://localhost:4000/auth/profile
+Cookie:  token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hc...
+Accept: application/json  
+</pre
+                  >
+                </div>
+
+                <p>para enviarlo por encabezados:</p>
+
+                <div class="org-src-container">
+                  <pre class="src src-restclient">
+GET http://localhost:4000/auth/profile
+Authentication: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hc...
+Accept: application/json  
+</pre
+                  >
+                </div>
+
+                <p>para hacer un post:</p>
+                <div class="org-src-container">
+                  <pre class="src src-restclient">
+POST https://jsonplaceholder.typicode.com/posts\
+Content-Type: application/json
+{
+   "title": "foo",
+   "body": "bar",n  "userId": 1
+}
+
+</pre
+                  >
+                </div>
+
+                <p>
+                  Ejecutar cada bloque con <b>C-c C-c</b> y el resultado se
+                  muestra en su seccion <b>RESULTS:</b> correspondiente
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="outline-container-orgbf505fe" class="outline-3">
+          <h3 id="orgbf505fe">Integración con projectile</h3>
+          <div class="outline-text-3" id="text-orgbf505fe">
+            <p>
+              Se puede guardar tus solicitudes <b>http</b> especificas para un
+              proyecto dentro de su directorio, y acceder a ellas rapidamente.
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-elisp">
+(global-set-key (kbd "C-c p a") 
+              (lambda () 
+                (interactive)
+                (projectile-find-file-in-directory "api/")))
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgb63dd77" class="outline-3">
+          <h3 id="orgb63dd77">Integración con ivy</h3>
+          <div class="outline-text-3" id="text-orgb63dd77">
+            <p>
+              En ivy se puede crear un sistema de plantillas o un historial de
+              solicitudes para acceder rapidamente a solicitudes frecuentes:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-elisp">
+(defvar my-restclient-templates
+  '(("Get Post" . "GET https://jsonplaceholder.typicode.com/posts/1\nAccept: application/json")
+    ("Create Post" . "POST https://jsonplaceholder.typicode.com/posts\nContent-Type: application/json\n\n{\n  \"title\": \"foo\",\n  \"body\": \"bar\",\n  \"userId\": 1\n}"))
+  "List of Restclient templates for quick insertion.")
+
+(defun my-restclient-ivy ()
+  "Select a Restclient template using Ivy and insert it into the current buffer."
+  (interactive)
+  (ivy-read "Restclient Templates: "
+            (mapcar #'car my-restclient-templates)
+            :action (lambda (choice)
+                      (let ((template (assoc choice my-restclient-templates)))
+                        (when template
+                          (insert (cdr template)))))))
+
+</pre
+              >
+            </div>
+          </div>
+        </div>
       </div>
       <div class="taglist">
         <a href="https://martiyo.github.io/tags.html">Tags</a>:
@@ -973,8 +1269,8 @@ sudo update-grub2
       </div>
     ]]></description>
   <category><![CDATA[emacs]]></category>
-  <link>https://martiyo.github.io/2023-01-22-resclient.el.html</link>
-  <guid>https://martiyo.github.io/2023-01-22-resclient.el.html</guid>
+  <link>https://martiyo.github.io/2023-01-22-restclient.el.html</link>
+  <guid>https://martiyo.github.io/2023-01-22-restclient.el.html</guid>
   <pubDate>Sun, 22 Jan 2023 08:32:00 -0300</pubDate>
 </item>
 <item>
@@ -1452,23 +1748,21 @@ ul.list&gt;(li.itm&gt;lorem3)*3
         Org-mode es un gestor de información personal y una herramienta de
         resúmenes para Emacs.
       </p>
-
-      <div id="outline-container-orgefd1110" class="outline-2">
-        <h2 id="orgefd1110">Lo básico</h2>
-        <div class="outline-text-2" id="text-orgefd1110"></div>
-        <div id="outline-container-org5dd78e0" class="outline-3">
-          <h3 id="org5dd78e0">Creando un nuevo fichero</h3>
-          <div class="outline-text-3" id="text-org5dd78e0">
+      <div id="outline-container-orgf92585a" class="outline-2">
+        <h2 id="orgf92585a">Lo básico</h2>
+        <div class="outline-text-2" id="text-orgf92585a"></div>
+        <div id="outline-container-org50a8542" class="outline-3">
+          <h3 id="org50a8542">Creando un nuevo fichero</h3>
+          <div class="outline-text-3" id="text-org50a8542">
             <p>
               Emacs debería entrar en org-mode siempre y cuando se visite o cree
               un fichero con la extensión ".org"
             </p>
           </div>
         </div>
-
-        <div id="outline-container-org936988e" class="outline-3">
-          <h3 id="org936988e">Lista simple de tareas</h3>
-          <div class="outline-text-3" id="text-org936988e">
+        <div id="outline-container-org669301d" class="outline-3">
+          <h3 id="org669301d">Lista simple de tareas</h3>
+          <div class="outline-text-3" id="text-org669301d">
             <p>
               Los títulos de primer nivel empiezan con una estrella; los de
               segundo nivel con dos estrellas, y así. En org-mode, los ítems
@@ -1483,10 +1777,9 @@ ul.list&gt;(li.itm&gt;lorem3)*3
             </p>
           </div>
         </div>
-
-        <div id="outline-container-org1274fc9" class="outline-3">
-          <h3 id="org1274fc9">Usando títulos para estructurar el documento</h3>
-          <div class="outline-text-3" id="text-org1274fc9">
+        <div id="outline-container-org7df1be0" class="outline-3">
+          <h3 id="org7df1be0">Usando títulos para estructurar el documento</h3>
+          <div class="outline-text-3" id="text-org7df1be0">
             <p>
               Con frecuencia el mejor camino para organizar ideas es un esquema.
               El siguiente paso es hacer un esquema de los diferentes asuntos
@@ -1498,20 +1791,18 @@ ul.list&gt;(li.itm&gt;lorem3)*3
             </p>
           </div>
         </div>
-
-        <div id="outline-container-org2a889ae" class="outline-3">
-          <h3 id="org2a889ae">Rellenando secciones</h3>
-          <div class="outline-text-3" id="text-org2a889ae">
+        <div id="outline-container-org16c0e65" class="outline-3">
+          <h3 id="org16c0e65">Rellenando secciones</h3>
+          <div class="outline-text-3" id="text-org16c0e65">
             <p>
               Fácilmente se puede añadir texto, un cuerpo de texto debajo de
               cada título.
             </p>
           </div>
         </div>
-
-        <div id="outline-container-orgfa8a54c" class="outline-3">
-          <h3 id="orgfa8a54c">Enlaces a otros lugares</h3>
-          <div class="outline-text-3" id="text-orgfa8a54c">
+        <div id="outline-container-org90c9b9a" class="outline-3">
+          <h3 id="org90c9b9a">Enlaces a otros lugares</h3>
+          <div class="outline-text-3" id="text-org90c9b9a">
             <p>
               La sintaxis para crear enlaces es [[enlace][descripción] El último
               corchete lo dejo abierto por que al cerrarlo se escondería el
@@ -1521,16 +1812,15 @@ ul.list&gt;(li.itm&gt;lorem3)*3
 
             <p>
               También se puede enlazar archivos locales con C-c C-l
-              <a href="file:///home/dev1/.emacs"
+              <a href="file:///home/martin/.emacs"
                 >archivo de configuracion de emacs</a
               >
             </p>
           </div>
         </div>
-
-        <div id="outline-container-org3c76af7" class="outline-3">
-          <h3 id="org3c76af7">Añadiendo notas a una tarea</h3>
-          <div class="outline-text-3" id="text-org3c76af7">
+        <div id="outline-container-orgf6e7215" class="outline-3">
+          <h3 id="orgf6e7215">Añadiendo notas a una tarea</h3>
+          <div class="outline-text-3" id="text-orgf6e7215">
             <p>
               Se puede poner tanto texto como se quiera bajo una cabecera de un
               ítem TODO. De hecho, se puede tener incluso subcabecera bajo un
@@ -1544,13 +1834,62 @@ ul.list&gt;(li.itm&gt;lorem3)*3
               bastante frecuencia, una tarea larga is dividida en pequeñas
               subtareas que se pretende marchar según se hagan.
             </p>
+
+            <table>
+              <colgroup>
+                <col class="org-left" />
+
+                <col class="org-right" />
+
+                <col class="org-right" />
+
+                <col class="org-right" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col" class="org-left">Item</th>
+                  <th scope="col" class="org-right">Quantity</th>
+                  <th scope="col" class="org-right">Price</th>
+                  <th scope="col" class="org-right">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="org-left">Apples</td>
+                  <td class="org-right">10</td>
+                  <td class="org-right">2</td>
+                  <td class="org-right">20</td>
+                </tr>
+
+                <tr>
+                  <td class="org-left">Oranges</td>
+                  <td class="org-right">5</td>
+                  <td class="org-right">3</td>
+                  <td class="org-right">15</td>
+                </tr>
+
+                <tr>
+                  <td class="org-left">Bananas</td>
+                  <td class="org-right">5</td>
+                  <td class="org-right">1</td>
+                  <td class="org-right">7</td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr>
+                  <td class="org-left"><b>Sum</b></td>
+                  <td class="org-right">20</td>
+                  <td class="org-right">&#xa0;</td>
+                  <td class="org-right">42</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-
-      <div id="outline-container-org5a9ca2a" class="outline-2">
-        <h2 id="org5a9ca2a">Funcionalidades avanzadas</h2>
-        <div class="outline-text-2" id="text-org5a9ca2a">
+      <div id="outline-container-org89bc3aa" class="outline-2">
+        <h2 id="org89bc3aa">Funcionalidades avanzadas</h2>
+        <div class="outline-text-2" id="text-org89bc3aa">
           <p>
             <a
               href="https://orgmode.org/worg/org-tutorials/orgtutorial_dto-es.html"

@@ -1,9 +1,0 @@
-#+title: resclient.el
-#+date: <2023-01-22 08:32>
-#+description: 
-#+filetags: emacs
-
-Explorar servicios web HTTP REST.
-
-*** #recclient.el
-

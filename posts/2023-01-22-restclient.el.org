@@ -1,0 +1,181 @@
+#+title: restclient.el
+#+date: <2023-01-22 08:32>
+#+description: 
+#+filetags: emacs
+
+Explorar servicios web HTTP REST.
+
+* # Restclient.el
+
+Restclient es una herramienta para explorar y probar manualmente los servicios web HTTP REST. Ejecuta consultas desde una hoja de consulta de texto sin formato y muestra los resultados como XML, JSON e incluso imágenes.
+
+* # Instalación
+
+  - Actualizar la lista de paquetes *M-x package-refresh-contents*.
+    
+  - Instalar con *M-x package-install RET restclient RET*.
+
+** Configuración básica
+
+#+BEGIN_SRC elisp
+;; Cargar restclient
+(require 'restclient)
+
+;; Asocia archivos .http con restclient-mode
+(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
+#+END_SRC
+
+  - Opcional company-restclient: para el autocompletado instalar *M-x package-install RET company-restclient RET*.
+
+** Configuración opcional
+
+#+BEGIN_SRC elisp
+  (with-eval-after-load 'company
+  (add-to-list 'company-backends 'company-restclient))
+#+END_SRC
+
+* # Uso
+
+  - Crear un archivo con extensión *.http* o usar un buffer en *restclient-mode*.
+
+  - Escribir las solicitudes *http* en el siguiente formato:
+
+#+BEGIN_SRC shell
+# Solicitud GET
+GET https://jsonplaceholder.typicode.com/posts/1
+Accept: application/json
+
+# Solicitud POST
+POST https://jsonplaceholder.typicode.com/posts
+Content-Type: application/json
+
+{
+  "title": "foo",
+  "body": "bar",
+  "userId": 1
+}
+#+END_SRC
+
+** Para ejecutar una solicitud:
+
+  - Colocar el cursor dentro del bloque de la solicitud.
+
+  - Ejecutar *M-x restclient-http-send-current* o usa el atajo *C-c C-c*.
+
+* # Caracteristicas avanzadas
+
+** Variables de entrono:
+  Se pueden definir variables de entorno en el archivo para reutilizarlas:
+
+#+BEGIN_SRC http
+:var base_url = https://jsonplaceholder.typicode.com
+
+GET :base_url/posts/1
+Accept: application/json
+#+END_SRC
+    
+** Integración con *json-mode*
+  Formatear automáticamente las respuestas en formato *JSON*.
+
+  - Instalación *M-x package-install RET json-mode RET*
+  - Configurar *restclient* para abrir automáticamente las respuestas *JSON* en *json-mode*:
+
+#+BEGIN_SRC elisp
+    (with-eval-after-load 'restclient
+      (add-hook 'restclient-response-loaded-hook
+                (lambda ()
+                  (when(
+   		    string-match-p"application/json"(or
+(restclient-get-response-header "Content-Type") ""))
+                    (json-mode)))))
+#+END_SRC
+    
+** Integración org-mode
+  *restclient* se puede usar dentro de bloques de código en *org-mode* usando
+  el paquete *ob-resclient*. Esto permite ejecutar solicitudes *http* directamente desde un archivo *org* y guardar los resultados.
+
+  - Instalación *M-x package-install RET ob-resclient RET*
+
+  - Configuración
+    
+    Añadir *ob-resclient* a *org-babel*
+
+    #+BEGIN_SRC elisp
+  (with-eval-after-load 'org
+  (add-to-list 'org-babel-load-languages '(restclient . t)))
+#+END_SRC
+   
+  - Uso
+    
+    En un archivo *org*, crear un bloque de código para *restclient*:
+
+      #+BEGIN_SRC restclient
+,#+BEGIN_SRC restclient
+GET https://jsonplaceholder.typicode.com/posts/1
+Accept: application/json
+,#+END_SRC
+
+,#+RESULTS:    
+
+  #+END_SRC
+
+    para enviar un token por cookie:
+
+      #+BEGIN_SRC restclient
+GET http://localhost:4000/auth/profile
+Cookie:  token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hc...
+Accept: application/json  
+ #+END_SRC
+
+    para enviarlo por encabezados:
+  
+      #+BEGIN_SRC restclient
+GET http://localhost:4000/auth/profile
+Authentication: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hc...
+Accept: application/json  
+#+END_SRC
+
+    para hacer un post:    
+      #+BEGIN_SRC restclient
+POST https://jsonplaceholder.typicode.com/posts\
+Content-Type: application/json
+{
+   "title": "foo",
+   "body": "bar",n  "userId": 1
+}
+	   	
+#+END_SRC
+
+    Ejecutar cada bloque con *C-c C-c* y el resultado se muestra en su seccion *RESULTS:* correspondiente 
+  
+** Integración con projectile
+  Se puede guardar tus solicitudes *http* especificas para un proyecto dentro de su directorio, y acceder a ellas rapidamente.
+
+#+BEGIN_SRC elisp
+  (global-set-key (kbd "C-c p a") 
+                (lambda () 
+                  (interactive)
+                  (projectile-find-file-in-directory "api/")))
+#+END_SRC  
+
+** Integración con ivy
+  En ivy se puede crear un sistema de plantillas o un historial de solicitudes para acceder rapidamente a solicitudes frecuentes:
+
+     #+BEGIN_SRC elisp
+(defvar my-restclient-templates
+  '(("Get Post" . "GET https://jsonplaceholder.typicode.com/posts/1\nAccept: application/json")
+    ("Create Post" . "POST https://jsonplaceholder.typicode.com/posts\nContent-Type: application/json\n\n{\n  \"title\": \"foo\",\n  \"body\": \"bar\",\n  \"userId\": 1\n}"))
+  "List of Restclient templates for quick insertion.")
+
+(defun my-restclient-ivy ()
+  "Select a Restclient template using Ivy and insert it into the current buffer."
+  (interactive)
+  (ivy-read "Restclient Templates: "
+            (mapcar #'car my-restclient-templates)
+            :action (lambda (choice)
+                      (let ((template (assoc choice my-restclient-templates)))
+                        (when template
+                          (insert (cdr template)))))))
+
+  #+END_SRC
+  

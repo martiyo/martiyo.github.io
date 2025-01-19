@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="static/style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="static/favicon.ico" />
+    <script src="static/search.js"></script>
   </head>
   <body>
     <div id="preamble" class="status">
@@ -29,7 +30,7 @@
           encuentro por ahí.
         </blockquote>
         <form>
-          <input type="text" placeholder="Search..." />
+          <input type="text" placeholder="Buscar..." />
         </form>
         <br />
       </div>
@@ -45,23 +46,21 @@
         Org-mode es un gestor de información personal y una herramienta de
         resúmenes para Emacs.
       </p>
-
-      <div id="outline-container-orgefd1110" class="outline-2">
-        <h2 id="orgefd1110">Lo básico</h2>
-        <div class="outline-text-2" id="text-orgefd1110"></div>
-        <div id="outline-container-org5dd78e0" class="outline-3">
-          <h3 id="org5dd78e0">Creando un nuevo fichero</h3>
-          <div class="outline-text-3" id="text-org5dd78e0">
+      <div id="outline-container-orgf92585a" class="outline-2">
+        <h2 id="orgf92585a">Lo básico</h2>
+        <div class="outline-text-2" id="text-orgf92585a"></div>
+        <div id="outline-container-org50a8542" class="outline-3">
+          <h3 id="org50a8542">Creando un nuevo fichero</h3>
+          <div class="outline-text-3" id="text-org50a8542">
             <p>
               Emacs debería entrar en org-mode siempre y cuando se visite o cree
               un fichero con la extensión ".org"
             </p>
           </div>
         </div>
-
-        <div id="outline-container-org936988e" class="outline-3">
-          <h3 id="org936988e">Lista simple de tareas</h3>
-          <div class="outline-text-3" id="text-org936988e">
+        <div id="outline-container-org669301d" class="outline-3">
+          <h3 id="org669301d">Lista simple de tareas</h3>
+          <div class="outline-text-3" id="text-org669301d">
             <p>
               Los títulos de primer nivel empiezan con una estrella; los de
               segundo nivel con dos estrellas, y así. En org-mode, los ítems
@@ -76,10 +75,9 @@
             </p>
           </div>
         </div>
-
-        <div id="outline-container-org1274fc9" class="outline-3">
-          <h3 id="org1274fc9">Usando títulos para estructurar el documento</h3>
-          <div class="outline-text-3" id="text-org1274fc9">
+        <div id="outline-container-org7df1be0" class="outline-3">
+          <h3 id="org7df1be0">Usando títulos para estructurar el documento</h3>
+          <div class="outline-text-3" id="text-org7df1be0">
             <p>
               Con frecuencia el mejor camino para organizar ideas es un esquema.
               El siguiente paso es hacer un esquema de los diferentes asuntos
@@ -91,20 +89,18 @@
             </p>
           </div>
         </div>
-
-        <div id="outline-container-org2a889ae" class="outline-3">
-          <h3 id="org2a889ae">Rellenando secciones</h3>
-          <div class="outline-text-3" id="text-org2a889ae">
+        <div id="outline-container-org16c0e65" class="outline-3">
+          <h3 id="org16c0e65">Rellenando secciones</h3>
+          <div class="outline-text-3" id="text-org16c0e65">
             <p>
               Fácilmente se puede añadir texto, un cuerpo de texto debajo de
               cada título.
             </p>
           </div>
         </div>
-
-        <div id="outline-container-orgfa8a54c" class="outline-3">
-          <h3 id="orgfa8a54c">Enlaces a otros lugares</h3>
-          <div class="outline-text-3" id="text-orgfa8a54c">
+        <div id="outline-container-org90c9b9a" class="outline-3">
+          <h3 id="org90c9b9a">Enlaces a otros lugares</h3>
+          <div class="outline-text-3" id="text-org90c9b9a">
             <p>
               La sintaxis para crear enlaces es [[enlace][descripción] El último
               corchete lo dejo abierto por que al cerrarlo se escondería el
@@ -114,16 +110,15 @@
 
             <p>
               También se puede enlazar archivos locales con C-c C-l
-              <a href="file:///home/dev1/.emacs"
+              <a href="file:///home/martin/.emacs"
                 >archivo de configuracion de emacs</a
               >
             </p>
           </div>
         </div>
-
-        <div id="outline-container-org3c76af7" class="outline-3">
-          <h3 id="org3c76af7">Añadiendo notas a una tarea</h3>
-          <div class="outline-text-3" id="text-org3c76af7">
+        <div id="outline-container-orgf6e7215" class="outline-3">
+          <h3 id="orgf6e7215">Añadiendo notas a una tarea</h3>
+          <div class="outline-text-3" id="text-orgf6e7215">
             <p>
               Se puede poner tanto texto como se quiera bajo una cabecera de un
               ítem TODO. De hecho, se puede tener incluso subcabecera bajo un
@@ -137,13 +132,62 @@
               bastante frecuencia, una tarea larga is dividida en pequeñas
               subtareas que se pretende marchar según se hagan.
             </p>
+
+            <table>
+              <colgroup>
+                <col class="org-left" />
+
+                <col class="org-right" />
+
+                <col class="org-right" />
+
+                <col class="org-right" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col" class="org-left">Item</th>
+                  <th scope="col" class="org-right">Quantity</th>
+                  <th scope="col" class="org-right">Price</th>
+                  <th scope="col" class="org-right">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="org-left">Apples</td>
+                  <td class="org-right">10</td>
+                  <td class="org-right">2</td>
+                  <td class="org-right">20</td>
+                </tr>
+
+                <tr>
+                  <td class="org-left">Oranges</td>
+                  <td class="org-right">5</td>
+                  <td class="org-right">3</td>
+                  <td class="org-right">15</td>
+                </tr>
+
+                <tr>
+                  <td class="org-left">Bananas</td>
+                  <td class="org-right">5</td>
+                  <td class="org-right">1</td>
+                  <td class="org-right">7</td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr>
+                  <td class="org-left"><b>Sum</b></td>
+                  <td class="org-right">20</td>
+                  <td class="org-right">&#xa0;</td>
+                  <td class="org-right">42</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-
-      <div id="outline-container-org5a9ca2a" class="outline-2">
-        <h2 id="org5a9ca2a">Funcionalidades avanzadas</h2>
-        <div class="outline-text-2" id="text-org5a9ca2a">
+      <div id="outline-container-org89bc3aa" class="outline-2">
+        <h2 id="org89bc3aa">Funcionalidades avanzadas</h2>
+        <div class="outline-text-2" id="text-org89bc3aa">
           <p>
             <a
               href="https://orgmode.org/worg/org-tutorials/orgtutorial_dto-es.html"
