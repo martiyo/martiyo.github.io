@@ -1,4 +1,4 @@
-#+title: tree-sitter
+#+TITLE: Tree-sitter
 #+date: <2025-01-04 18:11>
 #+description: 
 #+filetags: emacs
@@ -53,3 +53,20 @@ tree-sitter es una herramienta moderna para analizar la estructura de código, q
 
  (global-set-key (kbd "C-c C-f") 'tree-sitter-toggle-fold)
 #+END_SRC
+
+* 3 Plegado en elisp (alternativa a ts-fold)
+
+#+BEGIN_SRC elisp
+(defun my-outline-mode-setup ()
+  "Configurar `outline-minor-mode` para Emacs Lisp."
+  (setq-local outline-regexp "^(\\(def\\|use-package\\)") ;; Plegar funciones y bloques `use-package`
+  (outline-minor-mode 1))
+
+(add-hook 'emacs-lisp-mode-hook #'my-outline-mode-setup)
+
+(define-key emacs-lisp-mode-map (kbd "C-c C-o") 'outline-toggle-children)
+(define-key emacs-lisp-mode-map (kbd "C-c C-a") 'outline-show-all)
+(define-key emacs-lisp-mode-map (kbd "C-c C-c") 'outline-hide-body)
+#+END_SRC
+
+* TODO descargar manualmente ts-fold y configurarlo.

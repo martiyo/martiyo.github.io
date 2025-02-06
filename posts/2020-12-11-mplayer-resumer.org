@@ -1,4 +1,4 @@
-#+title: mplayer-resumer
+#+TITLE: Mplayer-resumer
 #+date: <2020-12-11 19:48>
 #+description: 
 #+filetags: linux

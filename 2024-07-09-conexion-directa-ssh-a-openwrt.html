@@ -1,90 +1,70 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link
-      rel="alternate"
+<head>
+<meta charset="UTF-8">
+<link rel="alternate"
       type="application/rss+xml"
       href="https://martiyo.github.io/rss.xml"
-      title="RSS feed for https://martiyo.github.io/"
-    />
-    <title>Conexion directa ssh a openwrt</title>
-    <meta name="author" content="martiyo" />
-    <meta name="referrer" content="no-referrer" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="static/style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="static/favicon.ico" />
-    <script src="static/search.js"></script>
-  </head>
-  <body>
-    <div id="preamble" class="status">
-      <div class="header">
-        <ul>
-          <li><a href="https://martiyo.github.io/">/home</a></li>
-          <li><a href="https://martiyo.github.io/about">/about</a></li>
-          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
-        </ul>
-        <h1>El universo perdido de GNU/Emacs</h1>
-        <blockquote>
-          Este blog es una farsa son solo resumenes, traducciónes y cosas que
-          encuentro por ahí.
-        </blockquote>
-        <form>
-          <input type="text" placeholder="Buscar..." />
-        </form>
-        <br />
-      </div>
-    </div>
-    <div id="content">
-      <div class="post-date">09 jul 2024</div>
-      <h1 class="post-title">
-        <a
-          href="https://martiyo.github.io/2024-07-09-conexion-directa-ssh-a-openwrt.html"
-          >Conexion directa ssh a openwrt</a
-        >
-      </h1>
-      <p>Configuración Permanente en el Archivo de Configuración SSH</p>
-      <div id="outline-container-org52879dd" class="outline-2">
-        <h2 id="org52879dd"># Editar el archivo de configuración SSH:</h2>
-        <div class="outline-text-2" id="text-org52879dd">
-          <p>
-            <b>~/.config/ssh/config</b> y añadir la configuración para el router
-          </p>
+      title="RSS feed for https://martiyo.github.io/">
+<title>Conexion directa ssh a openwrt</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">09 jul 2024</div><h1 class="post-title"><a href="https://martiyo.github.io/2024-07-09-conexion-directa-ssh-a-openwrt.html">Conexion directa ssh a openwrt</a></h1>
+<p>
+Configuración Permanente en el Archivo de Configuración SSH
+</p>
+<div id="outline-container-org356a1e1" class="outline-2">
+<h2 id="org356a1e1"># Editar el archivo de configuración SSH:</h2>
+<div class="outline-text-2" id="text-org356a1e1">
+<p>
+<b>~/.config/ssh/config</b> y añadir la configuración para el router
+</p>
 
-          <div class="org-src-container">
-            <pre class="src src-shell">
-Host openwrt
+<div class="org-src-container">
+<pre class="src src-shell">Host openwrt
    HostName 192.168.1.1
    User root
    KexAlgorithms +diffie-hellman-group1-sha1
    HostKeyAlgorithms +ssh-rsa
    PubkeyAcceptedKeyTypes +ssh-rsa
-</pre
-            >
-          </div>
-        </div>
-      </div>
-      <div id="outline-container-org2ea23de" class="outline-2">
-        <h2 id="org2ea23de">Conectar</h2>
-        <div class="outline-text-2" id="text-org2ea23de">
-          <div class="org-src-container">
-            <pre class="src src-shell">
-ssh openwrt
-</pre
-            >
-          </div>
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
-      </div>
-    </div>
-    <div id="postamble" class="status">
-      <div id="archive">
-        <a href="https://martiyo.github.io/archive.html">Other posts</a>
-      </div>
-      <footer></footer>
-    </div>
-  </body>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2298da7" class="outline-2">
+<h2 id="org2298da7">Conectar</h2>
+<div class="outline-text-2" id="text-org2298da7">
+<div class="org-src-container">
+<pre class="src src-shell">ssh openwrt
+</pre>
+</div>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-openwrt.html">openwrt</a> <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
 </html>

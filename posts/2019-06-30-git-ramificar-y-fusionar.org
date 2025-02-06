@@ -3,7 +3,7 @@
 #+description: 
 #+filetags: git
 
-** Ramificación
+* Ramificación
    
 Para crear una rama y saltar a ella, en un solo paso, se utiliza el
 comando git checkout -b:

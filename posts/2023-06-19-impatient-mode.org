@@ -1,4 +1,4 @@
-#+title: impatient-mode
+#+TITLE: Impatient-mode
 #+date: <2023-06-19 08:26>
 #+description: 
 #+filetags: emacs

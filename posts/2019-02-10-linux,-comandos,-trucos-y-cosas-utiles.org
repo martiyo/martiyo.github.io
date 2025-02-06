@@ -1,7 +1,7 @@
 #+title: Linux, comandos, trucos y cosas utiles
 #+date: <2019-02-10 11:49>
 #+description: 
-#+filetags: Linux
+#+filetags: linux
 
 Un rejunte de cosas útiles que voy encontrando por ahí...
 

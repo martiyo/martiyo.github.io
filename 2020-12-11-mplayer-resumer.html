@@ -1,108 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link
-      rel="alternate"
+<head>
+<meta charset="UTF-8">
+<link rel="alternate"
       type="application/rss+xml"
       href="https://martiyo.github.io/rss.xml"
-      title="RSS feed for https://martiyo.github.io/"
-    />
-    <title>mplayer-resumer</title>
-    <meta name="author" content="martiyo" />
-    <meta name="referrer" content="no-referrer" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="static/style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="static/favicon.ico" />
-  </head>
-  <body>
-    <div id="preamble" class="status">
-      <div class="header">
-        <ul>
-          <li><a href="https://martiyo.github.io/">/home</a></li>
-          <li><a href="https://martiyo.github.io/about">/about</a></li>
-          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
-        </ul>
-        <h1>El universo perdido de GNU/Emacs</h1>
-        <blockquote>
-          Este blog es una farsa son solo resumenes, traducciónes y cosas que
-          encuentro por ahí.
-        </blockquote>
-        <form>
-          <input type="text" placeholder="Search..." />
-        </form>
-        <br />
-      </div>
-    </div>
-    <div id="content">
-      <div class="post-date">11 dic 2020</div>
-      <h1 class="post-title">
-        <a href="https://martiyo.github.io/2020-12-11-mplayer-resumer.html"
-          >mplayer-resumer</a
-        >
-      </h1>
-      <p>
-        Lo unico que le faltaba al bueno de mplayer era poder retomar la
-        reprocucción en el punto donde había quedado,
-        <b>mplayer-resumer</b> resuelve esta situación.
-      </p>
+      title="RSS feed for https://martiyo.github.io/">
+<title>Mplayer-resumer</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">11 dic 2020</div><h1 class="post-title"><a href="https://martiyo.github.io/2020-12-11-mplayer-resumer.html">Mplayer-resumer</a></h1>
+<p>
+Lo unico que le faltaba al bueno de mplayer era poder retomar la reprocucción en el punto donde había quedado, <b>mplayer-resumer</b> resuelve esta situación.
+</p>
+<div id="outline-container-org188f1b9" class="outline-2">
+<h2 id="org188f1b9">Descarga</h2>
+<div class="outline-text-2" id="text-org188f1b9">
+<div class="org-src-container">
+<pre class="src src-nil">git clone https://github.com/graysky2/mplayer-resumer.git
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgde0cb65" class="outline-2">
+<h2 id="orgde0cb65">Instalación</h2>
+<div class="outline-text-2" id="text-orgde0cb65">
+<p>
+El paquete clonado viene con un archivo <b><b>INSTALL</b></b> con las dependencias e instrucciones necesarias:
+</p>
 
-      <div id="outline-container-orgb382ad4" class="outline-2">
-        <h2 id="orgb382ad4">Descarga</h2>
-        <div class="outline-text-2" id="text-orgb382ad4">
-          <pre class="example">
-git clone https://github.com/graysky2/mplayer-resumer.git
-</pre
-          >
-        </div>
-      </div>
+<ul class="org-ul">
+<li>Dpendencias</li>
+</ul>
 
-      <div id="outline-container-org1f6bf10" class="outline-2">
-        <h2 id="org1f6bf10">Instalación</h2>
-        <div class="outline-text-2" id="text-org1f6bf10">
-          <p>
-            El paquete clonado viene con un archivo <b><b>INSTALL</b></b> con
-            las dependencias e instrucciones necesarias:
-          </p>
-
-          <ul class="org-ul">
-            <li>Dpendencias</li>
-          </ul>
-
-          <pre class="example">
-mplayer or mplayer2
+<div class="org-src-container">
+<pre class="src src-nil">mplayer or mplayer2
 perl
 perl-shell (http://search.cpan.org/dist/Shell/)
-</pre
-          >
+</pre>
+</div>
 
-          <ul class="org-ul">
-            <li>Building</li>
-          </ul>
+<ul class="org-ul">
+<li>Building</li>
+</ul>
 
-          <pre class="example">
-$ make
+<div class="org-src-container">
+<pre class="src src-nil">$ make
 # make install
-</pre
-          >
+</pre>
+</div>
 
-          <p>
-            Si el script es reiniciado a los 5 segundos (con $tdiff 5 segundos
-            por defecto) entonces borrará el archivo usado para mantener la
-            posición del vídeo.
-          </p>
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
-      </div>
-    </div>
-    <div id="postamble" class="status">
-      <div id="archive">
-        <a href="https://martiyo.github.io/archive.html">Other posts</a>
-      </div>
-      <footer></footer>
-    </div>
-  </body>
+
+<p>
+Si el script es reiniciado a los 5 segundos (con $tdiff 5 segundos por defecto) entonces borrará el archivo usado para mantener la posición del vídeo.
+</p>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
 </html>

@@ -4,7 +4,7 @@
 #+filetags: linux
 
 
-** Webdav wiki
+* Webdav wiki
    
 WebDAV es un grupo de trabajo del Internet Engineering Task Force. El
 término significa "Autoría y versionado distribuidos por Web" (Web
@@ -22,16 +22,16 @@ cualquier lugar. La mayoría de los sistemas operativos modernos
 proporcionan soporte para WebDAV, haciendo que los ficheros de un
 servidor WebDAV aparezcan como almacenados en un directorio.
 
-** Instalación y configuración de un servidor webdav
+* Instalación y configuración de un servidor webdav
    
 
-***** Instalar Apache2
+** Instalar Apache2
    
 #+BEGIN_SRC
     sudo apt install apache2 apache2-utils
 #+END_SRC
 
-***** Directorio de almacenamiento:
+** Directorio de almacenamiento:
      
 #+BEGIN_SRC
     sudo mkdir ~/webDAV
@@ -43,7 +43,7 @@ servidor WebDAV aparezcan como almacenados en un directorio.
     sudo chown -R www-data:www-data ~/webDav
 #+END_SRC
 
-*****  Habilitar los módulos dav y dav-fs en apache
+**  Habilitar los módulos dav y dav-fs en apache
      
 #+BEGIN_SRC
     sudo a2enmod dav
@@ -57,7 +57,7 @@ Reiniciar el servidor:
     sudo service apache2 restart
 #+END_SRC
 
-***** Configuración del virtual host de apache
+** Configuración del virtual host de apache
 
 para configurar un servidor basico en apache hay que editar el archivo
 */etc/apache2/sites-available/000-default.conf* y dejarlo así:

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/">
+<title>Configurar fuentes en emacs</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">02 feb 2025</div><h1 class="post-title"><a href="https://martiyo.github.io/2025-02-02-configurar-fuentes-en-emacs.html">Configurar fuentes en emacs</a></h1>
+<p>
+Fuente comic-mono para emacs
+</p>
+<div id="outline-container-orgc11bb21" class="outline-2">
+<h2 id="orgc11bb21"># Descargar la funete</h2>
+<div class="outline-text-2" id="text-orgc11bb21">
+<p>
+Desde la pagina oficial de <a href="https://github.com/dtinth/comic-mono-font">github</a> descargar los archivos fuente (normalemente en formato <b>.ttf</b> o <b>.otf</b>)
+</p>
+</div>
+</div>
+<div id="outline-container-org361c8e3" class="outline-2">
+<h2 id="org361c8e3"># Instalar la fuente en el sistema</h2>
+<div class="outline-text-2" id="text-org361c8e3">
+<ul class="org-ul">
+<li>Copiar los archivos de la fuente (<b>.ttf</b> o <b>.otf</b>) en la carpeta de fuentes del sistema:</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-shell">mkdir -p ~/.local/share/fonts
+cp /ruta/a/comic-mono.ttf ~/.local/share/fonts/
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Actualizar la caché de fuentes:</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-shell">fc-cache -fv
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Verificar que la fuente este instalada:</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-shell">fc-list | grep "Comic Mono"
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf0e358c" class="outline-2">
+<h2 id="orgf0e358c"># Configurar la fuente en Emacs</h2>
+<div class="outline-text-2" id="text-orgf0e358c">
+<p>
+Una vez que la fuente esta instalada en el sistema hay que configurar emacs para usarla.
+</p>
+</div>
+<div id="outline-container-org1100be3" class="outline-4">
+<h4 id="org1100be3">Opción 1: Configurar la fuente globalmente</h4>
+<div class="outline-text-4" id="text-org1100be3">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">;; Establecer la fuente Comic Mono
+(set-frame-font "Comic Mono-12" nil t)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org563daa0" class="outline-4">
+<h4 id="org563daa0">Opción 2: Configurar la fuente solo para Org-mode</h4>
+<div class="outline-text-4" id="text-org563daa0">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">;; Establecer la fuente Comic Mono solo para Org Mode
+(add-hook 'org-mode-hook
+          (lambda ()
+            (set-face-attribute 'default nil :font "Comic Mono-12")))
+</pre>
+</div>
+
+<p>
+Evaluar el buffer para verificar la configuración.
+</p>
+</div>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
+</html>

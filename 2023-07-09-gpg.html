@@ -1,206 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link
-      rel="alternate"
+<head>
+<meta charset="UTF-8">
+<link rel="alternate"
       type="application/rss+xml"
       href="https://martiyo.github.io/rss.xml"
-      title="RSS feed for https://martiyo.github.io/"
-    />
-    <title>gpg</title>
-    <meta name="author" content="martiyo" />
-    <meta name="referrer" content="no-referrer" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="static/style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="static/favicon.ico" />
-  </head>
-  <body>
-    <div id="preamble" class="status">
-      <div class="header">
-        <ul>
-          <li><a href="https://martiyo.github.io/">/home</a></li>
-          <li><a href="https://martiyo.github.io/about">/about</a></li>
-          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
-        </ul>
-        <h1>El universo perdido de GNU/Emacs</h1>
-        <blockquote>
-          Este blog es una farsa son solo resumenes, traducciónes y cosas que
-          encuentro por ahí.
-        </blockquote>
-        <form>
-          <input type="text" placeholder="Search..." />
-        </form>
-        <br />
-      </div>
-    </div>
-    <div id="content">
-      <div class="post-date">09 jul 2023</div>
-      <h1 class="post-title">
-        <a href="https://martiyo.github.io/2023-07-09-gpg.html">gpg</a>
-      </h1>
-      <p>Cifrar y firmar datos y comunicaciones con GnuPG</p>
+      title="RSS feed for https://martiyo.github.io/">
+<title>GPG</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">09 jul 2023</div><h1 class="post-title"><a href="https://martiyo.github.io/2023-07-09-gpg.html">GPG</a></h1>
+<p>
+Cifrar y firmar datos y comunicaciones con GnuPG
+</p>
+<div id="outline-container-orgd10ef0f" class="outline-2">
+<h2 id="orgd10ef0f">#Intro <a href="https://gnupg.org/">pagina oficial</a></h2>
+<div class="outline-text-2" id="text-orgd10ef0f">
+<p>
+GnuPG es una implementación completa y gratuita del estándar OpenPGP definido por RFC4880 (también conocido como PGP). GnuPG le permite cifrar y firmar sus datos y comunicaciones; cuenta con un versátil sistema de gestión de claves, junto con módulos de acceso para todo tipo de directorios de claves públicas. GnuPG, también conocido como GPG, es una herramienta de línea de comandos con funciones para integrarse fácilmente con otras aplicaciones. Dispone de una gran cantidad de aplicaciones graficas y bibliotecas. GnuPG también ofrece soporte para S/MIME y Secure Shell (ssh).
+</p>
+</div>
+</div>
+<div id="outline-container-org69c95de" class="outline-2">
+<h2 id="org69c95de">#Cifrado simétrico</h2>
+<div class="outline-text-2" id="text-org69c95de">
+<p>
+La criptografía simétrica solo utiliza una clave para cifrar y descifrar el mensaje, que tiene que conocer el emisor y el receptor previamente y este es el punto débil del sistema, la comunicación de las claves entre ambos sujetos. El cifrado simétrico es el tipo de cifrado más sencillo que hay, es más rápido de procesar y por desgracia menos seguro que el cifrado asimétrico.
+</p>
+</div>
+<div id="outline-container-orgac62789" class="outline-3">
+<h3 id="orgac62789">Ejemplos:</h3>
+<div class="outline-text-3" id="text-orgac62789">
+<p>
+Cifrar:
+</p>
 
-      <div id="outline-container-orgc42c9e5" class="outline-2">
-        <h2 id="orgc42c9e5">
-          #Intro <a href="https://gnupg.org/">pagina oficial</a>
-        </h2>
-        <div class="outline-text-2" id="text-orgc42c9e5">
-          <p>
-            GnuPG es una implementación completa y gratuita del estándar OpenPGP
-            definido por RFC4880 (también conocido como PGP). GnuPG le permite
-            cifrar y firmar sus datos y comunicaciones; cuenta con un versátil
-            sistema de gestión de claves, junto con módulos de acceso para todo
-            tipo de directorios de claves públicas. GnuPG, también conocido como
-            GPG, es una herramienta de línea de comandos con funciones para
-            integrarse fácilmente con otras aplicaciones. Dispone de una gran
-            cantidad de aplicaciones graficas y bibliotecas. GnuPG también
-            ofrece soporte para S/MIME y Secure Shell (ssh).
-          </p>
-        </div>
-      </div>
-
-      <div id="outline-container-org84b57fd" class="outline-2">
-        <h2 id="org84b57fd">#Cifrado simétrico</h2>
-        <div class="outline-text-2" id="text-org84b57fd">
-          <p>
-            La criptografía simétrica solo utiliza una clave para cifrar y
-            descifrar el mensaje, que tiene que conocer el emisor y el receptor
-            previamente y este es el punto débil del sistema, la comunicación de
-            las claves entre ambos sujetos. El cifrado simétrico es el tipo de
-            cifrado más sencillo que hay, es más rápido de procesar y por
-            desgracia menos seguro que el cifrado asimétrico.
-          </p>
-        </div>
-
-        <div id="outline-container-orge70e42b" class="outline-3">
-          <h3 id="orge70e42b">Ejemplos:</h3>
-          <div class="outline-text-3" id="text-orge70e42b">
-            <p>Cifrar:</p>
-
-            <pre class="example">
-echo "hola munco" &gt; archivo
+<div class="org-src-container">
+<pre class="src src-nil">echo "hola munco" &gt; archivo
 gpg -c archivo
-</pre
-            >
+</pre>
+</div>
 
-            <p>Decifrar:</p>
+<p>
+Decifrar: 
+</p>
 
-            <pre class="example">
-gpg -d archivo
-</pre
-            >
-          </div>
-        </div>
-      </div>
+<div class="org-src-container">
+<pre class="src src-nil">gpg -d archivo
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org041887d" class="outline-2">
+<h2 id="org041887d">#Cifrado asimétrico</h2>
+<div class="outline-text-2" id="text-org041887d">
+<p>
+El cifrado asimétrico se basa en el uso de dos claves: una publica y una privada. Los sistemas de cifrado de clave pública se inventaron con el fin de evitar por completo el problema del intercambio de claves. Un sistema de cifrado de clave pública usa un par de claves para el envío de mensajes. Las dos claves pertenecen a la misma persona a la que se ha enviado el mensaje. Una clave es pública y se puede entregar a cualquier persona. La otra clave es privada y el propietario debe guardarla para que nadie tenga acceso a ella. El remitente usa la clave pública del destinatario para cifrar el mensaje, y una vez cifrado, sólo la clave privada del destinatario podrá descifrar este mensaje.
+</p>
+</div>
+<div id="outline-container-orgd8a6711" class="outline-3">
+<h3 id="orgd8a6711">Ejemplos:</h3>
+<div class="outline-text-3" id="text-orgd8a6711">
+<p>
+Generar claves
+</p>
 
-      <div id="outline-container-orgac2220d" class="outline-2">
-        <h2 id="orgac2220d">#Cifrado asimétrico</h2>
-        <div class="outline-text-2" id="text-orgac2220d">
-          <p>
-            El cifrado asimétrico se basa en el uso de dos claves: una publica y
-            una privada. Los sistemas de cifrado de clave pública se inventaron
-            con el fin de evitar por completo el problema del intercambio de
-            claves. Un sistema de cifrado de clave pública usa un par de claves
-            para el envío de mensajes. Las dos claves pertenecen a la misma
-            persona a la que se ha enviado el mensaje. Una clave es pública y se
-            puede entregar a cualquier persona. La otra clave es privada y el
-            propietario debe guardarla para que nadie tenga acceso a ella. El
-            remitente usa la clave pública del destinatario para cifrar el
-            mensaje, y una vez cifrado, sólo la clave privada del destinatario
-            podrá descifrar este mensaje.
-          </p>
-        </div>
+<div class="org-src-container">
+<pre class="src src-nil">gpg --gen-key
+</pre>
+</div>
 
-        <div id="outline-container-org416496f" class="outline-3">
-          <h3 id="org416496f">Ejemplos:</h3>
-          <div class="outline-text-3" id="text-org416496f">
-            <p>Generar claves</p>
+<p>
+Este comando muestra un menu de opciones y las respuestas pueden ser:
+</p>
 
-            <pre class="example">
-gpg --gen-key
-</pre
-            >
+<ul class="org-ul">
+<li>Su eleccion: 1 (RSA).</li>
 
-            <p>
-              Este comando muestra un menu de opciones y las respuestas pueden
-              ser:
-            </p>
+<li>¿De qué tamaño quiere la clave (0)? 0</li>
 
-            <ul class="org-ul">
-              <li>Su eleccion: 1 (RSA).</li>
+<li>¿Es correcto? (s/n) s</li>
 
-              <li>¿De qué tamaño quiere la clave (0)? 0</li>
+<li>Nombre y apellidos : John Doe</li>
 
-              <li>¿Es correcto? (s/n) s</li>
+<li>Dirección de correo electronico: johndoe@email.com</li>
 
-              <li>Nombre y apellidos : John Doe</li>
+<li>Comentario:</li>
 
-              <li>Dirección de correo electronico: johndoe@email.com</li>
+<li>¿Cambia (N)ombre, (C)omentario, (D)irección o (V)ale/(S)alir? V</li>
+</ul>
 
-              <li>Comentario:</li>
+<p>
+Luego pide crear una contraseña maestra para la clave y genera las claves gpg.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org436e26a" class="outline-2">
+<h2 id="org436e26a">#Obtener el KEY<sub>ID</sub> de nuestra clave GPG</h2>
+<div class="outline-text-2" id="text-org436e26a">
+<div class="org-src-container">
+<pre class="src src-nil">gpg -k --keyid-format log
+</pre>
+</div>
 
-              <li>
-                ¿Cambia (N)ombre, (C)omentario, (D)irección o (V)ale/(S)alir? V
-              </li>
-            </ul>
+<p>
+Dentro del bloque de clave identificada, la key id es el código alfanumérico mostrado después del cifrado (rsa4096) que utilizado al crear clave, algo como esto: 81F0CD4B06C52998.
+</p>
+</div>
+</div>
+<div id="outline-container-orgdcd0f53" class="outline-2">
+<h2 id="orgdcd0f53">#Cambiar dialogo GTK pinentry  por pinentry-curses</h2>
+<div class="outline-text-2" id="text-orgdcd0f53">
+<p>
+Editar el archivo <b>~/.gnupg/gpg-agent.conf</b> y agregar:
+</p>
 
-            <p>
-              Luego pide crear una contraseña maestra para la clave y genera las
-              claves gpg.
-            </p>
-          </div>
-        </div>
-      </div>
+<div class="org-src-container">
+<pre class="src src-nil">pinentry-program /usr/bin/pinentry-curses
+</pre>
+</div>
 
-      <div id="outline-container-org889c327" class="outline-2">
-        <h2 id="org889c327">
-          #Obtener el KEY<sub>ID</sub> de nuestra clave GPG
-        </h2>
-        <div class="outline-text-2" id="text-org889c327">
-          <pre class="example">
-gpg -k --keyid-format log
-</pre
-          >
+<p>
+y recargar la configuracion de GPG
+</p>
 
-          <p>
-            Dentro del bloque de clave identificada, la key id es el código
-            alfanumérico mostrado después del cifrado (rsa4096) que utilizado al
-            crear clave, algo como esto: 81F0CD4B06C52998.
-          </p>
-        </div>
-      </div>
-
-      <div id="outline-container-org5e3a7f0" class="outline-2">
-        <h2 id="org5e3a7f0">
-          #Cambiar dialogo GTK pinentry por pinentry-curses
-        </h2>
-        <div class="outline-text-2" id="text-org5e3a7f0">
-          <p>Editar el archivo <b>~/.gnupg/gpg-agent.conf</b> y agregar:</p>
-
-          <pre class="example">
-pinentry-program /usr/bin/pinentry-curses
-</pre
-          >
-
-          <p>y recargar la configuracion de GPG</p>
-
-          <pre class="example">
-echo RELOADAGENT | gpg-connect-agent
-</pre
-          >
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
-      </div>
-    </div>
-    <div id="postamble" class="status">
-      <div id="archive">
-        <a href="https://martiyo.github.io/archive.html">Other posts</a>
-      </div>
-      <footer></footer>
-    </div>
-  </body>
+<div class="org-src-container">
+<pre class="src src-nil">echo RELOADAGENT | gpg-connect-agent
+</pre>
+</div>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
 </html>

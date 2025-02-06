@@ -3,14 +3,14 @@
 #+description: 
 #+filetags: git
 
-Control de versiones
+Control de versiones con git
 
-*** Descripcion
+* Descripcion
 Git es un sistema de control de versiones distribuido, gratuito y de
 código abierto, diseñado para manejar todo tipo de proyectos, desde
 pequeños hasta muy grandes, con rapidez y eficiencia.
 
-*** Configuración del entorno local
+* Configuración del entorno local
     :PROPERTIES:
     :CUSTOM_ID: configuración-del-entorno-local
     :END:
@@ -58,7 +58,7 @@ Para ver el correo:
 #+END_SRC
 
 
-*** Git init
+* Git init
     :PROPERTIES:
     :CUSTOM_ID: git-init
     :END:
@@ -89,7 +89,7 @@ directorios que git debe ignorar:
   *.txt* dentro del directorio *doc/*, pero no el resto de archivos y
   directorios que *doc/* contiene.
 
-*** Git add
+* Git add
     :PROPERTIES:
     :CUSTOM_ID: git-add
     :END:
@@ -104,7 +104,7 @@ directorio añade todos los archivos que contenga de manera recursiva.
 
 Este comando añade todos los archivos del directorio local.
 
-*** Git status
+* Git status
      :PROPERTIES:
      :CUSTOM_ID: git-status
      :END:
@@ -113,7 +113,7 @@ Una vez creados o modificados los archivos que están bajo seguimiento,
 se puede ejecutar *git status* para ver un listado de los archivos
 modificados.
 
-*** Git diff
+* Git diff
      :PROPERTIES:
      :CUSTOM_ID: git-diff
      :END:
@@ -122,7 +122,7 @@ Este comando compara lo que hay en el directorio de trabajo con lo que
 hay en el área de preparación. El resultado indica los cambios que se
 han hecho y que todavía no se han preparado.
 
-*** Git diff --cached
+* Git diff --cached
      :PROPERTIES:
      :CUSTOM_ID: git-diff-cached
      :END:
@@ -131,7 +131,7 @@ Se usa para ver los cambios que se han preparado y que irán en la
 próxima confirmación, lo que hace concretamente es comparar los cambios
 preparados con la última confirmación.
 
-*** Git commit
+* Git commit
     :PROPERTIES:
     :CUSTOM_ID: git-commit
     :END:
@@ -154,7 +154,7 @@ toda la parte del *add*.
     git commit -a -m "mi nuevo comentario"
 #+END_SRC
 
-*** Git rm
+* Git rm
     :PROPERTIES:
     :CUSTOM_ID: git-rm
     :END:
@@ -185,7 +185,7 @@ glog(expresiones regulares) por ejemplo:
 #+END_SRC
 
 
-** Gitlab
+* Gitlab
    :PROPERTIES:
    :CUSTOM_ID: gitlab
    :END:
@@ -215,7 +215,8 @@ Para probar la conexión se usa el comando:
     Connection to gitlab.com closed.
 #+END_SRC
 
-*** Git push
+* Git push
+SCHEDULED: <2025-02-04 mar>
     :PROPERTIES:
     :CUSTOM_ID: git-push
     :END:

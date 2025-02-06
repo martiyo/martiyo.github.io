@@ -1,4 +1,4 @@
-#+title: Eglot
+#+TITLE: Eglog
 #+date: <2024-12-25 18:35>
 #+description: 
 #+filetags: emacs

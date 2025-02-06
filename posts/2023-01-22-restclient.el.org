@@ -1,4 +1,4 @@
-#+title: restclient.el
+#+TITLE: Restclient.el
 #+date: <2023-01-22 08:32>
 #+description: 
 #+filetags: emacs
@@ -40,7 +40,7 @@ Restclient es una herramienta para explorar y probar manualmente los servicios w
 
   - Escribir las solicitudes *http* en el siguiente formato:
 
-#+BEGIN_SRC shell
+#+BEGIN_SRC restclient
 # Solicitud GET
 GET https://jsonplaceholder.typicode.com/posts/1
 Accept: application/json
@@ -176,6 +176,6 @@ Content-Type: application/json
                       (let ((template (assoc choice my-restclient-templates)))
                         (when template
                           (insert (cdr template)))))))
-
   #+END_SRC
   
+ 

@@ -5,7 +5,7 @@
 
 Transferencia de archivos
 
-*** #cURL wikipedia
+* #cURL wikipedia
 
 cURL es un proyecto de software consistente en una biblioteca (libcurl)
 y un intérprete de comandos (curl) orientado a la transferencia de
@@ -21,9 +21,9 @@ es automatizar transferencias de archivos o secuencias de operaciones no
 supervisadas. Es por ejemplo, una herramienta válida para simular las
 acciones de usuarios en un navegador web.
 
-*** #Ejemplos de uso
+* #Ejemplos de uso
   
-**** Petición GET a una API
+** Petición GET a una API
   
 
 #+BEGIN_SRC
@@ -41,7 +41,7 @@ http, la longitud de la transaccion, el tipo de contenido, etc. Si se
 cambia el parametro -v por -i se ve la misma información pero más
 resumida.
 
-**** Peticipon POST a una API
+** Peticipon POST a una API
 
 #+BEGIN_SRC
     curl --data "title=hello world&body=this is my first post" https://jsonplaceholder.typicode.com/posts
@@ -49,7 +49,7 @@ resumida.
 
 donde *title* y *body* son campos del modelo *post*.
 
-**** Petición PUT a una API
+** Petición PUT a una API
 
 
 #+BEGIN_SRC
@@ -58,7 +58,7 @@ donde *title* y *body* son campos del modelo *post*.
 
 esto modifica el post 1 como se indica en la url.
 
-**** Petición DELETE a una API
+** Petición DELETE a una API
 
 
 #+BEGIN_SRC
@@ -67,7 +67,7 @@ esto modifica el post 1 como se indica en la url.
 
 esto elimina el post 1 indicado en la url.
 
-**** Descargas
+** Descargas
 
 Descargar y guardar la información (pueden ser imagenes, pdf, etc) en un
 archivo.
@@ -85,7 +85,7 @@ guardar contenido html de una pagina
 con la opción -O (o mayuscula) guarda sin necesidad de ponerle nombre al
 archivo
 
-**** Subir archivos a un ftp
+** Subir archivos a un ftp
 
 #+BEGIN_SRC
     curl -u user:password -T archivo.pdf ftp://ftp.server.com

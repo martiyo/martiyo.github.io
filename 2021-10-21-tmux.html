@@ -1,177 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="multiplexor de terminal" />
-    <link
-      rel="alternate"
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="multiplexor de terminal">
+<link rel="alternate"
       type="application/rss+xml"
       href="https://martiyo.github.io/rss.xml"
-      title="RSS feed for https://martiyo.github.io/"
-    />
-    <title>tmux</title>
-    <meta name="author" content="martiyo" />
-    <meta name="referrer" content="no-referrer" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="static/style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="static/favicon.ico" />
-  </head>
-  <body>
-    <div id="preamble" class="status">
-      <div class="header">
-        <ul>
-          <li><a href="https://martiyo.github.io/">/home</a></li>
-          <li><a href="https://martiyo.github.io/about">/about</a></li>
-          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
-        </ul>
-        <h1>El universo perdido de GNU/Emacs</h1>
-        <blockquote>
-          Este blog es una farsa son solo resumenes, traducciónes y cosas que
-          encuentro por ahí.
-        </blockquote>
-        <form>
-          <input type="text" placeholder="Search..." />
-        </form>
-        <br />
-      </div>
-    </div>
-    <div id="content">
-      <div class="post-date">21 oct 2021</div>
-      <h1 class="post-title">
-        <a href="https://martiyo.github.io/2021-10-21-tmux.html">tmux</a>
-      </h1>
-      <p>Multiplexor de terminal.</p>
+      title="RSS feed for https://martiyo.github.io/">
+<title>Tmux</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">21 oct 2021</div><h1 class="post-title"><a href="https://martiyo.github.io/2021-10-21-tmux.html">Tmux</a></h1>
+<p>
+Multiplexor de terminal.
+</p>
+<div id="outline-container-org9357d90" class="outline-2">
+<h2 id="org9357d90">Wikipedia</h2>
+<div class="outline-text-2" id="text-org9357d90">
+<p>
+tmux es un multiplexor de terminal para sistemas tipo unix, similar a
+GNU Screen que permite dividir una consola en múltiples secciones o
+generar sesiones independientes en la misma terminal. Permite crear
+varias terminales dentro de una misma pantalla, las que incluso pueden
+desacoplarse y volver a acoplar en una sesión distinta​. tmux utiliza un
+modelo cliente-servidor. El servidor tiene varias sesiones y cada
+ventana es una entidad independiente que puede ser libremente vinculado
+a otras sesiones. En cada sesión se podrán visualizar y aceptar la
+entrada de teclado de varios clientes.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf94458c" class="outline-2">
+<h2 id="orgf94458c">Configuración</h2>
+<div class="outline-text-2" id="text-orgf94458c">
+<p>
+El archivo de configuración es ~/.tmux.conf. Por defecto la combinación
+de teclas básica es <b>C-b</b> que yo por comodidad la he cambiado por <b>C-a</b>
+editando dicho archivo
+</p>
+</div>
+</div>
+<div id="outline-container-org5166685" class="outline-2">
+<h2 id="org5166685">Comandos básicos</h2>
+<div class="outline-text-2" id="text-org5166685">
+<table>
 
-      <div id="outline-container-org986a9a9" class="outline-2">
-        <h2 id="org986a9a9">Wikipedia</h2>
-        <div class="outline-text-2" id="text-org986a9a9">
-          <p>
-            tmux es un multiplexor de terminal para sistemas tipo unix, similar
-            a GNU Screen que permite dividir una consola en múltiples secciones
-            o generar sesiones independientes en la misma terminal. Permite
-            crear varias terminales dentro de una misma pantalla, las que
-            incluso pueden desacoplarse y volver a acoplar en una sesión
-            distinta​. tmux utiliza un modelo cliente-servidor. El servidor
-            tiene varias sesiones y cada ventana es una entidad independiente
-            que puede ser libremente vinculado a otras sesiones. En cada sesión
-            se podrán visualizar y aceptar la entrada de teclado de varios
-            clientes.
-          </p>
-        </div>
-      </div>
 
-      <div id="outline-container-orga72352a" class="outline-2">
-        <h2 id="orga72352a">Configuración</h2>
-        <div class="outline-text-2" id="text-orga72352a">
-          <p>
-            El archivo de configuración es ~/.tmux.conf. Por defecto la
-            combinación de teclas básica es <b>C-b</b> que yo por comodidad la
-            he cambiado por <b>C-a</b>
-            editando dicho archivo
-          </p>
-        </div>
-      </div>
+<colgroup>
+<col  class="org-left">
 
-      <div id="outline-container-org09eb6d8" class="outline-2">
-        <h2 id="org09eb6d8">Comandos básicos</h2>
-        <div class="outline-text-2" id="text-org09eb6d8">
-          <table>
-            <colgroup>
-              <col class="org-left" />
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">bind-key</th>
+<th scope="col" class="org-left">salida</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">C-a %</td>
+<td class="org-left">Abre un panel vertical</td>
+</tr>
 
-              <col class="org-left" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th scope="col" class="org-left">bind-key</th>
-                <th scope="col" class="org-left">salida</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="org-left">C-a %</td>
-                <td class="org-left">Abre un panel vertical</td>
-              </tr>
+<tr>
+<td class="org-left">C-a "</td>
+<td class="org-left">Abre un panel horizontal</td>
+</tr>
 
-              <tr>
-                <td class="org-left">C-a "</td>
-                <td class="org-left">Abre un panel horizontal</td>
-              </tr>
+<tr>
+<td class="org-left">C-a derecha-izquierda-arriba-abajo</td>
+<td class="org-left">Cambiar al panel derecho, izquierdo, arriba, abajo</td>
+</tr>
 
-              <tr>
-                <td class="org-left">C-a derecha-izquierda-arriba-abajo</td>
-                <td class="org-left">
-                  Cambiar al panel derecho, izquierdo, arriba, abajo
-                </td>
-              </tr>
+<tr>
+<td class="org-left">C-a c</td>
+<td class="org-left">Crea una nueva pestaña</td>
+</tr>
 
-              <tr>
-                <td class="org-left">C-a c</td>
-                <td class="org-left">Crea una nueva pestaña</td>
-              </tr>
+<tr>
+<td class="org-left">C-a ,</td>
+<td class="org-left">Darle nombre a la nueva pestaña</td>
+</tr>
 
-              <tr>
-                <td class="org-left">C-a ,</td>
-                <td class="org-left">Darle nombre a la nueva pestaña</td>
-              </tr>
+<tr>
+<td class="org-left">C-a n</td>
+<td class="org-left">Cambiar a la pestaña siguiente</td>
+</tr>
 
-              <tr>
-                <td class="org-left">C-a n</td>
-                <td class="org-left">Cambiar a la pestaña siguiente</td>
-              </tr>
+<tr>
+<td class="org-left">C-a p</td>
+<td class="org-left">Cambiar a la pestaña previa</td>
+</tr>
 
-              <tr>
-                <td class="org-left">C-a p</td>
-                <td class="org-left">Cambiar a la pestaña previa</td>
-              </tr>
+<tr>
+<td class="org-left">C-a ?</td>
+<td class="org-left">Lista de comandos</td>
+</tr>
 
-              <tr>
-                <td class="org-left">C-a ?</td>
-                <td class="org-left">Lista de comandos</td>
-              </tr>
+<tr>
+<td class="org-left">C-a d</td>
+<td class="org-left">Salir de la sesión</td>
+</tr>
 
-              <tr>
-                <td class="org-left">C-a d</td>
-                <td class="org-left">Salir de la sesión</td>
-              </tr>
+<tr>
+<td class="org-left">tmux a</td>
+<td class="org-left">Retomar la sesión</td>
+</tr>
 
-              <tr>
-                <td class="org-left">tmux a</td>
-                <td class="org-left">Retomar la sesión</td>
-              </tr>
+<tr>
+<td class="org-left">C-a &amp;</td>
+<td class="org-left">Forzar el cierre la pestaña actual y sus paneles</td>
+</tr>
 
-              <tr>
-                <td class="org-left">C-a &amp;</td>
-                <td class="org-left">
-                  Forzar el cierre la pestaña actual y sus paneles
-                </td>
-              </tr>
+<tr>
+<td class="org-left">C-a w</td>
+<td class="org-left">Listar pestañas para cambiar entre ellas con cursores</td>
+</tr>
 
-              <tr>
-                <td class="org-left">C-a w</td>
-                <td class="org-left">
-                  Listar pestañas para cambiar entre ellas con cursores
-                </td>
-              </tr>
-
-              <tr>
-                <td class="org-left">&#xa0;</td>
-                <td class="org-left">&#xa0;</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
-      </div>
-    </div>
-    <div id="postamble" class="status">
-      <div id="archive">
-        <a href="https://martiyo.github.io/archive.html">Other posts</a>
-      </div>
-      <footer></footer>
-    </div>
-  </body>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
 </html>

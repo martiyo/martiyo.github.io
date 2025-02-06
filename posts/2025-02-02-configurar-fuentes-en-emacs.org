@@ -1,0 +1,46 @@
+#+title: Configurar fuentes en emacs
+#+date: <2025-02-02 14:52>
+#+description: 
+#+filetags: emacs
+
+Fuente comic-mono para emacs
+
+* # Descargar la funete
+Desde la pagina oficial de [[https://github.com/dtinth/comic-mono-font][github]] descargar los archivos fuente (normalemente en formato *.ttf* o *.otf*)
+
+* # Instalar la fuente en el sistema
+
+- Copiar los archivos de la fuente (*.ttf* o *.otf*) en la carpeta de fuentes del sistema:
+#+BEGIN_SRC shell
+  mkdir -p ~/.local/share/fonts
+  cp /ruta/a/comic-mono.ttf ~/.local/share/fonts/
+#+END_SRC
+
+- Actualizar la caché de fuentes:
+#+BEGIN_SRC shell
+  fc-cache -fv
+#+END_SRC
+
+- Verificar que la fuente este instalada:
+#+BEGIN_SRC shell
+  fc-list | grep "Comic Mono"
+#+END_SRC
+  
+* # Configurar la fuente en Emacs
+Una vez que la fuente esta instalada en el sistema hay que configurar emacs para usarla.
+
+*** Opción 1: Configurar la fuente globalmente
+#+BEGIN_SRC emacs-lisp
+  ;; Establecer la fuente Comic Mono
+  (set-frame-font "Comic Mono-12" nil t)
+#+END_SRC
+
+*** Opción 2: Configurar la fuente solo para Org-mode
+#+BEGIN_SRC emacs-lisp
+  ;; Establecer la fuente Comic Mono solo para Org Mode
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (set-face-attribute 'default nil :font "Comic Mono-12")))
+#+END_SRC
+
+Evaluar el buffer para verificar la configuración.

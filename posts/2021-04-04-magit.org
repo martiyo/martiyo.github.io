@@ -1,17 +1,17 @@
 #+title: It's Magit!
 #+date: <2021-04-04 23:45>
 #+description: 
-#+filetags: git
+#+filetags: emacs git
 
 Interfaz de usuario para git en emacs.
 
-** ¿Que es magit?
+* ¿Que es magit?
 
   Magit es una interfaz de usuario completa basada en texto para Git . Llena la brecha evidente entre la interfaz de línea de comandos de Git y varias GUI, lo que le permite realizar tareas de control de versiones triviales y elaboradas con solo un par de pulsaciones de teclas mnemotécnicas.
 
   Magit parece una versión mejorada de lo que obtiene después de ejecutar algunos comandos de Git, pero en Magit cada bit de información visible también es procesable hasta un punto que va mucho más allá de lo que proporciona cualquier GUI de Git y se encarga de actualizar automáticamente esta salida cuando se vuelve obsoleto. En segundo plano, Magit solo ejecuta comandos de Git y, si lo desea, puede ver qué se está ejecutando exactamente, lo que le permite aprender la gitlínea de comandos usando Magit.
   
-** Comenzando
+* Comenzando
    
    #+BEGIN_SRC 
      C-x g
@@ -40,3 +40,4 @@ Interfaz de usuario para git en emacs.
 |          |                                                    |
 
 
+  

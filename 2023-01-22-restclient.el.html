@@ -1,123 +1,94 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link
-      rel="alternate"
+<head>
+<meta charset="UTF-8">
+<link rel="alternate"
       type="application/rss+xml"
       href="https://martiyo.github.io/rss.xml"
-      title="RSS feed for https://martiyo.github.io/"
-    />
-    <title>restclient.el</title>
-    <meta name="author" content="martiyo" />
-    <meta name="referrer" content="no-referrer" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="static/style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="static/favicon.ico" />
-    <script src="static/search.js"></script>
-  </head>
-  <body>
-    <div id="preamble" class="status">
-      <div class="header">
-        <ul>
-          <li><a href="https://martiyo.github.io/">/home</a></li>
-          <li><a href="https://martiyo.github.io/about">/about</a></li>
-          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
-        </ul>
-        <h1>El universo perdido de GNU/Emacs</h1>
-        <blockquote>
-          Este blog es una farsa son solo resumenes, traducciónes y cosas que
-          encuentro por ahí.
-        </blockquote>
-        <form>
-          <input type="text" placeholder="Buscar..." />
-        </form>
-        <br />
-      </div>
-    </div>
-    <div id="content">
-      <div class="post-date">22 ene 2023</div>
-      <h1 class="post-title">
-        <a href="https://martiyo.github.io/2023-01-22-restclient.el.html"
-          >restclient.el</a
-        >
-      </h1>
-      <p>Explorar servicios web HTTP REST.</p>
-      <div id="outline-container-org4b4a3a0" class="outline-2">
-        <h2 id="org4b4a3a0"># Restclient.el</h2>
-        <div class="outline-text-2" id="text-org4b4a3a0">
-          <p>
-            Restclient es una herramienta para explorar y probar manualmente los
-            servicios web HTTP REST. Ejecuta consultas desde una hoja de
-            consulta de texto sin formato y muestra los resultados como XML,
-            JSON e incluso imágenes.
-          </p>
-        </div>
-      </div>
-      <div id="outline-container-orge3dc339" class="outline-2">
-        <h2 id="orge3dc339"># Instalación</h2>
-        <div class="outline-text-2" id="text-orge3dc339">
-          <ul class="org-ul">
-            <li>
-              Actualizar la lista de paquetes
-              <b>M-x package-refresh-contents</b>.
-            </li>
+      title="RSS feed for https://martiyo.github.io/">
+<title>Restclient.el</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">22 ene 2023</div><h1 class="post-title"><a href="https://martiyo.github.io/2023-01-22-restclient.el.html">Restclient.el</a></h1>
+<p>
+Explorar servicios web HTTP REST.
+</p>
+<div id="outline-container-orgba85c49" class="outline-2">
+<h2 id="orgba85c49"># Restclient.el</h2>
+<div class="outline-text-2" id="text-orgba85c49">
+<p>
+Restclient es una herramienta para explorar y probar manualmente los servicios web HTTP REST. Ejecuta consultas desde una hoja de consulta de texto sin formato y muestra los resultados como XML, JSON e incluso imágenes.
+</p>
+</div>
+</div>
+<div id="outline-container-org52a6ba8" class="outline-2">
+<h2 id="org52a6ba8"># Instalación</h2>
+<div class="outline-text-2" id="text-org52a6ba8">
+<ul class="org-ul">
+<li>Actualizar la lista de paquetes <b>M-x package-refresh-contents</b>.</li>
 
-            <li>Instalar con <b>M-x package-install RET restclient RET</b>.</li>
-          </ul>
-        </div>
-        <div id="outline-container-orgf8d502e" class="outline-3">
-          <h3 id="orgf8d502e">Configuración básica</h3>
-          <div class="outline-text-3" id="text-orgf8d502e">
-            <div class="org-src-container">
-              <pre class="src src-elisp">
-;; Cargar restclient
+<li>Instalar con <b>M-x package-install RET restclient RET</b>.</li>
+</ul>
+</div>
+<div id="outline-container-orgdacda3d" class="outline-3">
+<h3 id="orgdacda3d">Configuración básica</h3>
+<div class="outline-text-3" id="text-orgdacda3d">
+<div class="org-src-container">
+<pre class="src src-elisp">;; Cargar restclient
 (require 'restclient)
 
 ;; Asocia archivos .http con restclient-mode
 (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
-</pre
-              >
-            </div>
+</pre>
+</div>
 
-            <ul class="org-ul">
-              <li>
-                Opcional company-restclient: para el autocompletado instalar
-                <b>M-x package-install RET company-restclient RET</b>.
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div id="outline-container-org37c45f9" class="outline-3">
-          <h3 id="org37c45f9">Configuración opcional</h3>
-          <div class="outline-text-3" id="text-org37c45f9">
-            <div class="org-src-container">
-              <pre class="src src-elisp">
-(with-eval-after-load 'company
+<ul class="org-ul">
+<li>Opcional company-restclient: para el autocompletado instalar <b>M-x package-install RET company-restclient RET</b>.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9816d0b" class="outline-3">
+<h3 id="org9816d0b">Configuración opcional</h3>
+<div class="outline-text-3" id="text-org9816d0b">
+<div class="org-src-container">
+<pre class="src src-elisp">(with-eval-after-load 'company
 (add-to-list 'company-backends 'company-restclient))
-</pre
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="outline-container-orgda409e0" class="outline-2">
-        <h2 id="orgda409e0"># Uso</h2>
-        <div class="outline-text-2" id="text-orgda409e0">
-          <ul class="org-ul">
-            <li>
-              Crear un archivo con extensión <b>.http</b> o usar un buffer en
-              <b>restclient-mode</b>.
-            </li>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org881d913" class="outline-2">
+<h2 id="org881d913"># Uso</h2>
+<div class="outline-text-2" id="text-org881d913">
+<ul class="org-ul">
+<li>Crear un archivo con extensión <b>.http</b> o usar un buffer en <b>restclient-mode</b>.</li>
 
-            <li>
-              Escribir las solicitudes <b>http</b> en el siguiente formato:
-            </li>
-          </ul>
+<li>Escribir las solicitudes <b>http</b> en el siguiente formato:</li>
+</ul>
 
-          <div class="org-src-container">
-            <pre class="src src-shell">
-# Solicitud GET
+<div class="org-src-container">
+<pre class="src src-restclient"># Solicitud GET
 GET https://jsonplaceholder.typicode.com/posts/1
 Accept: application/json
 
@@ -130,199 +101,175 @@ Content-Type: application/json
   "body": "bar",
   "userId": 1
 }
-</pre
-            >
-          </div>
-        </div>
-        <div id="outline-container-org50e22fb" class="outline-3">
-          <h3 id="org50e22fb">Para ejecutar una solicitud:</h3>
-          <div class="outline-text-3" id="text-org50e22fb">
-            <ul class="org-ul">
-              <li>Colocar el cursor dentro del bloque de la solicitud.</li>
+</pre>
+</div>
+</div>
+<div id="outline-container-org55666d5" class="outline-3">
+<h3 id="org55666d5">Para ejecutar una solicitud:</h3>
+<div class="outline-text-3" id="text-org55666d5">
+<ul class="org-ul">
+<li>Colocar el cursor dentro del bloque de la solicitud.</li>
 
-              <li>
-                Ejecutar <b>M-x restclient-http-send-current</b> o usa el atajo
-                <b>C-c C-c</b>.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div id="outline-container-org36bc148" class="outline-2">
-        <h2 id="org36bc148"># Caracteristicas avanzadas</h2>
-        <div class="outline-text-2" id="text-org36bc148"></div>
-        <div id="outline-container-org83f7fcc" class="outline-3">
-          <h3 id="org83f7fcc">Variables de entrono:</h3>
-          <div class="outline-text-3" id="text-org83f7fcc">
-            <p>
-              Se pueden definir variables de entorno en el archivo para
-              reutilizarlas:
-            </p>
+<li>Ejecutar <b>M-x restclient-http-send-current</b> o usa el atajo <b>C-c C-c</b>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org6f880cf" class="outline-2">
+<h2 id="org6f880cf"># Caracteristicas avanzadas</h2>
+<div class="outline-text-2" id="text-org6f880cf">
+</div>
+<div id="outline-container-org7153728" class="outline-3">
+<h3 id="org7153728">Variables de entrono:</h3>
+<div class="outline-text-3" id="text-org7153728">
+<p>
+Se pueden definir variables de entorno en el archivo para reutilizarlas:
+</p>
 
-            <div class="org-src-container">
-              <pre class="src src-http">
-:var base_url = https://jsonplaceholder.typicode.com
+<div class="org-src-container">
+<pre class="src src-http">:var base_url = https://jsonplaceholder.typicode.com
 
 GET :base_url/posts/1
 Accept: application/json
-</pre
-              >
-            </div>
-          </div>
-        </div>
-        <div id="outline-container-orga8f5b36" class="outline-3">
-          <h3 id="orga8f5b36">Integración con <b>json-mode</b></h3>
-          <div class="outline-text-3" id="text-orga8f5b36">
-            <p>
-              Formatear automáticamente las respuestas en formato <b>JSON</b>.
-            </p>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4547fa8" class="outline-3">
+<h3 id="org4547fa8">Integración con <b>json-mode</b></h3>
+<div class="outline-text-3" id="text-org4547fa8">
+<p>
+Formatear automáticamente las respuestas en formato <b>JSON</b>.
+</p>
 
-            <ul class="org-ul">
-              <li>Instalación <b>M-x package-install RET json-mode RET</b></li>
-              <li>
-                Configurar <b>restclient</b> para abrir automáticamente las
-                respuestas <b>JSON</b> en <b>json-mode</b>:
-              </li>
-            </ul>
+<ul class="org-ul">
+<li>Instalación <b>M-x package-install RET json-mode RET</b></li>
+<li>Configurar <b>restclient</b> para abrir automáticamente las respuestas <b>JSON</b> en <b>json-mode</b>:</li>
+</ul>
 
-            <div class="org-src-container">
-              <pre class="src src-elisp">
-    (with-eval-after-load 'restclient
+<div class="org-src-container">
+<pre class="src src-elisp">    (with-eval-after-load 'restclient
       (add-hook 'restclient-response-loaded-hook
                 (lambda ()
                   (when(
                     string-match-p"application/json"(or
 (restclient-get-response-header "Content-Type") ""))
                     (json-mode)))))
-</pre
-              >
-            </div>
-          </div>
-        </div>
-        <div id="outline-container-org3e5b76d" class="outline-3">
-          <h3 id="org3e5b76d">Integración org-mode</h3>
-          <div class="outline-text-3" id="text-org3e5b76d">
-            <p>
-              <b>restclient</b> se puede usar dentro de bloques de código en
-              <b>org-mode</b> usando el paquete <b>ob-resclient</b>. Esto
-              permite ejecutar solicitudes <b>http</b> directamente desde un
-              archivo <b>org</b> y guardar los resultados.
-            </p>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc2fd6a0" class="outline-3">
+<h3 id="orgc2fd6a0">Integración org-mode</h3>
+<div class="outline-text-3" id="text-orgc2fd6a0">
+<p>
+<b>restclient</b> se puede usar dentro de bloques de código en <b>org-mode</b> usando
+el paquete <b>ob-resclient</b>. Esto permite ejecutar solicitudes <b>http</b> directamente desde un archivo <b>org</b> y guardar los resultados.
+</p>
 
-            <ul class="org-ul">
-              <li>
-                Instalación <b>M-x package-install RET ob-resclient RET</b>
-              </li>
+<ul class="org-ul">
+<li>Instalación <b>M-x package-install RET ob-resclient RET</b></li>
 
-              <li>
-                <p>Configuración</p>
+<li><p>
+Configuración
+</p>
 
-                <p>Añadir <b>ob-resclient</b> a <b>org-babel</b></p>
+<p>
+Añadir <b>ob-resclient</b> a <b>org-babel</b>
+</p>
 
-                <div class="org-src-container">
-                  <pre class="src src-elisp">
-(with-eval-after-load 'org
+<div class="org-src-container">
+<pre class="src src-elisp">(with-eval-after-load 'org
 (add-to-list 'org-babel-load-languages '(restclient . t)))
-</pre
-                  >
-                </div>
-              </li>
+</pre>
+</div></li>
 
-              <li>
-                <p>Uso</p>
+<li><p>
+Uso
+</p>
 
-                <p>
-                  En un archivo <b>org</b>, crear un bloque de código para
-                  <b>restclient</b>:
-                </p>
+<p>
+En un archivo <b>org</b>, crear un bloque de código para <b>restclient</b>:
+</p>
 
-                <div class="org-src-container">
-                  <pre class="src src-restclient">
-#+BEGIN_SRC restclient
+<div class="org-src-container">
+<pre class="src src-restclient">#+BEGIN_SRC restclient
 GET https://jsonplaceholder.typicode.com/posts/1
 Accept: application/json
 #+END_SRC
 
 #+RESULTS:    
 
-</pre
-                  >
-                </div>
+</pre>
+</div>
 
-                <p>para enviar un token por cookie:</p>
+<p>
+para enviar un token por cookie:
+</p>
 
-                <div class="org-src-container">
-                  <pre class="src src-restclient">
-GET http://localhost:4000/auth/profile
+<div class="org-src-container">
+<pre class="src src-restclient">GET http://localhost:4000/auth/profile
 Cookie:  token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hc...
 Accept: application/json  
-</pre
-                  >
-                </div>
+</pre>
+</div>
 
-                <p>para enviarlo por encabezados:</p>
+<p>
+para enviarlo por encabezados:
+</p>
 
-                <div class="org-src-container">
-                  <pre class="src src-restclient">
-GET http://localhost:4000/auth/profile
+<div class="org-src-container">
+<pre class="src src-restclient">GET http://localhost:4000/auth/profile
 Authentication: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hc...
 Accept: application/json  
-</pre
-                  >
-                </div>
+</pre>
+</div>
 
-                <p>para hacer un post:</p>
-                <div class="org-src-container">
-                  <pre class="src src-restclient">
-POST https://jsonplaceholder.typicode.com/posts\
+<p>
+para hacer un post:    
+</p>
+<div class="org-src-container">
+<pre class="src src-restclient">POST https://jsonplaceholder.typicode.com/posts\
 Content-Type: application/json
 {
    "title": "foo",
    "body": "bar",n  "userId": 1
 }
 
-</pre
-                  >
-                </div>
+</pre>
+</div>
 
-                <p>
-                  Ejecutar cada bloque con <b>C-c C-c</b> y el resultado se
-                  muestra en su seccion <b>RESULTS:</b> correspondiente
-                </p>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div id="outline-container-orgbf505fe" class="outline-3">
-          <h3 id="orgbf505fe">Integración con projectile</h3>
-          <div class="outline-text-3" id="text-orgbf505fe">
-            <p>
-              Se puede guardar tus solicitudes <b>http</b> especificas para un
-              proyecto dentro de su directorio, y acceder a ellas rapidamente.
-            </p>
+<p>
+Ejecutar cada bloque con <b>C-c C-c</b> y el resultado se muestra en su seccion <b>RESULTS:</b> correspondiente 
+</p></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge009882" class="outline-3">
+<h3 id="orge009882">Integración con projectile</h3>
+<div class="outline-text-3" id="text-orge009882">
+<p>
+Se puede guardar tus solicitudes <b>http</b> especificas para un proyecto dentro de su directorio, y acceder a ellas rapidamente.
+</p>
 
-            <div class="org-src-container">
-              <pre class="src src-elisp">
-(global-set-key (kbd "C-c p a") 
+<div class="org-src-container">
+<pre class="src src-elisp">(global-set-key (kbd "C-c p a") 
               (lambda () 
                 (interactive)
                 (projectile-find-file-in-directory "api/")))
-</pre
-              >
-            </div>
-          </div>
-        </div>
-        <div id="outline-container-orgb63dd77" class="outline-3">
-          <h3 id="orgb63dd77">Integración con ivy</h3>
-          <div class="outline-text-3" id="text-orgb63dd77">
-            <p>
-              En ivy se puede crear un sistema de plantillas o un historial de
-              solicitudes para acceder rapidamente a solicitudes frecuentes:
-            </p>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc575110" class="outline-3">
+<h3 id="orgc575110">Integración con ivy</h3>
+<div class="outline-text-3" id="text-orgc575110">
+<p>
+En ivy se puede crear un sistema de plantillas o un historial de solicitudes para acceder rapidamente a solicitudes frecuentes:
+</p>
 
-            <div class="org-src-container">
-              <pre class="src src-elisp">
-(defvar my-restclient-templates
+<div class="org-src-container">
+<pre class="src src-elisp">(defvar my-restclient-templates
   '(("Get Post" . "GET https://jsonplaceholder.typicode.com/posts/1\nAccept: application/json")
     ("Create Post" . "POST https://jsonplaceholder.typicode.com/posts\nContent-Type: application/json\n\n{\n  \"title\": \"foo\",\n  \"body\": \"bar\",\n  \"userId\": 1\n}"))
   "List of Restclient templates for quick insertion.")
@@ -336,23 +283,16 @@ Content-Type: application/json
                       (let ((template (assoc choice my-restclient-templates)))
                         (when template
                           (insert (cdr template)))))))
-
-</pre
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
-      </div>
-    </div>
-    <div id="postamble" class="status">
-      <div id="archive">
-        <a href="https://martiyo.github.io/archive.html">Other posts</a>
-      </div>
-      <footer></footer>
-    </div>
-  </body>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
 </html>

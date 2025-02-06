@@ -1,4 +1,4 @@
-#+title: tmux
+#+TITLE: Tmux
 #+date: <2021-10-21 16:44>
 #+description: multiplexor de terminal 
 #+filetags: linux

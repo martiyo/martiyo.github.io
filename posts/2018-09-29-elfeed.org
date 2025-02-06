@@ -5,20 +5,20 @@
 
 Lector de noticias para Emacs, compatible con Atom y Rss.
 
-** Instalación
+* Instalación
 
 
 *Elfeed* se puede instalar con el gestor de paquetes de emacs, está en
 los repositorios melpa, entoces:
 
-#+BEGIN_SRC 
+#+BEGIN_SRC emacs-lisp
     M-x list-packages RET elfeed RET y listo.
 #+END_SRC
 
 Después en el archivo de configuración hay que darle a emacs el
 directorio de elfeed, requerirlo y agregar los feeds a la elfeed-feeds:
 
-#+BEGIN_SRC 
+#+BEGIN_SRC emacs-lisp
     (add-to-list 'load-path "~/.emacs.d/plugins/elfeed/")
     (require 'elfeed)
 
@@ -41,21 +41,19 @@ guardar los cambios con *C-c C-s* y evaluar el buffer con:
 
 y listo!
 
-** Elfeed-search
+* Elfeed-search
  
 
 Al ejecutar la función interactiva elfeed
 
-#+BEGIN_SRC
+#+BEGIN_SRC emacs-lisp
     M-x elfeed RET
 #+END_SRC
 
 aparecerá el **elfeed-search** que muestra la lista de feeds.
 
-#+CAPTION: elfeed
-[[./images/elfeed.png]]
 
-*** Teclas rapidas
+** Teclas rapidas
    
 
 - g: actualiza la lista de feeds.
@@ -84,14 +82,14 @@ aparecerá el **elfeed-search** que muestra la lista de feeds.
   Esta lista se puede ver dentro de Emacs con el estándar Ch m .
 #+END_QUOTE
 
-** Etiquetas
+* Etiquetas
    
 
 Elfeed mantiene una lista de etiquetas arbitrarias, símbolos adjuntos a
 una entrada. La etiqueta unread se trata especialmente de forma
 predeterminada, con entradas no leídas que aparecen en negrita.
 
-*** Etiquetado automático
+** Etiquetado automático
    
 
 Las etiquetas se pueden aplicar automáticamente a las entradas listadas
@@ -99,7 +97,7 @@ en *elfeed-feeds* específicos mediante una sintaxis adicional en
 elfeed-feeds . Normalmente, esta es una lista strings que proporciona un
 conjunto de "etiquetas automáticas" para las entradas de un feed.
 
-#+BEGIN_SRC 
+#+BEGIN_SRC emacs-lisp
     (setq elfeed-feeds
       '(
         "https://ondahostil.wordpress.com/feed/" blog emacs
@@ -111,7 +109,7 @@ conjunto de "etiquetas automáticas" para las entradas de un feed.
         ))
 #+END_SRC
 
-** Elfeed + eww
+* Elfeed + eww
   
 
 *eww* es un navegador en texto plano que viene con emacs, para abrir los
@@ -119,11 +117,11 @@ enlaces desde el visor de entradas de elfeed hay que colocar el cursor
 en el enlace y presionar M-x eww + enter, para salir de eww y volver a
 elfeed presionar q.
 
-** Accesos directos
+* Accesos directos
 
 Para tener accesos directos se agrega esto en .emacs:
 
-#+BEGIN_SRC 
+#+BEGIN_SRC emacs-lisp
          (global-set-key [f7] 'elfeed)
          (global-set-key [f8] 'elfeed-update)
          
@@ -138,7 +136,11 @@ Para tener accesos directos se agrega esto en .emacs:
   presionar f5 se abre con eww.
 #+END_QUOTE
 
-*** Fuente
+#+CAPTION: Elfeed
+#+ATTR_ORG: :width 200
+[[file:../images/elfeed.png]]
+
+** Fuente
 
 [[https://github.com/skeeto/elfeed][elfeed-github]]
 nasciiboy

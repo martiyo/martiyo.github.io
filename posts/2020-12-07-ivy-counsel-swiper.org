@@ -1,4 +1,4 @@
-#+title: ivy counsel swiper
+#+TITLE: Ivy Counsel Swiper
 #+date: <2020-12-07 14:58>
 #+description: 
 #+filetags: emacs

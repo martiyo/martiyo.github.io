@@ -1,7 +1,7 @@
 #+title: Iptables en openwrt
 #+date: <2025-01-11 13:05>
 #+description: 
-#+filetags: openwrt
+#+filetags: openwrt linux
 
 Bloquear conexion a internet por IP o MAC con iptables.
 
@@ -34,6 +34,7 @@ Aplicar los cambios reiniciando el servicio del firewall:
 #+BEGIN_SRC shell
   /etc/init.d/firewall restart
 #+END_SRC
+
 
 ** Verificar regla aplicada
 

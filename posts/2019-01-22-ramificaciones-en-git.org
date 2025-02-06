@@ -3,7 +3,7 @@
 #+description: 
 #+filetags: git
 
-** ¿Que es una rama?
+* ¿Que es una rama?
 
 Una rama Git es simplemente un apuntador móvil apuntando a una de esas
 confirmaciones. La rama por defecto de Git es la rama master. Con la
@@ -15,7 +15,7 @@ crea una nueva rama simplemente se crea un nuevo apuntador para que lo
 puedas mover libremente. Por ejemplo, si quieres crear una nueva rama
 denominada "testing". Usarás el comando git branch:
 
-#+BEGIN_SRC
+#+BEGIN_SRC shell
     git branch testing
 #+END_SRC
 
@@ -23,7 +23,8 @@ Esto creará un nuevo apuntador apuntando a la misma confirmación donde
 estés actualmente.
 
 #+CAPTION: git-branch
-[[./images/git-ramas.png]]
+#+ATTR_ORG: :width 200
+[[file:../images/git-ramas.png]]
 
 Y, ¿cómo sabe Git en qué rama estás en este momento? Pues..., mediante
 un apuntador especial denominado HEAD. Aunque es preciso comentar que
@@ -34,19 +35,19 @@ caso, en la rama master. Puesto que el comando git branch solamente crea
 una nueva rama, y no salta a dicha rama.
 
 #+CAPTION: git-head
-[[./images/git-head.png]]
+[[file:../images/git-head.png]]
 
 Para saltar de una rama a otra, tienes que utilizar el comando git
 checkout.
 
-#+BEGIN_SRC
+#+BEGIN_SRC shell
     git checkout testing
 #+END_SRC
 
 Esto mueve el apuntador HEAD a la rama testing.
 
 #+CAPTION: git-checkout
-[[./images/git-checkout.png]]
+[[file:../images/git-checkout.png]]
 
 ¿Cuál es el significado de todo esto?. Bueno... lo veremos tras realizar
 otra confirmación de cambios:
@@ -57,18 +58,18 @@ otra confirmación de cambios:
 #+END_SRC
 
 #+CAPTION: git-head-avanza
-[[./images/git-head-avanza.png]]
+[[file:../images/git-head-avanza.png]]
 
 Observamos algo interesante: la rama testing avanza, mientras que la
 rama master permanece en la confirmación donde estaba cuando lanzaste el
 comando git checkout para saltar. Volvamos ahora a la rama master:
 
-#+BEGIN_SRC 
+#+BEGIN_SRC shell 
     git checkout master
 #+END_SRC
 
 #+CAPTION: git-head-a-master
-[[./images/git-head-a-master.png]]
+[[file:../images/git-head-a-master.png]]
 
 Este comando realiza dos acciones: Mueve el apuntador HEAD de nuevo a la
 rama master, y revierte los archivos de tu directorio de trabajo;
@@ -86,5 +87,4 @@ destruir ramas en Git. Crear una nueva rama es tan rápido y simple como
 escribir 41 bytes en un archivo, (40 caracteres y un retorno de carro).
 
 Fuente
-[[https://git-scm.com/book/es/v1/Ramificaciones-en-Git-%C2%BFQu%C3%A9-es-una-rama%3F][resumen
-de git-book]]
+[[https://git-scm.com/book/es/v1/Ramificaciones-en-Git-%C2%BFQu%C3%A9-es-una-rama%3F][resumen de git-book]]

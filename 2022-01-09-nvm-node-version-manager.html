@@ -1,193 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="nvm diferentes versiones de node" />
-    <link
-      rel="alternate"
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="nvm diferentes versiones de node">
+<link rel="alternate"
       type="application/rss+xml"
       href="https://martiyo.github.io/rss.xml"
-      title="RSS feed for https://martiyo.github.io/"
-    />
-    <title>NVM Node Version Manager</title>
-    <meta name="author" content="martiyo" />
-    <meta name="referrer" content="no-referrer" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="static/style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="static/favicon.ico" />
-  </head>
-  <body>
-    <div id="preamble" class="status">
-      <div class="header">
-        <ul>
-          <li><a href="https://martiyo.github.io/">/home</a></li>
-          <li><a href="https://martiyo.github.io/about">/about</a></li>
-          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
-        </ul>
-        <h1>El universo perdido de GNU/Emacs</h1>
-        <blockquote>
-          Este blog es una farsa son solo resumenes, traducciónes y cosas que
-          encuentro por ahí.
-        </blockquote>
-        <form>
-          <input type="text" placeholder="Search..." />
-        </form>
-        <br />
-      </div>
-    </div>
-    <div id="content">
-      <div class="post-date">09 ene 2022</div>
-      <h1 class="post-title">
-        <a
-          href="https://martiyo.github.io/2022-01-09-nvm-node-version-manager.html"
-          >NVM Node Version Manager</a
-        >
-      </h1>
-      <p>
-        <b>nvm</b> permite instalar y utilizar diferentes versiones de node a
-        través de la linea de comandos.
-      </p>
+      title="RSS feed for https://martiyo.github.io/">
+<title>NVM Node Version Manager</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">09 ene 2022</div><h1 class="post-title"><a href="https://martiyo.github.io/2022-01-09-nvm-node-version-manager.html">NVM Node Version Manager</a></h1>
+<p>
+<b>nvm</b> permite instalar y utilizar diferentes versiones de node a través de la linea de comandos.
+</p>
+<div id="outline-container-org1773ad4" class="outline-2">
+<h2 id="org1773ad4"># About</h2>
+<div class="outline-text-2" id="text-org1773ad4">
+<p>
+<b>nvm</b> es un gestor de veriones para node.js, trabaja en cualquier shell compatible con POSIX.
+</p>
+</div>
+</div>
+<div id="outline-container-org83b1c60" class="outline-2">
+<h2 id="org83b1c60"># Instalación</h2>
+<div class="outline-text-2" id="text-org83b1c60">
+<p>
+Para instalarlo hay que descargar y ejecutar manualmente el script de intalación, o usar el siguiente comando:
+</p>
 
-      <div id="outline-container-orgeb7cf9d" class="outline-2">
-        <h2 id="orgeb7cf9d"># About</h2>
-        <div class="outline-text-2" id="text-orgeb7cf9d">
-          <p>
-            <b>nvm</b> es un gestor de veriones para node.js, trabaja en
-            cualquier shell compatible con POSIX.
-          </p>
-        </div>
-      </div>
+<p>
+con cURL:
+</p>
 
-      <div id="outline-container-org461871e" class="outline-2">
-        <h2 id="org461871e"># Instalación</h2>
-        <div class="outline-text-2" id="text-org461871e">
-          <p>
-            Para instalarlo hay que descargar y ejecutar manualmente el script
-            de intalación, o usar el siguiente comando:
-          </p>
+<div class="org-src-container">
+<pre class="src src-nil">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+</pre>
+</div>
 
-          <p>con cURL:</p>
+<p>
+o con Wget:
+</p>
 
-          <pre class="example">
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-</pre
-          >
+<div class="org-src-container">
+<pre class="src src-nil">wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+</pre>
+</div>
 
-          <p>o con Wget:</p>
+<p>
+La ejecución de cualquiera de estos dos comandos clona el repositorio nvm a <b>~/.nvm</b>, y añade la variable de entorno NVM DIR al archivo <b>~/.bashrc</b>.
+</p>
 
-          <pre class="example">
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-</pre
-          >
+<p>
+Variable de entorno:
+</p>
 
-          <p>
-            La ejecución de cualquiera de estos dos comandos clona el
-            repositorio nvm a <b>~/.nvm</b>, y añade la variable de entorno NVM
-            DIR al archivo <b>~/.bashrc</b>.
-          </p>
-
-          <p>Variable de entorno:</p>
-
-          <pre class="example">
-export NVM_DIR="$([ -z "${xdg_config_home-}" ] &amp;&amp; printf %s "${home}/.nvm" 
+<div class="org-src-container">
+<pre class="src src-nil">export NVM_DIR="$([ -z "${xdg_config_home-}" ] &amp;&amp; printf %s "${home}/.nvm" 
 || printf %s "${xdg_config_home}/nvm")"
 [ -s "$nvm_dir/nvm.sh" ] &amp;&amp; \. "$nvm_dir/nvm.sh"
-</pre
-          >
+</pre>
+</div>
 
-          <p>esto carga nvm.</p>
-        </div>
+<p>
+esto carga nvm.
+</p>
+</div>
+<div id="outline-container-org42bb581" class="outline-3">
+<h3 id="org42bb581">verificar la instalación</h3>
+<div class="outline-text-3" id="text-org42bb581">
+<p>
+para verificar que nvm ha sido instalado se usa:
+</p>
 
-        <div id="outline-container-org85d91c7" class="outline-3">
-          <h3 id="org85d91c7">verificar la instalación</h3>
-          <div class="outline-text-3" id="text-org85d91c7">
-            <p>para verificar que nvm ha sido instalado se usa:</p>
+<div class="org-src-container">
+<pre class="src src-nil">command -v nvm
+</pre>
+</div>
 
-            <pre class="example">
-command -v nvm
-</pre
-            >
+<p>
+la salida solo imprime <b>nvm</b>, si es correcta la intalación. hay que tener en cuenta que el comando <b>which</b> no funcionara, ya que <b>nvm</b> es una funcion shell fuente, no un binario ejecutable.      
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orge6e65ff" class="outline-2">
+<h2 id="orge6e65ff"># uso</h2>
+<div class="outline-text-2" id="text-orge6e65ff">
+<p>
+para instalar la última versión de node:
+</p>
 
-            <p>
-              la salida solo imprime <b>nvm</b>, si es correcta la intalación.
-              hay que tener en cuenta que el comando <b>which</b> no funcionara,
-              ya que <b>nvm</b> es una funcion shell fuente, no un binario
-              ejecutable.
-            </p>
-          </div>
-        </div>
-      </div>
+<div class="org-src-container">
+<pre class="src src-nil">$ nvm install node
+</pre>
+</div>
 
-      <div id="outline-container-org3061690" class="outline-2">
-        <h2 id="org3061690"># uso</h2>
-        <div class="outline-text-2" id="text-org3061690">
-          <p>para instalar la última versión de node:</p>
+<p>
+una versión se especifica se instala con:
+</p>
 
-          <pre class="example">
-$ nvm install node
-</pre
-          >
+<div class="org-src-container">
+<pre class="src src-nil">$ nvm install node 10.10.0
+</pre>
+</div>
 
-          <p>una versión se especifica se instala con:</p>
+<p>
+listar todas las versiones:
+</p>
 
-          <pre class="example">
-$ nvm install node 10.10.0
-</pre
-          >
+<div class="org-src-container">
+<pre class="src src-nil">$ nvm ls
+</pre>
+</div>
 
-          <p>listar todas las versiones:</p>
+<p>
+listar versiones disponibles:
+</p>
 
-          <pre class="example">
-$ nvm ls
-</pre
-          >
+<div class="org-src-container">
+<pre class="src src-nil">$ nvm ls-remote
+</pre>
+</div>
 
-          <p>listar versiones disponibles:</p>
+<p>
+cambiar de versión:
+</p>
 
-          <pre class="example">
-$ nvm ls-remote
-</pre
-          >
-
-          <p>cambiar de versión:</p>
-
-          <pre class="example">
-$ nvm use # para usar la última versión
+<div class="org-src-container">
+<pre class="src src-nil">$ nvm use # para usar la última versión
 $ nvm use 10.10.0 # para usar una versión especifica
-</pre
-          >
+</pre>
+</div>
 
-          <p>desintalar</p>
+<p>
+desintalar
+</p>
 
-          <pre class="example">
-$ nvm uninstall 10.10.0
-</pre
-          >
-        </div>
-
-        <div id="outline-container-orgc26e1d6" class="outline-3">
-          <h3 id="orgc26e1d6">Fuente</h3>
-          <div class="outline-text-3" id="text-orgc26e1d6">
-            <p>
-              Esto es solo un pequeño resumen que he usado para mi
-              instalación,configuración y uso personal. Toda la data está en
-              <a href="https://github.com/nvm-sh/nvm"
-                >la pagina de github del proyecto</a
-              >
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
-      </div>
-    </div>
-    <div id="postamble" class="status">
-      <div id="archive">
-        <a href="https://martiyo.github.io/archive.html">Other posts</a>
-      </div>
-      <footer></footer>
-    </div>
-  </body>
+<div class="org-src-container">
+<pre class="src src-nil">$ nvm uninstall 10.10.0
+</pre>
+</div>
+</div>
+<div id="outline-container-org421dd47" class="outline-3">
+<h3 id="org421dd47">Fuente</h3>
+<div class="outline-text-3" id="text-org421dd47">
+<p>
+Esto es solo un pequeño resumen que he usado para mi instalación,configuración y uso  personal. Toda la data está en <a href="https://github.com/nvm-sh/nvm">la pagina de github del proyecto</a>
+</p>
+</div>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-nodejs.html">nodejs</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
 </html>

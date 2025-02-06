@@ -1,11 +1,11 @@
-#+title: El empaquetador tar
+#+TITLE: el empaquetador tar
 #+date: <2022-01-05 08:50>
 #+description: 
 #+filetags: linux
 
 Empaquetar archivos y directorios. 
 
-*** Descripción
+* Descripción
 
 El programa tar, es usado para almacenar archivos y directorios en un solo archivo, no para comprimirlos. Dentro de los entornos Unix tar aparece como una orden que puede ser ejecutada desde la línea de órdenes de una consola de texto o desde un simple terminal.
 El formato de la orden es comunmente:
@@ -16,7 +16,7 @@ tar <opciones> <archivoSalida> <archivo1> <archivo2> ... <archivoN>
 
 Donde <archivoSalida> es el archivo resultado y <archivo1>, <archivo2>, etcétera son los diferentes archivos que serán "empaquetados" en <archivoSalida>. Este proceso permite respaldar archivos, compartirlos, transmitirlos por Internet o por redes locales de una forma fácil.
 
-*** Opciones más usadas
+* Opciones más usadas
 + *-c* Crea un archivo tar que contiene los elementos especificados.
 + *-x* Extrae el archivo de almacenamiento al disco.
 + *-t* Listar el contenido del archivo tar.
@@ -27,9 +27,9 @@ Donde <archivoSalida> es el archivo resultado y <archivo1>, <archivo2>, etcéter
 *+ -r* Se utiliza para agregar o actualizar un archivo existente con archivos o directorios
 + *-u* Como -r, pero las nuevas entradas se agregan solo si tienen una fecha de modificación más reciente que la entrada correspondiente en el archivo.
 
-*** Ejemplos 
+* Ejemplos 
 
-*****  Crear archivo tar sin comprimir
+**  Crear archivo tar sin comprimir
 
 #+BEGIN_SRC
 $ tar -cvf /path/to/foo.tar /path/to/foo/
@@ -37,7 +37,7 @@ $ tar -cvf /path/to/foo.tar /path/to/foo/
 
 Dónde ‘/path/to/foo.tar‘ es la ubicación del archivo tar resultante (con extención tar) y ‘/path/to/foo’ es la ubicación del archivo o directorio que se utilizará como entrada, las rutas pueden ser ralativas o absolutas.
 
-***** Todos los archivos que comienzan con una letra
+** Todos los archivos que comienzan con una letra
 
 #+BEGIN_SRC 
 # tar -cvf fullbackup.tar i*
@@ -45,37 +45,37 @@ install.log
 install.log.syslog
 #+END_SRC
 
-*****  Agregar un archivo al tar existente
+**  Agregar un archivo al tar existente
 
 #+BEGIN_SRC 
 # tar --append --file=backup.tar anaconda-ks.cfg
 #+END_SRC
 
-*****  Extraer archivos de un tar
+**  Extraer archivos de un tar
 
 #+BEGIN_SRC
 $ tar -xvf /path/to/foo.tar
 #+END_SRC
 
-*****  Extraer archivos de un tar en un directorio especifico
+**  Extraer archivos de un tar en un directorio especifico
 
 #+BEGIN_SRC
 $ tar -xvf /path/to/foo.tar -C /path/to/destination/
 #+END_SRC
 
-*****  Extraer un archivo del archivo tar
+**  Extraer un archivo del archivo tar
 
 #+BEGIN_SRC
 $ tar --extract -vv --occurrence --file=./backup.tar anaconda-ks.cfg
 #+END_SRC
 
-*****  Listar el contenido de tar
+**  Listar el contenido de tar
 
 #+BEGIN_SRC
 $ tar -ztvf /path/to/foo.tgz
 #+END_SRC
 
-*****  Crear, extraer y  listar un archivo .gz con tar
+**  Crear, extraer y  listar un archivo .gz con tar
 
 Crear
 
@@ -95,7 +95,7 @@ Listar
 $ tar -ztvf /path/to/foo.tgz /path/to/foo/
 #+END_SRC
 
-*****  Crear, extraer y listar  un archivo .bz2
+**  Crear, extraer y listar  un archivo .bz2
 
 Crear
 
