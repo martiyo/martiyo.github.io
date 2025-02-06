@@ -1,127 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link
-      rel="alternate"
+<head>
+<meta charset="UTF-8">
+<link rel="alternate"
       type="application/rss+xml"
       href="https://martiyo.github.io/rss.xml"
-      title="RSS feed for https://martiyo.github.io/"
-    />
-    <title>Git ramificar y fusionar</title>
-    <meta name="author" content="martiyo" />
-    <meta name="referrer" content="no-referrer" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="static/style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="static/favicon.ico" />
-  </head>
-  <body>
-    <div id="preamble" class="status">
-      <div class="header">
-        <ul>
-          <li><a href="https://martiyo.github.io/">/home</a></li>
-          <li><a href="https://martiyo.github.io/about">/about</a></li>
-          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
-        </ul>
-        <h1>El universo perdido de GNU/Emacs</h1>
-        <blockquote>
-          Este blog es una farsa son solo resumenes, traducciónes y cosas que
-          encuentro por ahí.
-        </blockquote>
-        <form>
-          <input type="text" placeholder="Search..." />
-        </form>
-        <br />
-      </div>
-    </div>
-    <div id="content">
-      <div class="post-date">30 jun 2019</div>
-      <h1 class="post-title">
-        <a
-          href="https://martiyo.github.io/2019-06-30-git-ramificar-y-fusionar.html"
-          >Git ramificar y fusionar</a
-        >
-      </h1>
+      title="RSS feed for https://martiyo.github.io/">
+<title>Git ramificar y fusionar</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">30 jun 2019</div><h1 class="post-title"><a href="https://martiyo.github.io/2019-06-30-git-ramificar-y-fusionar.html">Git ramificar y fusionar</a></h1>
+<div id="outline-container-org3381730" class="outline-2">
+<h2 id="org3381730">Ramificación</h2>
+<div class="outline-text-2" id="text-org3381730">
+<p>
+Para crear una rama y saltar a ella, en un solo paso, se utiliza el
+comando git checkout -b:
+</p>
 
-      <div id="outline-container-orgb3b74f5" class="outline-2">
-        <h2 id="orgb3b74f5">Ramificación</h2>
-        <div class="outline-text-2" id="text-orgb3b74f5">
-          <p>
-            Para crear una rama y saltar a ella, en un solo paso, se utiliza el
-            comando git checkout -b:
-          </p>
+<div class="org-src-container">
+<pre class="src src-nil">git checkout -b iss53
+</pre>
+</div>
 
-          <pre class="example">
-git checkout -b iss53
-</pre
-          >
+<p>
+esto es un atajo a:
+</p>
 
-          <p>esto es un atajo a:</p>
-
-          <pre class="example">
-git branch iss53
+<div class="org-src-container">
+<pre class="src src-nil">git branch iss53
 git checkout iss53
-</pre
-          >
+</pre>
+</div>
 
-          <p>
-            una vez realizados los cambios en la nueva rama, se confirman los
-            cambios con:
-          </p>
+<p>
+una vez realizados los cambios en la nueva rama, se confirman los
+cambios con:
+</p>
 
-          <pre class="example">
-git commit -a -m 'added a new footer [issue 53]'    
-</pre
-          >
+<div class="org-src-container">
+<pre class="src src-nil">git commit -a -m 'added a new footer [issue 53]'    
+</pre>
+</div>
 
-          <p>Para volver a la rama anterior se usa:</p>
+<p>
+Para volver a la rama anterior se usa:
+</p>
 
-          <pre class="example">
-git checkout master
-</pre
-          >
+<div class="org-src-container">
+<pre class="src src-nil">git checkout master
+</pre>
+</div>
 
-          <blockquote>
-            <p>
-              es importante aclarar que teniendo cambios sin confirmar en la
-              carpeta de trabajo o en el area de preparacion, git no permitira
-              saltar a la otra rama con la que podria tener conflicto
-            </p>
-          </blockquote>
+<blockquote>
+<p>
+es importante aclarar que teniendo cambios sin confirmar en la carpeta
+de trabajo o en el area de preparacion, git no permitira saltar a la
+otra rama con la que podria tener conflicto
+</p>
+</blockquote>
 
-          <p>
-            Luego de realizar las pruebas oportunas, asegurarse de que la
-            solución es correcta, e incorporar los cambios a la nueva rama, es
-            necesario ponerlos en producción. Esto se hace con el comando git
-            merge:
-          </p>
+<p>
+Luego de realizar las pruebas oportunas, asegurarse de que la solución
+es correcta, e incorporar los cambios a la nueva rama, es necesario
+ponerlos en producción. Esto se hace con el comando git merge:
+</p>
 
-          <pre class="example">
-git merge iss53
-</pre
-          >
+<div class="org-src-container">
+<pre class="src src-nil">git merge iss53
+</pre>
+</div>
 
-          <p>
-            Una vez terminado el trabajo ya no se necesita la nueva rama se la
-            puede eliminar con:
-          </p>
+<p>
+Una vez terminado el trabajo ya no se necesita la nueva rama se la puede
+eliminar con:
+</p>
 
-          <pre class="example">
-git branch -d iss53
-</pre
-          >
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-git.html">git</a>
-      </div>
-    </div>
-    <div id="postamble" class="status">
-      <div id="archive">
-        <a href="https://martiyo.github.io/archive.html">Other posts</a>
-      </div>
-      <footer></footer>
-    </div>
-  </body>
+<div class="org-src-container">
+<pre class="src src-nil">git branch -d iss53
+</pre>
+</div>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-git.html">git</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
 </html>

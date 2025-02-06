@@ -4,7 +4,18 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Tue, 04 Feb 2025 19:53:54 -0300</lastBuildDate>
+<lastBuildDate>Thu, 06 Feb 2025 18:49:39 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[asdflkj]]></title>
+  <description><![CDATA[
+<p>
+lñaksdf
+</p>
+<div class="taglist"></div>]]></description>
+  <link>https://martiyo.github.io/trash/2025-02-06-asdflkj.html</link>
+  <guid>https://martiyo.github.io/trash/2025-02-06-asdflkj.html</guid>
+  <pubDate>Thu, 06 Feb 2025 17:51:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[Configurar fuentes en emacs]]></title>
   <description><![CDATA[
@@ -87,90 +98,6 @@ Evaluar el buffer para verificar la configuración.
   <link>https://martiyo.github.io/2025-02-02-configurar-fuentes-en-emacs.html</link>
   <guid>https://martiyo.github.io/2025-02-02-configurar-fuentes-en-emacs.html</guid>
   <pubDate>Sun, 02 Feb 2025 14:52:00 -0300</pubDate>
-</item>
-<item>
-  <title><![CDATA[esta-si]]></title>
-  <description><![CDATA[
-<p>
-asdf
-asdfasdf
-</p>
-<div class="taglist"></div>]]></description>
-  <link>https://martiyo.github.io/trash/2025-01-30-esta-si.html</link>
-  <guid>https://martiyo.github.io/trash/2025-01-30-esta-si.html</guid>
-  <pubDate>Thu, 30 Jan 2025 18:25:00 -0300</pubDate>
-</item>
-<item>
-  <title><![CDATA[ultima-prueba-de-hoy]]></title>
-  <description><![CDATA[
-<p>
-asdf
-asdf
-asdf
-asdfasdf
-</p>
-<div class="taglist"></div>]]></description>
-  <link>https://martiyo.github.io/trash/2025-01-30-ultima-prueba-de-hoy.html</link>
-  <guid>https://martiyo.github.io/trash/2025-01-30-ultima-prueba-de-hoy.html</guid>
-  <pubDate>Thu, 30 Jan 2025 18:24:00 -0300</pubDate>
-</item>
-<item>
-  <title><![CDATA[una-mas!]]></title>
-  <description><![CDATA[
-<p>
-asdf
-asdf
-asdf
-asdf
-asdf
-asdf
-</p>
-<div class="taglist"></div>]]></description>
-  <link>https://martiyo.github.io/trash/2025-01-30-una-mas!.html</link>
-  <guid>https://martiyo.github.io/trash/2025-01-30-una-mas!.html</guid>
-  <pubDate>Thu, 30 Jan 2025 18:15:00 -0300</pubDate>
-</item>
-<item>
-  <title><![CDATA[otra-prueba]]></title>
-  <description><![CDATA[
-<p>
-ñlkasd
-asdfñlkj
-asdflkj
-</p>
-<div class="taglist"></div>]]></description>
-  <link>https://martiyo.github.io/trash/2025-01-30-otra-prueba.html</link>
-  <guid>https://martiyo.github.io/trash/2025-01-30-otra-prueba.html</guid>
-  <pubDate>Thu, 30 Jan 2025 18:13:00 -0300</pubDate>
-</item>
-<item>
-  <title><![CDATA[una-prueba-mas]]></title>
-  <description><![CDATA[
-<p>
-lñkjasdf
-asdf
-</p>
-
-
-<p>
-lañskdjf
-</p>
-<div class="taglist"></div>]]></description>
-  <link>https://martiyo.github.io/trash/2025-01-28-una-prueba-mas.html</link>
-  <guid>https://martiyo.github.io/trash/2025-01-28-una-prueba-mas.html</guid>
-  <pubDate>Tue, 28 Jan 2025 20:53:00 -0300</pubDate>
-</item>
-<item>
-  <title><![CDATA[prueba]]></title>
-  <description><![CDATA[
-<div id="outline-container-org9cc49a6" class="outline-2">
-<h2 id="org9cc49a6">Probando</h2>
-</div>
-<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-asd.html">asd</a> </div>]]></description>
-  <category><![CDATA[asd]]></category>
-  <link>https://martiyo.github.io/trash/2025-01-26-prueba.html</link>
-  <guid>https://martiyo.github.io/trash/2025-01-26-prueba.html</guid>
-  <pubDate>Sun, 26 Jan 2025 22:18:00 -0300</pubDate>
 </item>
 <item>
   <title><![CDATA[Iptables en openwrt]]></title>
@@ -1756,88 +1683,85 @@ ul.list&gt;(li.itm&gt;lorem3)*3
 <item>
   <title><![CDATA[Org-mode]]></title>
   <description><![CDATA[
-<p>
-Org-mode es un gestor de información personal y una herramienta de resúmenes para Emacs.
-</p>
-<div id="outline-container-orgc7945e1" class="outline-2">
-<h2 id="orgc7945e1">Lo básico</h2>
-<div class="outline-text-2" id="text-orgc7945e1">
+<div id="outline-container-orgee0a686" class="outline-2">
+<h2 id="orgee0a686">Mostrar imágenes</h2>
+<div class="outline-text-2" id="text-orgee0a686">
 </div>
-<div id="outline-container-org8e15583" class="outline-3">
-<h3 id="org8e15583">Creando un nuevo fichero</h3>
-<div class="outline-text-3" id="text-org8e15583">
-<p>
-Emacs debería entrar en org-mode siempre y cuando se visite o cree un fichero con la extensión ".org"
-</p>
+<div id="outline-container-orge83c1c0" class="outline-3">
+<h3 id="orge83c1c0">Mostrar imágen local</h3>
+<div class="outline-text-3" id="text-orge83c1c0">
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #51afef; font-weight: bold; text-decoration: underline;"><a href="file:/ruta/a/la/imagen.png">file:/ruta/a/la/imagen.png</a></span>
+</pre>
 </div>
-</div>
-<div id="outline-container-org94aa3ee" class="outline-3">
-<h3 id="org94aa3ee">Lista simple de tareas</h3>
-<div class="outline-text-3" id="text-org94aa3ee">
-<p>
-Los títulos de primer nivel empiezan con una estrella; los de segundo nivel con dos estrellas, y así.
-En org-mode, los ítems TODO (tareas no hechas) son siempre títulos. Para crear nuevos
- items TODO se ubica el cursor en la siguiente línea y se pulsa M-shift-RET para llamar
- a org-insert-todo-heading. Se puede pulsar varias veces y añadir varios TODOs. 
-Para marcar una tarea como realizada márquese el ítem TODO como ítem DONE (tarea ya realizada)
- moviendo el cursor a esa línea y pulsando C-c C-t, que ejecuta el comando org-todo.
-Nótese cómo org-mode usa una marca de tiempo para grabar cuando un ítem TODO fué cerrado.
-</p>
-</div>
-</div>
-<div id="outline-container-org2c2c14b" class="outline-3">
-<h3 id="org2c2c14b">Usando títulos para estructurar el documento</h3>
-<div class="outline-text-3" id="text-org2c2c14b">
-<p>
-Con frecuencia el mejor camino para organizar ideas es un esquema.
-El siguiente paso es hacer un esquema de los diferentes asuntos del tutorial.
-Haciendo esto, se rompe la intimidatoria página en blanco en una serie
-de pequeños trozos menos intimidatorios.
-Una asterisco da comienzo a una cabecera de primer nivel, y dos asteriscos
-dan comienzo a una cabecera de segundo nivel. Si se necesita un anidamiento más
-profundo, ¡usá tres o más asteriscos!
-</p>
-</div>
-</div>
-<div id="outline-container-org30a5125" class="outline-3">
-<h3 id="org30a5125">Rellenando secciones</h3>
-<div class="outline-text-3" id="text-org30a5125">
-<p>
-Fácilmente se puede añadir texto, un cuerpo de texto debajo de cada título.
-</p>
-</div>
-</div>
-<div id="outline-container-orgfdd00c7" class="outline-3">
-<h3 id="orgfdd00c7">Enlaces a otros lugares</h3>
-<div class="outline-text-3" id="text-orgfdd00c7">
-<p>
-La sintaxis para crear enlaces es [[enlace][descripción]
-El último corchete lo dejo abierto por que al cerrarlo se escondería el
-enlace y solo se vería descripción.
-Para editar un enlace ya oculto se presiona C-c C-o para org-open-at-point(abrir enlace)
-</p>
 
 <p>
-También se puede enlazar archivos locales con C-c C-l 
-<a href="file:///home/martin/.emacs">archivo de configuracion de emacs</a>
+para ver la imagen en el buffer se ejecuta:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs">M-x org-toggle-inline-images (C-c C-x C-v)  
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0d12f67" class="outline-3">
+<h3 id="org0d12f67">Mostrar imagen con descripción</h3>
+<div class="outline-text-3" id="text-org0d12f67">
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #83898d;">#+CAPTION:</span> <span style="background-color: #23272e;">Mi imagen de ejemplo</span>
+<span style="color: #83898d;">#+ATTR_ORG: :width 300</span>
+<span style="color: #51afef; font-weight: bold; text-decoration: underline;"><a href="file:~/Pictures/imagen.png">file:~/Pictures/imagen.png</a></span>
+</pre>
+</div>
+
+<p>
+Se puede usar <b>:width</b> o <b>:heitht</b> para ajustar el tamaño de la imagen.
 </p>
 </div>
 </div>
-<div id="outline-container-org5175d96" class="outline-3">
-<h3 id="org5175d96">Añadiendo notas a una tarea</h3>
-<div class="outline-text-3" id="text-org5175d96">
+<div id="outline-container-org13dd378" class="outline-3">
+<h3 id="org13dd378">Mostrar imágenes automáticamente</h3>
+<div class="outline-text-3" id="text-org13dd378">
 <p>
-Se puede poner tanto texto como se quiera bajo una cabecera de un ítem TODO.
-De hecho, se puede tener incluso subcabecera bajo un TODO, ¡y TODOs con TODOs!
+Agregar esto al <b>init.el</b> :
 </p>
 
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(add-hook 'org-mode-hook 'org-display-inline-images)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org14811bd" class="outline-3">
+<h3 id="org14811bd">Mostrar imágenes al exportar (a html o pdf)</h3>
+<div class="outline-text-3" id="text-org14811bd">
 <p>
-Siendo capaz de anotar tareas hace fácil recoger enlaces relacionados y
-pensamientos asociados a una tarea. Siendo capaz de anidar tareas es bueno para
-modelar flujos de trabajo — con bastante frecuencia, una tarea larga is dividida
-en pequeñas subtareas que se pretende marchar según se hagan.
+Al exportar las imágenes se incluirán automáticamente:
 </p>
 
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #83898d;">#+CAPTION:</span> <span style="background-color: #23272e;">Ejemplo de imagen exportada</span>
+<span style="color: #83898d;">#+ATTR_HTML: :width 400px</span>
+<span style="color: #83898d;">#+ATTR_LATEX: :width 0.5\textwidth</span>
+<span style="color: #51afef; font-weight: bold; text-decoration: underline;"><a href="file:imagen.png">file:imagen.png</a></span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6dda1b5" class="outline-3">
+<h3 id="org6dda1b5">Mostrar imágenes remotas</h3>
+<div class="outline-text-3" id="text-org6dda1b5">
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #51afef; font-weight: bold; text-decoration: underline;"><a href="https://ejemplo.com/imagen.png">https://ejemplo.com/imagen.png</a></span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd54a2e1" class="outline-2">
+<h2 id="orgd54a2e1">Tabla con sumatoria</h2>
+<div class="outline-text-2" id="text-orgd54a2e1">
 <table>
 
 
@@ -1889,15 +1813,6 @@ en pequeñas subtareas que se pretende marchar según se hagan.
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</div>
-<div id="outline-container-orgdd67643" class="outline-2">
-<h2 id="orgdd67643">Funcionalidades avanzadas</h2>
-<div class="outline-text-2" id="text-orgdd67643">
-<p>
-<a href="https://orgmode.org/worg/org-tutorials/orgtutorial_dto-es.html">Esto es solo un resumen de un tutorial que está aquí</a>
-</p>
 </div>
 </div>
 <div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div>]]></description>
@@ -3261,9 +3176,9 @@ f11
 <p>
 Interfaz de usuario para git en emacs.
 </p>
-<div id="outline-container-org81bfa54" class="outline-2">
-<h2 id="org81bfa54">¿Que es magit?</h2>
-<div class="outline-text-2" id="text-org81bfa54">
+<div id="outline-container-org547fb0d" class="outline-2">
+<h2 id="org547fb0d">¿Que es magit?</h2>
+<div class="outline-text-2" id="text-org547fb0d">
 <p>
 Magit es una interfaz de usuario completa basada en texto para Git . Llena la brecha evidente entre la interfaz de línea de comandos de Git y varias GUI, lo que le permite realizar tareas de control de versiones triviales y elaboradas con solo un par de pulsaciones de teclas mnemotécnicas.
 </p>
@@ -3273,9 +3188,9 @@ Magit parece una versión mejorada de lo que obtiene después de ejecutar alguno
 </p>
 </div>
 </div>
-<div id="outline-container-org913f1b4" class="outline-2">
-<h2 id="org913f1b4">Comenzando</h2>
-<div class="outline-text-2" id="text-org913f1b4">
+<div id="outline-container-org9e4a83d" class="outline-2">
+<h2 id="org9e4a83d">Comenzando</h2>
+<div class="outline-text-2" id="text-org9e4a83d">
 <div class="org-src-container">
 <pre class="src src-nil">C-x g
 </pre>
@@ -7214,91 +7129,91 @@ unrar e *.r00
 <item>
   <title><![CDATA[Git gestion de ramas]]></title>
   <description><![CDATA[
-      <p>
-        El comando git branch tiene más funciones que las de crear y borrar
-        ramas. Si se lanza sin parámetros, se obtiene una lista de las ramas
-        presentes en el proyecto:
-      </p>
+<div id="outline-container-org5706d4f" class="outline-2">
+<h2 id="org5706d4f"># Git branch</h2>
+<div class="outline-text-2" id="text-org5706d4f">
+<p>
+El comando git branch tiene más funciones que las de crear y borrar
+ramas. Si se lanza sin parámetros, se obtiene una lista de las ramas
+presentes en el proyecto:
+</p>
 
-      <pre class="example">
-$ git branch
+<div class="org-src-container">
+<pre class="src src-nil">$ git branch
   iss53
 * master
   testing
-</pre
-      >
+</pre>
+</div>
 
-      <p>
-        El carácter * delante de la rama master: indica la rama activa en este
-        momento (la rama a la que apunta HEAD). Si se confirman los cambios
-        (commit), esa será la rama que avance. Para ver la última confirmación
-        de cambios en cada rama, se usa el comando git branch -v:
-      </p>
+<p>
+El carácter * delante de la rama master: indica la rama activa en este
+momento (la rama a la que apunta HEAD). Si se confirman los cambios
+(commit), esa será la rama que avance. Para ver la última confirmación
+de cambios en cada rama, se usa el comando git branch -v:
+</p>
 
-      <pre class="example">
-$ git branch -v
+<div class="org-src-container">
+<pre class="src src-nil">$ git branch -v
   iss53   93b412c fix javascript issue
 * master  7a98805 Merge branch 'iss53'
   testing 782fd34 add scott to the author list in the readmes
-</pre
-      >
+</pre>
+</div>
 
-      <p>
-        Otra opción útil para averiguar el estado de las ramas, es filtrarlas y
-        mostrar solo aquellas que han sido fusionadas (o que no lo han sido) con
-        la rama actualmente activa. Para ello, Git dispone de las opciones
-        &#x2013;merged y &#x2013;no-merged. Para ver las ramas que han sido
-        fusionadas en la rama activa, se usa el comando git branch
-        &#x2013;merged:
-      </p>
+<p>
+Otra opción útil para averiguar el estado de las ramas, es filtrarlas y
+mostrar solo aquellas que han sido fusionadas (o que no lo han sido) con
+la rama actualmente activa. Para ello, Git dispone de las opciones
+&#x2013;merged y &#x2013;no-merged. Para ver las ramas que han sido fusionadas en la
+rama activa, se usa el comando git branch &#x2013;merged:
+</p>
 
-      <pre class="example">
-$ git branch --merged
+<div class="org-src-container">
+<pre class="src src-nil">$ git branch --merged
   iss53
 * master
-</pre
-      >
+</pre>
+</div>
 
-      <p>
-        Aparece la rama iss53 porque ya ha sido fusionada. Las ramas que no
-        llevan por delante el carácter * pueden ser eliminadas sin problemas,
-        porque todo su contenido ya ha sido incorporado a otras ramas.
-      </p>
+<p>
+Aparece la rama iss53 porque ya ha sido fusionada. Las ramas que no
+llevan por delante el carácter * pueden ser eliminadas sin problemas,
+porque todo su contenido ya ha sido incorporado a otras ramas.
+</p>
 
-      <p>
-        Para mostrar todas las ramas que contienen trabajos sin fusionar, se
-        puede utilizar el comando git branch &#x2013;no-merged:
-      </p>
+<p>
+Para mostrar todas las ramas que contienen trabajos sin fusionar, se
+puede utilizar el comando git branch &#x2013;no-merged:
+</p>
 
-      <pre class="example">
-$ git branch --no-merged
+<div class="org-src-container">
+<pre class="src src-nil">$ git branch --no-merged
   testing
-</pre
-      >
+</pre>
+</div>
 
-      <p>
-        Esto nos muestra la otra rama del proyecto. Debido a que contiene
-        trabajos sin fusionar, al intentarla borrarla con git branch -d, el
-        comando nos dará un error:
-      </p>
+<p>
+Esto nos muestra la otra rama del proyecto. Debido a que contiene
+trabajos sin fusionar, al intentarla borrarla con git branch -d, el
+comando nos dará un error:
+</p>
 
-      <pre class="example">
-$ git branch -d testing
+<div class="org-src-container">
+<pre class="src src-nil">$ git branch -d testing
 error: The branch 'testing' is not fully merged.
 If you are sure you want to delete it, run 'git branch -D testing'.
-</pre
-      >
+</pre>
+</div>
 
-      <p>
-        Para borrar la rama, y perder el trabajo contenido en ella, se puede
-        forzar el borrado con la opción -D; tal y como indica el mensaje de
-        ayuda.
-      </p>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-git.html">git</a>
-      </div>
-    ]]></description>
+<p>
+Para borrar la rama, y perder el trabajo contenido en ella, se puede
+forzar el borrado con la opción -D; tal y como indica el mensaje de
+ayuda.
+</p>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-git.html">git</a> </div>]]></description>
   <category><![CDATA[git]]></category>
   <link>https://martiyo.github.io/2019-07-04-git-gestion-de-ramas.html</link>
   <guid>https://martiyo.github.io/2019-07-04-git-gestion-de-ramas.html</guid>
@@ -7307,81 +7222,79 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 <item>
   <title><![CDATA[Git ramificar y fusionar]]></title>
   <description><![CDATA[
+<div id="outline-container-org3381730" class="outline-2">
+<h2 id="org3381730">Ramificación</h2>
+<div class="outline-text-2" id="text-org3381730">
+<p>
+Para crear una rama y saltar a ella, en un solo paso, se utiliza el
+comando git checkout -b:
+</p>
 
-      <div id="outline-container-orgb3b74f5" class="outline-2">
-        <h2 id="orgb3b74f5">Ramificación</h2>
-        <div class="outline-text-2" id="text-orgb3b74f5">
-          <p>
-            Para crear una rama y saltar a ella, en un solo paso, se utiliza el
-            comando git checkout -b:
-          </p>
+<div class="org-src-container">
+<pre class="src src-nil">git checkout -b iss53
+</pre>
+</div>
 
-          <pre class="example">
-git checkout -b iss53
-</pre
-          >
+<p>
+esto es un atajo a:
+</p>
 
-          <p>esto es un atajo a:</p>
-
-          <pre class="example">
-git branch iss53
+<div class="org-src-container">
+<pre class="src src-nil">git branch iss53
 git checkout iss53
-</pre
-          >
+</pre>
+</div>
 
-          <p>
-            una vez realizados los cambios en la nueva rama, se confirman los
-            cambios con:
-          </p>
+<p>
+una vez realizados los cambios en la nueva rama, se confirman los
+cambios con:
+</p>
 
-          <pre class="example">
-git commit -a -m 'added a new footer [issue 53]'    
-</pre
-          >
+<div class="org-src-container">
+<pre class="src src-nil">git commit -a -m 'added a new footer [issue 53]'    
+</pre>
+</div>
 
-          <p>Para volver a la rama anterior se usa:</p>
+<p>
+Para volver a la rama anterior se usa:
+</p>
 
-          <pre class="example">
-git checkout master
-</pre
-          >
+<div class="org-src-container">
+<pre class="src src-nil">git checkout master
+</pre>
+</div>
 
-          <blockquote>
-            <p>
-              es importante aclarar que teniendo cambios sin confirmar en la
-              carpeta de trabajo o en el area de preparacion, git no permitira
-              saltar a la otra rama con la que podria tener conflicto
-            </p>
-          </blockquote>
+<blockquote>
+<p>
+es importante aclarar que teniendo cambios sin confirmar en la carpeta
+de trabajo o en el area de preparacion, git no permitira saltar a la
+otra rama con la que podria tener conflicto
+</p>
+</blockquote>
 
-          <p>
-            Luego de realizar las pruebas oportunas, asegurarse de que la
-            solución es correcta, e incorporar los cambios a la nueva rama, es
-            necesario ponerlos en producción. Esto se hace con el comando git
-            merge:
-          </p>
+<p>
+Luego de realizar las pruebas oportunas, asegurarse de que la solución
+es correcta, e incorporar los cambios a la nueva rama, es necesario
+ponerlos en producción. Esto se hace con el comando git merge:
+</p>
 
-          <pre class="example">
-git merge iss53
-</pre
-          >
+<div class="org-src-container">
+<pre class="src src-nil">git merge iss53
+</pre>
+</div>
 
-          <p>
-            Una vez terminado el trabajo ya no se necesita la nueva rama se la
-            puede eliminar con:
-          </p>
+<p>
+Una vez terminado el trabajo ya no se necesita la nueva rama se la puede
+eliminar con:
+</p>
 
-          <pre class="example">
-git branch -d iss53
-</pre
-          >
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-git.html">git</a>
-      </div>
-    ]]></description>
+<div class="org-src-container">
+<pre class="src src-nil">git branch -d iss53
+</pre>
+</div>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-git.html">git</a> </div>]]></description>
   <category><![CDATA[git]]></category>
   <link>https://martiyo.github.io/2019-06-30-git-ramificar-y-fusionar.html</link>
   <guid>https://martiyo.github.io/2019-06-30-git-ramificar-y-fusionar.html</guid>
@@ -8466,156 +8379,138 @@ mv emms-4.0 .emacs.d/lisp
 <item>
   <title><![CDATA[Ramificaciones en git]]></title>
   <description><![CDATA[
+<div id="outline-container-orgd84ab6c" class="outline-2">
+<h2 id="orgd84ab6c">¿Que es una rama?</h2>
+<div class="outline-text-2" id="text-orgd84ab6c">
+<p>
+Una rama Git es simplemente un apuntador móvil apuntando a una de esas
+confirmaciones. La rama por defecto de Git es la rama master. Con la
+primera confirmación de cambios que realicemos, se creará esta rama
+principal master apuntando a dicha confirmación. En cada confirmación de
+cambios que realicemos, la rama irá avanzando automáticamente. Y la rama
+master apuntará siempre a la última confirmación realizada. Cuando se
+crea una nueva rama simplemente se crea un nuevo apuntador para que lo
+puedas mover libremente. Por ejemplo, si quieres crear una nueva rama
+denominada "testing". Usarás el comando git branch:
+</p>
 
-      <div id="outline-container-org1859392" class="outline-2">
-        <h2 id="org1859392">¿Que es una rama?</h2>
-        <div class="outline-text-2" id="text-org1859392">
-          <p>
-            Una rama Git es simplemente un apuntador móvil apuntando a una de
-            esas confirmaciones. La rama por defecto de Git es la rama master.
-            Con la primera confirmación de cambios que realicemos, se creará
-            esta rama principal master apuntando a dicha confirmación. En cada
-            confirmación de cambios que realicemos, la rama irá avanzando
-            automáticamente. Y la rama master apuntará siempre a la última
-            confirmación realizada. Cuando se crea una nueva rama simplemente se
-            crea un nuevo apuntador para que lo puedas mover libremente. Por
-            ejemplo, si quieres crear una nueva rama denominada "testing".
-            Usarás el comando git branch:
-          </p>
+<div class="org-src-container">
+<pre class="src src-shell">git branch testing
+</pre>
+</div>
 
-          <pre class="example">
-git branch testing
-</pre
-          >
+<p>
+Esto creará un nuevo apuntador apuntando a la misma confirmación donde
+estés actualmente.
+</p>
 
-          <p>
-            Esto creará un nuevo apuntador apuntando a la misma confirmación
-            donde estés actualmente.
-          </p>
 
-          <figure>
-            <img src="./images/git-ramas.png" alt="git-ramas.png" />
+<figure id="org279019f">
+<img src="../images/git-ramas.png" alt="git-ramas.png">
 
-            <figcaption>
-              <span class="figure-number">Figure 1: </span>git-branch
-            </figcaption>
-          </figure>
+<figcaption><span class="figure-number">Figure 1: </span>git-branch</figcaption>
+</figure>
 
-          <p>
-            Y, ¿cómo sabe Git en qué rama estás en este momento? Pues&#x2026;,
-            mediante un apuntador especial denominado HEAD. Aunque es preciso
-            comentar que este HEAD es totalmente distinto al concepto de HEAD en
-            otros sistemas de control de cambios como Subversion o CVS. En Git,
-            es simplemente el apuntador a la rama local en la que tú estés en
-            ese momento. En este caso, en la rama master. Puesto que el comando
-            git branch solamente crea una nueva rama, y no salta a dicha rama.
-          </p>
+<p>
+Y, ¿cómo sabe Git en qué rama estás en este momento? Pues&#x2026;, mediante
+un apuntador especial denominado HEAD. Aunque es preciso comentar que
+este HEAD es totalmente distinto al concepto de HEAD en otros sistemas
+de control de cambios como Subversion o CVS. En Git, es simplemente el
+apuntador a la rama local en la que tú estés en ese momento. En este
+caso, en la rama master. Puesto que el comando git branch solamente crea
+una nueva rama, y no salta a dicha rama.
+</p>
 
-          <figure>
-            <img src="./images/git-head.png" alt="git-head.png" />
 
-            <figcaption>
-              <span class="figure-number">Figure 2: </span>git-head
-            </figcaption>
-          </figure>
+<figure id="org0df7dfa">
+<img src="../images/git-head.png" alt="git-head.png">
 
-          <p>
-            Para saltar de una rama a otra, tienes que utilizar el comando git
-            checkout.
-          </p>
+<figcaption><span class="figure-number">Figure 2: </span>git-head</figcaption>
+</figure>
 
-          <pre class="example">
-git checkout testing
-</pre
-          >
+<p>
+Para saltar de una rama a otra, tienes que utilizar el comando git
+checkout.
+</p>
 
-          <p>Esto mueve el apuntador HEAD a la rama testing.</p>
+<div class="org-src-container">
+<pre class="src src-shell">git checkout testing
+</pre>
+</div>
 
-          <figure>
-            <img src="./images/git-checkout.png" alt="git-checkout.png" />
+<p>
+Esto mueve el apuntador HEAD a la rama testing.
+</p>
 
-            <figcaption>
-              <span class="figure-number">Figure 3: </span>git-checkout
-            </figcaption>
-          </figure>
 
-          <p>
-            ¿Cuál es el significado de todo esto?. Bueno&#x2026; lo veremos tras
-            realizar otra confirmación de cambios:
-          </p>
+<figure id="org974fc8f">
+<img src="../images/git-checkout.png" alt="git-checkout.png">
 
-          <pre class="example">
-vim test.rb
+<figcaption><span class="figure-number">Figure 3: </span>git-checkout</figcaption>
+</figure>
+
+<p>
+¿Cuál es el significado de todo esto?. Bueno&#x2026; lo veremos tras realizar
+otra confirmación de cambios:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">vim test.rb
 git commit -a -m 'made a change'
-</pre
-          >
+</pre>
+</div>
 
-          <figure>
-            <img src="./images/git-head-avanza.png" alt="git-head-avanza.png" />
 
-            <figcaption>
-              <span class="figure-number">Figure 4: </span>git-head-avanza
-            </figcaption>
-          </figure>
+<figure id="org10d0eac">
+<img src="../images/git-head-avanza.png" alt="git-head-avanza.png">
 
-          <p>
-            Observamos algo interesante: la rama testing avanza, mientras que la
-            rama master permanece en la confirmación donde estaba cuando
-            lanzaste el comando git checkout para saltar. Volvamos ahora a la
-            rama master:
-          </p>
+<figcaption><span class="figure-number">Figure 4: </span>git-head-avanza</figcaption>
+</figure>
 
-          <pre class="example">
-git checkout master
-</pre
-          >
+<p>
+Observamos algo interesante: la rama testing avanza, mientras que la
+rama master permanece en la confirmación donde estaba cuando lanzaste el
+comando git checkout para saltar. Volvamos ahora a la rama master:
+</p>
 
-          <figure>
-            <img
-              src="./images/git-head-a-master.png"
-              alt="git-head-a-master.png"
-            />
+<div class="org-src-container">
+<pre class="src src-shell">git checkout master
+</pre>
+</div>
 
-            <figcaption>
-              <span class="figure-number">Figure 5: </span>git-head-a-master
-            </figcaption>
-          </figure>
 
-          <p>
-            Este comando realiza dos acciones: Mueve el apuntador HEAD de nuevo
-            a la rama master, y revierte los archivos de tu directorio de
-            trabajo; dejándolos tal y como estaban en la última instantánea
-            confirmada en dicha rama master. Esto supone que los cambios que
-            hagas desde este momento en adelante divergirán de la antigua
-            versión del proyecto. Básicamente, lo que se está haciendo es
-            rebobinar el trabajo que habías hecho temporalmente en la rama
-            testing; de tal forma que puedas avanzar en otra dirección
-            diferente.
-          </p>
+<figure id="org2ea43de">
+<img src="../images/git-head-a-master.png" alt="git-head-a-master.png">
 
-          <p>
-            Debido a que una rama Git es realmente un simple archivo que
-            contiene los 40 caracteres de una suma de control SHA-1,
-            (representando la confirmación de cambios a la que apunta), no
-            cuesta nada el crear y destruir ramas en Git. Crear una nueva rama
-            es tan rápido y simple como escribir 41 bytes en un archivo, (40
-            caracteres y un retorno de carro).
-          </p>
+<figcaption><span class="figure-number">Figure 5: </span>git-head-a-master</figcaption>
+</figure>
 
-          <p>
-            Fuente
-            <a
-              href="https://git-scm.com/book/es/v1/Ramificaciones-en-Git-%C2%BFQu%C3%A9-es-una-rama%3F"
-              >resumen de git-book</a
-            >
-          </p>
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-git.html">git</a>
-      </div>
-    ]]></description>
+<p>
+Este comando realiza dos acciones: Mueve el apuntador HEAD de nuevo a la
+rama master, y revierte los archivos de tu directorio de trabajo;
+dejándolos tal y como estaban en la última instantánea confirmada en
+dicha rama master. Esto supone que los cambios que hagas desde este
+momento en adelante divergirán de la antigua versión del proyecto.
+Básicamente, lo que se está haciendo es rebobinar el trabajo que habías
+hecho temporalmente en la rama testing; de tal forma que puedas avanzar
+en otra dirección diferente.
+</p>
+
+<p>
+Debido a que una rama Git es realmente un simple archivo que contiene
+los 40 caracteres de una suma de control SHA-1, (representando la
+confirmación de cambios a la que apunta), no cuesta nada el crear y
+destruir ramas en Git. Crear una nueva rama es tan rápido y simple como
+escribir 41 bytes en un archivo, (40 caracteres y un retorno de carro).
+</p>
+
+<p>
+Fuente
+<a href="https://git-scm.com/book/es/v1/Ramificaciones-en-Git-%C2%BFQu%C3%A9-es-una-rama%3F">resumen de git-book</a>
+</p>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-git.html">git</a> </div>]]></description>
   <category><![CDATA[git]]></category>
   <link>https://martiyo.github.io/2019-01-22-ramificaciones-en-git.html</link>
   <guid>https://martiyo.github.io/2019-01-22-ramificaciones-en-git.html</guid>
@@ -8625,12 +8520,11 @@ git checkout master
   <title><![CDATA[Git init!]]></title>
   <description><![CDATA[
 <p>
-Control de versiones
+Control de versiones con git
 </p>
-
-<div id="outline-container-org219459e" class="outline-3">
-<h3 id="org219459e">Descripcion</h3>
-<div class="outline-text-3" id="text-org219459e">
+<div id="outline-container-orgb7c9b39" class="outline-2">
+<h2 id="orgb7c9b39">Descripcion</h2>
+<div class="outline-text-2" id="text-orgb7c9b39">
 <p>
 Git es un sistema de control de versiones distribuido, gratuito y de
 código abierto, diseñado para manejar todo tipo de proyectos, desde
@@ -8638,20 +8532,20 @@ pequeños hasta muy grandes, con rapidez y eficiencia.
 </p>
 </div>
 </div>
-
-<div id="outline-container-configuración-del-entorno-local" class="outline-3">
-<h3 id="configuración-del-entorno-local">Configuración del entorno local</h3>
-<div class="outline-text-3" id="text-configuración-del-entorno-local">
+<div id="outline-container-configuración-del-entorno-local" class="outline-2">
+<h2 id="configuración-del-entorno-local">Configuración del entorno local</h2>
+<div class="outline-text-2" id="text-configuración-del-entorno-local">
 <p>
 Lo primero que hay que hacer para empezar con git, después de instalarlo
 (<b>apt install git</b> y listo!) es configurar nombre y correo para que git
 pueda firmar los commits que se hacen. Esto se hace así:
 </p>
 
-<pre class="example">
-git config --global user.name
+<div class="org-src-container">
+<pre class="src src-nil">git config --global user.name
 git config --global user.email
 </pre>
+</div>
 
 <p>
 dicha información se guarda en ~/.gitconfig Para cambiar estos valores
@@ -8665,43 +8559,45 @@ un poco de color para que sea más fácil leer la información que
 proporciona git.
 </p>
 
-<pre class="example">
-git config --global color.status auto
+<div class="org-src-container">
+<pre class="src src-nil">git config --global color.status auto
 git config --global color.branch auto
 git config --global color.diff auto
 git config --global color.interactive auto
 </pre>
+</div>
 
 <p>
 Para listar la coficuración se usa:
 </p>
 
-<pre class="example">
-git config --list
+<div class="org-src-container">
+<pre class="src src-nil">git config --list
 </pre>
+</div>
 
 <p>
 Para ver mi usuario:
 </p>
 
-<pre class="example">
-git config --get user.name
+<div class="org-src-container">
+<pre class="src src-nil">git config --get user.name
 </pre>
+</div>
 
 <p>
 Para ver el correo:
 </p>
 
-<pre class="example">
-git config --get user.email
+<div class="org-src-container">
+<pre class="src src-nil">git config --get user.email
 </pre>
 </div>
 </div>
-
-
-<div id="outline-container-git-init" class="outline-3">
-<h3 id="git-init">Git init</h3>
-<div class="outline-text-3" id="text-git-init">
+</div>
+<div id="outline-container-git-init" class="outline-2">
+<h2 id="git-init">Git init</h2>
+<div class="outline-text-2" id="text-git-init">
 <p>
 <b>git init</b> es el comando para crear un repositorio git, se ejecuta en la
 carpeta del proyecto y lo que hace es crear el directorio <b>.git</b> en la
@@ -8710,13 +8606,14 @@ archivo <b>.gitignore</b> el cual contiene una lista de los archivos y
 directorios que git debe ignorar:
 </p>
 
-<pre class="example">
-$cat .gitignore
+<div class="org-src-container">
+<pre class="src src-nil">$cat .gitignore
 build/
 *.[oa]
 *~
 doc/*.txt
 </pre>
+</div>
 
 <ul class="org-ul">
 <li>La primera línea indica que se ignore el directorio <b>build</b> y todo su
@@ -8733,29 +8630,28 @@ directorios que <b>doc/</b> contiene.</li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-git-add" class="outline-3">
-<h3 id="git-add">Git add</h3>
-<div class="outline-text-3" id="text-git-add">
+<div id="outline-container-git-add" class="outline-2">
+<h2 id="git-add">Git add</h2>
+<div class="outline-text-2" id="text-git-add">
 <p>
 Para empezar el seguimiento de un archivo se usa el comando <b>git add</b>
 que recibe como parámetro la ruta de un archivo o directorio, si es un
 directorio añade todos los archivos que contenga de manera recursiva.
 </p>
 
-<pre class="example">
-git add .
+<div class="org-src-container">
+<pre class="src src-nil">git add .
 </pre>
+</div>
 
 <p>
 Este comando añade todos los archivos del directorio local.
 </p>
 </div>
 </div>
-
-<div id="outline-container-git-status" class="outline-3">
-<h3 id="git-status">Git status</h3>
-<div class="outline-text-3" id="text-git-status">
+<div id="outline-container-git-status" class="outline-2">
+<h2 id="git-status">Git status</h2>
+<div class="outline-text-2" id="text-git-status">
 <p>
 Una vez creados o modificados los archivos que están bajo seguimiento,
 se puede ejecutar <b>git status</b> para ver un listado de los archivos
@@ -8763,10 +8659,9 @@ modificados.
 </p>
 </div>
 </div>
-
-<div id="outline-container-git-diff" class="outline-3">
-<h3 id="git-diff">Git diff</h3>
-<div class="outline-text-3" id="text-git-diff">
+<div id="outline-container-git-diff" class="outline-2">
+<h2 id="git-diff">Git diff</h2>
+<div class="outline-text-2" id="text-git-diff">
 <p>
 Este comando compara lo que hay en el directorio de trabajo con lo que
 hay en el área de preparación. El resultado indica los cambios que se
@@ -8774,10 +8669,9 @@ han hecho y que todavía no se han preparado.
 </p>
 </div>
 </div>
-
-<div id="outline-container-git-diff-cached" class="outline-3">
-<h3 id="git-diff-cached">Git diff &#x2013;cached</h3>
-<div class="outline-text-3" id="text-git-diff-cached">
+<div id="outline-container-git-diff-cached" class="outline-2">
+<h2 id="git-diff-cached">Git diff &#x2013;cached</h2>
+<div class="outline-text-2" id="text-git-diff-cached">
 <p>
 Se usa para ver los cambios que se han preparado y que irán en la
 próxima confirmación, lo que hace concretamente es comparar los cambios
@@ -8785,10 +8679,9 @@ preparados con la última confirmación.
 </p>
 </div>
 </div>
-
-<div id="outline-container-git-commit" class="outline-3">
-<h3 id="git-commit">Git commit</h3>
-<div class="outline-text-3" id="text-git-commit">
+<div id="outline-container-git-commit" class="outline-2">
+<h2 id="git-commit">Git commit</h2>
+<div class="outline-text-2" id="text-git-commit">
 <p>
 Una vez que se realizan los cambios necesarios y luego de ejecutar <b>git
 add .</b> es hora de confirmar los cambios, para esto se usa el comando
@@ -8796,9 +8689,10 @@ add .</b> es hora de confirmar los cambios, para esto se usa el comando
 desde la consola(sin abrir un editor).
 </p>
 
-<pre class="example">
-git commit -m "mi comentario"
+<div class="org-src-container">
+<pre class="src src-nil">git commit -m "mi comentario"
 </pre>
+</div>
 
 <p>
 Un atajo para saltarse toda el área de preparación es pasar al comando
@@ -8807,15 +8701,15 @@ estuviese en seguimiento antes de la confirmación, permitiendo obviar
 toda la parte del <b>add</b>.
 </p>
 
-<pre class="example">
-git commit -a -m "mi nuevo comentario"
+<div class="org-src-container">
+<pre class="src src-nil">git commit -a -m "mi nuevo comentario"
 </pre>
 </div>
 </div>
-
-<div id="outline-container-git-rm" class="outline-3">
-<h3 id="git-rm">Git rm</h3>
-<div class="outline-text-3" id="text-git-rm">
+</div>
+<div id="outline-container-git-rm" class="outline-2">
+<h2 id="git-rm">Git rm</h2>
+<div class="outline-text-2" id="text-git-rm">
 <p>
 Para eliminar un archivo de Git, hay eliminarlo de los archivos bajo
 seguimiento (más concretamente, eliminarlo del área de preparación), y
@@ -8824,9 +8718,10 @@ elimina el archivo del directorio de trabajo, para que no se vea entre
 los archivos sin seguimiento.
 </p>
 
-<pre class="example">
-git rm archivo.a
+<div class="org-src-container">
+<pre class="src src-nil">git rm archivo.a
 </pre>
+</div>
 
 <p>
 Aveces es necesario conservar un archivo pero interrumpir su
@@ -8834,22 +8729,22 @@ seguimiento, esto es útil cuando dicho archivo no ha sido incluido en
 <b>.gitignore</b>, para hacer esto su usa la opción <b>&#x2013;cached</b>:
 </p>
 
-<pre class="example">
-git rm --cached archivo.a
+<div class="org-src-container">
+<pre class="src src-nil">git rm --cached archivo.a
 </pre>
+</div>
 
 <p>
 El comando <b>git rm</b> acepta archivos, directorio y patrones
 glog(expresiones regulares) por ejemplo:
 </p>
 
-<pre class="example">
-git rm log/\*.log
+<div class="org-src-container">
+<pre class="src src-nil">git rm log/\*.log
 </pre>
 </div>
 </div>
-
-
+</div>
 <div id="outline-container-gitlab" class="outline-2">
 <h2 id="gitlab">Gitlab</h2>
 <div class="outline-text-2" id="text-gitlab">
@@ -8863,9 +8758,10 @@ entre una maquina cliente y el servidor. Para generar una clave ssh en
 <b>devuan GNU/Linux</b> se usa el comando <b>ssh-keygen</b>:
 </p>
 
-<pre class="example">
-$ ssh-keygen -t rsa -b 8192
+<div class="org-src-container">
+<pre class="src src-nil">$ ssh-keygen -t rsa -b 8192
 </pre>
+</div>
 
 <p>
 Cuando se utiliza RSA, ssh-keygen guarda la clave privada en el archivo
@@ -8878,38 +8774,40 @@ Luego en gitlab ir a <b>llaves ssh</b>, pegar el contenido del archivo
 Para probar la conexión se usa el comando:
 </p>
 
-<pre class="example">
-$ssh git@gitlab.com
+<div class="org-src-container">
+<pre class="src src-nil">$ssh git@gitlab.com
 Welcome to GitLab, @martiyo!
 Connection to gitlab.com closed.
 </pre>
 </div>
-
-<div id="outline-container-git-push" class="outline-3">
-<h3 id="git-push">Git push</h3>
-<div class="outline-text-3" id="text-git-push">
+</div>
+</div>
+<div id="outline-container-git-push" class="outline-2">
+<h2 id="git-push">Git push</h2>
+<div class="outline-text-2" id="text-git-push">
 <p>
 Cuando el proyecto esta listo para subirlo, lo que sigue es crear un
 nuevo proyecto en gitlab que devuelve la ruta que se agrega con:
 </p>
 
-<pre class="example">
-git remote add origin git@gitlab.com:martiyo/mi_proyecto.git
+<div class="org-src-container">
+<pre class="src src-nil">git remote add origin git@gitlab.com:martiyo/mi_proyecto.git
 </pre>
+</div>
 
 <p>
 y por fin&#x2026;!!!
 </p>
 
-<pre class="example">
-git push -u origin master
+<div class="org-src-container">
+<pre class="src src-nil">git push -u origin master
 </pre>
+</div>
 
 <p>
 <b>Fuente</b>
 Resumen y traducción de <a href="https://git-scm.com/book/es/v1/Fundamentos-de-Git-Obteniendo-un-repositorio-Git">git-scm.com</a>
 </p>
-</div>
 </div>
 </div>
 <div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-git.html">git</a> </div>]]></description>
@@ -9668,9 +9566,9 @@ editor.ru.1.gz /usr/share/man/ru/man1/vim.1.gz
 <p>
 Lector de noticias para Emacs, compatible con Atom y Rss.
 </p>
-<div id="outline-container-org23b43ab" class="outline-2">
-<h2 id="org23b43ab">Instalación</h2>
-<div class="outline-text-2" id="text-org23b43ab">
+<div id="outline-container-org32cf084" class="outline-2">
+<h2 id="org32cf084">Instalación</h2>
+<div class="outline-text-2" id="text-org32cf084">
 <p>
 <b>Elfeed</b> se puede instalar con el gestor de paquetes de emacs, está en
 los repositorios melpa, entoces:
@@ -9716,9 +9614,9 @@ y listo!
 </p>
 </div>
 </div>
-<div id="outline-container-orgdb808d3" class="outline-2">
-<h2 id="orgdb808d3">Elfeed-search</h2>
-<div class="outline-text-2" id="text-orgdb808d3">
+<div id="outline-container-orgeb2ce7b" class="outline-2">
+<h2 id="orgeb2ce7b">Elfeed-search</h2>
+<div class="outline-text-2" id="text-orgeb2ce7b">
 <p>
 Al ejecutar la función interactiva elfeed
 </p>
@@ -9732,9 +9630,9 @@ Al ejecutar la función interactiva elfeed
 aparecerá el <b><b>elfeed-search</b></b> que muestra la lista de feeds.
 </p>
 </div>
-<div id="outline-container-org8e99f38" class="outline-3">
-<h3 id="org8e99f38">Teclas rapidas</h3>
-<div class="outline-text-3" id="text-org8e99f38">
+<div id="outline-container-org1921253" class="outline-3">
+<h3 id="org1921253">Teclas rapidas</h3>
+<div class="outline-text-3" id="text-org1921253">
 <ul class="org-ul">
 <li>g: actualiza la lista de feeds.</li>
 
@@ -9767,18 +9665,18 @@ Esta lista se puede ver dentro de Emacs con el estándar Ch m .
 </div>
 </div>
 </div>
-<div id="outline-container-orgc6efac4" class="outline-2">
-<h2 id="orgc6efac4">Etiquetas</h2>
-<div class="outline-text-2" id="text-orgc6efac4">
+<div id="outline-container-org377fb92" class="outline-2">
+<h2 id="org377fb92">Etiquetas</h2>
+<div class="outline-text-2" id="text-org377fb92">
 <p>
 Elfeed mantiene una lista de etiquetas arbitrarias, símbolos adjuntos a
 una entrada. La etiqueta unread se trata especialmente de forma
 predeterminada, con entradas no leídas que aparecen en negrita.
 </p>
 </div>
-<div id="outline-container-orgba8de0a" class="outline-3">
-<h3 id="orgba8de0a">Etiquetado automático</h3>
-<div class="outline-text-3" id="text-orgba8de0a">
+<div id="outline-container-org8500fb5" class="outline-3">
+<h3 id="org8500fb5">Etiquetado automático</h3>
+<div class="outline-text-3" id="text-org8500fb5">
 <p>
 Las etiquetas se pueden aplicar automáticamente a las entradas listadas
 en <b>elfeed-feeds</b> específicos mediante una sintaxis adicional en
@@ -9801,9 +9699,9 @@ conjunto de "etiquetas automáticas" para las entradas de un feed.
 </div>
 </div>
 </div>
-<div id="outline-container-org917d0ee" class="outline-2">
-<h2 id="org917d0ee">Elfeed + eww</h2>
-<div class="outline-text-2" id="text-org917d0ee">
+<div id="outline-container-org5f171c3" class="outline-2">
+<h2 id="org5f171c3">Elfeed + eww</h2>
+<div class="outline-text-2" id="text-org5f171c3">
 <p>
 <b>eww</b> es un navegador en texto plano que viene con emacs, para abrir los
 enlaces desde el visor de entradas de elfeed hay que colocar el cursor
@@ -9812,9 +9710,9 @@ elfeed presionar q.
 </p>
 </div>
 </div>
-<div id="outline-container-org948aefb" class="outline-2">
-<h2 id="org948aefb">Accesos directos</h2>
-<div class="outline-text-2" id="text-org948aefb">
+<div id="outline-container-org071c48a" class="outline-2">
+<h2 id="org071c48a">Accesos directos</h2>
+<div class="outline-text-2" id="text-org071c48a">
 <p>
 Para tener accesos directos se agrega esto en .emacs:
 </p>
@@ -9838,15 +9736,15 @@ presionar f5 se abre con eww.
 </blockquote>
 
 
-<figure id="org543e961">
+<figure id="org58df53a">
 <img src="../images/elfeed.png" alt="elfeed.png">
 
 <figcaption><span class="figure-number">Figure 1: </span>Elfeed</figcaption>
 </figure>
 </div>
-<div id="outline-container-orgab60235" class="outline-3">
-<h3 id="orgab60235">Fuente</h3>
-<div class="outline-text-3" id="text-orgab60235">
+<div id="outline-container-org11e6fe7" class="outline-3">
+<h3 id="org11e6fe7">Fuente</h3>
+<div class="outline-text-3" id="text-org11e6fe7">
 <p>
 <a href="https://github.com/skeeto/elfeed">elfeed-github</a>
 nasciiboy

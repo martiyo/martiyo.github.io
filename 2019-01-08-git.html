@@ -12,6 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href= "static/style.css" rel="stylesheet" type="text/css" />
 <link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
 </head>
 <body>
 <div id="preamble" class="status"><div class="header">
@@ -23,19 +24,18 @@
  <h1>El universo perdido de GNU/Emacs</h1>
  <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
 <form >
-<input type="text" placeholder="Search..." />
+<input type="text" placeholder="Buscar..." />
 </form>
 <br/>
 </div></div>
 <div id="content">
 <div class="post-date">08 ene 2019</div><h1 class="post-title"><a href="https://martiyo.github.io/2019-01-08-git.html">Git init!</a></h1>
 <p>
-Control de versiones
+Control de versiones con git
 </p>
-
-<div id="outline-container-org219459e" class="outline-3">
-<h3 id="org219459e">Descripcion</h3>
-<div class="outline-text-3" id="text-org219459e">
+<div id="outline-container-orgb7c9b39" class="outline-2">
+<h2 id="orgb7c9b39">Descripcion</h2>
+<div class="outline-text-2" id="text-orgb7c9b39">
 <p>
 Git es un sistema de control de versiones distribuido, gratuito y de
 código abierto, diseñado para manejar todo tipo de proyectos, desde
@@ -43,20 +43,20 @@ pequeños hasta muy grandes, con rapidez y eficiencia.
 </p>
 </div>
 </div>
-
-<div id="outline-container-configuración-del-entorno-local" class="outline-3">
-<h3 id="configuración-del-entorno-local">Configuración del entorno local</h3>
-<div class="outline-text-3" id="text-configuración-del-entorno-local">
+<div id="outline-container-configuración-del-entorno-local" class="outline-2">
+<h2 id="configuración-del-entorno-local">Configuración del entorno local</h2>
+<div class="outline-text-2" id="text-configuración-del-entorno-local">
 <p>
 Lo primero que hay que hacer para empezar con git, después de instalarlo
 (<b>apt install git</b> y listo!) es configurar nombre y correo para que git
 pueda firmar los commits que se hacen. Esto se hace así:
 </p>
 
-<pre class="example">
-git config --global user.name
+<div class="org-src-container">
+<pre class="src src-nil">git config --global user.name
 git config --global user.email
 </pre>
+</div>
 
 <p>
 dicha información se guarda en ~/.gitconfig Para cambiar estos valores
@@ -70,43 +70,45 @@ un poco de color para que sea más fácil leer la información que
 proporciona git.
 </p>
 
-<pre class="example">
-git config --global color.status auto
+<div class="org-src-container">
+<pre class="src src-nil">git config --global color.status auto
 git config --global color.branch auto
 git config --global color.diff auto
 git config --global color.interactive auto
 </pre>
+</div>
 
 <p>
 Para listar la coficuración se usa:
 </p>
 
-<pre class="example">
-git config --list
+<div class="org-src-container">
+<pre class="src src-nil">git config --list
 </pre>
+</div>
 
 <p>
 Para ver mi usuario:
 </p>
 
-<pre class="example">
-git config --get user.name
+<div class="org-src-container">
+<pre class="src src-nil">git config --get user.name
 </pre>
+</div>
 
 <p>
 Para ver el correo:
 </p>
 
-<pre class="example">
-git config --get user.email
+<div class="org-src-container">
+<pre class="src src-nil">git config --get user.email
 </pre>
 </div>
 </div>
-
-
-<div id="outline-container-git-init" class="outline-3">
-<h3 id="git-init">Git init</h3>
-<div class="outline-text-3" id="text-git-init">
+</div>
+<div id="outline-container-git-init" class="outline-2">
+<h2 id="git-init">Git init</h2>
+<div class="outline-text-2" id="text-git-init">
 <p>
 <b>git init</b> es el comando para crear un repositorio git, se ejecuta en la
 carpeta del proyecto y lo que hace es crear el directorio <b>.git</b> en la
@@ -115,13 +117,14 @@ archivo <b>.gitignore</b> el cual contiene una lista de los archivos y
 directorios que git debe ignorar:
 </p>
 
-<pre class="example">
-$cat .gitignore
+<div class="org-src-container">
+<pre class="src src-nil">$cat .gitignore
 build/
 *.[oa]
 *~
 doc/*.txt
 </pre>
+</div>
 
 <ul class="org-ul">
 <li>La primera línea indica que se ignore el directorio <b>build</b> y todo su
@@ -138,29 +141,28 @@ directorios que <b>doc/</b> contiene.</li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-git-add" class="outline-3">
-<h3 id="git-add">Git add</h3>
-<div class="outline-text-3" id="text-git-add">
+<div id="outline-container-git-add" class="outline-2">
+<h2 id="git-add">Git add</h2>
+<div class="outline-text-2" id="text-git-add">
 <p>
 Para empezar el seguimiento de un archivo se usa el comando <b>git add</b>
 que recibe como parámetro la ruta de un archivo o directorio, si es un
 directorio añade todos los archivos que contenga de manera recursiva.
 </p>
 
-<pre class="example">
-git add .
+<div class="org-src-container">
+<pre class="src src-nil">git add .
 </pre>
+</div>
 
 <p>
 Este comando añade todos los archivos del directorio local.
 </p>
 </div>
 </div>
-
-<div id="outline-container-git-status" class="outline-3">
-<h3 id="git-status">Git status</h3>
-<div class="outline-text-3" id="text-git-status">
+<div id="outline-container-git-status" class="outline-2">
+<h2 id="git-status">Git status</h2>
+<div class="outline-text-2" id="text-git-status">
 <p>
 Una vez creados o modificados los archivos que están bajo seguimiento,
 se puede ejecutar <b>git status</b> para ver un listado de los archivos
@@ -168,10 +170,9 @@ modificados.
 </p>
 </div>
 </div>
-
-<div id="outline-container-git-diff" class="outline-3">
-<h3 id="git-diff">Git diff</h3>
-<div class="outline-text-3" id="text-git-diff">
+<div id="outline-container-git-diff" class="outline-2">
+<h2 id="git-diff">Git diff</h2>
+<div class="outline-text-2" id="text-git-diff">
 <p>
 Este comando compara lo que hay en el directorio de trabajo con lo que
 hay en el área de preparación. El resultado indica los cambios que se
@@ -179,10 +180,9 @@ han hecho y que todavía no se han preparado.
 </p>
 </div>
 </div>
-
-<div id="outline-container-git-diff-cached" class="outline-3">
-<h3 id="git-diff-cached">Git diff &#x2013;cached</h3>
-<div class="outline-text-3" id="text-git-diff-cached">
+<div id="outline-container-git-diff-cached" class="outline-2">
+<h2 id="git-diff-cached">Git diff &#x2013;cached</h2>
+<div class="outline-text-2" id="text-git-diff-cached">
 <p>
 Se usa para ver los cambios que se han preparado y que irán en la
 próxima confirmación, lo que hace concretamente es comparar los cambios
@@ -190,10 +190,9 @@ preparados con la última confirmación.
 </p>
 </div>
 </div>
-
-<div id="outline-container-git-commit" class="outline-3">
-<h3 id="git-commit">Git commit</h3>
-<div class="outline-text-3" id="text-git-commit">
+<div id="outline-container-git-commit" class="outline-2">
+<h2 id="git-commit">Git commit</h2>
+<div class="outline-text-2" id="text-git-commit">
 <p>
 Una vez que se realizan los cambios necesarios y luego de ejecutar <b>git
 add .</b> es hora de confirmar los cambios, para esto se usa el comando
@@ -201,9 +200,10 @@ add .</b> es hora de confirmar los cambios, para esto se usa el comando
 desde la consola(sin abrir un editor).
 </p>
 
-<pre class="example">
-git commit -m "mi comentario"
+<div class="org-src-container">
+<pre class="src src-nil">git commit -m "mi comentario"
 </pre>
+</div>
 
 <p>
 Un atajo para saltarse toda el área de preparación es pasar al comando
@@ -212,15 +212,15 @@ estuviese en seguimiento antes de la confirmación, permitiendo obviar
 toda la parte del <b>add</b>.
 </p>
 
-<pre class="example">
-git commit -a -m "mi nuevo comentario"
+<div class="org-src-container">
+<pre class="src src-nil">git commit -a -m "mi nuevo comentario"
 </pre>
 </div>
 </div>
-
-<div id="outline-container-git-rm" class="outline-3">
-<h3 id="git-rm">Git rm</h3>
-<div class="outline-text-3" id="text-git-rm">
+</div>
+<div id="outline-container-git-rm" class="outline-2">
+<h2 id="git-rm">Git rm</h2>
+<div class="outline-text-2" id="text-git-rm">
 <p>
 Para eliminar un archivo de Git, hay eliminarlo de los archivos bajo
 seguimiento (más concretamente, eliminarlo del área de preparación), y
@@ -229,9 +229,10 @@ elimina el archivo del directorio de trabajo, para que no se vea entre
 los archivos sin seguimiento.
 </p>
 
-<pre class="example">
-git rm archivo.a
+<div class="org-src-container">
+<pre class="src src-nil">git rm archivo.a
 </pre>
+</div>
 
 <p>
 Aveces es necesario conservar un archivo pero interrumpir su
@@ -239,22 +240,22 @@ seguimiento, esto es útil cuando dicho archivo no ha sido incluido en
 <b>.gitignore</b>, para hacer esto su usa la opción <b>&#x2013;cached</b>:
 </p>
 
-<pre class="example">
-git rm --cached archivo.a
+<div class="org-src-container">
+<pre class="src src-nil">git rm --cached archivo.a
 </pre>
+</div>
 
 <p>
 El comando <b>git rm</b> acepta archivos, directorio y patrones
 glog(expresiones regulares) por ejemplo:
 </p>
 
-<pre class="example">
-git rm log/\*.log
+<div class="org-src-container">
+<pre class="src src-nil">git rm log/\*.log
 </pre>
 </div>
 </div>
-
-
+</div>
 <div id="outline-container-gitlab" class="outline-2">
 <h2 id="gitlab">Gitlab</h2>
 <div class="outline-text-2" id="text-gitlab">
@@ -268,9 +269,10 @@ entre una maquina cliente y el servidor. Para generar una clave ssh en
 <b>devuan GNU/Linux</b> se usa el comando <b>ssh-keygen</b>:
 </p>
 
-<pre class="example">
-$ ssh-keygen -t rsa -b 8192
+<div class="org-src-container">
+<pre class="src src-nil">$ ssh-keygen -t rsa -b 8192
 </pre>
+</div>
 
 <p>
 Cuando se utiliza RSA, ssh-keygen guarda la clave privada en el archivo
@@ -283,38 +285,40 @@ Luego en gitlab ir a <b>llaves ssh</b>, pegar el contenido del archivo
 Para probar la conexión se usa el comando:
 </p>
 
-<pre class="example">
-$ssh git@gitlab.com
+<div class="org-src-container">
+<pre class="src src-nil">$ssh git@gitlab.com
 Welcome to GitLab, @martiyo!
 Connection to gitlab.com closed.
 </pre>
 </div>
-
-<div id="outline-container-git-push" class="outline-3">
-<h3 id="git-push">Git push</h3>
-<div class="outline-text-3" id="text-git-push">
+</div>
+</div>
+<div id="outline-container-git-push" class="outline-2">
+<h2 id="git-push">Git push</h2>
+<div class="outline-text-2" id="text-git-push">
 <p>
 Cuando el proyecto esta listo para subirlo, lo que sigue es crear un
 nuevo proyecto en gitlab que devuelve la ruta que se agrega con:
 </p>
 
-<pre class="example">
-git remote add origin git@gitlab.com:martiyo/mi_proyecto.git
+<div class="org-src-container">
+<pre class="src src-nil">git remote add origin git@gitlab.com:martiyo/mi_proyecto.git
 </pre>
+</div>
 
 <p>
 y por fin&#x2026;!!!
 </p>
 
-<pre class="example">
-git push -u origin master
+<div class="org-src-container">
+<pre class="src src-nil">git push -u origin master
 </pre>
+</div>
 
 <p>
 <b>Fuente</b>
 Resumen y traducción de <a href="https://git-scm.com/book/es/v1/Fundamentos-de-Git-Obteniendo-un-repositorio-Git">git-scm.com</a>
 </p>
-</div>
 </div>
 </div>
 <div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-git.html">git</a> </div></div>

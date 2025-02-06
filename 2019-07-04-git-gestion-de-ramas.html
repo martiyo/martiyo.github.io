@@ -1,136 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link
-      rel="alternate"
+<head>
+<meta charset="UTF-8">
+<link rel="alternate"
       type="application/rss+xml"
       href="https://martiyo.github.io/rss.xml"
-      title="RSS feed for https://martiyo.github.io/"
-    />
-    <title>Git gestion de ramas</title>
-    <meta name="author" content="martiyo" />
-    <meta name="referrer" content="no-referrer" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="static/style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="static/favicon.ico" />
-  </head>
-  <body>
-    <div id="preamble" class="status">
-      <div class="header">
-        <ul>
-          <li><a href="https://martiyo.github.io/">/home</a></li>
-          <li><a href="https://martiyo.github.io/about">/about</a></li>
-          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
-        </ul>
-        <h1>El universo perdido de GNU/Emacs</h1>
-        <blockquote>
-          Este blog es una farsa son solo resumenes, traducciónes y cosas que
-          encuentro por ahí.
-        </blockquote>
-        <form>
-          <input type="text" placeholder="Search..." />
-        </form>
-        <br />
-      </div>
-    </div>
-    <div id="content">
-      <div class="post-date">04 jul 2019</div>
-      <h1 class="post-title">
-        <a href="https://martiyo.github.io/2019-07-04-git-gestion-de-ramas.html"
-          >Git gestion de ramas</a
-        >
-      </h1>
-      <p>
-        El comando git branch tiene más funciones que las de crear y borrar
-        ramas. Si se lanza sin parámetros, se obtiene una lista de las ramas
-        presentes en el proyecto:
-      </p>
+      title="RSS feed for https://martiyo.github.io/">
+<title>Git gestion de ramas</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">04 jul 2019</div><h1 class="post-title"><a href="https://martiyo.github.io/2019-07-04-git-gestion-de-ramas.html">Git gestion de ramas</a></h1>
+<div id="outline-container-org5706d4f" class="outline-2">
+<h2 id="org5706d4f"># Git branch</h2>
+<div class="outline-text-2" id="text-org5706d4f">
+<p>
+El comando git branch tiene más funciones que las de crear y borrar
+ramas. Si se lanza sin parámetros, se obtiene una lista de las ramas
+presentes en el proyecto:
+</p>
 
-      <pre class="example">
-$ git branch
+<div class="org-src-container">
+<pre class="src src-nil">$ git branch
   iss53
 * master
   testing
-</pre
-      >
+</pre>
+</div>
 
-      <p>
-        El carácter * delante de la rama master: indica la rama activa en este
-        momento (la rama a la que apunta HEAD). Si se confirman los cambios
-        (commit), esa será la rama que avance. Para ver la última confirmación
-        de cambios en cada rama, se usa el comando git branch -v:
-      </p>
+<p>
+El carácter * delante de la rama master: indica la rama activa en este
+momento (la rama a la que apunta HEAD). Si se confirman los cambios
+(commit), esa será la rama que avance. Para ver la última confirmación
+de cambios en cada rama, se usa el comando git branch -v:
+</p>
 
-      <pre class="example">
-$ git branch -v
+<div class="org-src-container">
+<pre class="src src-nil">$ git branch -v
   iss53   93b412c fix javascript issue
 * master  7a98805 Merge branch 'iss53'
   testing 782fd34 add scott to the author list in the readmes
-</pre
-      >
+</pre>
+</div>
 
-      <p>
-        Otra opción útil para averiguar el estado de las ramas, es filtrarlas y
-        mostrar solo aquellas que han sido fusionadas (o que no lo han sido) con
-        la rama actualmente activa. Para ello, Git dispone de las opciones
-        &#x2013;merged y &#x2013;no-merged. Para ver las ramas que han sido
-        fusionadas en la rama activa, se usa el comando git branch
-        &#x2013;merged:
-      </p>
+<p>
+Otra opción útil para averiguar el estado de las ramas, es filtrarlas y
+mostrar solo aquellas que han sido fusionadas (o que no lo han sido) con
+la rama actualmente activa. Para ello, Git dispone de las opciones
+&#x2013;merged y &#x2013;no-merged. Para ver las ramas que han sido fusionadas en la
+rama activa, se usa el comando git branch &#x2013;merged:
+</p>
 
-      <pre class="example">
-$ git branch --merged
+<div class="org-src-container">
+<pre class="src src-nil">$ git branch --merged
   iss53
 * master
-</pre
-      >
+</pre>
+</div>
 
-      <p>
-        Aparece la rama iss53 porque ya ha sido fusionada. Las ramas que no
-        llevan por delante el carácter * pueden ser eliminadas sin problemas,
-        porque todo su contenido ya ha sido incorporado a otras ramas.
-      </p>
+<p>
+Aparece la rama iss53 porque ya ha sido fusionada. Las ramas que no
+llevan por delante el carácter * pueden ser eliminadas sin problemas,
+porque todo su contenido ya ha sido incorporado a otras ramas.
+</p>
 
-      <p>
-        Para mostrar todas las ramas que contienen trabajos sin fusionar, se
-        puede utilizar el comando git branch &#x2013;no-merged:
-      </p>
+<p>
+Para mostrar todas las ramas que contienen trabajos sin fusionar, se
+puede utilizar el comando git branch &#x2013;no-merged:
+</p>
 
-      <pre class="example">
-$ git branch --no-merged
+<div class="org-src-container">
+<pre class="src src-nil">$ git branch --no-merged
   testing
-</pre
-      >
+</pre>
+</div>
 
-      <p>
-        Esto nos muestra la otra rama del proyecto. Debido a que contiene
-        trabajos sin fusionar, al intentarla borrarla con git branch -d, el
-        comando nos dará un error:
-      </p>
+<p>
+Esto nos muestra la otra rama del proyecto. Debido a que contiene
+trabajos sin fusionar, al intentarla borrarla con git branch -d, el
+comando nos dará un error:
+</p>
 
-      <pre class="example">
-$ git branch -d testing
+<div class="org-src-container">
+<pre class="src src-nil">$ git branch -d testing
 error: The branch 'testing' is not fully merged.
 If you are sure you want to delete it, run 'git branch -D testing'.
-</pre
-      >
+</pre>
+</div>
 
-      <p>
-        Para borrar la rama, y perder el trabajo contenido en ella, se puede
-        forzar el borrado con la opción -D; tal y como indica el mensaje de
-        ayuda.
-      </p>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-git.html">git</a>
-      </div>
-    </div>
-    <div id="postamble" class="status">
-      <div id="archive">
-        <a href="https://martiyo.github.io/archive.html">Other posts</a>
-      </div>
-      <footer></footer>
-    </div>
-  </body>
+<p>
+Para borrar la rama, y perder el trabajo contenido en ella, se puede
+forzar el borrado con la opción -D; tal y como indica el mensaje de
+ayuda.
+</p>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-git.html">git</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
 </html>

@@ -1,202 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link
-      rel="alternate"
+<head>
+<meta charset="UTF-8">
+<link rel="alternate"
       type="application/rss+xml"
       href="https://martiyo.github.io/rss.xml"
-      title="RSS feed for https://martiyo.github.io/"
-    />
-    <title>Ramificaciones en git</title>
-    <meta name="author" content="martiyo" />
-    <meta name="referrer" content="no-referrer" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="static/style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="static/favicon.ico" />
-  </head>
-  <body>
-    <div id="preamble" class="status">
-      <div class="header">
-        <ul>
-          <li><a href="https://martiyo.github.io/">/home</a></li>
-          <li><a href="https://martiyo.github.io/about">/about</a></li>
-          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
-        </ul>
-        <h1>El universo perdido de GNU/Emacs</h1>
-        <blockquote>
-          Este blog es una farsa son solo resumenes, traducciónes y cosas que
-          encuentro por ahí.
-        </blockquote>
-        <form>
-          <input type="text" placeholder="Search..." />
-        </form>
-        <br />
-      </div>
-    </div>
-    <div id="content">
-      <div class="post-date">22 ene 2019</div>
-      <h1 class="post-title">
-        <a
-          href="https://martiyo.github.io/2019-01-22-ramificaciones-en-git.html"
-          >Ramificaciones en git</a
-        >
-      </h1>
+      title="RSS feed for https://martiyo.github.io/">
+<title>Ramificaciones en git</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">22 ene 2019</div><h1 class="post-title"><a href="https://martiyo.github.io/2019-01-22-ramificaciones-en-git.html">Ramificaciones en git</a></h1>
+<div id="outline-container-orgd84ab6c" class="outline-2">
+<h2 id="orgd84ab6c">¿Que es una rama?</h2>
+<div class="outline-text-2" id="text-orgd84ab6c">
+<p>
+Una rama Git es simplemente un apuntador móvil apuntando a una de esas
+confirmaciones. La rama por defecto de Git es la rama master. Con la
+primera confirmación de cambios que realicemos, se creará esta rama
+principal master apuntando a dicha confirmación. En cada confirmación de
+cambios que realicemos, la rama irá avanzando automáticamente. Y la rama
+master apuntará siempre a la última confirmación realizada. Cuando se
+crea una nueva rama simplemente se crea un nuevo apuntador para que lo
+puedas mover libremente. Por ejemplo, si quieres crear una nueva rama
+denominada "testing". Usarás el comando git branch:
+</p>
 
-      <div id="outline-container-org1859392" class="outline-2">
-        <h2 id="org1859392">¿Que es una rama?</h2>
-        <div class="outline-text-2" id="text-org1859392">
-          <p>
-            Una rama Git es simplemente un apuntador móvil apuntando a una de
-            esas confirmaciones. La rama por defecto de Git es la rama master.
-            Con la primera confirmación de cambios que realicemos, se creará
-            esta rama principal master apuntando a dicha confirmación. En cada
-            confirmación de cambios que realicemos, la rama irá avanzando
-            automáticamente. Y la rama master apuntará siempre a la última
-            confirmación realizada. Cuando se crea una nueva rama simplemente se
-            crea un nuevo apuntador para que lo puedas mover libremente. Por
-            ejemplo, si quieres crear una nueva rama denominada "testing".
-            Usarás el comando git branch:
-          </p>
+<div class="org-src-container">
+<pre class="src src-shell">git branch testing
+</pre>
+</div>
 
-          <pre class="example">
-git branch testing
-</pre
-          >
+<p>
+Esto creará un nuevo apuntador apuntando a la misma confirmación donde
+estés actualmente.
+</p>
 
-          <p>
-            Esto creará un nuevo apuntador apuntando a la misma confirmación
-            donde estés actualmente.
-          </p>
 
-          <figure>
-            <img src="./images/git-ramas.png" alt="git-ramas.png" />
+<figure id="org279019f">
+<img src="../images/git-ramas.png" alt="git-ramas.png">
 
-            <figcaption>
-              <span class="figure-number">Figure 1: </span>git-branch
-            </figcaption>
-          </figure>
+<figcaption><span class="figure-number">Figure 1: </span>git-branch</figcaption>
+</figure>
 
-          <p>
-            Y, ¿cómo sabe Git en qué rama estás en este momento? Pues&#x2026;,
-            mediante un apuntador especial denominado HEAD. Aunque es preciso
-            comentar que este HEAD es totalmente distinto al concepto de HEAD en
-            otros sistemas de control de cambios como Subversion o CVS. En Git,
-            es simplemente el apuntador a la rama local en la que tú estés en
-            ese momento. En este caso, en la rama master. Puesto que el comando
-            git branch solamente crea una nueva rama, y no salta a dicha rama.
-          </p>
+<p>
+Y, ¿cómo sabe Git en qué rama estás en este momento? Pues&#x2026;, mediante
+un apuntador especial denominado HEAD. Aunque es preciso comentar que
+este HEAD es totalmente distinto al concepto de HEAD en otros sistemas
+de control de cambios como Subversion o CVS. En Git, es simplemente el
+apuntador a la rama local en la que tú estés en ese momento. En este
+caso, en la rama master. Puesto que el comando git branch solamente crea
+una nueva rama, y no salta a dicha rama.
+</p>
 
-          <figure>
-            <img src="./images/git-head.png" alt="git-head.png" />
 
-            <figcaption>
-              <span class="figure-number">Figure 2: </span>git-head
-            </figcaption>
-          </figure>
+<figure id="org0df7dfa">
+<img src="../images/git-head.png" alt="git-head.png">
 
-          <p>
-            Para saltar de una rama a otra, tienes que utilizar el comando git
-            checkout.
-          </p>
+<figcaption><span class="figure-number">Figure 2: </span>git-head</figcaption>
+</figure>
 
-          <pre class="example">
-git checkout testing
-</pre
-          >
+<p>
+Para saltar de una rama a otra, tienes que utilizar el comando git
+checkout.
+</p>
 
-          <p>Esto mueve el apuntador HEAD a la rama testing.</p>
+<div class="org-src-container">
+<pre class="src src-shell">git checkout testing
+</pre>
+</div>
 
-          <figure>
-            <img src="./images/git-checkout.png" alt="git-checkout.png" />
+<p>
+Esto mueve el apuntador HEAD a la rama testing.
+</p>
 
-            <figcaption>
-              <span class="figure-number">Figure 3: </span>git-checkout
-            </figcaption>
-          </figure>
 
-          <p>
-            ¿Cuál es el significado de todo esto?. Bueno&#x2026; lo veremos tras
-            realizar otra confirmación de cambios:
-          </p>
+<figure id="org974fc8f">
+<img src="../images/git-checkout.png" alt="git-checkout.png">
 
-          <pre class="example">
-vim test.rb
+<figcaption><span class="figure-number">Figure 3: </span>git-checkout</figcaption>
+</figure>
+
+<p>
+¿Cuál es el significado de todo esto?. Bueno&#x2026; lo veremos tras realizar
+otra confirmación de cambios:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">vim test.rb
 git commit -a -m 'made a change'
-</pre
-          >
+</pre>
+</div>
 
-          <figure>
-            <img src="./images/git-head-avanza.png" alt="git-head-avanza.png" />
 
-            <figcaption>
-              <span class="figure-number">Figure 4: </span>git-head-avanza
-            </figcaption>
-          </figure>
+<figure id="org10d0eac">
+<img src="../images/git-head-avanza.png" alt="git-head-avanza.png">
 
-          <p>
-            Observamos algo interesante: la rama testing avanza, mientras que la
-            rama master permanece en la confirmación donde estaba cuando
-            lanzaste el comando git checkout para saltar. Volvamos ahora a la
-            rama master:
-          </p>
+<figcaption><span class="figure-number">Figure 4: </span>git-head-avanza</figcaption>
+</figure>
 
-          <pre class="example">
-git checkout master
-</pre
-          >
+<p>
+Observamos algo interesante: la rama testing avanza, mientras que la
+rama master permanece en la confirmación donde estaba cuando lanzaste el
+comando git checkout para saltar. Volvamos ahora a la rama master:
+</p>
 
-          <figure>
-            <img
-              src="./images/git-head-a-master.png"
-              alt="git-head-a-master.png"
-            />
+<div class="org-src-container">
+<pre class="src src-shell">git checkout master
+</pre>
+</div>
 
-            <figcaption>
-              <span class="figure-number">Figure 5: </span>git-head-a-master
-            </figcaption>
-          </figure>
 
-          <p>
-            Este comando realiza dos acciones: Mueve el apuntador HEAD de nuevo
-            a la rama master, y revierte los archivos de tu directorio de
-            trabajo; dejándolos tal y como estaban en la última instantánea
-            confirmada en dicha rama master. Esto supone que los cambios que
-            hagas desde este momento en adelante divergirán de la antigua
-            versión del proyecto. Básicamente, lo que se está haciendo es
-            rebobinar el trabajo que habías hecho temporalmente en la rama
-            testing; de tal forma que puedas avanzar en otra dirección
-            diferente.
-          </p>
+<figure id="org2ea43de">
+<img src="../images/git-head-a-master.png" alt="git-head-a-master.png">
 
-          <p>
-            Debido a que una rama Git es realmente un simple archivo que
-            contiene los 40 caracteres de una suma de control SHA-1,
-            (representando la confirmación de cambios a la que apunta), no
-            cuesta nada el crear y destruir ramas en Git. Crear una nueva rama
-            es tan rápido y simple como escribir 41 bytes en un archivo, (40
-            caracteres y un retorno de carro).
-          </p>
+<figcaption><span class="figure-number">Figure 5: </span>git-head-a-master</figcaption>
+</figure>
 
-          <p>
-            Fuente
-            <a
-              href="https://git-scm.com/book/es/v1/Ramificaciones-en-Git-%C2%BFQu%C3%A9-es-una-rama%3F"
-              >resumen de git-book</a
-            >
-          </p>
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-git.html">git</a>
-      </div>
-    </div>
-    <div id="postamble" class="status">
-      <div id="archive">
-        <a href="https://martiyo.github.io/archive.html">Other posts</a>
-      </div>
-      <footer></footer>
-    </div>
-  </body>
+<p>
+Este comando realiza dos acciones: Mueve el apuntador HEAD de nuevo a la
+rama master, y revierte los archivos de tu directorio de trabajo;
+dejándolos tal y como estaban en la última instantánea confirmada en
+dicha rama master. Esto supone que los cambios que hagas desde este
+momento en adelante divergirán de la antigua versión del proyecto.
+Básicamente, lo que se está haciendo es rebobinar el trabajo que habías
+hecho temporalmente en la rama testing; de tal forma que puedas avanzar
+en otra dirección diferente.
+</p>
+
+<p>
+Debido a que una rama Git es realmente un simple archivo que contiene
+los 40 caracteres de una suma de control SHA-1, (representando la
+confirmación de cambios a la que apunta), no cuesta nada el crear y
+destruir ramas en Git. Crear una nueva rama es tan rápido y simple como
+escribir 41 bytes en un archivo, (40 caracteres y un retorno de carro).
+</p>
+
+<p>
+Fuente
+<a href="https://git-scm.com/book/es/v1/Ramificaciones-en-Git-%C2%BFQu%C3%A9-es-una-rama%3F">resumen de git-book</a>
+</p>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-git.html">git</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
 </html>
