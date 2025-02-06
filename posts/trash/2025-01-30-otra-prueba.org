@@ -1,7 +1,0 @@
-#+title: otra-prueba
-#+date: <2025-01-30 18:13>
-#+description: 
-#+filetags:
-ñlkasd
-asdfñlkj
-asdflkj
