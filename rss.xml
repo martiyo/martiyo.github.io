@@ -4,85 +4,468 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Fri, 07 Feb 2025 22:37:08 -0300</lastBuildDate>
+<lastBuildDate>Sat, 03 May 2025 16:23:46 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[Script para convertir M4A a MP3 usando FFmpeg]]></title>
+  <description><![CDATA[
+      <p>
+        Script para convertir archivos de audio M4A a MP3 en Linux usando
+        FFmpeg.
+      </p>
+      <div id="outline-container-org01aa7a3" class="outline-2">
+        <h2 id="org01aa7a3"># Requisitos previos</h2>
+        <div class="outline-text-2" id="text-org01aa7a3"></div>
+        <div id="outline-container-org1e9447e" class="outline-3">
+          <h3 id="org1e9447e">Dependencias</h3>
+          <div class="outline-text-3" id="text-org1e9447e">
+            <ul class="org-ul">
+              <li>
+                <a href="https://ffmpeg.org/">FFmpeg</a> (para conversión de
+                audio)
+              </li>
+              <li>Bash (shell para ejecución)</li>
+            </ul>
+          </div>
+        </div>
+        <div id="outline-container-org1191e97" class="outline-3">
+          <h3 id="org1191e97">Instalación</h3>
+          <div class="outline-text-3" id="text-org1191e97">
+            <div class="org-src-container">
+              <pre
+                class="src src-sh"
+              ><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Debian/Ubuntu  </span>
+sudo apt update &amp;&amp; sudo apt install ffmpeg  
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Fedora  </span>
+sudo dnf install ffmpeg  
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Arch Linux  </span>
+sudo pacman -S ffmpeg  
+</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org94de3cb" class="outline-2">
+        <h2 id="org94de3cb"># Descripción del script</h2>
+        <div class="outline-text-2" id="text-org94de3cb"></div>
+        <div id="outline-container-orgbda50fe" class="outline-3">
+          <h3 id="orgbda50fe">Funcionalidad</h3>
+          <div class="outline-text-3" id="text-orgbda50fe">
+            <ul class="org-ul">
+              <li>
+                Conversión de archivos <code>.m4a</code> o <code>.M4A</code> a
+                <code>.mp3</code>
+              </li>
+              <li>
+                Manejo de:
+                <ul class="org-ul">
+                  <li>Espacios en nombres (<code>mi audio.m4a</code>)</li>
+                  <li>Mayúsculas/minúsculas</li>
+                  <li>Caracteres especiales (ñ, á, @)</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="outline-container-orgff03d85" class="outline-3">
+          <h3 id="orgff03d85">Variables configurables</h3>
+          <div class="outline-text-3" id="text-orgff03d85">
+            <table>
+              <caption class="t-above">
+                <span class="table-number">Table 1:</span>
+                Parámetros del script
+              </caption>
+
+              <colgroup>
+                <col class="org-left" />
+
+                <col class="org-left" />
+
+                <col class="org-left" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col" class="org-left">Variable</th>
+                  <th scope="col" class="org-left">Valor por defecto</th>
+                  <th scope="col" class="org-left">Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="org-left"><code>INPUT_DIR</code></td>
+                  <td class="org-left"><code>"./"</code></td>
+                  <td class="org-left">Directorio de entrada</td>
+                </tr>
+
+                <tr>
+                  <td class="org-left"><code>OUTPUT_DIR</code></td>
+                  <td class="org-left"><code>"./MP3"</code></td>
+                  <td class="org-left">Carpeta de salida</td>
+                </tr>
+
+                <tr>
+                  <td class="org-left"><code>BITRATE</code></td>
+                  <td class="org-left"><code>"192k"</code></td>
+                  <td class="org-left">Calidad de audio</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org0118637" class="outline-2">
+        <h2 id="org0118637"># Código completo</h2>
+        <div class="outline-text-2" id="text-org0118637">
+          <div class="org-src-container">
+            <pre
+              class="src src-bash"
+              id="org7e5ac19"
+            ><span style="color: #5B6268;">#</span><span style="color: #5B6268;">!/bin/</span><span style="color: #51afef;">bash</span><span style="color: #5B6268;">  </span>
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Configuraci&#243;n  </span>
+<span style="color: #dcaeea;">INPUT_DIR</span>=<span style="color: #98be65;">"./"</span>      <span style="color: #5B6268;"># </span><span style="color: #5B6268;">Directorio con archivos .m4a  </span>
+<span style="color: #dcaeea;">OUTPUT_DIR</span>=<span style="color: #98be65;">"./MP3"</span>  <span style="color: #5B6268;"># </span><span style="color: #5B6268;">Carpeta de salida  </span>
+<span style="color: #dcaeea;">BITRATE</span>=<span style="color: #98be65;">"192k"</span>      <span style="color: #5B6268;"># </span><span style="color: #5B6268;">Calidad de audio  </span>
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Verificar FFmpeg  </span>
+<span style="color: #51afef;">if ! </span><span style="color: #c678dd;">command</span> -v ffmpeg &amp;&gt;/dev/null; <span style="color: #51afef;">then</span>  
+    <span style="color: #c678dd;">echo</span> <span style="color: #98be65;">"Error: FFmpeg no est&#225; instalado"</span>  
+    <span style="color: #51afef;">exit</span> 1  
+<span style="color: #51afef;">fi</span>  
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Procesamiento de archivos  </span>
+<span style="color: #c678dd;">shopt</span> -s nullglob nocaseglob  
+mkdir -p <span style="color: #98be65;">"$OUTPUT_DIR"</span>  
+
+<span style="color: #51afef;">for</span> file<span style="color: #51afef;"> in</span> <span style="color: #98be65;">"$INPUT_DIR"</span>/*.m4a; <span style="color: #51afef;">do</span>  
+    <span style="color: #51afef;">if</span> [[ -f <span style="color: #98be65;">"$file"</span> ]]; <span style="color: #51afef;">then</span>  
+        <span style="color: #dcaeea;">output_file</span>=<span style="color: #98be65;">"$OUTPUT_DIR/$(</span><span style="color: #51afef; font-weight: bold;">basename "${file%.*}"</span><span style="color: #98be65;">).mp3"</span>  
+        <span style="color: #c678dd;">echo</span> <span style="color: #98be65;">"Convirtiendo: $(</span><span style="color: #51afef; font-weight: bold;">basename "$file"</span><span style="color: #98be65;">)..."</span>  
+        ffmpeg -i <span style="color: #98be65;">"$file"</span> -codec:a libmp3lame -q:a 2 -b:a <span style="color: #98be65;">"$BITRATE"</span> <span style="color: #98be65;">"$output_file"</span> -y  
+    <span style="color: #51afef;">fi</span>  
+<span style="color: #51afef;">done</span>  
+</pre>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org7fd6afb" class="outline-2">
+        <h2 id="org7fd6afb"># Instrucciones de uso</h2>
+        <div class="outline-text-2" id="text-org7fd6afb"></div>
+        <div id="outline-container-orgc891295" class="outline-3">
+          <h3 id="orgc891295">1. Dar permisos</h3>
+          <div class="outline-text-3" id="text-orgc891295">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+chmod +x convert_m4a_to_mp3.sh  
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org63bd001" class="outline-3">
+          <h3 id="org63bd001">2. Ejecutar</h3>
+          <div class="outline-text-3" id="text-org63bd001">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+./convert_m4a_to_mp3.sh  
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org1db4a44" class="outline-2">
+        <h2 id="org1db4a44"># Ejemplo de salida</h2>
+        <div class="outline-text-2" id="text-org1db4a44">
+          <pre class="example" id="org4225343">
+Convirtiendo: audio 1.m4a...  
+✅ audio 1.m4a convertido  
+Proceso completado. Archivos en: ./MP3  
+</pre
+          >
+        </div>
+      </div>
+      <div id="outline-container-orge7884f2" class="outline-2">
+        <h2 id="orge7884f2"># Solución de problemas</h2>
+        <div class="outline-text-2" id="text-orge7884f2"></div>
+        <div id="outline-container-org2c4086f" class="outline-3">
+          <h3 id="org2c4086f">Error común: Espacios en nombres</h3>
+          <div class="outline-text-3" id="text-org2c4086f">
+            <blockquote>
+              <p>
+                Si los archivos tienen espacios, el script original fallaba. La
+                versión actual usa:
+              </p>
+
+              <p>
+                <code>for file in "$INPUT_DIR"/*.m4a; do</code>
+                <code>[[ -f "$file" ]]</code>
+              </p>
+            </blockquote>
+          </div>
+        </div>
+        <div id="outline-container-org2d89fa0" class="outline-3">
+          <h3 id="org2d89fa0">Tabla de errores</h3>
+          <div class="outline-text-3" id="text-org2d89fa0">
+            <table>
+              <colgroup>
+                <col class="org-left" />
+
+                <col class="org-left" />
+
+                <col class="org-left" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col" class="org-left">Error</th>
+                  <th scope="col" class="org-left">Causa</th>
+                  <th scope="col" class="org-left">Solución</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="org-left"><code>ffmpeg: not found</code></td>
+                  <td class="org-left">FFmpeg no instalado</td>
+                  <td class="org-left">Instalar con gestor de paquetes</td>
+                </tr>
+
+                <tr>
+                  <td class="org-left"><code>/*.m4a: No such file</code></td>
+                  <td class="org-left">No hay archivos en el dir</td>
+                  <td class="org-left">Verificar <code>INPUT_DIR</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orga658052" class="outline-2">
+        <h2 id="orga658052"># Personalización</h2>
+        <div class="outline-text-2" id="text-orga658052"></div>
+        <div id="outline-container-orgf648860" class="outline-3">
+          <h3 id="orgf648860">Cambiar calidad de audio</h3>
+          <div class="outline-text-3" id="text-orgf648860">
+            <div class="org-src-container">
+              <pre
+                class="src src-bash"
+              ><span style="color: #dcaeea;">BITRATE</span>=<span style="color: #98be65;">"320k"</span>  <span style="color: #5B6268;"># </span><span style="color: #5B6268;">Editar en el script  </span>
+</pre>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org49fc160" class="outline-3">
+          <h3 id="org49fc160">Procesar subdirectorios</h3>
+          <div class="outline-text-3" id="text-org49fc160">
+            <div class="org-src-container">
+              <pre
+                class="src src-bash"
+              >find <span style="color: #98be65;">"$INPUT_DIR"</span> -type f -iname <span style="color: #98be65;">"*.m4a"</span> -exec ffmpeg -i {} -c:a libmp3lame -b:a <span style="color: #98be65;">"$BITRATE"</span> {}.mp3 <span style="color: #98be65;">\;</span>  
+</pre>
+            </div>
+
+            <div class="org-center">
+              <p>¡Script listo para usar!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2025-05-03-script-convert-m4a-mp3.html</link>
+  <guid>https://martiyo.github.io/2025-05-03-script-convert-m4a-mp3.html</guid>
+  <pubDate>Sat, 03 May 2025 12:36:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[dnsmasq en openwrt]]></title>
+  <description><![CDATA[
+      <p>Bloquear dominios con <b>dnsmasq</b></p>
+      <div id="outline-container-orgfe3d2a6" class="outline-2">
+        <h2 id="orgfe3d2a6"># Wiki</h2>
+        <div class="outline-text-2" id="text-orgfe3d2a6">
+          <p>
+            dnsmasq es un redireccionador de DNS ligero y fácil de configurar,
+            diseñado para proporcionar servicios DNS (y opcionalmente DHCP y
+            TFTP) a una red de pequeña escala. Puede servir los nombres de
+            máquinas locales que no están en el DNS global.
+          </p>
+
+          <p>
+            El servidor DHCP de dnsmasq soporta asignaciones DHCP estáticas y
+            dinámicas, múltiples redes y rangos de direcciones IP. El servidor
+            DHCP se integra con el servidor DNS y permite que las máquinas
+            locales con direcciones asignadas por DHCP aparezcan en el DNS.
+            dnsmasq almacena en caché los registros DNS, reduciendo la carga de
+            los servidores de nombres de origen y mejorando el rendimiento, y
+            puede configurarse para que recoja automáticamente las direcciones
+            de sus servidores de origen.
+          </p>
+
+          <p>
+            dnsmasq acepta peticiones DNS y las responde desde una pequeña caché
+            local o las reenvía a un servidor DNS real y recursivo. Carga el
+            contenido de /etc/hosts, para que los nombres de hosts locales que
+            no aparecen en el DNS global puedan ser resueltos. Esto también
+            significa que los registros añadidos al archivo local /etc/hosts con
+            el formato "0.0.0.0 annoyingsite.com" pueden ser usados para
+            prevenir que las referencias a "annoyingsite.com" sean resueltas por
+            el navegador. Esto puede evolucionar rápidamente a un bloqueador de
+            anuncios local cuando se combina con proveedores de listas de sitios
+            para el bloqueo de anuncios. Si se realiza en el router, puede
+            eliminar eficazmente el contenido publicitario de todo un hogar y/o
+            empresa.
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-orgdafcbbd" class="outline-2">
+        <h2 id="orgdafcbbd">
+          # Editar el archivo de configuracion de dnsmasq:
+        </h2>
+        <div class="outline-text-2" id="text-orgdafcbbd">
+          <div class="org-src-container">
+            <pre class="src src-shell">
+vi /etc/dnsmasq.conf 
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orge3ef87d" class="outline-2">
+        <h2 id="orge3ef87d"># Agregar una linea para cada dominios</h2>
+        <div class="outline-text-2" id="text-orge3ef87d">
+          <div class="org-src-container">
+            <pre
+              class="src src-shell"
+            ><span style="color: #dcaeea;">address</span>=/dominio1.com/0.0.0.0
+<span style="color: #dcaeea;">address</span>=/dominio2.com/0.0.0.0
+</pre>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org3cf20ed" class="outline-2">
+        <h2 id="org3cf20ed">
+          # Reiniciar el servicion para aplicar los cambios
+        </h2>
+        <div class="outline-text-2" id="text-org3cf20ed">
+          <div class="org-src-container">
+            <pre class="src src-shell">
+/etc/init.d/dnsmasq restart
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-openwrt.html">openwrt</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[openwrt]]></category>
+  <link>https://martiyo.github.io/2025-02-24-openwrt-dnsmasq.html</link>
+  <guid>https://martiyo.github.io/2025-02-24-openwrt-dnsmasq.html</guid>
+  <pubDate>Mon, 24 Feb 2025 19:13:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[Configurar fuentes en emacs]]></title>
   <description><![CDATA[
-<p>
-Fuente comic-mono para emacs
-</p>
-<div id="outline-container-orgc11bb21" class="outline-2">
-<h2 id="orgc11bb21"># Descargar la funete</h2>
-<div class="outline-text-2" id="text-orgc11bb21">
-<p>
-Desde la pagina oficial de <a href="https://github.com/dtinth/comic-mono-font">github</a> descargar los archivos fuente (normalemente en formato <b>.ttf</b> o <b>.otf</b>)
-</p>
-</div>
-</div>
-<div id="outline-container-org361c8e3" class="outline-2">
-<h2 id="org361c8e3"># Instalar la fuente en el sistema</h2>
-<div class="outline-text-2" id="text-org361c8e3">
-<ul class="org-ul">
-<li>Copiar los archivos de la fuente (<b>.ttf</b> o <b>.otf</b>) en la carpeta de fuentes del sistema:</li>
-</ul>
-<div class="org-src-container">
-<pre class="src src-shell">mkdir -p ~/.local/share/fonts
+      <p>Fuente comic-mono para emacs</p>
+      <div id="outline-container-org5505f1a" class="outline-2">
+        <h2 id="org5505f1a"># Descargar la funete</h2>
+        <div class="outline-text-2" id="text-org5505f1a">
+          <p>
+            Desde la pagina oficial de
+            <a href="https://github.com/dtinth/comic-mono-font">github</a>
+            descargar los archivos fuente (normalemente en formato <b>.ttf</b> o
+            <b>.otf</b>)
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-org1db9b51" class="outline-2">
+        <h2 id="org1db9b51"># Instalar la fuente en el sistema</h2>
+        <div class="outline-text-2" id="text-org1db9b51">
+          <ul class="org-ul">
+            <li>
+              Copiar los archivos de la fuente (<b>.ttf</b> o <b>.otf</b>) en la
+              carpeta de fuentes del sistema:
+            </li>
+          </ul>
+          <div class="org-src-container">
+            <pre class="src src-shell">
+mkdir -p ~/.local/share/fonts
 cp /ruta/a/comic-mono.ttf ~/.local/share/fonts/
-</pre>
-</div>
+</pre
+            >
+          </div>
 
-<ul class="org-ul">
-<li>Actualizar la caché de fuentes:</li>
-</ul>
-<div class="org-src-container">
-<pre class="src src-shell">fc-cache -fv
-</pre>
-</div>
+          <ul class="org-ul">
+            <li>Actualizar la caché de fuentes:</li>
+          </ul>
+          <div class="org-src-container">
+            <pre class="src src-shell">
+fc-cache -fv
+</pre
+            >
+          </div>
 
-<ul class="org-ul">
-<li>Verificar que la fuente este instalada:</li>
-</ul>
-<div class="org-src-container">
-<pre class="src src-shell">fc-list | grep "Comic Mono"
+          <ul class="org-ul">
+            <li>Verificar que la fuente este instalada:</li>
+          </ul>
+          <div class="org-src-container">
+            <pre
+              class="src src-shell"
+            >fc-list | grep <span style="color: #98be65;">"Comic Mono"</span>
 </pre>
-</div>
-</div>
-</div>
-<div id="outline-container-orgf0e358c" class="outline-2">
-<h2 id="orgf0e358c"># Configurar la fuente en Emacs</h2>
-<div class="outline-text-2" id="text-orgf0e358c">
-<p>
-Una vez que la fuente esta instalada en el sistema hay que configurar emacs para usarla.
-</p>
-</div>
-<div id="outline-container-org1100be3" class="outline-4">
-<h4 id="org1100be3">Opción 1: Configurar la fuente globalmente</h4>
-<div class="outline-text-4" id="text-org1100be3">
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">;; Establecer la fuente Comic Mono
-(set-frame-font "Comic Mono-12" nil t)
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgb4542a0" class="outline-2">
+        <h2 id="orgb4542a0"># Configurar la fuente en Emacs</h2>
+        <div class="outline-text-2" id="text-orgb4542a0">
+          <p>
+            Una vez que la fuente esta instalada en el sistema hay que
+            configurar emacs para usarla.
+          </p>
+        </div>
+        <div id="outline-container-org255ab59" class="outline-3">
+          <h3 id="org255ab59">Opción 1: Configurar la fuente globalmente</h3>
+          <div class="outline-text-3" id="text-org255ab59">
+            <div class="org-src-container">
+              <pre
+                class="src src-emacs-lisp"
+              ><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Establecer la fuente Comic Mono</span>
+(set-frame-font <span style="color: #98be65;">"Comic Mono-12"</span> nil t)
 </pre>
-</div>
-</div>
-</div>
-<div id="outline-container-org563daa0" class="outline-4">
-<h4 id="org563daa0">Opción 2: Configurar la fuente solo para Org-mode</h4>
-<div class="outline-text-4" id="text-org563daa0">
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">;; Establecer la fuente Comic Mono solo para Org Mode
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orge833eb2" class="outline-3">
+          <h3 id="orge833eb2">
+            Opción 2: Configurar la fuente solo para Org-mode
+          </h3>
+          <div class="outline-text-3" id="text-orge833eb2">
+            <div class="org-src-container">
+              <pre
+                class="src src-emacs-lisp"
+              ><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Establecer la fuente Comic Mono solo para Org Mode</span>
 (add-hook 'org-mode-hook
-          (lambda ()
-            (set-face-attribute 'default nil :font "Comic Mono-12")))
+          (<span style="color: #51afef;">lambda</span> ()
+            (set-face-attribute 'default nil <span style="color: #c678dd;">:font</span> <span style="color: #98be65;">"Comic Mono-12"</span>)))
 </pre>
-</div>
+            </div>
 
-<p>
-Evaluar el buffer para verificar la configuración.
-</p>
-</div>
-</div>
-</div>
-<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div>]]></description>
+            <p>Evaluar el buffer para verificar la configuración.</p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2025-02-02-configurar-fuentes-en-emacs.html</link>
   <guid>https://martiyo.github.io/2025-02-02-configurar-fuentes-en-emacs.html</guid>
@@ -91,175 +474,205 @@ Evaluar el buffer para verificar la configuración.
 <item>
   <title><![CDATA[Iptables en openwrt]]></title>
   <description><![CDATA[
-<p>
-Bloquear conexion a internet por IP o MAC con iptables.
-</p>
-<div id="outline-container-orgcdcd133" class="outline-2">
-<h2 id="orgcdcd133"># Editar las reglas del fierwall manualmente</h2>
-<div class="outline-text-2" id="text-orgcdcd133">
-<p>
-El archivo de configuración del firewall en <b>openwrt</b> es <b>/etc/config/firewall</b> entonces:
-</p>
+      <p>Bloquear conexion a internet por IP o MAC con iptables.</p>
+      <div id="outline-container-org998e549" class="outline-2">
+        <h2 id="org998e549"># Editar las reglas del fierwall manualmente</h2>
+        <div class="outline-text-2" id="text-org998e549">
+          <p>
+            El archivo de configuración del firewall en <b>openwrt</b> es
+            <b>/etc/config/firewall</b> entonces:
+          </p>
 
-<div class="org-src-container">
-<pre class="src src-shell">vi /etc/config/firewall
+          <div class="org-src-container">
+            <pre class="src src-shell">
+vi /etc/config/firewall
+</pre
+            >
+          </div>
+        </div>
+        <div id="outline-container-orgfdcf82e" class="outline-3">
+          <h3 id="orgfdcf82e">
+            Agregar la regla para bloquear la IP del dispositivo
+          </h3>
+          <div class="outline-text-3" id="text-orgfdcf82e">
+            <div class="org-src-container">
+              <pre class="src src-shell">config rule
+  option name <span style="color: #98be65;">'Bloquear Dispositivo'</span>
+  option src <span style="color: #98be65;">'lan'</span>
+  option dest <span style="color: #98be65;">'wan'</span>
+  option src_ip <span style="color: #98be65;">'192.168.1.100'</span>
+  option target <span style="color: #98be65;">'DROP'</span>
 </pre>
-</div>
-</div>
-<div id="outline-container-org0a486ca" class="outline-3">
-<h3 id="org0a486ca">Agregar la regla para bloquear la IP del dispositivo</h3>
-<div class="outline-text-3" id="text-org0a486ca">
-<div class="org-src-container">
-<pre class="src src-shell">config rule
-  option name 'Bloquear Dispositivo'
-  option src 'lan'
-  option dest 'wan'
-  option src_ip '192.168.1.100'
-  option target 'DROP'
-</pre>
-</div>
+            </div>
 
-<p>
-Cambiar <b>src<sub>ip</sub></b> por <b>src<sub>mac</sub></b> para bloquear por dirección mac, o para bloquear varios dispositivos en lugar de <b>option src ip &#x2026;</b>,  debe ser <b>list src ip&#x2026;</b>
-</p>
-</div>
-</div>
-<div id="outline-container-org49e7de3" class="outline-3">
-<h3 id="org49e7de3">Reiniciar el firewall</h3>
-<div class="outline-text-3" id="text-org49e7de3">
-<p>
-Aplicar los cambios reiniciando el servicio del firewall:
-</p>
+            <p>
+              Cambiar <b>src<sub>ip</sub></b> por <b>src<sub>mac</sub></b> para
+              bloquear por dirección mac, o para bloquear varios dispositivos en
+              lugar de <b>option src ip &#x2026;</b>, debe ser
+              <b>list src ip&#x2026;</b>
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-orgf8b7edd" class="outline-3">
+          <h3 id="orgf8b7edd">Reiniciar el firewall</h3>
+          <div class="outline-text-3" id="text-orgf8b7edd">
+            <p>Aplicar los cambios reiniciando el servicio del firewall:</p>
 
-<div class="org-src-container">
-<pre class="src src-shell">/etc/init.d/firewall restart
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-org73a6258" class="outline-3">
-<h3 id="org73a6258">Verificar regla aplicada</h3>
-<div class="outline-text-3" id="text-org73a6258">
-<div class="org-src-container">
-<pre class="src src-shell">iptables -L -v
-</pre>
-</div>
+            <div class="org-src-container">
+              <pre class="src src-shell">
+/etc/init.d/firewall restart
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org4e00e9c" class="outline-3">
+          <h3 id="org4e00e9c">Verificar regla aplicada</h3>
+          <div class="outline-text-3" id="text-org4e00e9c">
+            <div class="org-src-container">
+              <pre class="src src-shell">
+iptables -L -v
+</pre
+              >
+            </div>
 
-<p>
-Buscar una regla que contenga la IP del dispositivo y confirme que está bloqueda.
-</p>
-</div>
-</div>
-</div>
-<div id="outline-container-org995af07" class="outline-2">
-<h2 id="org995af07"># Habilitar y deshabilitar la regla en un horario especifico utilizando <b>cron</b></h2>
-<div class="outline-text-2" id="text-org995af07">
-</div>
-<div id="outline-container-org0ab8942" class="outline-3">
-<h3 id="org0ab8942">Crear scripts para habilitar y deshabilitar la regla</h3>
-<div class="outline-text-3" id="text-org0ab8942">
-</div>
-<div id="outline-container-org6917e55" class="outline-4">
-<h4 id="org6917e55">Script para habilitar la regla:</h4>
-<div class="outline-text-4" id="text-org6917e55">
-<div class="org-src-container">
-<pre class="src src-shell">vi /etc/firewall.enable_block.sh   
-</pre>
-</div>
+            <p>
+              Buscar una regla que contenga la IP del dispositivo y confirme que
+              está bloqueda.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org6fe1330" class="outline-2">
+        <h2 id="org6fe1330">
+          # Habilitar y deshabilitar la regla en un horario especifico
+          utilizando <b>cron</b>
+        </h2>
+        <div class="outline-text-2" id="text-org6fe1330"></div>
+        <div id="outline-container-org74d4042" class="outline-3">
+          <h3 id="org74d4042">
+            Crear scripts para habilitar y deshabilitar la regla
+          </h3>
+          <div class="outline-text-3" id="text-org74d4042"></div>
+          <div id="outline-container-org84ea0fc" class="outline-4">
+            <h4 id="org84ea0fc">Script para habilitar la regla:</h4>
+            <div class="outline-text-4" id="text-org84ea0fc">
+              <div class="org-src-container">
+                <pre class="src src-shell">
+vi /etc/firewall.enable_block.sh   
+</pre
+                >
+              </div>
 
-<p>
-Contenido del script:
-</p>
+              <p>Contenido del script:</p>
 
-<div class="org-src-container">
-<pre class="src src-shell">#!/bin/sh
-uci set firewall.@rule[&lt;índice&gt;].enabled='1'
+              <div class="org-src-container">
+                <pre
+                  class="src src-shell"
+                ><span style="color: #5B6268;">#</span><span style="color: #5B6268;">!/bin/</span><span style="color: #51afef;">sh</span>
+uci set firewall.@rule[&lt;&#237;ndice&gt;].enabled=<span style="color: #98be65;">'1'</span>
 uci commit firewall
 /etc/init.d/firewall restart
 </pre>
-</div>
+              </div>
 
-<p>
-Cambiar <b>&lt;índice&gt;</b> por el índice de la regla en el archivo <b>/etc/config/firewall</b>.
-Usar:
-</p>
+              <p>
+                Cambiar <b>&lt;índice&gt;</b> por el índice de la regla en el
+                archivo <b>/etc/config/firewall</b>. Usar:
+              </p>
 
-<div class="org-src-container">
-<pre class="src src-shell">uci show firewall | grep 'Bloquear Dispositivo'
+              <div class="org-src-container">
+                <pre
+                  class="src src-shell"
+                >uci show firewall | grep <span style="color: #98be65;">'Bloquear Dispositivo'</span>
 </pre>
-</div>
+              </div>
 
-<p>
-para identificarlo.
-Ejemplo: si hay algo como firewall.@rule[4], entonces &lt;índice&gt; será 4.
-</p>
-</div>
-</div>
-<div id="outline-container-orgd19c4c8" class="outline-4">
-<h4 id="orgd19c4c8">Script para deshabilitar la regla</h4>
-<div class="outline-text-4" id="text-orgd19c4c8">
-<div class="org-src-container">
-<pre class="src src-shell">vi /etc/firewall.disable_block.sh
-</pre>
-</div>
+              <p>
+                para identificarlo. Ejemplo: si hay algo como firewall.@rule[4],
+                entonces &lt;índice&gt; será 4.
+              </p>
+            </div>
+          </div>
+          <div id="outline-container-orgba5d5af" class="outline-4">
+            <h4 id="orgba5d5af">Script para deshabilitar la regla</h4>
+            <div class="outline-text-4" id="text-orgba5d5af">
+              <div class="org-src-container">
+                <pre class="src src-shell">
+vi /etc/firewall.disable_block.sh
+</pre
+                >
+              </div>
 
-<p>
-Contenido del script:
-</p>
+              <p>Contenido del script:</p>
 
-<div class="org-src-container">
-<pre class="src src-shell">#!/bin/sh
-uci set firewall.@rule[&lt;índice&gt;].enabled='0'
+              <div class="org-src-container">
+                <pre
+                  class="src src-shell"
+                ><span style="color: #5B6268;">#</span><span style="color: #5B6268;">!/bin/</span><span style="color: #51afef;">sh</span>
+uci set firewall.@rule[&lt;&#237;ndice&gt;].enabled=<span style="color: #98be65;">'0'</span>
 uci commit firewall
 /etc/init.d/firewall restart
 </pre>
-</div>
-</div>
-</div>
-<div id="outline-container-orgb0d4090" class="outline-4">
-<h4 id="orgb0d4090">Scripts ejecutables:</h4>
-<div class="outline-text-4" id="text-orgb0d4090">
-<div class="org-src-container">
-<pre class="src src-shell">chmod +x /etc/firewall.enable_block.sh /etc/firewall.disable_block.sh
+              </div>
+            </div>
+          </div>
+          <div id="outline-container-orgbabe34a" class="outline-4">
+            <h4 id="orgbabe34a">Scripts ejecutables:</h4>
+            <div class="outline-text-4" id="text-orgbabe34a">
+              <div class="org-src-container">
+                <pre class="src src-shell">
+chmod +x /etc/firewall.enable_block.sh /etc/firewall.disable_block.sh
+</pre
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgee816a1" class="outline-3">
+          <h3 id="orgee816a1">Programar las tares con cron</h3>
+          <div class="outline-text-3" id="text-orgee816a1">
+            <div class="org-src-container">
+              <pre class="src src-shell">
+crontaba -e
+</pre
+              >
+            </div>
+
+            <p>
+              Agregar las siguientes líneas para habilitar y deshabilitar la
+              regla a horarios especificos:
+            </p>
+
+            <div class="org-src-container">
+              <pre
+                class="src src-shell"
+              ><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Habilitar la regla todos los d&#237;as a las 8:00 AM</span>
+0 2 * * * /etc/firewall.enable_block.sh
+
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Deshabilitar la regla todos los d&#237;as a las 8:00 PM</span>
+0 7 * * * /etc/firewall.disable_block.sh
 </pre>
-</div>
-</div>
-</div>
-</div>
-<div id="outline-container-org491b1e7" class="outline-3">
-<h3 id="org491b1e7">Programar las tares con cron</h3>
-<div class="outline-text-3" id="text-org491b1e7">
-<div class="org-src-container">
-<pre class="src src-shell">crontaba -e
-</pre>
-</div>
+            </div>
 
-<p>
-Agregar las siguientes líneas para habilitar y deshabilitar la regla a horarios especificos:
-</p>
+            <p>Reiniciar cron</p>
 
-<div class="org-src-container">
-<pre class="src src-shell"># Habilitar la regla todos los días a las 8:00 AM
-0 8 * * * /etc/firewall.enable_block.sh
-
-
-# Deshabilitar la regla todos los días a las 8:00 PM
-0 20 * * * /etc/firewall.disable_block.sh
-</pre>
-</div>
-
-<p>
-Reiniciar cron
-</p>
-
-<div class="org-src-container">
-<pre class="src src-shell">/etc/init.d/cron restart
-</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-openwrt.html">openwrt</a> <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div>]]></description>
+            <div class="org-src-container">
+              <pre class="src src-shell">
+/etc/init.d/cron restart
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-openwrt.html">openwrt</a>
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
   <category><![CDATA[openwrt]]></category>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2025-01-11-iptables-en-openwrt.html</link>
@@ -679,129 +1092,168 @@ Para detener el servicio se usa:
 <item>
   <title><![CDATA[GPG]]></title>
   <description><![CDATA[
-<p>
-Cifrar y firmar datos y comunicaciones con GnuPG
-</p>
-<div id="outline-container-orgd10ef0f" class="outline-2">
-<h2 id="orgd10ef0f">#Intro <a href="https://gnupg.org/">pagina oficial</a></h2>
-<div class="outline-text-2" id="text-orgd10ef0f">
-<p>
-GnuPG es una implementación completa y gratuita del estándar OpenPGP definido por RFC4880 (también conocido como PGP). GnuPG le permite cifrar y firmar sus datos y comunicaciones; cuenta con un versátil sistema de gestión de claves, junto con módulos de acceso para todo tipo de directorios de claves públicas. GnuPG, también conocido como GPG, es una herramienta de línea de comandos con funciones para integrarse fácilmente con otras aplicaciones. Dispone de una gran cantidad de aplicaciones graficas y bibliotecas. GnuPG también ofrece soporte para S/MIME y Secure Shell (ssh).
-</p>
-</div>
-</div>
-<div id="outline-container-org69c95de" class="outline-2">
-<h2 id="org69c95de">#Cifrado simétrico</h2>
-<div class="outline-text-2" id="text-org69c95de">
-<p>
-La criptografía simétrica solo utiliza una clave para cifrar y descifrar el mensaje, que tiene que conocer el emisor y el receptor previamente y este es el punto débil del sistema, la comunicación de las claves entre ambos sujetos. El cifrado simétrico es el tipo de cifrado más sencillo que hay, es más rápido de procesar y por desgracia menos seguro que el cifrado asimétrico.
-</p>
-</div>
-<div id="outline-container-orgac62789" class="outline-3">
-<h3 id="orgac62789">Ejemplos:</h3>
-<div class="outline-text-3" id="text-orgac62789">
-<p>
-Cifrar:
-</p>
+      <p>Cifrar y firmar datos y comunicaciones con GnuPG</p>
+      <div id="outline-container-org0f57a71" class="outline-2">
+        <h2 id="org0f57a71">
+          # Intro <a href="https://gnupg.org/">pagina oficial</a>
+        </h2>
+        <div class="outline-text-2" id="text-org0f57a71">
+          <p>
+            GnuPG es una implementación completa y gratuita del estándar OpenPGP
+            definido por RFC4880 (también conocido como PGP). GnuPG le permite
+            cifrar y firmar sus datos y comunicaciones; cuenta con un versátil
+            sistema de gestión de claves, junto con módulos de acceso para todo
+            tipo de directorios de claves públicas. GnuPG, también conocido como
+            GPG, es una herramienta de línea de comandos con funciones para
+            integrarse fácilmente con otras aplicaciones. Dispone de una gran
+            cantidad de aplicaciones graficas y bibliotecas. GnuPG también
+            ofrece soporte para S/MIME y Secure Shell (ssh).
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-orgc893daa" class="outline-2">
+        <h2 id="orgc893daa"># Cifrado simétrico</h2>
+        <div class="outline-text-2" id="text-orgc893daa">
+          <p>
+            La criptografía simétrica solo utiliza una clave para cifrar y
+            descifrar el mensaje, que tiene que conocer el emisor y el receptor
+            previamente y este es el punto débil del sistema, la comunicación de
+            las claves entre ambos sujetos. El cifrado simétrico es el tipo de
+            cifrado más sencillo que hay, es más rápido de procesar y por
+            desgracia menos seguro que el cifrado asimétrico.
+          </p>
+        </div>
+        <div id="outline-container-org4529f69" class="outline-3">
+          <h3 id="org4529f69">Ejemplos:</h3>
+          <div class="outline-text-3" id="text-org4529f69">
+            <p>Cifrar:</p>
 
-<div class="org-src-container">
-<pre class="src src-nil">echo "hola munco" &gt; archivo
+            <div class="org-src-container">
+              <pre class="src src-nil">
+echo "hola munco" &gt; archivo
 gpg -c archivo
-</pre>
-</div>
+</pre
+              >
+            </div>
 
-<p>
-Decifrar: 
-</p>
+            <p>Decifrar:</p>
 
-<div class="org-src-container">
-<pre class="src src-nil">gpg -d archivo
-</pre>
-</div>
-</div>
-</div>
-</div>
-<div id="outline-container-org041887d" class="outline-2">
-<h2 id="org041887d">#Cifrado asimétrico</h2>
-<div class="outline-text-2" id="text-org041887d">
-<p>
-El cifrado asimétrico se basa en el uso de dos claves: una publica y una privada. Los sistemas de cifrado de clave pública se inventaron con el fin de evitar por completo el problema del intercambio de claves. Un sistema de cifrado de clave pública usa un par de claves para el envío de mensajes. Las dos claves pertenecen a la misma persona a la que se ha enviado el mensaje. Una clave es pública y se puede entregar a cualquier persona. La otra clave es privada y el propietario debe guardarla para que nadie tenga acceso a ella. El remitente usa la clave pública del destinatario para cifrar el mensaje, y una vez cifrado, sólo la clave privada del destinatario podrá descifrar este mensaje.
-</p>
-</div>
-<div id="outline-container-orgd8a6711" class="outline-3">
-<h3 id="orgd8a6711">Ejemplos:</h3>
-<div class="outline-text-3" id="text-orgd8a6711">
-<p>
-Generar claves
-</p>
+            <div class="org-src-container">
+              <pre class="src src-nil">
+gpg -d archivo
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgc1cfbf7" class="outline-2">
+        <h2 id="orgc1cfbf7"># Cifrado asimétrico</h2>
+        <div class="outline-text-2" id="text-orgc1cfbf7">
+          <p>
+            El cifrado asimétrico se basa en el uso de dos claves: una publica y
+            una privada. Los sistemas de cifrado de clave pública se inventaron
+            con el fin de evitar por completo el problema del intercambio de
+            claves. Un sistema de cifrado de clave pública usa un par de claves
+            para el envío de mensajes. Las dos claves pertenecen a la misma
+            persona a la que se ha enviado el mensaje. Una clave es pública y se
+            puede entregar a cualquier persona. La otra clave es privada y el
+            propietario debe guardarla para que nadie tenga acceso a ella. El
+            remitente usa la clave pública del destinatario para cifrar el
+            mensaje, y una vez cifrado, sólo la clave privada del destinatario
+            podrá descifrar este mensaje.
+          </p>
+        </div>
+        <div id="outline-container-orgea7a946" class="outline-3">
+          <h3 id="orgea7a946">Ejemplos:</h3>
+          <div class="outline-text-3" id="text-orgea7a946">
+            <p>Generar claves</p>
 
-<div class="org-src-container">
-<pre class="src src-nil">gpg --gen-key
-</pre>
-</div>
+            <div class="org-src-container">
+              <pre class="src src-nil">
+gpg --gen-key
+</pre
+              >
+            </div>
 
-<p>
-Este comando muestra un menu de opciones y las respuestas pueden ser:
-</p>
+            <p>
+              Este comando muestra un menu de opciones y las respuestas pueden
+              ser:
+            </p>
 
-<ul class="org-ul">
-<li>Su eleccion: 1 (RSA).</li>
+            <ul class="org-ul">
+              <li>Su eleccion: 1 (RSA).</li>
 
-<li>¿De qué tamaño quiere la clave (0)? 0</li>
+              <li>¿De qué tamaño quiere la clave (0)? 0</li>
 
-<li>¿Es correcto? (s/n) s</li>
+              <li>¿Es correcto? (s/n) s</li>
 
-<li>Nombre y apellidos : John Doe</li>
+              <li>Nombre y apellidos : John Doe</li>
 
-<li>Dirección de correo electronico: johndoe@email.com</li>
+              <li>Dirección de correo electronico: johndoe@email.com</li>
 
-<li>Comentario:</li>
+              <li>Comentario:</li>
 
-<li>¿Cambia (N)ombre, (C)omentario, (D)irección o (V)ale/(S)alir? V</li>
-</ul>
+              <li>
+                ¿Cambia (N)ombre, (C)omentario, (D)irección o (V)ale/(S)alir? V
+              </li>
+            </ul>
 
-<p>
-Luego pide crear una contraseña maestra para la clave y genera las claves gpg.
-</p>
-</div>
-</div>
-</div>
-<div id="outline-container-org436e26a" class="outline-2">
-<h2 id="org436e26a">#Obtener el KEY<sub>ID</sub> de nuestra clave GPG</h2>
-<div class="outline-text-2" id="text-org436e26a">
-<div class="org-src-container">
-<pre class="src src-nil">gpg -k --keyid-format log
-</pre>
-</div>
+            <p>
+              Luego pide crear una contraseña maestra para la clave y genera las
+              claves gpg.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgb1099de" class="outline-2">
+        <h2 id="orgb1099de">
+          # Obtener el KEY<sub>ID</sub> de nuestra clave GPG
+        </h2>
+        <div class="outline-text-2" id="text-orgb1099de">
+          <div class="org-src-container">
+            <pre class="src src-nil">
+gpg -k --keyid-format log
+</pre
+            >
+          </div>
 
-<p>
-Dentro del bloque de clave identificada, la key id es el código alfanumérico mostrado después del cifrado (rsa4096) que utilizado al crear clave, algo como esto: 81F0CD4B06C52998.
-</p>
-</div>
-</div>
-<div id="outline-container-orgdcd0f53" class="outline-2">
-<h2 id="orgdcd0f53">#Cambiar dialogo GTK pinentry  por pinentry-curses</h2>
-<div class="outline-text-2" id="text-orgdcd0f53">
-<p>
-Editar el archivo <b>~/.gnupg/gpg-agent.conf</b> y agregar:
-</p>
+          <p>
+            Dentro del bloque de clave identificada, la key id es el código
+            alfanumérico mostrado después del cifrado (rsa4096) que utilizado al
+            crear clave, algo como esto: 81F0CD4B06C52998.
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-org3662c24" class="outline-2">
+        <h2 id="org3662c24">
+          # Cambiar dialogo GTK pinentry por pinentry-curses
+        </h2>
+        <div class="outline-text-2" id="text-org3662c24">
+          <p>Editar el archivo <b>~/.gnupg/gpg-agent.conf</b> y agregar:</p>
 
-<div class="org-src-container">
-<pre class="src src-nil">pinentry-program /usr/bin/pinentry-curses
-</pre>
-</div>
+          <div class="org-src-container">
+            <pre class="src src-nil">
+pinentry-program /usr/bin/pinentry-curses
+</pre
+            >
+          </div>
 
-<p>
-y recargar la configuracion de GPG
-</p>
+          <p>y recargar la configuracion de GPG</p>
 
-<div class="org-src-container">
-<pre class="src src-nil">echo RELOADAGENT | gpg-connect-agent
-</pre>
-</div>
-</div>
-</div>
-<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div>]]></description>
+          <div class="org-src-container">
+            <pre class="src src-nil">
+echo RELOADAGENT | gpg-connect-agent
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2023-07-09-gpg.html</link>
   <guid>https://martiyo.github.io/2023-07-09-gpg.html</guid>
@@ -937,265 +1389,314 @@ sudo update-grub2
 <item>
   <title><![CDATA[Restclient.el]]></title>
   <description><![CDATA[
-<p>
-Explorar servicios web HTTP REST.
-</p>
-<div id="outline-container-orgba85c49" class="outline-2">
-<h2 id="orgba85c49"># Restclient.el</h2>
-<div class="outline-text-2" id="text-orgba85c49">
-<p>
-Restclient es una herramienta para explorar y probar manualmente los servicios web HTTP REST. Ejecuta consultas desde una hoja de consulta de texto sin formato y muestra los resultados como XML, JSON e incluso imágenes.
-</p>
-</div>
-</div>
-<div id="outline-container-org52a6ba8" class="outline-2">
-<h2 id="org52a6ba8"># Instalación</h2>
-<div class="outline-text-2" id="text-org52a6ba8">
-<ul class="org-ul">
-<li>Actualizar la lista de paquetes <b>M-x package-refresh-contents</b>.</li>
+      <p>Explorar servicios web HTTP REST.</p>
+      <div id="outline-container-org942eea7" class="outline-2">
+        <h2 id="org942eea7"># Restclient.el</h2>
+        <div class="outline-text-2" id="text-org942eea7">
+          <p>
+            Restclient es una herramienta para explorar y probar manualmente los
+            servicios web HTTP REST. Ejecuta consultas desde una hoja de
+            consulta de texto sin formato y muestra los resultados como XML,
+            JSON e incluso imágenes.
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-orgbc4c1b1" class="outline-2">
+        <h2 id="orgbc4c1b1"># Instalación</h2>
+        <div class="outline-text-2" id="text-orgbc4c1b1">
+          <ul class="org-ul">
+            <li>
+              Actualizar la lista de paquetes
+              <b>M-x package-refresh-contents</b>.
+            </li>
 
-<li>Instalar con <b>M-x package-install RET restclient RET</b>.</li>
-</ul>
-</div>
-<div id="outline-container-orgdacda3d" class="outline-3">
-<h3 id="orgdacda3d">Configuración básica</h3>
-<div class="outline-text-3" id="text-orgdacda3d">
-<div class="org-src-container">
-<pre class="src src-elisp">;; Cargar restclient
-(require 'restclient)
+            <li>Instalar con <b>M-x package-install RET restclient RET</b>.</li>
+          </ul>
+        </div>
+        <div id="outline-container-org4bd9dbc" class="outline-3">
+          <h3 id="org4bd9dbc">Configuración básica</h3>
+          <div class="outline-text-3" id="text-org4bd9dbc">
+            <div class="org-src-container">
+              <pre
+                class="src src-elisp"
+              ><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Cargar restclient</span>
+(<span style="color: #51afef;">require</span> '<span style="color: #a9a1e1;">restclient</span>)
 
-;; Asocia archivos .http con restclient-mode
-(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Asocia archivos .http con restclient-mode</span>
+(add-to-list 'auto-mode-alist '(<span style="color: #98be65;">"\\.http\\'"</span> . restclient-mode))
 </pre>
-</div>
+            </div>
 
-<ul class="org-ul">
-<li>Opcional company-restclient: para el autocompletado instalar <b>M-x package-install RET company-restclient RET</b>.</li>
-</ul>
-</div>
-</div>
-<div id="outline-container-org9816d0b" class="outline-3">
-<h3 id="org9816d0b">Configuración opcional</h3>
-<div class="outline-text-3" id="text-org9816d0b">
-<div class="org-src-container">
-<pre class="src src-elisp">(with-eval-after-load 'company
+            <ul class="org-ul">
+              <li>
+                Opcional company-restclient: para el autocompletado instalar
+                <b>M-x package-install RET company-restclient RET</b>.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="outline-container-org5b6cf46" class="outline-3">
+          <h3 id="org5b6cf46">Configuración opcional</h3>
+          <div class="outline-text-3" id="text-org5b6cf46">
+            <div class="org-src-container">
+              <pre
+                class="src src-elisp"
+              >(<span style="color: #51afef;">with-eval-after-load</span> 'company
 (add-to-list 'company-backends 'company-restclient))
 </pre>
-</div>
-</div>
-</div>
-</div>
-<div id="outline-container-org881d913" class="outline-2">
-<h2 id="org881d913"># Uso</h2>
-<div class="outline-text-2" id="text-org881d913">
-<ul class="org-ul">
-<li>Crear un archivo con extensión <b>.http</b> o usar un buffer en <b>restclient-mode</b>.</li>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org0c57636" class="outline-2">
+        <h2 id="org0c57636"># Uso</h2>
+        <div class="outline-text-2" id="text-org0c57636">
+          <ul class="org-ul">
+            <li>
+              Crear un archivo con extensión <b>.http</b> o usar un buffer en
+              <b>restclient-mode</b>.
+            </li>
 
-<li>Escribir las solicitudes <b>http</b> en el siguiente formato:</li>
-</ul>
+            <li>
+              Escribir las solicitudes <b>http</b> en el siguiente formato:
+            </li>
+          </ul>
 
-<div class="org-src-container">
-<pre class="src src-restclient"># Solicitud GET
-GET https://jsonplaceholder.typicode.com/posts/1
-Accept: application/json
+          <div class="org-src-container">
+            <pre
+              class="src src-restclient"
+            ><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Solicitud GET</span>
+<span style="color: #51afef;">GET</span> <span style="color: #c678dd;">https://jsonplaceholder.typicode.com/posts/1</span>
+<span style="color: #dcaeea;">Accept</span>: <span style="color: #98be65;">application/json</span>
 
-# Solicitud POST
-POST https://jsonplaceholder.typicode.com/posts
-Content-Type: application/json
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Solicitud POST</span>
+<span style="color: #51afef;">POST</span> <span style="color: #c678dd;">https://jsonplaceholder.typicode.com/posts</span>
+<span style="color: #dcaeea;">Content-Type</span>: <span style="color: #98be65;">application/json</span>
 
 {
-  "title": "foo",
-  "body": "bar",
-  "userId": 1
+  <span style="color: #98be65;">"title"</span>: <span style="color: #98be65;">"foo"</span>,
+  <span style="color: #98be65;">"body"</span>: <span style="color: #98be65;">"bar"</span>,
+  <span style="color: #98be65;">"userId"</span>: 1
 }
 </pre>
-</div>
-</div>
-<div id="outline-container-org55666d5" class="outline-3">
-<h3 id="org55666d5">Para ejecutar una solicitud:</h3>
-<div class="outline-text-3" id="text-org55666d5">
-<ul class="org-ul">
-<li>Colocar el cursor dentro del bloque de la solicitud.</li>
+          </div>
+        </div>
+        <div id="outline-container-orgaeeae23" class="outline-3">
+          <h3 id="orgaeeae23">Para ejecutar una solicitud:</h3>
+          <div class="outline-text-3" id="text-orgaeeae23">
+            <ul class="org-ul">
+              <li>Colocar el cursor dentro del bloque de la solicitud.</li>
 
-<li>Ejecutar <b>M-x restclient-http-send-current</b> o usa el atajo <b>C-c C-c</b>.</li>
-</ul>
-</div>
-</div>
-</div>
-<div id="outline-container-org6f880cf" class="outline-2">
-<h2 id="org6f880cf"># Caracteristicas avanzadas</h2>
-<div class="outline-text-2" id="text-org6f880cf">
-</div>
-<div id="outline-container-org7153728" class="outline-3">
-<h3 id="org7153728">Variables de entrono:</h3>
-<div class="outline-text-3" id="text-org7153728">
-<p>
-Se pueden definir variables de entorno en el archivo para reutilizarlas:
-</p>
+              <li>
+                Ejecutar <b>M-x restclient-http-send-current</b> o usa el atajo
+                <b>C-c C-c</b>.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgc5e2e01" class="outline-2">
+        <h2 id="orgc5e2e01"># Caracteristicas avanzadas</h2>
+        <div class="outline-text-2" id="text-orgc5e2e01"></div>
+        <div id="outline-container-org947950a" class="outline-3">
+          <h3 id="org947950a">Variables de entrono:</h3>
+          <div class="outline-text-3" id="text-org947950a">
+            <p>
+              Se pueden definir variables de entorno en el archivo para
+              reutilizarlas:
+            </p>
 
-<div class="org-src-container">
-<pre class="src src-http">:var base_url = https://jsonplaceholder.typicode.com
+            <div class="org-src-container">
+              <pre class="src src-http">
+:var base_url = https://jsonplaceholder.typicode.com
 
 GET :base_url/posts/1
 Accept: application/json
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-org4547fa8" class="outline-3">
-<h3 id="org4547fa8">Integración con <b>json-mode</b></h3>
-<div class="outline-text-3" id="text-org4547fa8">
-<p>
-Formatear automáticamente las respuestas en formato <b>JSON</b>.
-</p>
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org1f862f6" class="outline-3">
+          <h3 id="org1f862f6">Integración con <b>json-mode</b></h3>
+          <div class="outline-text-3" id="text-org1f862f6">
+            <p>
+              Formatear automáticamente las respuestas en formato <b>JSON</b>.
+            </p>
 
-<ul class="org-ul">
-<li>Instalación <b>M-x package-install RET json-mode RET</b></li>
-<li>Configurar <b>restclient</b> para abrir automáticamente las respuestas <b>JSON</b> en <b>json-mode</b>:</li>
-</ul>
+            <ul class="org-ul">
+              <li>Instalación <b>M-x package-install RET json-mode RET</b></li>
+              <li>
+                Configurar <b>restclient</b> para abrir automáticamente las
+                respuestas <b>JSON</b> en <b>json-mode</b>:
+              </li>
+            </ul>
 
-<div class="org-src-container">
-<pre class="src src-elisp">    (with-eval-after-load 'restclient
+            <div class="org-src-container">
+              <pre
+                class="src src-elisp"
+              >    (<span style="color: #51afef;">with-eval-after-load</span> 'restclient
       (add-hook 'restclient-response-loaded-hook
-                (lambda ()
-                  (when(
-                    string-match-p"application/json"(or
-(restclient-get-response-header "Content-Type") ""))
+                (<span style="color: #51afef;">lambda</span> ()
+                  (<span style="color: #51afef;">when</span>(
+                    string-match-p<span style="color: #98be65;">"application/json"</span>(<span style="color: #51afef;">or</span>
+(restclient-get-response-header <span style="color: #98be65;">"Content-Type"</span>) <span style="color: #98be65;">""</span>))
                     (json-mode)))))
 </pre>
-</div>
-</div>
-</div>
-<div id="outline-container-orgc2fd6a0" class="outline-3">
-<h3 id="orgc2fd6a0">Integración org-mode</h3>
-<div class="outline-text-3" id="text-orgc2fd6a0">
-<p>
-<b>restclient</b> se puede usar dentro de bloques de código en <b>org-mode</b> usando
-el paquete <b>ob-resclient</b>. Esto permite ejecutar solicitudes <b>http</b> directamente desde un archivo <b>org</b> y guardar los resultados.
-</p>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org2b65811" class="outline-3">
+          <h3 id="org2b65811">Integración org-mode</h3>
+          <div class="outline-text-3" id="text-org2b65811">
+            <p>
+              <b>restclient</b> se puede usar dentro de bloques de código en
+              <b>org-mode</b> usando el paquete <b>ob-resclient</b>. Esto
+              permite ejecutar solicitudes <b>http</b> directamente desde un
+              archivo <b>org</b> y guardar los resultados.
+            </p>
 
-<ul class="org-ul">
-<li>Instalación <b>M-x package-install RET ob-resclient RET</b></li>
+            <ul class="org-ul">
+              <li>
+                Instalación <b>M-x package-install RET ob-resclient RET</b>
+              </li>
 
-<li><p>
-Configuración
-</p>
+              <li>
+                <p>Configuración</p>
 
-<p>
-Añadir <b>ob-resclient</b> a <b>org-babel</b>
-</p>
+                <p>Añadir <b>ob-resclient</b> a <b>org-babel</b></p>
+              </li>
+            </ul>
 
-<div class="org-src-container">
-<pre class="src src-elisp">(with-eval-after-load 'org
+            <div class="org-src-container">
+              <pre
+                class="src src-elisp"
+              >(<span style="color: #51afef;">with-eval-after-load</span> 'org
 (add-to-list 'org-babel-load-languages '(restclient . t)))
 </pre>
-</div></li>
+            </div>
 
-<li><p>
-Uso
-</p>
+            <ul class="org-ul">
+              <li>
+                <p>Uso</p>
 
-<p>
-En un archivo <b>org</b>, crear un bloque de código para <b>restclient</b>:
-</p>
+                <p>
+                  En un archivo <b>org</b>, crear un bloque de código para
+                  <b>restclient</b>:
+                </p>
+              </li>
+            </ul>
 
-<div class="org-src-container">
-<pre class="src src-restclient">#+BEGIN_SRC restclient
-GET https://jsonplaceholder.typicode.com/posts/1
-Accept: application/json
-#+END_SRC
+            <div class="org-src-container">
+              <pre
+                class="src src-restclient"
+              ><span style="color: #5B6268;">#</span><span style="color: #5B6268;">+BEGIN_SRC restclient</span>
+<span style="color: #51afef;">GET</span> <span style="color: #c678dd;">https://jsonplaceholder.typicode.com/posts/1</span>
+<span style="color: #dcaeea;">Accept</span>: <span style="color: #98be65;">application/json</span>
+<span style="color: #dcaeea;">#+END_SRC</span>
 
-#+RESULTS:    
-
-</pre>
-</div>
-
-<p>
-para enviar un token por cookie:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-restclient">GET http://localhost:4000/auth/profile
-Cookie:  token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hc...
-Accept: application/json  
-</pre>
-</div>
-
-<p>
-para enviarlo por encabezados:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-restclient">GET http://localhost:4000/auth/profile
-Authentication: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hc...
-Accept: application/json  
-</pre>
-</div>
-
-<p>
-para hacer un post:    
-</p>
-<div class="org-src-container">
-<pre class="src src-restclient">POST https://jsonplaceholder.typicode.com/posts\
-Content-Type: application/json
-{
-   "title": "foo",
-   "body": "bar",n  "userId": 1
-}
+<span style="color: #dcaeea;">#+RESULTS</span><span style="color: #5B6268;">: </span><span style="color: #98be65;">   </span>
 
 </pre>
-</div>
+            </div>
 
-<p>
-Ejecutar cada bloque con <b>C-c C-c</b> y el resultado se muestra en su seccion <b>RESULTS:</b> correspondiente 
-</p></li>
-</ul>
-</div>
-</div>
-<div id="outline-container-orge009882" class="outline-3">
-<h3 id="orge009882">Integración con projectile</h3>
-<div class="outline-text-3" id="text-orge009882">
-<p>
-Se puede guardar tus solicitudes <b>http</b> especificas para un proyecto dentro de su directorio, y acceder a ellas rapidamente.
-</p>
+            <p>para enviar un token por cookie:</p>
 
-<div class="org-src-container">
-<pre class="src src-elisp">(global-set-key (kbd "C-c p a") 
-              (lambda () 
-                (interactive)
-                (projectile-find-file-in-directory "api/")))
+            <div class="org-src-container">
+              <pre
+                class="src src-restclient"
+              ><span style="color: #51afef;">GET</span> <span style="color: #c678dd;">http://localhost:4000/auth/profile</span>
+<span style="color: #dcaeea;">Cookie</span>: <span style="color: #98be65;"> token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hc...</span>
+<span style="color: #dcaeea;">Accept</span>: <span style="color: #98be65;">application/json  </span>
 </pre>
-</div>
-</div>
-</div>
-<div id="outline-container-orgc575110" class="outline-3">
-<h3 id="orgc575110">Integración con ivy</h3>
-<div class="outline-text-3" id="text-orgc575110">
-<p>
-En ivy se puede crear un sistema de plantillas o un historial de solicitudes para acceder rapidamente a solicitudes frecuentes:
-</p>
+            </div>
 
-<div class="org-src-container">
-<pre class="src src-elisp">(defvar my-restclient-templates
-  '(("Get Post" . "GET https://jsonplaceholder.typicode.com/posts/1\nAccept: application/json")
-    ("Create Post" . "POST https://jsonplaceholder.typicode.com/posts\nContent-Type: application/json\n\n{\n  \"title\": \"foo\",\n  \"body\": \"bar\",\n  \"userId\": 1\n}"))
-  "List of Restclient templates for quick insertion.")
+            <p>para enviarlo por encabezados:</p>
 
-(defun my-restclient-ivy ()
-  "Select a Restclient template using Ivy and insert it into the current buffer."
-  (interactive)
-  (ivy-read "Restclient Templates: "
+            <div class="org-src-container">
+              <pre
+                class="src src-restclient"
+              ><span style="color: #51afef;">GET</span> <span style="color: #c678dd;">http://localhost:4000/auth/profile</span>
+<span style="color: #dcaeea;">Authorization</span>: <span style="color: #98be65;">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hc...</span>
+<span style="color: #dcaeea;">Accept</span>: <span style="color: #98be65;">application/json  </span>
+</pre>
+            </div>
+
+            <p>para hacer un post:</p>
+            <div class="org-src-container">
+              <pre
+                class="src src-restclient"
+              ><span style="color: #51afef;">POST</span> <span style="color: #c678dd;">https://jsonplaceholder.typicode.com/posts\</span>
+<span style="color: #dcaeea;">Content-Type</span>: <span style="color: #98be65;">application/json</span>
+  {
+     <span style="color: #98be65;">"title"</span>: <span style="color: #98be65;">"foo"</span>,
+     <span style="color: #98be65;">"body"</span>: <span style="color: #98be65;">"bar"</span>,
+     <span style="color: #98be65;">"userId"</span>: 1
+  }
+
+</pre>
+            </div>
+
+            <p>
+              Ejecutar cada bloque con <b>C-c C-c</b> y el resultado se muestra
+              en su seccion <b>RESULTS:</b> correspondiente
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org47ba8d7" class="outline-3">
+          <h3 id="org47ba8d7">Integración con projectile</h3>
+          <div class="outline-text-3" id="text-org47ba8d7">
+            <p>
+              Se puede guardar tus solicitudes <b>http</b> especificas para un
+              proyecto dentro de su directorio, y acceder a ellas rapidamente.
+            </p>
+
+            <div class="org-src-container">
+              <pre
+                class="src src-elisp"
+              >(global-set-key (kbd <span style="color: #98be65;">"C-c p a"</span>) 
+              (<span style="color: #51afef;">lambda</span> () 
+                (<span style="color: #51afef;">interactive</span>)
+                (projectile-find-file-in-directory <span style="color: #98be65;">"api/"</span>)))
+</pre>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org630baf0" class="outline-3">
+          <h3 id="org630baf0">Integración con ivy</h3>
+          <div class="outline-text-3" id="text-org630baf0">
+            <p>
+              En ivy se puede crear un sistema de plantillas o un historial de
+              solicitudes para acceder rapidamente a solicitudes frecuentes:
+            </p>
+
+            <div class="org-src-container">
+              <pre
+                class="src src-elisp"
+              >(<span style="color: #51afef;">defvar</span> <span style="color: #dcaeea;">my-restclient-templates</span>
+  '((<span style="color: #98be65;">"Get Post"</span> . <span style="color: #98be65;">"GET https://jsonplaceholder.typicode.com/posts/1\nAccept: application/json"</span>)
+    (<span style="color: #98be65;">"Create Post"</span> . <span style="color: #98be65;">"POST https://jsonplaceholder.typicode.com/posts\nContent-Type: application/json\n\n{\n  \"title\": \"foo\",\n  \"body\": \"bar\",\n  \"userId\": 1\n}"</span>))
+  <span style="color: #83898d;">"List of Restclient templates for quick insertion."</span>)
+
+(<span style="color: #51afef;">defun</span> <span style="color: #c678dd;">my-restclient-ivy</span> ()
+  <span style="color: #83898d;">"Select a Restclient template using Ivy and insert it into the current buffer."</span>
+  (<span style="color: #51afef;">interactive</span>)
+  (ivy-read <span style="color: #98be65;">"Restclient Templates: "</span>
             (mapcar #'car my-restclient-templates)
-            :action (lambda (choice)
-                      (let ((template (assoc choice my-restclient-templates)))
-                        (when template
+            <span style="color: #c678dd;">:action</span> (<span style="color: #51afef;">lambda</span> (choice)
+                      (<span style="color: #51afef;">let</span> ((template (assoc choice my-restclient-templates)))
+                        (<span style="color: #51afef;">when</span> template
                           (insert (cdr template)))))))
 </pre>
-</div>
-</div>
-</div>
-</div>
-<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div>]]></description>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2023-01-22-restclient.el.html</link>
   <guid>https://martiyo.github.io/2023-01-22-restclient.el.html</guid>
@@ -2502,10 +3003,9 @@ PasswordAutentication no
   <title><![CDATA[Pass el gestor de contraseñas estandar de unix]]></title>
   <description><![CDATA[
       <p>La gestión de contraseñas debe ser simple y seguir Filosofía Unix.</p>
-
-      <div id="outline-container-org7c5d4b7" class="outline-2">
-        <h2 id="org7c5d4b7">Introducción</h2>
-        <div class="outline-text-2" id="text-org7c5d4b7">
+      <div id="outline-container-orgedba358" class="outline-2">
+        <h2 id="orgedba358"># Introducción</h2>
+        <div class="outline-text-2" id="text-orgedba358">
           <p>
             Con pass, cada contraseña vive dentro de un archivo gpg cifrado cuyo
             nombre de archivo es el título del sitio web, correo o recurso que
@@ -2526,45 +3026,48 @@ PasswordAutentication no
           </p>
         </div>
       </div>
-
-      <div id="outline-container-org9928210" class="outline-2">
-        <h2 id="org9928210">Usando el Password-store</h2>
-        <div class="outline-text-2" id="text-org9928210"></div>
-        <div id="outline-container-org78d0bb0" class="outline-3">
-          <h3 id="org78d0bb0">
+      <div id="outline-container-org868da68" class="outline-2">
+        <h2 id="org868da68"># Usando el Password-store</h2>
+        <div class="outline-text-2" id="text-org868da68"></div>
+        <div id="outline-container-org79512ee" class="outline-3">
+          <h3 id="org79512ee">
             Enumerar las contraseñas existentes en el store
           </h3>
-          <div class="outline-text-3" id="text-org78d0bb0">
-            <pre class="example">
+          <div class="outline-text-3" id="text-org79512ee">
+            <div class="org-src-container">
+              <pre class="src src-nil">
 dev1@devuan ~ $ pass 
 Password Store
 └── correo
    ├── micorreo@gmail.com
    └── probando@gmail.com
 </pre
-            >
+              >
+            </div>
           </div>
         </div>
-
-        <div id="outline-container-org32efec5" class="outline-3">
-          <h3 id="org32efec5">Mostrar contraseñas</h3>
-          <div class="outline-text-3" id="text-org32efec5">
-            <pre class="example">
+        <div id="outline-container-org3f42b8e" class="outline-3">
+          <h3 id="org3f42b8e">Mostrar contraseñas</h3>
+          <div class="outline-text-3" id="text-org3f42b8e">
+            <div class="org-src-container">
+              <pre class="src src-nil">
 dev1@devuan ~ $ pass micorreo@gmail.com 
 contraseñasegura
 </pre
-            >
+              >
+            </div>
           </div>
         </div>
-
-        <div id="outline-container-org7e83733" class="outline-3">
-          <h3 id="org7e83733">Copiar al portapapeles</h3>
-          <div class="outline-text-3" id="text-org7e83733">
-            <pre class="example">
+        <div id="outline-container-org1f2ecb7" class="outline-3">
+          <h3 id="org1f2ecb7">Copiar al portapapeles</h3>
+          <div class="outline-text-3" id="text-org1f2ecb7">
+            <div class="org-src-container">
+              <pre class="src src-nil">
 dev1@devuan ~ $ pass -c micorreo@gmail.com 
 Copied correo/micorreo@gmail.com to clipboard. Will clear in 45 seconds.
 </pre
-            >
+              >
+            </div>
 
             <p>
               Cualquira de estos comandos habrirá un diálogo de entrada de
@@ -2574,9 +3077,9 @@ Copied correo/micorreo@gmail.com to clipboard. Will clear in 45 seconds.
             </p>
           </div>
         </div>
-        <div id="outline-container-org1b179ec" class="outline-3">
-          <h3 id="org1b179ec">Añadir o modificar contraseñas</h3>
-          <div class="outline-text-3" id="text-org1b179ec">
+        <div id="outline-container-org7ae6f41" class="outline-3">
+          <h3 id="org7ae6f41">Añadir o modificar contraseñas</h3>
+          <div class="outline-text-3" id="text-org7ae6f41">
             <p>
               Añadir #+BEGIN [dev1@devuan ~]$ pass insert martiyo@protonmail.com
               Enter password for martiyo@protonmail.com: Retype password for
@@ -2585,11 +3088,13 @@ Copied correo/micorreo@gmail.com to clipboard. Will clear in 45 seconds.
 
             <p>Modificar</p>
 
-            <pre class="example">
+            <div class="org-src-container">
+              <pre class="src src-nil">
 [dev1@devuan ~]$  pass insert correo/probando@gmail.com
 An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
 </pre
-            >
+              >
+            </div>
 
             <p>
               Esto también maneja contraseñas multilíneas u otros datos con
@@ -2598,21 +3103,23 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
             </p>
           </div>
         </div>
-        <div id="outline-container-org290537d" class="outline-3">
-          <h3 id="org290537d">Contraseñas automaticas</h3>
-          <div class="outline-text-3" id="text-org290537d">
+        <div id="outline-container-orgbb94237" class="outline-3">
+          <h3 id="orgbb94237">Contraseñas automaticas</h3>
+          <div class="outline-text-3" id="text-orgbb94237">
             <p>
               La utilidad <b>generate</b> crea nuevas contraseñas utilzando
               <b>/dev/urandom</b>
             </p>
 
-            <pre class="example">
+            <div class="org-src-container">
+              <pre class="src src-nil">
 [dev1@devuan ~]$  pass generate web/midudev.com 15
   mkdir: se ha creado el directorio '/home/dev1/.password-store/web'
   The generated password for web/midudev.com is:
   r?&gt;T.C/NE)&gt;kT9W
 </pre
-            >
+              >
+            </div>
 
             <p>
               Es posible generar contraseñas sin símbolos usando
@@ -2621,20 +3128,22 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
             </p>
           </div>
         </div>
-        <div id="outline-container-org424c415" class="outline-3">
-          <h3 id="org424c415">Eliminar</h3>
-          <div class="outline-text-3" id="text-org424c415">
-            <pre class="example">
+        <div id="outline-container-org95dd31a" class="outline-3">
+          <h3 id="org95dd31a">Eliminar</h3>
+          <div class="outline-text-3" id="text-org95dd31a">
+            <div class="org-src-container">
+              <pre class="src src-nil">
 [dev1@devuan ~]$  pass rm correo/probando@gmail.com 
   Are you sure you would like to delete correo/probando@gmail.com? [y/N] y
   '/home/dev1/.password-store/correo/probando@gmail.com.gpg' borrado
 </pre
-            >
+              >
+            </div>
           </div>
         </div>
-        <div id="outline-container-org1d74fbc" class="outline-3">
-          <h3 id="org1d74fbc">Git</h3>
-          <div class="outline-text-3" id="text-org1d74fbc">
+        <div id="outline-container-orge82bd79" class="outline-3">
+          <h3 id="orge82bd79">Git</h3>
+          <div class="outline-text-3" id="text-orge82bd79">
             <p>
               Si la tienda de contraseñas es un repositorio de git, ya que cada
               manipulación crea un git commit, puede sincronizar la tienda de
@@ -2645,35 +3154,40 @@ An entry already exists for correo/probando@gmail.com. Overwrite it? [y/N] n
           </div>
         </div>
       </div>
-      <div id="outline-container-org22f76d8" class="outline-2">
-        <h2 id="org22f76d8">Configuración</h2>
-        <div class="outline-text-2" id="text-org22f76d8">
+      <div id="outline-container-org9788fcf" class="outline-2">
+        <h2 id="org9788fcf"># Configuración</h2>
+        <div class="outline-text-2" id="text-org9788fcf">
           <p>Para comenzar hay inicializar el dposito de contraseñas</p>
 
-          <pre class="example">
+          <div class="org-src-container">
+            <pre class="src src-nil">
 pass init "id de mi clave GPG"
 </pre
-          >
+            >
+          </div>
         </div>
-
-        <div id="outline-container-org78e82c4" class="outline-3">
-          <h3 id="org78e82c4">Generando las claves con GnuPG</h3>
-          <div class="outline-text-3" id="text-org78e82c4">
+        <div id="outline-container-org8cfbfdc" class="outline-3">
+          <h3 id="org8cfbfdc">Generando las claves con GnuPG</h3>
+          <div class="outline-text-3" id="text-org8cfbfdc">
             <p>Para crear una pareja de claves (publica y privada) se usa</p>
 
-            <pre class="example">
+            <div class="org-src-container">
+              <pre class="src src-nil">
 gpg --gen-key
 </pre
-            >
+              >
+            </div>
 
             <p>se completan los datos solicitados y listo.</p>
 
             <p>el comando</p>
 
-            <pre class="example">
+            <div class="org-src-container">
+              <pre class="src src-nil">
 gpg -k
 </pre
-            >
+              >
+            </div>
 
             <p>
               mostrará la identificación de cada clave
@@ -2688,21 +3202,24 @@ gpg -k
               exportar un variable de entorno:
             </p>
 
-            <pre class="example">
+            <div class="org-src-container">
+              <pre class="src src-nil">
 export GPG_TTY=$(tty)
 </pre
-            >
+              >
+            </div>
           </div>
         </div>
-
-        <div id="outline-container-orgf8e2998" class="outline-3">
-          <h3 id="orgf8e2998">Inicializar el store como un repositorio git</h3>
-          <div class="outline-text-3" id="text-orgf8e2998">
-            <pre class="example">
+        <div id="outline-container-orgf9e8a18" class="outline-3">
+          <h3 id="orgf9e8a18">Inicializar el store como un repositorio git</h3>
+          <div class="outline-text-3" id="text-orgf9e8a18">
+            <div class="org-src-container">
+              <pre class="src src-nil">
 $ pass git init
 Initialized empty Git repository in /home/dev1/.password-store/.git/
 </pre
-            >
+              >
+            </div>
 
             <p>
               Si un repositirio git es inicializado, pass crea un git commit
@@ -2711,9 +3228,9 @@ Initialized empty Git repository in /home/dev1/.password-store/.git/
           </div>
         </div>
       </div>
-      <div id="outline-container-org9b3367b" class="outline-2">
-        <h2 id="org9b3367b">Organización</h2>
-        <div class="outline-text-2" id="text-org9b3367b">
+      <div id="outline-container-org8eacf7e" class="outline-2">
+        <h2 id="org8eacf7e"># Organización</h2>
+        <div class="outline-text-2" id="text-org8eacf7e">
           <p>
             nombres de usuario, contraseñas, pins, sitios web, metadatos, etc.
           </p>
@@ -2734,14 +3251,16 @@ Initialized empty Git repository in /home/dev1/.password-store/.git/
             por ejemplo, Amazon/bookreader podría parecer así:
           </p>
 
-          <pre class="example">
+          <div class="org-src-container">
+            <pre class="src src-nil">
 Yw|ZSNH!}z"6{ym9pI
 URL: *.amazon.com/*
 Username: AmazonianChicken@example.com
 Secret Question 1: What is your childhood best friend's most bizarre superhero fantasy? Oh god, Amazon, it's too awful to say...
 Phone Support PIN #: 84719
 </pre
-          >
+            >
+          </div>
 
           <p>
             Las opciones <b>&#x2013;clip / -c</b> solo copiarán la primer línea
@@ -2749,9 +3268,9 @@ Phone Support PIN #: 84719
           </p>
         </div>
       </div>
-      <div id="outline-container-org2dba31f" class="outline-2">
-        <h2 id="org2dba31f">Emacs Pass-mode</h2>
-        <div class="outline-text-2" id="text-org2dba31f">
+      <div id="outline-container-org4849f58" class="outline-2">
+        <h2 id="org4849f58"># Emacs Pass-mode</h2>
+        <div class="outline-text-2" id="text-org4849f58">
           <p>
             Y no podia faltar el pass-modo para emacs, se instala con
             <b>package-install</b> y listo, la interfaz es muy intuitiva.
@@ -3994,72 +4513,73 @@ sudo find ~/webDAV -type f -exec chmod ug+rw {} \;
 <item>
   <title><![CDATA[Mocp]]></title>
   <description><![CDATA[
-<p>
-Reproducir audio desde la terminal.
-</p>
-<div id="outline-container-org1741169" class="outline-2">
-<h2 id="org1741169"># Descripción</h2>
-<div class="outline-text-2" id="text-org1741169">
-<p>
-MOC es un reproductor de audio fácil de manejar y ligero, ideal para
-equipos con pocos recursos. La interfaz es similar a MC (Midnight
-Commander, el administrador de archivos) MOC reproduce todos los
-archivos en el directorio a partir del archivo seleccionado para lo que
-no es necesario crear listas de reproducción. Es posible reproducir
-varios archivos o directorios de archivos y después guardar lalista de
-reproducción como un archivo con extensión m3u. Funciona como demonio,
-es decir que se ejecuta en segundo plano por lo que no necesita entorno
-gráfico. Esto quiere decir también que si necesitas usar la terminal, el
-emulador de terminal ó cerrar el entorno gráfico no es necesario detener
-la reproducción ya que ésta sigue activa en segundo plano. Soporta los
-siguientes formatos: mp3, Ogg Vorbis, FLAC, Musepack, Speex, WAVE, AIFF
-y AU entre otros. Soporta Internet stream. Soporta temas de
-configuración.
-</p>
-</div>
-</div>
-<div id="outline-container-instalación" class="outline-2">
-<h2 id="instalación"># Instalación</h2>
-<div class="outline-text-2" id="text-instalación">
-<div class="org-src-container">
-<pre class="src src-shell">sudo apt install moc
-</pre>
-</div>
+      <p>Reproducir audio desde la terminal.</p>
+      <div id="outline-container-org00f68f0" class="outline-2">
+        <h2 id="org00f68f0"># Descripción</h2>
+        <div class="outline-text-2" id="text-org00f68f0">
+          <p>
+            MOC es un reproductor de audio fácil de manejar y ligero, ideal para
+            equipos con pocos recursos. La interfaz es similar a MC (Midnight
+            Commander, el administrador de archivos) MOC reproduce todos los
+            archivos en el directorio a partir del archivo seleccionado para lo
+            que no es necesario crear listas de reproducción. Es posible
+            reproducir varios archivos o directorios de archivos y después
+            guardar lalista de reproducción como un archivo con extensión m3u.
+            Funciona como demonio, es decir que se ejecuta en segundo plano por
+            lo que no necesita entorno gráfico. Esto quiere decir también que si
+            necesitas usar la terminal, el emulador de terminal ó cerrar el
+            entorno gráfico no es necesario detener la reproducción ya que ésta
+            sigue activa en segundo plano. Soporta los siguientes formatos: mp3,
+            Ogg Vorbis, FLAC, Musepack, Speex, WAVE, AIFF y AU entre otros.
+            Soporta Internet stream. Soporta temas de configuración.
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-orgf4ebd34" class="outline-2">
+        <h2 id="orgf4ebd34"># Instalación</h2>
+        <div class="outline-text-2" id="text-orgf4ebd34">
+          <div class="org-src-container">
+            <pre class="src src-shell">
+sudo apt install moc
+</pre
+            >
+          </div>
 
-<p>
-Alternativamente se puede instalar un plugin para reproducir archivos en
-formatos como WMA, RealAudio, MP4 y ACC.
-</p>
+          <p>
+            Alternativamente se puede instalar un plugin para reproducir
+            archivos en formatos como WMA, RealAudio, MP4 y ACC.
+          </p>
 
-<div class="org-src-container">
-<pre class="src src-shell">sudo apt install moc-ffmpeg-plugin
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-uso" class="outline-2">
-<h2 id="uso"># Uso</h2>
-<div class="outline-text-2" id="text-uso">
-<p>
-El binario tiene el nombre <b>mocp</b> para evitar problemas con otras
-aplicaciones u otros sistemas.
-</p>
+          <div class="org-src-container">
+            <pre class="src src-shell">
+sudo apt install moc-ffmpeg-plugin
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-uso" class="outline-2">
+        <h2 id="uso"># Uso</h2>
+        <div class="outline-text-2" id="text-uso">
+          <p>
+            El binario tiene el nombre <b>mocp</b> para evitar problemas con
+            otras aplicaciones u otros sistemas.
+          </p>
 
-<p>
-La sintaxis en la siguiente:
-</p>
+          <p>La sintaxis en la siguiente:</p>
 
-<div class="org-src-container">
-<pre class="src src-shel">mocp [opciones] [archivo]
-</pre>
-</div>
+          <div class="org-src-container">
+            <pre class="src src-shel">
+mocp [opciones] [archivo]
+</pre
+            >
+          </div>
 
-<p>
-Las opciones principales son:
-</p>
+          <p>Las opciones principales son:</p>
 
-<div class="org-src-container">
-<pre class="src src-shell">-c --clear
+          <div class="org-src-container">
+            <pre class="src src-shell">
+-c --clear
    Limpia la lista de reproducci&#243;n.
 
 -p --play
@@ -4086,35 +4606,40 @@ Las opciones principales son:
 -T --theme
 Usa un tema espec&#237;fico. De no ser una ruta completa el archivo ser&#225; buscado
 en/usr/share/moc/themes, ~/.moc/themes y en el actual directorio.
-</pre>
-</div>
+</pre
+            >
+          </div>
 
-<p>
-Se puede lanzar sin parámetros para entrar a la interfaz de ncurses:
-</p>
+          <p>
+            Se puede lanzar sin parámetros para entrar a la interfaz de ncurses:
+          </p>
 
-<div class="org-src-container">
-<pre class="src src-shell">mocp
-</pre>
-</div>
+          <div class="org-src-container">
+            <pre class="src src-shell">
+mocp
+</pre
+            >
+          </div>
 
-<p>
-Del lado izquierdo esta el navegador de archivos y del derecho la lista
-de reproducción, se cambia entre una y otra usando la tecla de
-tabulación. A continuación en la parte inferior se encuentran el mensaje
-de información que muestra el estatus del reproductor, el volumen, el
-tiempo total de reproducción, la información sobre la pista, tiempo
-transcurrido, restante y total de la pista, los parámetros de sonido,
-opciones y la barra de reproducción.
-</p>
+          <p>
+            Del lado izquierdo esta el navegador de archivos y del derecho la
+            lista de reproducción, se cambia entre una y otra usando la tecla de
+            tabulación. A continuación en la parte inferior se encuentran el
+            mensaje de información que muestra el estatus del reproductor, el
+            volumen, el tiempo total de reproducción, la información sobre la
+            pista, tiempo transcurrido, restante y total de la pista, los
+            parámetros de sonido, opciones y la barra de reproducción.
+          </p>
 
-<p>
-Los accesos rápidos del teclado pueden verse presionando "h" , aquí una
-lista con los más utilizados:
-</p>
+          <p>
+            Los accesos rápidos del teclado pueden verse presionando "h" , aquí
+            una lista con los más utilizados:
+          </p>
 
-<div class="org-src-container">
-<pre class="src src-shell">q              Oculta la interfaz de ncurses
+          <div class="org-src-container">
+            <pre
+              class="src src-shell"
+            >q              Oculta la interfaz de ncurses
 ENTER          Comienza la reproducci&#243;n o entra al directorio
 Q              Cierra la aplicaci&#243;n por completo
 s              Detiene la reproducci&#243;n
@@ -4140,59 +4665,56 @@ x              Alterna los canales del mezclador
 K              Selecciona el anterior preset del ecualizador
 k              Selecciona el siguiente preset del ecualizador
 </pre>
-</div>
-</div>
-</div>
-<div id="outline-container-directorio-de-configuración-.moc" class="outline-2">
-<h2 id="directorio-de-configuración-.moc"># Directorio de configuración: ~/.moc</h2>
-<div class="outline-text-2" id="text-directorio-de-configuración-.moc">
-<p>
-El archivo de configuración principal dentro del directorio <b>~/.moc</b> es
-<b>config</b>, este archivo no es necesario para el usa de la aplicación,
-pero si lo es para modificar las preferencias, no se crea durante las
-instalación sino que hay que copiarlo desde
-<b>/usr/share/doc/moc/examples/config.example.gz</b> y descomprimirlo en
-<b>~/.moc</b>
-</p>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orga524906" class="outline-2">
+        <h2 id="orga524906"># Directorio de configuración: ~/.moc</h2>
+        <div class="outline-text-2" id="text-orga524906">
+          <p>
+            El archivo de configuración principal dentro del directorio
+            <b>~/.moc</b> es <b>config</b>, este archivo no es necesario para el
+            usa de la aplicación, pero si lo es para modificar las preferencias,
+            no se crea durante las instalación sino que hay que copiarlo desde
+            <b>/usr/share/doc/moc/examples/config.example.gz</b> y
+            descomprimirlo en
+            <b>~/.moc</b>
+          </p>
 
-<div class="org-src-container">
-<pre class="src src-shell">cp /usr/share/doc/moc/examples/config.example.gz ~/.moc
+          <div class="org-src-container">
+            <pre
+              class="src src-shell"
+            >cp /usr/share/doc/moc/examples/config.example.gz ~/.moc
 <span style="color: #c678dd;">cd</span> ~/.moc
 gzip -d config.example.gz
 mv config.example config
 </pre>
-</div>
+          </div>
 
-<p>
-Está muy bien documentado y realmente los cambios son a gusto.
-Normalmente sólo es necesario cambiar unas cuantas líneas para tener
-todo funcionando a gusto, por ejemplo las siguientes: Repeat = yes
-Shuffle = yes SoundDriver = ALSA Theme = black\<sub>theme</sub>
-</p>
+          <p>
+            Está muy bien documentado y realmente los cambios son a gusto.
+            Normalmente sólo es necesario cambiar unas cuantas líneas para tener
+            todo funcionando a gusto, por ejemplo las siguientes: Repeat = yes
+            Shuffle = yes SoundDriver = ALSA Theme = black\<sub>theme</sub>
+          </p>
 
-<p>
-Los directorios por defecto para los temas son <b>/usr/share/moc/themes</b> y
-</p>
-</div>
-</div>
-<div id="outline-container-org05525e5" class="outline-2">
-<h2 id="org05525e5"># ~/.moc/themes**. Es posible descargar temas de configuración, o</h2>
-<div class="outline-text-2" id="text-org05525e5">
-<p>
-editarlo uno y guardarlo en uno de estos directorios. Básicamente cada
-elemento tiene la siguiente estructura:
-</p>
+          <p>
+            Los directorios por defecto para los temas son
+            <b>/usr/share/moc/themes</b> y ~/.moc/themes. Es posible descargar
+            temas de configuración, o editarlo uno y guardarlo en uno de estos
+            directorios. Básicamente cada elemento tiene la siguiente
+            estructura:
+          </p>
 
-<pre class="example" id="orge965b57">
+          <pre class="example" id="org6d90fa1">
 elemento        = color-de-texto
 color-de-fondo  = atributos
-</pre>
+</pre
+          >
 
-<p>
-Los colores permitidos son:
-</p>
+          <p>Los colores permitidos son:</p>
 
-<pre class="example" id="orgf9190cd">
+          <pre class="example" id="orgc3c752d">
 default (sirve como transparencia)
 black
 red
@@ -4203,24 +4725,26 @@ magenta
 cyan
 white
 grey
-</pre>
+</pre
+          >
 
-<p>
-Los atributos le dan formato al texto y son:
-</p>
+          <p>Los atributos le dan formato al texto y son:</p>
 
-<p>
-atributo | función -|- normal | default (sin destacado) standout | mejor
-salida underline | subrayado reverse | video inverso blink | parpadeo
-dim | medio brillo bold | negrita protect | modo protegido
-</p>
+          <p>
+            atributo | función -|- normal | default (sin destacado) standout |
+            mejor salida underline | subrayado reverse | video inverso blink |
+            parpadeo dim | medio brillo bold | negrita protect | modo protegido
+          </p>
 
-<p>
-Ejemplo del archivo <b>* ~/.moc/themes/black\<sub>themes</sub>*</b> documentado:
-</p>
+          <p>
+            Ejemplo del archivo
+            <b>* ~/.moc/themes/black\<sub>themes</sub>*</b> documentado:
+          </p>
 
-<div class="org-src-container">
-<pre class="src src-shell"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Interfaz de ncurses</span>
+          <div class="org-src-container">
+            <pre
+              class="src src-shell"
+            ><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Interfaz de ncurses</span>
 background = red default
 frame = red default
 window_title = yellow default underline,dim
@@ -4277,87 +4801,102 @@ message = yellow default
 <span style="color: #5B6268;"># </span><span style="color: #5B6268;">Tiempo total de la lista de reproducci&#243;n o directorio</span>
 plist_time = yellow default
 </pre>
-</div>
+          </div>
 
-<p>
-Para asociar un tema por default hay que editar el archivo de
-configuración ~/.moc/config y editar la opción "Theme" de esta forma:
-Theme = black\<sub>theme</sub>
-</p>
+          <p>
+            Para asociar un tema por default hay que editar el archivo de
+            configuración ~/.moc/config y editar la opción "Theme" de esta
+            forma: Theme = black\<sub>theme</sub>
+          </p>
 
-<p>
-Es posible usar temas sin necesidad de editar el archivo de
-configuración usando el parámetro <b>-T</b>: mocp -T tema\<sub>a</sub>\<sub>usar</sub>
-</p>
+          <p>
+            Es posible usar temas sin necesidad de editar el archivo de
+            configuración usando el parámetro <b>-T</b>: mocp -T
+            tema\<sub>a</sub>\<sub>usar</sub>
+          </p>
 
-<p>
-También es posible cambiar el tema dentro de la misma interfaz ncurses
-presionando <b>T</b> con lo que se desplegara un menú con los temas
-disponibles.
-</p>
-</div>
-</div>
-<div id="outline-container-ecualizador" class="outline-2">
-<h2 id="ecualizador"># Ecualizador</h2>
-<div class="outline-text-2" id="text-ecualizador">
-<p>
-Moc tiene la opción de utilizar un ecualizador pero necesita de algún
-preset que por default no hay en la carpeta de configuración, estos
-deben estar ubicados en la carpeta <b>* ~/.moc/eqsets</b>. Se puede crear uno
-a mono pero lo más sencillo es descargarlos, en internet están
-disponibles algunos presets convertidos de winamp o xmms en un archivo
-<b>eqsets.tar.gz*</b>. Para utilizarlos basta con:
-</p>
+          <p>
+            También es posible cambiar el tema dentro de la misma interfaz
+            ncurses presionando <b>T</b> con lo que se desplegara un menú con
+            los temas disponibles.
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-orgf1a6157" class="outline-2">
+        <h2 id="orgf1a6157"># Ecualizador</h2>
+        <div class="outline-text-2" id="text-orgf1a6157">
+          <p>
+            Moc tiene la opción de utilizar un ecualizador pero necesita de
+            algún preset que por default no hay en la carpeta de configuración,
+            estos deben estar ubicados en la carpeta <b>* ~/.moc/eqsets</b>. Se
+            puede crear uno a mono pero lo más sencillo es descargarlos, en
+            internet están disponibles algunos presets convertidos de winamp o
+            xmms en un archivo <b>eqsets.tar.gz*</b>. Para utilizarlos basta
+            con:
+          </p>
 
-<div class="org-src-container">
-<pre class="src src-shell"><span style="color: #c678dd;">cd</span>  ~/.moc/
+          <div class="org-src-container">
+            <pre
+              class="src src-shell"
+            ><span style="color: #c678dd;">cd</span>  ~/.moc/
 wget http://ftp.daper.net/pub/soft/moc/contrib/eqsets.tar.gz
 tar xvfz eqsets.tar.gz
 rm eqsets.tar.gz
 </pre>
-</div>
+          </div>
 
-<p>
-Y ahora dentro de moc hay refrescar la lista de presets presionando <b>e</b>,
-se cambia con <b>k</b> (minúscula) hacia adelante o con <b>K</b> (mayúscula) hacia
-atrás.
-</p>
-</div>
-</div>
-<div id="outline-container-problemas-frecuentes" class="outline-2">
-<h2 id="problemas-frecuentes"># Problemas frecuentes</h2>
-<div class="outline-text-2" id="text-problemas-frecuentes">
-<p>
-Mensaje de error al lanzar MOC:
-</p>
+          <p>
+            Y ahora dentro de moc hay refrescar la lista de presets presionando
+            <b>e</b>, se cambia con <b>k</b> (minúscula) hacia adelante o con
+            <b>K</b> (mayúscula) hacia atrás.
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-org3787ab2" class="outline-2">
+        <h2 id="org3787ab2"># Problemas frecuentes</h2>
+        <div class="outline-text-2" id="text-org3787ab2">
+          <p>Mensaje de error al lanzar MOC:</p>
 
-<div class="org-src-container">
-<pre class="src src-shell">FATAL_ERROR: Can<span style="color: #98be65;">'t send() int to the server. / FATAL_ERROR: Can'</span>t receive value from the server.
+          <div class="org-src-container">
+            <pre
+              class="src src-shell"
+            >FATAL_ERROR: Can<span style="color: #98be65;">'t send() int to the server. / FATAL_ERROR: Can'</span>t receive value from the server.
 </pre>
-</div>
+          </div>
 
-<p>
-Basta con borrar el directorio ~/.moc/cache
-</p>
+          <p>Basta con borrar el directorio ~/.moc/cache</p>
 
-<div class="org-src-container">
-<pre class="src src-shell">rm -rf ~/.moc/cache
-</pre>
-</div>
+          <div class="org-src-container">
+            <pre class="src src-shell">
+rm -rf ~/.moc/cache
+</pre
+            >
+          </div>
 
-<p>
-y lanzar de nuevo la aplicación.
-</p>
+          <p>y lanzar de nuevo la aplicación.</p>
+        </div>
+      </div>
+      <div id="outline-container-org3f289af" class="outline-2">
+        <h2 id="org3f289af"># <b>Fuentes</b></h2>
+        <div class="outline-text-2" id="text-org3f289af"></div>
+        <div id="outline-container-org5ba73ef" class="outline-3">
+          <h3 id="org5ba73ef">archivo recuperado del viejo esdebian</h3>
+        </div>
 
-<p>
-<b>Fuentes</b> 
-archivo recuperado del viejo esdebian
-man moc
-<a href="https://moc.daper.net/">Moc pagina oficial</a>
-</p>
-</div>
-</div>
-<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div>]]></description>
+        <div id="outline-container-org2de848e" class="outline-3">
+          <h3 id="org2de848e">man moc</h3>
+          <div class="outline-text-3" id="text-org2de848e">
+            <p>
+              <a href="https://moc.daper.net/">Moc pagina oficial</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2020-12-19-mocp.html</link>
   <guid>https://martiyo.github.io/2020-12-19-mocp.html</guid>
@@ -4501,53 +5040,63 @@ Cualquier cambio que hagas en el buffer permanecerá sin cambios hasta que los c
 <item>
   <title><![CDATA[Mplayer-resumer]]></title>
   <description><![CDATA[
-<p>
-Lo unico que le faltaba al bueno de mplayer era poder retomar la reprocucción en el punto donde había quedado, <b>mplayer-resumer</b> resuelve esta situación.
-</p>
-<div id="outline-container-org188f1b9" class="outline-2">
-<h2 id="org188f1b9">Descarga</h2>
-<div class="outline-text-2" id="text-org188f1b9">
-<div class="org-src-container">
-<pre class="src src-nil">git clone https://github.com/graysky2/mplayer-resumer.git
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-orgde0cb65" class="outline-2">
-<h2 id="orgde0cb65">Instalación</h2>
-<div class="outline-text-2" id="text-orgde0cb65">
-<p>
-El paquete clonado viene con un archivo <b><b>INSTALL</b></b> con las dependencias e instrucciones necesarias:
-</p>
-
-<ul class="org-ul">
-<li>Dpendencias</li>
-</ul>
-
-<div class="org-src-container">
-<pre class="src src-nil">mplayer or mplayer2
+      <p>
+        Lo unico que le faltaba al bueno de mplayer era poder retomar la
+        reprocucción en el punto donde había quedado,
+        <b>mplayer-resumer</b> resuelve esta situación.
+      </p>
+      <div id="outline-container-org8be9878" class="outline-2">
+        <h2 id="org8be9878">Descarga</h2>
+        <div class="outline-text-2" id="text-org8be9878">
+          <div class="org-src-container">
+            <pre class="src src-shell">
+git clone https://github.com/graysky2/mplayer-resumer.git
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org07c4a3f" class="outline-2">
+        <h2 id="org07c4a3f">Instalación</h2>
+        <div class="outline-text-2" id="text-org07c4a3f">
+          <p>
+            El paquete clonado viene con un archivo <b><b>INSTALL</b></b> con
+            las dependencias e instrucciones necesarias:
+          </p>
+        </div>
+        <div id="outline-container-org2cb6e23" class="outline-3">
+          <h3 id="org2cb6e23">Dpendencias</h3>
+          <div class="outline-text-3" id="text-org2cb6e23">
+            <div class="org-src-container">
+              <pre class="src src-shell">mplayer or mplayer2
 perl
-perl-shell (http://search.cpan.org/dist/Shell/)
+<span style="color: #c678dd;">perl-shell</span> (http://search.cpan.org/dist/Shell/)
 </pre>
-</div>
-
-<ul class="org-ul">
-<li>Building</li>
-</ul>
-
-<div class="org-src-container">
-<pre class="src src-nil">$ make
-# make install
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgf97960a" class="outline-3">
+          <h3 id="orgf97960a">Building</h3>
+          <div class="outline-text-3" id="text-orgf97960a">
+            <div class="org-src-container">
+              <pre class="src src-shell">$ make
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">make install</span>
 </pre>
-</div>
+            </div>
 
-
-<p>
-Si el script es reiniciado a los 5 segundos (con $tdiff 5 segundos por defecto) entonces borrará el archivo usado para mantener la posición del vídeo.
-</p>
-</div>
-</div>
-<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div>]]></description>
+            <p>
+              Si el script es reiniciado a los 5 segundos (con $tdiff 5 segundos
+              por defecto) entonces borrará el archivo usado para mantener la
+              posición del vídeo.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
   <category><![CDATA[linux]]></category>
   <link>https://martiyo.github.io/2020-12-11-mplayer-resumer.html</link>
   <guid>https://martiyo.github.io/2020-12-11-mplayer-resumer.html</guid>
@@ -5815,35 +6364,40 @@ sudo usermod -aG docker your-user
 <item>
   <title><![CDATA[Exwm]]></title>
   <description><![CDATA[
-<p>
-EXWM (Emacs X Window Manager) es un completo gestor de ventanas X en mosaico para Emacs construido sobre XELB.
-</p>
-<div id="outline-container-org010d7b0" class="outline-2">
-<h2 id="org010d7b0"># Instalación</h2>
-<div class="outline-text-2" id="text-org010d7b0">
-<p>
-Para instalar Exwm y todas sus dependencias&#x2026;
-</p>
+      <p>
+        EXWM (Emacs X Window Manager) es un completo gestor de ventanas X en
+        mosaico para Emacs construido sobre XELB.
+      </p>
+      <div id="outline-container-org19881de" class="outline-2">
+        <h2 id="org19881de"># Instalación</h2>
+        <div class="outline-text-2" id="text-org19881de">
+          <p>Para instalar Exwm y todas sus dependencias&#x2026;</p>
 
-<div class="org-src-container">
-<pre class="src src-nil">M-x package-install RET exwm RET.
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-orged951f3" class="outline-2">
-<h2 id="orged951f3"># Inicio .xinitrc e init.el</h2>
-<div class="outline-text-2" id="text-orged951f3">
-<ul class="org-ul">
-<li>Para poder iniciarlo creo (o lo copio desde <b>/etc/X11/xinitrc</b>) el archivo .xinitrc en el directorio /home con el siguiente contenido:</li>
-</ul>
+          <div class="org-src-container">
+            <pre class="src src-nil">
+M-x package-install RET exwm RET.
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org3272973" class="outline-2">
+        <h2 id="org3272973"># Inicio .xinitrc e init.el</h2>
+        <div class="outline-text-2" id="text-org3272973">
+          <ul class="org-ul">
+            <li>
+              Para poder iniciarlo creo (o lo copio desde
+              <b>/etc/X11/xinitrc</b>) el archivo .xinitrc en el directorio
+              /home con el siguiente contenido:
+            </li>
+          </ul>
 
-<p>
-dejo aqui mi .xinitrc con ejemplos a modo de buckup
-</p>
+          <p>dejo aqui mi .xinitrc con ejemplos a modo de buckup</p>
 
-<div class="org-src-container">
-<pre class="src src-shell"><span style="color: #5B6268;">#</span><span style="color: #5B6268;">!/usr/bin/</span><span style="color: #51afef;">env</span><span style="color: #5B6268;"> bash</span>
+          <div class="org-src-container">
+            <pre
+              class="src src-shell"
+            ><span style="color: #5B6268;">#</span><span style="color: #5B6268;">!/usr/bin/</span><span style="color: #51afef;">env</span><span style="color: #5B6268;"> bash</span>
 <span style="color: #5B6268;">#</span>
 <span style="color: #5B6268;"># </span><span style="color: #5B6268;">This is a sample file for the ~/.xinitrc file.</span>
 <span style="color: #5B6268;">#</span>
@@ -5892,29 +6446,36 @@ xmobar .config/xmobar/xmobar.config &amp;
 <span style="color: #5B6268;">#</span><span style="color: #5B6268;">exec openbox/session</span>
 <span style="color: #51afef;">exec</span> dbus-launch --exit-with-session emacs
 </pre>
-</div>
+          </div>
 
-<ul class="org-ul">
-<li>luego le agrego los permisos 774 a este archivo</li>
-<li>creo un enlace simbolico a ~/.xinitrc llamado ~/.xsession o ~/.xsessionrc</li>
-</ul>
+          <ul class="org-ul">
+            <li>luego le agrego los permisos 774 a este archivo</li>
+            <li>
+              creo un enlace simbolico a ~/.xinitrc llamado ~/.xsession o
+              ~/.xsessionrc
+            </li>
+          </ul>
 
-<p>
-<b>nota</b>
-</p>
-<div class="org-src-container">
-<pre class="src src-Quote">Crear el enlace simbolico ~/.xsession da la posibilidad de instalar otro administrador de ventanas
-como openbox o windows manager como xfce. Crear el enlace a ~/.xsessionrc permite iniciar
-directamente con *exwm*.
-</pre>
-</div>
+          <p>
+            <b>nota</b>
+          </p>
+          <blockquote>
+            <p>
+              Crear el enlace simbolico ~/.xsession da la posibilidad de
+              instalar otro administrador de ventanas como openbox o windows
+              manager como xfce. Crear el enlace a ~/.xsessionrc permite iniciar
+              directamente con <b>exwm</b>.
+            </p>
+          </blockquote>
 
-<ul class="org-ul">
-<li>por último en el <b>init.el</b> agrego:</li>
-</ul>
+          <ul class="org-ul">
+            <li>por último en el <b>init.el</b> agrego:</li>
+          </ul>
 
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="color: #98be65;">"~/.emacs.d/xelb/"</span>)
+          <div class="org-src-container">
+            <pre
+              class="src src-emacs-lisp"
+            >(add-to-list 'load-path <span style="color: #98be65;">"~/.emacs.d/xelb/"</span>)
 (add-to-list 'load-path <span style="color: #98be65;">"~/.emacs.d/elpa/exwm-0.24/"</span>)
 (<span style="color: #51afef;">require</span> '<span style="color: #a9a1e1;">exwm</span>)
 (<span style="color: #51afef;">require</span> '<span style="color: #a9a1e1;">exwm-config</span>)
@@ -5923,78 +6484,96 @@ directamente con *exwm*.
 (<span style="color: #51afef;">setq</span> exwm-workspace-minibuffer-position (<span style="color: #51afef;">quote</span> bottom))
 (<span style="color: #51afef;">setq</span> exwm-workspace-number 10)
 </pre>
-</div>
-</div>
-</div>
-<div id="outline-container-org67e2561" class="outline-2">
-<h2 id="org67e2561"># Algunos atajos de teclado</h2>
-<div class="outline-text-2" id="text-org67e2561">
-<table>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org2d31d41" class="outline-2">
+        <h2 id="org2d31d41"># Algunos atajos de teclado</h2>
+        <div class="outline-text-2" id="text-org2d31d41">
+          <table>
+            <colgroup>
+              <col class="org-left" />
 
+              <col class="org-left" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="org-left">Atajo</th>
+                <th scope="col" class="org-left">Función</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="org-left">C-c C-t C-f</td>
+                <td class="org-left">
+                  Cambia entre el modo mosaico (prederminado) y el modo
+                  flotante.
+                </td>
+              </tr>
 
-<colgroup>
-<col  class="org-left">
+              <tr>
+                <td class="org-left">C-c C-h</td>
+                <td class="org-left">Oculta la ventana flotante</td>
+              </tr>
 
-<col  class="org-left">
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">Atajo</th>
-<th scope="col" class="org-left">Función</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left">C-c C-t C-f</td>
-<td class="org-left">Cambia entre el modo mosaico (prederminado) y el modo flotante.</td>
-</tr>
+              <tr>
+                <td class="org-left">C-c C-q</td>
+                <td class="org-left">
+                  Esto se antepone para lanzar un atajo propio de la aplicación
+                  externa
+                </td>
+              </tr>
 
-<tr>
-<td class="org-left">C-c C-h</td>
-<td class="org-left">Oculta la ventana flotante</td>
-</tr>
+              <tr>
+                <td class="org-left">C-c C-k</td>
+                <td class="org-left">
+                  Esto activa el char-mode para usar mas de un atajo de la
+                  aplicación externa
+                </td>
+              </tr>
 
-<tr>
-<td class="org-left">C-c C-q</td>
-<td class="org-left">Esto se antepone para lanzar un atajo propio de la aplicación externa</td>
-</tr>
-
-<tr>
-<td class="org-left">C-c C-k</td>
-<td class="org-left">Esto activa el char-mode para usar mas de un atajo de la aplicación externa</td>
-</tr>
-
-<tr>
-<td class="org-left">S-r</td>
-<td class="org-left">Sale del char-mode</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div id="outline-container-org1b4475b" class="outline-2">
-<h2 id="org1b4475b"># Crear un atajo para lanzar aplicaciones externas</h2>
-<div class="outline-text-2" id="text-org1b4475b">
-<div class="org-src-container">
-<pre class="src src-emacs-lisp">(exwm-input-set-key (kbd <span style="color: #98be65;">"s-f"</span>) (<span style="color: #51afef;">lambda</span> ()
+              <tr>
+                <td class="org-left">S-r</td>
+                <td class="org-left">Sale del char-mode</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="outline-container-org842fcf9" class="outline-2">
+        <h2 id="org842fcf9">
+          # Crear un atajo para lanzar aplicaciones externas
+        </h2>
+        <div class="outline-text-2" id="text-org842fcf9">
+          <div class="org-src-container">
+            <pre
+              class="src src-emacs-lisp"
+            >(exwm-input-set-key (kbd <span style="color: #98be65;">"s-f"</span>) (<span style="color: #51afef;">lambda</span> ()
 (<span style="color: #51afef;">interactive</span>)
 (<span style="color: #51afef;">let</span>  ((comando <span style="color: #98be65;">"firefox"</span>)) o
 (start-process-shell-command comando nil comando))))
 (<span style="color: #51afef;">push</span> (elt (kbd <span style="color: #98be65;">"s-f"</span>) 0) exwm-input-prefix-keys)
 </pre>
-</div>
-</div>
-</div>
-<div id="outline-container-org2fefc63" class="outline-2">
-<h2 id="org2fefc63"># Fuentes</h2>
-<div class="outline-text-2" id="text-org2fefc63">
-<p>
-<a href="https://github.com/ch11ng/exwm/wiki">exwm-wiki</a>
-<a href="https://www.it-swarm.dev/es/window-manager/iniciando-sesion-con-exwm/96">it-swarm.dev</a>
-</p>
-</div>
-</div>
-<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div>]]></description>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org2b664d1" class="outline-2">
+        <h2 id="org2b664d1"># Fuentes</h2>
+        <div class="outline-text-2" id="text-org2b664d1">
+          <p>
+            <a href="https://github.com/ch11ng/exwm/wiki">exwm-wiki</a>
+            <a
+              href="https://www.it-swarm.dev/es/window-manager/iniciando-sesion-con-exwm/96"
+              >it-swarm.dev</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2020-08-20-exwm.html</link>
   <guid>https://martiyo.github.io/2020-08-20-exwm.html</guid>
@@ -11104,8 +11683,7 @@ root@devuan:/home/martin# ping www.devuan.org
         puede cambiar usando la opción -i, o en el archivo de configuración a
         través de la opción network\<sub>interface</sub>.
       </p>
-
-      <div id="outline-container-org894e922" class="outline-2">
+      <div id="outline-container-configuracion-minima" class="outline-2">
         <h2 id="configuracion-minima">Configuracion minima</h2>
         <div class="outline-text-2" id="text-configuracion-minima">
           <p>
@@ -11123,8 +11701,10 @@ root@devuan:/home/martin# ping www.devuan.org
           </p>
         </div>
       </div>
-
-      <div id="outline-container-org221cfc2" class="outline-2">
+      <div
+        id="outline-container-otras-opciónes-de-configuración"
+        class="outline-2"
+      >
         <h2 id="otras-opciónes-de-configuración">
           Otras opciónes de configuración
         </h2>
@@ -11159,11 +11739,10 @@ root@devuan:/home/martin# ping www.devuan.org
           </p>
         </div>
       </div>
-
-      <div id="outline-container-orged0f515" class="outline-2">
+      <div id="outline-container-ejemplos" class="outline-2">
         <h2 id="ejemplos">Ejemplos</h2>
         <div class="outline-text-2" id="text-ejemplos">
-          <pre class="example">
+          <pre class="example" id="orged0467e">
 media_dir=V,/path/multimedia/videos
 media_dir=P,/path/multimedia/fotos
 media_dir=A,/path/multimedia/musica\n

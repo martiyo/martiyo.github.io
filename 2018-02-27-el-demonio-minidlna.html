@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="static/style.css" rel="stylesheet" type="text/css" />
     <link rel="icon" href="static/favicon.ico" />
+    <script src="static/search.js"></script>
   </head>
   <body>
     <div id="preamble" class="status">
@@ -29,7 +30,7 @@
           encuentro por ahí.
         </blockquote>
         <form>
-          <input type="text" placeholder="Search..." />
+          <input type="text" placeholder="Buscar..." />
         </form>
         <br />
       </div>
@@ -54,8 +55,7 @@
         puede cambiar usando la opción -i, o en el archivo de configuración a
         través de la opción network\<sub>interface</sub>.
       </p>
-
-      <div id="outline-container-org894e922" class="outline-2">
+      <div id="outline-container-configuracion-minima" class="outline-2">
         <h2 id="configuracion-minima">Configuracion minima</h2>
         <div class="outline-text-2" id="text-configuracion-minima">
           <p>
@@ -73,8 +73,10 @@
           </p>
         </div>
       </div>
-
-      <div id="outline-container-org221cfc2" class="outline-2">
+      <div
+        id="outline-container-otras-opciónes-de-configuración"
+        class="outline-2"
+      >
         <h2 id="otras-opciónes-de-configuración">
           Otras opciónes de configuración
         </h2>
@@ -109,11 +111,10 @@
           </p>
         </div>
       </div>
-
-      <div id="outline-container-orged0f515" class="outline-2">
+      <div id="outline-container-ejemplos" class="outline-2">
         <h2 id="ejemplos">Ejemplos</h2>
         <div class="outline-text-2" id="text-ejemplos">
-          <pre class="example">
+          <pre class="example" id="orged0467e">
 media_dir=V,/path/multimedia/videos
 media_dir=P,/path/multimedia/fotos
 media_dir=A,/path/multimedia/musica\n

@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Script para convertir M4A a MP3 usando FFmpeg</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+    <script src="static/search.js"></script>
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Buscar..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">03 may 2025</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/2025-05-03-script-convert-m4a-mp3.html"
+          >Script para convertir M4A a MP3 usando FFmpeg</a
+        >
+      </h1>
+      <p>
+        Script para convertir archivos de audio M4A a MP3 en Linux usando
+        FFmpeg.
+      </p>
+      <div id="outline-container-org01aa7a3" class="outline-2">
+        <h2 id="org01aa7a3"># Requisitos previos</h2>
+        <div class="outline-text-2" id="text-org01aa7a3"></div>
+        <div id="outline-container-org1e9447e" class="outline-3">
+          <h3 id="org1e9447e">Dependencias</h3>
+          <div class="outline-text-3" id="text-org1e9447e">
+            <ul class="org-ul">
+              <li>
+                <a href="https://ffmpeg.org/">FFmpeg</a> (para conversión de
+                audio)
+              </li>
+              <li>Bash (shell para ejecución)</li>
+            </ul>
+          </div>
+        </div>
+        <div id="outline-container-org1191e97" class="outline-3">
+          <h3 id="org1191e97">Instalación</h3>
+          <div class="outline-text-3" id="text-org1191e97">
+            <div class="org-src-container">
+              <pre
+                class="src src-sh"
+              ><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Debian/Ubuntu  </span>
+sudo apt update &amp;&amp; sudo apt install ffmpeg  
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Fedora  </span>
+sudo dnf install ffmpeg  
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Arch Linux  </span>
+sudo pacman -S ffmpeg  
+</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org94de3cb" class="outline-2">
+        <h2 id="org94de3cb"># Descripción del script</h2>
+        <div class="outline-text-2" id="text-org94de3cb"></div>
+        <div id="outline-container-orgbda50fe" class="outline-3">
+          <h3 id="orgbda50fe">Funcionalidad</h3>
+          <div class="outline-text-3" id="text-orgbda50fe">
+            <ul class="org-ul">
+              <li>
+                Conversión de archivos <code>.m4a</code> o <code>.M4A</code> a
+                <code>.mp3</code>
+              </li>
+              <li>
+                Manejo de:
+                <ul class="org-ul">
+                  <li>Espacios en nombres (<code>mi audio.m4a</code>)</li>
+                  <li>Mayúsculas/minúsculas</li>
+                  <li>Caracteres especiales (ñ, á, @)</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="outline-container-orgff03d85" class="outline-3">
+          <h3 id="orgff03d85">Variables configurables</h3>
+          <div class="outline-text-3" id="text-orgff03d85">
+            <table>
+              <caption class="t-above">
+                <span class="table-number">Table 1:</span>
+                Parámetros del script
+              </caption>
+
+              <colgroup>
+                <col class="org-left" />
+
+                <col class="org-left" />
+
+                <col class="org-left" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col" class="org-left">Variable</th>
+                  <th scope="col" class="org-left">Valor por defecto</th>
+                  <th scope="col" class="org-left">Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="org-left"><code>INPUT_DIR</code></td>
+                  <td class="org-left"><code>"./"</code></td>
+                  <td class="org-left">Directorio de entrada</td>
+                </tr>
+
+                <tr>
+                  <td class="org-left"><code>OUTPUT_DIR</code></td>
+                  <td class="org-left"><code>"./MP3"</code></td>
+                  <td class="org-left">Carpeta de salida</td>
+                </tr>
+
+                <tr>
+                  <td class="org-left"><code>BITRATE</code></td>
+                  <td class="org-left"><code>"192k"</code></td>
+                  <td class="org-left">Calidad de audio</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org0118637" class="outline-2">
+        <h2 id="org0118637"># Código completo</h2>
+        <div class="outline-text-2" id="text-org0118637">
+          <div class="org-src-container">
+            <pre
+              class="src src-bash"
+              id="org7e5ac19"
+            ><span style="color: #5B6268;">#</span><span style="color: #5B6268;">!/bin/</span><span style="color: #51afef;">bash</span><span style="color: #5B6268;">  </span>
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Configuraci&#243;n  </span>
+<span style="color: #dcaeea;">INPUT_DIR</span>=<span style="color: #98be65;">"./"</span>      <span style="color: #5B6268;"># </span><span style="color: #5B6268;">Directorio con archivos .m4a  </span>
+<span style="color: #dcaeea;">OUTPUT_DIR</span>=<span style="color: #98be65;">"./MP3"</span>  <span style="color: #5B6268;"># </span><span style="color: #5B6268;">Carpeta de salida  </span>
+<span style="color: #dcaeea;">BITRATE</span>=<span style="color: #98be65;">"192k"</span>      <span style="color: #5B6268;"># </span><span style="color: #5B6268;">Calidad de audio  </span>
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Verificar FFmpeg  </span>
+<span style="color: #51afef;">if ! </span><span style="color: #c678dd;">command</span> -v ffmpeg &amp;&gt;/dev/null; <span style="color: #51afef;">then</span>  
+    <span style="color: #c678dd;">echo</span> <span style="color: #98be65;">"Error: FFmpeg no est&#225; instalado"</span>  
+    <span style="color: #51afef;">exit</span> 1  
+<span style="color: #51afef;">fi</span>  
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Procesamiento de archivos  </span>
+<span style="color: #c678dd;">shopt</span> -s nullglob nocaseglob  
+mkdir -p <span style="color: #98be65;">"$OUTPUT_DIR"</span>  
+
+<span style="color: #51afef;">for</span> file<span style="color: #51afef;"> in</span> <span style="color: #98be65;">"$INPUT_DIR"</span>/*.m4a; <span style="color: #51afef;">do</span>  
+    <span style="color: #51afef;">if</span> [[ -f <span style="color: #98be65;">"$file"</span> ]]; <span style="color: #51afef;">then</span>  
+        <span style="color: #dcaeea;">output_file</span>=<span style="color: #98be65;">"$OUTPUT_DIR/$(</span><span style="color: #51afef; font-weight: bold;">basename "${file%.*}"</span><span style="color: #98be65;">).mp3"</span>  
+        <span style="color: #c678dd;">echo</span> <span style="color: #98be65;">"Convirtiendo: $(</span><span style="color: #51afef; font-weight: bold;">basename "$file"</span><span style="color: #98be65;">)..."</span>  
+        ffmpeg -i <span style="color: #98be65;">"$file"</span> -codec:a libmp3lame -q:a 2 -b:a <span style="color: #98be65;">"$BITRATE"</span> <span style="color: #98be65;">"$output_file"</span> -y  
+    <span style="color: #51afef;">fi</span>  
+<span style="color: #51afef;">done</span>  
+</pre>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org7fd6afb" class="outline-2">
+        <h2 id="org7fd6afb"># Instrucciones de uso</h2>
+        <div class="outline-text-2" id="text-org7fd6afb"></div>
+        <div id="outline-container-orgc891295" class="outline-3">
+          <h3 id="orgc891295">1. Dar permisos</h3>
+          <div class="outline-text-3" id="text-orgc891295">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+chmod +x convert_m4a_to_mp3.sh  
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org63bd001" class="outline-3">
+          <h3 id="org63bd001">2. Ejecutar</h3>
+          <div class="outline-text-3" id="text-org63bd001">
+            <div class="org-src-container">
+              <pre class="src src-sh">
+./convert_m4a_to_mp3.sh  
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org1db4a44" class="outline-2">
+        <h2 id="org1db4a44"># Ejemplo de salida</h2>
+        <div class="outline-text-2" id="text-org1db4a44">
+          <pre class="example" id="org4225343">
+Convirtiendo: audio 1.m4a...  
+✅ audio 1.m4a convertido  
+Proceso completado. Archivos en: ./MP3  
+</pre
+          >
+        </div>
+      </div>
+      <div id="outline-container-orge7884f2" class="outline-2">
+        <h2 id="orge7884f2"># Solución de problemas</h2>
+        <div class="outline-text-2" id="text-orge7884f2"></div>
+        <div id="outline-container-org2c4086f" class="outline-3">
+          <h3 id="org2c4086f">Error común: Espacios en nombres</h3>
+          <div class="outline-text-3" id="text-org2c4086f">
+            <blockquote>
+              <p>
+                Si los archivos tienen espacios, el script original fallaba. La
+                versión actual usa:
+              </p>
+
+              <p>
+                <code>for file in "$INPUT_DIR"/*.m4a; do</code>
+                <code>[[ -f "$file" ]]</code>
+              </p>
+            </blockquote>
+          </div>
+        </div>
+        <div id="outline-container-org2d89fa0" class="outline-3">
+          <h3 id="org2d89fa0">Tabla de errores</h3>
+          <div class="outline-text-3" id="text-org2d89fa0">
+            <table>
+              <colgroup>
+                <col class="org-left" />
+
+                <col class="org-left" />
+
+                <col class="org-left" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col" class="org-left">Error</th>
+                  <th scope="col" class="org-left">Causa</th>
+                  <th scope="col" class="org-left">Solución</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="org-left"><code>ffmpeg: not found</code></td>
+                  <td class="org-left">FFmpeg no instalado</td>
+                  <td class="org-left">Instalar con gestor de paquetes</td>
+                </tr>
+
+                <tr>
+                  <td class="org-left"><code>/*.m4a: No such file</code></td>
+                  <td class="org-left">No hay archivos en el dir</td>
+                  <td class="org-left">Verificar <code>INPUT_DIR</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orga658052" class="outline-2">
+        <h2 id="orga658052"># Personalización</h2>
+        <div class="outline-text-2" id="text-orga658052"></div>
+        <div id="outline-container-orgf648860" class="outline-3">
+          <h3 id="orgf648860">Cambiar calidad de audio</h3>
+          <div class="outline-text-3" id="text-orgf648860">
+            <div class="org-src-container">
+              <pre
+                class="src src-bash"
+              ><span style="color: #dcaeea;">BITRATE</span>=<span style="color: #98be65;">"320k"</span>  <span style="color: #5B6268;"># </span><span style="color: #5B6268;">Editar en el script  </span>
+</pre>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org49fc160" class="outline-3">
+          <h3 id="org49fc160">Procesar subdirectorios</h3>
+          <div class="outline-text-3" id="text-org49fc160">
+            <div class="org-src-container">
+              <pre
+                class="src src-bash"
+              >find <span style="color: #98be65;">"$INPUT_DIR"</span> -type f -iname <span style="color: #98be65;">"*.m4a"</span> -exec ffmpeg -i {} -c:a libmp3lame -b:a <span style="color: #98be65;">"$BITRATE"</span> {}.mp3 <span style="color: #98be65;">\;</span>  
+</pre>
+            </div>
+
+            <div class="org-center">
+              <p>¡Script listo para usar!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

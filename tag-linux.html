@@ -1,80 +1,469 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<link rel="alternate"
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
       type="application/rss+xml"
       href="https://martiyo.github.io/rss.xml"
-      title="RSS feed for https://martiyo.github.io/">
-<title>EmacsFAQ</title>
-<meta name="author" content="martiyo">
-<meta name="referrer" content="no-referrer">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href= "static/style.css" rel="stylesheet" type="text/css" />
-<link rel="icon" href="static/favicon.ico">
-<script src="static/search.js"></script>
-</head>
-<body>
-<div id="preamble" class="status"><div class="header">
-<ul>
-<li><a href="https://martiyo.github.io/">/home</a></li>
-<li><a href="https://martiyo.github.io/about">/about</a></li>
-<li><a href="https://martiyo.github.io/contact">/contact</a></li>
-</ul>
- <h1>El universo perdido de GNU/Emacs</h1>
- <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
-<form >
-<input type="text" placeholder="Buscar..." />
-</form>
-<br/>
-</div></div>
-<div id="content">
-<h1 class="title">Posts tagged "linux":</h1><h2 class="post-title"><a href="https://martiyo.github.io/2025-01-11-iptables-en-openwrt.html">Iptables en openwrt</a></h2><div class="post-date">11 ene 2025</div><p>
-Bloquear conexion a internet por IP o MAC con iptables.
-</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-openwrt.html">openwrt</a> <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2024-07-09-conexion-directa-ssh-a-openwrt.html">Conexion directa ssh a openwrt</a></h2><div class="post-date">09 jul 2024</div><p>
-Configuración Permanente en el Archivo de Configuración SSH
-</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-openwrt.html">openwrt</a> <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2024-01-28-instalar-mongodb-en-devuan.html">Instalar mongodb en devuan</a></h2><div class="post-date">28 ene 2024</div><p>
-Desde los  repositorios oficiales de Mongodb.
-</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> <a href="https://martiyo.github.io/tag-database.html">database</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2023-07-09-gpg.html">GPG</a></h2><div class="post-date">09 jul 2023</div><p>
-Cifrar y firmar datos y comunicaciones con GnuPG
-</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2023-02-02-reparar-el-grub.html">Recuperar el grub</a></h2><div class="post-date">02 feb 2023</div><p>Usar un LiveUSB para reinstalar el grub</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2022-01-05-el-empaquetador-tar.html">el empaquetador tar</a></h2><div class="post-date">05 ene 2022</div><p>
-Empaquetar archivos y directorios. 
-</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2021-11-02-ssh-server.html">ssh-server</a></h2><div class="post-date">02 nov 2021</div><p>Consola segura.</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2021-10-24-pass.html">Pass el gestor de contraseñas estandar de unix</a></h2><div class="post-date">24 oct 2021</div><p>La gestión de contraseñas debe ser simple y seguir Filosofía Unix.</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2021-10-21-tmux.html">Tmux</a></h2><div class="post-date">21 oct 2021</div><p>
-Multiplexor de terminal.
-</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2021-10-03-youtube-dl.html">youtube-dl</a></h2><div class="post-date">03 oct 2021</div><p>
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>EmacsFAQ</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+    <script src="static/search.js"></script>
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Buscar..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <h1 class="title">Posts tagged "linux":</h1>
+      <h2 class="post-title">
+        <a
+          href="https://martiyo.github.io/2025-05-03-script-convert-m4a-mp3.html"
+          >Script para convertir M4A a MP3 usando FFmpeg</a
+        >
+      </h2>
+      <div class="post-date">03 may 2025</div>
+      <p>
+        Script para convertir archivos de audio M4A a MP3 en Linux usando
+        FFmpeg.
+      </p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2025-01-11-iptables-en-openwrt.html"
+          >Iptables en openwrt</a
+        >
+      </h2>
+      <div class="post-date">11 ene 2025</div>
+      <p>Bloquear conexion a internet por IP o MAC con iptables.</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-openwrt.html">openwrt</a>
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a
+          href="https://martiyo.github.io/2024-07-09-conexion-directa-ssh-a-openwrt.html"
+          >Conexion directa ssh a openwrt</a
+        >
+      </h2>
+      <div class="post-date">09 jul 2024</div>
+      <p>Configuración Permanente en el Archivo de Configuración SSH</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-openwrt.html">openwrt</a>
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a
+          href="https://martiyo.github.io/2024-01-28-instalar-mongodb-en-devuan.html"
+          >Instalar mongodb en devuan</a
+        >
+      </h2>
+      <div class="post-date">28 ene 2024</div>
+      <p>Desde los repositorios oficiales de Mongodb.</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tag-database.html">database</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2023-07-09-gpg.html">GPG</a>
+      </h2>
+      <div class="post-date">09 jul 2023</div>
+      <p>Cifrar y firmar datos y comunicaciones con GnuPG</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2023-02-02-reparar-el-grub.html"
+          >Recuperar el grub</a
+        >
+      </h2>
+      <div class="post-date">02 feb 2023</div>
+      <p>Usar un LiveUSB para reinstalar el grub</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2022-01-05-el-empaquetador-tar.html"
+          >el empaquetador tar</a
+        >
+      </h2>
+      <div class="post-date">05 ene 2022</div>
+      <p>Empaquetar archivos y directorios.</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2021-11-02-ssh-server.html"
+          >ssh-server</a
+        >
+      </h2>
+      <div class="post-date">02 nov 2021</div>
+      <p>Consola segura.</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2021-10-24-pass.html"
+          >Pass el gestor de contraseñas estandar de unix</a
+        >
+      </h2>
+      <div class="post-date">24 oct 2021</div>
+      <p>La gestión de contraseñas debe ser simple y seguir Filosofía Unix.</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2021-10-21-tmux.html">Tmux</a>
+      </h2>
+      <div class="post-date">21 oct 2021</div>
+      <p>Multiplexor de terminal.</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2021-10-03-youtube-dl.html"
+          >youtube-dl</a
+        >
+      </h2>
+      <div class="post-date">03 oct 2021</div>
+      <p>
         Youtube-dl es un programa de línea de comandos para descargar videos de
         youtube y algunos otros sitios más
-      </p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2020-12-23-servidor-webdav.html">Servidor webDAV</a></h2><div class="post-date">23 dic 2020</div><p>
-WebDAV es un grupo de trabajo del Internet Engineering Task Force. El
-término significa "Autoría y versionado distribuidos por Web" (Web
-Distributed Authoring and Versioning), y se refiere al protocolo (más
-precisamente, a la extensión del protocolo http) que el grupo definió.
-</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2020-12-19-mocp.html">Mocp</a></h2><div class="post-date">19 dic 2020</div><p>
-Reproducir audio desde la terminal.
-</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2020-12-11-mplayer-resumer.html">Mplayer-resumer</a></h2><div class="post-date">11 dic 2020</div><p>
-Lo unico que le faltaba al bueno de mplayer era poder retomar la reprocucción en el punto donde había quedado, <b>mplayer-resumer</b> resuelve esta situación.
-</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2020-11-20-instalar-mongodb-con-docker.html">Instalar mongodb con docker</a></h2><div class="post-date">20 nov 2020</div><p>Instalación y ejecución de mongodb en docker.</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> <a href="https://martiyo.github.io/tag-docker.html">docker</a> <a href="https://martiyo.github.io/tag-database.html">database</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2020-11-06-instalar-docker.html">Instalar Docker engine usando el repositorio</a></h2><div class="post-date">06 nov 2020</div><p>
+      </p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2020-12-23-servidor-webdav.html"
+          >Servidor webDAV</a
+        >
+      </h2>
+      <div class="post-date">23 dic 2020</div>
+      <p>
+        WebDAV es un grupo de trabajo del Internet Engineering Task Force. El
+        término significa "Autoría y versionado distribuidos por Web" (Web
+        Distributed Authoring and Versioning), y se refiere al protocolo (más
+        precisamente, a la extensión del protocolo http) que el grupo definió.
+      </p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2020-12-19-mocp.html">Mocp</a>
+      </h2>
+      <div class="post-date">19 dic 2020</div>
+      <p>Reproducir audio desde la terminal.</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2020-12-11-mplayer-resumer.html"
+          >Mplayer-resumer</a
+        >
+      </h2>
+      <div class="post-date">11 dic 2020</div>
+      <p>
+        Lo unico que le faltaba al bueno de mplayer era poder retomar la
+        reprocucción en el punto donde había quedado,
+        <b>mplayer-resumer</b> resuelve esta situación.
+      </p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a
+          href="https://martiyo.github.io/2020-11-20-instalar-mongodb-con-docker.html"
+          >Instalar mongodb con docker</a
+        >
+      </h2>
+      <div class="post-date">20 nov 2020</div>
+      <p>Instalación y ejecución de mongodb en docker.</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tag-docker.html">docker</a>
+        <a href="https://martiyo.github.io/tag-database.html">database</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2020-11-06-instalar-docker.html"
+          >Instalar Docker engine usando el repositorio</a
+        >
+      </h2>
+      <div class="post-date">06 nov 2020</div>
+      <p>
         Instalando desde el repositorio despues podés actualizarlo
         automaticamente.
-      </p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> <a href="https://martiyo.github.io/tag-docker.html">docker</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2020-03-18-find.html">Find</a></h2><div class="post-date">18 mar 2020</div><p>Bunquedas con find</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2020-02-24-gestion-de-permisos-en-linux.html">Gestión de permisos en linux</a></h2><div class="post-date">24 feb 2020</div><p>Permisos de acceso a archivos y directorios.</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2019-08-31-ispell-flyspell.html">Ispell-Flyspell</a></h2><div class="post-date">31 ago 2019</div><p>Corrección ortografica en linux y emacs</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2019-07-17-curl.html">cURL</a></h2><div class="post-date">17 jul 2019</div><p>
-Transferencia de archivos
-</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2019-07-13-empaquetar-y-comprimir.html">Empaquetar y comprimir</a></h2><div class="post-date">13 jul 2019</div><p>Empaquetar comprimir y descomprimir archivos en linux</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2019-02-10-linux,-comandos,-trucos-y-cosas-utiles.html">Linux, comandos, trucos y cosas utiles</a></h2><div class="post-date">10 feb 2019</div><p>
-Un rejunte de cosas útiles que voy encontrando por ahí&#x2026;
-</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2019-02-10-mongodb-comandos-basicos.html">Mongodb comandos basicos</a></h2><div class="post-date">10 feb 2019</div><p>
-            MongoDB forma parte de la nueva familia de sistemas de base de datos
-            NoSQL. En lugar de guardar los datos en tablas como se hace en las
-            base de datos relacionales, MongoDB guarda estructuras de datos en
-            documentos similares a JSON con un esquema dinámico (MongoDB utiliza
-            una especificación llamada BSON), haciendo que la integración de los
-            datos en ciertas aplicaciones sea más fácil y rápida.
-          </p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> <a href="https://martiyo.github.io/tag-database.html">database</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2019-01-01-el-comando-dd.html">El comando dd</a></h2><div class="post-date">01 ene 2019</div><p>Copiar y convertir datos de archivos a bajo nivel.</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2018-12-08-ffmpeg-video-converter.html">ffmpeg video converter</a></h2><div class="post-date">08 dic 2018</div><p>Edición de audio y video por consola</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2018-12-01-update-alternatives.html">Update-alternatives</a></h2><div class="post-date">01 dic 2018</div><p>Gestión de enlaces simbólicos</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2018-09-19-procesos-en-linux.html">Procesos en linux</a></h2><div class="post-date">19 sep 2018</div><p>Administración de procesos en linux</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2018-09-19-runlevels-e-inittab.html">Runlevels e inittab</a></h2><div class="post-date">19 sep 2018</div><p>Niveles de ejecución en linux</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2018-09-15-Cron.html">Cron y Crontab</a></h2><div class="post-date">15 sep 2018</div><p>Planificación y administración de tareas con Cron y crontabs</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2018-06-19-el-sistema-de-ficheros-proc.html">El sistema de ficheros /proc</a></h2><div class="post-date">19 jun 2018</div><p>Process filesystem.</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2018-03-06-direccion-ip-estatica.html">Dirección ip estatica</a></h2><div class="post-date">06 mar 2018</div><p>Configurar ip estatica en linux</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><h2 class="post-title"><a href="https://martiyo.github.io/2018-02-27-el-demonio-minidlna.html">El demonio miniDLNA</a></h2><div class="post-date">22 feb 2018</div><p>minidlnad - Servidor ligero DLNA/UPnP-AV</p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div><div id="archive">
-<a href="https://martiyo.github.io/archive.html">Other posts</a>
-</div>
-</div>
-<div id="postamble" class="status"><div id="archive">
-  <a href="https://martiyo.github.io/archive.html">Other posts</a>
-</div>
-<footer></footer>
-</div>
-</body>
+      </p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tag-docker.html">docker</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2020-03-18-find.html">Find</a>
+      </h2>
+      <div class="post-date">18 mar 2020</div>
+      <p>Bunquedas con find</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a
+          href="https://martiyo.github.io/2020-02-24-gestion-de-permisos-en-linux.html"
+          >Gestión de permisos en linux</a
+        >
+      </h2>
+      <div class="post-date">24 feb 2020</div>
+      <p>Permisos de acceso a archivos y directorios.</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2019-08-31-ispell-flyspell.html"
+          >Ispell-Flyspell</a
+        >
+      </h2>
+      <div class="post-date">31 ago 2019</div>
+      <p>Corrección ortografica en linux y emacs</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2019-07-17-curl.html">cURL</a>
+      </h2>
+      <div class="post-date">17 jul 2019</div>
+      <p>Transferencia de archivos</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a
+          href="https://martiyo.github.io/2019-07-13-empaquetar-y-comprimir.html"
+          >Empaquetar y comprimir</a
+        >
+      </h2>
+      <div class="post-date">13 jul 2019</div>
+      <p>Empaquetar comprimir y descomprimir archivos en linux</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a
+          href="https://martiyo.github.io/2019-02-10-linux,-comandos,-trucos-y-cosas-utiles.html"
+          >Linux, comandos, trucos y cosas utiles</a
+        >
+      </h2>
+      <div class="post-date">10 feb 2019</div>
+      <p>Un rejunte de cosas útiles que voy encontrando por ahí&#x2026;</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a
+          href="https://martiyo.github.io/2019-02-10-mongodb-comandos-basicos.html"
+          >Mongodb comandos basicos</a
+        >
+      </h2>
+      <div class="post-date">10 feb 2019</div>
+      <p>
+        MongoDB forma parte de la nueva familia de sistemas de base de datos
+        NoSQL. En lugar de guardar los datos en tablas como se hace en las base
+        de datos relacionales, MongoDB guarda estructuras de datos en documentos
+        similares a JSON con un esquema dinámico (MongoDB utiliza una
+        especificación llamada BSON), haciendo que la integración de los datos
+        en ciertas aplicaciones sea más fácil y rápida.
+      </p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tag-database.html">database</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2019-01-01-el-comando-dd.html"
+          >El comando dd</a
+        >
+      </h2>
+      <div class="post-date">01 ene 2019</div>
+      <p>Copiar y convertir datos de archivos a bajo nivel.</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a
+          href="https://martiyo.github.io/2018-12-08-ffmpeg-video-converter.html"
+          >ffmpeg video converter</a
+        >
+      </h2>
+      <div class="post-date">08 dic 2018</div>
+      <p>Edición de audio y video por consola</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2018-12-01-update-alternatives.html"
+          >Update-alternatives</a
+        >
+      </h2>
+      <div class="post-date">01 dic 2018</div>
+      <p>Gestión de enlaces simbólicos</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2018-09-19-procesos-en-linux.html"
+          >Procesos en linux</a
+        >
+      </h2>
+      <div class="post-date">19 sep 2018</div>
+      <p>Administración de procesos en linux</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2018-09-19-runlevels-e-inittab.html"
+          >Runlevels e inittab</a
+        >
+      </h2>
+      <div class="post-date">19 sep 2018</div>
+      <p>Niveles de ejecución en linux</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2018-09-15-Cron.html"
+          >Cron y Crontab</a
+        >
+      </h2>
+      <div class="post-date">15 sep 2018</div>
+      <p>Planificación y administración de tareas con Cron y crontabs</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a
+          href="https://martiyo.github.io/2018-06-19-el-sistema-de-ficheros-proc.html"
+          >El sistema de ficheros /proc</a
+        >
+      </h2>
+      <div class="post-date">19 jun 2018</div>
+      <p>Process filesystem.</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a
+          href="https://martiyo.github.io/2018-03-06-direccion-ip-estatica.html"
+          >Dirección ip estatica</a
+        >
+      </h2>
+      <div class="post-date">06 mar 2018</div>
+      <p>Configurar ip estatica en linux</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <h2 class="post-title">
+        <a href="https://martiyo.github.io/2018-02-27-el-demonio-minidlna.html"
+          >El demonio miniDLNA</a
+        >
+      </h2>
+      <div class="post-date">22 feb 2018</div>
+      <p>minidlnad - Servidor ligero DLNA/UPnP-AV</p>
+      (...)
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
 </html>
