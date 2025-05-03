@@ -1,173 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Emacs windows manager" />
-    <link
-      rel="alternate"
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Emacs windows manager">
+<link rel="alternate"
       type="application/rss+xml"
       href="https://martiyo.github.io/rss.xml"
-      title="RSS feed for https://martiyo.github.io/"
-    />
-    <title>Exwm</title>
-    <meta name="author" content="martiyo" />
-    <meta name="referrer" content="no-referrer" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="static/style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="static/favicon.ico" />
-  </head>
-  <body>
-    <div id="preamble" class="status">
-      <div class="header">
-        <ul>
-          <li><a href="https://martiyo.github.io/">/home</a></li>
-          <li><a href="https://martiyo.github.io/about">/about</a></li>
-          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
-        </ul>
-        <h1>El universo perdido de GNU/Emacs</h1>
-        <blockquote>
-          Este blog es una farsa son solo resumenes, traducciónes y cosas que
-          encuentro por ahí.
-        </blockquote>
-        <form>
-          <input type="text" placeholder="Search..." />
-        </form>
-        <br />
-      </div>
-    </div>
-    <div id="content">
-      <div class="post-date">20 ago 2020</div>
-      <h1 class="post-title">
-        <a href="https://martiyo.github.io/2020-08-20-exwm.html">Exwm</a>
-      </h1>
-      <p>
-        EXWM (Emacs X Window Manager) es un completo gestor de ventanas X en
-        mosaico para Emacs construido sobre XELB.
-      </p>
+      title="RSS feed for https://martiyo.github.io/">
+<title>Exwm</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">20 ago 2020</div><h1 class="post-title"><a href="https://martiyo.github.io/2020-08-20-exwm.html">Exwm</a></h1>
+<p>
+EXWM (Emacs X Window Manager) es un completo gestor de ventanas X en mosaico para Emacs construido sobre XELB.
+</p>
+<div id="outline-container-org010d7b0" class="outline-2">
+<h2 id="org010d7b0"># Instalación</h2>
+<div class="outline-text-2" id="text-org010d7b0">
+<p>
+Para instalar Exwm y todas sus dependencias&#x2026;
+</p>
 
-      <div id="outline-container-org547cb8d" class="outline-2">
-        <h2 id="org547cb8d">#Instalación</h2>
-        <div class="outline-text-2" id="text-org547cb8d">
-          <p>Para instalar Exwm y todas sus dependencias&#x2026;</p>
+<div class="org-src-container">
+<pre class="src src-nil">M-x package-install RET exwm RET.
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orged951f3" class="outline-2">
+<h2 id="orged951f3"># Inicio .xinitrc e init.el</h2>
+<div class="outline-text-2" id="text-orged951f3">
+<ul class="org-ul">
+<li>Para poder iniciarlo creo (o lo copio desde <b>/etc/X11/xinitrc</b>) el archivo .xinitrc en el directorio /home con el siguiente contenido:</li>
+</ul>
 
-          <pre class="example">
-M-x package-install RET exwm RET.
-</pre
-          >
-        </div>
-      </div>
+<p>
+dejo aqui mi .xinitrc con ejemplos a modo de buckup
+</p>
 
-      <div id="outline-container-org83aa25b" class="outline-2">
-        <h2 id="org83aa25b">#Inicio .xinitrc y init.el</h2>
-        <div class="outline-text-2" id="text-org83aa25b">
-          <ul class="org-ul">
-            <li>
-              Para poder iniciarlo creo (o lo copio desde
-              <b>/etc/X11/xinitrc</b>) el archivo .xinitrc en el directorio
-              /home con el siguiente contenido:
-            </li>
-          </ul>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #5B6268;">#</span><span style="color: #5B6268;">!/usr/bin/</span><span style="color: #51afef;">env</span><span style="color: #5B6268;"> bash</span>
+<span style="color: #5B6268;">#</span>
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">This is a sample file for the ~/.xinitrc file.</span>
+<span style="color: #5B6268;">#</span>
 
-          <p>dejo aqui mi .xinitrc con ejemplos a modo de buckup</p>
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">You may need to comment out the next line to disable access control</span>
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">xhost +</span>
 
-          <pre class="example">
-#!/usr/bin/env bash
-#
-# This is a sample file for the ~/.xinitrc file.
-#
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Set themes, etc</span>
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">gnome-settings-daemon &amp;</span>
 
-# You may need to comment out the next line to disable access control
-#xhost +
-
-# Set themes, etc
-#gnome-settings-daemon &amp;
-
-# Set fallback cursor
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Set fallback cursor</span>
 xsetroot -cursor_name left_ptr
 
-# If Emacs is started in server mode, `emacsclient` is a convenient way to edit
-# files in place (used by e.g. `git commit`)
-export VISUAL=emacsclient
-export EDITOR="$VISUAL"
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">If Emacs is started in server mode, `emacsclient` is a convenient way to edit</span>
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">files in place (used by e.g. `git commit`)</span>
+<span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">VISUAL</span>=emacsclient
+<span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">EDITOR</span>=<span style="color: #98be65;">"$VISUAL"</span>
 
-# Disable access control
-xhost +SI:localuser:$USER
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Disable access control</span>
+xhost +SI:localuser:$<span style="color: #dcaeea;">USER</span>
 
-## Over-rides
-#
+<span style="color: #5B6268;">## </span><span style="color: #5B6268;">Over-rides</span>
+<span style="color: #5B6268;">#</span>
 xset b off &amp;
-#numlockx off                    # Turn off numlock
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">numlockx off                    # Turn off numlock</span>
 
-# Set keyboard repeat rate
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Set keyboard repeat rate</span>
 xset r rate 300 40
 
-# Set capslock as ctrl
-#setxkbmap -layout us -option ctrl:nocaps
-sudo setxkbmap -layout 'es,es' -model pc105
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Set capslock as ctrl</span>
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">setxkbmap -layout us -option ctrl:nocaps</span>
+sudo setxkbmap -layout <span style="color: #98be65;">'es,es'</span> -model pc105
 
-# Programs to start upon startup
-#volumeicon &amp;
-#transmission-daemon &amp;
-#/usr/bin/hexo-server.sh &amp;
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Programs to start upon startup</span>
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">volumeicon &amp;</span>
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">transmission-daemon &amp;</span>
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">/usr/bin/hexo-server.sh &amp;</span>
 xmobar .config/xmobar/xmobar.config &amp;
-#xfce4-power-manager &amp;
-#syncthing -no-browser &amp;         # Syncthing
-#nm-applet &amp;                     # Network Manager
-#pasystray &amp;                     # Pulseaudio volume control from tray
-#udiskie --tray &amp;                # Disk mount utility
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">xfce4-power-manager &amp;</span>
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">syncthing -no-browser &amp;         # Syncthing</span>
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">nm-applet &amp;                     # Network Manager</span>
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">pasystray &amp;                     # Pulseaudio volume control from tray</span>
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">udiskie --tray &amp;                # Disk mount utility</span>
 
-# launch emacs upon startup
-#exec openbox/session
-exec dbus-launch --exit-with-session emacs
-</pre
-          >
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">launch emacs upon startup</span>
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">exec openbox/session</span>
+<span style="color: #51afef;">exec</span> dbus-launch --exit-with-session emacs
+</pre>
+</div>
 
-          <ul class="org-ul">
-            <li>luego le agredo los permisos 774 a este archivo</li>
-            <li>
-              creo un enlace simbolico a ~/.xinitrc llamado ~/.xsession o
-              ~/.xsessionrc
-            </li>
-          </ul>
+<ul class="org-ul">
+<li>luego le agrego los permisos 774 a este archivo</li>
+<li>creo un enlace simbolico a ~/.xinitrc llamado ~/.xsession o ~/.xsessionrc</li>
+</ul>
 
-          <p>
-            <b>nota</b>
-            Crear el enlace simbolico ~/.xsession da la posibilidad de instalar
-            otro administrador de ventanas como openbox o xfce. Crear el enlace
-            a ~/.xsessionrc permite iniciar directamente con <b>exwm</b>.
-          </p>
+<p>
+<b>nota</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-Quote">Crear el enlace simbolico ~/.xsession da la posibilidad de instalar otro administrador de ventanas
+como openbox o windows manager como xfce. Crear el enlace a ~/.xsessionrc permite iniciar
+directamente con *exwm*.
+</pre>
+</div>
 
-          <ul class="org-ul">
-            <li>por último en el <b>init.el</b> agrego:</li>
-          </ul>
+<ul class="org-ul">
+<li>por último en el <b>init.el</b> agrego:</li>
+</ul>
 
-          <pre class="example">
-(add-to-list 'load-path "~/.emacs.d/xelb/")
-(add-to-list 'load-path "~/.emacs.d/elpa/exwm-0.24/")
-(require 'exwm)
-(require 'exwm-config)
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="color: #98be65;">"~/.emacs.d/xelb/"</span>)
+(add-to-list 'load-path <span style="color: #98be65;">"~/.emacs.d/elpa/exwm-0.24/"</span>)
+(<span style="color: #51afef;">require</span> '<span style="color: #a9a1e1;">exwm</span>)
+(<span style="color: #51afef;">require</span> '<span style="color: #a9a1e1;">exwm-config</span>)
 (exwm-config-default)
 (exwm-enable)
-(setq exwm-workspace-minibuffer-position (quote bottom))
-(setq exwm-workspace-number 10)
-</pre
-          >
-        </div>
-      </div>
+(<span style="color: #51afef;">setq</span> exwm-workspace-minibuffer-position (<span style="color: #51afef;">quote</span> bottom))
+(<span style="color: #51afef;">setq</span> exwm-workspace-number 10)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org67e2561" class="outline-2">
+<h2 id="org67e2561"># Algunos atajos de teclado</h2>
+<div class="outline-text-2" id="text-org67e2561">
+<table>
 
-      <div id="outline-container-org9bbdc22" class="outline-2">
-        <h2 id="org9bbdc22"># Atajo de teclado</h2>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
-      </div>
-    </div>
-    <div id="postamble" class="status">
-      <div id="archive">
-        <a href="https://martiyo.github.io/archive.html">Other posts</a>
-      </div>
-      <footer></footer>
-    </div>
-  </body>
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Atajo</th>
+<th scope="col" class="org-left">Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">C-c C-t C-f</td>
+<td class="org-left">Cambia entre el modo mosaico (prederminado) y el modo flotante.</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-h</td>
+<td class="org-left">Oculta la ventana flotante</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-q</td>
+<td class="org-left">Esto se antepone para lanzar un atajo propio de la aplicación externa</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-k</td>
+<td class="org-left">Esto activa el char-mode para usar mas de un atajo de la aplicación externa</td>
+</tr>
+
+<tr>
+<td class="org-left">S-r</td>
+<td class="org-left">Sale del char-mode</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org1b4475b" class="outline-2">
+<h2 id="org1b4475b"># Crear un atajo para lanzar aplicaciones externas</h2>
+<div class="outline-text-2" id="text-org1b4475b">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(exwm-input-set-key (kbd <span style="color: #98be65;">"s-f"</span>) (<span style="color: #51afef;">lambda</span> ()
+(<span style="color: #51afef;">interactive</span>)
+(<span style="color: #51afef;">let</span>  ((comando <span style="color: #98be65;">"firefox"</span>)) o
+(start-process-shell-command comando nil comando))))
+(<span style="color: #51afef;">push</span> (elt (kbd <span style="color: #98be65;">"s-f"</span>) 0) exwm-input-prefix-keys)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2fefc63" class="outline-2">
+<h2 id="org2fefc63"># Fuentes</h2>
+<div class="outline-text-2" id="text-org2fefc63">
+<p>
+<a href="https://github.com/ch11ng/exwm/wiki">exwm-wiki</a>
+<a href="https://www.it-swarm.dev/es/window-manager/iniciando-sesion-con-exwm/96">it-swarm.dev</a>
+</p>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
 </html>

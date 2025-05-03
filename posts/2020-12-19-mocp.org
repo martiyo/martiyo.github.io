@@ -5,7 +5,7 @@
 
 Reproducir audio desde la terminal.
 
-** Descripción
+* # Descripción
 MOC es un reproductor de audio fácil de manejar y ligero, ideal para
 equipos con pocos recursos. La interfaz es similar a MC (Midnight
 Commander, el administrador de archivos) MOC reproduce todos los
@@ -21,23 +21,20 @@ siguientes formatos: mp3, Ogg Vorbis, FLAC, Musepack, Speex, WAVE, AIFF
 y AU entre otros. Soporta Internet stream. Soporta temas de
 configuración.
 
-** Instalación
-   :PROPERTIES:
-   :CUSTOM_ID: instalación
-   :END:
+* # Instalación
 
-#+BEGIN_SRC
+#+BEGIN_SRC shell
     sudo apt install moc
 #+END_SRC
 
 Alternativamente se puede instalar un plugin para reproducir archivos en
 formatos como WMA, RealAudio, MP4 y ACC.
 
-#+BEGIN_SRC
+#+BEGIN_SRC shell
     sudo apt install moc-ffmpeg-plugin
 #+END_SRC
 
-** Uso
+* # Uso
    :PROPERTIES:
    :CUSTOM_ID: uso
    :END:
@@ -47,44 +44,45 @@ aplicaciones u otros sistemas.
 
 La sintaxis en la siguiente:
 
-#+BEGIN_SRC
+#+BEGIN_SRC shel
     mocp [opciones] [archivo]
 #+END_SRC
 
 Las opciones principales son:
 
-#+BEGIN_SRC
-    -c --clear
-       Limpia la lista de reproducción.
+#+BEGIN_SRC shell
+   -c --clear
+      Limpia la lista de reproducción.
 
-    -p --play
-       Comienza a reproducir desde el primer elemento en la lista de reproducción.
+   -p --play
+      Comienza a reproducir desde el primer elemento en la lista de reproducción.
 
-    -f --next
-       Cambia al siguiente elemento en la lista de reproducción.
+   -f --next
+      Cambia al siguiente elemento en la lista de reproducción.
 
-    -r --previous
-       Cambia al elemento anterior en la lista de reproducción.
+   -r --previous
+      Cambia al elemento anterior en la lista de reproducción.
 
-    -s --stop
-       Detiene la reproducción.
+   -s --stop
+      Detiene la reproducción.
 
-    -P --pause
-       Pausa la reproducción.
+   -P --pause
+      Pausa la reproducción.
 
-    -U --unpause
-       Quita la pausa en la reproducción..
+   -U --unpause
+      Quita la pausa en la reproducción..
 
-    -G --toggle-pause
-       Hace el cambio entre reproducir y pausa.
+   -G --toggle-pause
+      Hace el cambio entre reproducir y pausa.
 
-    -T --theme
-       Usa un tema específico. De no ser una ruta completa el archivo será buscado en /usr/share/moc/themes, ~/.moc/themes y en el actual directorio.
+   -T --theme
+   Usa un tema específico. De no ser una ruta completa el archivo será buscado
+   en/usr/share/moc/themes, ~/.moc/themes y en el actual directorio.
 #+END_SRC
 
 Se puede lanzar sin parámetros para entrar a la interfaz de ncurses:
 
-#+BEGIN_SRC
+#+BEGIN_SRC shell
     mocp
 #+END_SRC
 
@@ -99,7 +97,7 @@ opciones y la barra de reproducción.
 Los accesos rápidos del teclado pueden verse presionando "h" , aquí una
 lista con los más utilizados:
 
-#+BEGIN_SRC
+#+BEGIN_SRC shell
     q              Oculta la interfaz de ncurses
     ENTER          Comienza la reproducción o entra al directorio
     Q              Cierra la aplicación por completo
@@ -127,10 +125,7 @@ lista con los más utilizados:
     k              Selecciona el siguiente preset del ecualizador
 #+END_SRC
 
-** Directorio de configuración: ~/.moc
-   :PROPERTIES:
-   :CUSTOM_ID: directorio-de-configuración-.moc
-   :END:
+* # Directorio de configuración: ~/.moc
 
 El archivo de configuración principal dentro del directorio *~/.moc* es
 *config*, este archivo no es necesario para el usa de la aplicación,
@@ -139,7 +134,7 @@ instalación sino que hay que copiarlo desde
 */usr/share/doc/moc/examples/config.example.gz* y descomprimirlo en
 *~/.moc*
 
-#+BEGIN_SRC
+#+BEGIN_SRC shell
     cp /usr/share/doc/moc/examples/config.example.gz ~/.moc
     cd ~/.moc
     gzip -d config.example.gz
@@ -152,18 +147,18 @@ todo funcionando a gusto, por ejemplo las siguientes: Repeat = yes
 Shuffle = yes SoundDriver = ALSA Theme = black\_theme
 
 Los directorios por defecto para los temas son */usr/share/moc/themes* y
-** ~/.moc/themes**. Es posible descargar temas de configuración, o
+~/.moc/themes. Es posible descargar temas de configuración, o
 editarlo uno y guardarlo en uno de estos directorios. Básicamente cada
 elemento tiene la siguiente estructura:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_EXAMPLE shell
     elemento        = color-de-texto
     color-de-fondo  = atributos
 #+END_EXAMPLE
 
 Los colores permitidos son:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_EXAMPLE shell
     default (sirve como transparencia)
     black
     red
@@ -184,7 +179,7 @@ dim | medio brillo bold | negrita protect | modo protegido
 
 Ejemplo del archivo ** ~/.moc/themes/black\_themes** documentado:
 
-#+BEGIN_SRC
+#+BEGIN_SRC shell
     # Interfaz de ncurses
     background = red default
     frame = red default
@@ -254,10 +249,7 @@ También es posible cambiar el tema dentro de la misma interfaz ncurses
 presionando *T* con lo que se desplegara un menú con los temas
 disponibles.
 
-** Ecualizador
-   :PROPERTIES:
-   :CUSTOM_ID: ecualizador
-   :END:
+* # Ecualizador
 
 Moc tiene la opción de utilizar un ecualizador pero necesita de algún
 preset que por default no hay en la carpeta de configuración, estos
@@ -266,7 +258,7 @@ a mono pero lo más sencillo es descargarlos, en internet están
 disponibles algunos presets convertidos de winamp o xmms en un archivo
 *eqsets.tar.gz**. Para utilizarlos basta con:
 
-#+BEGIN_SRC
+#+BEGIN_SRC shell
     cd  ~/.moc/
     wget http://ftp.daper.net/pub/soft/moc/contrib/eqsets.tar.gz
     tar xvfz eqsets.tar.gz
@@ -277,26 +269,26 @@ Y ahora dentro de moc hay refrescar la lista de presets presionando *e*,
 se cambia con *k* (minúscula) hacia adelante o con *K* (mayúscula) hacia
 atrás.
 
-*** Problemas frecuentes
-    :PROPERTIES:
-    :CUSTOM_ID: problemas-frecuentes
-    :END:
+* # Problemas frecuentes
 
 Mensaje de error al lanzar MOC:
 
-#+BEGIN_SRCh
+#+BEGIN_SRC shell
     FATAL_ERROR: Can't send() int to the server. / FATAL_ERROR: Can't receive value from the server.
 #+END_SRC
 
 Basta con borrar el directorio ~/.moc/cache
 
-#+BEGIN_SRCh
+#+BEGIN_SRC shell
     rm -rf ~/.moc/cache
 #+END_SRC
 
 y lanzar de nuevo la aplicación.
 
-*Fuentes* 
-archivo recuperado del viejo esdebian
-man moc
+* # *Fuentes* 
+
+** archivo recuperado del viejo esdebian
+
+** man moc
+
 [[https://moc.daper.net/][Moc pagina oficial]]

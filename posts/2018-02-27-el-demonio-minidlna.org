@@ -15,7 +15,7 @@ todas las interfaces de red (excepto loopback). Este comportamiento se
 puede cambiar usando la opción -i, o en el archivo de configuración a
 través de la opción network\_interface.
 
-*** Configuracion minima
+** Configuracion minima
     :PROPERTIES:
     :CUSTOM_ID: configuracion-minima
     :END:
@@ -28,7 +28,7 @@ editar un par de lineas:
 
 *'port=8200'*
 
-*** Otras opciónes de configuración
+** Otras opciónes de configuración
     :PROPERTIES:
     :CUSTOM_ID: otras-opciónes-de-configuración
     :END:
@@ -50,7 +50,7 @@ tiene mas de un directorio. Para restringir una ruta a un tipo de
 archivo especifico (audio, videos, fotos), se usa la siguiente sintaxis
 *media\_dir=[A,V,P], /path/multimedia*
 
-*** Ejemplos
+** Ejemplos
      :PROPERTIES:
      :CUSTOM_ID: ejemplos
      :END:

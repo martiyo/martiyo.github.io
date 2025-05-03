@@ -5,15 +5,15 @@
 
 La gestión de contraseñas debe ser simple y seguir Filosofía Unix. 
 
-** Introducción 
+* # Introducción 
 
    Con pass, cada contraseña vive dentro de un archivo gpg cifrado cuyo nombre de archivo es el título del sitio web, correo o recurso que requiere la contraseña. Estos archivos cifrados pueden organizarse en jerarquías de carpetas significativas, copiadas de maquina a maquina, y, en general, manipuladas utilizando los servicios de gestión de archivos de línea de comando estándar.
 
 *pass* hace que la gestión de estos archivos de contraseña individuales sea extremadamente fácil. Todas las contraseñas viven en *~/.password-store*, y pass proporciona algunos comandos agradables para agregar, editar, generar y recuperar contraseñas. Es un script de shell muy corto y sencillo. Es capaz de poner temporalmente contraseñas en el portapapeles y rastrear cambios de contraseña utilizando git.
 
-**  Usando el Password-store
+* # Usando el Password-store
 
-*** Enumerar las contraseñas existentes en el store 
+** Enumerar las contraseñas existentes en el store 
 
     #+BEGIN_SRC
     dev1@devuan ~ $ pass 
@@ -23,14 +23,14 @@ La gestión de contraseñas debe ser simple y seguir Filosofía Unix.
        └── probando@gmail.com
     #+END_SRC
 
-*** Mostrar contraseñas
+** Mostrar contraseñas
 
        #+BEGIN_SRC
        dev1@devuan ~ $ pass micorreo@gmail.com 
        contraseñasegura
       #+END_SRC
 
-***  Copiar al portapapeles
+** Copiar al portapapeles
     
     
        #+BEGIN_SRC
@@ -40,7 +40,7 @@ La gestión de contraseñas debe ser simple y seguir Filosofía Unix.
 
 
        Cualquira de estos comandos habrirá un diálogo de entrada de contraseña agradable usando el estándar gpg-agent (que se puede configurar para mantenerse autenticado durante varios minutos), ya que todas las contraseñas están encriptadas.
-*** Añadir o modificar contraseñas  
+** Añadir o modificar contraseñas  
 
     Añadir 
     #+BEGIN
@@ -57,7 +57,7 @@ La gestión de contraseñas debe ser simple y seguir Filosofía Unix.
     #+END_SRC
     
     Esto también maneja contraseñas multilíneas u otros datos con --multiline or -m, y las contraseñas se pueden editar en su editor de texto predeterminado utilizando pass edit pass-name.
-*** Contraseñas automaticas
+** Contraseñas automaticas
     
     La utilidad *generate* crea nuevas contraseñas utilzando */dev/urandom*
 
@@ -69,16 +69,16 @@ La gestión de contraseñas debe ser simple y seguir Filosofía Unix.
     #+END_SRC
 
 Es posible generar contraseñas sin símbolos usando --no-symbols or -n, y podemos copiarlo al portapapeles en lugar de mostrarlo en la consola usando --clip or -c.
-***  Eliminar
+** Eliminar
 
     #+BEGIN_SRC 
       [dev1@devuan ~]$  pass rm correo/probando@gmail.com 
         Are you sure you would like to delete correo/probando@gmail.com? [y/N] y
         '/home/dev1/.password-store/correo/probando@gmail.com.gpg' borrado
     #+END_SRC
-*** Git 
+** Git 
     Si la tienda de contraseñas es un repositorio de git, ya que cada manipulación crea un git commit, puede sincronizar la tienda de contraseñas utilizando *pass git push* y *pass git pull*, que llamada git-push or git-pull en la tienda.
-** Configuración
+* # Configuración
    
    Para comenzar hay inicializar el dposito de contraseñas
 
@@ -86,7 +86,7 @@ Es posible generar contraseñas sin símbolos usando --no-symbols or -n, y podem
      pass init "id de mi clave GPG"
    #+END_SRC
 
-*** Generando las claves con GnuPG 
+** Generando las claves con GnuPG 
     
     Para crear una pareja de claves (publica y privada) se usa
 
@@ -111,7 +111,7 @@ Es posible generar contraseñas sin símbolos usando --no-symbols or -n, y podem
      export GPG_TTY=$(tty)
     #+END_SRC
 
-*** Inicializar el store como un repositorio git
+** Inicializar el store como un repositorio git
 
     #+BEGIN_SRC 
       $ pass git init
@@ -119,7 +119,7 @@ Es posible generar contraseñas sin símbolos usando --no-symbols or -n, y podem
     #+END_SRC
 
     Si un repositirio git es inicializado, pass crea un git commit cada vez que se manipula el store de contraseñas.
-** Organización 
+* # Organización 
 
    nombres de usuario, contraseñas, pins, sitios web, metadatos, etc.
 
@@ -135,6 +135,6 @@ Es posible generar contraseñas sin símbolos usando --no-symbols or -n, y podem
 
 
    Las opciones *--clip / -c* solo copiarán la primer línea de tal archivo en el portapapeles.
-** Emacs Pass-mode  
+* # Emacs Pass-mode  
    
    Y no podia faltar el pass-modo para emacs, se instala con *package-install* y listo, la interfaz es muy intuitiva. 

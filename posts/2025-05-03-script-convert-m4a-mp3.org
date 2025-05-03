@@ -1,0 +1,118 @@
+#+title: Script para convertir M4A a MP3 usando FFmpeg
+#+date: <2025-05-03 12:36>
+#+description: 
+#+filetags: linux
+
+
+Script para convertir archivos de audio M4A a MP3 en Linux usando FFmpeg.
+
+* # Requisitos previos  
+** Dependencias  
+- [[https://ffmpeg.org/][FFmpeg]] (para conversión de audio)  
+- Bash (shell para ejecución)  
+
+** Instalación  
+#+BEGIN_SRC sh :eval no  
+  # Debian/Ubuntu  
+  sudo apt update && sudo apt install ffmpeg  
+
+  # Fedora  
+  sudo dnf install ffmpeg  
+
+  # Arch Linux  
+  sudo pacman -S ffmpeg  
+#+END_SRC  
+
+* # Descripción del script  
+** Funcionalidad  
+- Conversión de archivos =.m4a= o =.M4A= a =.mp3=  
+- Manejo de:  
+  - Espacios en nombres (~mi audio.m4a~)  
+  - Mayúsculas/minúsculas  
+  - Caracteres especiales (ñ, á, @)  
+
+** Variables configurables  
+#+CAPTION: Parámetros del script  
+| Variable     | Valor por defecto | Descripción          |  
+|--------------+-------------------+----------------------|  
+| ~INPUT_DIR~  | ="./"=            | Directorio de entrada |  
+| ~OUTPUT_DIR~ | ="./MP3"=         | Carpeta de salida     |  
+| ~BITRATE~    | ="192k"=          | Calidad de audio      |  
+
+* # Código completo  
+#+NAME: script-code  
+#+BEGIN_SRC bash :tangle convert_m4a_to_mp3.sh  
+#!/bin/bash  
+
+# Configuración  
+INPUT_DIR="./"      # Directorio con archivos .m4a  
+OUTPUT_DIR="./MP3"  # Carpeta de salida  
+BITRATE="192k"      # Calidad de audio  
+
+# Verificar FFmpeg  
+if ! command -v ffmpeg &>/dev/null; then  
+    echo "Error: FFmpeg no está instalado"  
+    exit 1  
+fi  
+
+# Procesamiento de archivos  
+shopt -s nullglob nocaseglob  
+mkdir -p "$OUTPUT_DIR"  
+
+for file in "$INPUT_DIR"/*.m4a; do  
+    if [[ -f "$file" ]]; then  
+        output_file="$OUTPUT_DIR/$(basename "${file%.*}").mp3"  
+        echo "Convirtiendo: $(basename "$file")..."  
+        ffmpeg -i "$file" -codec:a libmp3lame -q:a 2 -b:a "$BITRATE" "$output_file" -y  
+    fi  
+done  
+#+END_SRC  
+
+* # Instrucciones de uso  
+
+** 1. Dar permisos  
+#+BEGIN_SRC sh  
+  chmod +x convert_m4a_to_mp3.sh  
+#+END_SRC  
+
+** 2. Ejecutar  
+#+BEGIN_SRC sh  
+  ./convert_m4a_to_mp3.sh  
+#+END_SRC  
+
+* # Ejemplo de salida  
+#+BEGIN_EXAMPLE  
+  Convirtiendo: audio 1.m4a...  
+  ✅ audio 1.m4a convertido  
+  Proceso completado. Archivos en: ./MP3  
+#+END_EXAMPLE  
+
+* # Solución de problemas  
+** Error común: Espacios en nombres  
+#+BEGIN_QUOTE  
+Si los archivos tienen espacios, el script original fallaba. La versión actual usa:  
+
+~for file in "$INPUT_DIR"/*.m4a; do~  
+~[[ -f "$file" ]]~  
+#+END_QUOTE  
+
+** Tabla de errores  
+| Error                  | Causa                     | Solución                     |  
+|------------------------+---------------------------+------------------------------|  
+| ~ffmpeg: not found~    | FFmpeg no instalado       | Instalar con gestor de paquetes |  
+| ~/*.m4a: No such file~ | No hay archivos en el dir | Verificar ~INPUT_DIR~        |  
+
+* # Personalización  
+** Cambiar calidad de audio  
+#+BEGIN_SRC bash :eval no  
+  BITRATE="320k"  # Editar en el script  
+#+END_SRC  
+
+** Procesar subdirectorios  
+#+BEGIN_SRC bash  
+  find "$INPUT_DIR" -type f -iname "*.m4a" -exec ffmpeg -i {} -c:a libmp3lame -b:a "$BITRATE" {}.mp3 \;  
+#+END_SRC  
+
+#+BEGIN_CENTER  
+¡Script listo para usar!  
+#+END_CENTER  

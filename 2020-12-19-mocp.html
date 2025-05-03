@@ -1,245 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link
-      rel="alternate"
+<head>
+<meta charset="UTF-8">
+<link rel="alternate"
       type="application/rss+xml"
       href="https://martiyo.github.io/rss.xml"
-      title="RSS feed for https://martiyo.github.io/"
-    />
-    <title>Mocp</title>
-    <meta name="author" content="martiyo" />
-    <meta name="referrer" content="no-referrer" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="static/style.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="static/favicon.ico" />
-  </head>
-  <body>
-    <div id="preamble" class="status">
-      <div class="header">
-        <ul>
-          <li><a href="https://martiyo.github.io/">/home</a></li>
-          <li><a href="https://martiyo.github.io/about">/about</a></li>
-          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
-        </ul>
-        <h1>El universo perdido de GNU/Emacs</h1>
-        <blockquote>
-          Este blog es una farsa son solo resumenes, traducciónes y cosas que
-          encuentro por ahí.
-        </blockquote>
-        <form>
-          <input type="text" placeholder="Search..." />
-        </form>
-        <br />
-      </div>
-    </div>
-    <div id="content">
-      <div class="post-date">19 dic 2020</div>
-      <h1 class="post-title">
-        <a href="https://martiyo.github.io/2020-12-19-mocp.html">Mocp</a>
-      </h1>
-      <p>Reproducir audio desde la terminal.</p>
+      title="RSS feed for https://martiyo.github.io/">
+<title>Mocp</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">19 dic 2020</div><h1 class="post-title"><a href="https://martiyo.github.io/2020-12-19-mocp.html">Mocp</a></h1>
+<p>
+Reproducir audio desde la terminal.
+</p>
+<div id="outline-container-org1741169" class="outline-2">
+<h2 id="org1741169"># Descripción</h2>
+<div class="outline-text-2" id="text-org1741169">
+<p>
+MOC es un reproductor de audio fácil de manejar y ligero, ideal para
+equipos con pocos recursos. La interfaz es similar a MC (Midnight
+Commander, el administrador de archivos) MOC reproduce todos los
+archivos en el directorio a partir del archivo seleccionado para lo que
+no es necesario crear listas de reproducción. Es posible reproducir
+varios archivos o directorios de archivos y después guardar lalista de
+reproducción como un archivo con extensión m3u. Funciona como demonio,
+es decir que se ejecuta en segundo plano por lo que no necesita entorno
+gráfico. Esto quiere decir también que si necesitas usar la terminal, el
+emulador de terminal ó cerrar el entorno gráfico no es necesario detener
+la reproducción ya que ésta sigue activa en segundo plano. Soporta los
+siguientes formatos: mp3, Ogg Vorbis, FLAC, Musepack, Speex, WAVE, AIFF
+y AU entre otros. Soporta Internet stream. Soporta temas de
+configuración.
+</p>
+</div>
+</div>
+<div id="outline-container-instalación" class="outline-2">
+<h2 id="instalación"># Instalación</h2>
+<div class="outline-text-2" id="text-instalación">
+<div class="org-src-container">
+<pre class="src src-shell">sudo apt install moc
+</pre>
+</div>
 
-      <div id="outline-container-org10a5be5" class="outline-2">
-        <h2 id="org10a5be5">Descripción</h2>
-        <div class="outline-text-2" id="text-org10a5be5">
-          <p>
-            MOC es un reproductor de audio fácil de manejar y ligero, ideal para
-            equipos con pocos recursos. La interfaz es similar a MC (Midnight
-            Commander, el administrador de archivos) MOC reproduce todos los
-            archivos en el directorio a partir del archivo seleccionado para lo
-            que no es necesario crear listas de reproducción. Es posible
-            reproducir varios archivos o directorios de archivos y después
-            guardar lalista de reproducción como un archivo con extensión m3u.
-            Funciona como demonio, es decir que se ejecuta en segundo plano por
-            lo que no necesita entorno gráfico. Esto quiere decir también que si
-            necesitas usar la terminal, el emulador de terminal ó cerrar el
-            entorno gráfico no es necesario detener la reproducción ya que ésta
-            sigue activa en segundo plano. Soporta los siguientes formatos: mp3,
-            Ogg Vorbis, FLAC, Musepack, Speex, WAVE, AIFF y AU entre otros.
-            Soporta Internet stream. Soporta temas de configuración.
-          </p>
-        </div>
-      </div>
+<p>
+Alternativamente se puede instalar un plugin para reproducir archivos en
+formatos como WMA, RealAudio, MP4 y ACC.
+</p>
 
-      <div id="outline-container-orgfe47b30" class="outline-2">
-        <h2 id="instalación">Instalación</h2>
-        <div class="outline-text-2" id="text-instalación">
-          <pre class="example">
-sudo apt install moc
-</pre
-          >
+<div class="org-src-container">
+<pre class="src src-shell">sudo apt install moc-ffmpeg-plugin
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-uso" class="outline-2">
+<h2 id="uso"># Uso</h2>
+<div class="outline-text-2" id="text-uso">
+<p>
+El binario tiene el nombre <b>mocp</b> para evitar problemas con otras
+aplicaciones u otros sistemas.
+</p>
 
-          <p>
-            Alternativamente se puede instalar un plugin para reproducir
-            archivos en formatos como WMA, RealAudio, MP4 y ACC.
-          </p>
+<p>
+La sintaxis en la siguiente:
+</p>
 
-          <pre class="example">
-sudo apt install moc-ffmpeg-plugin
-</pre
-          >
-        </div>
-      </div>
+<div class="org-src-container">
+<pre class="src src-shel">mocp [opciones] [archivo]
+</pre>
+</div>
 
-      <div id="outline-container-org1ee68a9" class="outline-2">
-        <h2 id="uso">Uso</h2>
-        <div class="outline-text-2" id="text-uso">
-          <p>
-            El binario tiene el nombre <b>mocp</b> para evitar problemas con
-            otras aplicaciones u otros sistemas.
-          </p>
+<p>
+Las opciones principales son:
+</p>
 
-          <p>La sintaxis en la siguiente:</p>
-
-          <pre class="example">
-mocp [opciones] [archivo]
-</pre
-          >
-
-          <p>Las opciones principales son:</p>
-
-          <pre class="example">
--c --clear
-   Limpia la lista de reproducción.
+<div class="org-src-container">
+<pre class="src src-shell">-c --clear
+   Limpia la lista de reproducci&#243;n.
 
 -p --play
-   Comienza a reproducir desde el primer elemento en la lista de reproducción.
+   Comienza a reproducir desde el primer elemento en la lista de reproducci&#243;n.
 
 -f --next
-   Cambia al siguiente elemento en la lista de reproducción.
+   Cambia al siguiente elemento en la lista de reproducci&#243;n.
 
 -r --previous
-   Cambia al elemento anterior en la lista de reproducción.
+   Cambia al elemento anterior en la lista de reproducci&#243;n.
 
 -s --stop
-   Detiene la reproducción.
+   Detiene la reproducci&#243;n.
 
 -P --pause
-   Pausa la reproducción.
+   Pausa la reproducci&#243;n.
 
 -U --unpause
-   Quita la pausa en la reproducción..
+   Quita la pausa en la reproducci&#243;n..
 
 -G --toggle-pause
    Hace el cambio entre reproducir y pausa.
 
 -T --theme
-   Usa un tema específico. De no ser una ruta completa el archivo será buscado en /usr/share/moc/themes, ~/.moc/themes y en el actual directorio.
-</pre
-          >
+Usa un tema espec&#237;fico. De no ser una ruta completa el archivo ser&#225; buscado
+en/usr/share/moc/themes, ~/.moc/themes y en el actual directorio.
+</pre>
+</div>
 
-          <p>
-            Se puede lanzar sin parámetros para entrar a la interfaz de ncurses:
-          </p>
+<p>
+Se puede lanzar sin parámetros para entrar a la interfaz de ncurses:
+</p>
 
-          <pre class="example">
-mocp
-</pre
-          >
+<div class="org-src-container">
+<pre class="src src-shell">mocp
+</pre>
+</div>
 
-          <p>
-            Del lado izquierdo esta el navegador de archivos y del derecho la
-            lista de reproducción, se cambia entre una y otra usando la tecla de
-            tabulación. A continuación en la parte inferior se encuentran el
-            mensaje de información que muestra el estatus del reproductor, el
-            volumen, el tiempo total de reproducción, la información sobre la
-            pista, tiempo transcurrido, restante y total de la pista, los
-            parámetros de sonido, opciones y la barra de reproducción.
-          </p>
+<p>
+Del lado izquierdo esta el navegador de archivos y del derecho la lista
+de reproducción, se cambia entre una y otra usando la tecla de
+tabulación. A continuación en la parte inferior se encuentran el mensaje
+de información que muestra el estatus del reproductor, el volumen, el
+tiempo total de reproducción, la información sobre la pista, tiempo
+transcurrido, restante y total de la pista, los parámetros de sonido,
+opciones y la barra de reproducción.
+</p>
 
-          <p>
-            Los accesos rápidos del teclado pueden verse presionando "h" , aquí
-            una lista con los más utilizados:
-          </p>
+<p>
+Los accesos rápidos del teclado pueden verse presionando "h" , aquí una
+lista con los más utilizados:
+</p>
 
-          <pre class="example">
-q              Oculta la interfaz de ncurses
-ENTER          Comienza la reproducción o entra al directorio
-Q              Cierra la aplicación por completo
-s              Detiene la reproducción
+<div class="org-src-container">
+<pre class="src src-shell">q              Oculta la interfaz de ncurses
+ENTER          Comienza la reproducci&#243;n o entra al directorio
+Q              Cierra la aplicaci&#243;n por completo
+s              Detiene la reproducci&#243;n
 n              Reproduce el siguiente elemento
 b              Reproduce el elemento anterior
 p SPACE        Pausa
-f              Cambia la opción de leer las etiquetas ó sólo nombrar el archivo
-S              Activa/desactiva la reproducción aleatoria
-R              Activa/desactiva el repetir la lista después de finalizada
-X              Activa/desactiva el reproducir el siguiente elemento automáticamente
-TAB            Cambia entre la lista de reproducción y el explorador de archivos
-l              Muestra sólo el explorador de archivos ó la lista de reproducción
-a              Agrega un archivo/directorio a la lista de reproducción
-d              Elimina un archivo de la lista de reproducción
-C              Limpia la lista de reproducción
-A              Agrega un directorio recursivamente a la lista de reproducción
+f              Cambia la opci&#243;n de leer las etiquetas &#243; s&#243;lo nombrar el archivo
+S              Activa/desactiva la reproducci&#243;n aleatoria
+R              Activa/desactiva el repetir la lista despu&#233;s de finalizada
+X              Activa/desactiva el reproducir el siguiente elemento autom&#225;ticamente
+TAB            Cambia entre la lista de reproducci&#243;n y el explorador de archivos
+l              Muestra s&#243;lo el explorador de archivos &#243; la lista de reproducci&#243;n
+a              Agrega un archivo/directorio a la lista de reproducci&#243;n
+d              Elimina un archivo de la lista de reproducci&#243;n
+C              Limpia la lista de reproducci&#243;n
+A              Agrega un directorio recursivamente a la lista de reproducci&#243;n
 &lt;              Decrementa el volumen en 1%
 &gt;              Incrementa el volumen en 1%
 ,              Decrementa el volumen en 5%
-.              Incrementa el volumen en 5%
-V              Guarda la lista de reproducción
+<span style="color: #c678dd;">.</span>              Incrementa el volumen en 5%
+V              Guarda la lista de reproducci&#243;n
 x              Alterna los canales del mezclador
 K              Selecciona el anterior preset del ecualizador
 k              Selecciona el siguiente preset del ecualizador
-</pre
-          >
-        </div>
-      </div>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-directorio-de-configuración-.moc" class="outline-2">
+<h2 id="directorio-de-configuración-.moc"># Directorio de configuración: ~/.moc</h2>
+<div class="outline-text-2" id="text-directorio-de-configuración-.moc">
+<p>
+El archivo de configuración principal dentro del directorio <b>~/.moc</b> es
+<b>config</b>, este archivo no es necesario para el usa de la aplicación,
+pero si lo es para modificar las preferencias, no se crea durante las
+instalación sino que hay que copiarlo desde
+<b>/usr/share/doc/moc/examples/config.example.gz</b> y descomprimirlo en
+<b>~/.moc</b>
+</p>
 
-      <div id="outline-container-orgedf4d4d" class="outline-2">
-        <h2 id="directorio-de-configuración-.moc">
-          Directorio de configuración: ~/.moc
-        </h2>
-        <div class="outline-text-2" id="text-directorio-de-configuración-.moc">
-          <p>
-            El archivo de configuración principal dentro del directorio
-            <b>~/.moc</b> es <b>config</b>, este archivo no es necesario para el
-            usa de la aplicación, pero si lo es para modificar las preferencias,
-            no se crea durante las instalación sino que hay que copiarlo desde
-            <b>/usr/share/doc/moc/examples/config.example.gz</b> y
-            descomprimirlo en
-            <b>~/.moc</b>
-          </p>
-
-          <pre class="example">
-cp /usr/share/doc/moc/examples/config.example.gz ~/.moc
-cd ~/.moc
+<div class="org-src-container">
+<pre class="src src-shell">cp /usr/share/doc/moc/examples/config.example.gz ~/.moc
+<span style="color: #c678dd;">cd</span> ~/.moc
 gzip -d config.example.gz
 mv config.example config
-</pre
-          >
+</pre>
+</div>
 
-          <p>
-            Está muy bien documentado y realmente los cambios son a gusto.
-            Normalmente sólo es necesario cambiar unas cuantas líneas para tener
-            todo funcionando a gusto, por ejemplo las siguientes: Repeat = yes
-            Shuffle = yes SoundDriver = ALSA Theme = black\<sub>theme</sub>
-          </p>
+<p>
+Está muy bien documentado y realmente los cambios son a gusto.
+Normalmente sólo es necesario cambiar unas cuantas líneas para tener
+todo funcionando a gusto, por ejemplo las siguientes: Repeat = yes
+Shuffle = yes SoundDriver = ALSA Theme = black\<sub>theme</sub>
+</p>
 
-          <p>
-            Los directorios por defecto para los temas son
-            <b>/usr/share/moc/themes</b> y
-          </p>
-        </div>
-      </div>
-      <div id="outline-container-org1935296" class="outline-2">
-        <h2 id="org1935296">
-          ~/.moc/themes**. Es posible descargar temas de configuración, o
-        </h2>
-        <div class="outline-text-2" id="text-org1935296">
-          <p>
-            editarlo uno y guardarlo en uno de estos directorios. Básicamente
-            cada elemento tiene la siguiente estructura:
-          </p>
+<p>
+Los directorios por defecto para los temas son <b>/usr/share/moc/themes</b> y
+</p>
+</div>
+</div>
+<div id="outline-container-org05525e5" class="outline-2">
+<h2 id="org05525e5"># ~/.moc/themes**. Es posible descargar temas de configuración, o</h2>
+<div class="outline-text-2" id="text-org05525e5">
+<p>
+editarlo uno y guardarlo en uno de estos directorios. Básicamente cada
+elemento tiene la siguiente estructura:
+</p>
 
-          <pre class="example">
+<pre class="example" id="orge965b57">
 elemento        = color-de-texto
 color-de-fondo  = atributos
-</pre
-          >
+</pre>
 
-          <p>Los colores permitidos son:</p>
+<p>
+Los colores permitidos son:
+</p>
 
-          <pre class="example">
+<pre class="example" id="orgf9190cd">
 default (sirve como transparencia)
 black
 red
@@ -250,29 +239,29 @@ magenta
 cyan
 white
 grey
-</pre
-          >
+</pre>
 
-          <p>Los atributos le dan formato al texto y son:</p>
+<p>
+Los atributos le dan formato al texto y son:
+</p>
 
-          <p>
-            atributo | función -|- normal | default (sin destacado) standout |
-            mejor salida underline | subrayado reverse | video inverso blink |
-            parpadeo dim | medio brillo bold | negrita protect | modo protegido
-          </p>
+<p>
+atributo | función -|- normal | default (sin destacado) standout | mejor
+salida underline | subrayado reverse | video inverso blink | parpadeo
+dim | medio brillo bold | negrita protect | modo protegido
+</p>
 
-          <p>
-            Ejemplo del archivo
-            <b>* ~/.moc/themes/black\<sub>themes</sub>*</b> documentado:
-          </p>
+<p>
+Ejemplo del archivo <b>* ~/.moc/themes/black\<sub>themes</sub>*</b> documentado:
+</p>
 
-          <pre class="example">
-# Interfaz de ncurses
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Interfaz de ncurses</span>
 background = red default
 frame = red default
 window_title = yellow default underline,dim
 
-# Archivos, directorios y listas de reproducción
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Archivos, directorios y listas de reproducci&#243;n</span>
 directory = yellow default
 selected_directory = yellow default underline
 playlist = yellow default
@@ -281,136 +270,134 @@ file = yellow default
 selected_file = yellow default underline
 selected_info           = yellow        default bold
 
-# Elemento que actualmente se está reproduciendo
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Elemento que actualmente se est&#225; reproduciendo</span>
 marked_file = yellow default bold
 marked_selected_file = red default bold,underline
 marked_info             = blue          default bold
 marked_selected_info    = cyan          default
 
-# Estatus
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Estatus</span>
 info = yellow default
 status = yellow default
 title = yellow default
 state = yellow default
 
-# Tiempo
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Tiempo</span>
 current_time = yellow default
 time_left = yellow default
 total_time = yellow default
 time_total_frames = yellow default ~/.mo
 
-# Parámetros de sonido
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Par&#225;metros de sonido</span>
 sound_parameters = yellow default
 legend = yellow default
 disabled = red default dim
 enabled = yellow default bold
 
-# Barra de Volumen
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Barra de Volumen</span>
 empty_mixer_bar = yellow red
 filled_mixer_bar = red yellow
 
-# Barra de reproducción
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Barra de reproducci&#243;n</span>
 empty_time_bar = yellow default
 filled_time_bar = default yellow
 
-# Guardar lista de reproducción
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Guardar lista de reproducci&#243;n</span>
 entry = yellow default
 entry_title = yellow default bold
 
-# Mensajes
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Mensajes</span>
 error = cyan default
 message = yellow default
 
-# Tiempo total de la lista de reproducción o directorio
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Tiempo total de la lista de reproducci&#243;n o directorio</span>
 plist_time = yellow default
-</pre
-          >
+</pre>
+</div>
 
-          <p>
-            Para asociar un tema por default hay que editar el archivo de
-            configuración ~/.moc/config y editar la opción "Theme" de esta
-            forma: Theme = black\<sub>theme</sub>
-          </p>
+<p>
+Para asociar un tema por default hay que editar el archivo de
+configuración ~/.moc/config y editar la opción "Theme" de esta forma:
+Theme = black\<sub>theme</sub>
+</p>
 
-          <p>
-            Es posible usar temas sin necesidad de editar el archivo de
-            configuración usando el parámetro <b>-T</b>: mocp -T
-            tema\<sub>a</sub>\<sub>usar</sub>
-          </p>
+<p>
+Es posible usar temas sin necesidad de editar el archivo de
+configuración usando el parámetro <b>-T</b>: mocp -T tema\<sub>a</sub>\<sub>usar</sub>
+</p>
 
-          <p>
-            También es posible cambiar el tema dentro de la misma interfaz
-            ncurses presionando <b>T</b> con lo que se desplegara un menú con
-            los temas disponibles.
-          </p>
-        </div>
-      </div>
+<p>
+También es posible cambiar el tema dentro de la misma interfaz ncurses
+presionando <b>T</b> con lo que se desplegara un menú con los temas
+disponibles.
+</p>
+</div>
+</div>
+<div id="outline-container-ecualizador" class="outline-2">
+<h2 id="ecualizador"># Ecualizador</h2>
+<div class="outline-text-2" id="text-ecualizador">
+<p>
+Moc tiene la opción de utilizar un ecualizador pero necesita de algún
+preset que por default no hay en la carpeta de configuración, estos
+deben estar ubicados en la carpeta <b>* ~/.moc/eqsets</b>. Se puede crear uno
+a mono pero lo más sencillo es descargarlos, en internet están
+disponibles algunos presets convertidos de winamp o xmms en un archivo
+<b>eqsets.tar.gz*</b>. Para utilizarlos basta con:
+</p>
 
-      <div id="outline-container-orgbf8d304" class="outline-2">
-        <h2 id="ecualizador">Ecualizador</h2>
-        <div class="outline-text-2" id="text-ecualizador">
-          <p>
-            Moc tiene la opción de utilizar un ecualizador pero necesita de
-            algún preset que por default no hay en la carpeta de configuración,
-            estos deben estar ubicados en la carpeta <b>* ~/.moc/eqsets</b>. Se
-            puede crear uno a mono pero lo más sencillo es descargarlos, en
-            internet están disponibles algunos presets convertidos de winamp o
-            xmms en un archivo <b>eqsets.tar.gz*</b>. Para utilizarlos basta
-            con:
-          </p>
-
-          <pre class="example">
-cd  ~/.moc/
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #c678dd;">cd</span>  ~/.moc/
 wget http://ftp.daper.net/pub/soft/moc/contrib/eqsets.tar.gz
 tar xvfz eqsets.tar.gz
 rm eqsets.tar.gz
-</pre
-          >
+</pre>
+</div>
 
-          <p>
-            Y ahora dentro de moc hay refrescar la lista de presets presionando
-            <b>e</b>, se cambia con <b>k</b> (minúscula) hacia adelante o con
-            <b>K</b> (mayúscula) hacia atrás.
-          </p>
-        </div>
+<p>
+Y ahora dentro de moc hay refrescar la lista de presets presionando <b>e</b>,
+se cambia con <b>k</b> (minúscula) hacia adelante o con <b>K</b> (mayúscula) hacia
+atrás.
+</p>
+</div>
+</div>
+<div id="outline-container-problemas-frecuentes" class="outline-2">
+<h2 id="problemas-frecuentes"># Problemas frecuentes</h2>
+<div class="outline-text-2" id="text-problemas-frecuentes">
+<p>
+Mensaje de error al lanzar MOC:
+</p>
 
-        <div id="outline-container-orgf4841f5" class="outline-3">
-          <h3 id="problemas-frecuentes">Problemas frecuentes</h3>
-          <div class="outline-text-3" id="text-problemas-frecuentes">
-            <p>Mensaje de error al lanzar MOC:</p>
+<div class="org-src-container">
+<pre class="src src-shell">FATAL_ERROR: Can<span style="color: #98be65;">'t send() int to the server. / FATAL_ERROR: Can'</span>t receive value from the server.
+</pre>
+</div>
 
-            <p>
-              #+BEGIN<sub>SRCh</sub> FATAL<sub>ERROR</sub>: Can't send() int to
-              the server. / FATAL<sub>ERROR</sub>: Can't receive value from the
-              server. #+END<sub>SRC</sub>
-            </p>
+<p>
+Basta con borrar el directorio ~/.moc/cache
+</p>
 
-            <p>Basta con borrar el directorio ~/.moc/cache</p>
+<div class="org-src-container">
+<pre class="src src-shell">rm -rf ~/.moc/cache
+</pre>
+</div>
 
-            <p>
-              #+BEGIN<sub>SRCh</sub> rm -rf ~/.moc/cache #+END<sub>SRC</sub>
-            </p>
+<p>
+y lanzar de nuevo la aplicación.
+</p>
 
-            <p>y lanzar de nuevo la aplicación.</p>
-
-            <p>
-              <b>Fuentes</b>
-              archivo recuperado del viejo esdebian man moc
-              <a href="https://moc.daper.net/">Moc pagina oficial</a>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
-      </div>
-    </div>
-    <div id="postamble" class="status">
-      <div id="archive">
-        <a href="https://martiyo.github.io/archive.html">Other posts</a>
-      </div>
-      <footer></footer>
-    </div>
-  </body>
+<p>
+<b>Fuentes</b> 
+archivo recuperado del viejo esdebian
+man moc
+<a href="https://moc.daper.net/">Moc pagina oficial</a>
+</p>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
 </html>

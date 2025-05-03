@@ -29,13 +29,13 @@ Desde la pagina oficial de [[https://github.com/dtinth/comic-mono-font][github]]
 * # Configurar la fuente en Emacs
 Una vez que la fuente esta instalada en el sistema hay que configurar emacs para usarla.
 
-*** Opción 1: Configurar la fuente globalmente
+** Opción 1: Configurar la fuente globalmente
 #+BEGIN_SRC emacs-lisp
   ;; Establecer la fuente Comic Mono
   (set-frame-font "Comic Mono-12" nil t)
 #+END_SRC
 
-*** Opción 2: Configurar la fuente solo para Org-mode
+** Opción 2: Configurar la fuente solo para Org-mode
 #+BEGIN_SRC emacs-lisp
   ;; Establecer la fuente Comic Mono solo para Org Mode
   (add-hook 'org-mode-hook

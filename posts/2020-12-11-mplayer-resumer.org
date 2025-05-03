@@ -5,27 +5,27 @@
 
 Lo unico que le faltaba al bueno de mplayer era poder retomar la reprocucción en el punto donde había quedado, *mplayer-resumer* resuelve esta situación.
 
-** Descarga
+* Descarga
    
-   #+BEGIN_SRC
-   git clone https://github.com/graysky2/mplayer-resumer.git
-   #+END_SRC
+#+BEGIN_SRC shell
+git clone https://github.com/graysky2/mplayer-resumer.git
+#+END_SRC
 
-** Instalación
+* Instalación
 
    El paquete clonado viene con un archivo **INSTALL** con las dependencias e instrucciones necesarias:
 
-   * Dpendencias
+** Dpendencias
 
-   #+BEGIN_SRC 
-   mplayer or mplayer2
-   perl
-   perl-shell (http://search.cpan.org/dist/Shell/)
-   #+END_SRC
+#+BEGIN_SRC shell
+mplayer or mplayer2
+perl
+perl-shell (http://search.cpan.org/dist/Shell/)
+#+END_SRC
         
-  * Building
+** Building
 
-#+BEGIN_SRC 
+#+BEGIN_SRC shell 
 $ make
 # make install
 #+END_SRC

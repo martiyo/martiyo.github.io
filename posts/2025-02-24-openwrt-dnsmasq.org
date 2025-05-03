@@ -1,0 +1,33 @@
+#+TITLE: dnsmasq en openwrt
+#+date: <2025-02-24 19:13>
+#+description: 
+#+filetags: openwrt
+
+Bloquear dominios con *dnsmasq*
+
+* # Wiki
+dnsmasq es un redireccionador de DNS ligero y fácil de configurar, diseñado para proporcionar servicios DNS (y opcionalmente DHCP y TFTP) a una red de pequeña escala. Puede servir los nombres de máquinas locales que no están en el DNS global.
+
+El servidor DHCP de dnsmasq soporta asignaciones DHCP estáticas y dinámicas, múltiples redes y rangos de direcciones IP. El servidor DHCP se integra con el servidor DNS y permite que las máquinas locales con direcciones asignadas por DHCP aparezcan en el DNS. dnsmasq almacena en caché los registros DNS, reduciendo la carga de los servidores de nombres de origen y mejorando el rendimiento, y puede configurarse para que recoja automáticamente las direcciones de sus servidores de origen.
+
+dnsmasq acepta peticiones DNS y las responde desde una pequeña caché local o las reenvía a un servidor DNS real y recursivo. Carga el contenido de /etc/hosts, para que los nombres de hosts locales que no aparecen en el DNS global puedan ser resueltos. Esto también significa que los registros añadidos al archivo local /etc/hosts con el formato "0.0.0.0 annoyingsite.com" pueden ser usados para prevenir que las referencias a "annoyingsite.com" sean resueltas por el navegador. Esto puede evolucionar rápidamente a un bloqueador de anuncios local cuando se combina con proveedores de listas de sitios para el bloqueo de anuncios. Si se realiza en el router, puede eliminar eficazmente el contenido publicitario de todo un hogar y/o empresa.
+
+
+* # Editar el archivo de configuracion de dnsmasq:
+
+#+begin_src shell
+vi /etc/dnsmasq.conf 
+#+end_src
+
+* # Agregar una linea para cada dominios
+
+#+begin_src shell
+address=/dominio1.com/0.0.0.0
+address=/dominio2.com/0.0.0.0
+#+end_src
+
+*  # Reiniciar el servicion para aplicar los cambios
+
+#+begin_src shell
+/etc/init.d/dnsmasq restart
+#+end_src

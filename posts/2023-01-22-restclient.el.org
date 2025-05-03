@@ -100,7 +100,7 @@ Accept: application/json
     
     Añadir *ob-resclient* a *org-babel*
 
-    #+BEGIN_SRC elisp
+#+BEGIN_SRC elisp
   (with-eval-after-load 'org
   (add-to-list 'org-babel-load-languages '(restclient . t)))
 #+END_SRC
@@ -109,7 +109,7 @@ Accept: application/json
     
     En un archivo *org*, crear un bloque de código para *restclient*:
 
-      #+BEGIN_SRC restclient
+#+BEGIN_SRC restclient
 ,#+BEGIN_SRC restclient
 GET https://jsonplaceholder.typicode.com/posts/1
 Accept: application/json
@@ -117,33 +117,34 @@ Accept: application/json
 
 ,#+RESULTS:    
 
-  #+END_SRC
+#+END_SRC
 
     para enviar un token por cookie:
 
-      #+BEGIN_SRC restclient
+#+BEGIN_SRC restclient
 GET http://localhost:4000/auth/profile
 Cookie:  token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hc...
 Accept: application/json  
- #+END_SRC
+#+END_SRC
 
     para enviarlo por encabezados:
   
-      #+BEGIN_SRC restclient
+#+BEGIN_SRC restclient
 GET http://localhost:4000/auth/profile
-Authentication: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hc...
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hc...
 Accept: application/json  
 #+END_SRC
 
     para hacer un post:    
-      #+BEGIN_SRC restclient
+#+BEGIN_SRC restclient
 POST https://jsonplaceholder.typicode.com/posts\
 Content-Type: application/json
-{
-   "title": "foo",
-   "body": "bar",n  "userId": 1
-}
-	   	
+  {
+     "title": "foo",
+     "body": "bar",
+     "userId": 1
+  }
+  	   	
 #+END_SRC
 
     Ejecutar cada bloque con *C-c C-c* y el resultado se muestra en su seccion *RESULTS:* correspondiente 

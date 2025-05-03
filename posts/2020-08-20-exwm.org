@@ -5,21 +5,21 @@
 
 EXWM (Emacs X Window Manager) es un completo gestor de ventanas X en mosaico para Emacs construido sobre XELB.
 
-*** #Instalación
+* # Instalación
 
 Para instalar Exwm y todas sus dependencias...
 
-#+BEGIN_SRC 
+#+BEGIN_SRC  
 M-x package-install RET exwm RET.
 #+END_SRC
 
-*** #Inicio .xinitrc y init.el
+* # Inicio .xinitrc e init.el
 
 + Para poder iniciarlo creo (o lo copio desde */etc/X11/xinitrc*) el archivo .xinitrc en el directorio /home con el siguiente contenido:
 
 dejo aqui mi .xinitrc con ejemplos a modo de buckup
 
-#+BEGIN_SRC 
+#+BEGIN_SRC shell
 #!/usr/bin/env bash
 #
 # This is a sample file for the ~/.xinitrc file.
@@ -70,15 +70,19 @@ xmobar .config/xmobar/xmobar.config &
 exec dbus-launch --exit-with-session emacs
 #+END_SRC
 
-+ luego le agredo los permisos 774 a este archivo 
++ luego le agrego los permisos 774 a este archivo 
 + creo un enlace simbolico a ~/.xinitrc llamado ~/.xsession o ~/.xsessionrc
 
 *nota*
-Crear el enlace simbolico ~/.xsession da la posibilidad de instalar otro administrador de ventanas como openbox o xfce. Crear el enlace a ~/.xsessionrc permite iniciar directamente con *exwm*.
+#+BEGIN_QUOTE
+Crear el enlace simbolico ~/.xsession da la posibilidad de instalar otro administrador de ventanas
+como openbox o windows manager como xfce. Crear el enlace a ~/.xsessionrc permite iniciar
+directamente con *exwm*.
+#+END_QUOTE
 
 + por último en el *init.el* agrego:
 
-#+BEGIN_SRC
+#+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/xelb/")
 (add-to-list 'load-path "~/.emacs.d/elpa/exwm-0.24/")
 (require 'exwm)
@@ -89,6 +93,26 @@ Crear el enlace simbolico ~/.xsession da la posibilidad de instalar otro adminis
 (setq exwm-workspace-number 10)
 #+END_SRC
 
-*** # Atajo de teclado 
+* # Algunos atajos de teclado 
 
+| Atajo       | Función                                                                     |
+|-------------+-----------------------------------------------------------------------------|
+| C-c C-t C-f | Cambia entre el modo mosaico (prederminado) y el modo flotante.             |
+| C-c C-h     | Oculta la ventana flotante                                                  |
+| C-c C-q     | Esto se antepone para lanzar un atajo propio de la aplicación externa       |
+| C-c C-k     | Esto activa el char-mode para usar mas de un atajo de la aplicación externa |
+| S-r         | Sale del char-mode                                                          |
 
+* # Crear un atajo para lanzar aplicaciones externas
+
+#+BEGIN_SRC emacs-lisp
+  (exwm-input-set-key (kbd "s-f") (lambda ()
+  (interactive)
+  (let  ((comando "firefox")) o
+  (start-process-shell-command comando nil comando))))
+  (push (elt (kbd "s-f") 0) exwm-input-prefix-keys)
+#+END_SRC
+
+* # Fuentes
+[[https://github.com/ch11ng/exwm/wiki][exwm-wiki]]
+[[https://www.it-swarm.dev/es/window-manager/iniciando-sesion-con-exwm/96][it-swarm.dev]]

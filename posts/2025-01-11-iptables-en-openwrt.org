@@ -108,11 +108,11 @@ Buscar una regla que contenga la IP del dispositivo y confirme que está bloqued
 
  #+BEGIN_SRC shell
  # Habilitar la regla todos los días a las 8:00 AM
- 0 8 * * * /etc/firewall.enable_block.sh
+ 0 2 * * * /etc/firewall.enable_block.sh
 
 
  # Deshabilitar la regla todos los días a las 8:00 PM
- 0 20 * * * /etc/firewall.disable_block.sh
+ 0 7 * * * /etc/firewall.disable_block.sh
  #+END_SRC
 
  Reiniciar cron
@@ -121,3 +121,4 @@ Buscar una regla que contenga la IP del dispositivo y confirme que está bloqued
  /etc/init.d/cron restart
  #+END_SRC
       
+ 
