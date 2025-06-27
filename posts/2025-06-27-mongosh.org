@@ -1,0 +1,66 @@
+#+title: mongosh
+#+date: <2025-06-27 09:18>
+#+description: 
+#+filetags: linux, database
+
+mongosh es el shell interactivo de MongoDB que permite interactuar con  bases de datos directamente desde la terminal.
+
+** # Instalación
+
+** # Conexión básica
+
+Para conectarse a una instancia local de MongoDB (que se ejecuta en el puerto por defecto 27017):
+
+#+BEGIN_SRC shell
+  mongosh
+#+END_SRC
+
+** # Conexión a servidores remotos
+
+Para conectarse a un servidor remoto:
+#+BEGIN_SRC shell
+  mongosh "mongodb://usuario:contraseña@servidor:puerto/nombre_db"
+#+END_SRC
+
+Ejemplo
+#+BEGIN_SRC shell
+  mongosh "mongodb://admin:password123@localhost:27017/mi_base_datos"
+#+END_SRC
+
+
+
+** Conexión a MongoDB Atlas
+
+Para conectarse a un clúster en MongoDb Atlas:
+#+BEGIN_SRC shell
+  mongosh mongodb+srv://martiyosrc:password123@cluster0.oazjstj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+#+END_SRC
+
+** # Comandos básicos una vez conectado
+
+*** Mostrar bases de datos
+#+BEGIN_SRC javascript
+  show dbs
+#+END_SRC
+
+*** Usar una base de datos
+#+BEGIN_SRC javascript
+  use nombre_base_datos
+#+END_SRC
+
+*** Mostrar collection
+#+BEGIN_SRC javascript
+  show collections
+#+END_SRC
+
+*** Consultar documentos de una colecctión:
+#+BEGIN_SRC javascript
+  db.nombre_coleccion.dind()
+#+END_SRC  
+  
+*** Insertar un documento:
+#+BEGIN_SRC javascript
+  db.nombre_coleccion.insertOne({campo1: "valor1", campo2: 123})
+#+END_SRC
+
+

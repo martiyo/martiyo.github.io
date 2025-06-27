@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>mongosh</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+    <script src="static/search.js"></script>
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Buscar..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">27 jun 2025</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2025-06-27-mongosh.html">mongosh</a>
+      </h1>
+      <p>
+        mongosh es el shell interactivo de MongoDB que permite interactuar con
+        bases de datos directamente desde la terminal.
+      </p>
+      <div id="outline-container-org4943dc7" class="outline-2">
+        <h2 id="org4943dc7"># Instalación</h2>
+      </div>
+
+      <div id="outline-container-orge4b1610" class="outline-2">
+        <h2 id="orge4b1610"># Conexión básica</h2>
+        <div class="outline-text-2" id="text-orge4b1610">
+          <p>
+            Para conectarse a una instancia local de MongoDB (que se ejecuta en
+            el puerto por defecto 27017):
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-shell">
+mongosh
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org6d42287" class="outline-2">
+        <h2 id="org6d42287"># Conexión a servidores remotos</h2>
+        <div class="outline-text-2" id="text-org6d42287">
+          <p>Para conectarse a un servidor remoto:</p>
+          <div class="org-src-container">
+            <pre class="src src-shell">
+mongosh "mongodb://usuario:contraseña@servidor:puerto/nombre_db"
+</pre
+            >
+          </div>
+
+          <p>Ejemplo</p>
+          <div class="org-src-container">
+            <pre class="src src-shell">
+mongosh "mongodb://admin:password123@localhost:27017/mi_base_datos"
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgf1fea61" class="outline-2">
+        <h2 id="orgf1fea61">Conexión a MongoDB Atlas</h2>
+        <div class="outline-text-2" id="text-orgf1fea61">
+          <p>Para conectarse a un clúster en MongoDb Atlas:</p>
+          <div class="org-src-container">
+            <pre class="src src-shell">
+mongosh mongodb+srv://martiyosrc:password123@cluster0.oazjstj.mongodb.net/?retryWrites=true&amp;w=majority&amp;appName=Cluster0
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org582917f" class="outline-2">
+        <h2 id="org582917f"># Comandos básicos una vez conectado</h2>
+        <div class="outline-text-2" id="text-org582917f"></div>
+        <div id="outline-container-orgbf5c018" class="outline-3">
+          <h3 id="orgbf5c018">Mostrar bases de datos</h3>
+          <div class="outline-text-3" id="text-orgbf5c018">
+            <div class="org-src-container">
+              <pre class="src src-javascript">
+show dbs
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgab65fa4" class="outline-3">
+          <h3 id="orgab65fa4">Usar una base de datos</h3>
+          <div class="outline-text-3" id="text-orgab65fa4">
+            <div class="org-src-container">
+              <pre class="src src-javascript">
+use nombre_base_datos
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgb8d9e22" class="outline-3">
+          <h3 id="orgb8d9e22">Mostrar collection</h3>
+          <div class="outline-text-3" id="text-orgb8d9e22">
+            <div class="org-src-container">
+              <pre class="src src-javascript">
+show collections
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgb5de21a" class="outline-3">
+          <h3 id="orgb5de21a">Consultar documentos de una colecctión:</h3>
+          <div class="outline-text-3" id="text-orgb5de21a">
+            <div class="org-src-container">
+              <pre class="src src-javascript">
+db.nombre_coleccion.dind()
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org6075aec" class="outline-3">
+          <h3 id="org6075aec">Insertar un documento:</h3>
+          <div class="outline-text-3" id="text-org6075aec">
+            <div class="org-src-container">
+              <pre class="src src-javascript">
+db.nombre_coleccion.insertOne({campo1: "valor1", campo2: 123})
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux,.html">linux,</a>
+        <a href="https://martiyo.github.io/tag-database.html">database</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

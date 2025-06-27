@@ -4,7 +4,137 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Sat, 03 May 2025 16:23:46 -0300</lastBuildDate>
+<lastBuildDate>Fri, 27 Jun 2025 09:35:56 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[mongosh]]></title>
+  <description><![CDATA[
+      <p>
+        mongosh es el shell interactivo de MongoDB que permite interactuar con
+        bases de datos directamente desde la terminal.
+      </p>
+      <div id="outline-container-org70beea9" class="outline-2">
+        <h2 id="org70beea9"># Instalación</h2>
+      </div>
+
+      <div id="outline-container-orgb68dacc" class="outline-2">
+        <h2 id="orgb68dacc"># Conexión básica</h2>
+        <div class="outline-text-2" id="text-orgb68dacc">
+          <p>
+            Para conectarse a una instancia local de MongoDB (que se ejecuta en
+            el puerto por defecto 27017):
+          </p>
+
+          <div class="org-src-container">
+            <pre class="src src-shell">
+mongosh
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org0d385dc" class="outline-2">
+        <h2 id="org0d385dc"># Conexión a servidores remotos</h2>
+        <div class="outline-text-2" id="text-org0d385dc">
+          <p>Para conectarse a un servidor remoto:</p>
+          <div class="org-src-container">
+            <pre class="src src-shell">
+mongosh "mongodb://usuario:contraseña@servidor:puerto/nombre_db"
+</pre
+            >
+          </div>
+
+          <p>Ejemplo</p>
+          <div class="org-src-container">
+            <pre class="src src-shell">
+mongosh "mongodb://admin:password123@localhost:27017/mi_base_datos"
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org367538f" class="outline-2">
+        <h2 id="org367538f">Conexión a MongoDB Atlas</h2>
+        <div class="outline-text-2" id="text-org367538f">
+          <p>Para conectarse a un clúster en MongoDb Atlas:</p>
+          <div class="org-src-container">
+            <pre class="src src-shell">
+mongosh mongodb+srv://martiyosrc:password123@cluster0.oazjstj.mongodb.net/?retryWrites=true&amp;w=majority&amp;appName=Cluster0
+</pre
+            >
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org4ff7a51" class="outline-2">
+        <h2 id="org4ff7a51"># Comandos básicos una vez conectado</h2>
+        <div class="outline-text-2" id="text-org4ff7a51"></div>
+        <div id="outline-container-orgd720e85" class="outline-3">
+          <h3 id="orgd720e85">Mostrar bases de datos</h3>
+          <div class="outline-text-3" id="text-orgd720e85">
+            <div class="org-src-container">
+              <pre class="src src-javascript">
+show dbs
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgee8996a" class="outline-3">
+          <h3 id="orgee8996a">Usar una base de datos</h3>
+          <div class="outline-text-3" id="text-orgee8996a">
+            <div class="org-src-container">
+              <pre class="src src-javascript">
+use nombre_base_datos
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgc8c9726" class="outline-3">
+          <h3 id="orgc8c9726">Mostrar collection</h3>
+          <div class="outline-text-3" id="text-orgc8c9726">
+            <div class="org-src-container">
+              <pre class="src src-javascript">
+show collections
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org5ffea14" class="outline-3">
+          <h3 id="org5ffea14">Consultar documentos de una colecctión:</h3>
+          <div class="outline-text-3" id="text-org5ffea14">
+            <div class="org-src-container">
+              <pre class="src src-javascript">
+db.nombre_coleccion.dind()
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org7600972" class="outline-3">
+          <h3 id="org7600972">Insertar un documento:</h3>
+          <div class="outline-text-3" id="text-org7600972">
+            <div class="org-src-container">
+              <pre class="src src-javascript">
+db.nombre_coleccion.insertOne({campo1: "valor1", campo2: 123})
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-linux,.html">linux,</a>
+        <a href="https://martiyo.github.io/tag-database.html">database</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[linux,]]></category>
+  <category><![CDATA[database]]></category>
+  <link>https://martiyo.github.io/2025-06-27-mongosh.html</link>
+  <guid>https://martiyo.github.io/2025-06-27-mongosh.html</guid>
+  <pubDate>Fri, 27 Jun 2025 09:18:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[Script para convertir M4A a MP3 usando FFmpeg]]></title>
   <description><![CDATA[
