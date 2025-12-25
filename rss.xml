@@ -4,7 +4,113 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Fri, 27 Jun 2025 09:35:56 -0300</lastBuildDate>
+<lastBuildDate>Thu, 25 Dec 2025 17:30:05 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[Reset OpenWRT]]></title>
+  <description><![CDATA[
+      <p>OpenWRT tiene el reset deshabilitado o modificado por defecto.</p>
+
+      <p>
+        Algunos firmwares personalizados deshabilitan el reset físico. En ese
+        caso, se necesita acceder por failsafe mode.
+      </p>
+      <div id="outline-container-orgfe617e7" class="outline-2">
+        <h2 id="orgfe617e7"># Arrancar OpenWRT en modo Failsafe:</h2>
+        <div class="outline-text-2" id="text-orgfe617e7">
+          <ol class="org-ol">
+            <li>Desconectar la alimentación del router</li>
+            <li>Reconecta la alimentación</li>
+            <li>
+              Inmediatamente cuando veas el LED del sistema parpadeando,
+              presiona repetidamente el botón WPS/RESET (o cualquier botón
+              disponible) hasta que el LED parpadee más rápido
+            </li>
+            <li>El router arrancará en modo failsafe con IP: 192.168.1.1</li>
+          </ol>
+
+          <p>Luego:</p>
+
+          <div class="org-src-container">
+            <pre class="src src-shell">
+sudo ip addr flush dev eth0
+sudo ip addr add 192.168.1.100/24 dev eth0
+telnet 192.168.1.1
+</pre
+            >
+          </div>
+
+          <p>En failsafe mode, el acceso es por telnet sin contraseña.</p>
+        </div>
+      </div>
+      <div id="outline-container-orgfff4595" class="outline-2">
+        <h2 id="orgfff4595">
+          # Resetear o recuperar/modificar la configuración
+        </h2>
+        <div class="outline-text-2" id="text-orgfff4595"></div>
+        <div id="outline-container-org865b3b2" class="outline-3">
+          <h3 id="org865b3b2">Hacer factory reset desde failsafe:</h3>
+          <div class="outline-text-3" id="text-org865b3b2">
+            <p>Dentro de telnet</p>
+
+            <div class="org-src-container">
+              <pre class="src src-shell">
+firstboot
+reboot
+</pre
+              >
+            </div>
+
+            <p>
+              esto borra toda la configuración y volverá a valores de fábrica de
+              OpenWRT.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org50ab9ee" class="outline-3">
+          <h3 id="org50ab9ee">
+            Montar el filesystem y recuperar/modificar configuración:
+          </h3>
+          <div class="outline-text-3" id="text-org50ab9ee">
+            <p>Dentro de telnet Cambiar la contraseña de root</p>
+
+            <div class="org-src-container">
+              <pre class="src src-shell">
+mount_root
+passwd 
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgf4974a4" class="outline-3">
+          <h3 id="orgf4974a4">Habilitar SSH y salir del failsafe:</h3>
+          <div class="outline-text-3" id="text-orgf4974a4">
+            <p>Editar archivos de configuración en <i>etc/config</i></p>
+
+            <div class="org-src-container">
+              <pre class="src src-shell">
+mount_root
+passwd  # Establece nueva contraseña
+/etc/init.d/dropbear enable
+/etc/init.d/dropbear start
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-openwrt.html">openwrt</a>
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[openwrt]]></category>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2025-12-25-reset-openwrt.html</link>
+  <guid>https://martiyo.github.io/2025-12-25-reset-openwrt.html</guid>
+  <pubDate>Thu, 25 Dec 2025 17:14:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[mongosh]]></title>
   <description><![CDATA[
@@ -12,13 +118,13 @@
         mongosh es el shell interactivo de MongoDB que permite interactuar con
         bases de datos directamente desde la terminal.
       </p>
-      <div id="outline-container-org70beea9" class="outline-2">
-        <h2 id="org70beea9"># Instalación</h2>
+      <div id="outline-container-orga97ef5a" class="outline-2">
+        <h2 id="orga97ef5a"># Instalación</h2>
       </div>
 
-      <div id="outline-container-orgb68dacc" class="outline-2">
-        <h2 id="orgb68dacc"># Conexión básica</h2>
-        <div class="outline-text-2" id="text-orgb68dacc">
+      <div id="outline-container-orge7c4a93" class="outline-2">
+        <h2 id="orge7c4a93"># Conexión básica</h2>
+        <div class="outline-text-2" id="text-orge7c4a93">
           <p>
             Para conectarse a una instancia local de MongoDB (que se ejecuta en
             el puerto por defecto 27017):
@@ -32,9 +138,9 @@ mongosh
           </div>
         </div>
       </div>
-      <div id="outline-container-org0d385dc" class="outline-2">
-        <h2 id="org0d385dc"># Conexión a servidores remotos</h2>
-        <div class="outline-text-2" id="text-org0d385dc">
+      <div id="outline-container-orga37b5af" class="outline-2">
+        <h2 id="orga37b5af"># Conexión a servidores remotos</h2>
+        <div class="outline-text-2" id="text-orga37b5af">
           <p>Para conectarse a un servidor remoto:</p>
           <div class="org-src-container">
             <pre class="src src-shell">
@@ -52,9 +158,9 @@ mongosh "mongodb://admin:password123@localhost:27017/mi_base_datos"
           </div>
         </div>
       </div>
-      <div id="outline-container-org367538f" class="outline-2">
-        <h2 id="org367538f">Conexión a MongoDB Atlas</h2>
-        <div class="outline-text-2" id="text-org367538f">
+      <div id="outline-container-org04b62ae" class="outline-2">
+        <h2 id="org04b62ae">Conexión a MongoDB Atlas</h2>
+        <div class="outline-text-2" id="text-org04b62ae">
           <p>Para conectarse a un clúster en MongoDb Atlas:</p>
           <div class="org-src-container">
             <pre class="src src-shell">
@@ -64,12 +170,12 @@ mongosh mongodb+srv://martiyosrc:password123@cluster0.oazjstj.mongodb.net/?retry
           </div>
         </div>
       </div>
-      <div id="outline-container-org4ff7a51" class="outline-2">
-        <h2 id="org4ff7a51"># Comandos básicos una vez conectado</h2>
-        <div class="outline-text-2" id="text-org4ff7a51"></div>
-        <div id="outline-container-orgd720e85" class="outline-3">
-          <h3 id="orgd720e85">Mostrar bases de datos</h3>
-          <div class="outline-text-3" id="text-orgd720e85">
+      <div id="outline-container-org7034baa" class="outline-2">
+        <h2 id="org7034baa"># Comandos básicos una vez conectado</h2>
+        <div class="outline-text-2" id="text-org7034baa"></div>
+        <div id="outline-container-orgeb2ae33" class="outline-3">
+          <h3 id="orgeb2ae33">Mostrar bases de datos</h3>
+          <div class="outline-text-3" id="text-orgeb2ae33">
             <div class="org-src-container">
               <pre class="src src-javascript">
 show dbs
@@ -78,9 +184,9 @@ show dbs
             </div>
           </div>
         </div>
-        <div id="outline-container-orgee8996a" class="outline-3">
-          <h3 id="orgee8996a">Usar una base de datos</h3>
-          <div class="outline-text-3" id="text-orgee8996a">
+        <div id="outline-container-org9567246" class="outline-3">
+          <h3 id="org9567246">Usar una base de datos</h3>
+          <div class="outline-text-3" id="text-org9567246">
             <div class="org-src-container">
               <pre class="src src-javascript">
 use nombre_base_datos
@@ -89,9 +195,9 @@ use nombre_base_datos
             </div>
           </div>
         </div>
-        <div id="outline-container-orgc8c9726" class="outline-3">
-          <h3 id="orgc8c9726">Mostrar collection</h3>
-          <div class="outline-text-3" id="text-orgc8c9726">
+        <div id="outline-container-org495f875" class="outline-3">
+          <h3 id="org495f875">Mostrar collection</h3>
+          <div class="outline-text-3" id="text-org495f875">
             <div class="org-src-container">
               <pre class="src src-javascript">
 show collections
@@ -100,9 +206,9 @@ show collections
             </div>
           </div>
         </div>
-        <div id="outline-container-org5ffea14" class="outline-3">
-          <h3 id="org5ffea14">Consultar documentos de una colecctión:</h3>
-          <div class="outline-text-3" id="text-org5ffea14">
+        <div id="outline-container-orgf2f1926" class="outline-3">
+          <h3 id="orgf2f1926">Consultar documentos de una colecctión:</h3>
+          <div class="outline-text-3" id="text-orgf2f1926">
             <div class="org-src-container">
               <pre class="src src-javascript">
 db.nombre_coleccion.dind()
@@ -111,9 +217,9 @@ db.nombre_coleccion.dind()
             </div>
           </div>
         </div>
-        <div id="outline-container-org7600972" class="outline-3">
-          <h3 id="org7600972">Insertar un documento:</h3>
-          <div class="outline-text-3" id="text-org7600972">
+        <div id="outline-container-orgb970385" class="outline-3">
+          <h3 id="orgb970385">Insertar un documento:</h3>
+          <div class="outline-text-3" id="text-orgb970385">
             <div class="org-src-container">
               <pre class="src src-javascript">
 db.nombre_coleccion.insertOne({campo1: "valor1", campo2: 123})

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Reset OpenWRT</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+    <script src="static/search.js"></script>
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Buscar..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">25 dic 2025</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2025-12-25-reset-openwrt.html"
+          >Reset OpenWRT</a
+        >
+      </h1>
+      <p>OpenWRT tiene el reset deshabilitado o modificado por defecto.</p>
+
+      <p>
+        Algunos firmwares personalizados deshabilitan el reset físico. En ese
+        caso, se necesita acceder por failsafe mode.
+      </p>
+      <div id="outline-container-orgfe617e7" class="outline-2">
+        <h2 id="orgfe617e7"># Arrancar OpenWRT en modo Failsafe:</h2>
+        <div class="outline-text-2" id="text-orgfe617e7">
+          <ol class="org-ol">
+            <li>Desconectar la alimentación del router</li>
+            <li>Reconecta la alimentación</li>
+            <li>
+              Inmediatamente cuando veas el LED del sistema parpadeando,
+              presiona repetidamente el botón WPS/RESET (o cualquier botón
+              disponible) hasta que el LED parpadee más rápido
+            </li>
+            <li>El router arrancará en modo failsafe con IP: 192.168.1.1</li>
+          </ol>
+
+          <p>Luego:</p>
+
+          <div class="org-src-container">
+            <pre class="src src-shell">
+sudo ip addr flush dev eth0
+sudo ip addr add 192.168.1.100/24 dev eth0
+telnet 192.168.1.1
+</pre
+            >
+          </div>
+
+          <p>En failsafe mode, el acceso es por telnet sin contraseña.</p>
+        </div>
+      </div>
+      <div id="outline-container-orgfff4595" class="outline-2">
+        <h2 id="orgfff4595">
+          # Resetear o recuperar/modificar la configuración
+        </h2>
+        <div class="outline-text-2" id="text-orgfff4595"></div>
+        <div id="outline-container-org865b3b2" class="outline-3">
+          <h3 id="org865b3b2">Hacer factory reset desde failsafe:</h3>
+          <div class="outline-text-3" id="text-org865b3b2">
+            <p>Dentro de telnet</p>
+
+            <div class="org-src-container">
+              <pre class="src src-shell">
+firstboot
+reboot
+</pre
+              >
+            </div>
+
+            <p>
+              esto borra toda la configuración y volverá a valores de fábrica de
+              OpenWRT.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org50ab9ee" class="outline-3">
+          <h3 id="org50ab9ee">
+            Montar el filesystem y recuperar/modificar configuración:
+          </h3>
+          <div class="outline-text-3" id="text-org50ab9ee">
+            <p>Dentro de telnet Cambiar la contraseña de root</p>
+
+            <div class="org-src-container">
+              <pre class="src src-shell">
+mount_root
+passwd 
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgf4974a4" class="outline-3">
+          <h3 id="orgf4974a4">Habilitar SSH y salir del failsafe:</h3>
+          <div class="outline-text-3" id="text-orgf4974a4">
+            <p>Editar archivos de configuración en <i>etc/config</i></p>
+
+            <div class="org-src-container">
+              <pre class="src src-shell">
+mount_root
+passwd  # Establece nueva contraseña
+/etc/init.d/dropbear enable
+/etc/init.d/dropbear start
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-openwrt.html">openwrt</a>
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>

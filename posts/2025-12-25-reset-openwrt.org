@@ -1,0 +1,56 @@
+#+title: Reset OpenWRT
+#+date: <2025-12-25 17:14>
+#+description: 
+#+filetags: openwrt linux
+
+OpenWRT tiene el reset deshabilitado o modificado por defecto.
+
+Algunos firmwares personalizados deshabilitan el reset físico. En ese caso, se necesita acceder por failsafe mode.
+
+* # Arrancar OpenWRT en modo Failsafe:
+
+1. Desconectar la alimentación del router
+2. Reconecta la alimentación
+3. Inmediatamente cuando veas el LED del sistema parpadeando, presiona repetidamente el botón WPS/RESET (o cualquier botón disponible) hasta que el LED parpadee más rápido
+4. El router arrancará en modo failsafe con IP: 192.168.1.1
+
+Luego:
+
+#+BEGIN_SRC shell
+  sudo ip addr flush dev eth0
+  sudo ip addr add 192.168.1.100/24 dev eth0
+  telnet 192.168.1.1
+#+END_SRC
+
+En failsafe mode, el acceso es por telnet sin contraseña.
+
+* # Resetear o recuperar/modificar la configuración
+
+** Hacer factory reset desde failsafe:
+Dentro de telnet
+
+#+BEGIN_SRC shell
+  firstboot
+  reboot
+#+END_SRC
+
+esto borra toda la configuración y volverá a valores de fábrica de OpenWRT.
+
+** Montar el filesystem y recuperar/modificar configuración:
+Dentro de telnet
+Cambiar la contraseña de root
+
+#+BEGIN_SRC shell
+  mount_root
+  passwd 
+#+END_SRC
+
+** Habilitar SSH y salir del failsafe:
+Editar archivos de configuración en /etc/config/
+
+#+BEGIN_SRC shell
+  mount_root
+  passwd  # Establece nueva contraseña
+  /etc/init.d/dropbear enable
+  /etc/init.d/dropbear start
+#+END_SRC
