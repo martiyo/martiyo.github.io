@@ -1,0 +1,53 @@
+#+title: Configurar TP-Link como router principal detras del modem
+#+date: <2025-12-27 11:09>
+#+description: 
+#+filetags: red linux openwrt
+
+Configurar el TP-Link como router principal detrás del módem, no como puente. Así mantienes todo el control de la red.
+
+* # Arquitectura recomendada:
+
+** Internet → Módem Coaxial (192.168.10.1) → TP-Link OpenWRT (WAN + LAN) → Tus dispositivos
+
+**** El TP-Link hará:
+
+
+1.NAT doble 
+2.DHCP para la red local
+3.Firewall y control parental (horarios, bloqueos)
+4.DNS filtering (bloqueo de sitios)
+
+** Configuración paso a paso:
+
+**** Configura la red LAN del TP-Link (tu red interna):
+
+1. Cambiar la IP de LAN para que no conflictúe con el módem (192.168.10.x)
+
+#+BEGIN_SRC shell
+  uci set network.lan.ipaddr='192.168.1.1'
+  uci set network.lan.netmask='255.255.255.0'
+  uci commit network
+#+END_SRC
+
+2. Configurar el WAN (conexión al módem):
+   
+Configurar WAN para recibir IP del módem por DHCP
+#+BEGIN_SRC shell 
+  uci set network.wan.proto='dhcp'
+  uci commit network
+#+END_SRC
+
+Reiniciar la red
+
+#+BEGIN_SRC shell
+  /etc/init.d/network restart
+#+END_SRC
+
+3. Conexión física:
+
+Puerto WAN del TP-Link → cualquier puerto del módem coaxial
+Puertos LAN del TP-Link → tus dispositivos (PC, WiFi, etc)
+
+4. Verifica que funcione:
+Desde el router:
+bashping 8.8.8.8  # Debe funcionar

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Configurar TP-Link como router principal detras del modem</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+    <script src="static/search.js"></script>
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Buscar..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">27 dic 2025</div>
+      <h1 class="post-title">
+        <a
+          href="https://martiyo.github.io/2025-12-27-configurar-tp-link-como-router-principal-detras-del-modem.html"
+          >Configurar TP-Link como router principal detras del modem</a
+        >
+      </h1>
+      <p>
+        Configurar el TP-Link como router principal detrás del módem, no como
+        puente. Así mantienes todo el control de la red.
+      </p>
+      <div id="outline-container-orgc76e345" class="outline-2">
+        <h2 id="orgc76e345"># Arquitectura recomendada:</h2>
+        <div class="outline-text-2" id="text-orgc76e345"></div>
+        <div id="outline-container-orgc7beaac" class="outline-3">
+          <h3 id="orgc7beaac">
+            Internet → Módem Coaxial (192.168.10.1) → TP-Link OpenWRT (WAN +
+            LAN) → Tus dispositivos
+          </h3>
+          <div class="outline-text-3" id="text-orgc7beaac"></div>
+          <ul class="org-ul">
+            <li>
+              <a id="orgbee494b"></a>El TP-Link hará:<br />
+              <div class="outline-text-5" id="text-orgbee494b">
+                <p>
+                  1.NAT doble 2.DHCP para la red local 3.Firewall y control
+                  parental (horarios, bloqueos) 4.DNS filtering (bloqueo de
+                  sitios)
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div id="outline-container-org256c872" class="outline-3">
+          <h3 id="org256c872">Configuración paso a paso:</h3>
+          <div class="outline-text-3" id="text-org256c872"></div>
+          <ul class="org-ul">
+            <li>
+              <a id="org5783d8b"></a>Configura la red LAN del TP-Link (tu red
+              interna):<br />
+              <div class="outline-text-5" id="text-org5783d8b">
+                <ol class="org-ol">
+                  <li>
+                    Cambiar la IP de LAN para que no conflictúe con el módem
+                    (192.168.10.x)
+                  </li>
+                </ol>
+
+                <div class="org-src-container">
+                  <pre
+                    class="src src-shell"
+                  >uci set network.lan.ipaddr=<span style="color: #98be65;">'192.168.1.1'</span>
+uci set network.lan.netmask=<span style="color: #98be65;">'255.255.255.0'</span>
+uci commit network
+</pre>
+                </div>
+
+                <ol class="org-ol">
+                  <li>Configurar el WAN (conexión al módem):</li>
+                </ol>
+
+                <p>Configurar WAN para recibir IP del módem por DHCP</p>
+                <div class="org-src-container">
+                  <pre
+                    class="src src-shell"
+                  >uci set network.wan.proto=<span style="color: #98be65;">'dhcp'</span>
+uci commit network
+</pre>
+                </div>
+
+                <p>Reiniciar la red</p>
+
+                <div class="org-src-container">
+                  <pre class="src src-shell">
+/etc/init.d/network restart
+</pre
+                  >
+                </div>
+
+                <ol class="org-ol">
+                  <li>Conexión física:</li>
+                </ol>
+
+                <p>
+                  Puerto WAN del TP-Link → cualquier puerto del módem coaxial
+                  Puertos LAN del TP-Link → tus dispositivos (PC, WiFi, etc)
+                </p>
+
+                <ol class="org-ol">
+                  <li>Verifica que funcione:</li>
+                </ol>
+                <p>Desde el router: bashping 8.8.8.8 # Debe funcionar</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-red.html">red</a>
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tag-openwrt.html">openwrt</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>
