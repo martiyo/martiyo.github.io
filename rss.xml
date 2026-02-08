@@ -4,44 +4,729 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Sat, 27 Dec 2025 11:20:07 -0300</lastBuildDate>
+<lastBuildDate>Fri, 09 Jan 2026 11:41:31 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[Nextcloud en devuan]]></title>
+  <description><![CDATA[
+      <div id="outline-container-org2a190a7" class="outline-2">
+        <h2 id="org2a190a7">Contexto</h2>
+        <div class="outline-text-2" id="text-org2a190a7">
+          <p>
+            Instalación de Nextcloud en servidor Devuan con acceso remoto
+            mediante Tailscale VPN, sin necesidad de configurar port forwarding
+            en el modem del ISP.
+          </p>
+        </div>
+        <div id="outline-container-org8ae66f0" class="outline-3">
+          <h3 id="org8ae66f0">Arquitectura</h3>
+          <div class="outline-text-3" id="text-org8ae66f0">
+            <div class="org-src-container">
+              <pre class="src src-nil">
+Internet → Modem ISP (sin configuración) → Router OpenWRT → Servidor Devuan
+                                                              ├─ Apache + Nextcloud
+                                                              ├─ MariaDB
+                                                              └─ Tailscale (VPN)
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org5961c3f" class="outline-3">
+          <h3 id="org5961c3f">Problema resuelto</h3>
+          <div class="outline-text-3" id="text-org5961c3f">
+            <ul class="org-ul">
+              <li>
+                ISP provee modem muy limitado (sin acceso a configuración
+                avanzada)
+              </li>
+              <li>IP dinámica</li>
+              <li>Necesidad de acceso remoto seguro</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgf6f4e29" class="outline-2">
+        <h2 id="orgf6f4e29">1. Instalación de Nextcloud</h2>
+        <div class="outline-text-2" id="text-orgf6f4e29"></div>
+        <div id="outline-container-orga7c868d" class="outline-3">
+          <h3 id="orga7c868d">2.1 Instalar dependencias</h3>
+          <div class="outline-text-3" id="text-orga7c868d">
+            <div class="org-src-container">
+              <pre class="src src-bash">sudo apt update
+sudo apt install apache2 mariadb-server libapache2-mod-php php <span style="color: #98be65;">\</span>
+    php-mysql php-zip php-xml php-gd php-curl php-mbstring <span style="color: #98be65;">\</span>
+    php-intl php-bcmath php-gmp php-imagick unzip wget
+</pre>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org69eeef1" class="outline-3">
+          <h3 id="org69eeef1">2.2 Configurar MariaDB</h3>
+          <div class="outline-text-3" id="text-org69eeef1">
+            <div class="org-src-container">
+              <pre
+                class="src src-bash"
+              ><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Configuraci&#243;n segura inicial
+</span>sudo mysql_secure_installation
+</pre>
+            </div>
+
+            <p>Respuestas:</p>
+            <ul class="org-ul">
+              <li>Enter current password: <code>(presionar Enter)</code></li>
+              <li>
+                Set root password? <code>Y</code> → elegir contraseña segura
+              </li>
+              <li>Remove anonymous users? <code>Y</code></li>
+              <li>Disallow root login remotely? <code>Y</code></li>
+              <li>Remove test database? <code>Y</code></li>
+              <li>Reload privilege tables? <code>Y</code></li>
+            </ul>
+
+            <p>Crear base de datos:</p>
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo mysql -u root -p
+</pre
+              >
+            </div>
+
+            <div class="org-src-container">
+              <pre
+                class="src src-sql"
+              ><span style="color: #51afef;">CREATE</span> DATABASE nextcloud <span style="color: #ECBE7B;">CHARACTER</span> <span style="color: #51afef;">SET</span> utf8mb4 <span style="color: #51afef;">COLLATE</span> utf8mb4_general_ci;
+<span style="color: #51afef;">CREATE</span> <span style="color: #c678dd;">USER</span> <span style="color: #98be65;">'nextcloud'</span>@<span style="color: #98be65;">'localhost'</span> IDENTIFIED <span style="color: #51afef;">BY</span> <span style="color: #98be65;">'password_segura'</span>;
+<span style="color: #51afef;">GRANT</span> <span style="color: #51afef;">ALL</span> <span style="color: #51afef;">PRIVILEGES</span> <span style="color: #51afef;">ON</span> nextcloud.* <span style="color: #51afef;">TO</span> <span style="color: #98be65;">'nextcloud'</span>@<span style="color: #98be65;">'localhost'</span>;
+FLUSH <span style="color: #51afef;">PRIVILEGES</span>;
+EXIT;
+</pre>
+            </div>
+
+            <p>Verificar conexión:</p>
+            <div class="org-src-container">
+              <pre class="src src-bash">
+mysql -u nextcloud -p nextcloud
+EXIT;
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org8f0d1b6" class="outline-3">
+          <h3 id="org8f0d1b6">2.3 Descargar e instalar Nextcloud</h3>
+          <div class="outline-text-3" id="text-org8f0d1b6">
+            <div class="org-src-container">
+              <pre
+                class="src src-bash"
+              ><span style="color: #c678dd;">cd</span> /tmp
+wget https://download.nextcloud.com/server/releases/latest.tar.bz2
+sudo tar -xjf latest.tar.bz2 -C /var/www/
+sudo chown -R www-data:www-data /var/www/nextcloud
+</pre>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgda291e5" class="outline-3">
+          <h3 id="orgda291e5">2.4 Configurar Apache</h3>
+          <div class="outline-text-3" id="text-orgda291e5">
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo nano /etc/apache2/sites-available/nextcloud.conf
+</pre
+              >
+            </div>
+
+            <p>Contenido:</p>
+            <div class="org-src-container">
+              <pre class="src src-apache">
+&lt;VirtualHost *:80&gt;
+    ServerName tu-nombre.duckdns.org
+    DocumentRoot /var/www/nextcloud
+
+    &lt;Directory /var/www/nextcloud/&gt;
+        Require all granted
+        AllowOverride All
+        Options FollowSymLinks MultiViews
+
+        &lt;IfModule mod_dav.c&gt;
+            Dav off
+        &lt;/IfModule&gt;
+    &lt;/Directory&gt;
+
+    ErrorLog ${APACHE_LOG_DIR}/nextcloud_error.log
+    CustomLog ${APACHE_LOG_DIR}/nextcloud_access.log combined
+&lt;/VirtualHost&gt;
+</pre
+              >
+            </div>
+
+            <p>Activar sitio y módulos:</p>
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo a2ensite nextcloud
+sudo a2enmod rewrite headers env dir mime
+sudo service apache2 restart
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org3d76d87" class="outline-3">
+          <h3 id="org3d76d87">2.5 Configurar PHP</h3>
+          <div class="outline-text-3" id="text-org3d76d87">
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo nano /etc/php/7.*/apache2/php.ini
+</pre
+              >
+            </div>
+
+            <p>Modificar:</p>
+            <div class="org-src-container">
+              <pre class="src src-ini">
+memory_limit = 512M
+upload_max_filesize = 512M
+post_max_size = 512M
+max_execution_time = 300
+</pre
+              >
+            </div>
+
+            <p>Reiniciar:</p>
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo service apache2 restart
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgff2bdcb" class="outline-3">
+          <h3 id="orgff2bdcb">2.6 Convivencia con WebDAV existente</h3>
+          <div class="outline-text-3" id="text-orgff2bdcb">
+            <p>
+              Si ya tienes WebDAV configurado en <code>000-default.conf</code>:
+            </p>
+
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo nano /etc/apache2/sites-available/000-default.conf
+</pre
+              >
+            </div>
+
+            <p>Modificar VirtualHost para que solo responda a IP local:</p>
+            <div class="org-src-container">
+              <pre class="src src-apache">
+&lt;VirtualHost 192.168.1.100:80&gt;
+    ServerName 192.168.1.100
+    # ... resto de configuración WebDAV ...
+&lt;/VirtualHost&gt;
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgd42b02c" class="outline-3">
+          <h3 id="orgd42b02c">2.7 Configurar trusted<sub>domains</sub></h3>
+          <div class="outline-text-3" id="text-orgd42b02c">
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo nano /var/www/nextcloud/config/config.php
+</pre
+              >
+            </div>
+
+            <div class="org-src-container">
+              <pre class="src src-php">
+'trusted_domains' =&gt; 
+  array (
+    0 =&gt; 'localhost',
+    1 =&gt; '192.168.1.100',
+    2 =&gt; '100.x.x.x',  // IP de Tailscale (agregar después)
+  ),
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgd3944d5" class="outline-2">
+        <h2 id="orgd3944d5">2. Instalación de Tailscale</h2>
+        <div class="outline-text-2" id="text-orgd3944d5"></div>
+        <div id="outline-container-orgbc77981" class="outline-3">
+          <h3 id="orgbc77981">3.1 Instalación manual (para Devuan)</h3>
+          <div class="outline-text-3" id="text-orgbc77981">
+            <div class="org-src-container">
+              <pre
+                class="src src-bash"
+              ><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Descargar binario est&#225;tico
+</span><span style="color: #c678dd;">cd</span> /tmp
+wget https://pkgs.tailscale.com/stable/tailscale_latest_amd64.tgz
+tar xzf tailscale_latest_amd64.tgz
+<span style="color: #c678dd;">cd</span> tailscale_*
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Copiar binarios
+</span>sudo cp tailscaled /usr/sbin/
+sudo cp tailscale /usr/bin/
+</pre>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org6826982" class="outline-3">
+          <h3 id="org6826982">3.2 Crear servicio SysVinit</h3>
+          <div class="outline-text-3" id="text-org6826982">
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo nano /etc/init.d/tailscaled
+</pre
+              >
+            </div>
+
+            <p>Contenido completo del script:</p>
+            <div class="org-src-container">
+              <pre
+                class="src src-bash"
+              ><span style="color: #5B6268;">#</span><span style="color: #5B6268;">!/bin/</span><span style="color: #51afef;">sh</span><span style="color: #5B6268;">
+</span><span style="color: #5B6268;">### </span><span style="color: #5B6268;">BEGIN INIT INFO
+</span><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Provides:          tailscaled
+</span><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Required-Start:    $network $local_fs
+</span><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Required-Stop:     $network $local_fs
+</span><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Default-Start:     2 3 4 5
+</span><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Default-Stop:      0 1 6
+</span><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Short-Description: Tailscale VPN
+</span><span style="color: #5B6268;">### </span><span style="color: #5B6268;">END INIT INFO
+</span>
+<span style="color: #dcaeea;">DAEMON</span>=/usr/sbin/tailscaled
+<span style="color: #dcaeea;">PIDFILE</span>=/var/run/tailscaled.pid
+<span style="color: #dcaeea;">STATE_DIR</span>=/var/lib/tailscale
+
+<span style="color: #51afef;">case</span> <span style="color: #98be65;">"$1"</span><span style="color: #51afef;"> in</span>
+  start)
+    mkdir -p $<span style="color: #dcaeea;">STATE_DIR</span>
+    start-stop-daemon --start --background --make-pidfile --pidfile $<span style="color: #dcaeea;">PIDFILE</span> <span style="color: #98be65;">\</span>
+      --exec $<span style="color: #dcaeea;">DAEMON</span> -- --state=$<span style="color: #dcaeea;">STATE_DIR</span>/tailscaled.state
+    ;;
+  stop)
+    start-stop-daemon --stop --pidfile $<span style="color: #dcaeea;">PIDFILE</span>
+    rm -f $<span style="color: #dcaeea;">PIDFILE</span>
+    ;;
+  restart)
+    $<span style="color: #dcaeea;">0</span> stop
+    sleep 2
+    $<span style="color: #dcaeea;">0</span> start
+    ;;
+  status)
+    <span style="color: #51afef;">if</span> [ -f $<span style="color: #dcaeea;">PIDFILE</span> ]; <span style="color: #51afef;">then</span>
+      <span style="color: #c678dd;">echo</span> <span style="color: #98be65;">"Tailscale is running (PID $(</span><span style="color: #51afef; font-weight: bold;">cat $PIDFILE</span><span style="color: #98be65;">))"</span>
+    <span style="color: #51afef;">else</span>
+      <span style="color: #c678dd;">echo</span> <span style="color: #98be65;">"Tailscale is not running"</span>
+    <span style="color: #51afef;">fi</span>
+    ;;
+  *)
+    <span style="color: #c678dd;">echo</span> <span style="color: #98be65;">"Usage: /etc/init.d/tailscaled {start|stop|restart|status}"</span>
+    <span style="color: #51afef;">exit</span> 1
+    ;;
+<span style="color: #51afef;">esac</span>
+
+<span style="color: #51afef;">exit</span> 0
+</pre>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org4a0cbc9" class="outline-3">
+          <h3 id="org4a0cbc9">3.3 Habilitar e iniciar servicio</h3>
+          <div class="outline-text-3" id="text-org4a0cbc9">
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo chmod +x /etc/init.d/tailscaled
+sudo mkdir -p /var/lib/tailscale
+sudo update-rc.d tailscaled defaults
+sudo /etc/init.d/tailscaled start
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org915a5fa" class="outline-3">
+          <h3 id="org915a5fa">3.4 Conectar a Tailscale</h3>
+          <div class="outline-text-3" id="text-org915a5fa">
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo tailscale up
+</pre
+              >
+            </div>
+
+            <p>
+              Copiar la URL que muestra, abrir en navegador y autenticar con
+              cuenta de Tailscale (Google/Microsoft/GitHub).
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org0103f2e" class="outline-3">
+          <h3 id="org0103f2e">3.5 Verificar IP asignada</h3>
+          <div class="outline-text-3" id="text-org0103f2e">
+            <div class="org-src-container">
+              <pre class="src src-bash">
+tailscale ip -4
+</pre
+              >
+            </div>
+
+            <p>Resultado: <code>100.x.x.x</code></p>
+          </div>
+        </div>
+        <div id="outline-container-org7e206de" class="outline-3">
+          <h3 id="org7e206de">
+            3.6 Agregar IP de Tailscale a trusted<sub>domains</sub>
+          </h3>
+          <div class="outline-text-3" id="text-org7e206de">
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo nano /var/www/nextcloud/config/config.php
+</pre
+              >
+            </div>
+
+            <p>
+              Agregar la IP <code>100.x.x.x</code> al array de
+              <code>trusted_domains</code>.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orge26947d" class="outline-2">
+        <h2 id="orge26947d">3. Acceso a Nextcloud</h2>
+        <div class="outline-text-2" id="text-orge26947d"></div>
+        <div id="outline-container-orgbfc3017" class="outline-3">
+          <h3 id="orgbfc3017">Desde red local</h3>
+          <div class="outline-text-3" id="text-orgbfc3017">
+            <div class="org-src-container">
+              <pre class="src src-nil">
+http://192.168.1.100
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org18b402c" class="outline-3">
+          <h3 id="org18b402c">
+            Desde cualquier lugar (con Tailscale instalado)
+          </h3>
+          <div class="outline-text-3" id="text-org18b402c">
+            <div class="org-src-container">
+              <pre class="src src-nil">
+http://100.x.x.x
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org1c61895" class="outline-3">
+          <h3 id="org1c61895">Instalación de clientes Tailscale</h3>
+          <div class="outline-text-3" id="text-org1c61895">
+            <ul class="org-ul">
+              <li>
+                <b>PC:</b>
+                <a href="https://tailscale.com/download"
+                  >https://tailscale.com/download</a
+                >
+              </li>
+              <li><b>Móvil:</b> App "Tailscale" en Play Store / App Store</li>
+              <li>Login con la misma cuenta</li>
+            </ul>
+          </div>
+        </div>
+        <div id="outline-container-orgaad01fc" class="outline-3">
+          <h3 id="orgaad01fc">(Opcional) Activar MagicDNS</h3>
+          <div class="outline-text-3" id="text-orgaad01fc">
+            <p>
+              URL:
+              <a href="https://login.tailscale.com/admin/dns"
+                >https://login.tailscale.com/admin/dns</a
+              >
+            </p>
+
+            <p>Activar MagicDNS para usar nombre en vez de IP:</p>
+            <div class="org-src-container">
+              <pre class="src src-nil">
+http://devuan.tail-xxxxx.ts.net
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org2518f35" class="outline-2">
+        <h2 id="org2518f35">4. Verificación y mantenimiento</h2>
+        <div class="outline-text-2" id="text-org2518f35"></div>
+        <div id="outline-container-org60aefc5" class="outline-3">
+          <h3 id="org60aefc5">Verificar servicios</h3>
+          <div class="outline-text-3" id="text-org60aefc5">
+            <div class="org-src-container">
+              <pre
+                class="src src-bash"
+              ><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Apache
+</span>sudo service apache2 status 
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">MariaDB
+</span>sudo service mariadb status
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Tailscale
+</span>tailscale status
+sudo /etc/init.d/tailscaled status
+</pre>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org53b9740" class="outline-3">
+          <h3 id="org53b9740">Logs importantes</h3>
+          <div class="outline-text-3" id="text-org53b9740">
+            <div class="org-src-container">
+              <pre
+                class="src src-bash"
+              ><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Apache/Nextcloud
+</span>sudo tail -f /var/log/apache2/nextcloud_error.log
+sudo tail -f /var/log/apache2/nextcloud_access.log
+
+</pre>
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org81f9bdf" class="outline-3">
+          <h3 id="org81f9bdf">Permisos de Nextcloud</h3>
+          <div class="outline-text-3" id="text-org81f9bdf">
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo chown -R www-data:www-data /var/www/nextcloud
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orga9c5bb9" class="outline-3">
+          <h3 id="orga9c5bb9">Actualizar Nextcloud</h3>
+          <div class="outline-text-3" id="text-orga9c5bb9">
+            <p>Desde la interfaz web: <code>Settings → Overview</code></p>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-org3e2ae68" class="outline-2">
+        <h2 id="org3e2ae68">5. Ventajas de la solución</h2>
+        <div class="outline-text-2" id="text-org3e2ae68">
+          <ul class="org-ul">
+            <li>
+              ✅ <b>Sin configuración del modem ISP:</b> No requiere port
+              forwarding
+            </li>
+            <li>✅ <b>Acceso seguro:</b> VPN cifrada punto a punto</li>
+            <li>
+              ✅ <b>IP dinámica:</b> DuckDNS mantiene el dominio actualizado
+            </li>
+            <li>
+              ✅ <b>Múltiples dispositivos:</b> Acceso desde PC, móvil, tablet
+            </li>
+            <li>✅ <b>Funciona en cualquier red:</b> WiFi pública, 4G, etc.</li>
+            <li>
+              ✅ <b>Gratuito:</b> Tanto Tailscale como DuckDNS son gratis para
+              uso personal
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="outline-container-org90376ea" class="outline-2">
+        <h2 id="org90376ea">6. Aplicaciones de Nextcloud recomendadas</h2>
+        <div class="outline-text-2" id="text-org90376ea">
+          <p>Desde la interfaz web de Nextcloud, instalar:</p>
+          <ul class="org-ul">
+            <li><b>Calendar:</b> Calendario sincronizado</li>
+            <li><b>Contacts:</b> Libreta de contactos</li>
+            <li><b>Notes:</b> Notas markdown</li>
+            <li><b>Talk:</b> Videoconferencias</li>
+            <li><b>Deck:</b> Tablero Kanban</li>
+            <li><b>News:</b> Lector RSS</li>
+            <li><b>Bookmarks:</b> Marcadores sincronizados</li>
+          </ul>
+        </div>
+      </div>
+      <div id="outline-container-org1279903" class="outline-2">
+        <h2 id="org1279903">7. Clientes de sincronización</h2>
+        <div class="outline-text-2" id="text-org1279903"></div>
+        <div id="outline-container-org9006c5a" class="outline-3">
+          <h3 id="org9006c5a">Desktop</h3>
+          <div class="outline-text-3" id="text-org9006c5a">
+            <ul class="org-ul">
+              <li>
+                URL:
+                <a href="https://nextcloud.com/install/#install-clients"
+                  >https://nextcloud.com/install/#install-clients</a
+                >
+              </li>
+              <li>Sincroniza carpetas automáticamente</li>
+            </ul>
+          </div>
+        </div>
+        <div id="outline-container-org852c067" class="outline-3">
+          <h3 id="org852c067">Móvil</h3>
+          <div class="outline-text-3" id="text-org852c067">
+            <ul class="org-ul">
+              <li><b>Android:</b> "Nextcloud" en Play Store</li>
+              <li><b>iOS:</b> "Nextcloud" en App Store</li>
+              <li>Sincronización automática de fotos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgd778a42" class="outline-2">
+        <h2 id="orgd778a42">8. Troubleshooting común</h2>
+        <div class="outline-text-2" id="text-orgd778a42"></div>
+        <div id="outline-container-orgf01687d" class="outline-3">
+          <h3 id="orgf01687d">Error: "Access through untrusted domain"</h3>
+          <div class="outline-text-3" id="text-orgf01687d">
+            <p>
+              Agregar dominio/IP a <code>trusted_domains</code> en
+              <code>/var/www/nextcloud/config/config.php</code>
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-org0b5fbb2" class="outline-3">
+          <h3 id="org0b5fbb2">Error de conexión a base de datos</h3>
+          <div class="outline-text-3" id="text-org0b5fbb2">
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo service mariadb status
+sudo service mariadb start
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgaea0674" class="outline-3">
+          <h3 id="orgaea0674">Tailscale no inicia al arranque</h3>
+          <div class="outline-text-3" id="text-orgaea0674">
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo update-rc.d tailscaled defaults
+sudo /etc/init.d/tailscaled start
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orgd89d904" class="outline-3">
+          <h3 id="orgd89d904">Permisos incorrectos</h3>
+          <div class="outline-text-3" id="text-orgd89d904">
+            <div class="org-src-container">
+              <pre class="src src-bash">
+sudo chown -R www-data:www-data /var/www/nextcloud
+sudo chmod -R 755 /var/www/nextcloud
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="outline-container-orgff3fb1d" class="outline-2">
+        <h2 id="orgff3fb1d">9. Recursos adicionales</h2>
+        <div class="outline-text-2" id="text-orgff3fb1d">
+          <ul class="org-ul">
+            <li>
+              <b>Nextcloud Docs:</b>
+              <a href="https://docs.nextcloud.com"
+                >https://docs.nextcloud.com</a
+              >
+            </li>
+            <li>
+              <b>Tailscale Docs:</b>
+              <a href="https://tailscale.com/kb">https://tailscale.com/kb</a>
+            </li>
+            <li>
+              <b>DuckDNS:</b>
+              <a href="https://www.duckdns.org">https://www.duckdns.org</a>
+            </li>
+            <li>
+              <b>Devuan:</b>
+              <a href="https://www.devuan.org">https://www.devuan.org</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="outline-container-org61c20d7" class="outline-2">
+        <h2 id="org61c20d7">Notas finales</h2>
+        <div class="outline-text-2" id="text-org61c20d7">
+          <p>Esta configuración proporciona:</p>
+          <ol class="org-ol">
+            <li>Almacenamiento en la nube auto-hospedado</li>
+            <li>Acceso remoto seguro sin exponer puertos</li>
+            <li>Independencia de las limitaciones del ISP</li>
+            <li>Control total sobre tus datos</li>
+          </ol>
+
+          <p>
+            El sistema es escalable y puede extenderse con más servicios según
+            necesidad.
+          </p>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-red.html">red</a>
+        <a href="https://martiyo.github.io/tag-linux.html">linux</a>
+        <a href="https://martiyo.github.io/tag-servidores.html">servidores</a>
+        <a href="https://martiyo.github.io/tag-nextcloud.html">nextcloud</a>
+        <a href="https://martiyo.github.io/tag-tailscale.html">tailscale</a>
+        <a href="https://martiyo.github.io/tag-vpn.html">vpn</a>
+      </div>
+    ]]></description>
+  <category><![CDATA[red]]></category>
+  <category><![CDATA[linux]]></category>
+  <category><![CDATA[servidores]]></category>
+  <category><![CDATA[nextcloud]]></category>
+  <category><![CDATA[tailscale]]></category>
+  <category><![CDATA[vpn]]></category>
+  <link>https://martiyo.github.io/2026-01-08-nextcloud-en-devuan.html</link>
+  <guid>https://martiyo.github.io/2026-01-08-nextcloud-en-devuan.html</guid>
+  <pubDate>Thu, 08 Jan 2026 08:58:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[Configurar TP-Link como router principal detras del modem]]></title>
   <description><![CDATA[
       <p>
         Configurar el TP-Link como router principal detrás del módem, no como
-        puente. Así mantienes todo el control de la red.
+        puente, así mantiene todo el control de la red.
       </p>
-      <div id="outline-container-orgc76e345" class="outline-2">
-        <h2 id="orgc76e345"># Arquitectura recomendada:</h2>
-        <div class="outline-text-2" id="text-orgc76e345"></div>
-        <div id="outline-container-orgc7beaac" class="outline-3">
-          <h3 id="orgc7beaac">
+      <div id="outline-container-org37b41b9" class="outline-2">
+        <h2 id="org37b41b9"># Arquitectura recomendada:</h2>
+        <div class="outline-text-2" id="text-org37b41b9"></div>
+        <div id="outline-container-org1c1f3bb" class="outline-3">
+          <h3 id="org1c1f3bb">
             Internet → Módem Coaxial (192.168.10.1) → TP-Link OpenWRT (WAN +
-            LAN) → Tus dispositivos
+            LAN) → Dispositivos (pcs, notebooks, telefonos)
           </h3>
-          <div class="outline-text-3" id="text-orgc7beaac"></div>
+          <div class="outline-text-3" id="text-org1c1f3bb"></div>
           <ul class="org-ul">
             <li>
-              <a id="orgbee494b"></a>El TP-Link hará:<br />
-              <div class="outline-text-5" id="text-orgbee494b">
-                <p>
-                  1.NAT doble 2.DHCP para la red local 3.Firewall y control
-                  parental (horarios, bloqueos) 4.DNS filtering (bloqueo de
-                  sitios)
-                </p>
+              <a id="orgd6cf20e"></a>El TP-Link hará:<br />
+              <div class="outline-text-5" id="text-orgd6cf20e">
+                <ol class="org-ol">
+                  <li>NAT doble</li>
+                  <li>DHCP para la red local</li>
+                  <li>Firewall y control parental (horarios, bloqueos)</li>
+                  <li>DNS filtering (bloqueo de sitios)</li>
+                </ol>
               </div>
             </li>
           </ul>
         </div>
-        <div id="outline-container-org256c872" class="outline-3">
-          <h3 id="org256c872">Configuración paso a paso:</h3>
-          <div class="outline-text-3" id="text-org256c872"></div>
+        <div id="outline-container-org2a71319" class="outline-3">
+          <h3 id="org2a71319">Configuración paso a paso:</h3>
+          <div class="outline-text-3" id="text-org2a71319"></div>
           <ul class="org-ul">
             <li>
-              <a id="org5783d8b"></a>Configura la red LAN del TP-Link (tu red
+              <a id="org8d3ff40"></a>Configura la red LAN del TP-Link (tu red
               interna):<br />
-              <div class="outline-text-5" id="text-org5783d8b">
+              <div class="outline-text-5" id="text-org8d3ff40">
                 <ol class="org-ol">
                   <li>
                     Cambiar la IP de LAN para que no conflictúe con el módem
@@ -86,13 +771,14 @@ uci commit network
 
                 <p>
                   Puerto WAN del TP-Link → cualquier puerto del módem coaxial
-                  Puertos LAN del TP-Link → tus dispositivos (PC, WiFi, etc)
+                  Puertos LAN del TP-Link → tus dispositivos (PC, telefonos via
+                  WiFi, etc)
                 </p>
 
                 <ol class="org-ol">
-                  <li>Verifica que funcione:</li>
+                  <li>Verificar que funcione:</li>
                 </ol>
-                <p>Desde el router: bashping 8.8.8.8 # Debe funcionar</p>
+                <p>Desde el router: ping 8.8.8.8 # Debe funcionar</p>
               </div>
             </li>
           </ul>
@@ -627,9 +1313,9 @@ Proceso completado. Archivos en: ./MP3
   <title><![CDATA[dnsmasq en openwrt]]></title>
   <description><![CDATA[
       <p>Bloquear dominios con <b>dnsmasq</b></p>
-      <div id="outline-container-orgfe3d2a6" class="outline-2">
-        <h2 id="orgfe3d2a6"># Wiki</h2>
-        <div class="outline-text-2" id="text-orgfe3d2a6">
+      <div id="outline-container-org3e14adb" class="outline-2">
+        <h2 id="org3e14adb"># Wiki</h2>
+        <div class="outline-text-2" id="text-org3e14adb">
           <p>
             dnsmasq es un redireccionador de DNS ligero y fácil de configurar,
             diseñado para proporcionar servicios DNS (y opcionalmente DHCP y
@@ -664,11 +1350,11 @@ Proceso completado. Archivos en: ./MP3
           </p>
         </div>
       </div>
-      <div id="outline-container-orgdafcbbd" class="outline-2">
-        <h2 id="orgdafcbbd">
+      <div id="outline-container-org85e1082" class="outline-2">
+        <h2 id="org85e1082">
           # Editar el archivo de configuracion de dnsmasq:
         </h2>
-        <div class="outline-text-2" id="text-orgdafcbbd">
+        <div class="outline-text-2" id="text-org85e1082">
           <div class="org-src-container">
             <pre class="src src-shell">
 vi /etc/dnsmasq.conf 
@@ -677,9 +1363,9 @@ vi /etc/dnsmasq.conf
           </div>
         </div>
       </div>
-      <div id="outline-container-orge3ef87d" class="outline-2">
-        <h2 id="orge3ef87d"># Agregar una linea para cada dominios</h2>
-        <div class="outline-text-2" id="text-orge3ef87d">
+      <div id="outline-container-org556f2bc" class="outline-2">
+        <h2 id="org556f2bc"># Agregar una linea para cada dominio</h2>
+        <div class="outline-text-2" id="text-org556f2bc">
           <div class="org-src-container">
             <pre
               class="src src-shell"
@@ -689,11 +1375,11 @@ vi /etc/dnsmasq.conf
           </div>
         </div>
       </div>
-      <div id="outline-container-org3cf20ed" class="outline-2">
-        <h2 id="org3cf20ed">
+      <div id="outline-container-org05e2d11" class="outline-2">
+        <h2 id="org05e2d11">
           # Reiniciar el servicion para aplicar los cambios
         </h2>
-        <div class="outline-text-2" id="text-org3cf20ed">
+        <div class="outline-text-2" id="text-org05e2d11">
           <div class="org-src-container">
             <pre class="src src-shell">
 /etc/init.d/dnsmasq restart
@@ -1126,69 +1812,84 @@ tree-sitter es una herramienta moderna para analizar la estructura de código, q
 <item>
   <title><![CDATA[Eglog]]></title>
   <description><![CDATA[
-<p>
-Eglot (Emacs Poliglota) es un cliente LSP (Language Server Protocol) para Emacs  
-</p>
-<div id="outline-container-org90045d3" class="outline-2">
-<h2 id="org90045d3"># Características</h2>
-<div class="outline-text-2" id="text-org90045d3">
-<p>
-Integración con ElDoc. Si MarkdownMode está instalado, la documentación Se mejorará el formato. Diagnósticos sobre la marcha y soluciones sugeridas a través de FlyMake.  Encontrar definiciones y usos de símbolos a través de InfoXref. Navegación en el búfer a través de ImenuMode. Finalización mejorada  mediante 'finalización en el punto' * Reformateo automático del código a medida que escribe. Herramientas de terceros mejoradas:  aumente las capacidades de paquetes como CompanyMode y Yasnippet.
-</p>
-</div>
-</div>
-<div id="outline-container-org30d20a9" class="outline-2">
-<h2 id="org30d20a9">Configuración de eglot para javascript</h2>
-<div class="outline-text-2" id="text-org30d20a9">
-</div>
-<div id="outline-container-orge4b47cd" class="outline-3">
-<h3 id="orge4b47cd">Instalar el servidor LSP adecuado</h3>
-<div class="outline-text-3" id="text-orge4b47cd">
-<p>
-Eglot necesita un servidor LSP para JavaScript, como typescript-language-server. Instalcion con npm:
-</p>
+      <p>
+        Eglot (Emacs Poliglota) es un cliente LSP (Language Server Protocol)
+        para Emacs
+      </p>
+      <div id="outline-container-org3e600f1" class="outline-2">
+        <h2 id="org3e600f1"># Características</h2>
+        <div class="outline-text-2" id="text-org3e600f1">
+          <p>
+            Integración con ElDoc. Si MarkdownMode está instalado, la
+            documentación Se mejorará el formato. Diagnósticos sobre la marcha y
+            soluciones sugeridas a través de FlyMake. Encontrar definiciones y
+            usos de símbolos a través de InfoXref. Navegación en el búfer a
+            través de ImenuMode. Finalización mejorada mediante 'finalización en
+            el punto' * Reformateo automático del código a medida que escribe.
+            Herramientas de terceros mejoradas: aumente las capacidades de
+            paquetes como CompanyMode y Yasnippet.
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-org3e7af4e" class="outline-2">
+        <h2 id="org3e7af4e">Configuración de eglot para javascript</h2>
+        <div class="outline-text-2" id="text-org3e7af4e"></div>
+        <div id="outline-container-org802b147" class="outline-3">
+          <h3 id="org802b147">Instalar el servidor LSP adecuado</h3>
+          <div class="outline-text-3" id="text-org802b147">
+            <p>
+              Eglot necesita un servidor LSP para JavaScript, como
+              typescript-language-server. Instalcion con npm:
+            </p>
 
-<div class="org-src-container">
-<pre class="src src-nil">npm install -g typescript typescript-language-server
+            <div class="org-src-container">
+              <pre class="src src-nil">
+npm install -g typescript typescript-language-server
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org03e9ac6" class="outline-3">
+          <h3 id="org03e9ac6">En el init.el</h3>
+          <div class="outline-text-3" id="text-org03e9ac6">
+            <div class="org-src-container">
+              <pre class="src src-lisp">(use-package eglot
+  <span style="color: #c678dd;">:ensure</span> t
+  <span style="color: #c678dd;">:config</span>
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Asociar web-mode con el servidor TypeScript
+</span>  (add-to-list 'eglot-server-programs
+               '((web-mode js-mode typescript-mode) <span style="color: #98be65;">"typescript-language-server"</span> <span style="color: #98be65;">"--stdio"</span>)))
+<span style="color: #5B6268;">;</span><span style="color: #5B6268;">
+</span>(setenv <span style="color: #98be65;">"PATH"</span> (mapconcat 'identity exec-path path-separator))
+(setq exec-path (append exec-path '(<span style="color: #98be65;">"/usr/bin/typescript-language-server"</span>)))
+
 </pre>
-</div>
-</div>
-</div>
-<div id="outline-container-orgc171947" class="outline-3">
-<h3 id="orgc171947">En el init.el</h3>
-<div class="outline-text-3" id="text-orgc171947">
-<div class="org-src-container">
-<pre class="src src-nil">(use-package eglot
-  :ensure t
-  :config
-  ;; Asociar web-mode con el servidor TypeScript
-  (add-to-list 'eglot-server-programs
-               '((web-mode js-mode typescript-mode) "typescript-language-server" "--stdio")))
-;
-(setenv "PATH" (mapconcat 'identity exec-path path-separator))
-(setq exec-path (append exec-path '("/usr/bin/typescript-language-server")))
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orga4052e4" class="outline-3">
+          <h3 id="orga4052e4">Habilitar Eglot en el proyecto</h3>
+          <div class="outline-text-3" id="text-orga4052e4">
+            <p>
+              Abrir cualquier archivo JavaScript y asegúrarse de que Eglot esté
+              activado (debería mostrarse en la barra de estado). Si no lo está,
+              <b>M-x eglot</b> para iniciarlo.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-orga3ffe5d" class="outline-3">
+          <h3 id="orga3ffe5d">Configurar opciones adicionales</h3>
+          <div class="outline-text-3" id="text-orga3ffe5d">
+            <p>
+              Se puede personalizar el comportamiento del servidor añadiendo un
+              archivo <b>tsconfig.json</b> en la raíz del proyecto en TypeScript
+              o un <b>jsconfig.json</b> para JavaScript puro. Por ejemplo:
+            </p>
 
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-org4b806fc" class="outline-3">
-<h3 id="org4b806fc">Habilitar Eglot en el proyecto</h3>
-<div class="outline-text-3" id="text-org4b806fc">
-<p>
-Abrir cualquier archivo JavaScript y asegúrarse de que Eglot esté activado (debería mostrarse en la barra de estado). Si no lo está, <b>M-x eglot</b> para iniciarlo.
-</p>
-</div>
-</div>
-<div id="outline-container-org86fad9e" class="outline-3">
-<h3 id="org86fad9e">Configurar opciones adicionales</h3>
-<div class="outline-text-3" id="text-org86fad9e">
-<p>
-Se puede personalizar el comportamiento del servidor añadiendo un archivo <b>tsconfig.json</b> en la raíz del proyecto en TypeScript o un <b>jsconfig.json</b> para JavaScript puro. Por ejemplo:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-nil">  {
+            <div class="org-src-container">
+              <pre class="src src-nil">
+  {
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -1196,12 +1897,17 @@ Se puede personalizar el comportamiento del servidor añadiendo un archivo <b>ts
     }
   }
 }
-</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div>]]></description>
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    ]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2024-12-25-eglot.html</link>
   <guid>https://martiyo.github.io/2024-12-25-eglot.html</guid>

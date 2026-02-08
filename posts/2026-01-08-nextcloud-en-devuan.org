@@ -1,0 +1,374 @@
+#+title: Nextcloud en devuan
+#+date: <2026-01-08 08:58>
+#+description: 
+#+filetags: red linux servidores nextcloud tailscale vpn
+
+* Contexto
+Instalación de Nextcloud en servidor Devuan con acceso remoto mediante Tailscale VPN, sin necesidad de configurar port forwarding en el modem del ISP.
+
+** Arquitectura
+#+BEGIN_SRC
+Internet → Modem ISP (sin configuración) → Router OpenWRT → Servidor Devuan
+                                                              ├─ Apache + Nextcloud
+                                                              ├─ MariaDB
+                                                              └─ Tailscale (VPN)
+#+END_SRC
+
+** Problema resuelto
+- ISP provee modem muy limitado (sin acceso a configuración avanzada)
+- IP dinámica
+- Necesidad de acceso remoto seguro
+
+* 1. Instalación de Nextcloud
+
+** 2.1 Instalar dependencias
+#+BEGIN_SRC bash
+sudo apt update
+sudo apt install apache2 mariadb-server libapache2-mod-php php \
+    php-mysql php-zip php-xml php-gd php-curl php-mbstring \
+    php-intl php-bcmath php-gmp php-imagick unzip wget
+#+END_SRC
+
+** 2.2 Configurar MariaDB
+#+BEGIN_SRC bash
+# Configuración segura inicial
+sudo mysql_secure_installation
+#+END_SRC
+
+Respuestas:
+- Enter current password: =(presionar Enter)=
+- Set root password? =Y= → elegir contraseña segura
+- Remove anonymous users? =Y=
+- Disallow root login remotely? =Y=
+- Remove test database? =Y=
+- Reload privilege tables? =Y=
+
+Crear base de datos:
+#+BEGIN_SRC bash
+sudo mysql -u root -p
+#+END_SRC
+
+#+BEGIN_SRC sql
+CREATE DATABASE nextcloud CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE USER 'nextcloud'@'localhost' IDENTIFIED BY 'password_segura';
+GRANT ALL PRIVILEGES ON nextcloud.* TO 'nextcloud'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+#+END_SRC
+
+Verificar conexión:
+#+BEGIN_SRC bash
+mysql -u nextcloud -p nextcloud
+EXIT;
+#+END_SRC
+
+** 2.3 Descargar e instalar Nextcloud
+#+BEGIN_SRC bash
+cd /tmp
+wget https://download.nextcloud.com/server/releases/latest.tar.bz2
+sudo tar -xjf latest.tar.bz2 -C /var/www/
+sudo chown -R www-data:www-data /var/www/nextcloud
+#+END_SRC
+
+** 2.4 Configurar Apache
+#+BEGIN_SRC bash
+sudo nano /etc/apache2/sites-available/nextcloud.conf
+#+END_SRC
+
+Contenido:
+#+BEGIN_SRC apache
+<VirtualHost *:80>
+    ServerName tu-nombre.duckdns.org
+    DocumentRoot /var/www/nextcloud
+
+    <Directory /var/www/nextcloud/>
+        Require all granted
+        AllowOverride All
+        Options FollowSymLinks MultiViews
+
+        <IfModule mod_dav.c>
+            Dav off
+        </IfModule>
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/nextcloud_error.log
+    CustomLog ${APACHE_LOG_DIR}/nextcloud_access.log combined
+</VirtualHost>
+#+END_SRC
+
+Activar sitio y módulos:
+#+BEGIN_SRC bash
+sudo a2ensite nextcloud
+sudo a2enmod rewrite headers env dir mime
+sudo service apache2 restart
+#+END_SRC
+
+** 2.5 Configurar PHP
+#+BEGIN_SRC bash
+sudo nano /etc/php/7.*/apache2/php.ini
+#+END_SRC
+
+Modificar:
+#+BEGIN_SRC ini
+memory_limit = 512M
+upload_max_filesize = 512M
+post_max_size = 512M
+max_execution_time = 300
+#+END_SRC
+
+Reiniciar:
+#+BEGIN_SRC bash
+sudo service apache2 restart
+#+END_SRC
+
+** 2.6 Convivencia con WebDAV existente
+Si ya tienes WebDAV configurado en =000-default.conf=:
+
+#+BEGIN_SRC bash
+sudo nano /etc/apache2/sites-available/000-default.conf
+#+END_SRC
+
+Modificar VirtualHost para que solo responda a IP local:
+#+BEGIN_SRC apache
+<VirtualHost 192.168.1.100:80>
+    ServerName 192.168.1.100
+    # ... resto de configuración WebDAV ...
+</VirtualHost>
+#+END_SRC
+
+** 2.7 Configurar trusted_domains
+#+BEGIN_SRC bash
+sudo nano /var/www/nextcloud/config/config.php
+#+END_SRC
+
+#+BEGIN_SRC php
+'trusted_domains' => 
+  array (
+    0 => 'localhost',
+    1 => '192.168.1.100',
+    2 => '100.x.x.x',  // IP de Tailscale (agregar después)
+  ),
+#+END_SRC
+
+* 2. Instalación de Tailscale
+
+** 3.1 Instalación manual (para Devuan)
+#+BEGIN_SRC bash
+# Descargar binario estático
+cd /tmp
+wget https://pkgs.tailscale.com/stable/tailscale_latest_amd64.tgz
+tar xzf tailscale_latest_amd64.tgz
+cd tailscale_*
+
+# Copiar binarios
+sudo cp tailscaled /usr/sbin/
+sudo cp tailscale /usr/bin/
+#+END_SRC
+
+** 3.2 Crear servicio SysVinit
+#+BEGIN_SRC bash
+sudo nano /etc/init.d/tailscaled
+#+END_SRC
+
+Contenido completo del script:
+#+BEGIN_SRC bash
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          tailscaled
+# Required-Start:    $network $local_fs
+# Required-Stop:     $network $local_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Tailscale VPN
+### END INIT INFO
+
+DAEMON=/usr/sbin/tailscaled
+PIDFILE=/var/run/tailscaled.pid
+STATE_DIR=/var/lib/tailscale
+
+case "$1" in
+  start)
+    mkdir -p $STATE_DIR
+    start-stop-daemon --start --background --make-pidfile --pidfile $PIDFILE \
+      --exec $DAEMON -- --state=$STATE_DIR/tailscaled.state
+    ;;
+  stop)
+    start-stop-daemon --stop --pidfile $PIDFILE
+    rm -f $PIDFILE
+    ;;
+  restart)
+    $0 stop
+    sleep 2
+    $0 start
+    ;;
+  status)
+    if [ -f $PIDFILE ]; then
+      echo "Tailscale is running (PID $(cat $PIDFILE))"
+    else
+      echo "Tailscale is not running"
+    fi
+    ;;
+  *)
+    echo "Usage: /etc/init.d/tailscaled {start|stop|restart|status}"
+    exit 1
+    ;;
+esac
+
+exit 0
+#+END_SRC
+
+** 3.3 Habilitar e iniciar servicio
+#+BEGIN_SRC bash
+sudo chmod +x /etc/init.d/tailscaled
+sudo mkdir -p /var/lib/tailscale
+sudo update-rc.d tailscaled defaults
+sudo /etc/init.d/tailscaled start
+#+END_SRC
+
+** 3.4 Conectar a Tailscale
+#+BEGIN_SRC bash
+sudo tailscale up
+#+END_SRC
+
+Copiar la URL que muestra, abrir en navegador y autenticar con cuenta de Tailscale (Google/Microsoft/GitHub).
+
+** 3.5 Verificar IP asignada
+#+BEGIN_SRC bash
+tailscale ip -4
+#+END_SRC
+
+Resultado: =100.x.x.x=
+
+** 3.6 Agregar IP de Tailscale a trusted_domains
+#+BEGIN_SRC bash
+sudo nano /var/www/nextcloud/config/config.php
+#+END_SRC
+
+Agregar la IP =100.x.x.x= al array de =trusted_domains=.
+
+* 3. Acceso a Nextcloud
+
+** Desde red local
+#+BEGIN_SRC
+http://192.168.1.100
+#+END_SRC
+
+** Desde cualquier lugar (con Tailscale instalado)
+#+BEGIN_SRC
+http://100.x.x.x
+#+END_SRC
+
+** Instalación de clientes Tailscale
+- *PC:* https://tailscale.com/download
+- *Móvil:* App "Tailscale" en Play Store / App Store
+- Login con la misma cuenta
+
+** (Opcional) Activar MagicDNS
+URL: https://login.tailscale.com/admin/dns
+
+Activar MagicDNS para usar nombre en vez de IP:
+#+BEGIN_SRC
+http://devuan.tail-xxxxx.ts.net
+#+END_SRC
+
+* 4. Verificación y mantenimiento
+
+** Verificar servicios
+#+BEGIN_SRC bash
+# Apache
+sudo service apache2 status 
+
+# MariaDB
+sudo service mariadb status
+
+# Tailscale
+tailscale status
+sudo /etc/init.d/tailscaled status
+#+END_SRC
+
+** Logs importantes
+#+BEGIN_SRC bash
+# Apache/Nextcloud
+sudo tail -f /var/log/apache2/nextcloud_error.log
+sudo tail -f /var/log/apache2/nextcloud_access.log
+
+#+END_SRC
+
+** Permisos de Nextcloud
+#+BEGIN_SRC bash
+sudo chown -R www-data:www-data /var/www/nextcloud
+#+END_SRC
+
+** Actualizar Nextcloud
+Desde la interfaz web: =Settings → Overview=
+
+* 5. Ventajas de la solución
+
+- ✅ *Sin configuración del modem ISP:* No requiere port forwarding
+- ✅ *Acceso seguro:* VPN cifrada punto a punto
+- ✅ *IP dinámica:* DuckDNS mantiene el dominio actualizado
+- ✅ *Múltiples dispositivos:* Acceso desde PC, móvil, tablet
+- ✅ *Funciona en cualquier red:* WiFi pública, 4G, etc.
+- ✅ *Gratuito:* Tanto Tailscale como DuckDNS son gratis para uso personal
+
+* 6. Aplicaciones de Nextcloud recomendadas
+
+Desde la interfaz web de Nextcloud, instalar:
+- *Calendar:* Calendario sincronizado
+- *Contacts:* Libreta de contactos
+- *Notes:* Notas markdown
+- *Talk:* Videoconferencias
+- *Deck:* Tablero Kanban
+- *News:* Lector RSS
+- *Bookmarks:* Marcadores sincronizados
+
+* 7. Clientes de sincronización
+
+** Desktop
+- URL: https://nextcloud.com/install/#install-clients
+- Sincroniza carpetas automáticamente
+
+** Móvil
+- *Android:* "Nextcloud" en Play Store
+- *iOS:* "Nextcloud" en App Store
+- Sincronización automática de fotos
+
+* 8. Troubleshooting común
+
+** Error: "Access through untrusted domain"
+Agregar dominio/IP a =trusted_domains= en =/var/www/nextcloud/config/config.php=
+
+** Error de conexión a base de datos
+#+BEGIN_SRC bash
+sudo service mariadb status
+sudo service mariadb start
+#+END_SRC
+
+** Tailscale no inicia al arranque
+#+BEGIN_SRC bash
+sudo update-rc.d tailscaled defaults
+sudo /etc/init.d/tailscaled start
+#+END_SRC
+
+** Permisos incorrectos
+#+BEGIN_SRC bash
+sudo chown -R www-data:www-data /var/www/nextcloud
+sudo chmod -R 755 /var/www/nextcloud
+#+END_SRC
+
+* 9. Recursos adicionales
+
+- *Nextcloud Docs:* https://docs.nextcloud.com
+- *Tailscale Docs:* https://tailscale.com/kb
+- *DuckDNS:* https://www.duckdns.org
+- *Devuan:* https://www.devuan.org
+
+* Notas finales
+
+Esta configuración proporciona:
+1. Almacenamiento en la nube auto-hospedado
+2. Acceso remoto seguro sin exponer puertos
+3. Independencia de las limitaciones del ISP
+4. Control total sobre tus datos
+
+El sistema es escalable y puede extenderse con más servicios según necesidad.

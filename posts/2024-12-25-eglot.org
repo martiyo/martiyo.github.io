@@ -9,7 +9,7 @@ Eglot (Emacs Poliglota) es un cliente LSP (Language Server Protocol) para Emacs
 
   Integración con ElDoc. Si MarkdownMode está instalado, la documentación Se mejorará el formato. Diagnósticos sobre la marcha y soluciones sugeridas a través de FlyMake.  Encontrar definiciones y usos de símbolos a través de InfoXref. Navegación en el búfer a través de ImenuMode. Finalización mejorada  mediante 'finalización en el punto' * Reformateo automático del código a medida que escribe. Herramientas de terceros mejoradas:  aumente las capacidades de paquetes como CompanyMode y Yasnippet.
 
-    
+      
 * Configuración de eglot para javascript
 
 
@@ -25,7 +25,7 @@ Eglot (Emacs Poliglota) es un cliente LSP (Language Server Protocol) para Emacs
     
 ** En el init.el
 
-#+BEGIN_SRC
+#+BEGIN_SRC lisp
 (use-package eglot
   :ensure t
   :config
@@ -38,7 +38,7 @@ Eglot (Emacs Poliglota) es un cliente LSP (Language Server Protocol) para Emacs
 
 #+END_SRC
 
-  
+    
 ** Habilitar Eglot en el proyecto
 
   Abrir cualquier archivo JavaScript y asegúrarse de que Eglot esté activado (debería mostrarse en la barra de estado). Si no lo está, *M-x eglot* para iniciarlo.
@@ -58,3 +58,4 @@ Se puede personalizar el comportamiento del servidor añadiendo un archivo *tsco
   }
 }
 #+END_SRC
+    

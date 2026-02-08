@@ -45,38 +45,39 @@
       </h1>
       <p>
         Configurar el TP-Link como router principal detrás del módem, no como
-        puente. Así mantienes todo el control de la red.
+        puente, así mantiene todo el control de la red.
       </p>
-      <div id="outline-container-orgc76e345" class="outline-2">
-        <h2 id="orgc76e345"># Arquitectura recomendada:</h2>
-        <div class="outline-text-2" id="text-orgc76e345"></div>
-        <div id="outline-container-orgc7beaac" class="outline-3">
-          <h3 id="orgc7beaac">
+      <div id="outline-container-org37b41b9" class="outline-2">
+        <h2 id="org37b41b9"># Arquitectura recomendada:</h2>
+        <div class="outline-text-2" id="text-org37b41b9"></div>
+        <div id="outline-container-org1c1f3bb" class="outline-3">
+          <h3 id="org1c1f3bb">
             Internet → Módem Coaxial (192.168.10.1) → TP-Link OpenWRT (WAN +
-            LAN) → Tus dispositivos
+            LAN) → Dispositivos (pcs, notebooks, telefonos)
           </h3>
-          <div class="outline-text-3" id="text-orgc7beaac"></div>
+          <div class="outline-text-3" id="text-org1c1f3bb"></div>
           <ul class="org-ul">
             <li>
-              <a id="orgbee494b"></a>El TP-Link hará:<br />
-              <div class="outline-text-5" id="text-orgbee494b">
-                <p>
-                  1.NAT doble 2.DHCP para la red local 3.Firewall y control
-                  parental (horarios, bloqueos) 4.DNS filtering (bloqueo de
-                  sitios)
-                </p>
+              <a id="orgd6cf20e"></a>El TP-Link hará:<br />
+              <div class="outline-text-5" id="text-orgd6cf20e">
+                <ol class="org-ol">
+                  <li>NAT doble</li>
+                  <li>DHCP para la red local</li>
+                  <li>Firewall y control parental (horarios, bloqueos)</li>
+                  <li>DNS filtering (bloqueo de sitios)</li>
+                </ol>
               </div>
             </li>
           </ul>
         </div>
-        <div id="outline-container-org256c872" class="outline-3">
-          <h3 id="org256c872">Configuración paso a paso:</h3>
-          <div class="outline-text-3" id="text-org256c872"></div>
+        <div id="outline-container-org2a71319" class="outline-3">
+          <h3 id="org2a71319">Configuración paso a paso:</h3>
+          <div class="outline-text-3" id="text-org2a71319"></div>
           <ul class="org-ul">
             <li>
-              <a id="org5783d8b"></a>Configura la red LAN del TP-Link (tu red
+              <a id="org8d3ff40"></a>Configura la red LAN del TP-Link (tu red
               interna):<br />
-              <div class="outline-text-5" id="text-org5783d8b">
+              <div class="outline-text-5" id="text-org8d3ff40">
                 <ol class="org-ol">
                   <li>
                     Cambiar la IP de LAN para que no conflictúe con el módem
@@ -121,13 +122,14 @@ uci commit network
 
                 <p>
                   Puerto WAN del TP-Link → cualquier puerto del módem coaxial
-                  Puertos LAN del TP-Link → tus dispositivos (PC, WiFi, etc)
+                  Puertos LAN del TP-Link → tus dispositivos (PC, telefonos via
+                  WiFi, etc)
                 </p>
 
                 <ol class="org-ol">
-                  <li>Verifica que funcione:</li>
+                  <li>Verificar que funcione:</li>
                 </ol>
-                <p>Desde el router: bashping 8.8.8.8 # Debe funcionar</p>
+                <p>Desde el router: ping 8.8.8.8 # Debe funcionar</p>
               </div>
             </li>
           </ul>

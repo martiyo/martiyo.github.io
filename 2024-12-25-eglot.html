@@ -1,98 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<link rel="alternate"
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="alternate"
       type="application/rss+xml"
       href="https://martiyo.github.io/rss.xml"
-      title="RSS feed for https://martiyo.github.io/">
-<title>Eglog</title>
-<meta name="author" content="martiyo">
-<meta name="referrer" content="no-referrer">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href= "static/style.css" rel="stylesheet" type="text/css" />
-<link rel="icon" href="static/favicon.ico">
-<script src="static/search.js"></script>
-</head>
-<body>
-<div id="preamble" class="status"><div class="header">
-<ul>
-<li><a href="https://martiyo.github.io/">/home</a></li>
-<li><a href="https://martiyo.github.io/about">/about</a></li>
-<li><a href="https://martiyo.github.io/contact">/contact</a></li>
-</ul>
- <h1>El universo perdido de GNU/Emacs</h1>
- <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
-<form >
-<input type="text" placeholder="Buscar..." />
-</form>
-<br/>
-</div></div>
-<div id="content">
-<div class="post-date">25 dic 2024</div><h1 class="post-title"><a href="https://martiyo.github.io/2024-12-25-eglot.html">Eglog</a></h1>
-<p>
-Eglot (Emacs Poliglota) es un cliente LSP (Language Server Protocol) para Emacs  
-</p>
-<div id="outline-container-org90045d3" class="outline-2">
-<h2 id="org90045d3"># Características</h2>
-<div class="outline-text-2" id="text-org90045d3">
-<p>
-Integración con ElDoc. Si MarkdownMode está instalado, la documentación Se mejorará el formato. Diagnósticos sobre la marcha y soluciones sugeridas a través de FlyMake.  Encontrar definiciones y usos de símbolos a través de InfoXref. Navegación en el búfer a través de ImenuMode. Finalización mejorada  mediante 'finalización en el punto' * Reformateo automático del código a medida que escribe. Herramientas de terceros mejoradas:  aumente las capacidades de paquetes como CompanyMode y Yasnippet.
-</p>
-</div>
-</div>
-<div id="outline-container-org30d20a9" class="outline-2">
-<h2 id="org30d20a9">Configuración de eglot para javascript</h2>
-<div class="outline-text-2" id="text-org30d20a9">
-</div>
-<div id="outline-container-orge4b47cd" class="outline-3">
-<h3 id="orge4b47cd">Instalar el servidor LSP adecuado</h3>
-<div class="outline-text-3" id="text-orge4b47cd">
-<p>
-Eglot necesita un servidor LSP para JavaScript, como typescript-language-server. Instalcion con npm:
-</p>
+      title="RSS feed for https://martiyo.github.io/"
+    />
+    <title>Eglog</title>
+    <meta name="author" content="martiyo" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="static/favicon.ico" />
+    <script src="static/search.js"></script>
+  </head>
+  <body>
+    <div id="preamble" class="status">
+      <div class="header">
+        <ul>
+          <li><a href="https://martiyo.github.io/">/home</a></li>
+          <li><a href="https://martiyo.github.io/about">/about</a></li>
+          <li><a href="https://martiyo.github.io/contact">/contact</a></li>
+        </ul>
+        <h1>El universo perdido de GNU/Emacs</h1>
+        <blockquote>
+          Este blog es una farsa son solo resumenes, traducciónes y cosas que
+          encuentro por ahí.
+        </blockquote>
+        <form>
+          <input type="text" placeholder="Buscar..." />
+        </form>
+        <br />
+      </div>
+    </div>
+    <div id="content">
+      <div class="post-date">25 dic 2024</div>
+      <h1 class="post-title">
+        <a href="https://martiyo.github.io/2024-12-25-eglot.html">Eglog</a>
+      </h1>
+      <p>
+        Eglot (Emacs Poliglota) es un cliente LSP (Language Server Protocol)
+        para Emacs
+      </p>
+      <div id="outline-container-org3e600f1" class="outline-2">
+        <h2 id="org3e600f1"># Características</h2>
+        <div class="outline-text-2" id="text-org3e600f1">
+          <p>
+            Integración con ElDoc. Si MarkdownMode está instalado, la
+            documentación Se mejorará el formato. Diagnósticos sobre la marcha y
+            soluciones sugeridas a través de FlyMake. Encontrar definiciones y
+            usos de símbolos a través de InfoXref. Navegación en el búfer a
+            través de ImenuMode. Finalización mejorada mediante 'finalización en
+            el punto' * Reformateo automático del código a medida que escribe.
+            Herramientas de terceros mejoradas: aumente las capacidades de
+            paquetes como CompanyMode y Yasnippet.
+          </p>
+        </div>
+      </div>
+      <div id="outline-container-org3e7af4e" class="outline-2">
+        <h2 id="org3e7af4e">Configuración de eglot para javascript</h2>
+        <div class="outline-text-2" id="text-org3e7af4e"></div>
+        <div id="outline-container-org802b147" class="outline-3">
+          <h3 id="org802b147">Instalar el servidor LSP adecuado</h3>
+          <div class="outline-text-3" id="text-org802b147">
+            <p>
+              Eglot necesita un servidor LSP para JavaScript, como
+              typescript-language-server. Instalcion con npm:
+            </p>
 
-<div class="org-src-container">
-<pre class="src src-nil">npm install -g typescript typescript-language-server
+            <div class="org-src-container">
+              <pre class="src src-nil">
+npm install -g typescript typescript-language-server
+</pre
+              >
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-org03e9ac6" class="outline-3">
+          <h3 id="org03e9ac6">En el init.el</h3>
+          <div class="outline-text-3" id="text-org03e9ac6">
+            <div class="org-src-container">
+              <pre class="src src-lisp">(use-package eglot
+  <span style="color: #c678dd;">:ensure</span> t
+  <span style="color: #c678dd;">:config</span>
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Asociar web-mode con el servidor TypeScript
+</span>  (add-to-list 'eglot-server-programs
+               '((web-mode js-mode typescript-mode) <span style="color: #98be65;">"typescript-language-server"</span> <span style="color: #98be65;">"--stdio"</span>)))
+<span style="color: #5B6268;">;</span><span style="color: #5B6268;">
+</span>(setenv <span style="color: #98be65;">"PATH"</span> (mapconcat 'identity exec-path path-separator))
+(setq exec-path (append exec-path '(<span style="color: #98be65;">"/usr/bin/typescript-language-server"</span>)))
+
 </pre>
-</div>
-</div>
-</div>
-<div id="outline-container-orgc171947" class="outline-3">
-<h3 id="orgc171947">En el init.el</h3>
-<div class="outline-text-3" id="text-orgc171947">
-<div class="org-src-container">
-<pre class="src src-nil">(use-package eglot
-  :ensure t
-  :config
-  ;; Asociar web-mode con el servidor TypeScript
-  (add-to-list 'eglot-server-programs
-               '((web-mode js-mode typescript-mode) "typescript-language-server" "--stdio")))
-;
-(setenv "PATH" (mapconcat 'identity exec-path path-separator))
-(setq exec-path (append exec-path '("/usr/bin/typescript-language-server")))
+            </div>
+          </div>
+        </div>
+        <div id="outline-container-orga4052e4" class="outline-3">
+          <h3 id="orga4052e4">Habilitar Eglot en el proyecto</h3>
+          <div class="outline-text-3" id="text-orga4052e4">
+            <p>
+              Abrir cualquier archivo JavaScript y asegúrarse de que Eglot esté
+              activado (debería mostrarse en la barra de estado). Si no lo está,
+              <b>M-x eglot</b> para iniciarlo.
+            </p>
+          </div>
+        </div>
+        <div id="outline-container-orga3ffe5d" class="outline-3">
+          <h3 id="orga3ffe5d">Configurar opciones adicionales</h3>
+          <div class="outline-text-3" id="text-orga3ffe5d">
+            <p>
+              Se puede personalizar el comportamiento del servidor añadiendo un
+              archivo <b>tsconfig.json</b> en la raíz del proyecto en TypeScript
+              o un <b>jsconfig.json</b> para JavaScript puro. Por ejemplo:
+            </p>
 
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-org4b806fc" class="outline-3">
-<h3 id="org4b806fc">Habilitar Eglot en el proyecto</h3>
-<div class="outline-text-3" id="text-org4b806fc">
-<p>
-Abrir cualquier archivo JavaScript y asegúrarse de que Eglot esté activado (debería mostrarse en la barra de estado). Si no lo está, <b>M-x eglot</b> para iniciarlo.
-</p>
-</div>
-</div>
-<div id="outline-container-org86fad9e" class="outline-3">
-<h3 id="org86fad9e">Configurar opciones adicionales</h3>
-<div class="outline-text-3" id="text-org86fad9e">
-<p>
-Se puede personalizar el comportamiento del servidor añadiendo un archivo <b>tsconfig.json</b> en la raíz del proyecto en TypeScript o un <b>jsconfig.json</b> para JavaScript puro. Por ejemplo:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-nil">  {
+            <div class="org-src-container">
+              <pre class="src src-nil">
+  {
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -100,16 +125,22 @@ Se puede personalizar el comportamiento del servidor añadiendo un archivo <b>ts
     }
   }
 }
-</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div></div>
-<div id="postamble" class="status"><div id="archive">
-  <a href="https://martiyo.github.io/archive.html">Other posts</a>
-</div>
-<footer></footer>
-</div>
-</body>
+</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+        <a href="https://martiyo.github.io/tags.html">Tags</a>:
+        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
+      </div>
+    </div>
+    <div id="postamble" class="status">
+      <div id="archive">
+        <a href="https://martiyo.github.io/archive.html">Other posts</a>
+      </div>
+      <footer></footer>
+    </div>
+  </body>
 </html>

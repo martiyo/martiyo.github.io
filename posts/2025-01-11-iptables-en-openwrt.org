@@ -120,5 +120,10 @@ Buscar una regla que contenga la IP del dispositivo y confirme que está bloqued
  #+BEGIN_SRC shell
  /etc/init.d/cron restart
  #+END_SRC
-      
+
+Ver logs de cron
+
+#+BEGIN_SRC  shell
+logread | grep cron
+#+END_SRC
  
