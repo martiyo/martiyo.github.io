@@ -45,21 +45,23 @@
       </h1>
       <p>
         Configurar el TP-Link como router principal detrás del módem, no como
-        puente, así mantiene todo el control de la red.
+        puente, así mantener todo el control de la red.
       </p>
-      <div id="outline-container-org37b41b9" class="outline-2">
-        <h2 id="org37b41b9"># Arquitectura recomendada:</h2>
-        <div class="outline-text-2" id="text-org37b41b9"></div>
-        <div id="outline-container-org1c1f3bb" class="outline-3">
-          <h3 id="org1c1f3bb">
+      <div id="outline-container-orge5b0199" class="outline-2">
+        <h2 id="orge5b0199"># Arquitectura recomendada:</h2>
+        <div class="outline-text-2" id="text-orge5b0199">
+          <p>g</p>
+        </div>
+        <div id="outline-container-org7d63a6a" class="outline-3">
+          <h3 id="org7d63a6a">
             Internet → Módem Coaxial (192.168.10.1) → TP-Link OpenWRT (WAN +
             LAN) → Dispositivos (pcs, notebooks, telefonos)
           </h3>
-          <div class="outline-text-3" id="text-org1c1f3bb"></div>
+          <div class="outline-text-3" id="text-org7d63a6a"></div>
           <ul class="org-ul">
             <li>
-              <a id="orgd6cf20e"></a>El TP-Link hará:<br />
-              <div class="outline-text-5" id="text-orgd6cf20e">
+              <a id="org89b1b3d"></a>El TP-Link hará:<br />
+              <div class="outline-text-5" id="text-org89b1b3d">
                 <ol class="org-ol">
                   <li>NAT doble</li>
                   <li>DHCP para la red local</li>
@@ -70,14 +72,14 @@
             </li>
           </ul>
         </div>
-        <div id="outline-container-org2a71319" class="outline-3">
-          <h3 id="org2a71319">Configuración paso a paso:</h3>
-          <div class="outline-text-3" id="text-org2a71319"></div>
+        <div id="outline-container-org382245e" class="outline-3">
+          <h3 id="org382245e">Configuración paso a paso:</h3>
+          <div class="outline-text-3" id="text-org382245e"></div>
           <ul class="org-ul">
             <li>
-              <a id="org8d3ff40"></a>Configura la red LAN del TP-Link (tu red
+              <a id="org153e08b"></a>Configura la red LAN del TP-Link (tu red
               interna):<br />
-              <div class="outline-text-5" id="text-org8d3ff40">
+              <div class="outline-text-5" id="text-org153e08b">
                 <ol class="org-ol">
                   <li>
                     Cambiar la IP de LAN para que no conflictúe con el módem

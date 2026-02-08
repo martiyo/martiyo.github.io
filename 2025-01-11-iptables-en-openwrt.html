@@ -43,9 +43,9 @@
         >
       </h1>
       <p>Bloquear conexion a internet por IP o MAC con iptables.</p>
-      <div id="outline-container-org998e549" class="outline-2">
-        <h2 id="org998e549"># Editar las reglas del fierwall manualmente</h2>
-        <div class="outline-text-2" id="text-org998e549">
+      <div id="outline-container-org9f27f6d" class="outline-2">
+        <h2 id="org9f27f6d"># Editar las reglas del fierwall manualmente</h2>
+        <div class="outline-text-2" id="text-org9f27f6d">
           <p>
             El archivo de configuración del firewall en <b>openwrt</b> es
             <b>/etc/config/firewall</b> entonces:
@@ -58,11 +58,11 @@ vi /etc/config/firewall
             >
           </div>
         </div>
-        <div id="outline-container-orgfdcf82e" class="outline-3">
-          <h3 id="orgfdcf82e">
+        <div id="outline-container-org4fca42e" class="outline-3">
+          <h3 id="org4fca42e">
             Agregar la regla para bloquear la IP del dispositivo
           </h3>
-          <div class="outline-text-3" id="text-orgfdcf82e">
+          <div class="outline-text-3" id="text-org4fca42e">
             <div class="org-src-container">
               <pre class="src src-shell">config rule
   option name <span style="color: #98be65;">'Bloquear Dispositivo'</span>
@@ -81,9 +81,9 @@ vi /etc/config/firewall
             </p>
           </div>
         </div>
-        <div id="outline-container-orgf8b7edd" class="outline-3">
-          <h3 id="orgf8b7edd">Reiniciar el firewall</h3>
-          <div class="outline-text-3" id="text-orgf8b7edd">
+        <div id="outline-container-orgd819460" class="outline-3">
+          <h3 id="orgd819460">Reiniciar el firewall</h3>
+          <div class="outline-text-3" id="text-orgd819460">
             <p>Aplicar los cambios reiniciando el servicio del firewall:</p>
 
             <div class="org-src-container">
@@ -94,9 +94,9 @@ vi /etc/config/firewall
             </div>
           </div>
         </div>
-        <div id="outline-container-org4e00e9c" class="outline-3">
-          <h3 id="org4e00e9c">Verificar regla aplicada</h3>
-          <div class="outline-text-3" id="text-org4e00e9c">
+        <div id="outline-container-org6956154" class="outline-3">
+          <h3 id="org6956154">Verificar regla aplicada</h3>
+          <div class="outline-text-3" id="text-org6956154">
             <div class="org-src-container">
               <pre class="src src-shell">
 iptables -L -v
@@ -111,20 +111,20 @@ iptables -L -v
           </div>
         </div>
       </div>
-      <div id="outline-container-org6fe1330" class="outline-2">
-        <h2 id="org6fe1330">
+      <div id="outline-container-org45b8305" class="outline-2">
+        <h2 id="org45b8305">
           # Habilitar y deshabilitar la regla en un horario especifico
           utilizando <b>cron</b>
         </h2>
-        <div class="outline-text-2" id="text-org6fe1330"></div>
-        <div id="outline-container-org74d4042" class="outline-3">
-          <h3 id="org74d4042">
+        <div class="outline-text-2" id="text-org45b8305"></div>
+        <div id="outline-container-orgd1c9d86" class="outline-3">
+          <h3 id="orgd1c9d86">
             Crear scripts para habilitar y deshabilitar la regla
           </h3>
-          <div class="outline-text-3" id="text-org74d4042"></div>
-          <div id="outline-container-org84ea0fc" class="outline-4">
-            <h4 id="org84ea0fc">Script para habilitar la regla:</h4>
-            <div class="outline-text-4" id="text-org84ea0fc">
+          <div class="outline-text-3" id="text-orgd1c9d86"></div>
+          <div id="outline-container-orgcc64342" class="outline-4">
+            <h4 id="orgcc64342">Script para habilitar la regla:</h4>
+            <div class="outline-text-4" id="text-orgcc64342">
               <div class="org-src-container">
                 <pre class="src src-shell">
 vi /etc/firewall.enable_block.sh   
@@ -137,8 +137,8 @@ vi /etc/firewall.enable_block.sh
               <div class="org-src-container">
                 <pre
                   class="src src-shell"
-                ><span style="color: #5B6268;">#</span><span style="color: #5B6268;">!/bin/</span><span style="color: #51afef;">sh</span>
-uci set firewall.@rule[&lt;&#237;ndice&gt;].enabled=<span style="color: #98be65;">'1'</span>
+                ><span style="color: #5B6268;">#</span><span style="color: #5B6268;">!/bin/</span><span style="color: #51afef;">sh</span><span style="color: #5B6268;">
+</span>uci set firewall.@rule[&lt;&#237;ndice&gt;].enabled=<span style="color: #98be65;">'1'</span>
 uci commit firewall
 /etc/init.d/firewall restart
 </pre>
@@ -162,9 +162,9 @@ uci commit firewall
               </p>
             </div>
           </div>
-          <div id="outline-container-orgba5d5af" class="outline-4">
-            <h4 id="orgba5d5af">Script para deshabilitar la regla</h4>
-            <div class="outline-text-4" id="text-orgba5d5af">
+          <div id="outline-container-org7cbcbf2" class="outline-4">
+            <h4 id="org7cbcbf2">Script para deshabilitar la regla</h4>
+            <div class="outline-text-4" id="text-org7cbcbf2">
               <div class="org-src-container">
                 <pre class="src src-shell">
 vi /etc/firewall.disable_block.sh
@@ -177,17 +177,17 @@ vi /etc/firewall.disable_block.sh
               <div class="org-src-container">
                 <pre
                   class="src src-shell"
-                ><span style="color: #5B6268;">#</span><span style="color: #5B6268;">!/bin/</span><span style="color: #51afef;">sh</span>
-uci set firewall.@rule[&lt;&#237;ndice&gt;].enabled=<span style="color: #98be65;">'0'</span>
+                ><span style="color: #5B6268;">#</span><span style="color: #5B6268;">!/bin/</span><span style="color: #51afef;">sh</span><span style="color: #5B6268;">
+</span>uci set firewall.@rule[&lt;&#237;ndice&gt;].enabled=<span style="color: #98be65;">'0'</span>
 uci commit firewall
 /etc/init.d/firewall restart
 </pre>
               </div>
             </div>
           </div>
-          <div id="outline-container-orgbabe34a" class="outline-4">
-            <h4 id="orgbabe34a">Scripts ejecutables:</h4>
-            <div class="outline-text-4" id="text-orgbabe34a">
+          <div id="outline-container-orgda37ce8" class="outline-4">
+            <h4 id="orgda37ce8">Scripts ejecutables:</h4>
+            <div class="outline-text-4" id="text-orgda37ce8">
               <div class="org-src-container">
                 <pre class="src src-shell">
 chmod +x /etc/firewall.enable_block.sh /etc/firewall.disable_block.sh
@@ -197,9 +197,9 @@ chmod +x /etc/firewall.enable_block.sh /etc/firewall.disable_block.sh
             </div>
           </div>
         </div>
-        <div id="outline-container-orgee816a1" class="outline-3">
-          <h3 id="orgee816a1">Programar las tares con cron</h3>
-          <div class="outline-text-3" id="text-orgee816a1">
+        <div id="outline-container-orgf25ecec" class="outline-3">
+          <h3 id="orgf25ecec">Programar las tares con cron</h3>
+          <div class="outline-text-3" id="text-orgf25ecec">
             <div class="org-src-container">
               <pre class="src src-shell">
 crontaba -e
@@ -215,12 +215,12 @@ crontaba -e
             <div class="org-src-container">
               <pre
                 class="src src-shell"
-              ><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Habilitar la regla todos los d&#237;as a las 8:00 AM</span>
-0 2 * * * /etc/firewall.enable_block.sh
+              ><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Habilitar la regla todos los d&#237;as a las 8:00 AM
+</span>0 2 * * * /etc/firewall.enable_block.sh
 
 
-<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Deshabilitar la regla todos los d&#237;as a las 8:00 PM</span>
-0 7 * * * /etc/firewall.disable_block.sh
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Deshabilitar la regla todos los d&#237;as a las 8:00 PM
+</span>0 7 * * * /etc/firewall.disable_block.sh
 </pre>
             </div>
 
@@ -229,6 +229,15 @@ crontaba -e
             <div class="org-src-container">
               <pre class="src src-shell">
 /etc/init.d/cron restart
+</pre
+              >
+            </div>
+
+            <p>Ver logs de cron</p>
+
+            <div class="org-src-container">
+              <pre class="src src-shell">
+logread | grep cron
 </pre
               >
             </div>
