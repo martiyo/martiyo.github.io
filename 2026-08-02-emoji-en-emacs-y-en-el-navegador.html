@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Configurar las fuentes de emoji a nivel de sistema y en Emacs">
+<link rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/">
+<title>Emoji en Emacs y en el navegador</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">02 ago 2026</div><h1 class="post-title"><a href="https://martiyo.github.io/2026-08-02-emoji-en-emacs-y-en-el-navegador.html">Emoji en Emacs y en el navegador</a></h1>
+<p>
+Configuración para ver emojis tanto dentro de Emacs como en aplicaciones del
+sistema (navegador, y por tanto la app Streamlit vía EAF/EXWM).
+</p>
+<div id="outline-container-orgb97156e" class="outline-2">
+<h2 id="orgb97156e">Instalar la fuente</h2>
+<div class="outline-text-2" id="text-orgb97156e">
+</div>
+<div id="outline-container-org6beccfd" class="outline-3">
+<h3 id="org6beccfd">Especialmente para el navegador</h3>
+<div class="outline-text-3" id="text-org6beccfd">
+<p>
+El paquete de Debian/Devuan es <code>fonts-noto-color-emoji</code>. El archivo de la fuente
+se ubica en <code>/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf</code>.
+</p>
+
+<p>
+Comandos usados:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Reinstalar (&#250;til si el .ttf no exist&#237;a en disco pese a estar registrado)
+</span>sudo apt-get install --reinstall -y fonts-noto-color-emoji
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Refrescar la cach&#233; de fuentes de fontconfig
+</span>sudo fc-cache -f
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Verificar que la fuente qued&#243; registrada
+</span>fc-list | grep -i emoji
+</pre>
+</div>
+
+<p>
+Salida esperada tras la verificación:
+</p>
+
+<pre class="example" id="org885d1aa">
+/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf: Noto Color Emoji:style=Regular
+</pre>
+
+<p>
+Tras esto, el navegador (Firefox/Chromium, y por extensión la app Streamlit
+vía EAF/EXWM) mostrará los emoji. Conviene recargar la pestaña y, si hace falta,
+reiniciar el navegador.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc4a3a8b" class="outline-2">
+<h2 id="orgc4a3a8b">Cómo usar los emoji en el código</h2>
+<div class="outline-text-2" id="text-orgc4a3a8b">
+<p>
+Escribirlos como texto en los strings:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">st.button(<span style="color: #98be65;">"&#128197; Evento"</span>)
+st.button(<span style="color: #98be65;">"&#128203; Planes"</span>)
+<span style="color: #98be65;">"&#128196; Listar eventos"</span>, <span style="color: #98be65;">"&#128196; Listar planes"</span>, <span style="color: #98be65;">"&#128190; Guardar"</span>, <span style="color: #98be65;">"&#128465;&#65039; Eliminar"</span>
+</pre>
+</div>
+
+<p>
+No requiere importar ninguna librería: son caracteres Unicode.
+</p>
+</div>
+</div>
+<div id="outline-container-org0745e68" class="outline-2">
+<h2 id="org0745e68">Configuración de Emacs</h2>
+<div class="outline-text-2" id="text-org0745e68">
+<p>
+El bloque se añadió al final de <code>/.emacs.d/init.el</code>. Se activa solo en Emacs
+gráfico (<code>display-graphic-p</code>) y solo si encuentra una fuente emoji instalada.
+</p>
+
+<p>
+Fuente: elige la primera disponible entre "Noto Color Emoji", "Noto Emoji" y
+"Segoe UI Emoji" usando <code>find-font</code> (compatible con Emacs 30.x; la función
+<code>font-exists-p</code> no existe en esa versión).
+</p>
+
+<p>
+Luego configura los rangos Unicode de emoji como fallback con
+<code>set-fontset-font</code> sobre el fontset por defecto <code>t</code>:
+</p>
+
+<ul class="org-ul">
+<li><code>symbol</code>: símbolos.</li>
+<li><code>#x1F300 . #x1FAFF</code>: pictogramas/tipos de cara principales.</li>
+<li><code>#x2600 . #x27BF</code>: símbolos varios y misceláneos.</li>
+<li><code>#x1F1E6 . #x1F1FF</code>: banderas regionales.</li>
+<li><code>#xFE0F</code>: el modificador de presentación emoji (VS16).</li>
+</ul>
+
+<p>
+Código añadido a `init.el`:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #51afef;">when</span> (display-graphic-p)
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Elegir fuente emoji disponible sin depender de `</span><span style="color: #a9a1e1;">font-exists-p</span><span style="color: #5B6268;">'
+</span>  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(no existe en Emacs 30.x); usamos font-spec y comprobamos find-font.
+</span>  (<span style="color: #51afef;">defconst</span> <span style="color: #dcaeea;">vel-emoji-font</span>
+    (<span style="color: #51afef;">catch</span> '<span style="color: #a9a1e1;">found</span>
+      (<span style="color: #51afef;">dolist</span> (family '(<span style="color: #98be65;">"Noto Color Emoji"</span> <span style="color: #98be65;">"Noto Emoji"</span> <span style="color: #98be65;">"Segoe UI Emoji"</span>))
+        (<span style="color: #51afef;">when</span> (find-font (font-spec <span style="color: #c678dd;">:family</span> family))
+          (<span style="color: #51afef;">throw</span> '<span style="color: #a9a1e1;">found</span> family)))
+      nil))
+
+  (<span style="color: #51afef;">when</span> vel-emoji-font
+    (set-fontset-font t 'symbol vel-emoji-font)
+    (set-fontset-font t '(#x1F300 . #x1FAFF) vel-emoji-font)
+    (set-fontset-font t '(#x2600 . #x27BF) vel-emoji-font)
+    (set-fontset-font t '(#x1F1E6 . #x1F1FF) vel-emoji-font)
+    (set-fontset-font t '(#xFE0F . #xFE0F) vel-emoji-font)))
+</pre>
+</div>
+
+<p>
+<code>vel-</code> es un prefijo local (initial del autor) para la variable; se puede
+renombrar sin problema.
+</p>
+</div>
+</div>
+<div id="outline-container-orgbccede3" class="outline-2">
+<h2 id="orgbccede3">Notas técnicas</h2>
+<div class="outline-text-2" id="text-orgbccede3">
+<ul class="org-ul">
+<li>Emacs no renderiza los "emoji de color" en todos los modos de dibujo; la
+fuente Noto Color Emoji es de color y funciona en frames normales.</li>
+<li>En terminal (<code>emacs -nw</code>) no hay color: los emojis dependen del terminal, no
+de Emacs; el bloque no hace nada ahí (<code>display-graphic-p</code> es nil).</li>
+<li><code>find-font</code> solo devuelve una fuente en un session con display gráfico activo;
+en batch/headless devuelve <code>nil</code> por diseño.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc625c64" class="outline-2">
+<h2 id="orgc625c64">Cómo insertar emojis en el código con Emacs</h2>
+<div class="outline-text-2" id="text-orgc625c64">
+<p>
+Con la fuente emoji configurada (sección anterior), insertar emojis en el
+búfer mientras se escribe código es sencillo. Emacs ofrece varias vías.
+</p>
+</div>
+<div id="outline-container-org85774ff" class="outline-3">
+<h3 id="org85774ff">Por nombre con insert-char (incluido, sin librerías)</h3>
+<div class="outline-text-3" id="text-org85774ff">
+<p>
+Se usa con TAB para autocompletar. Pide el nombre del glifo:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">C-x 8 RET   &#8594;  calendar  &#8594;  inserta &#128467;&#65039;
+C-x 8 RET   &#8594;  clipart    &#8594;  inserta (seg&#250;n el nombre exacto)
+</pre>
+</div>
+
+<p>
+Es la opción más rápida al no necesitar memorizar códigos hexadecimales.
+</p>
+</div>
+</div>
+<div id="outline-container-org44ce795" class="outline-3">
+<h3 id="org44ce795">Por código Unicode con ucs-insert</h3>
+<div class="outline-text-3" id="text-org44ce795">
+<p>
+Si se conoce el punto de código:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">C-x 8 1F4C5   &#8594;  &#128197;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5c0846a" class="outline-3">
+<h3 id="org5c0846a">Con el selector emoji-insert (Emacs 29+/30)</h3>
+<div class="outline-text-3" id="text-org5c0846a">
+<p>
+Permite buscar y elegir el emoji de forma visual (parecido a un selector). Care
+de fuentes emoji configuradas si no, se ven cuadritos.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">M-x emoji-insert
+M-x emoji-search
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org97cac6a" class="outline-3">
+<h3 id="org97cac6a">Copiar-pegar directo</h3>
+<div class="outline-text-3" id="text-org97cac6a">
+<p>
+Escribir el emoji en una app (teléfono, navegador, otra web) y pegarlo en el
+buffer. Es texto UTF-8 normal, así que vale tal cual.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orge0a3ae1" class="outline-2">
+<h2 id="orge0a3ae1">Recomendación práctica</h2>
+<div class="outline-text-2" id="text-orge0a3ae1">
+<p>
+Para los emojis que se repiten en el código (📅 📋 💾 🗑️) lo más cómodo es
+usar <code>C-x 8 RET</code> por nombre o un snippet con abreviatura. Ejemplo de función
+para insertar un emoji buscado por palabra clave:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #51afef;">defun</span> <span style="color: #c678dd;">ik-insert-emoji@</span> (emoji)
+  <span style="color: #83898d;">"Inserta el EMOJI en el buffer actual."</span>
+  (<span style="color: #51afef;">interactive</span> <span style="color: #98be65;">"sEmoji a insertar: "</span>)
+  (insert emoji))
+
+(global-set-key (kbd <span style="color: #98be65;">"C-c e"</span>) #'ik-insert-emoji@)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org17b2a79" class="outline-2">
+<h2 id="org17b2a79">Conclusión</h2>
+<div class="outline-text-2" id="text-org17b2a79">
+<ul class="org-ul">
+<li>Emoji del navegador ≈ instalar las fuentes a nivel de sistema.</li>
+<li>Emoji en el búfer de Emacs ≈ configuración del <code>init.el</code> descrita arriba.</li>
+</ul>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
+</html>

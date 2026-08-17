@@ -1,0 +1,159 @@
+#+title: Emoji en Emacs y en el navegador
+#+date: <2026-08-02>
+#+description: Configurar las fuentes de emoji a nivel de sistema y en Emacs
+#+filetags: emacs linux
+
+Configuración para ver emojis tanto dentro de Emacs como en aplicaciones del
+sistema (navegador, y por tanto la app Streamlit vía EAF/EXWM).
+
+* Instalar la fuente
+
+** Especialmente para el navegador
+
+El paquete de Debian/Devuan es ~fonts-noto-color-emoji~. El archivo de la fuente
+se ubica en ~/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf~.
+
+Comandos usados:
+
+#+begin_src sh
+  # Reinstalar (útil si el .ttf no existía en disco pese a estar registrado)
+  sudo apt-get install --reinstall -y fonts-noto-color-emoji
+
+  # Refrescar la caché de fuentes de fontconfig
+  sudo fc-cache -f
+
+  # Verificar que la fuente quedó registrada
+  fc-list | grep -i emoji
+#+end_src
+
+Salida esperada tras la verificación:
+
+#+begin_example
+/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf: Noto Color Emoji:style=Regular
+#+end_example
+
+Tras esto, el navegador (Firefox/Chromium, y por extensión la app Streamlit
+vía EAF/EXWM) mostrará los emoji. Conviene recargar la pestaña y, si hace falta,
+reiniciar el navegador.
+
+* Cómo usar los emoji en el código
+
+Escribirlos como texto en los strings:
+
+#+begin_src python
+  st.button("📅 Evento")
+  st.button("📋 Planes")
+  "📄 Listar eventos", "📄 Listar planes", "💾 Guardar", "🗑️ Eliminar"
+#+end_src
+
+No requiere importar ninguna librería: son caracteres Unicode.
+
+* Configuración de Emacs
+
+El bloque se añadió al final de ~/.emacs.d/init.el~. Se activa solo en Emacs
+gráfico (~display-graphic-p~) y solo si encuentra una fuente emoji instalada.
+
+Fuente: elige la primera disponible entre "Noto Color Emoji", "Noto Emoji" y
+"Segoe UI Emoji" usando ~find-font~ (compatible con Emacs 30.x; la función
+~font-exists-p~ no existe en esa versión).
+
+Luego configura los rangos Unicode de emoji como fallback con
+~set-fontset-font~ sobre el fontset por defecto ~t~:
+
+- ~symbol~: símbolos.
+- ~#x1F300 . #x1FAFF~: pictogramas/tipos de cara principales.
+- ~#x2600 . #x27BF~: símbolos varios y misceláneos.
+- ~#x1F1E6 . #x1F1FF~: banderas regionales.
+- ~#xFE0F~: el modificador de presentación emoji (VS16).
+
+Código añadido a `init.el`:
+
+#+begin_src emacs-lisp
+(when (display-graphic-p)
+  ;; Elegir fuente emoji disponible sin depender de `font-exists-p'
+  ;; (no existe en Emacs 30.x); usamos font-spec y comprobamos find-font.
+  (defconst vel-emoji-font
+    (catch 'found
+      (dolist (family '("Noto Color Emoji" "Noto Emoji" "Segoe UI Emoji"))
+        (when (find-font (font-spec :family family))
+          (throw 'found family)))
+      nil))
+
+  (when vel-emoji-font
+    (set-fontset-font t 'symbol vel-emoji-font)
+    (set-fontset-font t '(#x1F300 . #x1FAFF) vel-emoji-font)
+    (set-fontset-font t '(#x2600 . #x27BF) vel-emoji-font)
+    (set-fontset-font t '(#x1F1E6 . #x1F1FF) vel-emoji-font)
+    (set-fontset-font t '(#xFE0F . #xFE0F) vel-emoji-font)))
+#+end_src
+
+~vel-~ es un prefijo local (initial del autor) para la variable; se puede
+renombrar sin problema.
+
+* Notas técnicas
+
+- Emacs no renderiza los "emoji de color" en todos los modos de dibujo; la
+  fuente Noto Color Emoji es de color y funciona en frames normales.
+- En terminal (~emacs -nw~) no hay color: los emojis dependen del terminal, no
+  de Emacs; el bloque no hace nada ahí (~display-graphic-p~ es nil).
+- ~find-font~ solo devuelve una fuente en un session con display gráfico activo;
+  en batch/headless devuelve ~nil~ por diseño.
+  
+* Cómo insertar emojis en el código con Emacs
+
+Con la fuente emoji configurada (sección anterior), insertar emojis en el
+búfer mientras se escribe código es sencillo. Emacs ofrece varias vías.
+
+** Por nombre con insert-char (incluido, sin librerías)
+
+Se usa con TAB para autocompletar. Pide el nombre del glifo:
+
+#+begin_src text
+C-x 8 RET   →  calendar  →  inserta 🗓️
+C-x 8 RET   →  clipart    →  inserta (según el nombre exacto)
+#+end_src
+
+Es la opción más rápida al no necesitar memorizar códigos hexadecimales.
+
+** Por código Unicode con ucs-insert
+
+Si se conoce el punto de código:
+
+#+begin_src text
+C-x 8 1F4C5   →  📅
+#+end_src
+
+** Con el selector emoji-insert (Emacs 29+/30)
+
+Permite buscar y elegir el emoji de forma visual (parecido a un selector). Care
+de fuentes emoji configuradas si no, se ven cuadritos.
+
+#+begin_src text
+M-x emoji-insert
+M-x emoji-search
+#+end_src
+
+** Copiar-pegar directo
+
+Escribir el emoji en una app (teléfono, navegador, otra web) y pegarlo en el
+buffer. Es texto UTF-8 normal, así que vale tal cual.
+
+* Recomendación práctica
+
+Para los emojis que se repiten en el código (📅 📋 💾 🗑️) lo más cómodo es
+usar ~C-x 8 RET~ por nombre o un snippet con abreviatura. Ejemplo de función
+para insertar un emoji buscado por palabra clave:
+
+#+begin_src emacs-lisp
+(defun ik-insert-emoji@ (emoji)
+  "Inserta el EMOJI en el buffer actual."
+  (interactive "sEmoji a insertar: ")
+  (insert emoji))
+
+(global-set-key (kbd "C-c e") #'ik-insert-emoji@)
+#+end_src
+
+* Conclusión
+
+- Emoji del navegador ≈ instalar las fuentes a nivel de sistema.
+- Emoji en el búfer de Emacs ≈ configuración del ~init.el~ descrita arriba.

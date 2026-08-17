@@ -4,7 +4,1940 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Sun, 08 Feb 2026 18:14:06 -0300</lastBuildDate>
+<lastBuildDate>Mon, 17 Aug 2026 17:46:09 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[QGIS: planos de loteos y red de agua para la app]]></title>
+  <description><![CDATA[
+<p>
+QGIS es un sistema de información geográfica (GIS) libre y gratuito con el que
+se puede trabajar con planos, mapas y datos espaciales. En este post se cuenta
+cómo instalarlo en Devuan, para qué sirve en el proyecto y cómo usar los planos
+escaneados (PDF/imágenes) de loteos para trazar la red de agua y exportar un
+archivo GeoPackage que luego muestra la app Streamlit.
+</p>
+<div id="outline-container-orge335e91" class="outline-2">
+<h2 id="orge335e91">¿Qué es QGIS?</h2>
+<div class="outline-text-2" id="text-orge335e91">
+<p>
+QGIS es un programa de escritorio para crear, editar, visualizar y analizar
+información geográfica. Sus características principales:
+</p>
+
+<ul class="org-ul">
+<li>Soporta los formatos de planos más comunes: <b>Shapefile</b>, <b>GeoPackage</b>,
+<b>DXF</b> (AutoCAD), <b>KML</b>, <b>GeoTIFF</b> y muchos más.</li>
+<li>Permite cargar una imagen o PDF como base y dibujar encima capas de puntos,
+líneas y polígonos (digitalizar).</li>
+<li>Cada capa tiene una <b>tabla de atributos</b>: por ejemplo, cada caño de la red
+puede tener material, diámetro, tipo y año como datos asociados.</li>
+<li>Se puede georreferenciar (ubicar en coordenadas reales) un plano escaneado.</li>
+<li>Es gratuito y multiplataforma (GNU/Linux, Windows, macOS).</li>
+</ul>
+</div>
+<div id="outline-container-orgf4fe824" class="outline-3">
+<h3 id="orgf4fe824">Para qué lo voy a usar</h3>
+<div class="outline-text-3" id="text-orgf4fe824">
+<p>
+El objetivo en el proyecto es llevar los planos de los <b>loteos</b> de la ciudad a
+una aplicación web. Sobre cada plano se necesita:
+</p>
+
+<ul class="org-ul">
+<li>El trazado de la <b>red de agua</b>: cañerías con tipo de caño, medida, acoples y
+válvulas.</li>
+<li>Cada <b>lote</b> con su conexión a la red y los <b>datos de cuenta</b> de ese lote.</li>
+</ul>
+
+<p>
+Con QGIS se construyen esas capas (se editan a mano sobre el plano), se guardan
+en un GeoPackage y la app Streamlit las lee y las muestra en un mapa. QGIS es la
+parte de "edición"; la app es la parte de "consulta".
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgacc1e8e" class="outline-2">
+<h2 id="orgacc1e8e">Instalar QGIS en Devuan</h2>
+<div class="outline-text-2" id="text-orgacc1e8e">
+<p>
+Devuan 5 (daedalus) trae QGIS en sus repositorios, pero son versiones viejas
+(3.22 en main y 3.40 en backports). Para usar la versión <b>LTR actual</b> (3.44.x)
+se agrega el repositorio oficial de QGIS, que publica paquetes para Debian
+bookworm (compatibles con Devuan).
+</p>
+</div>
+<div id="outline-container-orgc616550" class="outline-3">
+<h3 id="orgc616550">Agregar el repositorio oficial</h3>
+<div class="outline-text-3" id="text-orgc616550">
+<p>
+Instalar las herramientas necesarias y la clave de firma:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">sudo apt install wget gpg
+wget -qO- https://qgis.org/downloads/qgis-archive-keyring.gpg \
+  | gpg --dearmor \
+  | sudo tee /usr/share/keyrings/qgis-archive-keyring.gpg &gt; /dev/null
+</pre>
+</div>
+
+<p>
+Agregar la fuente. Importante: el archivo debe terminar en <code>.list</code> (formato
+clásico) y <b>no</b> en <code>.sources</code> (formato deb822), porque el contenido usa la
+sintaxis <code>deb</code> clásica:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">echo "deb [signed-by=/usr/share/keyrings/qgis-archive-keyring.gpg] https://qgis.org/debian-ltr bookworm main" \
+  | sudo tee /etc/apt/sources.list.d/qgis.list
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge47eacd" class="outline-3">
+<h3 id="orge47eacd">Error común: "Predominio 1 mal especificado"</h3>
+<div class="outline-text-3" id="text-orge47eacd">
+<p>
+Si el archivo se guarda como <code>.sources</code> pero con una línea <code>deb</code>, <code>apt</code> lo
+interpreta como formato deb822 y falla:
+</p>
+
+<pre class="example" id="org77d1a0c">
+E: Predominio 1 mal especificado en la lista de fuentes /etc/apt/sources.list.d/qgis.sources (tipo)
+E: No se pudieron leer las listas de fuentes.
+</pre>
+
+<p>
+La solución es renombrar el archivo a <code>.list</code> y volver a actualizar:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">sudo mv /etc/apt/sources.list.d/qgis.sources /etc/apt/sources.list.d/qgis.list
+sudo apt update
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc8b2057" class="outline-3">
+<h3 id="orgc8b2057">Instalar QGIS</h3>
+<div class="outline-text-3" id="text-orgc8b2057">
+<div class="org-src-container">
+<pre class="src src-sh">sudo apt install qgis
+</pre>
+</div>
+
+<p>
+La instalación puede tardar unos minutos porque baja muchas dependencias. Al
+terminar se abre desde el menú de aplicaciones o con el comando <code>qgis</code> en la
+terminal. Para verificar la versión:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">qgis --version
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org5be6502" class="outline-2">
+<h2 id="org5be6502">Cómo trabajar con PDF e imágenes escaneadas</h2>
+<div class="outline-text-2" id="text-org5be6502">
+<p>
+Los planos de los loteos llegan como PDF o imágenes escaneadas. No tienen
+coordenadas geográficas por sí solos, así que primero hay que
+<b>georreferenciarlos</b>: ubicar la imagen en su posición real usando puntos de
+control.
+</p>
+</div>
+<div id="outline-container-orgba64211" class="outline-3">
+<h3 id="orgba64211">Preparar el archivo</h3>
+<div class="outline-text-3" id="text-orgba64211">
+<p>
+QGIS no carga PDF directamente como capa de dibujo; conviene convertir el plano
+a una imagen (PNG o JPG). Se puede hacer con <code>pdftoppm</code> (de poppler):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"># Convertir la primera página del PDF a PNG de alta resolución
+pdftoppm -png -r 300 -f 1 -l 1 plano_loteo.pdf plano_loteo
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3fe5268" class="outline-3">
+<h3 id="org3fe5268">Georreferenciar con el Georreferenciador</h3>
+<div class="outline-text-3" id="text-org3fe5268">
+<ol class="org-ol">
+<li>Abrir <b>Ráster → Georreferenciador</b> en QGIS.</li>
+<li>Cargar la imagen (<code>Archivo → Abrir ráster</code>).</li>
+<li>Marcar puntos de control: puntos que se identifiquen tanto en el plano como
+en un mapa con coordenadas reales (esquinas de manzanas, postes, bocas de
+calle). Para cada punto se escribe su coordenada X/Y (por ejemplo en el
+sistema <b>POSGAR/Gauss-Krüger</b> o en <b>WGS84</b> lat/lon).</li>
+<li>Configurar el <b>tipo de transformación</b> (lineal o polinómico) y el <b>SRC de
+salida</b> (el sistema de coordenadas elegido).</li>
+<li>Ejecutar <code>Iniciar georreferenciación</code>. QGIS genera un GeoTIFF ya ubicado en
+coordenadas reales.</li>
+</ol>
+
+<p>
+Cuanto más puntos de control (3 o más, bien distribuidos), más precisa es la
+georreferenciación. Con un plano con las medidas reales de las manzanas los
+resultados son muy buenos.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc71f761" class="outline-3">
+<h3 id="orgc71f761">Digitalizar las capas</h3>
+<div class="outline-text-3" id="text-orgc71f761">
+<p>
+Sobre el plano georreferenciado se dibujan las capas con las herramientas de
+edición (lápiz para líneas y polígonos, punto para elementos puntuales). El
+resultado se guarda en un <b>GeoPackage</b> (un solo archivo con varias capas).
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org7103745" class="outline-2">
+<h2 id="org7103745">Cómo implementarlo en el proyecto</h2>
+<div class="outline-text-2" id="text-org7103745">
+<p>
+La app Streamlit (carpeta <code>workDaySync</code>) ya tiene una página de mapas que lee el
+archivo <code>data/loteos.gpkg</code> y muestra las capas con Folium. El flujo completo es:
+</p>
+
+<ol class="org-ol">
+<li>En QGIS: georreferenciar el plano y digitalizar 4 capas dentro del
+GeoPackage <code>data/loteos.gpkg</code>:
+<ul class="org-ul">
+<li><code>lotes</code>: polígono por lote (atributos <code>nro_lote</code>, <code>manzana</code>, <code>estado</code>).</li>
+<li><code>red</code>: línea por tramo de cañería (atributos <code>material</code>, <code>diametro</code>,
+<code>tipo</code>, <code>anio</code>).</li>
+<li><code>valvulas</code>: punto por válvula/acople (atributos <code>tipo</code>, <code>diametro</code>).</li>
+<li><code>conexiones</code>: punto por conexión lote↔red (atributo <code>nro_lote</code>).</li>
+</ul></li>
+<li>La app lee ese archivo, lo reproyecta a <code>EPSG:4326</code> (lat/lon, que es lo que
+entiende el mapa web) y dibuja cada capa con sus datos en el popup.</li>
+<li>Los <b>datos de cuenta</b> de cada lote se cargan desde la propia app (pestaña
+"Cuentas por lote") y se guardan en la tabla <code>cuentas</code> del mismo GeoPackage.</li>
+</ol>
+
+<p>
+La georreferenciación se hace una sola vez por plano. Después, cualquier cambio
+(agregar un tramo, cambiar el material de un caño, marcar una válvula nueva) se
+edita en QGIS y se guarda el GeoPackage; la app lo refleja al recargar la página.
+</p>
+</div>
+<div id="outline-container-orgf55805f" class="outline-3">
+<h3 id="orgf55805f">Herramientas usadas (todas gratuitas)</h3>
+<div class="outline-text-3" id="text-orgf55805f">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Herramienta</th>
+<th scope="col" class="org-left">Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">QGIS</td>
+<td class="org-left">Georreferenciar planos y digitalizar las capas</td>
+</tr>
+
+<tr>
+<td class="org-left">GeoPackage</td>
+<td class="org-left">Archivo único con capas espaciales + tablas</td>
+</tr>
+
+<tr>
+<td class="org-left">Folium/Leaflet</td>
+<td class="org-left">Mostrar el mapa en la app (streamlit-folium)</td>
+</tr>
+
+<tr>
+<td class="org-left">Streamlit</td>
+<td class="org-left">Interfaz web de consulta y carga de cuentas</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="outline-container-orge5b8f34" class="outline-2">
+<h2 id="orge5b8f34">Conclusión</h2>
+<div class="outline-text-2" id="text-orge5b8f34">
+<ul class="org-ul">
+<li>QGIS se instala en Devuan desde el repositorio oficial (LTR 3.44.x), cuidando
+de usar <code>.list</code> y no <code>.sources</code>.</li>
+<li>Los planos escaneados se georreferencian con el Georreferenciador y luego se
+digitalizan las capas de lotes, red, válvulas y conexiones.</li>
+<li>Todo se guarda en un GeoPackage que la app Streamlit ya sabe leer y mostrar,
+con los datos de cuenta por lote.</li>
+</ul>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> <a href="https://martiyo.github.io/tag-qgis.html">qgis</a> <a href="https://martiyo.github.io/tag-gis.html">gis</a> <a href="https://martiyo.github.io/tag-python.html">python</a> <a href="https://martiyo.github.io/tag-streamlit.html">streamlit</a> </div>]]></description>
+  <category><![CDATA[linux]]></category>
+  <category><![CDATA[qgis]]></category>
+  <category><![CDATA[gis]]></category>
+  <category><![CDATA[python]]></category>
+  <category><![CDATA[streamlit]]></category>
+  <link>https://martiyo.github.io/2026-08-17-qgis-planos-de-loteos-red-de-agua.html</link>
+  <guid>https://martiyo.github.io/2026-08-17-qgis-planos-de-loteos-red-de-agua.html</guid>
+  <pubDate>Mon, 17 Aug 2026 00:00:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Git remoto con Codeberg y gestor de contraseñas pass]]></title>
+  <description><![CDATA[
+<p>
+Configuración completa para versionar un proyecto en Codeberg usando git local y
+autenticar los push/fetch con el token guardado en el gestor de contraseñas
+`pass` (cifrado con GPG), en lugar de tenerlo en texto plano.
+</p>
+
+<p>
+Resumen de lo visto: cómo crear el entorno virtual, inicializar el repo, subir a
+Codeberg y cambiar la autenticación de `git credential store` (texto plano) a
+`pass-git-helper` (cifrado con GPG).
+</p>
+<div id="outline-container-org2e278c5" class="outline-2">
+<h2 id="org2e278c5">Crear el entorno virtual del proyecto</h2>
+<div class="outline-text-2" id="text-org2e278c5">
+<p>
+Es buen hábito crear un venv propio por proyecto para llevar un control de
+dependencias limpio:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #c678dd;">cd</span> ~/storage/dev/python/streamlit/workDaySync
+python3 -m venv .venv
+<span style="color: #c678dd;">source</span> .venv/bin/activate
+pip install streamlit streamlit-calendar pandas
+</pre>
+</div>
+
+<p>
+Nota: si la conexión es lenta, pip puede abortar la descarga de wheels grandes
+(como `pyarrow`, 48 MB) por su timeout. Se puede descargar el wheel con
+`curl` y luego instalar desde el archivo local:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">curl -L -o pyarrow-24.0.0-cp311-cp311-manylinux_2_28_x86_64.whl <span style="color: #98be65;">\</span>
+  https://files.pythonhosted.org/.../pyarrow-24.0.0-cp311-cp311-manylinux_2_28_x86_64.whl
+./.venv/bin/pip install ./pyarrow-24.0.0-cp311-cp311-manylinux_2_28_x86_64.whl
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org73c8bff" class="outline-2">
+<h2 id="org73c8bff">Crear el archivo .gitignore</h2>
+<div class="outline-text-2" id="text-org73c8bff">
+<p>
+Ignora entornos, caches de Python y datos locales del usuario:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">.venv/
+__pycache__/
+*.py[cod]
+.streamlit/
+data/
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb5e74e6" class="outline-2">
+<h2 id="orgb5e74e6">Iniciar el repositorio git</h2>
+<div class="outline-text-2" id="text-orgb5e74e6">
+<div class="org-src-container">
+<pre class="src src-sh">$ git init -b main
+$ git add -A
+$ git commit -m <span style="color: #98be65;">"workDaySync: app Streamlit multip&#225;gina"</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org60eb93f" class="outline-2">
+<h2 id="org60eb93f">Crear el repo en Codeberg y conectar el remote</h2>
+<div class="outline-text-2" id="text-org60eb93f">
+<p>
+Se crea el repo vacío en <a href="https://codeberg.org">https://codeberg.org</a> (o con la API) y se añade el remote:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">git remote add origin https://codeberg.org/USUARIO/workDaySync.git
+</pre>
+</div>
+
+<p>
+Verificar el remote:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">git remote -v
+git ls-remote --heads origin
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0332c50" class="outline-2">
+<h2 id="org0332c50">Subir (push) inicial</h2>
+<div class="outline-text-2" id="text-org0332c50">
+<div class="org-src-container">
+<pre class="src src-sh">git push -u origin main
+</pre>
+</div>
+
+<p>
+La primera vez Codeberg pide autenticación. No se usa la contraseña de la cuenta
+sino un token de acceso personal (Settings → Applications → Generate new
+token).
+</p>
+</div>
+</div>
+<div id="outline-container-org1a1e6eb" class="outline-2">
+<h2 id="org1a1e6eb">Autenticación: de texto plano a pass</h2>
+<div class="outline-text-2" id="text-org1a1e6eb">
+</div>
+<div id="outline-container-orgad2da2c" class="outline-3">
+<h3 id="orgad2da2c">El problema del helper store</h3>
+<div class="outline-text-3" id="text-orgad2da2c">
+<p>
+Con `git config credential.helper store` git guarda las credenciales en
+`~/.git-credentials` en texto plano. Funciona pero expone el token.
+</p>
+</div>
+</div>
+<div id="outline-container-org54ec386" class="outline-3">
+<h3 id="org54ec386">Solución con pass + pass-git-helper</h3>
+<div class="outline-text-3" id="text-org54ec386">
+<p>
+La alternativa es usar el gestor de contraseñas `pass` (que cifra con GPG) y un
+helper que asocie el dominio de git con una entrada. Se necesita:
+</p>
+
+<ul class="org-ul">
+<li>`pass-git-helper` (instalado con apt).</li>
+<li>Una entrada en `pass` cuyo `password` (primera línea) sea el token.</li>
+<li>Un archivo de mapping que asocie `codeberg.org` con esa entrada.</li>
+<li>Cambiar el helper de git y limpiar el remote y `~/.git-credentials`.</li>
+</ul>
+
+<p>
+Instalar el helper:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">sudo apt-get install -y pass-git-helper
+</pre>
+</div>
+
+<p>
+Crear la entrada en pass con el token (pide el passphrase de GPG para cifrar):
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #c678dd;">echo</span> <span style="color: #98be65;">'TOKEN_CODIDO'</span> | pass insert -m codeberg-git
+</pre>
+</div>
+
+<p>
+Crear el mapping `~/.config/pass-git-helper/git-pass-mapping.ini`:
+</p>
+<div class="org-src-container">
+<pre class="src src-ini">[codeberg.org]
+target=codeberg-git
+</pre>
+</div>
+
+<p>
+Configurar git para usar el helper y limpiar las credenciales en texto plano:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">git config credential.helper <span style="color: #98be65;">'!f() { echo "username=martinc2688"; pass-git-helper "$@"; }; f'</span>
+git remote set-url origin https://codeberg.org/martinc2688/workDaySync.git
+rm -f ~/.git-credentials
+</pre>
+</div>
+
+<p>
+Probar que la autenticación funciona:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">git fetch origin
+</pre>
+</div>
+
+<p>
+Desde ahora, cada operación git desencripta el token de `pass` (pidiendo el
+passphrase de GPG o usando el mejor agente) y ya no hay ningún secreto en texto
+plano en el sistema.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org944a9e9" class="outline-2">
+<h2 id="org944a9e9">Conclusión</h2>
+<div class="outline-text-2" id="text-org944a9e9">
+<ul class="org-ul">
+<li>Entorno virtual por proyecto para control limpio de dependencias.</li>
+<li>Versión con git y remote en Codeberg.</li>
+<li>Autenticación segura con `pass` + GPG, evitando tokens en texto plano.</li>
+<li>En futuros push de este repo ya no se necesita ninguna configuración manual.</li>
+</ul>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-git.html">git</a> <a href="https://martiyo.github.io/tag-codeberg.html">codeberg</a> <a href="https://martiyo.github.io/tag-pasgpg.html">pasGpg</a> <a href="https://martiyo.github.io/tag-linux.html">linux</a> <a href="https://martiyo.github.io/tag-seguridad.html">seguridad</a> </div>]]></description>
+  <category><![CDATA[git]]></category>
+  <category><![CDATA[codeberg]]></category>
+  <category><![CDATA[pasGpg]]></category>
+  <category><![CDATA[linux]]></category>
+  <category><![CDATA[seguridad]]></category>
+  <link>https://martiyo.github.io/2026-08-02-git-codeberg-y-pass.html</link>
+  <guid>https://martiyo.github.io/2026-08-02-git-codeberg-y-pass.html</guid>
+  <pubDate>Sun, 02 Aug 2026 00:00:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Emoji en Emacs y en el navegador]]></title>
+  <description><![CDATA[
+<p>
+Configuración para ver emojis tanto dentro de Emacs como en aplicaciones del
+sistema (navegador, y por tanto la app Streamlit vía EAF/EXWM).
+</p>
+<div id="outline-container-orgb97156e" class="outline-2">
+<h2 id="orgb97156e">Instalar la fuente</h2>
+<div class="outline-text-2" id="text-orgb97156e">
+</div>
+<div id="outline-container-org6beccfd" class="outline-3">
+<h3 id="org6beccfd">Especialmente para el navegador</h3>
+<div class="outline-text-3" id="text-org6beccfd">
+<p>
+El paquete de Debian/Devuan es <code>fonts-noto-color-emoji</code>. El archivo de la fuente
+se ubica en <code>/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf</code>.
+</p>
+
+<p>
+Comandos usados:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">Reinstalar (&#250;til si el .ttf no exist&#237;a en disco pese a estar registrado)
+</span>sudo apt-get install --reinstall -y fonts-noto-color-emoji
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Refrescar la cach&#233; de fuentes de fontconfig
+</span>sudo fc-cache -f
+
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Verificar que la fuente qued&#243; registrada
+</span>fc-list | grep -i emoji
+</pre>
+</div>
+
+<p>
+Salida esperada tras la verificación:
+</p>
+
+<pre class="example" id="org885d1aa">
+/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf: Noto Color Emoji:style=Regular
+</pre>
+
+<p>
+Tras esto, el navegador (Firefox/Chromium, y por extensión la app Streamlit
+vía EAF/EXWM) mostrará los emoji. Conviene recargar la pestaña y, si hace falta,
+reiniciar el navegador.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc4a3a8b" class="outline-2">
+<h2 id="orgc4a3a8b">Cómo usar los emoji en el código</h2>
+<div class="outline-text-2" id="text-orgc4a3a8b">
+<p>
+Escribirlos como texto en los strings:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">st.button(<span style="color: #98be65;">"&#128197; Evento"</span>)
+st.button(<span style="color: #98be65;">"&#128203; Planes"</span>)
+<span style="color: #98be65;">"&#128196; Listar eventos"</span>, <span style="color: #98be65;">"&#128196; Listar planes"</span>, <span style="color: #98be65;">"&#128190; Guardar"</span>, <span style="color: #98be65;">"&#128465;&#65039; Eliminar"</span>
+</pre>
+</div>
+
+<p>
+No requiere importar ninguna librería: son caracteres Unicode.
+</p>
+</div>
+</div>
+<div id="outline-container-org0745e68" class="outline-2">
+<h2 id="org0745e68">Configuración de Emacs</h2>
+<div class="outline-text-2" id="text-org0745e68">
+<p>
+El bloque se añadió al final de <code>/.emacs.d/init.el</code>. Se activa solo en Emacs
+gráfico (<code>display-graphic-p</code>) y solo si encuentra una fuente emoji instalada.
+</p>
+
+<p>
+Fuente: elige la primera disponible entre "Noto Color Emoji", "Noto Emoji" y
+"Segoe UI Emoji" usando <code>find-font</code> (compatible con Emacs 30.x; la función
+<code>font-exists-p</code> no existe en esa versión).
+</p>
+
+<p>
+Luego configura los rangos Unicode de emoji como fallback con
+<code>set-fontset-font</code> sobre el fontset por defecto <code>t</code>:
+</p>
+
+<ul class="org-ul">
+<li><code>symbol</code>: símbolos.</li>
+<li><code>#x1F300 . #x1FAFF</code>: pictogramas/tipos de cara principales.</li>
+<li><code>#x2600 . #x27BF</code>: símbolos varios y misceláneos.</li>
+<li><code>#x1F1E6 . #x1F1FF</code>: banderas regionales.</li>
+<li><code>#xFE0F</code>: el modificador de presentación emoji (VS16).</li>
+</ul>
+
+<p>
+Código añadido a `init.el`:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #51afef;">when</span> (display-graphic-p)
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Elegir fuente emoji disponible sin depender de `</span><span style="color: #a9a1e1;">font-exists-p</span><span style="color: #5B6268;">'
+</span>  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(no existe en Emacs 30.x); usamos font-spec y comprobamos find-font.
+</span>  (<span style="color: #51afef;">defconst</span> <span style="color: #dcaeea;">vel-emoji-font</span>
+    (<span style="color: #51afef;">catch</span> '<span style="color: #a9a1e1;">found</span>
+      (<span style="color: #51afef;">dolist</span> (family '(<span style="color: #98be65;">"Noto Color Emoji"</span> <span style="color: #98be65;">"Noto Emoji"</span> <span style="color: #98be65;">"Segoe UI Emoji"</span>))
+        (<span style="color: #51afef;">when</span> (find-font (font-spec <span style="color: #c678dd;">:family</span> family))
+          (<span style="color: #51afef;">throw</span> '<span style="color: #a9a1e1;">found</span> family)))
+      nil))
+
+  (<span style="color: #51afef;">when</span> vel-emoji-font
+    (set-fontset-font t 'symbol vel-emoji-font)
+    (set-fontset-font t '(#x1F300 . #x1FAFF) vel-emoji-font)
+    (set-fontset-font t '(#x2600 . #x27BF) vel-emoji-font)
+    (set-fontset-font t '(#x1F1E6 . #x1F1FF) vel-emoji-font)
+    (set-fontset-font t '(#xFE0F . #xFE0F) vel-emoji-font)))
+</pre>
+</div>
+
+<p>
+<code>vel-</code> es un prefijo local (initial del autor) para la variable; se puede
+renombrar sin problema.
+</p>
+</div>
+</div>
+<div id="outline-container-orgbccede3" class="outline-2">
+<h2 id="orgbccede3">Notas técnicas</h2>
+<div class="outline-text-2" id="text-orgbccede3">
+<ul class="org-ul">
+<li>Emacs no renderiza los "emoji de color" en todos los modos de dibujo; la
+fuente Noto Color Emoji es de color y funciona en frames normales.</li>
+<li>En terminal (<code>emacs -nw</code>) no hay color: los emojis dependen del terminal, no
+de Emacs; el bloque no hace nada ahí (<code>display-graphic-p</code> es nil).</li>
+<li><code>find-font</code> solo devuelve una fuente en un session con display gráfico activo;
+en batch/headless devuelve <code>nil</code> por diseño.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc625c64" class="outline-2">
+<h2 id="orgc625c64">Cómo insertar emojis en el código con Emacs</h2>
+<div class="outline-text-2" id="text-orgc625c64">
+<p>
+Con la fuente emoji configurada (sección anterior), insertar emojis en el
+búfer mientras se escribe código es sencillo. Emacs ofrece varias vías.
+</p>
+</div>
+<div id="outline-container-org85774ff" class="outline-3">
+<h3 id="org85774ff">Por nombre con insert-char (incluido, sin librerías)</h3>
+<div class="outline-text-3" id="text-org85774ff">
+<p>
+Se usa con TAB para autocompletar. Pide el nombre del glifo:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">C-x 8 RET   &#8594;  calendar  &#8594;  inserta &#128467;&#65039;
+C-x 8 RET   &#8594;  clipart    &#8594;  inserta (seg&#250;n el nombre exacto)
+</pre>
+</div>
+
+<p>
+Es la opción más rápida al no necesitar memorizar códigos hexadecimales.
+</p>
+</div>
+</div>
+<div id="outline-container-org44ce795" class="outline-3">
+<h3 id="org44ce795">Por código Unicode con ucs-insert</h3>
+<div class="outline-text-3" id="text-org44ce795">
+<p>
+Si se conoce el punto de código:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">C-x 8 1F4C5   &#8594;  &#128197;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5c0846a" class="outline-3">
+<h3 id="org5c0846a">Con el selector emoji-insert (Emacs 29+/30)</h3>
+<div class="outline-text-3" id="text-org5c0846a">
+<p>
+Permite buscar y elegir el emoji de forma visual (parecido a un selector). Care
+de fuentes emoji configuradas si no, se ven cuadritos.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">M-x emoji-insert
+M-x emoji-search
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org97cac6a" class="outline-3">
+<h3 id="org97cac6a">Copiar-pegar directo</h3>
+<div class="outline-text-3" id="text-org97cac6a">
+<p>
+Escribir el emoji en una app (teléfono, navegador, otra web) y pegarlo en el
+buffer. Es texto UTF-8 normal, así que vale tal cual.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orge0a3ae1" class="outline-2">
+<h2 id="orge0a3ae1">Recomendación práctica</h2>
+<div class="outline-text-2" id="text-orge0a3ae1">
+<p>
+Para los emojis que se repiten en el código (📅 📋 💾 🗑️) lo más cómodo es
+usar <code>C-x 8 RET</code> por nombre o un snippet con abreviatura. Ejemplo de función
+para insertar un emoji buscado por palabra clave:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #51afef;">defun</span> <span style="color: #c678dd;">ik-insert-emoji@</span> (emoji)
+  <span style="color: #83898d;">"Inserta el EMOJI en el buffer actual."</span>
+  (<span style="color: #51afef;">interactive</span> <span style="color: #98be65;">"sEmoji a insertar: "</span>)
+  (insert emoji))
+
+(global-set-key (kbd <span style="color: #98be65;">"C-c e"</span>) #'ik-insert-emoji@)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org17b2a79" class="outline-2">
+<h2 id="org17b2a79">Conclusión</h2>
+<div class="outline-text-2" id="text-org17b2a79">
+<ul class="org-ul">
+<li>Emoji del navegador ≈ instalar las fuentes a nivel de sistema.</li>
+<li>Emoji en el búfer de Emacs ≈ configuración del <code>init.el</code> descrita arriba.</li>
+</ul>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div>]]></description>
+  <category><![CDATA[emacs]]></category>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2026-08-02-emoji-en-emacs-y-en-el-navegador.html</link>
+  <guid>https://martiyo.github.io/2026-08-02-emoji-en-emacs-y-en-el-navegador.html</guid>
+  <pubDate>Sun, 02 Aug 2026 00:00:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Optimizar-emacs-con-use-package]]></title>
+  <description><![CDATA[
+<p>
+Optimizar emacs con use-package, defer, bind, hook, mode, commands, magic
+</p>
+<div id="outline-container-org939e444" class="outline-2">
+<h2 id="org939e444">¿Por qué tarda en iniciar Emacs?</h2>
+<div class="outline-text-2" id="text-org939e444">
+<p>
+Cada paquete que se carga al inicio suma tiempo. Si tienes 20 paquetes que
+cargan ~0.1s cada uno, son ~2s solo en paquetes. La clave es: <b><b>cargar solo
+lo necesario al inicio, y diferir el resto</b></b>.
+</p>
+</div>
+</div>
+<div id="outline-container-org247553a" class="outline-2">
+<h2 id="org247553a">use-package</h2>
+<div class="outline-text-2" id="text-org247553a">
+<p>
+Es un macro que unifica la declaración, instalación, configuración y
+diferimiento de paquetes.
+</p>
+
+<p>
+Sintaxis básica:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> NOMBRE
+  <span style="color: #c678dd;">:opciones</span> ...)
+</pre>
+</div>
+
+<p>
+No es un <code>require</code> implícito. Lo que hace depende de las opciones que le pases.
+</p>
+</div>
+</div>
+<div id="outline-container-orge93492a" class="outline-2">
+<h2 id="orge93492a">Formas de diferir la carga</h2>
+<div class="outline-text-2" id="text-orge93492a">
+</div>
+<div id="outline-container-orge74bdbf" class="outline-3">
+<h3 id="orge74bdbf">:defer t</h3>
+<div class="outline-text-3" id="text-orge74bdbf">
+<p>
+Ordena a use-package que no cargue el paquete inmediatamente, sino que
+registre autoloads para cargarlo cuando sea necesario.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">CARGA INMEDIATA (cada vez que abres Emacs):
+</span>(<span style="color: #51afef;">use-package</span> neotree
+  <span style="color: #c678dd;">:config</span>
+  (global-set-key [f11] 'neotree-toggle))
+
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">CARGA DIFERIDA (solo cuando pulsas F11):
+</span>(<span style="color: #51afef;">use-package</span> neotree
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:bind</span> ([f11] . neotree-toggle))
+</pre>
+</div>
+
+<p>
+Con <code>:defer t</code>, el archivo <code>neotree.el</code> ni siquiera se toca hasta que
+pulsas F11. El bind se registra como autoload.
+</p>
+</div>
+</div>
+<div id="outline-container-org23d1cbb" class="outline-3">
+<h3 id="org23d1cbb">:bind</h3>
+<div class="outline-text-3" id="text-org23d1cbb">
+<p>
+Registra combinaciones de teclas como autoloads. Al pulsar la tecla, se
+carga el paquete y se ejecuta el comando.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #c678dd;">:bind</span> ((<span style="color: #98be65;">"C-c n"</span> . neotree-toggle)    <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Cadena = key con Ctrl
+</span>       ([f11] . neotree-toggle)       <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Vector = funci&#243;n/F-key
+</span>       (<span style="color: #98be65;">"M-s f"</span> . find-file))         <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">M-s = Super</span>
+</pre>
+</div>
+
+<p>
+También dentro de un mapa de teclas específico:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #c678dd;">:bind</span> (<span style="color: #c678dd;">:map</span> python-mode-map
+        (<span style="color: #98be65;">"C-c C-c"</span> . python-shell-send-buffer))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org15821f4" class="outline-3">
+<h3 id="org15821f4">:hook</h3>
+<div class="outline-text-3" id="text-org15821f4">
+<p>
+Registra funciones en hooks como autoloads. Cuando se activa el modo, se
+carga el paquete y se ejecuta la función.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">ANTES (carga inmediata):
+</span>(<span style="color: #51afef;">use-package</span> prettier
+  <span style="color: #c678dd;">:config</span>
+  (add-hook 'web-mode-hook 'prettier-mode))
+
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">DESPU&#201;S (carga diferida):
+</span>(<span style="color: #51afef;">use-package</span> prettier
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:hook</span> (web-mode . prettier-mode))
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">prettier.el se carga solo al abrir un archivo web-mode</span>
+</pre>
+</div>
+
+<p>
+Múltiples hooks:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #c678dd;">:hook</span> ((js2-mode web-mode) . prettier-mode)
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Equivale a:
+</span><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(add-hook 'js2-mode-hook 'prettier-mode)
+</span><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(add-hook 'web-mode-hook 'prettier-mode)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org33fd5a8" class="outline-3">
+<h3 id="org33fd5a8">:mode</h3>
+<div class="outline-text-3" id="text-org33fd5a8">
+<p>
+Asocia una extensión de archivo con un modo mayor. Al abrir un archivo con
+esa extensión, se carga el paquete y se activa el modo.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #c678dd;">:mode</span> (<span style="color: #98be65;">"\\.http\\'"</span> . restclient-mode)
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">restclient-mode se carga solo al abrir un .http</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3c258d2" class="outline-3">
+<h3 id="org3c258d2">:commands</h3>
+<div class="outline-text-3" id="text-org3c258d2">
+<p>
+Declara comandos que, al ser ejecutados, cargan el paquete.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #c678dd;">:commands</span> (my-org-blog-list-posts org-static-blog-publish)
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">El paquete se carga solo cuando usas uno de estos comandos</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge85e5de" class="outline-3">
+<h3 id="orge85e5de">:magic</h3>
+<div class="outline-text-3" id="text-orge85e5de">
+<p>
+Igual que <code>:mode</code> pero por contenido del archivo (primeros bytes):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #c678dd;">:magic</span> (<span style="color: #98be65;">"%PDF"</span> . pdf-view-mode)
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">pdf-tools se carga al abrir cualquier archivo que empiece con %PDF</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org0039f38" class="outline-2">
+<h2 id="org0039f38">:config vs :init vs :custom</h2>
+<div class="outline-text-2" id="text-org0039f38">
+</div>
+<div id="outline-container-orgafec6c5" class="outline-3">
+<h3 id="orgafec6c5">:init</h3>
+<div class="outline-text-3" id="text-orgafec6c5">
+<p>
+Se ejecuta SIEMPRE, incluso si el paquete está diferido. Para cosas que
+necesitan estar disponibles al inicio.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> projectile
+  <span style="color: #c678dd;">:init</span>
+  (projectile-mode +1)  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Se activa siempre al inicio
+</span>  <span style="color: #c678dd;">:config</span>
+  (<span style="color: #51afef;">setq</span> projectile-known-projects ...))  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Solo cuando carga projectile.el</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org669f421" class="outline-3">
+<h3 id="org669f421">:config</h3>
+<div class="outline-text-3" id="text-org669f421">
+<p>
+Se ejecuta solo CUANDO el paquete se carga. Ideal para configuración que
+depende del paquete.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> neotree
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:bind</span> ([f11] . neotree-toggle)
+  <span style="color: #c678dd;">:custom</span>
+  (neo-theme 'icons)        <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">setq durante la carga
+</span>  (neo-smart-open t)
+  <span style="color: #c678dd;">:config</span>
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Esto se ejecuta solo cuando pulsas F11 por primera vez
+</span>  (message <span style="color: #98be65;">"neotree cargado"</span>))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6f026cf" class="outline-3">
+<h3 id="org6f026cf">:custom</h3>
+<div class="outline-text-3" id="text-org6f026cf">
+<p>
+Alternativa moderna a <code>setq</code> dentro de <code>:config</code>. Se ejecuta cuando el
+paquete se carga.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Mejor:
+</span><span style="color: #c678dd;">:custom</span>
+(neo-theme 'icons)
+(neo-smart-open t)
+
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Que:
+</span><span style="color: #c678dd;">:config</span>
+(<span style="color: #51afef;">setq</span> neo-theme 'icons)
+(<span style="color: #51afef;">setq</span> neo-smart-open t)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org8082676" class="outline-2">
+<h2 id="org8082676">Ciclo de carga de un paquete diferido</h2>
+<div class="outline-text-2" id="text-org8082676">
+<ol class="org-ol">
+<li>Emacs inicia, procesa <code>init.el</code></li>
+<li><code>use-package</code> registra los autoloads (<code>:bind</code>, <code>:hook</code>, <code>:mode</code>, <code>:commands</code>)</li>
+<li>Se ejecuta <code>:init</code> (si existe)</li>
+<li>Emacs termina de iniciar</li>
+<li>El usuario pulsa F11 (o abre un .py, etc.)</li>
+<li>Emacs carga <code>neotree.el</code> del disco</li>
+<li>Se ejecuta <code>:custom</code> (setq)</li>
+<li>Se ejecuta <code>:config</code></li>
+<li>Se ejecuta el comando (<code>neotree-toggle</code>)</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org7d7f4c9" class="outline-2">
+<h2 id="org7d7f4c9">Qué debe cargar al inicio (NO diferir)</h2>
+<div class="outline-text-2" id="text-org7d7f4c9">
+<p>
+Paquetes que necesitas desde el primer momento:
+</p>
+
+<ul class="org-ul">
+<li>Tema visual (<code>doom-themes</code>)</li>
+<li>Modeline (<code>doom-modeline</code>)</li>
+<li>Autocompletado global (<code>corfu</code>)</li>
+<li>Gestión de proyectos (<code>projectile</code>)</li>
+<li>Teclas globales (<code>recentf</code>, <code>winner-mode</code>, etc.)</li>
+</ul>
+
+<p>
+Todo lo demás: <b><b>diferirlo</b></b>.
+</p>
+</div>
+</div>
+<div id="outline-container-org25de922" class="outline-2">
+<h2 id="org25de922">Casos prácticos del init optimizado</h2>
+<div class="outline-text-2" id="text-org25de922">
+</div>
+<div id="outline-container-org2e52e4e" class="outline-3">
+<h3 id="org2e52e4e">Deferir por tecla</h3>
+<div class="outline-text-3" id="text-org2e52e4e">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> neotree
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:bind</span> ([f11] . neotree-toggle))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9236d7f" class="outline-3">
+<h3 id="org9236d7f">Deferir por tipo de archivo</h3>
+<div class="outline-text-3" id="text-org9236d7f">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> restclient
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:mode</span> (<span style="color: #98be65;">"\\.http\\'"</span> . restclient-mode))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8b1c379" class="outline-3">
+<h3 id="org8b1c379">Deferir por hook</h3>
+<div class="outline-text-3" id="text-org8b1c379">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> emmet-mode
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:hook</span> (web-mode . emmet-mode))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org51eff6d" class="outline-3">
+<h3 id="org51eff6d">Deferir por comando</h3>
+<div class="outline-text-3" id="text-org51eff6d">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> elfeed
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:commands</span> (elfeed elfeed-update))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org4a77973" class="outline-2">
+<h2 id="org4a77973">Cómo verificar qué se carga al inicio</h2>
+<div class="outline-text-2" id="text-org4a77973">
+<div class="org-src-container">
+<pre class="src src-elisp">M-x emacs-init-time           <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Tiempo total de inicio
+</span>M-x benchmark-init/show-durations  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Tiempo por paquete
+</span>M-x benchmark-init/show-durations-tabulated  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Tabla ordenada</span>
+</pre>
+</div>
+
+<p>
+Para instalar benchmark-init:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> benchmark-init
+  <span style="color: #c678dd;">:ensure</span> t
+  <span style="color: #c678dd;">:config</span>
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf9f8ed2" class="outline-2">
+<h2 id="orgf9f8ed2">Regla general</h2>
+<div class="outline-text-2" id="text-orgf9f8ed2">
+<ul class="org-ul">
+<li><code>:defer t</code> + <code>:bind</code> → paquete que usas con teclas</li>
+<li><code>:defer t</code> + <code>:hook</code> → paquete que se activa en un modo</li>
+<li><code>:defer t</code> + <code>:mode</code> → paquete asociado a extensión de archivo</li>
+<li><code>:defer t</code> + <code>:commands</code> → paquete que ejecutas con M-x</li>
+<li>Sin <code>:defer</code> → paquete que necesitas siempre</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbd97a85" class="outline-2">
+<h2 id="orgbd97a85">Errores comunes</h2>
+<div class="outline-text-2" id="text-orgbd97a85">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Error</th>
+<th scope="col" class="org-left">Causa</th>
+<th scope="col" class="org-left">Solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Symbol's value as variable is void: <code>dired-mode-map</code></td>
+<td class="org-left">El archivo usa variables de un paquete no cargado</td>
+<td class="org-left">Agregar <code>(require 'dired)</code> al inicio del archivo</td>
+</tr>
+
+<tr>
+<td class="org-left">Symbol's function is void: <code>neotree-toggle</code></td>
+<td class="org-left">El bind se registró pero el paquete no se cargó</td>
+<td class="org-left">Verificar que <code>:defer t</code> esté y que el comando exista</td>
+</tr>
+
+<tr>
+<td class="org-left">Package <code>foo</code> is unavailable</td>
+<td class="org-left">ELPA no lo encuentra</td>
+<td class="org-left">Verificar <code>package-archives</code> o tipear mal el nombre</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div>]]></description>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/2026-06-14-optimizar-emacs-con-use-package.html</link>
+  <guid>https://martiyo.github.io/2026-06-14-optimizar-emacs-con-use-package.html</guid>
+  <pubDate>Sun, 14 Jun 2026 19:39:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Conectar-a-ftp-en-Android]]></title>
+  <description><![CDATA[
+<p>
+Conectarse al servidor ftp de android desde la terminal.
+</p>
+<div id="outline-container-org56f1a72" class="outline-2">
+<h2 id="org56f1a72">Servidor FTP en Android</h2>
+<div class="outline-text-2" id="text-org56f1a72">
+</div>
+<div id="outline-container-org2a7e574" class="outline-3">
+<h3 id="org2a7e574">Datos de conexión</h3>
+<div class="outline-text-3" id="text-org2a7e574">
+<ul class="org-ul">
+<li>Host: 192.168.x.x</li>
+<li>Puerto: x</li>
+<li>Usuario/Pass: (el que hayas configurado)</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org6564209" class="outline-2">
+<h2 id="org6564209">Subir archivos</h2>
+<div class="outline-text-2" id="text-org6564209">
+</div>
+<div id="outline-container-orgaeddd53" class="outline-3">
+<h3 id="orgaeddd53">Interactivo (ftp)</h3>
+<div class="outline-text-3" id="text-orgaeddd53">
+<div class="org-src-container">
+<pre class="src src-bash">ftp 192.168.1.206 3721
+  put archivo.txt          <span style="color: #5B6268;"># </span><span style="color: #5B6268;">subir un archivo
+</span>  put /ruta/local/archivo.zip    <span style="color: #5B6268;"># </span><span style="color: #5B6268;">subir desde ruta espec&#237;fica
+</span>  mput *.jpg               <span style="color: #5B6268;"># </span><span style="color: #5B6268;">subir m&#250;ltiples archivos
+</span>  <span style="color: #51afef;">bye</span>                      <span style="color: #5B6268;"># </span><span style="color: #5B6268;">salir</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6b41d63" class="outline-3">
+<h3 id="org6b41d63">Una línea (curl)</h3>
+<div class="outline-text-3" id="text-org6b41d63">
+<div class="org-src-container">
+<pre class="src src-bash">curl -T archivo.txt ftp://192.168.1.206:3721/ --user usuario:contrase&#241;a
+curl -T archivo.txt ftp://192.168.1.206:3721/ --user anonymous:
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org75fe36d" class="outline-2">
+<h2 id="org75fe36d">Descargar archivos</h2>
+<div class="outline-text-2" id="text-org75fe36d">
+</div>
+<div id="outline-container-orgf8ea13f" class="outline-3">
+<h3 id="orgf8ea13f">Interactivo (ftp)</h3>
+<div class="outline-text-3" id="text-orgf8ea13f">
+<div class="org-src-container">
+<pre class="src src-bash">ftp 192.168.1.206 3721
+  get archivo.txt                  <span style="color: #5B6268;"># </span><span style="color: #5B6268;">descargar un archivo
+</span>  get archivo.zip /ruta/local/     <span style="color: #5B6268;"># </span><span style="color: #5B6268;">descargar a ruta espec&#237;fica
+</span>  mget *.jpg                       <span style="color: #5B6268;"># </span><span style="color: #5B6268;">descargar m&#250;ltiples archivos
+</span>  prompt                           <span style="color: #5B6268;"># </span><span style="color: #5B6268;">desactivar confirmaci&#243;n en mget/mput
+</span>  <span style="color: #51afef;">bye</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org34006f4" class="outline-3">
+<h3 id="org34006f4">Una línea (curl)</h3>
+<div class="outline-text-3" id="text-org34006f4">
+<div class="org-src-container">
+<pre class="src src-bash">curl -O ftp://192.168.1.206:3721/archivo.txt --user usuario:contrase&#241;a
+curl -o /ruta/local/archivo.txt ftp://192.168.1.206:3721/archivo.txt --user usuario:contrase&#241;a
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf02f897" class="outline-2">
+<h2 id="orgf02f897">Descarga recursiva (wget)</h2>
+<div class="outline-text-2" id="text-orgf02f897">
+<div class="org-src-container">
+<pre class="src src-bash">wget -r ftp://usuario:contrase&#241;a@192.168.1.206:3721/
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbd347a4" class="outline-2">
+<h2 id="orgbd347a4">Notas</h2>
+<div class="outline-text-2" id="text-orgbd347a4">
+<ul class="org-ul">
+<li>El puerto y host dependen de la app FTP en Android</li>
+<li>Para modo anónimo, usuario = <code>anonymous</code>, contraseña = vacía o email</li>
+</ul>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-terminal.html">terminal</a> <a href="https://martiyo.github.io/tag-ftp.html">ftp</a> </div>]]></description>
+  <category><![CDATA[terminal]]></category>
+  <category><![CDATA[ftp]]></category>
+  <link>https://martiyo.github.io/2026-06-06-conectar-a-ftp-en-android.html</link>
+  <guid>https://martiyo.github.io/2026-06-06-conectar-a-ftp-en-android.html</guid>
+  <pubDate>Sat, 06 Jun 2026 18:49:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[python-pip-virtualenvs-emacs]]></title>
+  <description><![CDATA[
+<p>
+Entornos virtuales de python y su uso en emacs + pip y pipx
+</p>
+<div id="outline-container-org6740ab1" class="outline-2">
+<h2 id="org6740ab1">¿Qué es un venv?</h2>
+<div class="outline-text-2" id="text-org6740ab1">
+<p>
+Entorno Python aislado con su propio <code>pip</code> y <code>site-packages</code>. Los paquetes
+instalados dentro no afectan al sistema ni a otros proyectos.
+</p>
+</div>
+</div>
+<div id="outline-container-orge17a535" class="outline-2">
+<h2 id="orge17a535">Crear y activar un venv (terminal)</h2>
+<div class="outline-text-2" id="text-orge17a535">
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #c678dd;">cd</span> ~/projects/mi-proyecto
+python3.11 -m venv .venv        <span style="color: #5B6268;"># </span><span style="color: #5B6268;">crear
+</span><span style="color: #c678dd;">source</span> .venv/bin/activate       <span style="color: #5B6268;"># </span><span style="color: #5B6268;">activar
+</span>pip install requests            <span style="color: #5B6268;"># </span><span style="color: #5B6268;">instalar dentro del venv
+</span>deactivate                      <span style="color: #5B6268;"># </span><span style="color: #5B6268;">salir del venv</span>
+</pre>
+</div>
+
+<p>
+Sin activar, se puede usar directamente:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">.venv/bin/pip install requests
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd4db235" class="outline-2">
+<h2 id="orgd4db235">Usar venv en Emacs</h2>
+<div class="outline-text-2" id="text-orgd4db235">
+</div>
+<div id="outline-container-orga2eb56c" class="outline-3">
+<h3 id="orga2eb56c">pyvenv-activate (manual)</h3>
+<div class="outline-text-3" id="text-orga2eb56c">
+<p>
+Con el archivo .py abierto:
+</p>
+
+<ol class="org-ol">
+<li><code>M-x pyvenv-activate</code></li>
+<li>Seleccionar el directorio <code>.venv</code> del proyecto</li>
+<li><code>M-x python-shell-restart</code> (para que el REPL use el Python del venv)</li>
+<li>Ejecutar con <code>C-c C-c</code></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgfe961e8" class="outline-3">
+<h3 id="orgfe961e8">pyvenv-work-on-project-mode (automático)</h3>
+<div class="outline-text-3" id="text-orgfe961e8">
+<p>
+Si el proyecto tiene un directorio ~.venv~/ en su raíz, pyvenv lo activa solo
+al abrir archivos del proyecto.
+</p>
+
+<p>
+Verificar qué Python está usando Emacs:
+</p>
+
+<p>
+<code>M-x python-shell-send-string RET import sys; sys.executable</code>
+</p>
+</div>
+</div>
+<div id="outline-container-org7e7e354" class="outline-3">
+<h3 id="org7e7e354">pyvenv-deactivate</h3>
+<div class="outline-text-3" id="text-org7e7e354">
+<p>
+Para salir del venv desde Emacs: <code>M-x pyvenv-deactivate</code>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgeff0ae3" class="outline-2">
+<h2 id="orgeff0ae3">pip vs pipx</h2>
+<div class="outline-text-2" id="text-orgeff0ae3">
+</div>
+<div id="outline-container-org1886f60" class="outline-3">
+<h3 id="org1886f60">pip (gestor de paquetes Python)</h3>
+<div class="outline-text-3" id="text-org1886f60">
+<ul class="org-ul">
+<li>Instala paquetes en el entorno actual (sistema o venv)</li>
+<li>No aísla: los paquetes comparten el mismo <code>site-packages</code></li>
+<li>En Debian/Ubuntu no se puede usar fuera de un venv (PEP 668)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org42e88b7" class="outline-3">
+<h3 id="org42e88b7">pipx (gestor de aplicaciones Python)</h3>
+<div class="outline-text-3" id="text-org42e88b7">
+<ul class="org-ul">
+<li>Instala cada herramienta en su propio venv aislado automáticamente</li>
+<li>Crea accesos directos en <code>/.local/bin/</code></li>
+<li>Para herramientas que usas como comando (<code>ruff</code>, <code>pylsp</code>, <code>ipython</code>, <code>pytest</code>)</li>
+<li>Ideal para herramientas de desarrollo, no para librerías de proyecto</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org74b8705" class="outline-3">
+<h3 id="org74b8705">Comparativa</h3>
+<div class="outline-text-3" id="text-org74b8705">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Acción</th>
+<th scope="col" class="org-left">pip</th>
+<th scope="col" class="org-left">pipx</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Instalar <code>requests</code></td>
+<td class="org-left"><code>pip install requests</code> (en venv)</td>
+<td class="org-left">❌ No es para librerías</td>
+</tr>
+
+<tr>
+<td class="org-left">Instalar <code>ruff</code></td>
+<td class="org-left"><code>pip install ruff</code> (en venv)</td>
+<td class="org-left"><code>pipx install ruff</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Instalar <code>pandas</code></td>
+<td class="org-left"><code>pip install pandas</code> (en venv)</td>
+<td class="org-left">❌ No es para librerías</td>
+</tr>
+
+<tr>
+<td class="org-left">Instalar <code>pylsp</code></td>
+<td class="org-left"><code>pip install python-lsp-server</code></td>
+<td class="org-left"><code>pipx install python-lsp-server</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="outline-container-org647fef3" class="outline-2">
+<h2 id="org647fef3">Cómo instalar: global vs venv</h2>
+<div class="outline-text-2" id="text-org647fef3">
+</div>
+<div id="outline-container-org501981b" class="outline-3">
+<h3 id="org501981b">Instalación global (sistema)</h3>
+<div class="outline-text-3" id="text-org501981b">
+<p>
+En Debian/Ubuntu:
+</p>
+<ul class="org-ul">
+<li>Con paquetes del sistema: <code>sudo apt install python3-requests</code></li>
+<li>Con pipx: <code>pipx install</code> (solo herramientas, cada una aislada)</li>
+<li>Con pip directo: <b><b>No disponible</b></b> (PEP 668 bloquea)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgdea7bce" class="outline-3">
+<h3 id="orgdea7bce">Instalación dentro de un venv (proyecto)</h3>
+<div class="outline-text-3" id="text-orgdea7bce">
+<p>
+Es la forma normal de instalar librerías de proyecto:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #c678dd;">cd</span> ~/projects/mi-proyecto
+<span style="color: #c678dd;">source</span> .venv/bin/activate
+pip install requests pandas flask
+</pre>
+</div>
+
+<p>
+Los paquetes quedan en <code>.venv/lib/python3.11/site-packages/</code>, aislados
+del sistema.
+</p>
+</div>
+</div>
+<div id="outline-container-orgfe41eaa" class="outline-3">
+<h3 id="orgfe41eaa">pipx: instalación "global pero aislada"</h3>
+<div class="outline-text-3" id="text-orgfe41eaa">
+<p>
+Cada herramienta va a <code>/./local/pipx/venvs/&lt;nombre&gt;/</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">pipx install ruff              &#8594; ~/.local/pipx/venvs/ruff/
+pipx install python-lsp-server &#8594; ~/.local/pipx/venvs/python-lsp-server/
+</pre>
+</div>
+
+<p>
+Los ejecutables se enlazan a <code>/.local/bin/</code> (que debe estar en el <code>PATH</code>).
+</p>
+</div>
+</div>
+<div id="outline-container-orgb7a63b8" class="outline-3">
+<h3 id="orgb7a63b8">Dónde acaba cada paquete según el método</h3>
+<div class="outline-text-3" id="text-orgb7a63b8">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Método</th>
+<th scope="col" class="org-left">Destino</th>
+<th scope="col" class="org-left">Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>pip install</code> (venv)</td>
+<td class="org-left"><code>.venv/lib/python3.11/site-packages/</code></td>
+<td class="org-left">Librerías del proyecto</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>pipx install</code></td>
+<td class="org-left"><code>/.local/pipx/venvs/&lt;tool&gt;/lib/python3.11/site-packages/</code></td>
+<td class="org-left">Herramientas CLI</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>apt install python3-xyz</code></td>
+<td class="org-left"><code>/usr/lib/python3/dist-packages/</code></td>
+<td class="org-left">Paquetes del sistema</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc39c718" class="outline-2">
+<h2 id="orgc39c718">Regla práctica</h2>
+<div class="outline-text-2" id="text-orgc39c718">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Qué quiero instalar</th>
+<th scope="col" class="org-left">Método</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>ruff</code> (linter)</td>
+<td class="org-left"><code>pipx install</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>python-lsp-server</code> (LSP)</td>
+<td class="org-left"><code>pipx install</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>pytest</code> (testing)</td>
+<td class="org-left"><code>pipx install</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>ipython</code> (REPL)</td>
+<td class="org-left"><code>pipx install</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>black</code> (formatter)</td>
+<td class="org-left"><code>pipx install</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>mypy</code> (type checker)</td>
+<td class="org-left"><code>pipx install</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>requests</code>, <code>pandas</code>, <code>numpy</code>, <code>flask</code></td>
+<td class="org-left"><code>pip install</code> en el venv del proyecto</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>django</code>, <code>fastapi</code>, <code>sqlalchemy</code></td>
+<td class="org-left"><code>pip install</code> en el venv del proyecto</td>
+</tr>
+
+<tr>
+<td class="org-left">Cualquier librería que importes en tu código</td>
+<td class="org-left"><code>pip install</code> en el venv del proyecto</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org6d8f471" class="outline-2">
+<h2 id="org6d8f471">Listar lo instalado</h2>
+<div class="outline-text-2" id="text-org6d8f471">
+<div class="org-src-container">
+<pre class="src src-sh">pip list                <span style="color: #5B6268;"># </span><span style="color: #5B6268;">paquetes del venv actual (o sistema)
+</span>pipx list               <span style="color: #5B6268;"># </span><span style="color: #5B6268;">todas las herramientas pipx
+</span>pip3.11 list --user     <span style="color: #5B6268;"># </span><span style="color: #5B6268;">paquetes del usuario (no funcional en Debian por PEP 668)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge041413" class="outline-2">
+<h2 id="orge041413">Eliminar paquetes</h2>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-programacion.html">programacion</a> <a href="https://martiyo.github.io/tag-python.html">python</a> <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div>]]></description>
+  <category><![CDATA[programacion]]></category>
+  <category><![CDATA[python]]></category>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/2026-06-01-python-pip-virtualenvs-emacs.html</link>
+  <guid>https://martiyo.github.io/2026-06-01-python-pip-virtualenvs-emacs.html</guid>
+  <pubDate>Mon, 01 Jun 2026 17:49:00 -0300</pubDate>
+</item>
+<item>
+  <title><![CDATA[Configuracion de python + emacs]]></title>
+  <description><![CDATA[
+<div id="outline-container-org6a7449b" class="outline-2">
+<h2 id="org6a7449b">Instalación de herramientas Python con pipx</h2>
+<div class="outline-text-2" id="text-org6a7449b">
+<p>
+Debian/Ubuntu usan PEP 668 (externally-managed-environment). No se puede instalar
+paquetes globales con pip directamente. La solución oficial es usar <code>pipx</code>.
+</p>
+</div>
+<div id="outline-container-org3a6a67e" class="outline-3">
+<h3 id="org3a6a67e">Instalar pipx</h3>
+<div class="outline-text-3" id="text-org3a6a67e">
+<div class="org-src-container">
+<pre class="src src-sh">sudo apt install pipx
+pipx ensurepath
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Cerrar y abrir la terminal, o ejecutar:
+</span><span style="color: #c678dd;">source</span> ~/.bashrc
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org92c1530" class="outline-3">
+<h3 id="org92c1530">Instalar herramientas del curso</h3>
+<div class="outline-text-3" id="text-org92c1530">
+<p>
+Cada herramienta se instala en su propio entorno virtual aislado:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">pipx install python-lsp-server[all]
+pipx install ruff
+pipx install pytest
+pipx install ipython
+pipx install mypy
+</pre>
+</div>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Paquete</th>
+<th scope="col" class="org-left">Propósito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">python-lsp-server[all]</td>
+<td class="org-left">Servidor LSP (autocompletado, linting)</td>
+</tr>
+
+<tr>
+<td class="org-left">ruff</td>
+<td class="org-left">Linter + formatter ultrarrápido</td>
+</tr>
+
+<tr>
+<td class="org-left">pytest</td>
+<td class="org-left">Testing</td>
+</tr>
+
+<tr>
+<td class="org-left">ipython</td>
+<td class="org-left">REPL interactivo mejorado</td>
+</tr>
+
+<tr>
+<td class="org-left">mypy</td>
+<td class="org-left">Type checking (opcional)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="outline-container-org9f8a7b4" class="outline-2">
+<h2 id="org9f8a7b4">Entorno virtual para proyectos del curso</h2>
+<div class="outline-text-2" id="text-org9f8a7b4">
+<p>
+Se crea un <code>venv</code> por proyecto dentro del propio directorio:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">mkdir -p ~/projects/curso-python
+<span style="color: #c678dd;">cd</span> ~/projects/curso-python
+python3.11 -m venv .venv
+<span style="color: #c678dd;">echo</span> <span style="color: #98be65;">".venv"</span> &gt;&gt; .gitignore
+</pre>
+</div>
+
+<p>
+Para activarlo manualmente:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #c678dd;">source</span> .venv/bin/activate
+</pre>
+</div>
+
+<p>
+Los paquetes propios del proyecto (no herramientas) se instalan así:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">pip install numpy pandas requests  <span style="color: #5B6268;"># </span><span style="color: #5B6268;">ejemplo</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org38811cf" class="outline-2">
+<h2 id="org38811cf">Configuración de Emacs</h2>
+<div class="outline-text-2" id="text-org38811cf">
+<p>
+Se añade al archivo <code>/home/martin/.emacs.d/init.el</code>.
+</p>
+</div>
+<div id="outline-container-org478e4f8" class="outline-3">
+<h3 id="org478e4f8">Python mode (uso del built-in)</h3>
+<div class="outline-text-3" id="text-org478e4f8">
+<p>
+Emacs 30 incluye <code>python.el</code> de serie. Se configura así:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Python
+</span><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">======
+</span>(<span style="color: #51afef;">use-package</span> python
+  <span style="color: #c678dd;">:delight</span>
+  <span style="color: #c678dd;">:custom</span>
+  (python-shell-interpreter <span style="color: #98be65;">"python3.11"</span>)
+  (python-shell-interpreter-args <span style="color: #98be65;">"-i"</span>)
+  <span style="color: #c678dd;">:hook</span> (python-mode . eglot-ensure)
+  <span style="color: #c678dd;">:config</span>
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Ejecutar buffer con C-c C-c
+</span>  (define-key python-mode-map (kbd <span style="color: #98be65;">"C-c C-c"</span>) 'python-shell-send-buffer)
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Enviar regi&#243;n seleccionada
+</span>  (define-key python-mode-map (kbd <span style="color: #98be65;">"C-c C-r"</span>) 'python-shell-send-region)
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Abrir/ir al REPL
+</span>  (define-key python-mode-map (kbd <span style="color: #98be65;">"C-c C-z"</span>) 'python-shell-switch-to-shell)
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Evaluar expresi&#243;n antes del punto
+</span>  (define-key python-mode-map (kbd <span style="color: #98be65;">"C-c C-e"</span>) 'python-shell-send-statement))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0b0b44b" class="outline-3">
+<h3 id="org0b0b44b">Ruff: linter + formatter al guardar</h3>
+<div class="outline-text-3" id="text-org0b0b44b">
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Ruff (formateo autom&#225;tico al guardar)
+</span>(<span style="color: #51afef;">use-package</span> ruff-format
+  <span style="color: #c678dd;">:ensure</span> t
+  <span style="color: #c678dd;">:hook</span> (python-mode . ruff-format-on-save-mode))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb45608d" class="outline-3">
+<h3 id="orgb45608d">Virtualenv automático con pyvenv</h3>
+<div class="outline-text-3" id="text-orgb45608d">
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Virtualenv autom&#225;tico
+</span>(<span style="color: #51afef;">use-package</span> pyvenv
+  <span style="color: #c678dd;">:ensure</span> t
+  <span style="color: #c678dd;">:config</span>
+  (<span style="color: #51afef;">setq</span> pyvenv-mode t)
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Activar .venv autom&#225;ticamente al abrir archivos en el proyecto
+</span>  (<span style="color: #51afef;">setq</span> pyvenv-work-on-project-mode t))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge41bd14" class="outline-3">
+<h3 id="orge41bd14">requirements.txt</h3>
+<div class="outline-text-3" id="text-orge41bd14">
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">requirements.txt
+</span>(<span style="color: #51afef;">use-package</span> pip-requirements
+  <span style="color: #c678dd;">:ensure</span> t
+  <span style="color: #c678dd;">:mode</span> (<span style="color: #98be65;">"requirements\\.txt\\'"</span> . pip-requirements-mode))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3779e8d" class="outline-3">
+<h3 id="org3779e8d">Eglot (LSP) — vincular pylsp con Python</h3>
+<div class="outline-text-3" id="text-org3779e8d">
+<p>
+Buscar el bloque de <code>eglot</code> existente en <code>init.el</code> (ya debe haber uno para TypeScript/Rust)
+y añadir la entrada de Python:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(add-to-list 'eglot-server-programs
+             '(python-mode . (<span style="color: #98be65;">"pylsp"</span>)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdb95308" class="outline-3">
+<h3 id="orgdb95308">Dired — mostrar <code>.venv</code> oculto por defecto (opcional)</h3>
+<div class="outline-text-3" id="text-orgdb95308">
+<p>
+Para que Dired no muestre el directorio <code>.venv</code> a menos que se pida explícitamente:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">with-eval-after-load</span> 'dired
+  (add-to-list 'dired-omit-extensions <span style="color: #98be65;">".venv"</span>)
+  (<span style="color: #51afef;">setq</span> dired-omit-files (concat dired-omit-files <span style="color: #98be65;">"</span><span style="color: #51afef; font-weight: bold;">\\</span><span style="color: #51afef; font-weight: bold;">|</span><span style="color: #98be65;">^.venv$"</span>))
+  (add-hook 'dired-mode-hook 'dired-omit-mode))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf57b485" class="outline-2">
+<h2 id="orgf57b485">Verificación de la configuración</h2>
+<div class="outline-text-2" id="text-orgf57b485">
+<p>
+Al abrir <code>hola.py</code> en Emacs debe ocurrir:
+</p>
+
+<ol class="org-ol">
+<li><code>pyvenv</code> activa <code>.venv</code> automáticamente (se ve en el mode-line, si doom-modeline está configurado)</li>
+<li><code>eglot</code> se inicia (se puede verificar con <code>M-x eglot</code>)</li>
+<li><code>ruff-format</code> formatea al guardar (<code>C-x C-s</code>)</li>
+<li><code>C-c C-c</code> ejecuta el buffer de Python</li>
+</ol>
+
+<p>
+Para comprobar que todo funciona:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #c678dd;">echo</span> <span style="color: #98be65;">'print("Hola, mundo!")'</span> &gt; ~/projects/curso-python/hola.py
+<span style="color: #c678dd;">echo</span> <span style="color: #98be65;">'import sys
+print(sys.version)
+
+def suma(a, b):
+    return a + b
+
+assert suma(2, 3) == 5
+print("Prueba OK")'</span> &gt; ~/projects/curso-python/test_hola.py
+</pre>
+</div>
+
+<p>
+Luego abrir <code>hola.py</code> en Emacs y probar las teclas rápidas.
+</p>
+</div>
+</div>
+<div id="outline-container-org8dd97e1" class="outline-2">
+<h2 id="org8dd97e1">Resumen de teclas rápidas en Python</h2>
+<div class="outline-text-2" id="text-org8dd97e1">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Atajo</th>
+<th scope="col" class="org-left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">C-c C-c</td>
+<td class="org-left">Ejecutar buffer completo</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-r</td>
+<td class="org-left">Ejecutar región seleccionada</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-z</td>
+<td class="org-left">Ir al REPL de Python</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-e</td>
+<td class="org-left">Evaluar expresión actual</td>
+</tr>
+
+<tr>
+<td class="org-left">C-x C-s</td>
+<td class="org-left">Guardar (activa ruff-format)</td>
+</tr>
+
+<tr>
+<td class="org-left">M-.</td>
+<td class="org-left">Ir a definición (eglot)</td>
+</tr>
+
+<tr>
+<td class="org-left">M-?</td>
+<td class="org-left">Referencias (eglot)</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-q</td>
+<td class="org-left">Formatear con ruff (manual)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orge52a7f2" class="outline-2">
+<h2 id="orge52a7f2">Notas adicionales</h2>
+<div class="outline-text-2" id="text-orge52a7f2">
+<ul class="org-ul">
+<li>Si se quiere usar <code>black</code> en lugar de <code>ruff</code> para formatear, instalar <code>black</code> con pipx
+y usar el paquete Emacs <code>blacken</code> en vez de <code>ruff-format</code>.</li>
+<li>Para debugging: <code>pipx install pdbpp</code> para un <code>pdb</code> mejorado.</li>
+<li>Si el proyecto necesita <code>numpy</code>, <code>pandas</code>, etc., se instalan dentro del <code>.venv</code>
+del proyecto con <code>pip install</code>.</li>
+</ul>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-programacion.html">programacion</a> <a href="https://martiyo.github.io/tag-python.html">python</a> <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div>]]></description>
+  <category><![CDATA[programacion]]></category>
+  <category><![CDATA[python]]></category>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/2026-05-30-configuracion-de-python-+-emacs.html</link>
+  <guid>https://martiyo.github.io/2026-05-30-configuracion-de-python-+-emacs.html</guid>
+  <pubDate>Sat, 30 May 2026 22:50:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[Nextcloud en devuan]]></title>
   <description><![CDATA[
@@ -1821,51 +3754,41 @@ tree-sitter es una herramienta moderna para analizar la estructura de código, q
   <pubDate>Sat, 04 Jan 2025 18:11:00 -0300</pubDate>
 </item>
 <item>
-  <title><![CDATA[Eglog]]></title>
+  <title><![CDATA[Eglot]]></title>
   <description><![CDATA[
-      <p>
-        Eglot (Emacs Poliglota) es un cliente LSP (Language Server Protocol)
-        para Emacs
-      </p>
-      <div id="outline-container-org3e600f1" class="outline-2">
-        <h2 id="org3e600f1"># Características</h2>
-        <div class="outline-text-2" id="text-org3e600f1">
-          <p>
-            Integración con ElDoc. Si MarkdownMode está instalado, la
-            documentación Se mejorará el formato. Diagnósticos sobre la marcha y
-            soluciones sugeridas a través de FlyMake. Encontrar definiciones y
-            usos de símbolos a través de InfoXref. Navegación en el búfer a
-            través de ImenuMode. Finalización mejorada mediante 'finalización en
-            el punto' * Reformateo automático del código a medida que escribe.
-            Herramientas de terceros mejoradas: aumente las capacidades de
-            paquetes como CompanyMode y Yasnippet.
-          </p>
-        </div>
-      </div>
-      <div id="outline-container-org3e7af4e" class="outline-2">
-        <h2 id="org3e7af4e">Configuración de eglot para javascript</h2>
-        <div class="outline-text-2" id="text-org3e7af4e"></div>
-        <div id="outline-container-org802b147" class="outline-3">
-          <h3 id="org802b147">Instalar el servidor LSP adecuado</h3>
-          <div class="outline-text-3" id="text-org802b147">
-            <p>
-              Eglot necesita un servidor LSP para JavaScript, como
-              typescript-language-server. Instalcion con npm:
-            </p>
+<p>
+Eglot (Emacs Poliglota) es un cliente LSP (Language Server Protocol) para Emacs  
+</p>
+<div id="outline-container-org7c7a83b" class="outline-2">
+<h2 id="org7c7a83b"># Características</h2>
+<div class="outline-text-2" id="text-org7c7a83b">
+<p>
+Integración con ElDoc. Si MarkdownMode está instalado, la documentación Se mejorará el formato. Diagnósticos sobre la marcha y soluciones sugeridas a través de FlyMake.  Encontrar definiciones y usos de símbolos a través de InfoXref. Navegación en el búfer a través de ImenuMode. Finalización mejorada  mediante 'finalización en el punto' * Reformateo automático del código a medida que escribe. Herramientas de terceros mejoradas:  aumente las capacidades de paquetes como CompanyMode y Yasnippet.
+</p>
+</div>
+</div>
+<div id="outline-container-org973479d" class="outline-2">
+<h2 id="org973479d">Configuración de eglot para javascript</h2>
+<div class="outline-text-2" id="text-org973479d">
+</div>
+<div id="outline-container-orgd6affee" class="outline-3">
+<h3 id="orgd6affee">Instalar el servidor LSP adecuado</h3>
+<div class="outline-text-3" id="text-orgd6affee">
+<p>
+Eglot necesita un servidor LSP para JavaScript, como typescript-language-server. Instalcion con npm:
+</p>
 
-            <div class="org-src-container">
-              <pre class="src src-nil">
-npm install -g typescript typescript-language-server
-</pre
-              >
-            </div>
-          </div>
-        </div>
-        <div id="outline-container-org03e9ac6" class="outline-3">
-          <h3 id="org03e9ac6">En el init.el</h3>
-          <div class="outline-text-3" id="text-org03e9ac6">
-            <div class="org-src-container">
-              <pre class="src src-lisp">(use-package eglot
+<div class="org-src-container">
+<pre class="src src-nil">npm install -g typescript typescript-language-server
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgce7565e" class="outline-3">
+<h3 id="orgce7565e">En el init.el</h3>
+<div class="outline-text-3" id="text-orgce7565e">
+<div class="org-src-container">
+<pre class="src src-lisp">(use-package eglot
   <span style="color: #c678dd;">:ensure</span> t
   <span style="color: #c678dd;">:config</span>
   <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Asociar web-mode con el servidor TypeScript
@@ -1876,31 +3799,26 @@ npm install -g typescript typescript-language-server
 (setq exec-path (append exec-path '(<span style="color: #98be65;">"/usr/bin/typescript-language-server"</span>)))
 
 </pre>
-            </div>
-          </div>
-        </div>
-        <div id="outline-container-orga4052e4" class="outline-3">
-          <h3 id="orga4052e4">Habilitar Eglot en el proyecto</h3>
-          <div class="outline-text-3" id="text-orga4052e4">
-            <p>
-              Abrir cualquier archivo JavaScript y asegúrarse de que Eglot esté
-              activado (debería mostrarse en la barra de estado). Si no lo está,
-              <b>M-x eglot</b> para iniciarlo.
-            </p>
-          </div>
-        </div>
-        <div id="outline-container-orga3ffe5d" class="outline-3">
-          <h3 id="orga3ffe5d">Configurar opciones adicionales</h3>
-          <div class="outline-text-3" id="text-orga3ffe5d">
-            <p>
-              Se puede personalizar el comportamiento del servidor añadiendo un
-              archivo <b>tsconfig.json</b> en la raíz del proyecto en TypeScript
-              o un <b>jsconfig.json</b> para JavaScript puro. Por ejemplo:
-            </p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgfbf3667" class="outline-3">
+<h3 id="orgfbf3667">Habilitar Eglot en el proyecto</h3>
+<div class="outline-text-3" id="text-orgfbf3667">
+<p>
+Abrir cualquier archivo JavaScript y asegúrarse de que Eglot esté activado (debería mostrarse en la barra de estado). Si no lo está, <b>M-x eglot</b> para iniciarlo.
+</p>
+</div>
+</div>
+<div id="outline-container-org20d6e57" class="outline-3">
+<h3 id="org20d6e57">Configurar opciones adicionales</h3>
+<div class="outline-text-3" id="text-org20d6e57">
+<p>
+Se puede personalizar el comportamiento del servidor añadiendo un archivo <b>tsconfig.json</b> en la raíz del proyecto en TypeScript o un <b>jsconfig.json</b> para JavaScript puro. Por ejemplo:
+</p>
 
-            <div class="org-src-container">
-              <pre class="src src-nil">
-  {
+<div class="org-src-container">
+<pre class="src src-nil">  {
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -1908,17 +3826,12 @@ npm install -g typescript typescript-language-server
     }
   }
 }
-</pre
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="taglist">
-        <a href="https://martiyo.github.io/tags.html">Tags</a>:
-        <a href="https://martiyo.github.io/tag-emacs.html">emacs</a>
-      </div>
-    ]]></description>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div>]]></description>
   <category><![CDATA[emacs]]></category>
   <link>https://martiyo.github.io/2024-12-25-eglot.html</link>
   <guid>https://martiyo.github.io/2024-12-25-eglot.html</guid>
@@ -9144,14 +11057,127 @@ C-x C-f /sudo::/path/to/file
   <pubDate>Thu, 28 Feb 2019 23:03:00 -0300</pubDate>
 </item>
 <item>
+  <title><![CDATA[fstab]]></title>
+  <description><![CDATA[
+<p>
+Cuando el sistema arranca lee el archivo /etc/fstab&#x2026;
+</p>
+<div id="outline-container-orgf08bab2" class="outline-2">
+<h2 id="orgf08bab2"># El archivo /etc/fstab</h2>
+<div class="outline-text-2" id="text-orgf08bab2">
+<p>
+Todo dispositivo que se vaya a usar en un sistema linux tiene que estar
+previamente montado, lo que significa que se debe asociar un dispositivo
+que se encuentra en el directorio <b>/dev</b> con un punto de montaje,
+generalmente un directorio.
+</p>
+
+<p>
+Cuando el sistema arranca lee el archivo <b>/etc/fstab</b> el cual indica a
+que dispositivo le corresponde cada directorio del sistema.
+</p>
+
+<p>
+Ejemplo de <b>/etc/fstab</b>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil"># /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;
+# / was on /dev/sda5 during installation
+UUID=f4783e9f-ff17-4cb8-8245-c97d48ac41b7 /               ext4    errors=remount-ro 0       1
+# /home was on /dev/sda6 during installation
+UUID=dd3318ed-146c-403c-be63-bdc6c4bbbff7 /home           ext4    defaults        0       2
+
+#/home/martin/datos  on /dev/sda7 during installation
+#UUID=020D8B5B4957D2D4 /home/martin/datos               ntfs-3g   0      2  
+
+#/home/martin/storage on /dev/sdb1 during installation
+UUID=48560E6A0257F888 /home/martin/storage             ntfs-3g   0     0 
+
+#pendrive
+/dev/sdc1       /media/usb0     auto    user,noauto     0       0    
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd791e19" class="outline-2">
+<h2 id="orgd791e19"># Sintaxis</h2>
+<div class="outline-text-2" id="text-orgd791e19">
+<ul class="org-ul">
+<li>Dispositivo</li>
+<li>Punto de montaje</li>
+<li>Tipo de file system</li>
+<li>Indica si se monta o no durante el arranque y con que permisos
+
+<ul class="org-ul">
+<li>defaults: montado durante el arranque</li>
+<li>noauto: no se monta durante el arranque</li>
+</ul></li>
+</ul>
+
+<p>
+Luego escribe la tabla de montaje definitiva guardada en <b>/etc/mtab</b>
+(tabla de montaje). Para hacer esto utiliza el comando <b>mount</b>. Este
+comando lanzado sin parámetros muestra los dispositivos y sus puntos de
+montaje, leídos desde <b>/etc/mtab</b>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">~ $ mount
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+udev on /dev type devtmpfs (rw,nosuid,relatime,size=1756024k,nr_inodes=439006,mode=755)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,noexec,relatime,size=353452k,mode=755)
+/dev/sdb5 on / type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k)
+pstore on /sys/fs/pstore type pstore (rw,relatime)
+tmpfs on /run/shm type tmpfs (rw,nosuid,nodev,noexec,relatime,size=706900k)
+fusectl on /sys/fs/fuse/connections type fusectl (rw,relatime)
+binfmt_misc on /proc/sys/fs/binfmt_misc type binfmt_misc (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /sys/fs/cgroup type tmpfs (rw,nosuid,nodev,noexec,mode=755)
+cgroup on /sys/fs/cgroup/elogind type cgroup (rw,nosuid,nodev,noexec,relatime,xattr,release_agent=/usr/lib/elogind/elogind-cgroups-agent,name=elogind)
+/dev/sdb6 on /home type ext4 (rw,relatime,data=ordered)
+tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,size=353448k,mode=700,uid=1000,gid=1000)
+/dev/sda1 on /home/martin/storage type fuseblk (rw,relatime,user_id=0,group_id=0,allow_other,blksize=4096)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org072b9ed" class="outline-2">
+<h2 id="org072b9ed"># El comando mount</h2>
+<div class="outline-text-2" id="text-org072b9ed">
+<p>
+Mount necesita por lo menos tres parámetros:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">mount -t &lt;tipo de sistema de archivo&gt;&lt;dispositivo a usar&gt;&lt;punto de montaje&gt;
+</pre>
+</div>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div>]]></description>
+  <category><![CDATA[linux]]></category>
+  <link>https://martiyo.github.io/2019-02-12-fstab.html</link>
+  <guid>https://martiyo.github.io/2019-02-12-fstab.html</guid>
+  <pubDate>Tue, 12 Feb 2019 08:19:00 -0300</pubDate>
+</item>
+<item>
   <title><![CDATA[Linux, comandos, trucos y cosas utiles]]></title>
   <description><![CDATA[
 <p>
 Un rejunte de cosas útiles que voy encontrando por ahí&#x2026;
 </p>
-<div id="outline-container-org2ef91b4" class="outline-2">
-<h2 id="org2ef91b4">Eliminar kernels viejos</h2>
-<div class="outline-text-2" id="text-org2ef91b4">
+<div id="outline-container-org5507efa" class="outline-2">
+<h2 id="org5507efa">Eliminar kernels viejos</h2>
+<div class="outline-text-2" id="text-org5507efa">
 <ul class="org-ul">
 <li>Verificar que kernel se está usando, con esto se cual es el que debo
 dejar instalado.</li>
@@ -9173,7 +11199,7 @@ no sirven:</li>
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-sh"># dpkg --get-selections | grep linux-image
+<pre class="src src-sh"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">dpkg --get-selections | grep linux-image</span>
 </pre>
 </div>
 
@@ -9193,15 +11219,15 @@ se esta usando</li>
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-sh">#apt-get remove -purge linux-image-2.6.26-1-686
+<pre class="src src-sh"><span style="color: #5B6268;">#</span><span style="color: #5B6268;">apt-get remove -purge linux-image-2.6.26-1-686</span>
 </pre>
 </div>
 </div>
-<div id="outline-container-orgac4ea05" class="outline-3">
-<h3 id="orgac4ea05">Otra forma de hacer todo lo anterior es:</h3>
-<div class="outline-text-3" id="text-orgac4ea05">
+<div id="outline-container-orga2b5840" class="outline-4">
+<h4 id="orga2b5840">Otra forma de hacer todo lo anterior es:</h4>
+<div class="outline-text-4" id="text-orga2b5840">
 <div class="org-src-container">
-<pre class="src src-sh"># aptitude search linux-image | grep ^i
+<pre class="src src-sh"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">aptitude search linux-image | grep ^i</span>
 </pre>
 </div>
 
@@ -9233,26 +11259,26 @@ a eliminar:
 </div>
 </div>
 </div>
-<div id="outline-container-orgc1f1e52" class="outline-2">
-<h2 id="orgc1f1e52">Uuid</h2>
-<div class="outline-text-2" id="text-orgc1f1e52">
+<div id="outline-container-org2fac926" class="outline-2">
+<h2 id="org2fac926">Uuid</h2>
+<div class="outline-text-2" id="text-org2fac926">
 <div class="org-src-container">
-<pre class="src src-sh">### uuid
-$ls -l /dev/disk/by-uuid
-#blkid
+<pre class="src src-sh"><span style="color: #5B6268;">### </span><span style="color: #5B6268;">uuid
+</span>$<span style="color: #dcaeea;">ls</span> -l /dev/disk/by-uuid
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">blkid</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org7cc0477" class="outline-2">
-<h2 id="org7cc0477">Liberar memoria ram</h2>
-<div class="outline-text-2" id="text-org7cc0477">
+<div id="outline-container-org8706d22" class="outline-2">
+<h2 id="org8706d22">Liberar memoria ram</h2>
+<div class="outline-text-2" id="text-org8706d22">
 <p>
 RAM que se está empleando en tiempo real:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">$watch -n 1 free -m
+<pre class="src src-sh">$<span style="color: #dcaeea;">watch</span> -n 1 free -m
 </pre>
 </div>
 
@@ -9261,20 +11287,20 @@ eliminar la memoria que no se usa:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">$sysctl -w vm.drop_caches=3
+<pre class="src src-sh">$<span style="color: #dcaeea;">sysctl</span> -w vm.drop_caches=3
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org576a5b4" class="outline-2">
-<h2 id="org576a5b4">Fecha de instalcion del sistema</h2>
-<div class="outline-text-2" id="text-org576a5b4">
+<div id="outline-container-org54561ff" class="outline-2">
+<h2 id="org54561ff">Fecha de instalcion del sistema</h2>
+<div class="outline-text-2" id="text-org54561ff">
 <p>
 (Creacion del sistema de archivos raiz)
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">$ls -lct /etc | tail -1 | awk '{print $6, $7, $8}'
+<pre class="src src-sh">$<span style="color: #dcaeea;">ls</span> -lct /etc | tail -1 | awk <span style="color: #98be65;">'{print $6, $7, $8}'</span>
 jun 3 2016
 </pre>
 </div>
@@ -9284,17 +11310,17 @@ otra forma:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">$sudo tune2fs -l /dev/sda1 | grep "created"
+<pre class="src src-sh">$<span style="color: #dcaeea;">sudo</span> tune2fs -l /dev/sda1 | grep <span style="color: #98be65;">"created"</span>
 Filesystem created:       Fri Jun  3 23:25:38 2016
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org72b8b48" class="outline-2">
-<h2 id="org72b8b48">Como evitar que algunos paquetes se actualicen</h2>
-<div class="outline-text-2" id="text-org72b8b48">
+<div id="outline-container-orgc5ddcd0" class="outline-2">
+<h2 id="orgc5ddcd0">Como evitar que algunos paquetes se actualicen</h2>
+<div class="outline-text-2" id="text-orgc5ddcd0">
 <div class="org-src-container">
-<pre class="src src-sh">$echo "paquete hold" | sudo dpkg --set-selections
+<pre class="src src-sh">$<span style="color: #dcaeea;">echo</span> <span style="color: #98be65;">"paquete hold"</span> | sudo dpkg --set-selections
 </pre>
 </div>
 
@@ -9308,9 +11334,9 @@ ver cuales son los paquetes que estan marcados para no actualizarse así:
 </div>
 </div>
 </div>
-<div id="outline-container-orgc1a1686" class="outline-2">
-<h2 id="orgc1a1686">capturar pantalla</h2>
-<div class="outline-text-2" id="text-orgc1a1686">
+<div id="outline-container-org8d12b51" class="outline-2">
+<h2 id="org8d12b51">capturar pantalla</h2>
+<div class="outline-text-2" id="text-org8d12b51">
 <p>
 Una forma fácil de tomar una captura de pantalla del  sistema actual es
 usar el comando de import :
@@ -9333,9 +11359,9 @@ ventana o una región arbitraria de forma interactiva.
 </blockquote>
 </div>
 </div>
-<div id="outline-container-orgd62562e" class="outline-2">
-<h2 id="orgd62562e">Configurar xterm</h2>
-<div class="outline-text-2" id="text-orgd62562e">
+<div id="outline-container-org3fda78d" class="outline-2">
+<h2 id="org3fda78d">Configurar xterm</h2>
+<div class="outline-text-2" id="text-org3fda78d">
 <p>
 Editar el archivo .Xresources y recargar
 </p>
@@ -9346,9 +11372,9 @@ Editar el archivo .Xresources y recargar
 </div>
 </div>
 </div>
-<div id="outline-container-orga41f732" class="outline-2">
-<h2 id="orga41f732">Youtube-dl</h2>
-<div class="outline-text-2" id="text-orga41f732">
+<div id="outline-container-org7d8a383" class="outline-2">
+<h2 id="org7d8a383">Youtube-dl</h2>
+<div class="outline-text-2" id="text-org7d8a383">
 <p>
 Actualmente Youtube-dl permite descargar videos y audio de más de 800
 sitios web. 
@@ -9410,9 +11436,9 @@ Fuente <a href="https://geekland.eu/descargar-videos-internet-youtube-dl/">https
 </p>
 </div>
 </div>
-<div id="outline-container-orgab74b88" class="outline-2">
-<h2 id="orgab74b88">E2fsprogs</h2>
-<div class="outline-text-2" id="text-orgab74b88">
+<div id="outline-container-org22b88c5" class="outline-2">
+<h2 id="org22b88c5">E2fsprogs</h2>
+<div class="outline-text-2" id="text-org22b88c5">
 <p>
 El paquete e2fsprogs (también llamado programas e2fs) es un conjunto de
 utilidades para mantenimiento de los sistemas de ficheros ext2, ext3 y
@@ -9437,14 +11463,14 @@ archivos;</li>
 sistema de archivos manualmente.</li>
 </ul>
 </div>
-<div id="outline-container-org43b32be" class="outline-3">
-<h3 id="org43b32be">Tune2fs</h3>
-<div class="outline-text-3" id="text-org43b32be">
+<div id="outline-container-org855c3cd" class="outline-4">
+<h4 id="org855c3cd">Tune2fs</h4>
+<div class="outline-text-4" id="text-org855c3cd">
 <div class="org-src-container">
-<pre class="src src-sh"># tune2fs -c 80 /dev/sda1 (cada 80 reinicios)
-# tune2fs -i 2m /dev/sda1 (cada 2 meses)
-# tune2fs -i 2w /dev/hda3 (cada 2 semanas)
-# tune2fs -i 2d /dev/sda1 (cada 2 días)
+<pre class="src src-sh"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">tune2fs -c 80 /dev/sda1 (cada 80 reinicios)
+</span><span style="color: #5B6268;"># </span><span style="color: #5B6268;">tune2fs -i 2m /dev/sda1 (cada 2 meses)
+</span><span style="color: #5B6268;"># </span><span style="color: #5B6268;">tune2fs -i 2w /dev/hda3 (cada 2 semanas)
+</span><span style="color: #5B6268;"># </span><span style="color: #5B6268;">tune2fs -i 2d /dev/sda1 (cada 2 d&#237;as)</span>
 </pre>
 </div>
 
@@ -9459,14 +11485,14 @@ para corregir el error <b>cloud be norrower &#x2026;</b>
 </div>
 </div>
 </div>
-<div id="outline-container-org7f29a0c" class="outline-2">
-<h2 id="org7f29a0c">Nano</h2>
-<div class="outline-text-2" id="text-org7f29a0c">
+<div id="outline-container-orgb22d874" class="outline-2">
+<h2 id="orgb22d874">Nano</h2>
+<div class="outline-text-2" id="text-orgb22d874">
 <p>
 <b>Seleccionar:</b>
 </p>
 
-<pre class="example" id="org37c2c87">
+<pre class="example" id="org56fb3e9">
 Alt + a
 </pre>
 
@@ -9474,7 +11500,7 @@ Alt + a
 <b>Copiar:</b>
 </p>
 
-<pre class="example" id="orgd9ce1e2">
+<pre class="example" id="orgab41955">
 Alt + 6
 </pre>
 
@@ -9482,7 +11508,7 @@ Alt + 6
 <b>Pegar:</b>
 </p>
 
-<pre class="example" id="org228ed71">
+<pre class="example" id="org8926470">
 Ctrl + u
 </pre>
 
@@ -9490,7 +11516,7 @@ Ctrl + u
 Archivo de configuración:
 </p>
 
-<pre class="example" id="org89c7868">
+<pre class="example" id="orgdba2b72">
 **/etc/nanorc**
 </pre>
 
@@ -9498,65 +11524,65 @@ Archivo de configuración:
 Resaltar sistaxis
 </p>
 </div>
-<div id="outline-container-orgd703c58" class="outline-3">
-<h3 id="orgd703c58">HTML</h3>
-<div class="outline-text-3" id="text-orgd703c58">
+<div id="outline-container-org7c92265" class="outline-4">
+<h4 id="org7c92265">HTML</h4>
+<div class="outline-text-4" id="text-org7c92265">
 <p>
 include "/usr/share/nano/html.nanorc"
 </p>
 </div>
 </div>
-<div id="outline-container-orgbbae231" class="outline-3">
-<h3 id="orgbbae231">Manpages</h3>
-<div class="outline-text-3" id="text-orgbbae231">
+<div id="outline-container-org9bb342b" class="outline-4">
+<h4 id="org9bb342b">Manpages</h4>
+<div class="outline-text-4" id="text-org9bb342b">
 <p>
 include "/usr/share/nano/man.nanorc"
 </p>
 </div>
 </div>
-<div id="outline-container-orgb4ee3c8" class="outline-3">
-<h3 id="orgb4ee3c8">Python</h3>
-<div class="outline-text-3" id="text-orgb4ee3c8">
+<div id="outline-container-org21ed933" class="outline-4">
+<h4 id="org21ed933">Python</h4>
+<div class="outline-text-4" id="text-org21ed933">
 <p>
 include "/usr/share/nano/python.nanorc"
 </p>
 </div>
 </div>
-<div id="outline-container-org31cbdc4" class="outline-3">
-<h3 id="org31cbdc4">Bourne shell scripts</h3>
-<div class="outline-text-3" id="text-org31cbdc4">
+<div id="outline-container-orgf1e9fd2" class="outline-4">
+<h4 id="orgf1e9fd2">Bourne shell scripts</h4>
+<div class="outline-text-4" id="text-orgf1e9fd2">
 <p>
 include "/usr/share/nano/sh.nanorc"
 </p>
 </div>
 </div>
-<div id="outline-container-orgd1fdc2a" class="outline-3">
-<h3 id="orgd1fdc2a">Javascript</h3>
-<div class="outline-text-3" id="text-orgd1fdc2a">
+<div id="outline-container-org84c0ca1" class="outline-4">
+<h4 id="org84c0ca1">Javascript</h4>
+<div class="outline-text-4" id="text-org84c0ca1">
 <p>
 include "/usr/share/nano/javascript.nanorc"
 </p>
 </div>
 </div>
-<div id="outline-container-org1a1a98a" class="outline-3">
-<h3 id="org1a1a98a">Json</h3>
-<div class="outline-text-3" id="text-org1a1a98a">
+<div id="outline-container-orgf9400a6" class="outline-4">
+<h4 id="orgf9400a6">Json</h4>
+<div class="outline-text-4" id="text-orgf9400a6">
 <p>
 include "/usr/share/nano/json.nanorc"
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org6ff6407" class="outline-2">
-<h2 id="org6ff6407">Sudo</h2>
-<div class="outline-text-2" id="text-org6ff6407">
+<div id="outline-container-orgff57a6e" class="outline-2">
+<h2 id="orgff57a6e">Sudo</h2>
+<div class="outline-text-2" id="text-orgff57a6e">
 <p>
 Para dar permisos de root a un usuario, en el archivo <b>/etc/sudoers</b>
 agregar:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">nombre_usuario ALL=(ALL) 
+<pre class="src src-sh">nombre_usuario <span style="color: #dcaeea;">ALL</span>=(ALL) 
 </pre>
 </div>
 
@@ -9565,25 +11591,25 @@ para que no pida contraseña:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">nombre_usuario ALL=(ALL) NOPASSWD: ALL
+<pre class="src src-sh">nombre_usuario <span style="color: #dcaeea;">ALL</span>=(ALL) NOPASSWD: ALL
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org816573b" class="outline-2">
-<h2 id="org816573b">Limpiar cache</h2>
-<div class="outline-text-2" id="text-org816573b">
+<div id="outline-container-orgb44936b" class="outline-2">
+<h2 id="orgb44936b">Limpiar cache</h2>
+<div class="outline-text-2" id="text-orgb44936b">
 <div class="org-src-container">
 <pre class="src src-sh">sudo su
-sync &amp;&amp; echo 3 &gt; /proc/sys/vm/drop_caches
-exit
+sync &amp;&amp; <span style="color: #c678dd;">echo</span> 3 &gt; /proc/sys/vm/drop_caches
+<span style="color: #51afef;">exit</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org0de23e6" class="outline-2">
-<h2 id="org0de23e6">Buscar texto en varios archivos</h2>
-<div class="outline-text-2" id="text-org0de23e6">
+<div id="outline-container-org4a42287" class="outline-2">
+<h2 id="org4a42287">Buscar texto en varios archivos</h2>
+<div class="outline-text-2" id="text-org4a42287">
 <div class="org-src-container">
 <pre class="src src-nil">find / -type f -exec grep -H 'texto-a-buscar-aqui' {} \;
 
@@ -9591,9 +11617,9 @@ exit
 </div>
 </div>
 </div>
-<div id="outline-container-org105166f" class="outline-2">
-<h2 id="org105166f">Configurar fecha y hora</h2>
-<div class="outline-text-2" id="text-org105166f">
+<div id="outline-container-org4cada1f" class="outline-2">
+<h2 id="org4cada1f">Configurar fecha y hora</h2>
+<div class="outline-text-2" id="text-org4cada1f">
 <p>
 Fecha y hora del sistema usando el comando date:
 </p>

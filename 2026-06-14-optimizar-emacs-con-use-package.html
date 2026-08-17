@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/">
+<title>Optimizar-emacs-con-use-package</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">14 jun 2026</div><h1 class="post-title"><a href="https://martiyo.github.io/2026-06-14-optimizar-emacs-con-use-package.html">Optimizar-emacs-con-use-package</a></h1>
+<p>
+Optimizar emacs con use-package, defer, bind, hook, mode, commands, magic
+</p>
+<div id="outline-container-org939e444" class="outline-2">
+<h2 id="org939e444">¿Por qué tarda en iniciar Emacs?</h2>
+<div class="outline-text-2" id="text-org939e444">
+<p>
+Cada paquete que se carga al inicio suma tiempo. Si tienes 20 paquetes que
+cargan ~0.1s cada uno, son ~2s solo en paquetes. La clave es: <b><b>cargar solo
+lo necesario al inicio, y diferir el resto</b></b>.
+</p>
+</div>
+</div>
+<div id="outline-container-org247553a" class="outline-2">
+<h2 id="org247553a">use-package</h2>
+<div class="outline-text-2" id="text-org247553a">
+<p>
+Es un macro que unifica la declaración, instalación, configuración y
+diferimiento de paquetes.
+</p>
+
+<p>
+Sintaxis básica:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> NOMBRE
+  <span style="color: #c678dd;">:opciones</span> ...)
+</pre>
+</div>
+
+<p>
+No es un <code>require</code> implícito. Lo que hace depende de las opciones que le pases.
+</p>
+</div>
+</div>
+<div id="outline-container-orge93492a" class="outline-2">
+<h2 id="orge93492a">Formas de diferir la carga</h2>
+<div class="outline-text-2" id="text-orge93492a">
+</div>
+<div id="outline-container-orge74bdbf" class="outline-3">
+<h3 id="orge74bdbf">:defer t</h3>
+<div class="outline-text-3" id="text-orge74bdbf">
+<p>
+Ordena a use-package que no cargue el paquete inmediatamente, sino que
+registre autoloads para cargarlo cuando sea necesario.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">CARGA INMEDIATA (cada vez que abres Emacs):
+</span>(<span style="color: #51afef;">use-package</span> neotree
+  <span style="color: #c678dd;">:config</span>
+  (global-set-key [f11] 'neotree-toggle))
+
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">CARGA DIFERIDA (solo cuando pulsas F11):
+</span>(<span style="color: #51afef;">use-package</span> neotree
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:bind</span> ([f11] . neotree-toggle))
+</pre>
+</div>
+
+<p>
+Con <code>:defer t</code>, el archivo <code>neotree.el</code> ni siquiera se toca hasta que
+pulsas F11. El bind se registra como autoload.
+</p>
+</div>
+</div>
+<div id="outline-container-org23d1cbb" class="outline-3">
+<h3 id="org23d1cbb">:bind</h3>
+<div class="outline-text-3" id="text-org23d1cbb">
+<p>
+Registra combinaciones de teclas como autoloads. Al pulsar la tecla, se
+carga el paquete y se ejecuta el comando.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #c678dd;">:bind</span> ((<span style="color: #98be65;">"C-c n"</span> . neotree-toggle)    <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Cadena = key con Ctrl
+</span>       ([f11] . neotree-toggle)       <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Vector = funci&#243;n/F-key
+</span>       (<span style="color: #98be65;">"M-s f"</span> . find-file))         <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">M-s = Super</span>
+</pre>
+</div>
+
+<p>
+También dentro de un mapa de teclas específico:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #c678dd;">:bind</span> (<span style="color: #c678dd;">:map</span> python-mode-map
+        (<span style="color: #98be65;">"C-c C-c"</span> . python-shell-send-buffer))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org15821f4" class="outline-3">
+<h3 id="org15821f4">:hook</h3>
+<div class="outline-text-3" id="text-org15821f4">
+<p>
+Registra funciones en hooks como autoloads. Cuando se activa el modo, se
+carga el paquete y se ejecuta la función.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">ANTES (carga inmediata):
+</span>(<span style="color: #51afef;">use-package</span> prettier
+  <span style="color: #c678dd;">:config</span>
+  (add-hook 'web-mode-hook 'prettier-mode))
+
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">DESPU&#201;S (carga diferida):
+</span>(<span style="color: #51afef;">use-package</span> prettier
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:hook</span> (web-mode . prettier-mode))
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">prettier.el se carga solo al abrir un archivo web-mode</span>
+</pre>
+</div>
+
+<p>
+Múltiples hooks:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #c678dd;">:hook</span> ((js2-mode web-mode) . prettier-mode)
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Equivale a:
+</span><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(add-hook 'js2-mode-hook 'prettier-mode)
+</span><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(add-hook 'web-mode-hook 'prettier-mode)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org33fd5a8" class="outline-3">
+<h3 id="org33fd5a8">:mode</h3>
+<div class="outline-text-3" id="text-org33fd5a8">
+<p>
+Asocia una extensión de archivo con un modo mayor. Al abrir un archivo con
+esa extensión, se carga el paquete y se activa el modo.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #c678dd;">:mode</span> (<span style="color: #98be65;">"\\.http\\'"</span> . restclient-mode)
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">restclient-mode se carga solo al abrir un .http</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3c258d2" class="outline-3">
+<h3 id="org3c258d2">:commands</h3>
+<div class="outline-text-3" id="text-org3c258d2">
+<p>
+Declara comandos que, al ser ejecutados, cargan el paquete.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #c678dd;">:commands</span> (my-org-blog-list-posts org-static-blog-publish)
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">El paquete se carga solo cuando usas uno de estos comandos</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge85e5de" class="outline-3">
+<h3 id="orge85e5de">:magic</h3>
+<div class="outline-text-3" id="text-orge85e5de">
+<p>
+Igual que <code>:mode</code> pero por contenido del archivo (primeros bytes):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #c678dd;">:magic</span> (<span style="color: #98be65;">"%PDF"</span> . pdf-view-mode)
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">pdf-tools se carga al abrir cualquier archivo que empiece con %PDF</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org0039f38" class="outline-2">
+<h2 id="org0039f38">:config vs :init vs :custom</h2>
+<div class="outline-text-2" id="text-org0039f38">
+</div>
+<div id="outline-container-orgafec6c5" class="outline-3">
+<h3 id="orgafec6c5">:init</h3>
+<div class="outline-text-3" id="text-orgafec6c5">
+<p>
+Se ejecuta SIEMPRE, incluso si el paquete está diferido. Para cosas que
+necesitan estar disponibles al inicio.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> projectile
+  <span style="color: #c678dd;">:init</span>
+  (projectile-mode +1)  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Se activa siempre al inicio
+</span>  <span style="color: #c678dd;">:config</span>
+  (<span style="color: #51afef;">setq</span> projectile-known-projects ...))  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Solo cuando carga projectile.el</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org669f421" class="outline-3">
+<h3 id="org669f421">:config</h3>
+<div class="outline-text-3" id="text-org669f421">
+<p>
+Se ejecuta solo CUANDO el paquete se carga. Ideal para configuración que
+depende del paquete.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> neotree
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:bind</span> ([f11] . neotree-toggle)
+  <span style="color: #c678dd;">:custom</span>
+  (neo-theme 'icons)        <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">setq durante la carga
+</span>  (neo-smart-open t)
+  <span style="color: #c678dd;">:config</span>
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Esto se ejecuta solo cuando pulsas F11 por primera vez
+</span>  (message <span style="color: #98be65;">"neotree cargado"</span>))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6f026cf" class="outline-3">
+<h3 id="org6f026cf">:custom</h3>
+<div class="outline-text-3" id="text-org6f026cf">
+<p>
+Alternativa moderna a <code>setq</code> dentro de <code>:config</code>. Se ejecuta cuando el
+paquete se carga.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Mejor:
+</span><span style="color: #c678dd;">:custom</span>
+(neo-theme 'icons)
+(neo-smart-open t)
+
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Que:
+</span><span style="color: #c678dd;">:config</span>
+(<span style="color: #51afef;">setq</span> neo-theme 'icons)
+(<span style="color: #51afef;">setq</span> neo-smart-open t)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org8082676" class="outline-2">
+<h2 id="org8082676">Ciclo de carga de un paquete diferido</h2>
+<div class="outline-text-2" id="text-org8082676">
+<ol class="org-ol">
+<li>Emacs inicia, procesa <code>init.el</code></li>
+<li><code>use-package</code> registra los autoloads (<code>:bind</code>, <code>:hook</code>, <code>:mode</code>, <code>:commands</code>)</li>
+<li>Se ejecuta <code>:init</code> (si existe)</li>
+<li>Emacs termina de iniciar</li>
+<li>El usuario pulsa F11 (o abre un .py, etc.)</li>
+<li>Emacs carga <code>neotree.el</code> del disco</li>
+<li>Se ejecuta <code>:custom</code> (setq)</li>
+<li>Se ejecuta <code>:config</code></li>
+<li>Se ejecuta el comando (<code>neotree-toggle</code>)</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org7d7f4c9" class="outline-2">
+<h2 id="org7d7f4c9">Qué debe cargar al inicio (NO diferir)</h2>
+<div class="outline-text-2" id="text-org7d7f4c9">
+<p>
+Paquetes que necesitas desde el primer momento:
+</p>
+
+<ul class="org-ul">
+<li>Tema visual (<code>doom-themes</code>)</li>
+<li>Modeline (<code>doom-modeline</code>)</li>
+<li>Autocompletado global (<code>corfu</code>)</li>
+<li>Gestión de proyectos (<code>projectile</code>)</li>
+<li>Teclas globales (<code>recentf</code>, <code>winner-mode</code>, etc.)</li>
+</ul>
+
+<p>
+Todo lo demás: <b><b>diferirlo</b></b>.
+</p>
+</div>
+</div>
+<div id="outline-container-org25de922" class="outline-2">
+<h2 id="org25de922">Casos prácticos del init optimizado</h2>
+<div class="outline-text-2" id="text-org25de922">
+</div>
+<div id="outline-container-org2e52e4e" class="outline-3">
+<h3 id="org2e52e4e">Deferir por tecla</h3>
+<div class="outline-text-3" id="text-org2e52e4e">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> neotree
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:bind</span> ([f11] . neotree-toggle))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9236d7f" class="outline-3">
+<h3 id="org9236d7f">Deferir por tipo de archivo</h3>
+<div class="outline-text-3" id="text-org9236d7f">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> restclient
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:mode</span> (<span style="color: #98be65;">"\\.http\\'"</span> . restclient-mode))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8b1c379" class="outline-3">
+<h3 id="org8b1c379">Deferir por hook</h3>
+<div class="outline-text-3" id="text-org8b1c379">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> emmet-mode
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:hook</span> (web-mode . emmet-mode))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org51eff6d" class="outline-3">
+<h3 id="org51eff6d">Deferir por comando</h3>
+<div class="outline-text-3" id="text-org51eff6d">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> elfeed
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:commands</span> (elfeed elfeed-update))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org4a77973" class="outline-2">
+<h2 id="org4a77973">Cómo verificar qué se carga al inicio</h2>
+<div class="outline-text-2" id="text-org4a77973">
+<div class="org-src-container">
+<pre class="src src-elisp">M-x emacs-init-time           <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Tiempo total de inicio
+</span>M-x benchmark-init/show-durations  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Tiempo por paquete
+</span>M-x benchmark-init/show-durations-tabulated  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Tabla ordenada</span>
+</pre>
+</div>
+
+<p>
+Para instalar benchmark-init:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> benchmark-init
+  <span style="color: #c678dd;">:ensure</span> t
+  <span style="color: #c678dd;">:config</span>
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf9f8ed2" class="outline-2">
+<h2 id="orgf9f8ed2">Regla general</h2>
+<div class="outline-text-2" id="text-orgf9f8ed2">
+<ul class="org-ul">
+<li><code>:defer t</code> + <code>:bind</code> → paquete que usas con teclas</li>
+<li><code>:defer t</code> + <code>:hook</code> → paquete que se activa en un modo</li>
+<li><code>:defer t</code> + <code>:mode</code> → paquete asociado a extensión de archivo</li>
+<li><code>:defer t</code> + <code>:commands</code> → paquete que ejecutas con M-x</li>
+<li>Sin <code>:defer</code> → paquete que necesitas siempre</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbd97a85" class="outline-2">
+<h2 id="orgbd97a85">Errores comunes</h2>
+<div class="outline-text-2" id="text-orgbd97a85">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Error</th>
+<th scope="col" class="org-left">Causa</th>
+<th scope="col" class="org-left">Solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Symbol's value as variable is void: <code>dired-mode-map</code></td>
+<td class="org-left">El archivo usa variables de un paquete no cargado</td>
+<td class="org-left">Agregar <code>(require 'dired)</code> al inicio del archivo</td>
+</tr>
+
+<tr>
+<td class="org-left">Symbol's function is void: <code>neotree-toggle</code></td>
+<td class="org-left">El bind se registró pero el paquete no se cargó</td>
+<td class="org-left">Verificar que <code>:defer t</code> esté y que el comando exista</td>
+</tr>
+
+<tr>
+<td class="org-left">Package <code>foo</code> is unavailable</td>
+<td class="org-left">ELPA no lo encuentra</td>
+<td class="org-left">Verificar <code>package-archives</code> o tipear mal el nombre</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
+</html>

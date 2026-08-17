@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/">
+<title>python-pip-virtualenvs-emacs</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">01 jun 2026</div><h1 class="post-title"><a href="https://martiyo.github.io/2026-06-01-python-pip-virtualenvs-emacs.html">python-pip-virtualenvs-emacs</a></h1>
+<p>
+Entornos virtuales de python y su uso en emacs + pip y pipx
+</p>
+<div id="outline-container-org6740ab1" class="outline-2">
+<h2 id="org6740ab1">¿Qué es un venv?</h2>
+<div class="outline-text-2" id="text-org6740ab1">
+<p>
+Entorno Python aislado con su propio <code>pip</code> y <code>site-packages</code>. Los paquetes
+instalados dentro no afectan al sistema ni a otros proyectos.
+</p>
+</div>
+</div>
+<div id="outline-container-orge17a535" class="outline-2">
+<h2 id="orge17a535">Crear y activar un venv (terminal)</h2>
+<div class="outline-text-2" id="text-orge17a535">
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #c678dd;">cd</span> ~/projects/mi-proyecto
+python3.11 -m venv .venv        <span style="color: #5B6268;"># </span><span style="color: #5B6268;">crear
+</span><span style="color: #c678dd;">source</span> .venv/bin/activate       <span style="color: #5B6268;"># </span><span style="color: #5B6268;">activar
+</span>pip install requests            <span style="color: #5B6268;"># </span><span style="color: #5B6268;">instalar dentro del venv
+</span>deactivate                      <span style="color: #5B6268;"># </span><span style="color: #5B6268;">salir del venv</span>
+</pre>
+</div>
+
+<p>
+Sin activar, se puede usar directamente:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">.venv/bin/pip install requests
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd4db235" class="outline-2">
+<h2 id="orgd4db235">Usar venv en Emacs</h2>
+<div class="outline-text-2" id="text-orgd4db235">
+</div>
+<div id="outline-container-orga2eb56c" class="outline-3">
+<h3 id="orga2eb56c">pyvenv-activate (manual)</h3>
+<div class="outline-text-3" id="text-orga2eb56c">
+<p>
+Con el archivo .py abierto:
+</p>
+
+<ol class="org-ol">
+<li><code>M-x pyvenv-activate</code></li>
+<li>Seleccionar el directorio <code>.venv</code> del proyecto</li>
+<li><code>M-x python-shell-restart</code> (para que el REPL use el Python del venv)</li>
+<li>Ejecutar con <code>C-c C-c</code></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgfe961e8" class="outline-3">
+<h3 id="orgfe961e8">pyvenv-work-on-project-mode (automático)</h3>
+<div class="outline-text-3" id="text-orgfe961e8">
+<p>
+Si el proyecto tiene un directorio ~.venv~/ en su raíz, pyvenv lo activa solo
+al abrir archivos del proyecto.
+</p>
+
+<p>
+Verificar qué Python está usando Emacs:
+</p>
+
+<p>
+<code>M-x python-shell-send-string RET import sys; sys.executable</code>
+</p>
+</div>
+</div>
+<div id="outline-container-org7e7e354" class="outline-3">
+<h3 id="org7e7e354">pyvenv-deactivate</h3>
+<div class="outline-text-3" id="text-org7e7e354">
+<p>
+Para salir del venv desde Emacs: <code>M-x pyvenv-deactivate</code>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgeff0ae3" class="outline-2">
+<h2 id="orgeff0ae3">pip vs pipx</h2>
+<div class="outline-text-2" id="text-orgeff0ae3">
+</div>
+<div id="outline-container-org1886f60" class="outline-3">
+<h3 id="org1886f60">pip (gestor de paquetes Python)</h3>
+<div class="outline-text-3" id="text-org1886f60">
+<ul class="org-ul">
+<li>Instala paquetes en el entorno actual (sistema o venv)</li>
+<li>No aísla: los paquetes comparten el mismo <code>site-packages</code></li>
+<li>En Debian/Ubuntu no se puede usar fuera de un venv (PEP 668)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org42e88b7" class="outline-3">
+<h3 id="org42e88b7">pipx (gestor de aplicaciones Python)</h3>
+<div class="outline-text-3" id="text-org42e88b7">
+<ul class="org-ul">
+<li>Instala cada herramienta en su propio venv aislado automáticamente</li>
+<li>Crea accesos directos en <code>/.local/bin/</code></li>
+<li>Para herramientas que usas como comando (<code>ruff</code>, <code>pylsp</code>, <code>ipython</code>, <code>pytest</code>)</li>
+<li>Ideal para herramientas de desarrollo, no para librerías de proyecto</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org74b8705" class="outline-3">
+<h3 id="org74b8705">Comparativa</h3>
+<div class="outline-text-3" id="text-org74b8705">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Acción</th>
+<th scope="col" class="org-left">pip</th>
+<th scope="col" class="org-left">pipx</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Instalar <code>requests</code></td>
+<td class="org-left"><code>pip install requests</code> (en venv)</td>
+<td class="org-left">❌ No es para librerías</td>
+</tr>
+
+<tr>
+<td class="org-left">Instalar <code>ruff</code></td>
+<td class="org-left"><code>pip install ruff</code> (en venv)</td>
+<td class="org-left"><code>pipx install ruff</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Instalar <code>pandas</code></td>
+<td class="org-left"><code>pip install pandas</code> (en venv)</td>
+<td class="org-left">❌ No es para librerías</td>
+</tr>
+
+<tr>
+<td class="org-left">Instalar <code>pylsp</code></td>
+<td class="org-left"><code>pip install python-lsp-server</code></td>
+<td class="org-left"><code>pipx install python-lsp-server</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="outline-container-org647fef3" class="outline-2">
+<h2 id="org647fef3">Cómo instalar: global vs venv</h2>
+<div class="outline-text-2" id="text-org647fef3">
+</div>
+<div id="outline-container-org501981b" class="outline-3">
+<h3 id="org501981b">Instalación global (sistema)</h3>
+<div class="outline-text-3" id="text-org501981b">
+<p>
+En Debian/Ubuntu:
+</p>
+<ul class="org-ul">
+<li>Con paquetes del sistema: <code>sudo apt install python3-requests</code></li>
+<li>Con pipx: <code>pipx install</code> (solo herramientas, cada una aislada)</li>
+<li>Con pip directo: <b><b>No disponible</b></b> (PEP 668 bloquea)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgdea7bce" class="outline-3">
+<h3 id="orgdea7bce">Instalación dentro de un venv (proyecto)</h3>
+<div class="outline-text-3" id="text-orgdea7bce">
+<p>
+Es la forma normal de instalar librerías de proyecto:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #c678dd;">cd</span> ~/projects/mi-proyecto
+<span style="color: #c678dd;">source</span> .venv/bin/activate
+pip install requests pandas flask
+</pre>
+</div>
+
+<p>
+Los paquetes quedan en <code>.venv/lib/python3.11/site-packages/</code>, aislados
+del sistema.
+</p>
+</div>
+</div>
+<div id="outline-container-orgfe41eaa" class="outline-3">
+<h3 id="orgfe41eaa">pipx: instalación "global pero aislada"</h3>
+<div class="outline-text-3" id="text-orgfe41eaa">
+<p>
+Cada herramienta va a <code>/./local/pipx/venvs/&lt;nombre&gt;/</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">pipx install ruff              &#8594; ~/.local/pipx/venvs/ruff/
+pipx install python-lsp-server &#8594; ~/.local/pipx/venvs/python-lsp-server/
+</pre>
+</div>
+
+<p>
+Los ejecutables se enlazan a <code>/.local/bin/</code> (que debe estar en el <code>PATH</code>).
+</p>
+</div>
+</div>
+<div id="outline-container-orgb7a63b8" class="outline-3">
+<h3 id="orgb7a63b8">Dónde acaba cada paquete según el método</h3>
+<div class="outline-text-3" id="text-orgb7a63b8">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Método</th>
+<th scope="col" class="org-left">Destino</th>
+<th scope="col" class="org-left">Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>pip install</code> (venv)</td>
+<td class="org-left"><code>.venv/lib/python3.11/site-packages/</code></td>
+<td class="org-left">Librerías del proyecto</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>pipx install</code></td>
+<td class="org-left"><code>/.local/pipx/venvs/&lt;tool&gt;/lib/python3.11/site-packages/</code></td>
+<td class="org-left">Herramientas CLI</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>apt install python3-xyz</code></td>
+<td class="org-left"><code>/usr/lib/python3/dist-packages/</code></td>
+<td class="org-left">Paquetes del sistema</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc39c718" class="outline-2">
+<h2 id="orgc39c718">Regla práctica</h2>
+<div class="outline-text-2" id="text-orgc39c718">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Qué quiero instalar</th>
+<th scope="col" class="org-left">Método</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>ruff</code> (linter)</td>
+<td class="org-left"><code>pipx install</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>python-lsp-server</code> (LSP)</td>
+<td class="org-left"><code>pipx install</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>pytest</code> (testing)</td>
+<td class="org-left"><code>pipx install</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>ipython</code> (REPL)</td>
+<td class="org-left"><code>pipx install</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>black</code> (formatter)</td>
+<td class="org-left"><code>pipx install</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>mypy</code> (type checker)</td>
+<td class="org-left"><code>pipx install</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>requests</code>, <code>pandas</code>, <code>numpy</code>, <code>flask</code></td>
+<td class="org-left"><code>pip install</code> en el venv del proyecto</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>django</code>, <code>fastapi</code>, <code>sqlalchemy</code></td>
+<td class="org-left"><code>pip install</code> en el venv del proyecto</td>
+</tr>
+
+<tr>
+<td class="org-left">Cualquier librería que importes en tu código</td>
+<td class="org-left"><code>pip install</code> en el venv del proyecto</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org6d8f471" class="outline-2">
+<h2 id="org6d8f471">Listar lo instalado</h2>
+<div class="outline-text-2" id="text-org6d8f471">
+<div class="org-src-container">
+<pre class="src src-sh">pip list                <span style="color: #5B6268;"># </span><span style="color: #5B6268;">paquetes del venv actual (o sistema)
+</span>pipx list               <span style="color: #5B6268;"># </span><span style="color: #5B6268;">todas las herramientas pipx
+</span>pip3.11 list --user     <span style="color: #5B6268;"># </span><span style="color: #5B6268;">paquetes del usuario (no funcional en Debian por PEP 668)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge041413" class="outline-2">
+<h2 id="orge041413">Eliminar paquetes</h2>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-programacion.html">programacion</a> <a href="https://martiyo.github.io/tag-python.html">python</a> <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
+</html>

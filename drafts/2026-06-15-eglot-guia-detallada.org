@@ -1,0 +1,240 @@
+#+title: Eglot - El cliente LSP para Emacs
+#+date: <2026-06-15>
+#+description: Guía detallada de Eglot: características, uso y configuración para Python
+#+filetags: emacs python lsp programacion
+
+Eglot (Emacs Polyglot) es un cliente LSP (Language Server Protocol) minimalista para Emacs. A diferencia de lsp-mode, Eglot está diseñado para ser simple, usar las APIs nativas de Emacs y requerir configuración cero en la mayoría de los casos.
+
+* ¿Qué es LSP?
+
+El Language Server Protocol es un estándar que permite a los editores de código comunicarse con servidores que proveen funcionalidades como autocompletado, ir a definición, diagnósticos, etc. Cada lenguaje tiene su propio servidor LSP (pylsp para Python, typescript-language-server para JS/TS, rust-analyzer para Rust, etc.) y Eglot actúa como puente entre Emacs y esos servidores.
+
+* Características principales
+
+Eglot aprovecha las herramientas nativas de Emacs en lugar de reemplazarlas:
+
+| Característica            | Mecanismo Emacs               | Atajo común       |
+|---------------------------+-------------------------------+-------------------|
+| Autocompletado            | completion-at-point / Corfu   | (automático)      |
+| Diagnósticos              | Flymake                       | (en línea)        |
+| Ir a definición           | xref-find-definitions         | M-.               |
+| Volver de definición      | xref-pop-marker-stack         | M-,               |
+| Buscar referencias        | xref-find-references          | M-?               |
+| Documentación al vuelo    | ElDoc                         | (en echo area)    |
+| Documentación detallada   | eldoc-doc-buffer              | C-h .             |
+| Formatear código          | eglot-format / eglot-format-buffer | (según config) |
+| Renombrar símbolo         | eglot-rename                  | C-x n n           |
+| Code actions              | eglot-code-actions            | C-c C-a           |
+| Ejecutar acción rápida    | eglot-code-action-quickfix    | C-c C-q           |
+| Hover (información)       | eglot-help-at-point           | C-c C-d           |
+
+* Instalación
+
+Eglot viene incluido con Emacs 29+. Solo hay que asegurarse de tenerlo cargado:
+
+#+begin_src elisp
+(use-package eglot
+  :ensure t
+  :defer t
+  :hook (python-mode . eglot-ensure)
+  :config
+  ;; Asociar servidores LSP con sus modos
+  (add-to-list 'eglot-server-programs
+               '(python-mode . ("pylsp")))
+  (add-to-list 'eglot-server-programs
+               '((web-mode js-mode typescript-mode) "typescript-language-server" "--stdio"))
+  (add-to-list 'eglot-server-programs
+               '(rust-mode . ("rust-analyzer"))))
+#+end_src
+
+~eglot-ensure~ en el hook hace que Eglot se active automáticamente al abrir archivos de ese modo.
+
+* Configuración del servidor
+
+Cada servidor LSP tiene sus propias opciones. Se configuran a través de ~eglot-workspace-configuration~, que es un plist que Eglot envía al servidor al iniciar:
+
+#+begin_src elisp
+(setq-default eglot-workspace-configuration
+  '(:pylsp (:plugins (:black (:enabled t :line_length 120)
+                       :autopep8 (:enabled nil)
+                       :yapf (:enabled nil)
+                       :pycodestyle (:enabled t :maxLineLength 120)))))
+#+end_src
+
+* Configuración para Python
+
+** Instalar el servidor LSP
+
+El servidor para Python es ~pylsp~ (python-lsp-server). Se instala con pipx para mantenerlo aislado del sistema:
+
+#+begin_src sh
+pipx install python-lsp-server[all]
+pipx install python-lsp-black  # plugin para formatear con Black
+pipx install ruff              # linter rápido (opcional)
+#+end_src
+
+Los argumentos ~[all]~ instalan todos los plugins incluidos por defecto. Si se quiere minimizar, se puede instalar solo el base y agregar plugins manualmente:
+
+#+begin_src sh
+pipx install python-lsp-server
+pipx inject python-lsp-server pylsp-rope  # refactorings
+#+end_src
+
+** Configurar formateo al guardar
+
+Para que Emacs formatee automáticamente con Black al guardar, se agrega un hook local al buffer de Python:
+
+#+begin_src elisp
+(use-package python
+  :delight
+  :custom
+  (python-shell-interpreter "python3.11")
+  :hook ((python-mode . eglot-ensure)
+         (python-mode . (lambda ()
+                          (add-hook 'before-save-hook
+                                    (lambda () (eglot-format))
+                                    nil 'local))))
+  :config
+  (define-key python-mode-map (kbd "C-c C-c") 'python-shell-send-buffer)
+  (define-key python-mode-map (kbd "C-c C-r") 'python-shell-send-region)
+  (define-key python-mode-map (kbd "C-c C-z") 'python-shell-switch-to-shell)
+  (define-key python-mode-map (kbd "C-c C-e") 'python-shell-send-statement))
+#+end_src
+
+El truco está en ~nil 'local~ en ~add-hook~: agrega el formateo solo al buffer actual de Python, no a todos los buffers.
+
+** Ajustar el límite de línea
+
+pycodestyle (incluido en pylsp) usa 79 caracteres por defecto. Para cambiarlo a 120, crear ~setup.cfg~ en la raíz del proyecto:
+
+#+begin_src ini
+[pycodestyle]
+max-line-length = 120
+#+end_src
+
+Esto afecta tanto a pylsp como a cualquier herramienta externa que lea ~setup.cfg~. La misma configuración también se puede pasar por ~eglot-workspace-configuration~ como se mostró antes.
+
+** Virtualenv automático
+
+Al trabajar con proyectos Python que usan ~.venv~, es útil activarlo automáticamente con pyvenv:
+
+#+begin_src elisp
+(use-package pyvenv
+  :ensure t
+  :config
+  (setq pyvenv-mode t)
+  (setq pyvenv-work-on-project-mode t))
+#+end_src
+
+Al abrir un archivo dentro de un proyecto que tiene ~.venv~, se activa automáticamente y pylsp usa los paquetes instalados en ese entorno.
+
+** Desactivar plugins de pylsp no deseados
+
+Por defecto pylsp activa varios plugins. Se pueden desactivar los que no se usen para hacerlo más rápido:
+
+#+begin_src elisp
+(setq-default eglot-workspace-configuration
+  '(:pylsp (:plugins
+            (:black (:enabled t :line_length 120)
+             :autopep8 (:enabled nil)
+             :yapf (:enabled nil)
+             :mccabe (:enabled nil)
+             :pyflakes (:enabled nil)
+             :pycodestyle (:enabled t :maxLineLength 120)
+             :pydocstyle (:enabled nil)
+             :pylint (:enabled nil)
+             :rope (:enabled nil)))))
+#+end_src
+
+* Configuración para JavaScript / TypeScript
+
+** Instalar el servidor LSP
+
+#+begin_src sh
+npm install -g typescript typescript-language-server
+#+end_src
+
+** Configuración en init.el
+
+#+begin_src elisp
+(add-to-list 'eglot-server-programs
+             '((web-mode js-mode typescript-mode) "typescript-language-server" "--stdio"))
+#+end_src
+
+Asegurarse de que el binario está en el PATH:
+
+#+begin_src elisp
+(setenv "PATH" (mapconcat 'identity exec-path path-separator))
+(setq exec-path (append exec-path '("/usr/bin/typescript-language-server")))
+#+end_src
+
+** tsconfig.json / jsconfig.json
+
+El servidor TypeScript lee la configuración del proyecto desde ~tsconfig.json~ (TypeScript) o ~jsconfig.json~ (JavaScript puro). Ejemplo:
+
+#+begin_src json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"]
+    }
+  }
+}
+#+end_src
+
+* Resumen de teclas rápidas en Python
+
+| Atajo   | Acción                           |
+|---------+----------------------------------|
+| M-.     | Ir a definición                  |
+| M-,     | Volver de definición             |
+| M-?     | Buscar referencias               |
+| C-c C-d | Hover: información del símbolo   |
+| C-h .   | Abrir buffer de documentación    |
+| C-c C-a | Code actions                     |
+| C-c C-q | Quickfix                         |
+| C-x n n | Renombrar símbolo                |
+| C-c C-c | Ejecutar buffer de Python        |
+| C-c C-r | Ejecutar región seleccionada     |
+| C-c C-z | Ir al REPL de Python             |
+| C-x C-s | Guardar (formatea con Black)     |
+
+* Solución de problemas
+
+** pylsp no arranca / "terminated (killed)"
+
+Causa más común: falta el plugin ~python-lsp-black~ y está habilitado ~:black (:enabled t)~.
+
+Solución:
+#+begin_src sh
+pipx install python-lsp-black
+#+end_src
+
+O deshabilitar Black temporalmente en ~eglot-workspace-configuration~.
+
+** Eglot no se activa automáticamente
+
+Verificar que ~eglot-ensure~ está en el hook correcto:
+
+#+begin_src elisp
+:hook (python-mode . eglot-ensure)
+#+end_src
+
+Si se usa ~M-x eglot~ manualmente y funciona, el problema está en el hook.
+
+** Formateo al guardar no funciona
+
+Verificar que el hook está bien configurado:
+
+#+begin_src elisp
+(lambda () (add-hook 'before-save-hook (lambda () (eglot-format)) nil 'local))
+#+end_src
+
+El ~'local~ es clave: sin él, el formateo se aplicaría a todos los buffers.
+
+También verificar que ~eglot-format~ existe (debe estar en el built-in de Emacs 30+):
+
+#+begin_src elisp
+M-x describe-function RET eglot-format RET
+#+end_src

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Configuración de python y emacs para el curso python-ia">
+<link rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/">
+<title>Configuracion de python + emacs</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">30 may 2026</div><h1 class="post-title"><a href="https://martiyo.github.io/2026-05-30-configuracion-de-python-+-emacs.html">Configuracion de python + emacs</a></h1>
+<div id="outline-container-org6a7449b" class="outline-2">
+<h2 id="org6a7449b">Instalación de herramientas Python con pipx</h2>
+<div class="outline-text-2" id="text-org6a7449b">
+<p>
+Debian/Ubuntu usan PEP 668 (externally-managed-environment). No se puede instalar
+paquetes globales con pip directamente. La solución oficial es usar <code>pipx</code>.
+</p>
+</div>
+<div id="outline-container-org3a6a67e" class="outline-3">
+<h3 id="org3a6a67e">Instalar pipx</h3>
+<div class="outline-text-3" id="text-org3a6a67e">
+<div class="org-src-container">
+<pre class="src src-sh">sudo apt install pipx
+pipx ensurepath
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Cerrar y abrir la terminal, o ejecutar:
+</span><span style="color: #c678dd;">source</span> ~/.bashrc
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org92c1530" class="outline-3">
+<h3 id="org92c1530">Instalar herramientas del curso</h3>
+<div class="outline-text-3" id="text-org92c1530">
+<p>
+Cada herramienta se instala en su propio entorno virtual aislado:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">pipx install python-lsp-server[all]
+pipx install ruff
+pipx install pytest
+pipx install ipython
+pipx install mypy
+</pre>
+</div>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Paquete</th>
+<th scope="col" class="org-left">Propósito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">python-lsp-server[all]</td>
+<td class="org-left">Servidor LSP (autocompletado, linting)</td>
+</tr>
+
+<tr>
+<td class="org-left">ruff</td>
+<td class="org-left">Linter + formatter ultrarrápido</td>
+</tr>
+
+<tr>
+<td class="org-left">pytest</td>
+<td class="org-left">Testing</td>
+</tr>
+
+<tr>
+<td class="org-left">ipython</td>
+<td class="org-left">REPL interactivo mejorado</td>
+</tr>
+
+<tr>
+<td class="org-left">mypy</td>
+<td class="org-left">Type checking (opcional)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="outline-container-org9f8a7b4" class="outline-2">
+<h2 id="org9f8a7b4">Entorno virtual para proyectos del curso</h2>
+<div class="outline-text-2" id="text-org9f8a7b4">
+<p>
+Se crea un <code>venv</code> por proyecto dentro del propio directorio:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">mkdir -p ~/projects/curso-python
+<span style="color: #c678dd;">cd</span> ~/projects/curso-python
+python3.11 -m venv .venv
+<span style="color: #c678dd;">echo</span> <span style="color: #98be65;">".venv"</span> &gt;&gt; .gitignore
+</pre>
+</div>
+
+<p>
+Para activarlo manualmente:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #c678dd;">source</span> .venv/bin/activate
+</pre>
+</div>
+
+<p>
+Los paquetes propios del proyecto (no herramientas) se instalan así:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">pip install numpy pandas requests  <span style="color: #5B6268;"># </span><span style="color: #5B6268;">ejemplo</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org38811cf" class="outline-2">
+<h2 id="org38811cf">Configuración de Emacs</h2>
+<div class="outline-text-2" id="text-org38811cf">
+<p>
+Se añade al archivo <code>/home/martin/.emacs.d/init.el</code>.
+</p>
+</div>
+<div id="outline-container-org478e4f8" class="outline-3">
+<h3 id="org478e4f8">Python mode (uso del built-in)</h3>
+<div class="outline-text-3" id="text-org478e4f8">
+<p>
+Emacs 30 incluye <code>python.el</code> de serie. Se configura así:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Python
+</span><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">======
+</span>(<span style="color: #51afef;">use-package</span> python
+  <span style="color: #c678dd;">:delight</span>
+  <span style="color: #c678dd;">:custom</span>
+  (python-shell-interpreter <span style="color: #98be65;">"python3.11"</span>)
+  (python-shell-interpreter-args <span style="color: #98be65;">"-i"</span>)
+  <span style="color: #c678dd;">:hook</span> (python-mode . eglot-ensure)
+  <span style="color: #c678dd;">:config</span>
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Ejecutar buffer con C-c C-c
+</span>  (define-key python-mode-map (kbd <span style="color: #98be65;">"C-c C-c"</span>) 'python-shell-send-buffer)
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Enviar regi&#243;n seleccionada
+</span>  (define-key python-mode-map (kbd <span style="color: #98be65;">"C-c C-r"</span>) 'python-shell-send-region)
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Abrir/ir al REPL
+</span>  (define-key python-mode-map (kbd <span style="color: #98be65;">"C-c C-z"</span>) 'python-shell-switch-to-shell)
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Evaluar expresi&#243;n antes del punto
+</span>  (define-key python-mode-map (kbd <span style="color: #98be65;">"C-c C-e"</span>) 'python-shell-send-statement))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0b0b44b" class="outline-3">
+<h3 id="org0b0b44b">Ruff: linter + formatter al guardar</h3>
+<div class="outline-text-3" id="text-org0b0b44b">
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Ruff (formateo autom&#225;tico al guardar)
+</span>(<span style="color: #51afef;">use-package</span> ruff-format
+  <span style="color: #c678dd;">:ensure</span> t
+  <span style="color: #c678dd;">:hook</span> (python-mode . ruff-format-on-save-mode))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb45608d" class="outline-3">
+<h3 id="orgb45608d">Virtualenv automático con pyvenv</h3>
+<div class="outline-text-3" id="text-orgb45608d">
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Virtualenv autom&#225;tico
+</span>(<span style="color: #51afef;">use-package</span> pyvenv
+  <span style="color: #c678dd;">:ensure</span> t
+  <span style="color: #c678dd;">:config</span>
+  (<span style="color: #51afef;">setq</span> pyvenv-mode t)
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Activar .venv autom&#225;ticamente al abrir archivos en el proyecto
+</span>  (<span style="color: #51afef;">setq</span> pyvenv-work-on-project-mode t))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge41bd14" class="outline-3">
+<h3 id="orge41bd14">requirements.txt</h3>
+<div class="outline-text-3" id="text-orge41bd14">
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">requirements.txt
+</span>(<span style="color: #51afef;">use-package</span> pip-requirements
+  <span style="color: #c678dd;">:ensure</span> t
+  <span style="color: #c678dd;">:mode</span> (<span style="color: #98be65;">"requirements\\.txt\\'"</span> . pip-requirements-mode))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3779e8d" class="outline-3">
+<h3 id="org3779e8d">Eglot (LSP) — vincular pylsp con Python</h3>
+<div class="outline-text-3" id="text-org3779e8d">
+<p>
+Buscar el bloque de <code>eglot</code> existente en <code>init.el</code> (ya debe haber uno para TypeScript/Rust)
+y añadir la entrada de Python:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(add-to-list 'eglot-server-programs
+             '(python-mode . (<span style="color: #98be65;">"pylsp"</span>)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdb95308" class="outline-3">
+<h3 id="orgdb95308">Dired — mostrar <code>.venv</code> oculto por defecto (opcional)</h3>
+<div class="outline-text-3" id="text-orgdb95308">
+<p>
+Para que Dired no muestre el directorio <code>.venv</code> a menos que se pida explícitamente:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">with-eval-after-load</span> 'dired
+  (add-to-list 'dired-omit-extensions <span style="color: #98be65;">".venv"</span>)
+  (<span style="color: #51afef;">setq</span> dired-omit-files (concat dired-omit-files <span style="color: #98be65;">"</span><span style="color: #51afef; font-weight: bold;">\\</span><span style="color: #51afef; font-weight: bold;">|</span><span style="color: #98be65;">^.venv$"</span>))
+  (add-hook 'dired-mode-hook 'dired-omit-mode))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf57b485" class="outline-2">
+<h2 id="orgf57b485">Verificación de la configuración</h2>
+<div class="outline-text-2" id="text-orgf57b485">
+<p>
+Al abrir <code>hola.py</code> en Emacs debe ocurrir:
+</p>
+
+<ol class="org-ol">
+<li><code>pyvenv</code> activa <code>.venv</code> automáticamente (se ve en el mode-line, si doom-modeline está configurado)</li>
+<li><code>eglot</code> se inicia (se puede verificar con <code>M-x eglot</code>)</li>
+<li><code>ruff-format</code> formatea al guardar (<code>C-x C-s</code>)</li>
+<li><code>C-c C-c</code> ejecuta el buffer de Python</li>
+</ol>
+
+<p>
+Para comprobar que todo funciona:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #c678dd;">echo</span> <span style="color: #98be65;">'print("Hola, mundo!")'</span> &gt; ~/projects/curso-python/hola.py
+<span style="color: #c678dd;">echo</span> <span style="color: #98be65;">'import sys
+print(sys.version)
+
+def suma(a, b):
+    return a + b
+
+assert suma(2, 3) == 5
+print("Prueba OK")'</span> &gt; ~/projects/curso-python/test_hola.py
+</pre>
+</div>
+
+<p>
+Luego abrir <code>hola.py</code> en Emacs y probar las teclas rápidas.
+</p>
+</div>
+</div>
+<div id="outline-container-org8dd97e1" class="outline-2">
+<h2 id="org8dd97e1">Resumen de teclas rápidas en Python</h2>
+<div class="outline-text-2" id="text-org8dd97e1">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Atajo</th>
+<th scope="col" class="org-left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">C-c C-c</td>
+<td class="org-left">Ejecutar buffer completo</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-r</td>
+<td class="org-left">Ejecutar región seleccionada</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-z</td>
+<td class="org-left">Ir al REPL de Python</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-e</td>
+<td class="org-left">Evaluar expresión actual</td>
+</tr>
+
+<tr>
+<td class="org-left">C-x C-s</td>
+<td class="org-left">Guardar (activa ruff-format)</td>
+</tr>
+
+<tr>
+<td class="org-left">M-.</td>
+<td class="org-left">Ir a definición (eglot)</td>
+</tr>
+
+<tr>
+<td class="org-left">M-?</td>
+<td class="org-left">Referencias (eglot)</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-q</td>
+<td class="org-left">Formatear con ruff (manual)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orge52a7f2" class="outline-2">
+<h2 id="orge52a7f2">Notas adicionales</h2>
+<div class="outline-text-2" id="text-orge52a7f2">
+<ul class="org-ul">
+<li>Si se quiere usar <code>black</code> en lugar de <code>ruff</code> para formatear, instalar <code>black</code> con pipx
+y usar el paquete Emacs <code>blacken</code> en vez de <code>ruff-format</code>.</li>
+<li>Para debugging: <code>pipx install pdbpp</code> para un <code>pdb</code> mejorado.</li>
+<li>Si el proyecto necesita <code>numpy</code>, <code>pandas</code>, etc., se instalan dentro del <code>.venv</code>
+del proyecto con <code>pip install</code>.</li>
+</ul>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-programacion.html">programacion</a> <a href="https://martiyo.github.io/tag-python.html">python</a> <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/">
+<title>fstab</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">12 feb 2019</div><h1 class="post-title"><a href="https://martiyo.github.io/2019-02-12-fstab.html">fstab</a></h1>
+<p>
+Cuando el sistema arranca lee el archivo /etc/fstab&#x2026;
+</p>
+<div id="outline-container-orgf08bab2" class="outline-2">
+<h2 id="orgf08bab2"># El archivo /etc/fstab</h2>
+<div class="outline-text-2" id="text-orgf08bab2">
+<p>
+Todo dispositivo que se vaya a usar en un sistema linux tiene que estar
+previamente montado, lo que significa que se debe asociar un dispositivo
+que se encuentra en el directorio <b>/dev</b> con un punto de montaje,
+generalmente un directorio.
+</p>
+
+<p>
+Cuando el sistema arranca lee el archivo <b>/etc/fstab</b> el cual indica a
+que dispositivo le corresponde cada directorio del sistema.
+</p>
+
+<p>
+Ejemplo de <b>/etc/fstab</b>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil"># /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;
+# / was on /dev/sda5 during installation
+UUID=f4783e9f-ff17-4cb8-8245-c97d48ac41b7 /               ext4    errors=remount-ro 0       1
+# /home was on /dev/sda6 during installation
+UUID=dd3318ed-146c-403c-be63-bdc6c4bbbff7 /home           ext4    defaults        0       2
+
+#/home/martin/datos  on /dev/sda7 during installation
+#UUID=020D8B5B4957D2D4 /home/martin/datos               ntfs-3g   0      2  
+
+#/home/martin/storage on /dev/sdb1 during installation
+UUID=48560E6A0257F888 /home/martin/storage             ntfs-3g   0     0 
+
+#pendrive
+/dev/sdc1       /media/usb0     auto    user,noauto     0       0    
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd791e19" class="outline-2">
+<h2 id="orgd791e19"># Sintaxis</h2>
+<div class="outline-text-2" id="text-orgd791e19">
+<ul class="org-ul">
+<li>Dispositivo</li>
+<li>Punto de montaje</li>
+<li>Tipo de file system</li>
+<li>Indica si se monta o no durante el arranque y con que permisos
+
+<ul class="org-ul">
+<li>defaults: montado durante el arranque</li>
+<li>noauto: no se monta durante el arranque</li>
+</ul></li>
+</ul>
+
+<p>
+Luego escribe la tabla de montaje definitiva guardada en <b>/etc/mtab</b>
+(tabla de montaje). Para hacer esto utiliza el comando <b>mount</b>. Este
+comando lanzado sin parámetros muestra los dispositivos y sus puntos de
+montaje, leídos desde <b>/etc/mtab</b>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">~ $ mount
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+udev on /dev type devtmpfs (rw,nosuid,relatime,size=1756024k,nr_inodes=439006,mode=755)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,noexec,relatime,size=353452k,mode=755)
+/dev/sdb5 on / type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k)
+pstore on /sys/fs/pstore type pstore (rw,relatime)
+tmpfs on /run/shm type tmpfs (rw,nosuid,nodev,noexec,relatime,size=706900k)
+fusectl on /sys/fs/fuse/connections type fusectl (rw,relatime)
+binfmt_misc on /proc/sys/fs/binfmt_misc type binfmt_misc (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /sys/fs/cgroup type tmpfs (rw,nosuid,nodev,noexec,mode=755)
+cgroup on /sys/fs/cgroup/elogind type cgroup (rw,nosuid,nodev,noexec,relatime,xattr,release_agent=/usr/lib/elogind/elogind-cgroups-agent,name=elogind)
+/dev/sdb6 on /home type ext4 (rw,relatime,data=ordered)
+tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,size=353448k,mode=700,uid=1000,gid=1000)
+/dev/sda1 on /home/martin/storage type fuseblk (rw,relatime,user_id=0,group_id=0,allow_other,blksize=4096)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org072b9ed" class="outline-2">
+<h2 id="org072b9ed"># El comando mount</h2>
+<div class="outline-text-2" id="text-org072b9ed">
+<p>
+Mount necesita por lo menos tres parámetros:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-nil">mount -t &lt;tipo de sistema de archivo&gt;&lt;dispositivo a usar&gt;&lt;punto de montaje&gt;
+</pre>
+</div>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
+</html>

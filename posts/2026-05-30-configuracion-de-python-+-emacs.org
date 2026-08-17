@@ -1,0 +1,188 @@
+#+title: Configuracion de python + emacs
+#+date: <2026-05-30 22:50>
+#+description: Configuración de python y emacs para el curso python-ia
+#+filetags: programacion python emacs
+
+* Instalación de herramientas Python con pipx
+
+Debian/Ubuntu usan PEP 668 (externally-managed-environment). No se puede instalar
+paquetes globales con pip directamente. La solución oficial es usar ~pipx~.
+
+** Instalar pipx
+
+#+begin_src sh
+sudo apt install pipx
+pipx ensurepath
+# Cerrar y abrir la terminal, o ejecutar:
+source ~/.bashrc
+#+end_src
+
+** Instalar herramientas del curso
+
+Cada herramienta se instala en su propio entorno virtual aislado:
+
+#+begin_src sh
+pipx install python-lsp-server[all]
+pipx install ruff
+pipx install pytest
+pipx install ipython
+pipx install mypy
+#+end_src
+
+| Paquete                     | Propósito                                 |
+|-----------------------------+-------------------------------------------|
+| python-lsp-server[all]      | Servidor LSP (autocompletado, linting)    |
+| ruff                        | Linter + formatter ultrarrápido           |
+| pytest                      | Testing                                   |
+| ipython                     | REPL interactivo mejorado                 |
+| mypy                        | Type checking (opcional)                  |
+
+* Entorno virtual para proyectos del curso
+
+Se crea un ~venv~ por proyecto dentro del propio directorio:
+
+#+begin_src sh
+mkdir -p ~/projects/curso-python
+cd ~/projects/curso-python
+python3.11 -m venv .venv
+echo ".venv" >> .gitignore
+#+end_src
+
+Para activarlo manualmente:
+
+#+begin_src sh
+source .venv/bin/activate
+#+end_src
+
+Los paquetes propios del proyecto (no herramientas) se instalan así:
+
+#+begin_src sh
+pip install numpy pandas requests  # ejemplo
+#+end_src
+
+* Configuración de Emacs
+
+Se añade al archivo ~/home/martin/.emacs.d/init.el~.
+
+** Python mode (uso del built-in)
+
+Emacs 30 incluye ~python.el~ de serie. Se configura así:
+
+#+begin_src elisp
+;; Python
+;; ======
+(use-package python
+  :delight
+  :custom
+  (python-shell-interpreter "python3.11")
+  (python-shell-interpreter-args "-i")
+  :hook (python-mode . eglot-ensure)
+  :config
+  ;; Ejecutar buffer con C-c C-c
+  (define-key python-mode-map (kbd "C-c C-c") 'python-shell-send-buffer)
+  ;; Enviar región seleccionada
+  (define-key python-mode-map (kbd "C-c C-r") 'python-shell-send-region)
+  ;; Abrir/ir al REPL
+  (define-key python-mode-map (kbd "C-c C-z") 'python-shell-switch-to-shell)
+  ;; Evaluar expresión antes del punto
+  (define-key python-mode-map (kbd "C-c C-e") 'python-shell-send-statement))
+#+end_src
+
+** Ruff: linter + formatter al guardar
+
+#+begin_src elisp
+;; Ruff (formateo automático al guardar)
+(use-package ruff-format
+  :ensure t
+  :hook (python-mode . ruff-format-on-save-mode))
+#+end_src
+
+** Virtualenv automático con pyvenv
+
+#+begin_src elisp
+;; Virtualenv automático
+(use-package pyvenv
+  :ensure t
+  :config
+  (setq pyvenv-mode t)
+  ;; Activar .venv automáticamente al abrir archivos en el proyecto
+  (setq pyvenv-work-on-project-mode t))
+#+end_src
+
+** requirements.txt
+
+#+begin_src elisp
+;; requirements.txt
+(use-package pip-requirements
+  :ensure t
+  :mode ("requirements\\.txt\\'" . pip-requirements-mode))
+#+end_src
+
+** Eglot (LSP) — vincular pylsp con Python
+
+Buscar el bloque de ~eglot~ existente en ~init.el~ (ya debe haber uno para TypeScript/Rust)
+y añadir la entrada de Python:
+
+#+begin_src elisp
+(add-to-list 'eglot-server-programs
+             '(python-mode . ("pylsp")))
+#+end_src
+
+** Dired — mostrar ~.venv~ oculto por defecto (opcional)
+
+Para que Dired no muestre el directorio ~.venv~ a menos que se pida explícitamente:
+
+#+begin_src elisp
+(with-eval-after-load 'dired
+  (add-to-list 'dired-omit-extensions ".venv")
+  (setq dired-omit-files (concat dired-omit-files "\\|^.venv$"))
+  (add-hook 'dired-mode-hook 'dired-omit-mode))
+#+end_src
+
+* Verificación de la configuración
+
+Al abrir ~hola.py~ en Emacs debe ocurrir:
+
+1. ~pyvenv~ activa ~.venv~ automáticamente (se ve en el mode-line, si doom-modeline está configurado)
+2. ~eglot~ se inicia (se puede verificar con ~M-x eglot~)
+3. ~ruff-format~ formatea al guardar (~C-x C-s~)
+4. ~C-c C-c~ ejecuta el buffer de Python
+
+Para comprobar que todo funciona:
+
+#+begin_src sh
+echo 'print("Hola, mundo!")' > ~/projects/curso-python/hola.py
+echo 'import sys
+print(sys.version)
+
+def suma(a, b):
+    return a + b
+
+assert suma(2, 3) == 5
+print("Prueba OK")' > ~/projects/curso-python/test_hola.py
+#+end_src
+
+Luego abrir ~hola.py~ en Emacs y probar las teclas rápidas.
+
+* Resumen de teclas rápidas en Python
+
+| Atajo     | Acción                              |
+|-----------+-------------------------------------|
+| C-c C-c   | Ejecutar buffer completo            |
+| C-c C-r   | Ejecutar región seleccionada        |
+| C-c C-z   | Ir al REPL de Python                |
+| C-c C-e   | Evaluar expresión actual            |
+| C-x C-s   | Guardar (activa ruff-format)        |
+| M-.       | Ir a definición (eglot)             |
+| M-?       | Referencias (eglot)                 |
+| C-c C-q   | Formatear con ruff (manual)         |
+
+* Notas adicionales
+
+- Si se quiere usar ~black~ en lugar de ~ruff~ para formatear, instalar ~black~ con pipx
+  y usar el paquete Emacs ~blacken~ en vez de ~ruff-format~.
+- Para debugging: ~pipx install pdbpp~ para un ~pdb~ mejorado.
+- Si el proyecto necesita ~numpy~, ~pandas~, etc., se instalan dentro del ~.venv~
+  del proyecto con ~pip install~.
+
+

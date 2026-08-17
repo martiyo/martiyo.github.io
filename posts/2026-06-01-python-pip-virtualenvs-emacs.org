@@ -1,0 +1,140 @@
+#+title: python-pip-virtualenvs-emacs
+#+date: <2026-06-01 17:49>
+#+description: 
+#+filetags: programacion python emacs
+
+Entornos virtuales de python y su uso en emacs + pip y pipx
+
+* ¿Qué es un venv?
+
+Entorno Python aislado con su propio ~pip~ y ~site-packages~. Los paquetes
+instalados dentro no afectan al sistema ni a otros proyectos.
+
+* Crear y activar un venv (terminal)
+
+#+begin_src sh
+cd ~/projects/mi-proyecto
+python3.11 -m venv .venv        # crear
+source .venv/bin/activate       # activar
+pip install requests            # instalar dentro del venv
+deactivate                      # salir del venv
+#+end_src
+
+Sin activar, se puede usar directamente:
+
+#+begin_src sh
+.venv/bin/pip install requests
+#+end_src
+
+* Usar venv en Emacs
+
+** pyvenv-activate (manual)
+
+Con el archivo .py abierto:
+
+1. ~M-x pyvenv-activate~
+2. Seleccionar el directorio ~.venv~ del proyecto
+3. ~M-x python-shell-restart~ (para que el REPL use el Python del venv)
+4. Ejecutar con ~C-c C-c~
+
+** pyvenv-work-on-project-mode (automático)
+
+Si el proyecto tiene un directorio ~.venv~/ en su raíz, pyvenv lo activa solo
+al abrir archivos del proyecto.
+
+Verificar qué Python está usando Emacs:
+
+~M-x python-shell-send-string RET import sys; sys.executable~
+
+** pyvenv-deactivate
+
+Para salir del venv desde Emacs: ~M-x pyvenv-deactivate~
+      
+* pip vs pipx
+
+** pip (gestor de paquetes Python)
+
+- Instala paquetes en el entorno actual (sistema o venv)
+- No aísla: los paquetes comparten el mismo ~site-packages~
+- En Debian/Ubuntu no se puede usar fuera de un venv (PEP 668)
+
+** pipx (gestor de aplicaciones Python)
+
+- Instala cada herramienta en su propio venv aislado automáticamente
+- Crea accesos directos en ~/.local/bin/~
+- Para herramientas que usas como comando (~ruff~, ~pylsp~, ~ipython~, ~pytest~)
+- Ideal para herramientas de desarrollo, no para librerías de proyecto
+
+** Comparativa
+
+| Acción | pip | pipx |
+|--------+-----+------|
+| Instalar ~requests~ | ~pip install requests~ (en venv) | ❌ No es para librerías |
+| Instalar ~ruff~ | ~pip install ruff~ (en venv) | ~pipx install ruff~ |
+| Instalar ~pandas~ | ~pip install pandas~ (en venv) | ❌ No es para librerías |
+| Instalar ~pylsp~ | ~pip install python-lsp-server~ | ~pipx install python-lsp-server~ |
+      
+* Cómo instalar: global vs venv
+
+** Instalación global (sistema)
+
+En Debian/Ubuntu:
+- Con paquetes del sistema: ~sudo apt install python3-requests~
+- Con pipx: ~pipx install~ (solo herramientas, cada una aislada)
+- Con pip directo: **No disponible** (PEP 668 bloquea)
+
+** Instalación dentro de un venv (proyecto)
+
+Es la forma normal de instalar librerías de proyecto:
+
+#+begin_src sh
+cd ~/projects/mi-proyecto
+source .venv/bin/activate
+pip install requests pandas flask
+#+end_src
+
+Los paquetes quedan en ~.venv/lib/python3.11/site-packages/~, aislados
+del sistema.
+
+** pipx: instalación "global pero aislada"
+
+Cada herramienta va a ~/./local/pipx/venvs/<nombre>/~:
+
+#+begin_src sh
+pipx install ruff              → ~/.local/pipx/venvs/ruff/
+pipx install python-lsp-server → ~/.local/pipx/venvs/python-lsp-server/
+#+end_src
+
+Los ejecutables se enlazan a ~/.local/bin/~ (que debe estar en el ~PATH~).
+
+** Dónde acaba cada paquete según el método
+
+| Método | Destino | Uso |
+|--------+---------+-----|
+| ~pip install~ (venv) | ~.venv/lib/python3.11/site-packages/~ | Librerías del proyecto |
+| ~pipx install~ | ~/.local/pipx/venvs/<tool>/lib/python3.11/site-packages/~ | Herramientas CLI |
+| ~apt install python3-xyz~ | ~/usr/lib/python3/dist-packages/~ | Paquetes del sistema |
+
+* Regla práctica
+
+| Qué quiero instalar | Método |
+|---------------------+--------|
+| ~ruff~ (linter) | ~pipx install~ |
+| ~python-lsp-server~ (LSP) | ~pipx install~ |
+| ~pytest~ (testing) | ~pipx install~ |
+| ~ipython~ (REPL) | ~pipx install~ |
+| ~black~ (formatter) | ~pipx install~ |
+| ~mypy~ (type checker) | ~pipx install~ |
+| ~requests~, ~pandas~, ~numpy~, ~flask~ | ~pip install~ en el venv del proyecto |
+| ~django~, ~fastapi~, ~sqlalchemy~ | ~pip install~ en el venv del proyecto |
+| Cualquier librería que importes en tu código | ~pip install~ en el venv del proyecto |
+
+* Listar lo instalado
+
+#+begin_src sh
+pip list                # paquetes del venv actual (o sistema)
+pipx list               # todas las herramientas pipx
+pip3.11 list --user     # paquetes del usuario (no funcional en Debian por PEP 668)
+#+end_src
+
+* Eliminar paquetes

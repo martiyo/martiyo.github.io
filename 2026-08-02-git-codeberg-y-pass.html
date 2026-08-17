@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Configurar codeberg, git y pass para autenticar con un token cifrado">
+<link rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/">
+<title>Git remoto con Codeberg y gestor de contraseñas pass</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">02 ago 2026</div><h1 class="post-title"><a href="https://martiyo.github.io/2026-08-02-git-codeberg-y-pass.html">Git remoto con Codeberg y gestor de contraseñas pass</a></h1>
+<p>
+Configuración completa para versionar un proyecto en Codeberg usando git local y
+autenticar los push/fetch con el token guardado en el gestor de contraseñas
+`pass` (cifrado con GPG), en lugar de tenerlo en texto plano.
+</p>
+
+<p>
+Resumen de lo visto: cómo crear el entorno virtual, inicializar el repo, subir a
+Codeberg y cambiar la autenticación de `git credential store` (texto plano) a
+`pass-git-helper` (cifrado con GPG).
+</p>
+<div id="outline-container-org2e278c5" class="outline-2">
+<h2 id="org2e278c5">Crear el entorno virtual del proyecto</h2>
+<div class="outline-text-2" id="text-org2e278c5">
+<p>
+Es buen hábito crear un venv propio por proyecto para llevar un control de
+dependencias limpio:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #c678dd;">cd</span> ~/storage/dev/python/streamlit/workDaySync
+python3 -m venv .venv
+<span style="color: #c678dd;">source</span> .venv/bin/activate
+pip install streamlit streamlit-calendar pandas
+</pre>
+</div>
+
+<p>
+Nota: si la conexión es lenta, pip puede abortar la descarga de wheels grandes
+(como `pyarrow`, 48 MB) por su timeout. Se puede descargar el wheel con
+`curl` y luego instalar desde el archivo local:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">curl -L -o pyarrow-24.0.0-cp311-cp311-manylinux_2_28_x86_64.whl <span style="color: #98be65;">\</span>
+  https://files.pythonhosted.org/.../pyarrow-24.0.0-cp311-cp311-manylinux_2_28_x86_64.whl
+./.venv/bin/pip install ./pyarrow-24.0.0-cp311-cp311-manylinux_2_28_x86_64.whl
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org73c8bff" class="outline-2">
+<h2 id="org73c8bff">Crear el archivo .gitignore</h2>
+<div class="outline-text-2" id="text-org73c8bff">
+<p>
+Ignora entornos, caches de Python y datos locales del usuario:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">.venv/
+__pycache__/
+*.py[cod]
+.streamlit/
+data/
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb5e74e6" class="outline-2">
+<h2 id="orgb5e74e6">Iniciar el repositorio git</h2>
+<div class="outline-text-2" id="text-orgb5e74e6">
+<div class="org-src-container">
+<pre class="src src-sh">$ git init -b main
+$ git add -A
+$ git commit -m <span style="color: #98be65;">"workDaySync: app Streamlit multip&#225;gina"</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org60eb93f" class="outline-2">
+<h2 id="org60eb93f">Crear el repo en Codeberg y conectar el remote</h2>
+<div class="outline-text-2" id="text-org60eb93f">
+<p>
+Se crea el repo vacío en <a href="https://codeberg.org">https://codeberg.org</a> (o con la API) y se añade el remote:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">git remote add origin https://codeberg.org/USUARIO/workDaySync.git
+</pre>
+</div>
+
+<p>
+Verificar el remote:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">git remote -v
+git ls-remote --heads origin
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0332c50" class="outline-2">
+<h2 id="org0332c50">Subir (push) inicial</h2>
+<div class="outline-text-2" id="text-org0332c50">
+<div class="org-src-container">
+<pre class="src src-sh">git push -u origin main
+</pre>
+</div>
+
+<p>
+La primera vez Codeberg pide autenticación. No se usa la contraseña de la cuenta
+sino un token de acceso personal (Settings → Applications → Generate new
+token).
+</p>
+</div>
+</div>
+<div id="outline-container-org1a1e6eb" class="outline-2">
+<h2 id="org1a1e6eb">Autenticación: de texto plano a pass</h2>
+<div class="outline-text-2" id="text-org1a1e6eb">
+</div>
+<div id="outline-container-orgad2da2c" class="outline-3">
+<h3 id="orgad2da2c">El problema del helper store</h3>
+<div class="outline-text-3" id="text-orgad2da2c">
+<p>
+Con `git config credential.helper store` git guarda las credenciales en
+`~/.git-credentials` en texto plano. Funciona pero expone el token.
+</p>
+</div>
+</div>
+<div id="outline-container-org54ec386" class="outline-3">
+<h3 id="org54ec386">Solución con pass + pass-git-helper</h3>
+<div class="outline-text-3" id="text-org54ec386">
+<p>
+La alternativa es usar el gestor de contraseñas `pass` (que cifra con GPG) y un
+helper que asocie el dominio de git con una entrada. Se necesita:
+</p>
+
+<ul class="org-ul">
+<li>`pass-git-helper` (instalado con apt).</li>
+<li>Una entrada en `pass` cuyo `password` (primera línea) sea el token.</li>
+<li>Un archivo de mapping que asocie `codeberg.org` con esa entrada.</li>
+<li>Cambiar el helper de git y limpiar el remote y `~/.git-credentials`.</li>
+</ul>
+
+<p>
+Instalar el helper:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">sudo apt-get install -y pass-git-helper
+</pre>
+</div>
+
+<p>
+Crear la entrada en pass con el token (pide el passphrase de GPG para cifrar):
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #c678dd;">echo</span> <span style="color: #98be65;">'TOKEN_CODIDO'</span> | pass insert -m codeberg-git
+</pre>
+</div>
+
+<p>
+Crear el mapping `~/.config/pass-git-helper/git-pass-mapping.ini`:
+</p>
+<div class="org-src-container">
+<pre class="src src-ini">[codeberg.org]
+target=codeberg-git
+</pre>
+</div>
+
+<p>
+Configurar git para usar el helper y limpiar las credenciales en texto plano:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">git config credential.helper <span style="color: #98be65;">'!f() { echo "username=martinc2688"; pass-git-helper "$@"; }; f'</span>
+git remote set-url origin https://codeberg.org/martinc2688/workDaySync.git
+rm -f ~/.git-credentials
+</pre>
+</div>
+
+<p>
+Probar que la autenticación funciona:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">git fetch origin
+</pre>
+</div>
+
+<p>
+Desde ahora, cada operación git desencripta el token de `pass` (pidiendo el
+passphrase de GPG o usando el mejor agente) y ya no hay ningún secreto en texto
+plano en el sistema.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org944a9e9" class="outline-2">
+<h2 id="org944a9e9">Conclusión</h2>
+<div class="outline-text-2" id="text-org944a9e9">
+<ul class="org-ul">
+<li>Entorno virtual por proyecto para control limpio de dependencias.</li>
+<li>Versión con git y remote en Codeberg.</li>
+<li>Autenticación segura con `pass` + GPG, evitando tokens en texto plano.</li>
+<li>En futuros push de este repo ya no se necesita ninguna configuración manual.</li>
+</ul>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-git.html">git</a> <a href="https://martiyo.github.io/tag-codeberg.html">codeberg</a> <a href="https://martiyo.github.io/tag-pasgpg.html">pasGpg</a> <a href="https://martiyo.github.io/tag-linux.html">linux</a> <a href="https://martiyo.github.io/tag-seguridad.html">seguridad</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
+</html>

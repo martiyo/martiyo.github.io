@@ -29,11 +29,9 @@
 <br/>
 </div></div>
 <div id="content">
-<h1 class="title">Posts tagged "vpn":</h1><h2 class="post-title"><a href="https://martiyo.github.io/2026-01-08-nextcloud-en-devuan.html">Nextcloud en devuan</a></h2><div class="post-date">08 ene 2026</div><p>
-            Instalación de Nextcloud en servidor Devuan con acceso remoto
-            mediante Tailscale VPN, sin necesidad de configurar port forwarding
-            en el modem del ISP.
-          </p>(...)<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-red.html">red</a> <a href="https://martiyo.github.io/tag-linux.html">linux</a> <a href="https://martiyo.github.io/tag-servidores.html">servidores</a> <a href="https://martiyo.github.io/tag-nextcloud.html">nextcloud</a> <a href="https://martiyo.github.io/tag-tailscale.html">tailscale</a> <a href="https://martiyo.github.io/tag-vpn.html">vpn</a> </div><div id="archive">
+<h1 class="title">Posts tagged "terminal":</h1><h2 class="post-title"><a href="https://martiyo.github.io/2026-06-06-conectar-a-ftp-en-android.html">Conectar-a-ftp-en-Android</a></h2><div class="post-date">06 jun 2026</div><p>
+Conectarse al servidor ftp de android desde la terminal.
+</p><div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-terminal.html">terminal</a> <a href="https://martiyo.github.io/tag-ftp.html">ftp</a> </div><div id="archive">
 <a href="https://martiyo.github.io/archive.html">Other posts</a>
 </div>
 </div>

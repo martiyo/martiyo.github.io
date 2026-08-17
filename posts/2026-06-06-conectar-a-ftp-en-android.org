@@ -1,0 +1,56 @@
+#+title: Conectar-a-ftp-en-Android
+#+date: <2026-06-06 18:49>
+#+description: 
+#+filetags: terminal ftp
+
+Conectarse al servidor ftp de android desde la terminal.
+
+* Servidor FTP en Android
+** Datos de conexión
+- Host: 192.168.x.x
+- Puerto: x
+- Usuario/Pass: (el que hayas configurado)
+
+* Subir archivos
+** Interactivo (ftp)
+#+BEGIN_SRC bash
+ftp 192.168.1.206 3721
+  put archivo.txt          # subir un archivo
+  put /ruta/local/archivo.zip    # subir desde ruta específica
+  mput *.jpg               # subir múltiples archivos
+  bye                      # salir
+#+END_SRC
+
+** Una línea (curl)
+#+BEGIN_SRC bash
+curl -T archivo.txt ftp://192.168.1.206:3721/ --user usuario:contraseña
+curl -T archivo.txt ftp://192.168.1.206:3721/ --user anonymous:
+#+END_SRC
+
+* Descargar archivos
+** Interactivo (ftp)
+#+BEGIN_SRC bash
+ftp 192.168.1.206 3721
+  get archivo.txt                  # descargar un archivo
+  get archivo.zip /ruta/local/     # descargar a ruta específica
+  mget *.jpg                       # descargar múltiples archivos
+  prompt                           # desactivar confirmación en mget/mput
+  bye
+#+END_SRC
+
+** Una línea (curl)
+#+BEGIN_SRC bash
+curl -O ftp://192.168.1.206:3721/archivo.txt --user usuario:contraseña
+curl -o /ruta/local/archivo.txt ftp://192.168.1.206:3721/archivo.txt --user usuario:contraseña
+#+END_SRC
+
+* Descarga recursiva (wget)
+#+BEGIN_SRC bash
+wget -r ftp://usuario:contraseña@192.168.1.206:3721/
+#+END_SRC
+
+* Notas
+- El puerto y host dependen de la app FTP en Android
+- Para modo anónimo, usuario = ~anonymous~, contraseña = vacía o email
+  
+  

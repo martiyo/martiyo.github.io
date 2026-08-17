@@ -33,9 +33,9 @@
 <p>
 Un rejunte de cosas útiles que voy encontrando por ahí&#x2026;
 </p>
-<div id="outline-container-org2ef91b4" class="outline-2">
-<h2 id="org2ef91b4">Eliminar kernels viejos</h2>
-<div class="outline-text-2" id="text-org2ef91b4">
+<div id="outline-container-org5507efa" class="outline-2">
+<h2 id="org5507efa">Eliminar kernels viejos</h2>
+<div class="outline-text-2" id="text-org5507efa">
 <ul class="org-ul">
 <li>Verificar que kernel se está usando, con esto se cual es el que debo
 dejar instalado.</li>
@@ -57,7 +57,7 @@ no sirven:</li>
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-sh"># dpkg --get-selections | grep linux-image
+<pre class="src src-sh"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">dpkg --get-selections | grep linux-image</span>
 </pre>
 </div>
 
@@ -77,15 +77,15 @@ se esta usando</li>
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-sh">#apt-get remove -purge linux-image-2.6.26-1-686
+<pre class="src src-sh"><span style="color: #5B6268;">#</span><span style="color: #5B6268;">apt-get remove -purge linux-image-2.6.26-1-686</span>
 </pre>
 </div>
 </div>
-<div id="outline-container-orgac4ea05" class="outline-3">
-<h3 id="orgac4ea05">Otra forma de hacer todo lo anterior es:</h3>
-<div class="outline-text-3" id="text-orgac4ea05">
+<div id="outline-container-orga2b5840" class="outline-4">
+<h4 id="orga2b5840">Otra forma de hacer todo lo anterior es:</h4>
+<div class="outline-text-4" id="text-orga2b5840">
 <div class="org-src-container">
-<pre class="src src-sh"># aptitude search linux-image | grep ^i
+<pre class="src src-sh"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">aptitude search linux-image | grep ^i</span>
 </pre>
 </div>
 
@@ -117,26 +117,26 @@ a eliminar:
 </div>
 </div>
 </div>
-<div id="outline-container-orgc1f1e52" class="outline-2">
-<h2 id="orgc1f1e52">Uuid</h2>
-<div class="outline-text-2" id="text-orgc1f1e52">
+<div id="outline-container-org2fac926" class="outline-2">
+<h2 id="org2fac926">Uuid</h2>
+<div class="outline-text-2" id="text-org2fac926">
 <div class="org-src-container">
-<pre class="src src-sh">### uuid
-$ls -l /dev/disk/by-uuid
-#blkid
+<pre class="src src-sh"><span style="color: #5B6268;">### </span><span style="color: #5B6268;">uuid
+</span>$<span style="color: #dcaeea;">ls</span> -l /dev/disk/by-uuid
+<span style="color: #5B6268;">#</span><span style="color: #5B6268;">blkid</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org7cc0477" class="outline-2">
-<h2 id="org7cc0477">Liberar memoria ram</h2>
-<div class="outline-text-2" id="text-org7cc0477">
+<div id="outline-container-org8706d22" class="outline-2">
+<h2 id="org8706d22">Liberar memoria ram</h2>
+<div class="outline-text-2" id="text-org8706d22">
 <p>
 RAM que se está empleando en tiempo real:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">$watch -n 1 free -m
+<pre class="src src-sh">$<span style="color: #dcaeea;">watch</span> -n 1 free -m
 </pre>
 </div>
 
@@ -145,20 +145,20 @@ eliminar la memoria que no se usa:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">$sysctl -w vm.drop_caches=3
+<pre class="src src-sh">$<span style="color: #dcaeea;">sysctl</span> -w vm.drop_caches=3
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org576a5b4" class="outline-2">
-<h2 id="org576a5b4">Fecha de instalcion del sistema</h2>
-<div class="outline-text-2" id="text-org576a5b4">
+<div id="outline-container-org54561ff" class="outline-2">
+<h2 id="org54561ff">Fecha de instalcion del sistema</h2>
+<div class="outline-text-2" id="text-org54561ff">
 <p>
 (Creacion del sistema de archivos raiz)
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">$ls -lct /etc | tail -1 | awk '{print $6, $7, $8}'
+<pre class="src src-sh">$<span style="color: #dcaeea;">ls</span> -lct /etc | tail -1 | awk <span style="color: #98be65;">'{print $6, $7, $8}'</span>
 jun 3 2016
 </pre>
 </div>
@@ -168,17 +168,17 @@ otra forma:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">$sudo tune2fs -l /dev/sda1 | grep "created"
+<pre class="src src-sh">$<span style="color: #dcaeea;">sudo</span> tune2fs -l /dev/sda1 | grep <span style="color: #98be65;">"created"</span>
 Filesystem created:       Fri Jun  3 23:25:38 2016
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org72b8b48" class="outline-2">
-<h2 id="org72b8b48">Como evitar que algunos paquetes se actualicen</h2>
-<div class="outline-text-2" id="text-org72b8b48">
+<div id="outline-container-orgc5ddcd0" class="outline-2">
+<h2 id="orgc5ddcd0">Como evitar que algunos paquetes se actualicen</h2>
+<div class="outline-text-2" id="text-orgc5ddcd0">
 <div class="org-src-container">
-<pre class="src src-sh">$echo "paquete hold" | sudo dpkg --set-selections
+<pre class="src src-sh">$<span style="color: #dcaeea;">echo</span> <span style="color: #98be65;">"paquete hold"</span> | sudo dpkg --set-selections
 </pre>
 </div>
 
@@ -192,9 +192,9 @@ ver cuales son los paquetes que estan marcados para no actualizarse así:
 </div>
 </div>
 </div>
-<div id="outline-container-orgc1a1686" class="outline-2">
-<h2 id="orgc1a1686">capturar pantalla</h2>
-<div class="outline-text-2" id="text-orgc1a1686">
+<div id="outline-container-org8d12b51" class="outline-2">
+<h2 id="org8d12b51">capturar pantalla</h2>
+<div class="outline-text-2" id="text-org8d12b51">
 <p>
 Una forma fácil de tomar una captura de pantalla del  sistema actual es
 usar el comando de import :
@@ -217,9 +217,9 @@ ventana o una región arbitraria de forma interactiva.
 </blockquote>
 </div>
 </div>
-<div id="outline-container-orgd62562e" class="outline-2">
-<h2 id="orgd62562e">Configurar xterm</h2>
-<div class="outline-text-2" id="text-orgd62562e">
+<div id="outline-container-org3fda78d" class="outline-2">
+<h2 id="org3fda78d">Configurar xterm</h2>
+<div class="outline-text-2" id="text-org3fda78d">
 <p>
 Editar el archivo .Xresources y recargar
 </p>
@@ -230,9 +230,9 @@ Editar el archivo .Xresources y recargar
 </div>
 </div>
 </div>
-<div id="outline-container-orga41f732" class="outline-2">
-<h2 id="orga41f732">Youtube-dl</h2>
-<div class="outline-text-2" id="text-orga41f732">
+<div id="outline-container-org7d8a383" class="outline-2">
+<h2 id="org7d8a383">Youtube-dl</h2>
+<div class="outline-text-2" id="text-org7d8a383">
 <p>
 Actualmente Youtube-dl permite descargar videos y audio de más de 800
 sitios web. 
@@ -294,9 +294,9 @@ Fuente <a href="https://geekland.eu/descargar-videos-internet-youtube-dl/">https
 </p>
 </div>
 </div>
-<div id="outline-container-orgab74b88" class="outline-2">
-<h2 id="orgab74b88">E2fsprogs</h2>
-<div class="outline-text-2" id="text-orgab74b88">
+<div id="outline-container-org22b88c5" class="outline-2">
+<h2 id="org22b88c5">E2fsprogs</h2>
+<div class="outline-text-2" id="text-org22b88c5">
 <p>
 El paquete e2fsprogs (también llamado programas e2fs) es un conjunto de
 utilidades para mantenimiento de los sistemas de ficheros ext2, ext3 y
@@ -321,14 +321,14 @@ archivos;</li>
 sistema de archivos manualmente.</li>
 </ul>
 </div>
-<div id="outline-container-org43b32be" class="outline-3">
-<h3 id="org43b32be">Tune2fs</h3>
-<div class="outline-text-3" id="text-org43b32be">
+<div id="outline-container-org855c3cd" class="outline-4">
+<h4 id="org855c3cd">Tune2fs</h4>
+<div class="outline-text-4" id="text-org855c3cd">
 <div class="org-src-container">
-<pre class="src src-sh"># tune2fs -c 80 /dev/sda1 (cada 80 reinicios)
-# tune2fs -i 2m /dev/sda1 (cada 2 meses)
-# tune2fs -i 2w /dev/hda3 (cada 2 semanas)
-# tune2fs -i 2d /dev/sda1 (cada 2 días)
+<pre class="src src-sh"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">tune2fs -c 80 /dev/sda1 (cada 80 reinicios)
+</span><span style="color: #5B6268;"># </span><span style="color: #5B6268;">tune2fs -i 2m /dev/sda1 (cada 2 meses)
+</span><span style="color: #5B6268;"># </span><span style="color: #5B6268;">tune2fs -i 2w /dev/hda3 (cada 2 semanas)
+</span><span style="color: #5B6268;"># </span><span style="color: #5B6268;">tune2fs -i 2d /dev/sda1 (cada 2 d&#237;as)</span>
 </pre>
 </div>
 
@@ -343,14 +343,14 @@ para corregir el error <b>cloud be norrower &#x2026;</b>
 </div>
 </div>
 </div>
-<div id="outline-container-org7f29a0c" class="outline-2">
-<h2 id="org7f29a0c">Nano</h2>
-<div class="outline-text-2" id="text-org7f29a0c">
+<div id="outline-container-orgb22d874" class="outline-2">
+<h2 id="orgb22d874">Nano</h2>
+<div class="outline-text-2" id="text-orgb22d874">
 <p>
 <b>Seleccionar:</b>
 </p>
 
-<pre class="example" id="org37c2c87">
+<pre class="example" id="org56fb3e9">
 Alt + a
 </pre>
 
@@ -358,7 +358,7 @@ Alt + a
 <b>Copiar:</b>
 </p>
 
-<pre class="example" id="orgd9ce1e2">
+<pre class="example" id="orgab41955">
 Alt + 6
 </pre>
 
@@ -366,7 +366,7 @@ Alt + 6
 <b>Pegar:</b>
 </p>
 
-<pre class="example" id="org228ed71">
+<pre class="example" id="org8926470">
 Ctrl + u
 </pre>
 
@@ -374,7 +374,7 @@ Ctrl + u
 Archivo de configuración:
 </p>
 
-<pre class="example" id="org89c7868">
+<pre class="example" id="orgdba2b72">
 **/etc/nanorc**
 </pre>
 
@@ -382,65 +382,65 @@ Archivo de configuración:
 Resaltar sistaxis
 </p>
 </div>
-<div id="outline-container-orgd703c58" class="outline-3">
-<h3 id="orgd703c58">HTML</h3>
-<div class="outline-text-3" id="text-orgd703c58">
+<div id="outline-container-org7c92265" class="outline-4">
+<h4 id="org7c92265">HTML</h4>
+<div class="outline-text-4" id="text-org7c92265">
 <p>
 include "/usr/share/nano/html.nanorc"
 </p>
 </div>
 </div>
-<div id="outline-container-orgbbae231" class="outline-3">
-<h3 id="orgbbae231">Manpages</h3>
-<div class="outline-text-3" id="text-orgbbae231">
+<div id="outline-container-org9bb342b" class="outline-4">
+<h4 id="org9bb342b">Manpages</h4>
+<div class="outline-text-4" id="text-org9bb342b">
 <p>
 include "/usr/share/nano/man.nanorc"
 </p>
 </div>
 </div>
-<div id="outline-container-orgb4ee3c8" class="outline-3">
-<h3 id="orgb4ee3c8">Python</h3>
-<div class="outline-text-3" id="text-orgb4ee3c8">
+<div id="outline-container-org21ed933" class="outline-4">
+<h4 id="org21ed933">Python</h4>
+<div class="outline-text-4" id="text-org21ed933">
 <p>
 include "/usr/share/nano/python.nanorc"
 </p>
 </div>
 </div>
-<div id="outline-container-org31cbdc4" class="outline-3">
-<h3 id="org31cbdc4">Bourne shell scripts</h3>
-<div class="outline-text-3" id="text-org31cbdc4">
+<div id="outline-container-orgf1e9fd2" class="outline-4">
+<h4 id="orgf1e9fd2">Bourne shell scripts</h4>
+<div class="outline-text-4" id="text-orgf1e9fd2">
 <p>
 include "/usr/share/nano/sh.nanorc"
 </p>
 </div>
 </div>
-<div id="outline-container-orgd1fdc2a" class="outline-3">
-<h3 id="orgd1fdc2a">Javascript</h3>
-<div class="outline-text-3" id="text-orgd1fdc2a">
+<div id="outline-container-org84c0ca1" class="outline-4">
+<h4 id="org84c0ca1">Javascript</h4>
+<div class="outline-text-4" id="text-org84c0ca1">
 <p>
 include "/usr/share/nano/javascript.nanorc"
 </p>
 </div>
 </div>
-<div id="outline-container-org1a1a98a" class="outline-3">
-<h3 id="org1a1a98a">Json</h3>
-<div class="outline-text-3" id="text-org1a1a98a">
+<div id="outline-container-orgf9400a6" class="outline-4">
+<h4 id="orgf9400a6">Json</h4>
+<div class="outline-text-4" id="text-orgf9400a6">
 <p>
 include "/usr/share/nano/json.nanorc"
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org6ff6407" class="outline-2">
-<h2 id="org6ff6407">Sudo</h2>
-<div class="outline-text-2" id="text-org6ff6407">
+<div id="outline-container-orgff57a6e" class="outline-2">
+<h2 id="orgff57a6e">Sudo</h2>
+<div class="outline-text-2" id="text-orgff57a6e">
 <p>
 Para dar permisos de root a un usuario, en el archivo <b>/etc/sudoers</b>
 agregar:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">nombre_usuario ALL=(ALL) 
+<pre class="src src-sh">nombre_usuario <span style="color: #dcaeea;">ALL</span>=(ALL) 
 </pre>
 </div>
 
@@ -449,25 +449,25 @@ para que no pida contraseña:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">nombre_usuario ALL=(ALL) NOPASSWD: ALL
+<pre class="src src-sh">nombre_usuario <span style="color: #dcaeea;">ALL</span>=(ALL) NOPASSWD: ALL
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org816573b" class="outline-2">
-<h2 id="org816573b">Limpiar cache</h2>
-<div class="outline-text-2" id="text-org816573b">
+<div id="outline-container-orgb44936b" class="outline-2">
+<h2 id="orgb44936b">Limpiar cache</h2>
+<div class="outline-text-2" id="text-orgb44936b">
 <div class="org-src-container">
 <pre class="src src-sh">sudo su
-sync &amp;&amp; echo 3 &gt; /proc/sys/vm/drop_caches
-exit
+sync &amp;&amp; <span style="color: #c678dd;">echo</span> 3 &gt; /proc/sys/vm/drop_caches
+<span style="color: #51afef;">exit</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org0de23e6" class="outline-2">
-<h2 id="org0de23e6">Buscar texto en varios archivos</h2>
-<div class="outline-text-2" id="text-org0de23e6">
+<div id="outline-container-org4a42287" class="outline-2">
+<h2 id="org4a42287">Buscar texto en varios archivos</h2>
+<div class="outline-text-2" id="text-org4a42287">
 <div class="org-src-container">
 <pre class="src src-nil">find / -type f -exec grep -H 'texto-a-buscar-aqui' {} \;
 
@@ -475,9 +475,9 @@ exit
 </div>
 </div>
 </div>
-<div id="outline-container-org105166f" class="outline-2">
-<h2 id="org105166f">Configurar fecha y hora</h2>
-<div class="outline-text-2" id="text-org105166f">
+<div id="outline-container-org4cada1f" class="outline-2">
+<h2 id="org4cada1f">Configurar fecha y hora</h2>
+<div class="outline-text-2" id="text-org4cada1f">
 <p>
 Fecha y hora del sistema usando el comando date:
 </p>

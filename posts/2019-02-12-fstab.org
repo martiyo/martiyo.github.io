@@ -1,0 +1,87 @@
+#+title: fstab
+#+date: <2019-02-12 08:19>
+#+description: 
+#+filetags: linux
+
+Cuando el sistema arranca lee el archivo /etc/fstab...
+
+*** # El archivo /etc/fstab
+
+
+Todo dispositivo que se vaya a usar en un sistema linux tiene que estar
+previamente montado, lo que significa que se debe asociar un dispositivo
+que se encuentra en el directorio */dev* con un punto de montaje,
+generalmente un directorio.
+
+Cuando el sistema arranca lee el archivo */etc/fstab* el cual indica a
+que dispositivo le corresponde cada directorio del sistema.
+
+Ejemplo de */etc/fstab*
+
+#+BEGIN_SRC
+    # /etc/fstab: static file system information.
+    #
+    # Use 'blkid' to print the universally unique identifier for a
+    # device; this may be used with UUID= as a more robust way to name devices
+    # that works even if disks are added and removed. See fstab(5).
+    #
+    # <file system> <mount point>   <type>  <options>       <dump>  <pass>
+    # / was on /dev/sda5 during installation
+    UUID=f4783e9f-ff17-4cb8-8245-c97d48ac41b7 /               ext4    errors=remount-ro 0       1
+    # /home was on /dev/sda6 during installation
+    UUID=dd3318ed-146c-403c-be63-bdc6c4bbbff7 /home           ext4    defaults        0       2
+
+    #/home/martin/datos  on /dev/sda7 during installation
+    #UUID=020D8B5B4957D2D4 /home/martin/datos               ntfs-3g   0      2  
+
+    #/home/martin/storage on /dev/sdb1 during installation
+    UUID=48560E6A0257F888 /home/martin/storage             ntfs-3g   0     0 
+
+    #pendrive
+    /dev/sdc1       /media/usb0     auto    user,noauto     0       0    
+#+END_SRC
+
+*** # Sintaxis
+
+
+- Dispositivo
+- Punto de montaje
+- Tipo de file system
+- Indica si se monta o no durante el arranque y con que permisos
+
+  - defaults: montado durante el arranque
+  - noauto: no se monta durante el arranque
+
+Luego escribe la tabla de montaje definitiva guardada en */etc/mtab*
+(tabla de montaje). Para hacer esto utiliza el comando *mount*. Este
+comando lanzado sin parámetros muestra los dispositivos y sus puntos de
+montaje, leídos desde */etc/mtab*
+
+#+BEGIN_SRC
+    ~ $ mount
+    sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+    proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+    udev on /dev type devtmpfs (rw,nosuid,relatime,size=1756024k,nr_inodes=439006,mode=755)
+    devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)
+    tmpfs on /run type tmpfs (rw,nosuid,noexec,relatime,size=353452k,mode=755)
+    /dev/sdb5 on / type ext4 (rw,relatime,errors=remount-ro,data=ordered)
+    tmpfs on /run/lock type tmpfs (rw,nosuid,nodev,noexec,relatime,size=5120k)
+    pstore on /sys/fs/pstore type pstore (rw,relatime)
+    tmpfs on /run/shm type tmpfs (rw,nosuid,nodev,noexec,relatime,size=706900k)
+    fusectl on /sys/fs/fuse/connections type fusectl (rw,relatime)
+    binfmt_misc on /proc/sys/fs/binfmt_misc type binfmt_misc (rw,nosuid,nodev,noexec,relatime)
+    tmpfs on /sys/fs/cgroup type tmpfs (rw,nosuid,nodev,noexec,mode=755)
+    cgroup on /sys/fs/cgroup/elogind type cgroup (rw,nosuid,nodev,noexec,relatime,xattr,release_agent=/usr/lib/elogind/elogind-cgroups-agent,name=elogind)
+    /dev/sdb6 on /home type ext4 (rw,relatime,data=ordered)
+    tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,size=353448k,mode=700,uid=1000,gid=1000)
+    /dev/sda1 on /home/martin/storage type fuseblk (rw,relatime,user_id=0,group_id=0,allow_other,blksize=4096)
+#+END_SRC
+
+*** # El comando mount
+
+
+Mount necesita por lo menos tres parámetros:
+
+#+BEGIN_SRC
+    mount -t <tipo de sistema de archivo><dispositivo a usar><punto de montaje>
+#+END_SRC

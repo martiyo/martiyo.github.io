@@ -1,0 +1,174 @@
+#+title: QGIS: planos de loteos y red de agua para la app
+#+date: <2026-08-17>
+#+description: Instalar QGIS en Devuan, georreferenciar planos escaneados y armar un GeoPackage para la app de loteos
+#+filetags: linux qgis gis python streamlit
+
+QGIS es un sistema de información geográfica (GIS) libre y gratuito con el que
+se puede trabajar con planos, mapas y datos espaciales. En este post se cuenta
+cómo instalarlo en Devuan, para qué sirve en el proyecto y cómo usar los planos
+escaneados (PDF/imágenes) de loteos para trazar la red de agua y exportar un
+archivo GeoPackage que luego muestra la app Streamlit.
+
+* ¿Qué es QGIS?
+
+QGIS es un programa de escritorio para crear, editar, visualizar y analizar
+información geográfica. Sus características principales:
+
+- Soporta los formatos de planos más comunes: *Shapefile*, *GeoPackage*,
+  *DXF* (AutoCAD), *KML*, *GeoTIFF* y muchos más.
+- Permite cargar una imagen o PDF como base y dibujar encima capas de puntos,
+  líneas y polígonos (digitalizar).
+- Cada capa tiene una *tabla de atributos*: por ejemplo, cada caño de la red
+  puede tener material, diámetro, tipo y año como datos asociados.
+- Se puede georreferenciar (ubicar en coordenadas reales) un plano escaneado.
+- Es gratuito y multiplataforma (GNU/Linux, Windows, macOS).
+
+** Para qué lo voy a usar
+
+El objetivo en el proyecto es llevar los planos de los *loteos* de la ciudad a
+una aplicación web. Sobre cada plano se necesita:
+
+- El trazado de la *red de agua*: cañerías con tipo de caño, medida, acoples y
+  válvulas.
+- Cada *lote* con su conexión a la red y los *datos de cuenta* de ese lote.
+
+Con QGIS se construyen esas capas (se editan a mano sobre el plano), se guardan
+en un GeoPackage y la app Streamlit las lee y las muestra en un mapa. QGIS es la
+parte de "edición"; la app es la parte de "consulta".
+
+* Instalar QGIS en Devuan
+
+Devuan 5 (daedalus) trae QGIS en sus repositorios, pero son versiones viejas
+(3.22 en main y 3.40 en backports). Para usar la versión *LTR actual* (3.44.x)
+se agrega el repositorio oficial de QGIS, que publica paquetes para Debian
+bookworm (compatibles con Devuan).
+
+** Agregar el repositorio oficial
+
+Instalar las herramientas necesarias y la clave de firma:
+
+#+begin_src sh
+  sudo apt install wget gpg
+  wget -qO- https://qgis.org/downloads/qgis-archive-keyring.gpg \
+    | gpg --dearmor \
+    | sudo tee /usr/share/keyrings/qgis-archive-keyring.gpg > /dev/null
+#+end_src
+
+Agregar la fuente. Importante: el archivo debe terminar en ~.list~ (formato
+clásico) y *no* en ~.sources~ (formato deb822), porque el contenido usa la
+sintaxis ~deb~ clásica:
+
+#+begin_src sh
+  echo "deb [signed-by=/usr/share/keyrings/qgis-archive-keyring.gpg] https://qgis.org/debian-ltr bookworm main" \
+    | sudo tee /etc/apt/sources.list.d/qgis.list
+#+end_src
+
+** Error común: "Predominio 1 mal especificado"
+
+Si el archivo se guarda como ~.sources~ pero con una línea ~deb~, ~apt~ lo
+interpreta como formato deb822 y falla:
+
+#+begin_example
+  E: Predominio 1 mal especificado en la lista de fuentes /etc/apt/sources.list.d/qgis.sources (tipo)
+  E: No se pudieron leer las listas de fuentes.
+#+end_example
+
+La solución es renombrar el archivo a ~.list~ y volver a actualizar:
+
+#+begin_src sh
+  sudo mv /etc/apt/sources.list.d/qgis.sources /etc/apt/sources.list.d/qgis.list
+  sudo apt update
+#+end_src
+
+** Instalar QGIS
+
+#+begin_src sh
+  sudo apt install qgis
+#+end_src
+
+La instalación puede tardar unos minutos porque baja muchas dependencias. Al
+terminar se abre desde el menú de aplicaciones o con el comando ~qgis~ en la
+terminal. Para verificar la versión:
+
+#+begin_src sh
+  qgis --version
+#+end_src
+
+* Cómo trabajar con PDF e imágenes escaneadas
+
+Los planos de los loteos llegan como PDF o imágenes escaneadas. No tienen
+coordenadas geográficas por sí solos, así que primero hay que
+*georreferenciarlos*: ubicar la imagen en su posición real usando puntos de
+control.
+
+** Preparar el archivo
+
+QGIS no carga PDF directamente como capa de dibujo; conviene convertir el plano
+a una imagen (PNG o JPG). Se puede hacer con ~pdftoppm~ (de poppler):
+
+#+begin_src sh
+  # Convertir la primera página del PDF a PNG de alta resolución
+  pdftoppm -png -r 300 -f 1 -l 1 plano_loteo.pdf plano_loteo
+#+end_src
+
+** Georreferenciar con el Georreferenciador
+
+1. Abrir *Ráster → Georreferenciador* en QGIS.
+2. Cargar la imagen (~Archivo → Abrir ráster~).
+3. Marcar puntos de control: puntos que se identifiquen tanto en el plano como
+   en un mapa con coordenadas reales (esquinas de manzanas, postes, bocas de
+   calle). Para cada punto se escribe su coordenada X/Y (por ejemplo en el
+   sistema *POSGAR/Gauss-Krüger* o en *WGS84* lat/lon).
+4. Configurar el *tipo de transformación* (lineal o polinómico) y el *SRC de
+   salida* (el sistema de coordenadas elegido).
+5. Ejecutar ~Iniciar georreferenciación~. QGIS genera un GeoTIFF ya ubicado en
+   coordenadas reales.
+
+Cuanto más puntos de control (3 o más, bien distribuidos), más precisa es la
+georreferenciación. Con un plano con las medidas reales de las manzanas los
+resultados son muy buenos.
+
+** Digitalizar las capas
+
+Sobre el plano georreferenciado se dibujan las capas con las herramientas de
+edición (lápiz para líneas y polígonos, punto para elementos puntuales). El
+resultado se guarda en un *GeoPackage* (un solo archivo con varias capas).
+
+* Cómo implementarlo en el proyecto
+
+La app Streamlit (carpeta ~workDaySync~) ya tiene una página de mapas que lee el
+archivo ~data/loteos.gpkg~ y muestra las capas con Folium. El flujo completo es:
+
+1. En QGIS: georreferenciar el plano y digitalizar 4 capas dentro del
+   GeoPackage ~data/loteos.gpkg~:
+   - ~lotes~: polígono por lote (atributos ~nro_lote~, ~manzana~, ~estado~).
+   - ~red~: línea por tramo de cañería (atributos ~material~, ~diametro~,
+     ~tipo~, ~anio~).
+   - ~valvulas~: punto por válvula/acople (atributos ~tipo~, ~diametro~).
+   - ~conexiones~: punto por conexión lote↔red (atributo ~nro_lote~).
+2. La app lee ese archivo, lo reproyecta a ~EPSG:4326~ (lat/lon, que es lo que
+   entiende el mapa web) y dibuja cada capa con sus datos en el popup.
+3. Los *datos de cuenta* de cada lote se cargan desde la propia app (pestaña
+   "Cuentas por lote") y se guardan en la tabla ~cuentas~ del mismo GeoPackage.
+
+La georreferenciación se hace una sola vez por plano. Después, cualquier cambio
+(agregar un tramo, cambiar el material de un caño, marcar una válvula nueva) se
+edita en QGIS y se guarda el GeoPackage; la app lo refleja al recargar la página.
+
+** Herramientas usadas (todas gratuitas)
+
+| Herramienta     | Uso                                              |
+|-----------------+--------------------------------------------------|
+| QGIS            | Georreferenciar planos y digitalizar las capas   |
+| GeoPackage      | Archivo único con capas espaciales + tablas      |
+| Folium/Leaflet  | Mostrar el mapa en la app (streamlit-folium)     |
+| Streamlit       | Interfaz web de consulta y carga de cuentas      |
+
+* Conclusión
+
+- QGIS se instala en Devuan desde el repositorio oficial (LTR 3.44.x), cuidando
+  de usar ~.list~ y no ~.sources~.
+- Los planos escaneados se georreferencian con el Georreferenciador y luego se
+  digitalizan las capas de lotes, red, válvulas y conexiones.
+- Todo se guarda en un GeoPackage que la app Streamlit ya sabe leer y mostrar,
+  con los datos de cuenta por lote.

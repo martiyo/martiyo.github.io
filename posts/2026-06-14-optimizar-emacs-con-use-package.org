@@ -1,0 +1,263 @@
+#+title: Optimizar-emacs-con-use-package
+#+date: <2026-06-14 19:39>
+#+description: 
+#+filetags: emacs
+
+Optimizar emacs con use-package, defer, bind, hook, mode, commands, magic
+
+* ¿Por qué tarda en iniciar Emacs?
+
+Cada paquete que se carga al inicio suma tiempo. Si tienes 20 paquetes que
+cargan ~0.1s cada uno, son ~2s solo en paquetes. La clave es: **cargar solo
+lo necesario al inicio, y diferir el resto**.
+
+* use-package
+
+Es un macro que unifica la declaración, instalación, configuración y
+diferimiento de paquetes.
+
+Sintaxis básica:
+
+#+begin_src elisp
+(use-package NOMBRE
+  :opciones ...)
+#+end_src
+
+No es un ~require~ implícito. Lo que hace depende de las opciones que le pases.
+
+* Formas de diferir la carga
+
+** :defer t
+
+Ordena a use-package que no cargue el paquete inmediatamente, sino que
+registre autoloads para cargarlo cuando sea necesario.
+
+#+begin_src elisp
+;; CARGA INMEDIATA (cada vez que abres Emacs):
+(use-package neotree
+  :config
+  (global-set-key [f11] 'neotree-toggle))
+
+;; CARGA DIFERIDA (solo cuando pulsas F11):
+(use-package neotree
+  :defer t
+  :bind ([f11] . neotree-toggle))
+#+end_src
+
+Con ~:defer t~, el archivo ~neotree.el~ ni siquiera se toca hasta que
+pulsas F11. El bind se registra como autoload.
+
+** :bind
+
+Registra combinaciones de teclas como autoloads. Al pulsar la tecla, se
+carga el paquete y se ejecuta el comando.
+
+#+begin_src elisp
+:bind (("C-c n" . neotree-toggle)    ;; Cadena = key con Ctrl
+       ([f11] . neotree-toggle)       ;; Vector = función/F-key
+       ("M-s f" . find-file))         ;; M-s = Super
+#+end_src
+
+También dentro de un mapa de teclas específico:
+
+#+begin_src elisp
+:bind (:map python-mode-map
+        ("C-c C-c" . python-shell-send-buffer))
+#+end_src
+
+** :hook
+
+Registra funciones en hooks como autoloads. Cuando se activa el modo, se
+carga el paquete y se ejecuta la función.
+
+#+begin_src elisp
+;; ANTES (carga inmediata):
+(use-package prettier
+  :config
+  (add-hook 'web-mode-hook 'prettier-mode))
+
+;; DESPUÉS (carga diferida):
+(use-package prettier
+  :defer t
+  :hook (web-mode . prettier-mode))
+;; prettier.el se carga solo al abrir un archivo web-mode
+#+end_src
+
+Múltiples hooks:
+
+#+begin_src elisp
+:hook ((js2-mode web-mode) . prettier-mode)
+;; Equivale a:
+;; (add-hook 'js2-mode-hook 'prettier-mode)
+;; (add-hook 'web-mode-hook 'prettier-mode)
+#+end_src
+
+** :mode
+
+Asocia una extensión de archivo con un modo mayor. Al abrir un archivo con
+esa extensión, se carga el paquete y se activa el modo.
+
+#+begin_src elisp
+:mode ("\\.http\\'" . restclient-mode)
+;; restclient-mode se carga solo al abrir un .http
+#+end_src
+
+** :commands
+
+Declara comandos que, al ser ejecutados, cargan el paquete.
+
+#+begin_src elisp
+:commands (my-org-blog-list-posts org-static-blog-publish)
+;; El paquete se carga solo cuando usas uno de estos comandos
+#+end_src
+
+** :magic
+
+Igual que ~:mode~ pero por contenido del archivo (primeros bytes):
+
+#+begin_src elisp
+:magic ("%PDF" . pdf-view-mode)
+;; pdf-tools se carga al abrir cualquier archivo que empiece con %PDF
+#+end_src
+
+* :config vs :init vs :custom
+
+** :init
+
+Se ejecuta SIEMPRE, incluso si el paquete está diferido. Para cosas que
+necesitan estar disponibles al inicio.
+
+#+begin_src elisp
+(use-package projectile
+  :init
+  (projectile-mode +1)  ;; Se activa siempre al inicio
+  :config
+  (setq projectile-known-projects ...))  ;; Solo cuando carga projectile.el
+#+end_src
+
+** :config
+
+Se ejecuta solo CUANDO el paquete se carga. Ideal para configuración que
+depende del paquete.
+
+#+begin_src elisp
+(use-package neotree
+  :defer t
+  :bind ([f11] . neotree-toggle)
+  :custom
+  (neo-theme 'icons)        ;; setq durante la carga
+  (neo-smart-open t)
+  :config
+  ;; Esto se ejecuta solo cuando pulsas F11 por primera vez
+  (message "neotree cargado"))
+#+end_src
+
+** :custom
+
+Alternativa moderna a ~setq~ dentro de ~:config~. Se ejecuta cuando el
+paquete se carga.
+
+#+begin_src elisp
+;; Mejor:
+:custom
+(neo-theme 'icons)
+(neo-smart-open t)
+
+;; Que:
+:config
+(setq neo-theme 'icons)
+(setq neo-smart-open t)
+#+end_src
+
+* Ciclo de carga de un paquete diferido
+
+1. Emacs inicia, procesa ~init.el~
+2. ~use-package~ registra los autoloads (~:bind~, ~:hook~, ~:mode~, ~:commands~)
+3. Se ejecuta ~:init~ (si existe)
+4. Emacs termina de iniciar
+5. El usuario pulsa F11 (o abre un .py, etc.)
+6. Emacs carga ~neotree.el~ del disco
+7. Se ejecuta ~:custom~ (setq)
+8. Se ejecuta ~:config~
+9. Se ejecuta el comando (~neotree-toggle~)
+
+* Qué debe cargar al inicio (NO diferir)
+
+Paquetes que necesitas desde el primer momento:
+
+- Tema visual (~doom-themes~)
+- Modeline (~doom-modeline~)
+- Autocompletado global (~corfu~)
+- Gestión de proyectos (~projectile~)
+- Teclas globales (~recentf~, ~winner-mode~, etc.)
+
+Todo lo demás: **diferirlo**.
+
+* Casos prácticos del init optimizado
+
+** Deferir por tecla
+
+#+begin_src elisp
+(use-package neotree
+  :defer t
+  :bind ([f11] . neotree-toggle))
+#+end_src
+
+** Deferir por tipo de archivo
+
+#+begin_src elisp
+(use-package restclient
+  :defer t
+  :mode ("\\.http\\'" . restclient-mode))
+#+end_src
+
+** Deferir por hook
+
+#+begin_src elisp
+(use-package emmet-mode
+  :defer t
+  :hook (web-mode . emmet-mode))
+#+end_src
+
+** Deferir por comando
+
+#+begin_src elisp
+(use-package elfeed
+  :defer t
+  :commands (elfeed elfeed-update))
+#+end_src
+
+* Cómo verificar qué se carga al inicio
+
+#+begin_src elisp
+M-x emacs-init-time           ;; Tiempo total de inicio
+M-x benchmark-init/show-durations  ;; Tiempo por paquete
+M-x benchmark-init/show-durations-tabulated  ;; Tabla ordenada
+#+end_src
+
+Para instalar benchmark-init:
+
+#+begin_src elisp
+(use-package benchmark-init
+  :ensure t
+  :config
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+#+end_src
+
+* Regla general
+
+- ~:defer t~ + ~:bind~ → paquete que usas con teclas
+- ~:defer t~ + ~:hook~ → paquete que se activa en un modo
+- ~:defer t~ + ~:mode~ → paquete asociado a extensión de archivo
+- ~:defer t~ + ~:commands~ → paquete que ejecutas con M-x
+- Sin ~:defer~ → paquete que necesitas siempre
+
+* Errores comunes
+
+| Error | Causa | Solución |
+|-------+-------+----------|
+| Symbol's value as variable is void: ~dired-mode-map~ | El archivo usa variables de un paquete no cargado | Agregar ~(require 'dired)~ al inicio del archivo |
+| Symbol's function is void: ~neotree-toggle~ | El bind se registró pero el paquete no se cargó | Verificar que ~:defer t~ esté y que el comando exista |
+| Package ~foo~ is unavailable | ELPA no lo encuentra | Verificar ~package-archives~ o tipear mal el nombre |
+
+

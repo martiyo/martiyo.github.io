@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Guía detallada de Eglot: características, uso y configuración para Python">
+<link rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/">
+<title>Eglot - El cliente LSP para Emacs</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">15 jun 2026</div><h1 class="post-title"><a href="https://martiyo.github.io/2026-06-15-eglot-guia-detallada.html">Eglot - El cliente LSP para Emacs</a></h1>
+<p>
+Eglot (Emacs Polyglot) es un cliente LSP (Language Server Protocol) minimalista para Emacs. A diferencia de lsp-mode, Eglot está diseñado para ser simple, usar las APIs nativas de Emacs y requerir configuración cero en la mayoría de los casos.
+</p>
+<div id="outline-container-org1c2cbb3" class="outline-2">
+<h2 id="org1c2cbb3">¿Qué es LSP?</h2>
+<div class="outline-text-2" id="text-org1c2cbb3">
+<p>
+El Language Server Protocol es un estándar que permite a los editores de código comunicarse con servidores que proveen funcionalidades como autocompletado, ir a definición, diagnósticos, etc. Cada lenguaje tiene su propio servidor LSP (pylsp para Python, typescript-language-server para JS/TS, rust-analyzer para Rust, etc.) y Eglot actúa como puente entre Emacs y esos servidores.
+</p>
+</div>
+</div>
+<div id="outline-container-org4aa5844" class="outline-2">
+<h2 id="org4aa5844">Características principales</h2>
+<div class="outline-text-2" id="text-org4aa5844">
+<p>
+Eglot aprovecha las herramientas nativas de Emacs en lugar de reemplazarlas:
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Característica</th>
+<th scope="col" class="org-left">Mecanismo Emacs</th>
+<th scope="col" class="org-left">Atajo común</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Autocompletado</td>
+<td class="org-left">completion-at-point / Corfu</td>
+<td class="org-left">(automático)</td>
+</tr>
+
+<tr>
+<td class="org-left">Diagnósticos</td>
+<td class="org-left">Flymake</td>
+<td class="org-left">(en línea)</td>
+</tr>
+
+<tr>
+<td class="org-left">Ir a definición</td>
+<td class="org-left">xref-find-definitions</td>
+<td class="org-left">M-.</td>
+</tr>
+
+<tr>
+<td class="org-left">Volver de definición</td>
+<td class="org-left">xref-pop-marker-stack</td>
+<td class="org-left">M-,</td>
+</tr>
+
+<tr>
+<td class="org-left">Buscar referencias</td>
+<td class="org-left">xref-find-references</td>
+<td class="org-left">M-?</td>
+</tr>
+
+<tr>
+<td class="org-left">Documentación al vuelo</td>
+<td class="org-left">ElDoc</td>
+<td class="org-left">(en echo area)</td>
+</tr>
+
+<tr>
+<td class="org-left">Documentación detallada</td>
+<td class="org-left">eldoc-doc-buffer</td>
+<td class="org-left">C-h .</td>
+</tr>
+
+<tr>
+<td class="org-left">Formatear código</td>
+<td class="org-left">eglot-format / eglot-format-buffer</td>
+<td class="org-left">(según config)</td>
+</tr>
+
+<tr>
+<td class="org-left">Renombrar símbolo</td>
+<td class="org-left">eglot-rename</td>
+<td class="org-left">C-x n n</td>
+</tr>
+
+<tr>
+<td class="org-left">Code actions</td>
+<td class="org-left">eglot-code-actions</td>
+<td class="org-left">C-c C-a</td>
+</tr>
+
+<tr>
+<td class="org-left">Ejecutar acción rápida</td>
+<td class="org-left">eglot-code-action-quickfix</td>
+<td class="org-left">C-c C-q</td>
+</tr>
+
+<tr>
+<td class="org-left">Hover (información)</td>
+<td class="org-left">eglot-help-at-point</td>
+<td class="org-left">C-c C-d</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgdb2d2ac" class="outline-2">
+<h2 id="orgdb2d2ac">Instalación</h2>
+<div class="outline-text-2" id="text-orgdb2d2ac">
+<p>
+Eglot viene incluido con Emacs 29+. Solo hay que asegurarse de tenerlo cargado:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> eglot
+  <span style="color: #c678dd;">:ensure</span> t
+  <span style="color: #c678dd;">:defer</span> t
+  <span style="color: #c678dd;">:hook</span> (python-mode . eglot-ensure)
+  <span style="color: #c678dd;">:config</span>
+  <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Asociar servidores LSP con sus modos
+</span>  (add-to-list 'eglot-server-programs
+               '(python-mode . (<span style="color: #98be65;">"pylsp"</span>)))
+  (add-to-list 'eglot-server-programs
+               '((web-mode js-mode typescript-mode) <span style="color: #98be65;">"typescript-language-server"</span> <span style="color: #98be65;">"--stdio"</span>))
+  (add-to-list 'eglot-server-programs
+               '(rust-mode . (<span style="color: #98be65;">"rust-analyzer"</span>))))
+</pre>
+</div>
+
+<p>
+<code>eglot-ensure</code> en el hook hace que Eglot se active automáticamente al abrir archivos de ese modo.
+</p>
+</div>
+</div>
+<div id="outline-container-org9eb9817" class="outline-2">
+<h2 id="org9eb9817">Configuración del servidor</h2>
+<div class="outline-text-2" id="text-org9eb9817">
+<p>
+Cada servidor LSP tiene sus propias opciones. Se configuran a través de <code>eglot-workspace-configuration</code>, que es un plist que Eglot envía al servidor al iniciar:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">setq-default</span> eglot-workspace-configuration
+  '(<span style="color: #c678dd;">:pylsp</span> (<span style="color: #c678dd;">:plugins</span> (<span style="color: #c678dd;">:black</span> (<span style="color: #c678dd;">:enabled</span> t <span style="color: #c678dd;">:line_length</span> 120)
+                       <span style="color: #c678dd;">:autopep8</span> (<span style="color: #c678dd;">:enabled</span> nil)
+                       <span style="color: #c678dd;">:yapf</span> (<span style="color: #c678dd;">:enabled</span> nil)
+                       <span style="color: #c678dd;">:pycodestyle</span> (<span style="color: #c678dd;">:enabled</span> t <span style="color: #c678dd;">:maxLineLength</span> 120)))))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org09b3db2" class="outline-2">
+<h2 id="org09b3db2">Configuración para Python</h2>
+<div class="outline-text-2" id="text-org09b3db2">
+</div>
+<div id="outline-container-orgd6027e1" class="outline-3">
+<h3 id="orgd6027e1">Instalar el servidor LSP</h3>
+<div class="outline-text-3" id="text-orgd6027e1">
+<p>
+El servidor para Python es <code>pylsp</code> (python-lsp-server). Se instala con pipx para mantenerlo aislado del sistema:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">pipx install python-lsp-server[all]
+pipx install python-lsp-black  <span style="color: #5B6268;"># </span><span style="color: #5B6268;">plugin para formatear con Black
+</span>pipx install ruff              <span style="color: #5B6268;"># </span><span style="color: #5B6268;">linter r&#225;pido (opcional)</span>
+</pre>
+</div>
+
+<p>
+Los argumentos <code>[all]</code> instalan todos los plugins incluidos por defecto. Si se quiere minimizar, se puede instalar solo el base y agregar plugins manualmente:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">pipx install python-lsp-server
+pipx inject python-lsp-server pylsp-rope  <span style="color: #5B6268;"># </span><span style="color: #5B6268;">refactorings</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8a0b2bc" class="outline-3">
+<h3 id="org8a0b2bc">Configurar formateo al guardar</h3>
+<div class="outline-text-3" id="text-org8a0b2bc">
+<p>
+Para que Emacs formatee automáticamente con Black al guardar, se agrega un hook local al buffer de Python:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> python
+  <span style="color: #c678dd;">:delight</span>
+  <span style="color: #c678dd;">:custom</span>
+  (python-shell-interpreter <span style="color: #98be65;">"python3.11"</span>)
+  <span style="color: #c678dd;">:hook</span> ((python-mode . eglot-ensure)
+         (python-mode . (<span style="color: #51afef;">lambda</span> ()
+                          (add-hook 'before-save-hook
+                                    (<span style="color: #51afef;">lambda</span> () (eglot-format))
+                                    nil 'local))))
+  <span style="color: #c678dd;">:config</span>
+  (define-key python-mode-map (kbd <span style="color: #98be65;">"C-c C-c"</span>) 'python-shell-send-buffer)
+  (define-key python-mode-map (kbd <span style="color: #98be65;">"C-c C-r"</span>) 'python-shell-send-region)
+  (define-key python-mode-map (kbd <span style="color: #98be65;">"C-c C-z"</span>) 'python-shell-switch-to-shell)
+  (define-key python-mode-map (kbd <span style="color: #98be65;">"C-c C-e"</span>) 'python-shell-send-statement))
+</pre>
+</div>
+
+<p>
+El truco está en <code>nil 'local</code> en <code>add-hook</code>: agrega el formateo solo al buffer actual de Python, no a todos los buffers.
+</p>
+</div>
+</div>
+<div id="outline-container-orgb5dcb6a" class="outline-3">
+<h3 id="orgb5dcb6a">Ajustar el límite de línea</h3>
+<div class="outline-text-3" id="text-orgb5dcb6a">
+<p>
+pycodestyle (incluido en pylsp) usa 79 caracteres por defecto. Para cambiarlo a 120, crear <code>setup.cfg</code> en la raíz del proyecto:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ini">[pycodestyle]
+max-line-length = 120
+</pre>
+</div>
+
+<p>
+Esto afecta tanto a pylsp como a cualquier herramienta externa que lea <code>setup.cfg</code>. La misma configuración también se puede pasar por <code>eglot-workspace-configuration</code> como se mostró antes.
+</p>
+</div>
+</div>
+<div id="outline-container-orgec68e93" class="outline-3">
+<h3 id="orgec68e93">Virtualenv automático</h3>
+<div class="outline-text-3" id="text-orgec68e93">
+<p>
+Al trabajar con proyectos Python que usan <code>.venv</code>, es útil activarlo automáticamente con pyvenv:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">use-package</span> pyvenv
+  <span style="color: #c678dd;">:ensure</span> t
+  <span style="color: #c678dd;">:config</span>
+  (<span style="color: #51afef;">setq</span> pyvenv-mode t)
+  (<span style="color: #51afef;">setq</span> pyvenv-work-on-project-mode t))
+</pre>
+</div>
+
+<p>
+Al abrir un archivo dentro de un proyecto que tiene <code>.venv</code>, se activa automáticamente y pylsp usa los paquetes instalados en ese entorno.
+</p>
+</div>
+</div>
+<div id="outline-container-org35624ee" class="outline-3">
+<h3 id="org35624ee">Desactivar plugins de pylsp no deseados</h3>
+<div class="outline-text-3" id="text-org35624ee">
+<p>
+Por defecto pylsp activa varios plugins. Se pueden desactivar los que no se usen para hacerlo más rápido:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">setq-default</span> eglot-workspace-configuration
+  '(<span style="color: #c678dd;">:pylsp</span> (<span style="color: #c678dd;">:plugins</span>
+            (<span style="color: #c678dd;">:black</span> (<span style="color: #c678dd;">:enabled</span> t <span style="color: #c678dd;">:line_length</span> 120)
+             <span style="color: #c678dd;">:autopep8</span> (<span style="color: #c678dd;">:enabled</span> nil)
+             <span style="color: #c678dd;">:yapf</span> (<span style="color: #c678dd;">:enabled</span> nil)
+             <span style="color: #c678dd;">:mccabe</span> (<span style="color: #c678dd;">:enabled</span> nil)
+             <span style="color: #c678dd;">:pyflakes</span> (<span style="color: #c678dd;">:enabled</span> nil)
+             <span style="color: #c678dd;">:pycodestyle</span> (<span style="color: #c678dd;">:enabled</span> t <span style="color: #c678dd;">:maxLineLength</span> 120)
+             <span style="color: #c678dd;">:pydocstyle</span> (<span style="color: #c678dd;">:enabled</span> nil)
+             <span style="color: #c678dd;">:pylint</span> (<span style="color: #c678dd;">:enabled</span> nil)
+             <span style="color: #c678dd;">:rope</span> (<span style="color: #c678dd;">:enabled</span> nil)))))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org5ffe51d" class="outline-2">
+<h2 id="org5ffe51d">Configuración para JavaScript / TypeScript</h2>
+<div class="outline-text-2" id="text-org5ffe51d">
+</div>
+<div id="outline-container-org8792b67" class="outline-3">
+<h3 id="org8792b67">Instalar el servidor LSP</h3>
+<div class="outline-text-3" id="text-org8792b67">
+<div class="org-src-container">
+<pre class="src src-sh">npm install -g typescript typescript-language-server
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga2cd329" class="outline-3">
+<h3 id="orga2cd329">Configuración en init.el</h3>
+<div class="outline-text-3" id="text-orga2cd329">
+<div class="org-src-container">
+<pre class="src src-elisp">(add-to-list 'eglot-server-programs
+             '((web-mode js-mode typescript-mode) <span style="color: #98be65;">"typescript-language-server"</span> <span style="color: #98be65;">"--stdio"</span>))
+</pre>
+</div>
+
+<p>
+Asegurarse de que el binario está en el PATH:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(setenv <span style="color: #98be65;">"PATH"</span> (mapconcat 'identity exec-path path-separator))
+(<span style="color: #51afef;">setq</span> exec-path (append exec-path '(<span style="color: #98be65;">"/usr/bin/typescript-language-server"</span>)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org31ebf34" class="outline-3">
+<h3 id="org31ebf34">tsconfig.json / jsconfig.json</h3>
+<div class="outline-text-3" id="text-org31ebf34">
+<p>
+El servidor TypeScript lee la configuración del proyecto desde <code>tsconfig.json</code> (TypeScript) o <code>jsconfig.json</code> (JavaScript puro). Ejemplo:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-json">{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"]
+    }
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org015a0d8" class="outline-2">
+<h2 id="org015a0d8">Resumen de teclas rápidas en Python</h2>
+<div class="outline-text-2" id="text-org015a0d8">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Atajo</th>
+<th scope="col" class="org-left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">M-.</td>
+<td class="org-left">Ir a definición</td>
+</tr>
+
+<tr>
+<td class="org-left">M-,</td>
+<td class="org-left">Volver de definición</td>
+</tr>
+
+<tr>
+<td class="org-left">M-?</td>
+<td class="org-left">Buscar referencias</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-d</td>
+<td class="org-left">Hover: información del símbolo</td>
+</tr>
+
+<tr>
+<td class="org-left">C-h .</td>
+<td class="org-left">Abrir buffer de documentación</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-a</td>
+<td class="org-left">Code actions</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-q</td>
+<td class="org-left">Quickfix</td>
+</tr>
+
+<tr>
+<td class="org-left">C-x n n</td>
+<td class="org-left">Renombrar símbolo</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-c</td>
+<td class="org-left">Ejecutar buffer de Python</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-r</td>
+<td class="org-left">Ejecutar región seleccionada</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-z</td>
+<td class="org-left">Ir al REPL de Python</td>
+</tr>
+
+<tr>
+<td class="org-left">C-x C-s</td>
+<td class="org-left">Guardar (formatea con Black)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org8bad901" class="outline-2">
+<h2 id="org8bad901">Solución de problemas</h2>
+<div class="outline-text-2" id="text-org8bad901">
+</div>
+<div id="outline-container-org71bed08" class="outline-3">
+<h3 id="org71bed08">pylsp no arranca / "terminated (killed)"</h3>
+<div class="outline-text-3" id="text-org71bed08">
+<p>
+Causa más común: falta el plugin <code>python-lsp-black</code> y está habilitado <code>:black (:enabled t)</code>.
+</p>
+
+<p>
+Solución:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">pipx install python-lsp-black
+</pre>
+</div>
+
+<p>
+O deshabilitar Black temporalmente en <code>eglot-workspace-configuration</code>.
+</p>
+</div>
+</div>
+<div id="outline-container-orgd8550cb" class="outline-3">
+<h3 id="orgd8550cb">Eglot no se activa automáticamente</h3>
+<div class="outline-text-3" id="text-orgd8550cb">
+<p>
+Verificar que <code>eglot-ensure</code> está en el hook correcto:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span style="color: #c678dd;">:hook</span> (python-mode . eglot-ensure)
+</pre>
+</div>
+
+<p>
+Si se usa <code>M-x eglot</code> manualmente y funciona, el problema está en el hook.
+</p>
+</div>
+</div>
+<div id="outline-container-org918ed67" class="outline-3">
+<h3 id="org918ed67">Formateo al guardar no funciona</h3>
+<div class="outline-text-3" id="text-org918ed67">
+<p>
+Verificar que el hook está bien configurado:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #51afef;">lambda</span> () (add-hook 'before-save-hook (<span style="color: #51afef;">lambda</span> () (eglot-format)) nil 'local))
+</pre>
+</div>
+
+<p>
+El <code>'local</code> es clave: sin él, el formateo se aplicaría a todos los buffers.
+</p>
+
+<p>
+También verificar que <code>eglot-format</code> existe (debe estar en el built-in de Emacs 30+):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">M-x describe-function RET eglot-format RET
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> <a href="https://martiyo.github.io/tag-python.html">python</a> <a href="https://martiyo.github.io/tag-lsp.html">lsp</a> <a href="https://martiyo.github.io/tag-programacion.html">programacion</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
+</html>

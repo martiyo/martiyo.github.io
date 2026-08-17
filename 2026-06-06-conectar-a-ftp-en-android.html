@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/">
+<title>Conectar-a-ftp-en-Android</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">06 jun 2026</div><h1 class="post-title"><a href="https://martiyo.github.io/2026-06-06-conectar-a-ftp-en-android.html">Conectar-a-ftp-en-Android</a></h1>
+<p>
+Conectarse al servidor ftp de android desde la terminal.
+</p>
+<div id="outline-container-org56f1a72" class="outline-2">
+<h2 id="org56f1a72">Servidor FTP en Android</h2>
+<div class="outline-text-2" id="text-org56f1a72">
+</div>
+<div id="outline-container-org2a7e574" class="outline-3">
+<h3 id="org2a7e574">Datos de conexión</h3>
+<div class="outline-text-3" id="text-org2a7e574">
+<ul class="org-ul">
+<li>Host: 192.168.x.x</li>
+<li>Puerto: x</li>
+<li>Usuario/Pass: (el que hayas configurado)</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org6564209" class="outline-2">
+<h2 id="org6564209">Subir archivos</h2>
+<div class="outline-text-2" id="text-org6564209">
+</div>
+<div id="outline-container-orgaeddd53" class="outline-3">
+<h3 id="orgaeddd53">Interactivo (ftp)</h3>
+<div class="outline-text-3" id="text-orgaeddd53">
+<div class="org-src-container">
+<pre class="src src-bash">ftp 192.168.1.206 3721
+  put archivo.txt          <span style="color: #5B6268;"># </span><span style="color: #5B6268;">subir un archivo
+</span>  put /ruta/local/archivo.zip    <span style="color: #5B6268;"># </span><span style="color: #5B6268;">subir desde ruta espec&#237;fica
+</span>  mput *.jpg               <span style="color: #5B6268;"># </span><span style="color: #5B6268;">subir m&#250;ltiples archivos
+</span>  <span style="color: #51afef;">bye</span>                      <span style="color: #5B6268;"># </span><span style="color: #5B6268;">salir</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6b41d63" class="outline-3">
+<h3 id="org6b41d63">Una línea (curl)</h3>
+<div class="outline-text-3" id="text-org6b41d63">
+<div class="org-src-container">
+<pre class="src src-bash">curl -T archivo.txt ftp://192.168.1.206:3721/ --user usuario:contrase&#241;a
+curl -T archivo.txt ftp://192.168.1.206:3721/ --user anonymous:
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org75fe36d" class="outline-2">
+<h2 id="org75fe36d">Descargar archivos</h2>
+<div class="outline-text-2" id="text-org75fe36d">
+</div>
+<div id="outline-container-orgf8ea13f" class="outline-3">
+<h3 id="orgf8ea13f">Interactivo (ftp)</h3>
+<div class="outline-text-3" id="text-orgf8ea13f">
+<div class="org-src-container">
+<pre class="src src-bash">ftp 192.168.1.206 3721
+  get archivo.txt                  <span style="color: #5B6268;"># </span><span style="color: #5B6268;">descargar un archivo
+</span>  get archivo.zip /ruta/local/     <span style="color: #5B6268;"># </span><span style="color: #5B6268;">descargar a ruta espec&#237;fica
+</span>  mget *.jpg                       <span style="color: #5B6268;"># </span><span style="color: #5B6268;">descargar m&#250;ltiples archivos
+</span>  prompt                           <span style="color: #5B6268;"># </span><span style="color: #5B6268;">desactivar confirmaci&#243;n en mget/mput
+</span>  <span style="color: #51afef;">bye</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org34006f4" class="outline-3">
+<h3 id="org34006f4">Una línea (curl)</h3>
+<div class="outline-text-3" id="text-org34006f4">
+<div class="org-src-container">
+<pre class="src src-bash">curl -O ftp://192.168.1.206:3721/archivo.txt --user usuario:contrase&#241;a
+curl -o /ruta/local/archivo.txt ftp://192.168.1.206:3721/archivo.txt --user usuario:contrase&#241;a
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf02f897" class="outline-2">
+<h2 id="orgf02f897">Descarga recursiva (wget)</h2>
+<div class="outline-text-2" id="text-orgf02f897">
+<div class="org-src-container">
+<pre class="src src-bash">wget -r ftp://usuario:contrase&#241;a@192.168.1.206:3721/
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbd347a4" class="outline-2">
+<h2 id="orgbd347a4">Notas</h2>
+<div class="outline-text-2" id="text-orgbd347a4">
+<ul class="org-ul">
+<li>El puerto y host dependen de la app FTP en Android</li>
+<li>Para modo anónimo, usuario = <code>anonymous</code>, contraseña = vacía o email</li>
+</ul>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-terminal.html">terminal</a> <a href="https://martiyo.github.io/tag-ftp.html">ftp</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
+</html>

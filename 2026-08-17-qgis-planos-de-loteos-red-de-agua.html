@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Instalar QGIS en Devuan, georreferenciar planos escaneados y armar un GeoPackage para la app de loteos">
+<link rel="alternate"
+      type="application/rss+xml"
+      href="https://martiyo.github.io/rss.xml"
+      title="RSS feed for https://martiyo.github.io/">
+<title>QGIS: planos de loteos y red de agua para la app</title>
+<meta name="author" content="martiyo">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href= "static/style.css" rel="stylesheet" type="text/css" />
+<link rel="icon" href="static/favicon.ico">
+<script src="static/search.js"></script>
+</head>
+<body>
+<div id="preamble" class="status"><div class="header">
+<ul>
+<li><a href="https://martiyo.github.io/">/home</a></li>
+<li><a href="https://martiyo.github.io/about">/about</a></li>
+<li><a href="https://martiyo.github.io/contact">/contact</a></li>
+</ul>
+ <h1>El universo perdido de GNU/Emacs</h1>
+ <blockquote>Este blog es una farsa son solo resumenes, traducciónes y cosas que encuentro por ahí.</blockquote>
+<form >
+<input type="text" placeholder="Buscar..." />
+</form>
+<br/>
+</div></div>
+<div id="content">
+<div class="post-date">17 ago 2026</div><h1 class="post-title"><a href="https://martiyo.github.io/2026-08-17-qgis-planos-de-loteos-red-de-agua.html">QGIS: planos de loteos y red de agua para la app</a></h1>
+<p>
+QGIS es un sistema de información geográfica (GIS) libre y gratuito con el que
+se puede trabajar con planos, mapas y datos espaciales. En este post se cuenta
+cómo instalarlo en Devuan, para qué sirve en el proyecto y cómo usar los planos
+escaneados (PDF/imágenes) de loteos para trazar la red de agua y exportar un
+archivo GeoPackage que luego muestra la app Streamlit.
+</p>
+<div id="outline-container-orge335e91" class="outline-2">
+<h2 id="orge335e91">¿Qué es QGIS?</h2>
+<div class="outline-text-2" id="text-orge335e91">
+<p>
+QGIS es un programa de escritorio para crear, editar, visualizar y analizar
+información geográfica. Sus características principales:
+</p>
+
+<ul class="org-ul">
+<li>Soporta los formatos de planos más comunes: <b>Shapefile</b>, <b>GeoPackage</b>,
+<b>DXF</b> (AutoCAD), <b>KML</b>, <b>GeoTIFF</b> y muchos más.</li>
+<li>Permite cargar una imagen o PDF como base y dibujar encima capas de puntos,
+líneas y polígonos (digitalizar).</li>
+<li>Cada capa tiene una <b>tabla de atributos</b>: por ejemplo, cada caño de la red
+puede tener material, diámetro, tipo y año como datos asociados.</li>
+<li>Se puede georreferenciar (ubicar en coordenadas reales) un plano escaneado.</li>
+<li>Es gratuito y multiplataforma (GNU/Linux, Windows, macOS).</li>
+</ul>
+</div>
+<div id="outline-container-orgf4fe824" class="outline-3">
+<h3 id="orgf4fe824">Para qué lo voy a usar</h3>
+<div class="outline-text-3" id="text-orgf4fe824">
+<p>
+El objetivo en el proyecto es llevar los planos de los <b>loteos</b> de la ciudad a
+una aplicación web. Sobre cada plano se necesita:
+</p>
+
+<ul class="org-ul">
+<li>El trazado de la <b>red de agua</b>: cañerías con tipo de caño, medida, acoples y
+válvulas.</li>
+<li>Cada <b>lote</b> con su conexión a la red y los <b>datos de cuenta</b> de ese lote.</li>
+</ul>
+
+<p>
+Con QGIS se construyen esas capas (se editan a mano sobre el plano), se guardan
+en un GeoPackage y la app Streamlit las lee y las muestra en un mapa. QGIS es la
+parte de "edición"; la app es la parte de "consulta".
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgacc1e8e" class="outline-2">
+<h2 id="orgacc1e8e">Instalar QGIS en Devuan</h2>
+<div class="outline-text-2" id="text-orgacc1e8e">
+<p>
+Devuan 5 (daedalus) trae QGIS en sus repositorios, pero son versiones viejas
+(3.22 en main y 3.40 en backports). Para usar la versión <b>LTR actual</b> (3.44.x)
+se agrega el repositorio oficial de QGIS, que publica paquetes para Debian
+bookworm (compatibles con Devuan).
+</p>
+</div>
+<div id="outline-container-orgc616550" class="outline-3">
+<h3 id="orgc616550">Agregar el repositorio oficial</h3>
+<div class="outline-text-3" id="text-orgc616550">
+<p>
+Instalar las herramientas necesarias y la clave de firma:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">sudo apt install wget gpg
+wget -qO- https://qgis.org/downloads/qgis-archive-keyring.gpg \
+  | gpg --dearmor \
+  | sudo tee /usr/share/keyrings/qgis-archive-keyring.gpg &gt; /dev/null
+</pre>
+</div>
+
+<p>
+Agregar la fuente. Importante: el archivo debe terminar en <code>.list</code> (formato
+clásico) y <b>no</b> en <code>.sources</code> (formato deb822), porque el contenido usa la
+sintaxis <code>deb</code> clásica:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">echo "deb [signed-by=/usr/share/keyrings/qgis-archive-keyring.gpg] https://qgis.org/debian-ltr bookworm main" \
+  | sudo tee /etc/apt/sources.list.d/qgis.list
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge47eacd" class="outline-3">
+<h3 id="orge47eacd">Error común: "Predominio 1 mal especificado"</h3>
+<div class="outline-text-3" id="text-orge47eacd">
+<p>
+Si el archivo se guarda como <code>.sources</code> pero con una línea <code>deb</code>, <code>apt</code> lo
+interpreta como formato deb822 y falla:
+</p>
+
+<pre class="example" id="org77d1a0c">
+E: Predominio 1 mal especificado en la lista de fuentes /etc/apt/sources.list.d/qgis.sources (tipo)
+E: No se pudieron leer las listas de fuentes.
+</pre>
+
+<p>
+La solución es renombrar el archivo a <code>.list</code> y volver a actualizar:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">sudo mv /etc/apt/sources.list.d/qgis.sources /etc/apt/sources.list.d/qgis.list
+sudo apt update
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc8b2057" class="outline-3">
+<h3 id="orgc8b2057">Instalar QGIS</h3>
+<div class="outline-text-3" id="text-orgc8b2057">
+<div class="org-src-container">
+<pre class="src src-sh">sudo apt install qgis
+</pre>
+</div>
+
+<p>
+La instalación puede tardar unos minutos porque baja muchas dependencias. Al
+terminar se abre desde el menú de aplicaciones o con el comando <code>qgis</code> en la
+terminal. Para verificar la versión:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">qgis --version
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org5be6502" class="outline-2">
+<h2 id="org5be6502">Cómo trabajar con PDF e imágenes escaneadas</h2>
+<div class="outline-text-2" id="text-org5be6502">
+<p>
+Los planos de los loteos llegan como PDF o imágenes escaneadas. No tienen
+coordenadas geográficas por sí solos, así que primero hay que
+<b>georreferenciarlos</b>: ubicar la imagen en su posición real usando puntos de
+control.
+</p>
+</div>
+<div id="outline-container-orgba64211" class="outline-3">
+<h3 id="orgba64211">Preparar el archivo</h3>
+<div class="outline-text-3" id="text-orgba64211">
+<p>
+QGIS no carga PDF directamente como capa de dibujo; conviene convertir el plano
+a una imagen (PNG o JPG). Se puede hacer con <code>pdftoppm</code> (de poppler):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"># Convertir la primera página del PDF a PNG de alta resolución
+pdftoppm -png -r 300 -f 1 -l 1 plano_loteo.pdf plano_loteo
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3fe5268" class="outline-3">
+<h3 id="org3fe5268">Georreferenciar con el Georreferenciador</h3>
+<div class="outline-text-3" id="text-org3fe5268">
+<ol class="org-ol">
+<li>Abrir <b>Ráster → Georreferenciador</b> en QGIS.</li>
+<li>Cargar la imagen (<code>Archivo → Abrir ráster</code>).</li>
+<li>Marcar puntos de control: puntos que se identifiquen tanto en el plano como
+en un mapa con coordenadas reales (esquinas de manzanas, postes, bocas de
+calle). Para cada punto se escribe su coordenada X/Y (por ejemplo en el
+sistema <b>POSGAR/Gauss-Krüger</b> o en <b>WGS84</b> lat/lon).</li>
+<li>Configurar el <b>tipo de transformación</b> (lineal o polinómico) y el <b>SRC de
+salida</b> (el sistema de coordenadas elegido).</li>
+<li>Ejecutar <code>Iniciar georreferenciación</code>. QGIS genera un GeoTIFF ya ubicado en
+coordenadas reales.</li>
+</ol>
+
+<p>
+Cuanto más puntos de control (3 o más, bien distribuidos), más precisa es la
+georreferenciación. Con un plano con las medidas reales de las manzanas los
+resultados son muy buenos.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc71f761" class="outline-3">
+<h3 id="orgc71f761">Digitalizar las capas</h3>
+<div class="outline-text-3" id="text-orgc71f761">
+<p>
+Sobre el plano georreferenciado se dibujan las capas con las herramientas de
+edición (lápiz para líneas y polígonos, punto para elementos puntuales). El
+resultado se guarda en un <b>GeoPackage</b> (un solo archivo con varias capas).
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org7103745" class="outline-2">
+<h2 id="org7103745">Cómo implementarlo en el proyecto</h2>
+<div class="outline-text-2" id="text-org7103745">
+<p>
+La app Streamlit (carpeta <code>workDaySync</code>) ya tiene una página de mapas que lee el
+archivo <code>data/loteos.gpkg</code> y muestra las capas con Folium. El flujo completo es:
+</p>
+
+<ol class="org-ol">
+<li>En QGIS: georreferenciar el plano y digitalizar 4 capas dentro del
+GeoPackage <code>data/loteos.gpkg</code>:
+<ul class="org-ul">
+<li><code>lotes</code>: polígono por lote (atributos <code>nro_lote</code>, <code>manzana</code>, <code>estado</code>).</li>
+<li><code>red</code>: línea por tramo de cañería (atributos <code>material</code>, <code>diametro</code>,
+<code>tipo</code>, <code>anio</code>).</li>
+<li><code>valvulas</code>: punto por válvula/acople (atributos <code>tipo</code>, <code>diametro</code>).</li>
+<li><code>conexiones</code>: punto por conexión lote↔red (atributo <code>nro_lote</code>).</li>
+</ul></li>
+<li>La app lee ese archivo, lo reproyecta a <code>EPSG:4326</code> (lat/lon, que es lo que
+entiende el mapa web) y dibuja cada capa con sus datos en el popup.</li>
+<li>Los <b>datos de cuenta</b> de cada lote se cargan desde la propia app (pestaña
+"Cuentas por lote") y se guardan en la tabla <code>cuentas</code> del mismo GeoPackage.</li>
+</ol>
+
+<p>
+La georreferenciación se hace una sola vez por plano. Después, cualquier cambio
+(agregar un tramo, cambiar el material de un caño, marcar una válvula nueva) se
+edita en QGIS y se guarda el GeoPackage; la app lo refleja al recargar la página.
+</p>
+</div>
+<div id="outline-container-orgf55805f" class="outline-3">
+<h3 id="orgf55805f">Herramientas usadas (todas gratuitas)</h3>
+<div class="outline-text-3" id="text-orgf55805f">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Herramienta</th>
+<th scope="col" class="org-left">Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">QGIS</td>
+<td class="org-left">Georreferenciar planos y digitalizar las capas</td>
+</tr>
+
+<tr>
+<td class="org-left">GeoPackage</td>
+<td class="org-left">Archivo único con capas espaciales + tablas</td>
+</tr>
+
+<tr>
+<td class="org-left">Folium/Leaflet</td>
+<td class="org-left">Mostrar el mapa en la app (streamlit-folium)</td>
+</tr>
+
+<tr>
+<td class="org-left">Streamlit</td>
+<td class="org-left">Interfaz web de consulta y carga de cuentas</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="outline-container-orge5b8f34" class="outline-2">
+<h2 id="orge5b8f34">Conclusión</h2>
+<div class="outline-text-2" id="text-orge5b8f34">
+<ul class="org-ul">
+<li>QGIS se instala en Devuan desde el repositorio oficial (LTR 3.44.x), cuidando
+de usar <code>.list</code> y no <code>.sources</code>.</li>
+<li>Los planos escaneados se georreferencian con el Georreferenciador y luego se
+digitalizan las capas de lotes, red, válvulas y conexiones.</li>
+<li>Todo se guarda en un GeoPackage que la app Streamlit ya sabe leer y mostrar,
+con los datos de cuenta por lote.</li>
+</ul>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-linux.html">linux</a> <a href="https://martiyo.github.io/tag-qgis.html">qgis</a> <a href="https://martiyo.github.io/tag-gis.html">gis</a> <a href="https://martiyo.github.io/tag-python.html">python</a> <a href="https://martiyo.github.io/tag-streamlit.html">streamlit</a> </div></div>
+<div id="postamble" class="status"><div id="archive">
+  <a href="https://martiyo.github.io/archive.html">Other posts</a>
+</div>
+<footer></footer>
+</div>
+</body>
+</html>
