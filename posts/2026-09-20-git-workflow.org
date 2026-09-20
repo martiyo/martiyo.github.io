@@ -1,0 +1,393 @@
+#+title: Flujo de trabajo con Git, Emacs y Magit
+#+date: <2026-09-20 10:38>
+#+description: 
+#+filetags: git, emacs
+
+
+* Introducción
+
+Este documento describe el flujo de trabajo con Git para el proyecto
+=planillas=, incluyendo la configuración de =Emacs= + =Eat= + =Magit=
+y los comandos más usados.
+
+** Ramas del proyecto
+
+| Rama   | Propósito                                        |
+|--------+--------------------------------------------------|
+| =main= | Rama estable. Solo recibe merges desde =dev=     |
+| =dev=  | Rama de desarrollo activo. Aquí se trabaja       |
+
+* Configuración del Entorno
+
+** Configuración de Bash (~/.bashrc)
+
+Agregar al final del archivo =~/.bashrc=:
+
+#+begin_src bash
+# Mostrar rama de git en el prompt
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+export PS1='\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;34m\]\w\[\e[1;33m\]$(parse_git_branch)\[\e[0m\]\$ '
+#+end_src
+
+Luego recargar:
+
+#+begin_src bash
+source ~/.bashrc
+#+end_src
+
+El prompt se verá así:
+
+#+begin_example
+usuario@pc:~/proyecto (dev)$
+#+end_example
+
+** Aliases útiles para Git
+
+Agregar a =~/.bashrc= o =~/.bash_aliases=:
+
+#+begin_src bash
+alias gs='git status'
+alias gb='git branch'
+alias gl='git log --oneline --graph --all -15'
+alias gd='git diff'
+alias gco='git checkout'
+#+end_src
+
+Después de guardar:
+
+#+begin_src bash
+source ~/.bashrc
+#+end_src
+
+** Función para push rápido
+
+Agregar a =~/.bashrc=:
+
+#+begin_src bash
+gpush() {
+    if [ -z "$1" ]; then
+        echo "Uso: gpush \"mensaje del commit\""
+        return 1
+    fi
+    git add .
+    git commit -m "$1"
+    git push origin $(git branch --show-current)
+}
+#+end_src
+
+Uso:
+
+#+begin_src bash
+gpush "feat: agrega planilla de firmas"
+#+end_src
+
+* Configuración de Emacs
+
+** Paquetes necesarios
+
+Instalar desde =M-x package-install=:
+
+- =magit=      → Interfaz Git completa dentro de Emacs
+- =eat=        → Terminal dentro de Emacs
+- =git-gutter= → Muestra cambios en el margen (opcional)
+
+O con =use-package= en tu =init.el=:
+
+#+begin_src emacs-lisp
+(use-package magit
+  :ensure t
+  :bind (("C-x g" . magit-status)))
+
+(use-package eat
+  :ensure t
+  :bind (("C-c t" . eat)))
+
+(use-package git-gutter
+  :ensure t
+  :config
+  (global-git-gutter-mode +1))
+#+end_src
+
+** Configuración de Eat
+
+Para que Eat herede bien las variables de entorno y funcione el prompt
+con colores, agregar a tu =init.el=:
+
+#+begin_src emacs-lisp
+(use-package eat
+  :ensure t
+  :config
+  (setq eat-kill-buffer-on-exit t)
+  (setq eat-enable-shell-prompt nil)
+  (setq eat-term-name "xterm-256color"))
+#+end_src
+
+* Flujo de Trabajo Diario
+
+** Antes de empezar a trabajar
+
+Siempre verificar que estás en =dev= y traer los últimos cambios:
+
+#+begin_src bash
+git checkout dev
+git pull origin dev
+#+end_src
+
+** Durante el trabajo
+
+Editar archivos normalmente en Emacs.
+
+** Después de terminar cambios
+
+#+begin_src bash
+# 1. Ver qué cambió
+git status
+
+# 2. Agregar los cambios
+git add .
+
+# 3. Commitear con mensaje descriptivo
+git commit -m "feat: descripción del cambio"
+
+# 4. Subir al remoto
+git push origin dev
+#+end_src
+
+** Atajo con gpush
+
+#+begin_src bash
+gpush "feat: agrega planilla de firmas"
+#+end_src
+
+Equivale a =add + commit + push= en un solo paso.
+
+* Flujo de Release (dev → main)
+
+Cuando tengas una versión estable en =dev= y quieras publicarla en =main=:
+
+#+begin_src bash
+# 1. Asegurar que dev esté pusheado
+git checkout dev
+git push origin dev
+
+# 2. Cambiar a main
+git checkout main
+
+# 3. Traer la última versión de main
+git pull origin main
+
+# 4. Fusionar dev dentro de main
+git merge dev
+
+# 5. Push de main
+git push origin main
+
+# 6. Volver a dev para seguir trabajando
+git checkout dev
+#+end_src
+
+* Comandos de Git más usados
+
+** Ver estado y rama
+
+#+begin_src bash
+git status          # Ver cambios actuales
+git branch          # Ver ramas (la actual tiene *)
+git branch -a       # Ver todas las ramas (incluyendo remotas)
+#+end_src
+
+** Ver historial
+
+#+begin_src bash
+git log --oneline -10                    # Últimos 10 commits
+git log --oneline --graph --all -15      # Vista de árbol
+git log dev..main --oneline              # Commits en main pero no en dev
+git log main..dev --oneline              # Commits en dev pero no en main
+#+end_src
+
+** Deshacer cambios
+
+#+begin_src bash
+git checkout -- archivo.py    # Descartar cambios en un archivo
+git reset HEAD archivo.py     # Quitar del staging
+git reset --soft HEAD~1       # Deshacer último commit (mantiene cambios)
+git reset --hard HEAD~1       # Deshacer último commit (BORRA cambios)
+#+end_src
+
+⚠️  =git reset --hard= es peligroso, borra los cambios sin posibilidad
+de recuperarlos.
+
+** Cherry-pick (traer un commit específico)
+
+#+begin_src bash
+git cherry-pick <hash-del-commit>
+#+end_src
+
+* Flujo con Magit (dentro de Emacs)
+
+Magit es una interfaz completa para Git dentro de Emacs. Es la forma
+recomendada de trabajar con Git si ya estás en Emacs.
+
+** Abrir Magit
+
+- =M-x magit-status= o el atajo =C-x g=
+- Se abre un buffer con el estado del repositorio
+
+** Atajos más usados en Magit
+
+| Tecla       | Acción                                    |
+|-------------+-------------------------------------------|
+| =s=         | Stage (agregar archivo o sección)         |
+| =S=         | Stage todo                                |
+| =u=         | Unstage                                   |
+| =c c=       | Commit                                    |
+| =c a=       | Amend (modificar último commit)           |
+| =P u=       | Push                                      |
+| =F u=       | Pull                                      |
+| =b b=       | Cambiar de rama (checkout)                |
+| =b c=       | Crear nueva rama                          |
+| =m m=       | Merge                                     |
+| =l l=       | Ver log                                   |
+| =d d=       | Ver diff                                  |
+| =x=         | Descartar cambios                         |
+| =k=         | Eliminar rama o stash                     |
+| =g=         | Refrescar el buffer                       |
+| =q=         | Cerrar buffer                             |
+| =?=         | Ayuda contextual (¡muy útil!)             |
+
+** Flujo típico en Magit
+
+1. =C-x g= → Abrir Magit
+2. Editar archivos en Emacs
+3. Volver a Magit (=C-x g=) → Ver cambios
+4. =s= sobre cada archivo para agregarlo, o =S= para agregar todo
+5. =c c= → Escribir mensaje → =C-c C-c= para confirmar
+6. =P u= → Push al remoto
+
+* Convenciones para Mensajes de Commit
+
+Formato recomendado (Conventional Commits):
+
+#+begin_example
+<tipo>: <descripción corta>
+
+<cuerpo opcional>
+
+<footer opcional>
+#+end_example
+
+** Tipos de commits
+
+| Tipo       | Uso                                             |
+|------------+-------------------------------------------------|
+| =feat=     | Nueva funcionalidad                             |
+| =fix=      | Corrección de bug                               |
+| =docs=     | Cambios en documentación                        |
+| =style=    | Formato, sin cambios de código                  |
+| =refactor= | Refactorización                                 |
+| =test=     | Agregar o modificar tests                       |
+| =chore=    | Tareas de mantenimiento (deps, config)          |
+
+** Ejemplos
+
+#+begin_src bash
+git commit -m "feat: agrega planilla de firmas de poceros"
+git commit -m "fix: corrige color de fines de semana en Excel"
+git commit -m "docs: actualiza README con instrucciones de instalación"
+git commit -m "refactor: simplifica lógica de rotación de turnos"
+git commit -m "chore: actualiza dependencias en requirements.txt"
+#+end_src
+
+* Resolución de Conflictos
+
+** ¿Cuándo ocurren?
+
+Cuando dos ramas modificaron la misma parte de un archivo. Git no
+puede decidir cuál versión usar.
+
+** Cómo resolverlos
+
+1. Git te avisa qué archivos tienen conflictos:
+
+#+begin_src bash
+git status
+#+end_src
+
+2. Abrir el archivo conflictivo y buscar los marcadores:
+
+#+begin_example
+<<<<<<< HEAD
+(código de tu rama actual)
+=======
+(código de la otra rama)
+>>>>>>> otra-rama
+#+end_example
+
+3. Editar manualmente dejando solo el código correcto y eliminando los
+   marcadores =<<<<<<=, =======, =>>>>>>=.
+
+4. Marcar como resuelto:
+
+#+begin_src bash
+git add archivo-resuelto.py
+git commit -m "Resuelve conflictos del merge"
+#+end_src
+
+** En Magit
+
+- Los archivos en conflicto aparecen con estado =unmerged=
+- Editar el archivo, guardar
+- =s= para stage
+- =c c= para commitear
+
+* Comandos de Emergencia
+
+** "Hice cambios en la rama equivocada"
+
+Si modificaste archivos pero todavía NO commiteaste:
+
+#+begin_src bash
+git stash                # Guardar cambios
+git checkout dev         # Cambiar a la rama correcta
+git stash pop            # Aplicar cambios aquí
+#+end_src
+
+Si YA commiteaste en la rama equivocada:
+
+#+begin_src bash
+# Opción A: cherry-pick
+git log --oneline -3     # Ver el hash del commit
+git checkout dev
+git cherry-pick <hash>
+
+# Opción B: merge (si querés que ambas ramas tengan el commit)
+git checkout dev
+git merge main
+#+end_src
+
+** "Quiero deshacer el último commit"
+
+#+begin_src bash
+# Mantener los cambios en el working directory
+git reset --soft HEAD~1
+
+# Borrar los cambios también (¡cuidado!)
+git reset --hard HEAD~1
+#+end_src
+
+** "Olvidé agregar un archivo al último commit"
+
+#+begin_src bash
+git add archivo-olvidado.py
+git commit --amend --no-edit
+#+end_src
+
+* Recursos
+
+- [[https://git-scm.com/book/es/v2][Pro Git Book (español)]]
+- [[https://magit.vc/][Sitio oficial de Magit]]
+- [[https://www.conventionalcommits.org/es/v1.0.0/][Conventional Commits]]
+- [[https://docs.codeberg.org/getting-started/first-repository/][Codeberg - Primeros pasos]]
