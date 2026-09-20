@@ -4,7 +4,710 @@
 <title><![CDATA[EmacsFAQ]]></title>
 <description><![CDATA[EmacsFAQ]]></description>
 <link>https://martiyo.github.io/</link>
-<lastBuildDate>Mon, 17 Aug 2026 17:46:09 -0300</lastBuildDate>
+<lastBuildDate>Sun, 20 Sep 2026 12:08:03 -0300</lastBuildDate>
+<item>
+  <title><![CDATA[Flujo de trabajo con Git, Emacs y Magit]]></title>
+  <description><![CDATA[
+<div id="outline-container-org6a3b468" class="outline-2">
+<h2 id="org6a3b468">Introducción</h2>
+<div class="outline-text-2" id="text-org6a3b468">
+<p>
+Este documento describe el flujo de trabajo con Git para el proyecto
+<code>planillas</code>, incluyendo la configuración de <code>Emacs</code> + <code>Eat</code> + <code>Magit</code>
+y los comandos más usados.
+</p>
+</div>
+<div id="outline-container-orgd587fb6" class="outline-3">
+<h3 id="orgd587fb6">Ramas del proyecto</h3>
+<div class="outline-text-3" id="text-orgd587fb6">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Rama</th>
+<th scope="col" class="org-left">Propósito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>main</code></td>
+<td class="org-left">Rama estable. Solo recibe merges desde <code>dev</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>dev</code></td>
+<td class="org-left">Rama de desarrollo activo. Aquí se trabaja</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf0eb3e5" class="outline-2">
+<h2 id="orgf0eb3e5">Configuración del Entorno</h2>
+<div class="outline-text-2" id="text-orgf0eb3e5">
+</div>
+<div id="outline-container-orga097959" class="outline-3">
+<h3 id="orga097959">Configuración de Bash (~/.bashrc)</h3>
+<div class="outline-text-3" id="text-orga097959">
+<p>
+Agregar al final del archivo <code>~/.bashrc</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #6272a4;"># </span><span style="color: #6272a4;">Mostrar rama de git en el prompt
+</span><span style="color: #50fa7b;">parse_git_branch</span>() {
+    git branch 2&gt; /dev/null | sed -e <span style="color: #f1fa8c;">'/^[^*]/d'</span> -e <span style="color: #f1fa8c;">'s/* \(.*\)/ (\1)/'</span>
+}
+
+<span style="color: #ffb86c;">export</span> <span style="color: #ffc9e8;">PS1</span>=<span style="color: #f1fa8c;">'\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;34m\]\w\[\e[1;33m\]$(</span><span style="color: #bd93f9; font-weight: bold;">parse_git_branch</span><span style="color: #f1fa8c;">)\[\e[0m\]\$ '</span>
+</pre>
+</div>
+
+<p>
+Luego recargar:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #ffb86c;">source</span> ~/.bashrc
+</pre>
+</div>
+
+<p>
+El prompt se verá así:
+</p>
+
+<pre class="example" id="orgf7c242e">
+usuario@pc:~/proyecto (dev)$
+</pre>
+</div>
+</div>
+<div id="outline-container-org77bc1b9" class="outline-3">
+<h3 id="org77bc1b9">Aliases útiles para Git</h3>
+<div class="outline-text-3" id="text-org77bc1b9">
+<p>
+Agregar a <code>~/.bashrc</code> o <code>~/.bash_aliases</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #ffb86c;">alias</span> <span style="color: #ffc9e8;">gs</span>=<span style="color: #f1fa8c;">'git status'</span>
+<span style="color: #ffb86c;">alias</span> <span style="color: #ffc9e8;">gb</span>=<span style="color: #f1fa8c;">'git branch'</span>
+<span style="color: #ffb86c;">alias</span> <span style="color: #ffc9e8;">gl</span>=<span style="color: #f1fa8c;">'git log --oneline --graph --all -15'</span>
+<span style="color: #ffb86c;">alias</span> <span style="color: #ffc9e8;">gd</span>=<span style="color: #f1fa8c;">'git diff'</span>
+<span style="color: #ffb86c;">alias</span> <span style="color: #ffc9e8;">gco</span>=<span style="color: #f1fa8c;">'git checkout'</span>
+</pre>
+</div>
+
+<p>
+Después de guardar:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #ffb86c;">source</span> ~/.bashrc
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga2bf7ad" class="outline-3">
+<h3 id="orga2bf7ad">Función para push rápido</h3>
+<div class="outline-text-3" id="text-orga2bf7ad">
+<p>
+Agregar a <code>~/.bashrc</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #50fa7b;">gpush</span>() {
+    <span style="color: #ff79c6;">if</span> [ -z <span style="color: #f1fa8c;">"$1"</span> ]; <span style="color: #ff79c6;">then</span>
+        <span style="color: #ffb86c;">echo</span> <span style="color: #f1fa8c;">"Uso: gpush \"mensaje del commit\""</span>
+        <span style="color: #ff79c6;">return</span> 1
+    <span style="color: #ff79c6;">fi</span>
+    git add .
+    git commit -m <span style="color: #f1fa8c;">"$1"</span>
+    git push origin $(<span style="color: #bd93f9; font-weight: bold;">git branch --show-current</span>)
+}
+</pre>
+</div>
+
+<p>
+Uso:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">gpush <span style="color: #f1fa8c;">"feat: agrega planilla de firmas"</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgffe4490" class="outline-2">
+<h2 id="orgffe4490">Configuración de Emacs</h2>
+<div class="outline-text-2" id="text-orgffe4490">
+</div>
+<div id="outline-container-org1ff140a" class="outline-3">
+<h3 id="org1ff140a">Paquetes necesarios</h3>
+<div class="outline-text-3" id="text-org1ff140a">
+<p>
+Instalar desde <code>M-x package-install</code>:
+</p>
+
+<ul class="org-ul">
+<li><code>magit</code>      → Interfaz Git completa dentro de Emacs</li>
+<li><code>eat</code>        → Terminal dentro de Emacs</li>
+<li><code>git-gutter</code> → Muestra cambios en el margen (opcional)</li>
+</ul>
+
+<p>
+O con <code>use-package</code> en tu <code>init.el</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #ff79c6;">use-package</span> magit
+  <span style="color: #ffb86c;">:ensure</span> t
+  <span style="color: #ffb86c;">:bind</span> ((<span style="color: #f1fa8c;">"C-x g"</span> . magit-status)))
+
+(<span style="color: #ff79c6;">use-package</span> eat
+  <span style="color: #ffb86c;">:ensure</span> t
+  <span style="color: #ffb86c;">:bind</span> ((<span style="color: #f1fa8c;">"C-c t"</span> . eat)))
+
+(<span style="color: #ff79c6;">use-package</span> git-gutter
+  <span style="color: #ffb86c;">:ensure</span> t
+  <span style="color: #ffb86c;">:config</span>
+  (global-git-gutter-mode +1))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga80bae4" class="outline-3">
+<h3 id="orga80bae4">Configuración de Eat</h3>
+<div class="outline-text-3" id="text-orga80bae4">
+<p>
+Para que Eat herede bien las variables de entorno y funcione el prompt
+con colores, agregar a tu <code>init.el</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #ff79c6;">use-package</span> eat
+  <span style="color: #ffb86c;">:ensure</span> t
+  <span style="color: #ffb86c;">:config</span>
+  (<span style="color: #ff79c6;">setq</span> eat-kill-buffer-on-exit t)
+  (<span style="color: #ff79c6;">setq</span> eat-enable-shell-prompt nil)
+  (<span style="color: #ff79c6;">setq</span> eat-term-name <span style="color: #f1fa8c;">"xterm-256color"</span>))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org7369612" class="outline-2">
+<h2 id="org7369612">Flujo de Trabajo Diario</h2>
+<div class="outline-text-2" id="text-org7369612">
+</div>
+<div id="outline-container-org4fec5e1" class="outline-3">
+<h3 id="org4fec5e1">Antes de empezar a trabajar</h3>
+<div class="outline-text-3" id="text-org4fec5e1">
+<p>
+Siempre verificar que estás en <code>dev</code> y traer los últimos cambios:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">git checkout dev
+git pull origin dev
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org42c103e" class="outline-3">
+<h3 id="org42c103e">Durante el trabajo</h3>
+<div class="outline-text-3" id="text-org42c103e">
+<p>
+Editar archivos normalmente en Emacs.
+</p>
+</div>
+</div>
+<div id="outline-container-org03e051d" class="outline-3">
+<h3 id="org03e051d">Después de terminar cambios</h3>
+<div class="outline-text-3" id="text-org03e051d">
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #6272a4;"># </span><span style="color: #6272a4;">1. Ver qu&#233; cambi&#243;
+</span>git status
+
+<span style="color: #6272a4;"># </span><span style="color: #6272a4;">2. Agregar los cambios
+</span>git add .
+
+<span style="color: #6272a4;"># </span><span style="color: #6272a4;">3. Commitear con mensaje descriptivo
+</span>git commit -m <span style="color: #f1fa8c;">"feat: descripci&#243;n del cambio"</span>
+
+<span style="color: #6272a4;"># </span><span style="color: #6272a4;">4. Subir al remoto
+</span>git push origin dev
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8263af9" class="outline-3">
+<h3 id="org8263af9">Atajo con gpush</h3>
+<div class="outline-text-3" id="text-org8263af9">
+<div class="org-src-container">
+<pre class="src src-bash">gpush <span style="color: #f1fa8c;">"feat: agrega planilla de firmas"</span>
+</pre>
+</div>
+
+<p>
+Equivale a <code>add + commit + push</code> en un solo paso.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgac2fadf" class="outline-2">
+<h2 id="orgac2fadf">Flujo de Release (dev → main)</h2>
+<div class="outline-text-2" id="text-orgac2fadf">
+<p>
+Cuando tengas una versión estable en <code>dev</code> y quieras publicarla en <code>main</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #6272a4;"># </span><span style="color: #6272a4;">1. Asegurar que dev est&#233; pusheado
+</span>git checkout dev
+git push origin dev
+
+<span style="color: #6272a4;"># </span><span style="color: #6272a4;">2. Cambiar a main
+</span>git checkout main
+
+<span style="color: #6272a4;"># </span><span style="color: #6272a4;">3. Traer la &#250;ltima versi&#243;n de main
+</span>git pull origin main
+
+<span style="color: #6272a4;"># </span><span style="color: #6272a4;">4. Fusionar dev dentro de main
+</span>git merge dev
+
+<span style="color: #6272a4;"># </span><span style="color: #6272a4;">5. Push de main
+</span>git push origin main
+
+<span style="color: #6272a4;"># </span><span style="color: #6272a4;">6. Volver a dev para seguir trabajando
+</span>git checkout dev
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge05f54c" class="outline-2">
+<h2 id="orge05f54c">Comandos de Git más usados</h2>
+<div class="outline-text-2" id="text-orge05f54c">
+</div>
+<div id="outline-container-orgc5a2466" class="outline-3">
+<h3 id="orgc5a2466">Ver estado y rama</h3>
+<div class="outline-text-3" id="text-orgc5a2466">
+<div class="org-src-container">
+<pre class="src src-bash">git status          <span style="color: #6272a4;"># </span><span style="color: #6272a4;">Ver cambios actuales
+</span>git branch          <span style="color: #6272a4;"># </span><span style="color: #6272a4;">Ver ramas (la actual tiene *)
+</span>git branch -a       <span style="color: #6272a4;"># </span><span style="color: #6272a4;">Ver todas las ramas (incluyendo remotas)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge0bd504" class="outline-3">
+<h3 id="orge0bd504">Ver historial</h3>
+<div class="outline-text-3" id="text-orge0bd504">
+<div class="org-src-container">
+<pre class="src src-bash">git log --oneline -10                    <span style="color: #6272a4;"># </span><span style="color: #6272a4;">&#218;ltimos 10 commits
+</span>git log --oneline --graph --all -15      <span style="color: #6272a4;"># </span><span style="color: #6272a4;">Vista de &#225;rbol
+</span>git log dev..main --oneline              <span style="color: #6272a4;"># </span><span style="color: #6272a4;">Commits en main pero no en dev
+</span>git log main..dev --oneline              <span style="color: #6272a4;"># </span><span style="color: #6272a4;">Commits en dev pero no en main</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga1bfeb7" class="outline-3">
+<h3 id="orga1bfeb7">Deshacer cambios</h3>
+<div class="outline-text-3" id="text-orga1bfeb7">
+<div class="org-src-container">
+<pre class="src src-bash">git checkout -- archivo.py    <span style="color: #6272a4;"># </span><span style="color: #6272a4;">Descartar cambios en un archivo
+</span>git reset HEAD archivo.py     <span style="color: #6272a4;"># </span><span style="color: #6272a4;">Quitar del staging
+</span>git reset --soft HEAD~1       <span style="color: #6272a4;"># </span><span style="color: #6272a4;">Deshacer &#250;ltimo commit (mantiene cambios)
+</span>git reset --hard HEAD~1       <span style="color: #6272a4;"># </span><span style="color: #6272a4;">Deshacer &#250;ltimo commit (BORRA cambios)</span>
+</pre>
+</div>
+
+<p>
+⚠️  <code>git reset --hard</code> es peligroso, borra los cambios sin posibilidad
+de recuperarlos.
+</p>
+</div>
+</div>
+<div id="outline-container-orgbfc5d89" class="outline-3">
+<h3 id="orgbfc5d89">Cherry-pick (traer un commit específico)</h3>
+<div class="outline-text-3" id="text-orgbfc5d89">
+<div class="org-src-container">
+<pre class="src src-bash">git cherry-pick &lt;hash-del-commit&gt;
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org5636344" class="outline-2">
+<h2 id="org5636344">Flujo con Magit (dentro de Emacs)</h2>
+<div class="outline-text-2" id="text-org5636344">
+<p>
+Magit es una interfaz completa para Git dentro de Emacs. Es la forma
+recomendada de trabajar con Git si ya estás en Emacs.
+</p>
+</div>
+<div id="outline-container-org8806e13" class="outline-3">
+<h3 id="org8806e13">Abrir Magit</h3>
+<div class="outline-text-3" id="text-org8806e13">
+<ul class="org-ul">
+<li><code>M-x magit-status</code> o el atajo <code>C-x g</code></li>
+<li>Se abre un buffer con el estado del repositorio</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org6288d4c" class="outline-3">
+<h3 id="org6288d4c">Atajos más usados en Magit</h3>
+<div class="outline-text-3" id="text-org6288d4c">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Tecla</th>
+<th scope="col" class="org-left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>s</code></td>
+<td class="org-left">Stage (agregar archivo o sección)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>S</code></td>
+<td class="org-left">Stage todo</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>u</code></td>
+<td class="org-left">Unstage</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>c c</code></td>
+<td class="org-left">Commit</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>c a</code></td>
+<td class="org-left">Amend (modificar último commit)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>P u</code></td>
+<td class="org-left">Push</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>F u</code></td>
+<td class="org-left">Pull</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>b b</code></td>
+<td class="org-left">Cambiar de rama (checkout)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>b c</code></td>
+<td class="org-left">Crear nueva rama</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m m</code></td>
+<td class="org-left">Merge</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>l l</code></td>
+<td class="org-left">Ver log</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>d d</code></td>
+<td class="org-left">Ver diff</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>x</code></td>
+<td class="org-left">Descartar cambios</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>k</code></td>
+<td class="org-left">Eliminar rama o stash</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>g</code></td>
+<td class="org-left">Refrescar el buffer</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>q</code></td>
+<td class="org-left">Cerrar buffer</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>?</code></td>
+<td class="org-left">Ayuda contextual (¡muy útil!)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orga893c3b" class="outline-3">
+<h3 id="orga893c3b">Flujo típico en Magit</h3>
+<div class="outline-text-3" id="text-orga893c3b">
+<ol class="org-ol">
+<li><code>C-x g</code> → Abrir Magit</li>
+<li>Editar archivos en Emacs</li>
+<li>Volver a Magit (<code>C-x g</code>) → Ver cambios</li>
+<li><code>s</code> sobre cada archivo para agregarlo, o <code>S</code> para agregar todo</li>
+<li><code>c c</code> → Escribir mensaje → <code>C-c C-c</code> para confirmar</li>
+<li><code>P u</code> → Push al remoto</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbd13e76" class="outline-2">
+<h2 id="orgbd13e76">Convenciones para Mensajes de Commit</h2>
+<div class="outline-text-2" id="text-orgbd13e76">
+<p>
+Formato recomendado (Conventional Commits):
+</p>
+
+<pre class="example" id="orga47cb0c">
+&lt;tipo&gt;: &lt;descripción corta&gt;
+
+&lt;cuerpo opcional&gt;
+
+&lt;footer opcional&gt;
+</pre>
+</div>
+<div id="outline-container-org714f638" class="outline-3">
+<h3 id="org714f638">Tipos de commits</h3>
+<div class="outline-text-3" id="text-org714f638">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Tipo</th>
+<th scope="col" class="org-left">Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>feat</code></td>
+<td class="org-left">Nueva funcionalidad</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>fix</code></td>
+<td class="org-left">Corrección de bug</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>docs</code></td>
+<td class="org-left">Cambios en documentación</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>style</code></td>
+<td class="org-left">Formato, sin cambios de código</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>refactor</code></td>
+<td class="org-left">Refactorización</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>test</code></td>
+<td class="org-left">Agregar o modificar tests</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>chore</code></td>
+<td class="org-left">Tareas de mantenimiento (deps, config)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgf2716f3" class="outline-3">
+<h3 id="orgf2716f3">Ejemplos</h3>
+<div class="outline-text-3" id="text-orgf2716f3">
+<div class="org-src-container">
+<pre class="src src-bash">git commit -m <span style="color: #f1fa8c;">"feat: agrega planilla de firmas de poceros"</span>
+git commit -m <span style="color: #f1fa8c;">"fix: corrige color de fines de semana en Excel"</span>
+git commit -m <span style="color: #f1fa8c;">"docs: actualiza README con instrucciones de instalaci&#243;n"</span>
+git commit -m <span style="color: #f1fa8c;">"refactor: simplifica l&#243;gica de rotaci&#243;n de turnos"</span>
+git commit -m <span style="color: #f1fa8c;">"chore: actualiza dependencias en requirements.txt"</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org597007a" class="outline-2">
+<h2 id="org597007a">Resolución de Conflictos</h2>
+<div class="outline-text-2" id="text-org597007a">
+</div>
+<div id="outline-container-org5fd5c05" class="outline-3">
+<h3 id="org5fd5c05">¿Cuándo ocurren?</h3>
+<div class="outline-text-3" id="text-org5fd5c05">
+<p>
+Cuando dos ramas modificaron la misma parte de un archivo. Git no
+puede decidir cuál versión usar.
+</p>
+</div>
+</div>
+<div id="outline-container-org4bb4da8" class="outline-3">
+<h3 id="org4bb4da8">Cómo resolverlos</h3>
+<div class="outline-text-3" id="text-org4bb4da8">
+<ol class="org-ol">
+<li>Git te avisa qué archivos tienen conflictos:</li>
+</ol>
+
+<div class="org-src-container">
+<pre class="src src-bash">git status
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>Abrir el archivo conflictivo y buscar los marcadores:</li>
+</ol>
+
+<pre class="example" id="orga62cfaa">
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+(código de tu rama actual)
+=======
+(código de la otra rama)
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; otra-rama
+</pre>
+
+<ol class="org-ol">
+<li>Editar manualmente dejando solo el código correcto y eliminando los
+marcadores <code>&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=====</code>, <code>&gt;&gt;&gt;&gt;&gt;&gt;</code>.</li>
+
+<li>Marcar como resuelto:</li>
+</ol>
+
+<div class="org-src-container">
+<pre class="src src-bash">git add archivo-resuelto.py
+git commit -m <span style="color: #f1fa8c;">"Resuelve conflictos del merge"</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org98a5909" class="outline-3">
+<h3 id="org98a5909">En Magit</h3>
+<div class="outline-text-3" id="text-org98a5909">
+<ul class="org-ul">
+<li>Los archivos en conflicto aparecen con estado <code>unmerged</code></li>
+<li>Editar el archivo, guardar</li>
+<li><code>s</code> para stage</li>
+<li><code>c c</code> para commitear</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org71a48fa" class="outline-2">
+<h2 id="org71a48fa">Comandos de Emergencia</h2>
+<div class="outline-text-2" id="text-org71a48fa">
+</div>
+<div id="outline-container-org460687e" class="outline-3">
+<h3 id="org460687e">"Hice cambios en la rama equivocada"</h3>
+<div class="outline-text-3" id="text-org460687e">
+<p>
+Si modificaste archivos pero todavía NO commiteaste:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">git stash                <span style="color: #6272a4;"># </span><span style="color: #6272a4;">Guardar cambios
+</span>git checkout dev         <span style="color: #6272a4;"># </span><span style="color: #6272a4;">Cambiar a la rama correcta
+</span>git stash pop            <span style="color: #6272a4;"># </span><span style="color: #6272a4;">Aplicar cambios aqu&#237;</span>
+</pre>
+</div>
+
+<p>
+Si YA commiteaste en la rama equivocada:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #6272a4;"># </span><span style="color: #6272a4;">Opci&#243;n A: cherry-pick
+</span>git log --oneline -3     <span style="color: #6272a4;"># </span><span style="color: #6272a4;">Ver el hash del commit
+</span>git checkout dev
+git cherry-pick &lt;hash&gt;
+
+<span style="color: #6272a4;"># </span><span style="color: #6272a4;">Opci&#243;n B: merge (si quer&#233;s que ambas ramas tengan el commit)
+</span>git checkout dev
+git merge main
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3213790" class="outline-3">
+<h3 id="org3213790">"Quiero deshacer el último commit"</h3>
+<div class="outline-text-3" id="text-org3213790">
+<div class="org-src-container">
+<pre class="src src-bash"><span style="color: #6272a4;"># </span><span style="color: #6272a4;">Mantener los cambios en el working directory
+</span>git reset --soft HEAD~1
+
+<span style="color: #6272a4;"># </span><span style="color: #6272a4;">Borrar los cambios tambi&#233;n (&#161;cuidado!)
+</span>git reset --hard HEAD~1
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org46d649a" class="outline-3">
+<h3 id="org46d649a">"Olvidé agregar un archivo al último commit"</h3>
+<div class="outline-text-3" id="text-org46d649a">
+<div class="org-src-container">
+<pre class="src src-bash">git add archivo-olvidado.py
+git commit --amend --no-edit
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org8f3f57d" class="outline-2">
+<h2 id="org8f3f57d">Recursos</h2>
+<div class="outline-text-2" id="text-org8f3f57d">
+<ul class="org-ul">
+<li><a href="https://git-scm.com/book/es/v2">Pro Git Book (español)</a></li>
+<li><a href="https://magit.vc/">Sitio oficial de Magit</a></li>
+<li><a href="https://www.conventionalcommits.org/es/v1.0.0/">Conventional Commits</a></li>
+<li><a href="https://docs.codeberg.org/getting-started/first-repository/">Codeberg - Primeros pasos</a></li>
+</ul>
+</div>
+</div>
+<div class="taglist"><a href="https://martiyo.github.io/tags.html">Tags</a>: <a href="https://martiyo.github.io/tag-git,.html">git,</a> <a href="https://martiyo.github.io/tag-emacs.html">emacs</a> </div>]]></description>
+  <category><![CDATA[git,]]></category>
+  <category><![CDATA[emacs]]></category>
+  <link>https://martiyo.github.io/2026-09-20-git-workflow.html</link>
+  <guid>https://martiyo.github.io/2026-09-20-git-workflow.html</guid>
+  <pubDate>Sun, 20 Sep 2026 10:38:00 -0300</pubDate>
+</item>
 <item>
   <title><![CDATA[QGIS: planos de loteos y red de agua para la app]]></title>
   <description><![CDATA[
